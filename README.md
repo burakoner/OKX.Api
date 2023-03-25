@@ -1,4 +1,4 @@
-﻿# ![Icon!](https://github.com/burakoner/OKX.Api/blob/master/OKX.Api/OKX.png?raw=true "OKX.Api") OKX.Api
+﻿# <img src="https://raw.githubusercontent.com/burakoner/OKX.Api/master/OKX.Api/OKX.png" width="48" height="48"> OKX.Api
 
 A .Net wrapper for the OKX API as described on [OKX](https://www.okx.com/docs-v5/en/), including all features the API provides using clear and readable objects.
 
