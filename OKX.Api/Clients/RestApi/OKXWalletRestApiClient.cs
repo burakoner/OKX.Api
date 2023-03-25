@@ -1,6 +1,6 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
-public class AccountRestApiClient : RestApiClient
+public class OKXWalletRestApiClient : OKXBaseRestApiClient
 {
     // Endpoints
     protected const string Endpoints_V5_Account_Balance = "api/v5/account/balance";
@@ -23,95 +23,9 @@ public class AccountRestApiClient : RestApiClient
     protected const string Endpoints_V5_Account_SetGreeks = "api/v5/account/set-greeks";
     protected const string Endpoints_V5_Account_MaxWithdrawal = "api/v5/account/max-withdrawal";
 
-    // Internal
-    internal Log Log { get => this.log; }
-    internal TimeSyncState TimeSyncState = new("OKX RestApi");
-
-    // Root Client
-    internal OKXRestApiClient RootClient { get; }
-    internal CultureInfo CI { get { return RootClient.CI; } }
-    public new OKXRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
-
-    internal AccountRestApiClient(OKXRestApiClient root) : base("OKX RestApi", root.ClientOptions)
+    internal OKXWalletRestApiClient(OKXRestApiClient root) : base(root)
     {
-        RootClient = root;
-
-        RequestBodyFormat = RestRequestBodyFormat.Json;
-        ArraySerialization = ArraySerialization.MultipleValues;
-
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
     }
-
-    #region Override Methods
-    protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-        => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
-
-    protected override Error ParseErrorResponse(JToken error)
-        => RootClient.ParseErrorResponse(error);
-
-    protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync()
-        => RootClient.MarketData.GetServerTimeAsync();
-
-    protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
-
-    protected override TimeSpan GetTimeOffset()
-        => TimeSyncState.TimeOffset;
-    #endregion
-
-    #region Internal Methods
-    /// <summary>
-    /// Sets the API Credentials
-    /// </summary>
-    /// <param name="credentials">API Credentials Object</param>
-    internal void SetApiCredentials(OkxApiCredentials credentials)
-    {
-        base.SetApiCredentials(credentials);
-    }
-
-    /// <summary>
-    /// Sets the API Credentials
-    /// </summary>
-    /// <param name="apiKey">The api key</param>
-    /// <param name="apiSecret">The api secret</param>
-    /// <param name="passPhrase">The passphrase you specified when creating the API key</param>
-    internal virtual void SetApiCredentials(string apiKey, string apiSecret, string passPhrase)
-    {
-        SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
-    }
-
-    internal async Task<RestCallResult<T>> SendRawRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
-    {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
-        return await SendRequestAsync<T>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
-    }
-
-    internal async Task<RestCallResult<T>> SendOKXRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
-    {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
-        var result = await SendRequestAsync<OkxRestApiResponse<T>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
-        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data.ErrorCode > 0) return new RestCallResult<T>(result.Request, result.Response, new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
-
-        return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
-    }
-
-    internal async Task<RestCallResult<T>> SendOKXSingleRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
-    {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
-        var result = await SendRequestAsync<OkxRestApiResponse<IEnumerable<T>>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
-        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data.ErrorCode > 0) return new RestCallResult<T>(result.Request, result.Response, new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
-
-        return new RestCallResult<T>(result.Request, result.Response, result.Data.Data.FirstOrDefault(), result.Raw, result.Error);
-    }
-    #endregion
 
     #region Account API Endpoints
     /// <summary>
@@ -228,9 +142,7 @@ public class AccountRestApiClient : RestApiClient
         int limit = 100,
         CancellationToken ct = default)
     {
-        if (limit < 1 || limit > 100)
-            throw new ArgumentException("Limit can be between 1-100.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("after", after?.ToString());
@@ -271,9 +183,7 @@ public class AccountRestApiClient : RestApiClient
         int limit = 100,
         CancellationToken ct = default)
     {
-        if (limit < 1 || limit > 100)
-            throw new ArgumentException("Limit can be between 1-100.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("after", after?.ToString());
@@ -522,9 +432,7 @@ public class AccountRestApiClient : RestApiClient
         int limit = 100,
         CancellationToken ct = default)
     {
-        if (limit < 1 || limit > 100)
-            throw new ArgumentException("Limit can be between 1-100.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ccy", currency);
@@ -597,4 +505,5 @@ public class AccountRestApiClient : RestApiClient
 
 
     #endregion
+
 }

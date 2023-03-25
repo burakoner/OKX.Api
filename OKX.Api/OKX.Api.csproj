@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>1.0.0</Version>
-		<FileVersion>1.0.0</FileVersion>
-		<PackageVersion>1.0.0</PackageVersion>
-		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<Version>1.0.1</Version>
+		<FileVersion>1.0.1</FileVersion>
+		<PackageVersion>1.0.1</PackageVersion>
+		<AssemblyVersion>1.0.1</AssemblyVersion>
 		<Description>Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -19,7 +19,7 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
-			Version 1.0.0 - 25 Mar 2023
+			Version 1.0.1 - 25 Mar 2023
 		</PackageReleaseNotes>
 		<PackageIcon>OKX.png</PackageIcon>
 		<PackageIconUrl />
@@ -33,10 +33,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="ApiSharp" Version="1.2.6" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Clients\StreamApi\" />
 	</ItemGroup>
 
 </Project>

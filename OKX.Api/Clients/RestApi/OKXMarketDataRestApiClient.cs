@@ -1,6 +1,6 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
-public class MarketDataRestApiClient : RestApiClient
+public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
 {
     // Public Data Endpoints
     protected const string v5PublicInstrumentsEndpoint = "api/v5/public/instruments";
@@ -41,95 +41,9 @@ public class MarketDataRestApiClient : RestApiClient
     protected const string Endpoints_V5_Market_BlockTicker = "api/v5/market/block-ticker";
     protected const string Endpoints_V5_Market_BlockTrades = "api/v5/market/block-trades";
 
-    // Internal
-    internal Log Log { get => this.log; }
-    internal TimeSyncState TimeSyncState = new("OKX RestApi");
-
-    // Root Client
-    internal OKXRestApiClient RootClient { get; }
-    internal CultureInfo CI { get { return RootClient.CI; } }
-    public new OKXRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
-
-    internal MarketDataRestApiClient(OKXRestApiClient root) : base("OKX RestApi", root.ClientOptions)
+    internal OKXMarketDataRestApiClient(OKXRestApiClient root) : base(root)
     {
-        RootClient = root;
-
-        RequestBodyFormat = RestRequestBodyFormat.Json;
-        ArraySerialization = ArraySerialization.MultipleValues;
-
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
     }
-
-    #region Override Methods
-    protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-        => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
-
-    protected override Error ParseErrorResponse(JToken error)
-        => RootClient.ParseErrorResponse(error);
-
-    protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync()
-        => GetServerTimeAsync();
-
-    protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
-
-    protected override TimeSpan GetTimeOffset()
-        => TimeSyncState.TimeOffset;
-    #endregion
-
-    #region Internal Methods
-    /// <summary>
-    /// Sets the API Credentials
-    /// </summary>
-    /// <param name="credentials">API Credentials Object</param>
-    internal void SetApiCredentials(OkxApiCredentials credentials)
-    {
-        base.SetApiCredentials(credentials);
-    }
-
-    /// <summary>
-    /// Sets the API Credentials
-    /// </summary>
-    /// <param name="apiKey">The api key</param>
-    /// <param name="apiSecret">The api secret</param>
-    /// <param name="passPhrase">The passphrase you specified when creating the API key</param>
-    internal virtual void SetApiCredentials(string apiKey, string apiSecret, string passPhrase)
-    {
-        SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
-    }
-
-    internal async Task<RestCallResult<T>> SendRawRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
-    {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
-        return await SendRequestAsync<T>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
-    }
-
-    internal async Task<RestCallResult<T>> SendOKXRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
-    {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
-        var result = await SendRequestAsync<OkxRestApiResponse<T>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
-        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data.ErrorCode > 0) return new RestCallResult<T>(result.Request, result.Response, new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
-
-        return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
-    }
-
-    internal async Task<RestCallResult<T>> SendOKXSingleRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
-    {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
-        var result = await SendRequestAsync<OkxRestApiResponse<IEnumerable<T>>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
-        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data.ErrorCode > 0) return new RestCallResult<T>(result.Request, result.Response, new ServerError(result.Data.ErrorCode, result.Data.ErrorMessage));
-
-        return new RestCallResult<T>(result.Request, result.Response, result.Data.Data.FirstOrDefault(), result.Raw, result.Error);
-    }
-    #endregion
 
     #region Public Data Methods
     /// <summary>
@@ -167,9 +81,7 @@ public class MarketDataRestApiClient : RestApiClient
         if (instrumentType.IsNotIn(OkxInstrumentType.Futures, OkxInstrumentType.Option))
             throw new ArgumentException("Instrument Type can be only Futures or Option.");
 
-        if (limit < 1 || limit > 100)
-            throw new ArgumentException("Limit can be between 1-100.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
             { "instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)) },
@@ -235,9 +147,7 @@ public class MarketDataRestApiClient : RestApiClient
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxFundingRateHistory>>> GetFundingRateHistoryAsync(string instrumentId, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        if (limit < 1 || limit > 100)
-            throw new ArgumentException("Limit can be between 1-100.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
@@ -307,9 +217,7 @@ public class MarketDataRestApiClient : RestApiClient
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxDiscountInfo>>> GetDiscountInfoAsync(int? discountLevel = null, CancellationToken ct = default)
     {
-
-        if (discountLevel.HasValue && (discountLevel < 1 || discountLevel > 5))
-            throw new ArgumentException("Limit can be between 1-5.");
+        discountLevel?.ValidateIntBetween(nameof(discountLevel), 1, 100);
 
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("discountLv", discountLevel?.ToString());
@@ -363,9 +271,7 @@ public class MarketDataRestApiClient : RestApiClient
         if (instrumentType.IsIn(OkxInstrumentType.Futures) && alias == null)
             throw new ArgumentException("Alias is required.");
 
-        if (limit < 1 || limit > 100)
-            throw new ArgumentException("Limit can be between 1-100.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
             { "instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)) },
@@ -607,9 +513,7 @@ public class MarketDataRestApiClient : RestApiClient
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxOrderBook>> GetOrderBookAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
     {
-        if (depth < 1 || depth > 400)
-            throw new ArgumentException("Depth can be between 1-400.");
-
+        depth.ValidateIntBetween(nameof(depth), 1, 400);
         var parameters = new Dictionary<string, object>
         {
             {"instId", instrumentId},
@@ -637,9 +541,7 @@ public class MarketDataRestApiClient : RestApiClient
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxCandlestick>>> GetCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        if (limit < 1 || limit > 300)
-            throw new ArgumentException("Limit can be between 1-300.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 300);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
@@ -668,9 +570,7 @@ public class MarketDataRestApiClient : RestApiClient
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxCandlestick>>> GetCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        if (limit < 1 || limit > 100)
-            throw new ArgumentException("Limit can be between 1-100.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
@@ -699,9 +599,7 @@ public class MarketDataRestApiClient : RestApiClient
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxCandlestick>>> GetIndexCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        if (limit < 1 || limit > 100)
-            throw new ArgumentException("Limit can be between 1-100.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
@@ -730,9 +628,7 @@ public class MarketDataRestApiClient : RestApiClient
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxCandlestick>>> GetMarkPriceCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        if (limit < 1 || limit > 100)
-            throw new ArgumentException("Limit can be between 1-100.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
@@ -758,9 +654,7 @@ public class MarketDataRestApiClient : RestApiClient
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxTrade>>> GetTradesAsync(string instrumentId, int limit = 100, CancellationToken ct = default)
     {
-        if (limit < 1 || limit > 500)
-            throw new ArgumentException("Limit can be between 1-500.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 500);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
@@ -784,9 +678,7 @@ public class MarketDataRestApiClient : RestApiClient
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxTrade>>> GetTradesHistoryAsync(string instrumentId, OkxTradeHistoryPaginationType type = OkxTradeHistoryPaginationType.TradeId, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        if (limit < 1 || limit > 100)
-            throw new ArgumentException("Limit can be between 1-100.");
-
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
@@ -902,4 +794,5 @@ public class MarketDataRestApiClient : RestApiClient
         return await SendOKXRequest<IEnumerable<OkxTrade>>(RootClient.GetUri(Endpoints_V5_Market_BlockTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
     #endregion
+
 }

@@ -79,27 +79,27 @@ namespace OKX.Api.Examples
             var rubik_09 = await api.Rubik.GetRubikInterestVolumeStrikeAsync("BTC", "20210623", OkxPeriod.OneDay);
             var rubik_10 = await api.Rubik.GetRubikTakerFlowAsync("BTC", OkxPeriod.OneDay);
 
-            /* Account Endpoints (Signed) */
-            var account_01 = await api.Account.GetAccountBalanceAsync();
-            var account_02 = await api.Account.GetAccountPositionsAsync();
-            var account_03 = await api.Account.GetAccountPositionsHistoryAsync();
-            var account_04 = await api.Account.GetAccountPositionRiskAsync();
-            var account_05 = await api.Account.GetBillHistoryAsync();
-            var account_06 = await api.Account.GetBillArchiveAsync();
-            var account_07 = await api.Account.GetAccountConfigurationAsync();
-            var account_08 = await api.Account.SetAccountPositionModeAsync(OkxPositionMode.LongShortMode);
-            var account_09 = await api.Account.GetAccountLeverageAsync("BTC-USD-211008", OkxMarginMode.Isolated);
-            var account_10 = await api.Account.SetAccountLeverageAsync(30, null, "BTC-USD-211008", OkxMarginMode.Isolated, OkxPositionSide.Long);
-            var account_11 = await api.Account.GetMaximumAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
-            var account_12 = await api.Account.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
-            var account_13 = await api.Account.SetMarginAmountAsync("BTC-USDT", OkxPositionSide.Long, OkxMarginAddReduce.Add, 100.0m);
-            var account_14 = await api.Account.GetMaximumLoanAmountAsync("BTC-USDT", OkxMarginMode.Cross);
-            var account_15 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Spot, category: OkxFeeRateCategory.ClassA);
-            var account_16 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Futures, category: OkxFeeRateCategory.ClassA);
-            var account_17 = await api.Account.GetInterestAccruedAsync();
-            var account_18 = await api.Account.GetInterestRateAsync();
-            var account_19 = await api.Account.SetGreeksAsync(OkxGreeksType.GreeksInCoins);
-            var account_20 = await api.Account.GetMaximumWithdrawalsAsync();
+            /* Wallet (Account) Endpoints (Signed) */
+            var wallet_01 = await api.Wallet.GetAccountBalanceAsync();
+            var wallet_02 = await api.Wallet.GetAccountPositionsAsync();
+            var wallet_03 = await api.Wallet.GetAccountPositionsHistoryAsync();
+            var wallet_04 = await api.Wallet.GetAccountPositionRiskAsync();
+            var wallet_05 = await api.Wallet.GetBillHistoryAsync();
+            var wallet_06 = await api.Wallet.GetBillArchiveAsync();
+            var wallet_07 = await api.Wallet.GetAccountConfigurationAsync();
+            var wallet_08 = await api.Wallet.SetAccountPositionModeAsync(OkxPositionMode.LongShortMode);
+            var wallet_09 = await api.Wallet.GetAccountLeverageAsync("BTC-USD-211008", OkxMarginMode.Isolated);
+            var wallet_10 = await api.Wallet.SetAccountLeverageAsync(30, null, "BTC-USD-211008", OkxMarginMode.Isolated, OkxPositionSide.Long);
+            var wallet_11 = await api.Wallet.GetMaximumAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
+            var wallet_12 = await api.Wallet.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
+            var wallet_13 = await api.Wallet.SetMarginAmountAsync("BTC-USDT", OkxPositionSide.Long, OkxMarginAddReduce.Add, 100.0m);
+            var wallet_14 = await api.Wallet.GetMaximumLoanAmountAsync("BTC-USDT", OkxMarginMode.Cross);
+            var wallet_15 = await api.Wallet.GetFeeRatesAsync(OkxInstrumentType.Spot, category: OkxFeeRateCategory.ClassA);
+            var wallet_16 = await api.Wallet.GetFeeRatesAsync(OkxInstrumentType.Futures, category: OkxFeeRateCategory.ClassA);
+            var wallet_17 = await api.Wallet.GetInterestAccruedAsync();
+            var wallet_18 = await api.Wallet.GetInterestRateAsync();
+            var wallet_19 = await api.Wallet.SetGreeksAsync(OkxGreeksType.GreeksInCoins);
+            var wallet_20 = await api.Wallet.GetMaximumWithdrawalsAsync();
 
             /* SubAccount Endpoints (Signed) */
             var subaccount_01 = await api.SubAccount.GetSubAccountsAsync();

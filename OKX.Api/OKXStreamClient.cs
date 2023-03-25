@@ -1,7 +1,4 @@
-﻿using OKX.Api.Models.System;
-using System.Diagnostics;
-
-namespace OKX.Api;
+﻿namespace OKX.Api;
 
 public class OKXStreamClient : StreamApiClient
 {

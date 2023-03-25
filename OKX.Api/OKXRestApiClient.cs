@@ -7,12 +7,12 @@ public sealed class OKXRestApiClient
     internal CultureInfo CI { get; } = CultureInfo.InvariantCulture;
 
     // Master Clients
-    public TradeRestApiClient Trade { get; }
-    public RubikDataRestApiClient Rubik { get; }
-    public FundingRestApiClient Funding { get; }
-    public AccountRestApiClient Account { get; }
-    public SubAccountRestApiClient SubAccount { get; }
-    public MarketDataRestApiClient MarketData { get; }
+    public OKXTradeRestApiClient Trade { get; }
+    public OKXRubikDataRestApiClient Rubik { get; }
+    public OKXFundingRestApiClient Funding { get; }
+    public OKXWalletRestApiClient Wallet { get; }
+    public OKXSubAccountRestApiClient SubAccount { get; }
+    public OKXMarketDataRestApiClient MarketData { get; }
 
     public OKXRestApiClient() : this(new OKXRestApiClientOptions())
     {
@@ -22,12 +22,12 @@ public sealed class OKXRestApiClient
     {
         ClientOptions = options;
 
-        Trade = new TradeRestApiClient(this);
-        Rubik = new RubikDataRestApiClient(this);
-        Funding = new FundingRestApiClient(this);
-        Account = new AccountRestApiClient(this);
-        SubAccount = new SubAccountRestApiClient(this);
-        MarketData = new MarketDataRestApiClient(this);
+        Trade = new OKXTradeRestApiClient(this);
+        Rubik = new OKXRubikDataRestApiClient(this);
+        Funding = new OKXFundingRestApiClient(this);
+        Wallet = new OKXWalletRestApiClient(this);
+        SubAccount = new OKXSubAccountRestApiClient(this);
+        MarketData = new OKXMarketDataRestApiClient(this);
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ public sealed class OKXRestApiClient
         Trade.SetApiCredentials(credentials);
         Rubik.SetApiCredentials(credentials);
         Funding.SetApiCredentials(credentials);
-        Account.SetApiCredentials(credentials);
+        Wallet.SetApiCredentials(credentials);
         SubAccount.SetApiCredentials(credentials);
         MarketData.SetApiCredentials(credentials);
     }
