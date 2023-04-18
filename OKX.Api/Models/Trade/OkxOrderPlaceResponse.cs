@@ -1,6 +1,6 @@
 ﻿namespace OKX.Api.Models.Trade;
 
-public class OkxOrderPlaceResponse
+public class OkxOrderPlaceResponse : OkxRestApiResponseModel
 {
     [JsonProperty("ordId")]
     public long? OrderId { get; set; }
@@ -10,10 +10,4 @@ public class OkxOrderPlaceResponse
 
     [JsonProperty("tag")]
     public string Tag { get; set; }
-
-    [JsonProperty("sCode")]
-    public string Code { get; set; }
-
-    [JsonProperty("sMsg")]
-    public string Message { get; set; }
 }

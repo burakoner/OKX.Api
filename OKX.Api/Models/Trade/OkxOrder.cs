@@ -97,4 +97,31 @@ public class OkxOrder
 
     [JsonProperty("rebate")]
     public decimal? Rebate { get; set; }
+
+    [JsonProperty("algoId")]
+    public long? AlgoOrderId { get; set; }
+
+    [JsonProperty("algoClOrdId")]
+    public string AlgoClientOrderId { get; set; }
+
+    [JsonProperty("lever")]
+    public int? Leverage { get; set; }
+
+    [JsonProperty("cancelSource")]
+    public string CancelSource { get; set; }
+
+    [JsonProperty("cancelSourceReason")]
+    public string CancelSourceReason { get; set; }
+
+    [JsonProperty("reduceOnly")]
+    public bool? ReduceOnly { get; set; }
+
+    [JsonProperty("tpTriggerPxType"), JsonConverter(typeof(AlgoPriceTypeConverter))]
+    public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; }
+
+    [JsonProperty("slTriggerPxType"), JsonConverter(typeof(AlgoPriceTypeConverter))]
+    public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
+
+    [JsonProperty("quickMgnType"), JsonConverter(typeof(QuickMarginTypeConverter))]
+    public OkxQuickMarginType? QuickMarginType { get; set; }
 }

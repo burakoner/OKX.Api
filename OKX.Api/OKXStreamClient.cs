@@ -11,6 +11,7 @@ public class OKXStreamClient : StreamApiClient
     public OKXStreamClient(OKXStreamClientOptions options) : base("OKX Stream", options)
     {
         RateLimitPerConnectionPerSecond = 4;
+        this.IgnoreHandlingList = new List<string> { "pong" };
 
         SetDataInterpreter(DecompressData, null);
         SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");

@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Clients.RestApi;
+﻿using OKX.Api.Enums;
+
+namespace OKX.Api.Clients.RestApi;
 
 public class OKXTradeRestApiClient : OKXBaseRestApiClient
 {
@@ -54,6 +56,18 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         string clientOrderId = null,
         bool? reduceOnly = null,
         OkxQuantityType? quantityType = null,
+
+        OkxQuickMarginType? quickMgnType = null,
+        bool? banAmend = null,
+
+        OkxAlgoPriceType? tpTriggerPxType = null,
+        decimal? tpTriggerPx = null,
+        decimal? tpOrdPx = null,
+
+        OkxAlgoPriceType? slTriggerPxType = null,
+        decimal? slTriggerPx = null,
+        decimal? slOrdPx = null,
+
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -70,6 +84,17 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("clOrdId", clientOrderId);
         parameters.AddOptionalParameter("reduceOnly", reduceOnly);
         parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new QuantityTypeConverter(false)));
+
+        parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new QuickMarginTypeConverter(false)));
+        parameters.AddOptionalParameter("banAmend", banAmend);
+
+        parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(tpTriggerPxType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("tpTriggerPx", tpTriggerPx?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("tpOrdPx", tpOrdPx?.ToString(OkxGlobals.OkxCultureInfo));
+
+        parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(slTriggerPxType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("slTriggerPx", slTriggerPx?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("slOrdPx", slOrdPx?.ToString(OkxGlobals.OkxCultureInfo));
 
         return await SendOKXSingleRequest<OkxOrderPlaceResponse>(RootClient.GetUri(Endpoints_V5_Trade_Order), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }

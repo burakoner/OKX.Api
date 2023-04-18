@@ -1,6 +1,6 @@
 ﻿namespace OKX.Api.Models.Trade;
 
-public class OkxOrderAmendResponse
+public class OkxOrderAmendResponse : OkxRestApiResponseModel
 {
     [JsonProperty("ordId")]
     public long? OrderId { get; set; }
@@ -10,10 +10,4 @@ public class OkxOrderAmendResponse
 
     [JsonProperty("reqId")]
     public string RequestId { get; set; }
-
-    [JsonProperty("sCode")]
-    public string Code { get; set; }
-
-    [JsonProperty("sMsg")]
-    public string Message { get; set; }
 }

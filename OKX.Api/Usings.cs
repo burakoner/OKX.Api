@@ -13,7 +13,6 @@ global using Microsoft.Extensions.Logging;
 global using Newtonsoft.Json;
 global using Newtonsoft.Json.Linq;
 global using Newtonsoft.Json.Serialization;
-global using OKX.Api.Attributes;
 global using OKX.Api.Authentication;
 global using OKX.Api.Clients.RestApi;
 global using OKX.Api.Converters;

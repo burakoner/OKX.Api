@@ -19,7 +19,7 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
         var credentials = (OkxApiCredentials)Credentials;
 
         // Check Point
-        if (!signed || !options.SignPublicRequests)
+        if (!signed && !options.SignPublicRequests)
             return;
 
         // Check Point

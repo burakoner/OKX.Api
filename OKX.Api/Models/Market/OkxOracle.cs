@@ -1,6 +1,5 @@
 ﻿namespace OKX.Api.Models.Market;
 
-[JsonConverter(typeof(TypedDataConverter<OkxOracle>))]
 public class OkxOracle
 {
     [JsonProperty("messages")]
@@ -12,7 +11,6 @@ public class OkxOracle
     [JsonProperty("timestamp"), JsonConverter(typeof(DateTimeConverter))]
     public DateTime Time { get; set; }
 
-    [TypedData]
-    // [JsonProperty("prices")]
+    [JsonProperty("prices")]
     public Dictionary<string, decimal> Prices { get; set; } = new Dictionary<string, decimal>();
 }
