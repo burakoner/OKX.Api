@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Authentication;
+﻿using ApiSharp.Comparers;
+using System.Net;
+
+namespace OKX.Api.Authentication;
 
 internal class OkxAuthenticationProvider : AuthenticationProvider
 {
@@ -25,6 +28,9 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
         // Check Point
         if (Credentials == null || Credentials.Key == null || Credentials.Secret == null || ((OkxApiCredentials)Credentials).PassPhrase == null)
             throw new ArgumentException("No valid API credentials provided. Key/Secret/PassPhrase needed.");
+
+        // Set Uri
+        uri = uri.SetParameters(query, serialization);
 
         // Signature
         // var time = (DateTime.UtcNow.ToUnixTimeMilliSeconds() / 1000.0m).ToString(CultureInfo.InvariantCulture);
