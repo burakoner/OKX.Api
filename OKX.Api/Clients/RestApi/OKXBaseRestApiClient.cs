@@ -60,14 +60,36 @@ public class OKXBaseRestApiClient : RestApiClient
         SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
     }
 
-    protected async Task<RestCallResult<T>> SendRawRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    protected async Task<RestCallResult<T>> SendRawRequest<T>(
+        Uri uri, 
+        HttpMethod method, 
+        CancellationToken cancellationToken, 
+        bool signed = false, 
+        Dictionary<string, object> queryParameters = null, 
+        Dictionary<string, object> bodyParameters = null, 
+        Dictionary<string, string> headerParameters = null, 
+        ArraySerialization? arraySerialization = null, 
+        JsonSerializer deserializer = null, 
+        bool ignoreRatelimit = false, 
+        int requestWeight = 1) where T : class
     {
         Thread.CurrentThread.CurrentCulture = CI;
         Thread.CurrentThread.CurrentUICulture = CI;
         return await SendRequestAsync<T>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
     }
 
-    protected async Task<RestCallResult<T>> SendOKXRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    protected async Task<RestCallResult<T>> SendOKXRequest<T>(
+        Uri uri, 
+        HttpMethod method, 
+        CancellationToken cancellationToken, 
+        bool signed = false, 
+        Dictionary<string, object> queryParameters = null, 
+        Dictionary<string, object> bodyParameters = null,
+        Dictionary<string, string> headerParameters = null, 
+        ArraySerialization? arraySerialization = null, 
+        JsonSerializer deserializer = null, 
+        bool ignoreRatelimit = false, 
+        int requestWeight = 1) where T : class
     {
         Thread.CurrentThread.CurrentCulture = CI;
         Thread.CurrentThread.CurrentUICulture = CI;
@@ -78,7 +100,18 @@ public class OKXBaseRestApiClient : RestApiClient
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
-    protected async Task<RestCallResult<T>> SendOKXSingleRequest<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    protected async Task<RestCallResult<T>> SendOKXSingleRequest<T>(
+        Uri uri, 
+        HttpMethod method, 
+        CancellationToken cancellationToken, 
+        bool signed = false, 
+        Dictionary<string, object> queryParameters = null, 
+        Dictionary<string, object> bodyParameters = null, 
+        Dictionary<string, string> headerParameters = null, 
+        ArraySerialization? arraySerialization = null, 
+        JsonSerializer deserializer = null, 
+        bool ignoreRatelimit = false, 
+        int requestWeight = 1) where T : class
     {
         Thread.CurrentThread.CurrentCulture = CI;
         Thread.CurrentThread.CurrentUICulture = CI;

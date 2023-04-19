@@ -105,7 +105,7 @@ public class OkxOrder
     public string AlgoClientOrderId { get; set; }
 
     [JsonProperty("lever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 
     [JsonProperty("cancelSource")]
     public string CancelSource { get; set; }

@@ -258,14 +258,14 @@ public class OKXWalletRestApiClient : OKXBaseRestApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxLeverage>>> SetAccountLeverageAsync(
-        int leverage,
+        decimal leverage,
         string currency = null,
         string instrumentId = null,
         OkxMarginMode? marginMode = null,
         OkxPositionSide? positionSide = null,
         CancellationToken ct = default)
     {
-        if (leverage < 1)
+        if (leverage < 0.01m)
             throw new ArgumentException("Invalid Leverage");
 
         if (string.IsNullOrEmpty(currency) && string.IsNullOrEmpty(instrumentId))
@@ -275,7 +275,7 @@ public class OKXWalletRestApiClient : OKXBaseRestApiClient
             throw new ArgumentException("marginMode is required");
 
         var parameters = new Dictionary<string, object> {
-            {"lever", leverage.ToString() },
+            {"lever", leverage.ToString(CI) },
             {"mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)) },
         };
         parameters.AddOptionalParameter("ccy", currency);

@@ -54,7 +54,7 @@ public class OkxInstrument
     public DateTime? ExpiryTime { get; set; }
 
     [JsonProperty("lever")]
-    public int? MaximumLeverage { get; set; }
+    public decimal? MaximumLeverage { get; set; }
 
     [JsonProperty("tickSz")]
     public decimal TickSize { get; set; }

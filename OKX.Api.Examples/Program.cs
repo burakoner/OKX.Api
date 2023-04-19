@@ -1,6 +1,4 @@
 ﻿using ApiSharp.Stream;
-using OKX.Api;
-using OKX.Api.Authentication;
 using OKX.Api.Enums;
 using OKX.Api.Models.Trade;
 using System;

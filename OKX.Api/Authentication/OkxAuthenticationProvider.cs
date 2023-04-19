@@ -1,7 +1,4 @@
-﻿using ApiSharp.Comparers;
-using System.Net;
-
-namespace OKX.Api.Authentication;
+﻿namespace OKX.Api.Authentication;
 
 internal class OkxAuthenticationProvider : AuthenticationProvider
 {
