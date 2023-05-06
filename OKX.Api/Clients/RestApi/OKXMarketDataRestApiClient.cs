@@ -52,9 +52,10 @@ public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instrumentFamily">Instrument family. Only applicable to FUTURES/SWAP/OPTION.If instType is OPTION, either uly or instFamily is required.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxInstrument>>> GetInstrumentsAsync(OkxInstrumentType instrumentType, string underlying = null, string instrumentId = null, CancellationToken ct = default)
+    public virtual async Task<RestCallResult<IEnumerable<OkxInstrument>>> GetInstrumentsAsync(OkxInstrumentType instrumentType, string underlying = null, string instrumentId = null, string instrumentFamily = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -62,6 +63,7 @@ public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
         };
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
         return await SendOKXRequest<IEnumerable<OkxInstrument>>(RootClient.GetUri(v5PublicInstrumentsEndpoint), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }

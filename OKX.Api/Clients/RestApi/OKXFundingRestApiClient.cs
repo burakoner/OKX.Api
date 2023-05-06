@@ -195,9 +195,10 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
     /// <param name="amount">Amount</param>
     /// <param name="destination">Withdrawal destination address</param>
     /// <param name="toAddress">Verified digital currency address, email or mobile number. Some digital currency addresses are formatted as 'address+tag', e.g. 'ARDOR-7JF3-8F2E-QUWZ-CAN7F:123456'</param>
-    /// <param name="password">Trade password</param>
     /// <param name="fee">Transaction fee</param>
     /// <param name="chain">Chain name. There are multiple chains under some currencies, such as USDT has USDT-ERC20, USDT-TRC20, and USDT-Omni. If this parameter is not filled in because it is not available, it will default to the main chain.</param>
+    /// <param name="areaCode">Area code for the phone number. If toAddr is a phone number, this parameter is required.</param>
+    /// <param name="clientOrderId">Client-supplied ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxWithdrawalResponse>> WithdrawAsync(
@@ -205,9 +206,10 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
         decimal amount,
         OkxWithdrawalDestination destination,
         string toAddress,
-        string password,
         decimal fee,
         string chain = null,
+        string areaCode = null,
+        string clientOrderId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -215,10 +217,11 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
             { "amt",amount.ToString(OkxGlobals.OkxCultureInfo)},
             { "dest", JsonConvert.SerializeObject(destination, new WithdrawalDestinationConverter(false)) },
             { "toAddr",toAddress},
-            { "pwd",password},
             { "fee",fee   .ToString(OkxGlobals.OkxCultureInfo)},
         };
         parameters.AddOptionalParameter("chain", chain);
+        parameters.AddOptionalParameter("areaCode", areaCode);
+        parameters.AddOptionalParameter("clientId", clientOrderId);
 
         return await SendOKXSingleRequest<OkxWithdrawalResponse>(RootClient.GetUri(Endpoints_V5_Asset_Withdrawal), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
