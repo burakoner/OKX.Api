@@ -8,6 +8,9 @@ public class OkxFundingBill
     [JsonProperty("ccy")]
     public string Currency { get; set; }
 
+    [JsonProperty("clientId")]
+    public string ClientOrderId { get; set; }
+
     [JsonProperty("bal")]
     public decimal? Balance { get; set; }
 

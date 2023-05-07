@@ -1,0 +1,546 @@
+﻿namespace OKX.Api.Clients.RestApi;
+
+public class OKXAccountRestApiClient : OKXBaseRestApiClient
+{
+    // Endpoints
+    protected const string v5AccountBalance = "api/v5/account/balance";
+    protected const string v5AccountPositions = "api/v5/account/positions";
+    protected const string v5AccountPositionsHistory = "api/v5/account/positions-history";
+    protected const string v5AccountPositionRisk = "api/v5/account/account-position-risk";
+    protected const string v5AccountBills = "api/v5/account/bills";
+    protected const string v5AccountBillsArchive = "api/v5/account/bills-archive";
+    protected const string v5AccountConfig = "api/v5/account/config";
+    protected const string v5AccountSetPositionMode = "api/v5/account/set-position-mode";
+    protected const string v5AccountSetLeverage = "api/v5/account/set-leverage";
+    protected const string v5AccountMaxSize = "api/v5/account/max-size";
+    protected const string v5AccountMaxAvailSize = "api/v5/account/max-avail-size";
+    protected const string v5AccountPositionMarginBalance = "api/v5/account/position/margin-balance";
+    protected const string v5AccountLeverageInfo = "api/v5/account/leverage-info";
+    protected const string v5AccountMaxLoan = "api/v5/account/max-loan";
+    protected const string v5AccountTradeFee = "api/v5/account/trade-fee";
+    protected const string v5AccountInterestAccrued = "api/v5/account/interest-accrued";
+    protected const string v5AccountInterestRate = "api/v5/account/interest-rate";
+    protected const string v5AccountSetGreeks = "api/v5/account/set-greeks";
+    protected const string v5AccountMaxWithdrawal = "api/v5/account/max-withdrawal";
+
+    internal OKXAccountRestApiClient(OKXRestApiClient root) : base(root)
+    {
+    }
+
+    #region Account API Endpoints
+    /// <summary>
+    /// Retrieve a list of assets (with non-zero balance), remaining balance, and available amount in the account.
+    /// </summary>
+    /// <param name="currency">Currency</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxAccountBalance>> GetAccountBalanceAsync(IEnumerable<string> currencies = null, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        if (currencies != null && currencies.Count() > 0) 
+            parameters.AddOptionalParameter("ccy", string.Join(",", currencies));
+
+        return await SendOKXSingleRequest<OkxAccountBalance>(GetUri(v5AccountBalance), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Retrieve information on your positions. When the account is in net mode, net positions will be displayed, and when the account is in long/short mode, long or short positions will be displayed.
+    /// </summary>
+    /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="positionId">Position ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxPosition>>> GetAccountPositionsAsync(
+        OkxInstrumentType? instrumentType = null,
+        string instrumentId = null,
+        string positionId = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("posId", positionId);
+
+        return await SendOKXRequest<IEnumerable<OkxPosition>>(GetUri(v5AccountPositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Retrieve the updated position data for the last 3 months. Return in reverse chronological order using utime.
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="marginMode">Margin mode</param>
+    /// <param name="type">The type of closing position. It is the latest type if there are several types for the same position.</param>
+    /// <param name="positionId">Position ID</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested uTime, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records earlier than the requested uTime, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public virtual async Task<RestCallResult<IEnumerable<OkxPositionHistory>>> GetAccountPositionsHistoryAsync(
+        OkxInstrumentType? instrumentType = null,
+        string instrumentId = null,
+        OkxMarginMode? marginMode = null,
+        OkxClosingPositionType? type = null,
+        string positionId = null,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new ClosingPositionTypeConverter(false)));
+        parameters.AddOptionalParameter("posId", positionId);
+        parameters.AddOptionalParameter("after", after?.ToString());
+        parameters.AddOptionalParameter("before", before?.ToString());
+        parameters.AddOptionalParameter("limit", limit.ToString());
+
+        return await SendOKXRequest<IEnumerable<OkxPositionHistory>>(GetUri(v5AccountPositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get account and position risk
+    /// </summary>
+    /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxPositionRisk>>> GetAccountPositionRiskAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
+
+        return await SendOKXRequest<IEnumerable<OkxPositionRisk>>(GetUri(v5AccountPositionRisk), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Retrieve the bills of the account. The bill refers to all transaction records that result in changing the balance of an account. Pagination is supported, and the response is sorted with the most recent first. This endpoint can retrieve data from the last 7 days.
+    /// </summary>
+    /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="currency">Currency</param>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="contractType">Contract Type</param>
+    /// <param name="billType">Bill Type</param>
+    /// <param name="billSubType">Bill Sub Type</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="end">Filter with an end timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxAccountBill>>> GetBillHistoryAsync(
+        OkxInstrumentType? instrumentType = null,
+        string currency = null,
+        OkxMarginMode? marginMode = null,
+        OkxContractType? contractType = null,
+        OkxAccountBillType? billType = null,
+        OkxAccountBillSubType? billSubType = null,
+        long? after = null,
+        long? before = null,
+        long? begin = null,
+        long? end = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)));
+        parameters.AddOptionalParameter("ctType", JsonConvert.SerializeObject(contractType, new ContractTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(billType, new AccountBillTypeConverter(false)));
+        parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new AccountBillSubTypeConverter(false)));
+        parameters.AddOptionalParameter("after", after?.ToString());
+        parameters.AddOptionalParameter("before", before?.ToString());
+        parameters.AddOptionalParameter("begin", begin?.ToString());
+        parameters.AddOptionalParameter("end", end?.ToString());
+        parameters.AddOptionalParameter("limit", limit.ToString());
+
+        return await SendOKXRequest<IEnumerable<OkxAccountBill>>(GetUri(v5AccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Retrieve the account’s bills. The bill refers to all transaction records that result in changing the balance of an account. Pagination is supported, and the response is sorted with most recent first. This endpoint can retrieve data from the last 3 months.
+    /// </summary>
+    /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="currency">Currency</param>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="contractType">Contract Type</param>
+    /// <param name="billType">Bill Type</param>
+    /// <param name="billSubType">Bill Sub Type</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="end">Filter with an end timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxAccountBill>>> GetBillArchiveAsync(
+        OkxInstrumentType? instrumentType = null,
+        string currency = null,
+        OkxMarginMode? marginMode = null,
+        OkxContractType? contractType = null,
+        OkxAccountBillType? billType = null,
+        OkxAccountBillSubType? billSubType = null,
+        long? after = null,
+        long? before = null,
+        long? begin = null,
+        long? end = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)));
+        parameters.AddOptionalParameter("ctType", JsonConvert.SerializeObject(contractType, new ContractTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(billType, new AccountBillTypeConverter(false)));
+        parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new AccountBillSubTypeConverter(false)));
+        parameters.AddOptionalParameter("after", after?.ToString());
+        parameters.AddOptionalParameter("before", before?.ToString());
+        parameters.AddOptionalParameter("begin", begin?.ToString());
+        parameters.AddOptionalParameter("end", end?.ToString());
+        parameters.AddOptionalParameter("limit", limit.ToString());
+
+        return await SendOKXRequest<IEnumerable<OkxAccountBill>>(GetUri(v5AccountBillsArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Retrieve current account configuration.
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxAccountConfiguration>> GetAccountConfigurationAsync(CancellationToken ct = default)
+    {
+        return await SendOKXSingleRequest<OkxAccountConfiguration>(GetUri(v5AccountConfig), HttpMethod.Get, ct, true).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// FUTURES and SWAP support both long/short mode and net mode. In net mode, users can only have positions in one direction; In long/short mode, users can hold positions in long and short directions.
+    /// </summary>
+    /// <param name="positionMode"></param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxAccountPositionMode>> SetAccountPositionModeAsync(OkxPositionMode positionMode, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            {"posMode", JsonConvert.SerializeObject(positionMode, new PositionModeConverter(false)) },
+        };
+
+        return await SendOKXSingleRequest<OkxAccountPositionMode>(GetUri(v5AccountSetPositionMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// The following are the setting leverage cases for an instrument:
+    /// Set leverage for isolated MARGIN at pairs level.
+    /// Set leverage for cross MARGIN in Single-currency margin at pairs level.
+    /// Set leverage for cross MARGIN in Multi-currency margin at currency level.
+    /// Set leverage for cross/isolated FUTURES/SWAP at underlying/contract level.
+    /// </summary>
+    /// <param name="leverage">Leverage</param>
+    /// <param name="currency">Currency</param>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="positionSide">Position Side</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxLeverage>>> SetAccountLeverageAsync(
+        decimal leverage,
+        string currency = null,
+        string instrumentId = null,
+        OkxMarginMode? marginMode = null,
+        OkxPositionSide? positionSide = null,
+        CancellationToken ct = default)
+    {
+        if (leverage < 0.01m)
+            throw new ArgumentException("Invalid Leverage");
+
+        if (string.IsNullOrEmpty(currency) && string.IsNullOrEmpty(instrumentId))
+            throw new ArgumentException("Either instId or ccy is required; if both are passed, instId will be used by default.");
+
+        if (marginMode == null)
+            throw new ArgumentException("marginMode is required");
+
+        var parameters = new Dictionary<string, object> {
+            {"lever", leverage.ToString(CI) },
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)) },
+        };
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)));
+
+        return await SendOKXRequest<IEnumerable<OkxLeverage>>(GetUri(v5AccountSetLeverage), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get maximum buy/sell amount or open amount
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="tradeMode">Trade Mode</param>
+    /// <param name="currency">Currency</param>
+    /// <param name="price">Price</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxMaximumAmount>>> GetMaximumAmountAsync(
+        string instrumentId,
+        OkxTradeMode tradeMode,
+        string currency = null,
+        decimal? price = null,
+        decimal? leverage = null,
+        bool? unSpotOffset = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            { "instId", instrumentId },
+            { "tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
+        };
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("px", price?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("leverage", leverage?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("unSpotOffset", unSpotOffset);
+
+        return await SendOKXRequest<IEnumerable<OkxMaximumAmount>>(GetUri(v5AccountMaxSize), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Maximum Available Tradable Amount
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="tradeMode">Trade Mode</param>
+    /// <param name="currency">Currency</param>
+    /// <param name="reduceOnly">Reduce Only</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxMaximumAvailableAmount>>> GetMaximumAvailableAmountAsync(
+        string instrumentId,
+        OkxTradeMode tradeMode,
+        string currency = null,
+        bool? reduceOnly = null,
+        bool? unSpotOffset = null,
+        OkxQuickMarginType? quickMgnType = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            { "instId", instrumentId },
+            { "tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
+        };
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("reduceOnly", reduceOnly);
+        parameters.AddOptionalParameter("unSpotOffset", unSpotOffset);
+        parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new QuickMarginTypeConverter(false)));
+
+        return await SendOKXRequest<IEnumerable<OkxMaximumAvailableAmount>>(GetUri(v5AccountMaxAvailSize), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Increase or decrease the margin of the isolated position.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="positionSide">Position Side</param>
+    /// <param name="marginAddReduce">Type</param>
+    /// <param name="amount">Amount</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxMarginAmount>>> SetMarginAmountAsync(
+        string instrumentId,
+        OkxPositionSide positionSide,
+        OkxMarginAddReduce marginAddReduce,
+        decimal amount,
+        string currency = null,
+        bool? auto = null,
+        bool? loanTrans = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            { "instId", instrumentId },
+            { "posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)) },
+            { "type", JsonConvert.SerializeObject(marginAddReduce, new MarginAddReduceConverter(false)) },
+            { "amt", amount.ToString(OkxGlobals.OkxCultureInfo) },
+        };
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("auto", auto);
+        parameters.AddOptionalParameter("loanTrans", loanTrans);
+
+        return await SendOKXRequest<IEnumerable<OkxMarginAmount>>(GetUri(v5AccountPositionMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Leverage
+    /// </summary>
+    /// <param name="instrumentIds">ingle instrument ID or multiple instrument IDs (no more than 20) separated with comma</param>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxLeverage>>> GetAccountLeverageAsync(
+        string instrumentIds,
+        OkxMarginMode marginMode,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            {"instId", instrumentIds },
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)) },
+        };
+
+        return await SendOKXRequest<IEnumerable<OkxLeverage>>(GetUri(v5AccountLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get the maximum loan of instrument
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="marginCurrency">Margin Currency</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxMaximumLoanAmount>>> GetMaximumLoanAmountAsync(
+        string instrumentId,
+        OkxMarginMode marginMode,
+        string marginCurrency = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            {"instId", instrumentId },
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)) },
+        };
+        parameters.AddOptionalParameter("mgnCcy", marginCurrency);
+
+        return await SendOKXRequest<IEnumerable<OkxMaximumLoanAmount>>(GetUri(v5AccountMaxLoan), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Fee Rates
+    /// </summary>
+    /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="underlying">Underlying</param>
+    /// <param name="category">Category</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxFeeRate>> GetFeeRatesAsync(
+        OkxInstrumentType instrumentType,
+        string instrumentId = null,
+        string underlying = null,
+        string instrumentFamily = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            {"instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)) },
+        };
+        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("uly", underlying);
+        parameters.AddOptionalParameter("instFamily", instrumentFamily);
+
+        return await SendOKXSingleRequest<OkxFeeRate>(GetUri(v5AccountTradeFee), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get interest-accrued
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="currency">Currency</param>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxInterestAccrued>>> GetInterestAccruedAsync(
+        OkxLoanType? type = null,
+        string currency = null,
+        string instrumentId = null,
+        OkxMarginMode? marginMode = null,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new LoanTypeConverter(false)));
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)));
+        parameters.AddOptionalParameter("after", after?.ToString());
+        parameters.AddOptionalParameter("before", before?.ToString());
+        parameters.AddOptionalParameter("limit", limit.ToString());
+
+        return await SendOKXRequest<IEnumerable<OkxInterestAccrued>>(GetUri(v5AccountInterestAccrued), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get the user's current leveraged currency borrowing interest rate
+    /// </summary>
+    /// <param name="currency">Currency</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<Models.Account.OkxInterestRate>>> GetInterestRateAsync(
+        string currency = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("ccy", currency);
+
+        return await SendOKXRequest<IEnumerable<Models.Account.OkxInterestRate>>(GetUri(v5AccountInterestRate), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Set the display type of Greeks.
+    /// </summary>
+    /// <param name="greeksType">Display type of Greeks.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxAccountGreeksType>> SetGreeksAsync(Enums.OkxGreeksType greeksType, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            {"greeksType", JsonConvert.SerializeObject(greeksType, new GreeksTypeConverter(false)) },
+        };
+
+        return await SendOKXSingleRequest<OkxAccountGreeksType>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+    }
+
+    // TODO: Isolated margin trading settings
+
+    /// <summary>
+    /// Retrieve the maximum transferable amount.
+    /// </summary>
+    /// <param name="currency">Currency</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<IEnumerable<OkxWithdrawalAmount>>> GetMaximumWithdrawalsAsync(
+        string currency = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("ccy", currency);
+
+        return await SendOKXRequest<IEnumerable<OkxWithdrawalAmount>>(GetUri(v5AccountMaxWithdrawal), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    // TODO: Get account risk state
+    // TODO: Manual borrow and repay in Quick Margin Mode
+    // TODO: Get borrow and repay history in Quick Margin Mode
+    // TODO: VIP loans borrow and repay
+    // TODO: Get borrow and repay history for VIP loans
+    // TODO: Get VIP interest accrued data
+    // TODO: Get VIP interest deducted data
+    // TODO: Get VIP loan order list
+    // TODO: Get VIP loan order detail
+    // TODO: Set sub-accounts VIP loan%
+    // TODO: Get sub-account borrow interest and limit
+    // TODO: Get borrow interest and limit
+    // TODO: Position builder
+    // TODO: Get Greeks
+    // TODO: Get PM limitation
+    // TODO: Set risk offset type
+    // TODO: Activate option
+    // TODO: Set auto loan
+
+    #endregion
+
+}

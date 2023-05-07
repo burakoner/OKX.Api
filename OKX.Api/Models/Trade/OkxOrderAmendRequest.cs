@@ -22,4 +22,41 @@ public class OkxOrderAmendRequest
 
     [JsonProperty("newPx", NullValueHandling = NullValueHandling.Ignore)]
     public decimal? NewPrice { get; set; }
+
+    /// <summary>
+    /// Take-profit trigger price.
+    /// </summary>
+    [JsonProperty("newTpTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
+    public string TakeProfitTriggerPrice { get; set; }
+
+    /// <summary>
+    /// Take-profit order price
+    /// </summary>
+    [JsonProperty("newTpOrdPx", NullValueHandling = NullValueHandling.Ignore)]
+    public string TakeProfitOrderPrice { get; set; }
+
+    /// <summary>
+    /// Stop-loss trigger price.
+    /// </summary>
+    [JsonProperty("newSlTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
+    public string StoplossTriggerPrice { get; set; }
+
+    /// <summary>
+    /// Stop-loss order price.
+    /// </summary>
+    [JsonProperty("newSlOrdPx", NullValueHandling = NullValueHandling.Ignore)]
+    public string StoplossOrderPrice { get; set; }
+
+    /// <summary>
+    /// Take-profit trigger price type.
+    /// </summary>
+    [JsonProperty("newTpTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(AlgoPriceTypeConverter))]
+    public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; }
+
+    /// <summary>
+    /// Stop-loss trigger price type.
+    /// </summary>
+    [JsonProperty("newSlTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(AlgoPriceTypeConverter))]
+    public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
+
 }

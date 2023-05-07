@@ -12,7 +12,7 @@ public class OkxWithdrawalResponse
     public decimal Amount { get; set; }
 
     [JsonProperty("wdId")]
-    public string WithdrawalId { get; set; }
+    public long WithdrawalId { get; set; }
 
     [JsonProperty("clientId")]
     public string ClientOrderId { get; set; }

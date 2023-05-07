@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>1.0.6</Version>
-		<FileVersion>1.0.6</FileVersion>
-		<PackageVersion>1.0.6</PackageVersion>
-		<AssemblyVersion>1.0.6</AssemblyVersion>
+		<Version>1.1.0</Version>
+		<FileVersion>1.1.0</FileVersion>
+		<PackageVersion>1.1.0</PackageVersion>
+		<AssemblyVersion>1.1.0</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -19,6 +19,9 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
+			Version 1.1.0 - 07 May 2023
+			* Updated All Methods and Models, synced with OKX Api 2023-04-27 version
+
 			Version 1.0.6 - 06 May 2023
 			* Updated WithdrawAsync Method (https://github.com/burakoner/OKEx.Net/issues/97)
 			* Updated GetInstrumentsAsync Method (https://github.com/burakoner/OKX.Api/issues/7)

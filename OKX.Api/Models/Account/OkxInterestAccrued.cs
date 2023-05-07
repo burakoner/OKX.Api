@@ -2,11 +2,14 @@
 
 public class OkxInterestAccrued
 {
-    [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    [JsonProperty("type"), JsonConverter(typeof(LoanTypeConverter))]
+    public OkxLoanType LoanType { get; set; }
 
     [JsonProperty("ccy")]
     public string Currency { get; set; }
+
+    [JsonProperty("instId")]
+    public string Instrument { get; set; }
 
     [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
     public OkxMarginMode MarginMode { get; set; }

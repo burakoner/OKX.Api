@@ -27,10 +27,21 @@ public class OKXBaseRestApiClient : RestApiClient
         => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
 
     protected override Error ParseErrorResponse(JToken error)
-        => RootClient.ParseErrorResponse(error);
+    {
+        if (!error.HasValues)
+            return new ServerError(error.ToString());
+
+        if ((error["msg"] == null && error["code"] == null) || (string.IsNullOrWhiteSpace((string)error["msg"])))
+            return new ServerError(error.ToString());
+
+        if (error["msg"] != null && error["code"] == null || (!string.IsNullOrWhiteSpace((string)error["msg"])))
+            return new ServerError((string)error["message"]!);
+
+        return new ServerError((int)error["code"], (string)error["message"]);
+    }
 
     protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync()
-        => RootClient.MarketData.GetServerTimeAsync();
+        => RootClient.PublicData.GetServerTimeAsync();
 
     protected override TimeSyncInfo GetTimeSyncInfo()
         => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
@@ -40,6 +51,15 @@ public class OKXBaseRestApiClient : RestApiClient
     #endregion
 
     #region Internal Methods
+    protected Uri GetUri(string endpoint, string param = "")
+    {
+        var x = endpoint.IndexOf('<');
+        var y = endpoint.IndexOf('>');
+        if (x > -1 && y > -1) endpoint = endpoint.Replace(endpoint.Substring(x, y - x + 1), param);
+
+        return new Uri($"{ClientOptions.BaseAddress.TrimEnd('/')}/{endpoint}");
+    }
+
     /// <summary>
     /// Sets the API Credentials
     /// </summary>

@@ -8,6 +8,9 @@ public class OkxTransferResponse
     [JsonProperty("transId")]
     public long? TransferId { get; set; }
 
+    [JsonProperty("clientId")]
+    public string ClientOrderId { get; set; }
+
     [JsonProperty("amt")]
     public decimal Amount { get; set; }
 

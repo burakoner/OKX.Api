@@ -2,9 +2,11 @@
 
 public enum OkxOrderCategory
 {
+    Normal,
     TWAP,
     ADL,
     FullLiquidation,
     PartialLiquidation,
     Delivery,
+    DDH,
 }

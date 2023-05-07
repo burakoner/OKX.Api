@@ -14,6 +14,9 @@ public class OkxDepositHistory
     [JsonProperty("from")]
     public string From { get; set; }
 
+    [JsonProperty("areaCodeFrom")]
+    public string AreaCodeFrom { get; set; }
+
     [JsonProperty("to")]
     public string To { get; set; }
 
@@ -23,9 +26,15 @@ public class OkxDepositHistory
     [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
     public DateTime Time { get; set; }
 
+    [JsonProperty("state"), JsonConverter(typeof(DepositStateConverter))]
+    public OkxDepositState State { get; set; }
+
     [JsonProperty("depId")]
     public string DepositId { get; set; }
 
-    [JsonProperty("state"), JsonConverter(typeof(DepositStateConverter))]
-    public OkxDepositState State { get; set; }
+    [JsonProperty("fromWdId")]
+    public long? FromWithdrawalId { get; set; }
+
+    [JsonProperty("actualDepBlkConfirm")]
+    public decimal? ActualDepositBlockchainConfirm { get; set; }
 }

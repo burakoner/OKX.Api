@@ -14,11 +14,17 @@ public class OkxDepositAddress
     [JsonProperty("pmtId")]
     public string DepositPaymentId { get; set; }
 
+    [JsonProperty("addrEx")]
+    public string DepositAddressAttachment { get; set; }
+
     [JsonProperty("ccy")]
     public string Currency { get; set; }
 
     [JsonProperty("chain")]
     public string Chain { get; set; }
+
+    [JsonProperty("to"), JsonConverter(typeof(AccountConverter))]
+    public OkxAccount? Account { get; set; }
 
     [JsonProperty("selected")]
     public bool Selected { get; set; }
@@ -26,6 +32,4 @@ public class OkxDepositAddress
     [JsonProperty("ctAddr")]
     public string ContractAddr { get; set; }
 
-    [JsonProperty("to"), JsonConverter(typeof(AccountConverter))]
-    public OkxAccount? Account { get; set; }
 }

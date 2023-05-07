@@ -29,9 +29,21 @@ public class OkxAccountConfiguration
     [JsonProperty("mgnIsoMode"), JsonConverter(typeof(MarginTransferModeConverter))]
     public OkxMarginTransferMode MarginIsolatedMarginTradingMode { get; set; }
 
-    [JsonProperty("liquidationGear")]
-    public string liquidationGear { get; set; }
+    [JsonProperty("spotOffsetType"), JsonConverter(typeof(RiskOffsetTypeConverter))]
+    public OkxRiskOffsetType? RiskOffsetType { get; set; }
 
-    [JsonProperty("spotOffsetType")]
-    public string spotOffsetType { get; set; }
+    [JsonProperty("label")]
+    public string Label { get; set; }
+
+    [JsonProperty("roleType"), JsonConverter(typeof(AccountRoleTypeConverter))]
+    public OkxAccountRoleType? AccountRoleType { get; set; }
+
+    [JsonProperty("traderInsts")]
+    public IEnumerable<string> TraderInstruments { get; set; }
+
+    [JsonProperty("opAuth"), JsonConverter(typeof(OkxBooleanConverter))]
+    public bool OptionalTradingActivated { get; set; }
+
+    [JsonProperty("ip")]
+    public string IpAddresses { get; set; }
 }

@@ -35,8 +35,8 @@ public class OkxTransaction
     [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
     public OkxPositionSide PositionSide { get; set; }
 
-    [JsonProperty("execType"), JsonConverter(typeof(OrderFlowTypeConverter))]
-    public OkxOrderFlowType OrderFlowType { get; set; }
+    [JsonProperty("execType"), JsonConverter(typeof(TradeRoleConverter))]
+    public OkxTradeRole OrderFlowType { get; set; }
 
     [JsonProperty("feeCcy")]
     public string FeeCurrency { get; set; }

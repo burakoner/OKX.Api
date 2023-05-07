@@ -3,5 +3,5 @@
 public enum OkxConvertUnit
 {
     Coin,
-    Usdt,
+    Usds,
 }

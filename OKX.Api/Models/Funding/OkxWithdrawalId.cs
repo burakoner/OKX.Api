@@ -3,5 +3,5 @@
 public class OkxWithdrawalId
 {
     [JsonProperty("wdId")]
-    public string WithdrawalId { get; set; }
+    public long WithdrawalId { get; set; }
 }

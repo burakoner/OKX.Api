@@ -1,27 +1,25 @@
-﻿using OKX.Api.Enums;
-
-namespace OKX.Api.Clients.RestApi;
+﻿namespace OKX.Api.Clients.RestApi;
 
 public class OKXTradeRestApiClient : OKXBaseRestApiClient
 {
-    // Trade Endpoints
-    protected const string Endpoints_V5_Trade_Order = "api/v5/trade/order";
-    protected const string Endpoints_V5_Trade_BatchOrders = "api/v5/trade/batch-orders";
-    protected const string Endpoints_V5_Trade_CancelOrder = "api/v5/trade/cancel-order";
-    protected const string Endpoints_V5_Trade_CancelBatchOrders = "api/v5/trade/cancel-batch-orders";
-    protected const string Endpoints_V5_Trade_AmendOrder = "api/v5/trade/amend-order";
-    protected const string Endpoints_V5_Trade_AmendBatchOrders = "api/v5/trade/amend-batch-orders";
-    protected const string Endpoints_V5_Trade_ClosePosition = "api/v5/trade/close-position";
-    protected const string Endpoints_V5_Trade_OrdersPending = "api/v5/trade/orders-pending";
-    protected const string Endpoints_V5_Trade_OrdersHistory = "api/v5/trade/orders-history";
-    protected const string Endpoints_V5_Trade_OrdersHistoryArchive = "api/v5/trade/orders-history-archive";
-    protected const string Endpoints_V5_Trade_Fills = "api/v5/trade/fills";
-    protected const string Endpoints_V5_Trade_FillsHistory = "api/v5/trade/fills-history";
-    protected const string Endpoints_V5_Trade_OrderAlgo = "api/v5/trade/order-algo";
-    protected const string Endpoints_V5_Trade_CancelAlgos = "api/v5/trade/cancel-algos";
-    protected const string Endpoints_V5_Trade_CancelAdvanceAlgos = "api/v5/trade/cancel-advance-algos";
-    protected const string Endpoints_V5_Trade_OrdersAlgoPending = "api/v5/trade/orders-algo-pending";
-    protected const string Endpoints_V5_Trade_OrdersAlgoHistory = "api/v5/trade/orders-algo-history";
+    // Endpoints
+    protected const string v5TradeOrder = "api/v5/trade/order";
+    protected const string v5TradeBatchOrders = "api/v5/trade/batch-orders";
+    protected const string v5TradeCancelOrder = "api/v5/trade/cancel-order";
+    protected const string v5TradeCancelBatchOrders = "api/v5/trade/cancel-batch-orders";
+    protected const string v5TradeAmendOrder = "api/v5/trade/amend-order";
+    protected const string v5TradeAmendBatchOrders = "api/v5/trade/amend-batch-orders";
+    protected const string v5TradeClosePosition = "api/v5/trade/close-position";
+    protected const string v5TradeOrdersPending = "api/v5/trade/orders-pending";
+    protected const string v5TradeOrdersHistory = "api/v5/trade/orders-history";
+    protected const string v5TradeOrdersHistoryArchive = "api/v5/trade/orders-history-archive";
+    protected const string v5TradeFills = "api/v5/trade/fills";
+    protected const string v5TradeFillsHistory = "api/v5/trade/fills-history";
+    protected const string v5TradeOrderAlgo = "api/v5/trade/order-algo";
+    protected const string v5TradeCancelAlgos = "api/v5/trade/cancel-algos";
+    protected const string v5TradeCancelAdvanceAlgos = "api/v5/trade/cancel-advance-algos";
+    protected const string v5TradeOrdersAlgoPending = "api/v5/trade/orders-algo-pending";
+    protected const string v5TradeOrdersAlgoHistory = "api/v5/trade/orders-algo-history";
 
     internal OKXTradeRestApiClient(OKXRestApiClient root) : base(root)
     {
@@ -30,6 +28,7 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     #region Trade API Endpoints
     /// <summary>
     /// You can place an order only if you have sufficient funds.
+    /// For leading contracts, this endpoint supports placement, but can't close positions.
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="tradeMode">Trade Mode</param>
@@ -42,6 +41,14 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="clientOrderId">Client Order ID</param>
     /// <param name="reduceOnly">Whether to reduce position only or not, true false, the default is false.</param>
     /// <param name="quantityType">Quantity Type</param>
+    /// <param name="quickMgnType">Quick Margin type. Only applicable to Quick Margin Mode of isolated margin. The default value is manual</param>
+    /// <param name="banAmend">Whether to disallow the system from amending the size of the SPOT Market Order.</param>
+    /// <param name="tpTriggerPxType">Take-profit trigger price type. The Default is last</param>
+    /// <param name="tpTriggerPx">Take-profit trigger price. If you fill in this parameter, you should fill in the take-profit order price as well.</param>
+    /// <param name="tpOrdPx">Take-profit order price</param>
+    /// <param name="slTriggerPxType">Stop-loss trigger price type. The Default is last</param>
+    /// <param name="slTriggerPx">Stop-loss trigger price. If you fill in this parameter, you should fill in the stop-loss order price.</param>
+    /// <param name="slOrdPx">Stop-loss order price. If you fill in this parameter, you should fill in the stop-loss trigger price. If the price is -1, stop-loss will be executed at the market price.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(
@@ -96,7 +103,7 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("slTriggerPx", slTriggerPx?.ToString(OkxGlobals.OkxCultureInfo));
         parameters.AddOptionalParameter("slOrdPx", slOrdPx?.ToString(OkxGlobals.OkxCultureInfo));
 
-        return await SendOKXSingleRequest<OkxOrderPlaceResponse>(RootClient.GetUri(Endpoints_V5_Trade_Order), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxOrderPlaceResponse>(GetUri(v5TradeOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -113,7 +120,7 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
             { ClientOptions.RequestBodyParameterKey, orders },
         };
 
-        return await SendOKXRequest<IEnumerable<OkxOrderPlaceResponse>>(RootClient.GetUri(Endpoints_V5_Trade_BatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxOrderPlaceResponse>>(GetUri(v5TradeBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -132,7 +139,7 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("ordId", orderId?.ToString(OkxGlobals.OkxCultureInfo));
         parameters.AddOptionalParameter("clOrdId", clientOrderId);
 
-        return await SendOKXSingleRequest<OkxOrderCancelResponse>(RootClient.GetUri(Endpoints_V5_Trade_CancelOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxOrderCancelResponse>(GetUri(v5TradeCancelOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -147,7 +154,7 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
             { ClientOptions.RequestBodyParameterKey, orders },
         };
 
-        return await SendOKXRequest<IEnumerable<OkxOrderCancelResponse>>(RootClient.GetUri(Endpoints_V5_Trade_CancelBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxOrderCancelResponse>>(GetUri(v5TradeCancelBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -170,11 +177,18 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         bool? cancelOnFail = null,
         decimal? newQuantity = null,
         decimal? newPrice = null,
+
+        OkxAlgoPriceType? newTpTriggerPxType = null,
+        decimal? newTpTriggerPx = null,
+        decimal? newTpOrdPx = null,
+
+        OkxAlgoPriceType? newSlTriggerPxType = null,
+        decimal? newSlTriggerPx = null,
+        decimal? newSlOrdPx = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
-            //{ "tag", BROKER_ID },
             { "instId", instrumentId },
         };
         parameters.AddOptionalParameter("ordId", orderId?.ToString(OkxGlobals.OkxCultureInfo));
@@ -184,7 +198,15 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("newSz", newQuantity?.ToString(OkxGlobals.OkxCultureInfo));
         parameters.AddOptionalParameter("newPx", newPrice?.ToString(OkxGlobals.OkxCultureInfo));
 
-        return await SendOKXSingleRequest<OkxOrderAmendResponse>(RootClient.GetUri(Endpoints_V5_Trade_AmendOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        parameters.AddOptionalParameter("newTpTriggerPxType", JsonConvert.SerializeObject(newTpTriggerPxType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("newTpTriggerPx", newTpTriggerPx?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("newTpOrdPx", newTpOrdPx?.ToString(OkxGlobals.OkxCultureInfo));
+
+        parameters.AddOptionalParameter("newSlTriggerPxType", JsonConvert.SerializeObject(newSlTriggerPxType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("newSlTriggerPx", newSlTriggerPx?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("newSlOrdPx", newSlOrdPx?.ToString(OkxGlobals.OkxCultureInfo));
+
+        return await SendOKXSingleRequest<OkxOrderAmendResponse>(GetUri(v5TradeAmendOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -195,12 +217,11 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxOrderAmendResponse>>> AmendMultipleOrdersAsync(IEnumerable<OkxOrderAmendRequest> orders, CancellationToken ct = default)
     {
-        // foreach (var order in orders) order.Tag = BROKER_ID;
         var parameters = new Dictionary<string, object> {
             { ClientOptions.RequestBodyParameterKey, orders },
         };
 
-        return await SendOKXRequest<IEnumerable<OkxOrderAmendResponse>>(RootClient.GetUri(Endpoints_V5_Trade_AmendBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxOrderAmendResponse>>(GetUri(v5TradeAmendBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -210,6 +231,8 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="marginMode">Margin Mode</param>
     /// <param name="positionSide">Position Side</param>
     /// <param name="currency">Currency</param>
+    /// <param name="autoCxl">Whether any pending orders for closing out needs to be automatically canceled when close position via a market order.</param>
+    /// <param name="clientOrderId">Client-supplied ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxClosePositionResponse>> ClosePositionAsync(
@@ -217,16 +240,21 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         OkxMarginMode marginMode,
         OkxPositionSide? positionSide = null,
         string currency = null,
+        bool? autoCxl = null,
+        string clientOrderId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
+            {"tag", ClientOptions.BrokerId },
             {"instId", instrumentId },
             {"mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)) },
         };
         parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)));
         parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("autoCxl", autoCxl);
+        parameters.AddOptionalParameter("clOrdId", clientOrderId);
 
-        return await SendOKXSingleRequest<OkxClosePositionResponse>(RootClient.GetUri(Endpoints_V5_Trade_ClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxClosePositionResponse>(GetUri(v5TradeClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -249,7 +277,7 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("ordId", orderId?.ToString());
         parameters.AddOptionalParameter("clOrdId", clientOrderId);
 
-        return await SendOKXSingleRequest<OkxOrder>(RootClient.GetUri(Endpoints_V5_Trade_Order), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxOrder>(GetUri(v5TradeOrder), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -257,6 +285,7 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instFamily">Instrument family</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="orderType">Order Type</param>
     /// <param name="state">State</param>
@@ -268,6 +297,7 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     public virtual async Task<RestCallResult<IEnumerable<OkxOrder>>> GetOrderListAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
+        string instFamily = null,
         string underlying = null,
         OkxOrderType? orderType = null,
         OkxOrderState? state = null,
@@ -278,16 +308,17 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("uly", underlying);
+        parameters.AddOptionalParameter("instFamily", instFamily);
+        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)));
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OrderStateConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToString());
         parameters.AddOptionalParameter("before", before?.ToString());
         parameters.AddOptionalParameter("limit", limit.ToString());
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OrderStateConverter(false)));
 
-        return await SendOKXRequest<IEnumerable<OkxOrder>>(RootClient.GetUri(Endpoints_V5_Trade_OrdersPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxOrder>>(GetUri(v5TradeOrdersPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -295,24 +326,30 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instFamily">Instrument family</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="orderType">Order Type</param>
     /// <param name="state">State</param>
     /// <param name="category">Category</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="end">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxOrder>>> GetOrderHistoryAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
+        string instFamily = null,
         string underlying = null,
         OkxOrderType? orderType = null,
         OkxOrderState? state = null,
         OkxOrderCategory? category = null,
         long? after = null,
         long? before = null,
+        long? begin = null,
+        long? end = null,
         int limit = 100,
         CancellationToken ct = default)
     {
@@ -321,16 +358,19 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         {
             {"instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false))}
         };
-        parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("uly", underlying);
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("instFamily", instFamily);
+        parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)));
         parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OrderStateConverter(false)));
         parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OrderCategoryConverter(false)));
+        parameters.AddOptionalParameter("after", after?.ToString());
+        parameters.AddOptionalParameter("before", before?.ToString());
+        parameters.AddOptionalParameter("begin", before?.ToString());
+        parameters.AddOptionalParameter("end", before?.ToString());
+        parameters.AddOptionalParameter("limit", limit.ToString());
 
-        return await SendOKXRequest<IEnumerable<OkxOrder>>(RootClient.GetUri(Endpoints_V5_Trade_OrdersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxOrder>>(GetUri(v5TradeOrdersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -338,24 +378,30 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instFamily">Instrument family</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="orderType">Order Type</param>
     /// <param name="state">State</param>
     /// <param name="category">Category</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="end">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxOrder>>> GetOrderArchiveAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
+        string instFamily = null,
         string underlying = null,
         OkxOrderType? orderType = null,
         OkxOrderState? state = null,
         OkxOrderCategory? category = null,
         long? after = null,
         long? before = null,
+        long? begin = null,
+        long? end = null,
         int limit = 100,
         CancellationToken ct = default)
     {
@@ -364,16 +410,19 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         {
             {"instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false))}
         };
-        parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("uly", underlying);
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("instFamily", instFamily);
+        parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)));
         parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OrderStateConverter(false)));
         parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OrderCategoryConverter(false)));
+        parameters.AddOptionalParameter("after", after?.ToString());
+        parameters.AddOptionalParameter("before", before?.ToString());
+        parameters.AddOptionalParameter("begin", before?.ToString());
+        parameters.AddOptionalParameter("end", before?.ToString());
+        parameters.AddOptionalParameter("limit", limit.ToString());
 
-        return await SendOKXRequest<IEnumerable<OkxOrder>>(RootClient.GetUri(Endpoints_V5_Trade_OrdersHistoryArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxOrder>>(GetUri(v5TradeOrdersHistoryArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -381,34 +430,43 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instFamily">Instrument family</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="orderId">Order ID</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="end">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxTransaction>>> GetTransactionHistoryAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
+        string instFamily = null,
         string underlying = null,
         long? orderId = null,
         long? after = null,
         long? before = null,
+        long? begin = null,
+        long? end = null,
         int limit = 100,
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("uly", underlying);
+        parameters.AddOptionalParameter("instFamily", instFamily);
+        parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ordId", orderId?.ToString());
         parameters.AddOptionalParameter("after", after?.ToString());
         parameters.AddOptionalParameter("before", before?.ToString());
+        parameters.AddOptionalParameter("begin", before?.ToString());
+        parameters.AddOptionalParameter("end", before?.ToString());
         parameters.AddOptionalParameter("limit", limit.ToString());
 
-        return await SendOKXRequest<IEnumerable<OkxTransaction>>(RootClient.GetUri(Endpoints_V5_Trade_Fills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxTransaction>>(GetUri(v5TradeFills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -416,34 +474,43 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instFamily">Instrument family</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="orderId">Order ID</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="end">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxTransaction>>> GetTransactionArchiveAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
+        string instFamily = null,
         string underlying = null,
         long? orderId = null,
         long? after = null,
         long? before = null,
+        long? begin = null,
+        long? end = null,
         int limit = 100,
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("uly", underlying);
+        parameters.AddOptionalParameter("instFamily", instFamily);
+        parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ordId", orderId?.ToString());
         parameters.AddOptionalParameter("after", after?.ToString());
         parameters.AddOptionalParameter("before", before?.ToString());
+        parameters.AddOptionalParameter("begin", before?.ToString());
+        parameters.AddOptionalParameter("end", before?.ToString());
         parameters.AddOptionalParameter("limit", limit.ToString());
 
-        return await SendOKXRequest<IEnumerable<OkxTransaction>>(RootClient.GetUri(Endpoints_V5_Trade_FillsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxTransaction>>(GetUri(v5TradeFillsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -464,6 +531,7 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="slTriggerPxType">Stop-loss trigger price. If you fill in this parameter, you should fill in the stop-loss order price.</param>
     /// <param name="slTriggerPrice">Stop Loss Trigger Price</param>
     /// <param name="slOrderPrice">Stop Loss Order Price</param>
+    /// <param name="triggerPriceType">Trigger Price Type</param>
     /// <param name="triggerPrice">Trigger Price</param>
     /// <param name="orderPrice">Order Price</param>
     /// <param name="pxVar">Price Variance</param>
@@ -471,82 +539,125 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="sizeLimit">Size Limit</param>
     /// <param name="priceLimit">Price Limit</param>
     /// <param name="timeInterval">Time Interval</param>
+    /// <param name="clientOrderId">Client-supplied Algo ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="closeFraction">Fraction of position to be closed when the algo order is triggered.
+    /// Currently the system supports fully closing the position only so the only accepted value is 1.
+    /// This is only applicable to FUTURES or SWAP instruments.
+    /// This is only applicable if posSide is net.
+    /// This is only applicable if reduceOnly is true.
+    /// This is only applicable if ordType is conditional or oco.
+    /// This is only applicable if the stop loss and take profit order is executed as market order
+    /// Either sz or closeFraction is required.</param>
+    /// <param name="quickMgnType">	Quick Margin type. Only applicable to Quick Margin Mode of isolated margin
+    /// manual, auto_borrow, auto_repay
+    /// The default value is manual</param>
+    /// <param name="callbackRatio">Callback price ratio , e.g. 0.01</param>
+    /// <param name="callbackSpread">Callback price variance</param>
+    /// <param name="activePx">Active price</param>
+    /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxAlgoOrderResponse>> PlaceAlgoOrderAsync(
-        //* Common */
+
+        // Common
         string instrumentId,
         OkxTradeMode tradeMode,
         OkxOrderSide orderSide,
         OkxAlgoOrderType algoOrderType,
-        decimal size,
+        decimal? size = null,
         string currency = null,
         bool? reduceOnly = null,
         OkxPositionSide? positionSide = null,
         OkxQuantityType? quantityType = null,
 
-        /* Stop Order */
+        // Stop Order
         OkxAlgoPriceType? tpTriggerPxType = null,
         decimal? tpTriggerPrice = null,
         decimal? tpOrderPrice = null,
+
         OkxAlgoPriceType? slTriggerPxType = null,
         decimal? slTriggerPrice = null,
         decimal? slOrderPrice = null,
 
-        /* Trigger Order */
+        // Trigger Order
+        OkxAlgoPriceType? triggerPriceType = null,
         decimal? triggerPrice = null,
         decimal? orderPrice = null,
 
-        /* Iceberg Order */
-        /* TWAP Order */
+        // Iceberg Order
+        // TWAP Order
         OkxPriceVariance? pxVar = null,
         decimal? priceRatio = null,
         decimal? sizeLimit = null,
         decimal? priceLimit = null,
 
-        /* TWAP Order */
+        // TWAP Order
         long? timeInterval = null,
 
-        /* Cancellation Token */
+        // Client Order Id
+        string clientOrderId = null,
+
+        // Close Fraction
+        decimal? closeFraction = null,
+
+        // Quick Margin Type
+        OkxQuickMarginType? quickMgnType = null,
+
+        // Trailing Stop Order
+        decimal? callbackRatio = null,
+        decimal? callbackSpread = null,
+        decimal? activePx = null,
+
+        // Cancellation Token
         CancellationToken ct = default)
     {
-        /* Common */
+        // Common
         var parameters = new Dictionary<string, object> {
             {"tag", ClientOptions.BrokerId },
             {"instId", instrumentId },
             {"tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
             {"side", JsonConvert.SerializeObject(orderSide, new OrderSideConverter(false)) },
             {"ordType", JsonConvert.SerializeObject(algoOrderType, new AlgoOrderTypeConverter(false)) },
-            {"sz", size.ToString(OkxGlobals.OkxCultureInfo) },
         };
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("reduceOnly", reduceOnly);
         parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)));
+        parameters.AddOptionalParameter("sz", size?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("reduceOnly", reduceOnly);
         parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new QuantityTypeConverter(false)));
+        parameters.AddOptionalParameter("algoClOrdId", clientOrderId);
+        parameters.AddOptionalParameter("closeFraction", closeFraction?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new QuickMarginTypeConverter(false)));
 
-        /* Stop Order */
-        parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(tpTriggerPxType, new AlgoPriceTypeConverter(false)));
+        // Stop Order
         parameters.AddOptionalParameter("tpTriggerPx", tpTriggerPrice?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(tpTriggerPxType, new AlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("tpOrdPx", tpOrderPrice?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(slTriggerPxType, new AlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("slTriggerPx", slTriggerPrice?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(slTriggerPxType, new AlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("slOrdPx", slOrderPrice?.ToString(OkxGlobals.OkxCultureInfo));
 
-        /* Trigger Order */
+        // Trigger Order
+        parameters.AddOptionalParameter("triggerPxType", JsonConvert.SerializeObject(triggerPriceType, new AlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("triggerPx", triggerPrice?.ToString(OkxGlobals.OkxCultureInfo));
         parameters.AddOptionalParameter("orderPx", orderPrice?.ToString(OkxGlobals.OkxCultureInfo));
 
-        /* Iceberg Order */
-        /* TWAP Order */
+        // Trailing Stop Order
+        parameters.AddOptionalParameter("callbackRatio", callbackRatio?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("callbackSpread", callbackSpread?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("activePx", activePx?.ToString(OkxGlobals.OkxCultureInfo));
+        
+        // Iceberg Order
+        // TWAP Order
         parameters.AddOptionalParameter("pxVar", JsonConvert.SerializeObject(pxVar, new PriceVarianceConverter(false)));
         parameters.AddOptionalParameter("pxSpread", priceRatio?.ToString(OkxGlobals.OkxCultureInfo));
         parameters.AddOptionalParameter("szLimit", sizeLimit?.ToString(OkxGlobals.OkxCultureInfo));
         parameters.AddOptionalParameter("pxLimit", priceLimit?.ToString(OkxGlobals.OkxCultureInfo));
 
-        /* TWAP Order */
+        // TWAP Order
         parameters.AddOptionalParameter("timeInterval", timeInterval?.ToString(OkxGlobals.OkxCultureInfo));
 
-        return await SendOKXSingleRequest<OkxAlgoOrderResponse>(RootClient.GetUri(Endpoints_V5_Trade_OrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        // Reequest
+        return await SendOKXSingleRequest<OkxAlgoOrderResponse>(GetUri(v5TradeOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -561,8 +672,10 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
             { ClientOptions.RequestBodyParameterKey, orders },
         };
 
-        return await SendOKXSingleRequest<OkxAlgoOrderResponse>(RootClient.GetUri(Endpoints_V5_Trade_CancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
+
+    // TODO: Amend algo order
 
     /// <summary>
     /// Cancel unfilled algo orders(iceberg order and twap order). A maximum of 10 orders can be canceled at a time. Request parameters should be passed in the form of an array.
@@ -576,14 +689,17 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
             { ClientOptions.RequestBodyParameterKey, orders },
         };
 
-        return await SendOKXSingleRequest<OkxAlgoOrderResponse>(RootClient.GetUri(Endpoints_V5_Trade_CancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
+    // TODO: Get algo order details
+
     /// <summary>
-    /// Cancel unfilled algo orders(iceberg order and twap order). A maximum of 10 orders can be canceled at a time. Request parameters should be passed in the form of an array.
+    /// Retrieve a list of untriggered Algo orders under the current account.
     /// </summary>
     /// <param name="algoOrderType">Algo Order Type</param>
     /// <param name="algoId">Algo ID</param>
+    /// <param name="algoClientOrderId">Client-supplied Algo ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
@@ -594,6 +710,7 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     public virtual async Task<RestCallResult<IEnumerable<OkxAlgoOrder>>> GetAlgoOrderListAsync(
         OkxAlgoOrderType algoOrderType,
         long? algoId = null,
+        string algoClientOrderId = null,
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         long? after = null,
@@ -604,16 +721,17 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
-            {"ordType",   JsonConvert.SerializeObject(algoOrderType, new AlgoOrderTypeConverter(false))}
+            { "ordType", JsonConvert.SerializeObject(algoOrderType, new AlgoOrderTypeConverter(false)) }
         };
         parameters.AddOptionalParameter("algoId", algoId?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("algoClOrdId", algoClientOrderId);
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("after", after?.ToString());
         parameters.AddOptionalParameter("before", before?.ToString());
         parameters.AddOptionalParameter("limit", limit.ToString());
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
 
-        return await SendOKXRequest<IEnumerable<OkxAlgoOrder>>(RootClient.GetUri(Endpoints_V5_Trade_OrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxAlgoOrder>>(GetUri(v5TradeOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -653,8 +771,15 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(algoOrderState, new AlgoOrderStateConverter(false)));
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
 
-        return await SendOKXRequest<IEnumerable<OkxAlgoOrder>>(RootClient.GetUri(Endpoints_V5_Trade_OrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxAlgoOrder>>(GetUri(v5TradeOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
+
+    // TODO: Get easy convert currency list
+    // TODO: Place easy convert
+    // TODO: Get easy convert history
+    // TODO: Get one-click repay currency list
+    // TODO: Trade one-click repay
+    // TODO: Get one-click repay history
 
     #endregion
 

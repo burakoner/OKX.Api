@@ -6,5 +6,14 @@ public class OkxWithdrawalAmount
     public string Currency { get; set; }
 
     [JsonProperty("maxWd")]
-    public decimal? MaximumWithdrawal { get; set; }
+    public decimal? MaximumWithdrawalExcludingBorrowedAssets { get; set; }
+
+    [JsonProperty("maxWdEx")]
+    public decimal? MaximumWithdrawalIncludingBorrowedAssets { get; set; }
+
+    [JsonProperty("spotOffsetMaxWd")]
+    public decimal? SpotMaximumWithdrawalExcludingBorrowedAssets { get; set; }
+
+    [JsonProperty("spotOffsetMaxWdEx")]
+    public decimal? SpotMaximumWithdrawalIncludingBorrowedAssets { get; set; }
 }

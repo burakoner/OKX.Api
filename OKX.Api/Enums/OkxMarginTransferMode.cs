@@ -4,4 +4,5 @@ public enum OkxMarginTransferMode
 {
     AutoTransfer,
     ManualTransfer,
+    QuickMarginMode,
 }

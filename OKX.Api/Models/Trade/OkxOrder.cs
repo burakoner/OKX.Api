@@ -2,126 +2,258 @@
 
 public class OkxOrder
 {
-    [JsonProperty("cTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime CreateTime { get; set; }
-
-    [JsonProperty("uTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime UpdateTime { get; set; }
-
-    [JsonProperty("fillTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime? FillTime { get; set; }
-
-    [JsonProperty("ccy")]
-    public string Currency { get; set; }
-
-    [JsonProperty("instId")]
-    public string Instrument { get; set; }
-
-    [JsonProperty("tradeId")]
-    public long? TradeId { get; set; }
-
-    [JsonProperty("ordId")]
-    public long? OrderId { get; set; }
-
-    [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; }
-
+    /// <summary>
+    /// Instrument type
+    /// </summary>
     [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
-    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-    public OkxPositionSide? PositionSide { get; set; }
+    /// <summary>
+    /// Instrument ID
+    /// </summary>
+    [JsonProperty("instId")]
+    public string Instrument { get; set; }
 
-    [JsonProperty("ordType"), JsonConverter(typeof(OrderTypeConverter))]
-    public OkxOrderType OrderType { get; set; }
-
-    [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
-    public OkxOrderSide OrderSide { get; set; }
-
-    [JsonProperty("tdMode"), JsonConverter(typeof(TradeModeConverter))]
-    public OkxTradeMode TradeMode { get; set; }
-
-    [JsonProperty("state"), JsonConverter(typeof(OrderStateConverter))]
-    public OkxOrderState OrderState { get; set; }
-
+    /// <summary>
+    /// Order quantity unit setting for size
+    /// </summary>
     [JsonProperty("tgtCcy"), JsonConverter(typeof(QuantityTypeConverter))]
     public OkxQuantityType? QuantityType { get; set; }
 
-    [JsonProperty("avgPx")]
-    public decimal? AveragePrice { get; set; }
+    /// <summary>
+    /// Margin currency. Only applicable to cross MARGIN orders in
+    /// </summary>
+    [JsonProperty("ccy")]
+    public string Currency { get; set; }
 
+    /// <summary>
+    /// Order ID
+    /// </summary>
+    [JsonProperty("ordId")]
+    public long? OrderId { get; set; }
+
+    /// <summary>
+    /// Client Order ID as assigned by the client
+    /// </summary>
+    [JsonProperty("clOrdId")]
+    public string ClientOrderId { get; set; }
+
+    /// <summary>
+    /// Broker Id
+    /// </summary>
+    [JsonProperty("tag")]
+    internal string Tag { get; set; }
+
+    /// <summary>
+    /// Price
+    /// </summary>
     [JsonProperty("px")]
     public decimal? Price { get; set; }
 
+    /// <summary>
+    /// Quantity to buy or sell
+    /// </summary>
     [JsonProperty("sz")]
     public decimal? Quantity { get; set; }
 
+    /// <summary>
+    /// Profit and loss, Applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
+    /// </summary>
     [JsonProperty("pnl")]
     public decimal? ProfitAndLoss { get; set; }
 
-    [JsonProperty("tag")]
-    public string Tag { get; set; }
+    /// <summary>
+    /// Order type
+    /// </summary>
+    [JsonProperty("ordType"), JsonConverter(typeof(OrderTypeConverter))]
+    public OkxOrderType OrderType { get; set; }
 
-    [JsonProperty("category")]
-    public string Category { get; set; }
+    /// <summary>
+    /// Order side
+    /// </summary>
+    [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
+    public OkxOrderSide OrderSide { get; set; }
 
+    /// <summary>
+    /// Position side
+    /// </summary>
+    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
+    public OkxPositionSide? PositionSide { get; set; }
+
+    /// <summary>
+    /// Trade mode
+    /// </summary>
+    [JsonProperty("tdMode"), JsonConverter(typeof(TradeModeConverter))]
+    public OkxTradeMode? TradeMode { get; set; }
+
+    /// <summary>
+    /// Accumulated fill quantity
+    /// </summary>
     [JsonProperty("accFillSz")]
     public decimal? AccumulatedFillQuantity { get; set; }
 
+    /// <summary>
+    /// Last filled price. If none is filled, it will return "".
+    /// </summary>
     [JsonProperty("fillPx")]
     public decimal? FillPrice { get; set; }
 
+    /// <summary>
+    /// Last traded ID
+    /// </summary>
+    [JsonProperty("tradeId")]
+    public long? TradeId { get; set; }
+
+    /// <summary>
+    /// Last filled quantity
+    /// </summary>
     [JsonProperty("fillSz")]
     public decimal? FillQuantity { get; set; }
 
-    [JsonProperty("tpTriggerPx")]
-    public decimal? TakeProfitTriggerPrice { get; set; }
+    /// <summary>
+    /// Last filled time
+    /// </summary>
+    [JsonProperty("fillTime"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime? FillTime { get; set; }
 
-    [JsonProperty("tpOrdPx")]
-    public decimal? TakeProfitOrderPrice { get; set; }
+    /// <summary>
+    /// Average filled price. If none is filled, it will return "".
+    /// </summary>
+    [JsonProperty("avgPx")]
+    public decimal? AveragePrice { get; set; }
 
-    [JsonProperty("slTriggerPx")]
-    public decimal? StopLossTriggerPrice { get; set; }
+    /// <summary>
+    /// State
+    /// </summary>
+    [JsonProperty("state"), JsonConverter(typeof(OrderStateConverter))]
+    public OkxOrderState OrderState { get; set; }
 
-    [JsonProperty("slOrdPx")]
-    public decimal? StopLossOrderPrice { get; set; }
-
-    [JsonProperty("feeCcy")]
-    public string FeeCurrency { get; set; }
-
-    [JsonProperty("fee")]
-    public decimal? Fee { get; set; }
-
-    [JsonProperty("rebateCcy")]
-    public string RebateCurrency { get; set; }
-
-    [JsonProperty("rebate")]
-    public decimal? Rebate { get; set; }
-
-    [JsonProperty("algoId")]
-    public long? AlgoOrderId { get; set; }
-
-    [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; }
-
+    /// <summary>
+    /// Leverage, from 0.01 to 125.
+    /// </summary>
     [JsonProperty("lever")]
     public decimal? Leverage { get; set; }
 
-    [JsonProperty("cancelSource")]
-    public string CancelSource { get; set; }
+    /// <summary>
+    /// Take-profit trigger price.
+    /// </summary>
+    [JsonProperty("tpTriggerPx")]
+    public decimal? TakeProfitTriggerPrice { get; set; }
 
-    [JsonProperty("cancelSourceReason")]
-    public string CancelSourceReason { get; set; }
-
-    [JsonProperty("reduceOnly")]
-    public bool? ReduceOnly { get; set; }
-
+    /// <summary>
+    /// Take-profit trigger price type.
+    /// </summary>
     [JsonProperty("tpTriggerPxType"), JsonConverter(typeof(AlgoPriceTypeConverter))]
     public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; }
 
+    /// <summary>
+    /// Take-profit order price.
+    /// </summary>
+    [JsonProperty("tpOrdPx")]
+    public decimal? TakeProfitOrderPrice { get; set; }
+
+    /// <summary>
+    /// Stop-loss trigger price.
+    /// </summary>
+    [JsonProperty("slTriggerPx")]
+    public decimal? StopLossTriggerPrice { get; set; }
+
+    /// <summary>
+    /// Stop-loss trigger price type.
+    /// </summary>
     [JsonProperty("slTriggerPxType"), JsonConverter(typeof(AlgoPriceTypeConverter))]
     public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
 
+    /// <summary>
+    /// Stop-loss order price.
+    /// </summary>
+    [JsonProperty("slOrdPx")]
+    public decimal? StopLossOrderPrice { get; set; }
+
+    /// <summary>
+    /// Fee currency
+    /// </summary>
+    [JsonProperty("feeCcy")]
+    public string FeeCurrency { get; set; }
+
+    /// <summary>
+    /// Fee and rebate
+    /// For spot and margin, it is accumulated fee charged by the platform.It is always negative, e.g. -0.01.
+    /// For Futures, Swap and Options, it is accumulated fee and rebate
+    /// </summary>
+    [JsonProperty("fee")]
+    public decimal? Fee { get; set; }
+
+    /// <summary>
+    /// Rebate currency
+    /// </summary>
+    [JsonProperty("rebateCcy")]
+    public string RebateCurrency { get; set; }
+    
+    /// <summary>
+    /// Order source
+    /// 13:The generated limit order after the strategy order is triggered
+    /// </summary>
+    [JsonProperty("source")]
+    public string Source { get; set; }
+
+    /// <summary>
+    /// Rebate amount, only applicable to spot and margin, the reward of placing orders from the platform (rebate) given to user who has reached the specified trading level. If there is no rebate, this field is "".
+    /// </summary>
+    [JsonProperty("rebate")]
+    public decimal? Rebate { get; set; }
+
+    /// <summary>
+    /// Category
+    /// </summary>
+    [JsonProperty("category"), JsonConverter(typeof(OrderCategoryConverter))]
+    public OkxOrderCategory? Category { get; set; }
+
+    /// <summary>
+    /// Whether the order can only reduce the position size. Valid options: true or false.
+    /// </summary>
+    [JsonProperty("reduceOnly")]
+    public bool? ReduceOnly { get; set; }
+
+    /// <summary>
+    /// Code of the cancellation source.
+    /// </summary>
+    [JsonProperty("cancelSource")]
+    public string CancelSource { get; set; }
+
+    /// <summary>
+    /// Reason for the cancellation.
+    /// </summary>
+    [JsonProperty("cancelSourceReason")]
+    public string CancelSourceReason { get; set; }
+
+    /// <summary>
+    /// Quick Margin type, Only applicable to Quick Margin Mode of isolated margin
+    /// </summary>
     [JsonProperty("quickMgnType"), JsonConverter(typeof(QuickMarginTypeConverter))]
     public OkxQuickMarginType? QuickMarginType { get; set; }
+
+    /// <summary>
+    /// Client-supplied Algo ID. There will be a value when algo order attaching algoClOrdId is triggered, or it will be "".
+    /// </summary>
+    [JsonProperty("algoClOrdId")]
+    public string AlgoClientOrderId { get; set; }
+
+    /// <summary>
+    /// Algo ID. There will be a value when algo order is triggered, or it will be "".
+    /// </summary>
+    [JsonProperty("algoId")]
+    public long? AlgoOrderId { get; set; }
+
+    /// <summary>
+    /// Update time, Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// </summary>
+    [JsonProperty("uTime"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime UpdateTime { get; set; }
+
+    /// <summary>
+    /// Creation time, Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// </summary>
+    [JsonProperty("cTime"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime CreateTime { get; set; }
 }

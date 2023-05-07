@@ -3,12 +3,12 @@
 public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
 {
     // Endpoints
-    protected const string Endpoints_V5_SubAccount_List = "api/v5/users/subaccount/list";
-    protected const string Endpoints_V5_SubAccount_ResetApiKey = "api/v5/users/subaccount/modify-apikey";
-    protected const string Endpoints_V5_SubAccount_TradingBalances = "api/v5/account/subaccount/balances";
-    protected const string Endpoints_V5_SubAccount_FundingBalances = "api/v5/asset/subaccount/balances";
-    protected const string Endpoints_V5_SubAccount_Bills = "api/v5/asset/subaccount/bills";
-    protected const string Endpoints_V5_SubAccount_Transfer = "api/v5/asset/subaccount/transfer";
+    protected const string v5UsersSubaccountList = "api/v5/users/subaccount/list";
+    protected const string v5UsersSubaccountResetApiKey = "api/v5/users/subaccount/modify-apikey";
+    protected const string v5UsersSubaccountTradingBalances = "api/v5/account/subaccount/balances";
+    protected const string v5UsersSubaccountFundingBalances = "api/v5/asset/subaccount/balances";
+    protected const string v5UsersSubaccountBills = "api/v5/asset/subaccount/bills";
+    protected const string v5UsersSubaccountTransfer = "api/v5/asset/subaccount/transfer";
 
     internal OKXSubAccountRestApiClient(OKXRestApiClient root) : base(root)
     {
@@ -41,17 +41,15 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
         parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
 
-        return await SendOKXRequest<IEnumerable<OkxSubAccount>>(RootClient.GetUri(Endpoints_V5_SubAccount_List), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxSubAccount>>(GetUri(v5UsersSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
     /// applies to master accounts only
     /// </summary>
-    /// <param name="password">Funds password of the master account</param>
     /// <param name="subAccountName">Sub Account Name</param>
     /// <param name="apiKey">APIKey note</param>
     /// <param name="apiLabel">APIKey note</param>
-    /// <param name="permission">APIKey access</param>
     /// <param name="ipAddresses">Link IP addresses, separate with commas if more than one. Support up to 20 IP addresses.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -78,7 +76,7 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         if (permissions.Count > 0)
             parameters.AddOptionalParameter("perm", string.Join(",", permissions));
 
-        return await SendOKXSingleRequest<OkxSubAccountApiKey>(RootClient.GetUri(Endpoints_V5_SubAccount_ResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxSubAccountApiKey>(GetUri(v5UsersSubaccountResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -96,7 +94,7 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
             {"subAcct", subAccountName },
         };
 
-        return await SendOKXSingleRequest<OkxSubAccountTradingBalance>(RootClient.GetUri(Endpoints_V5_SubAccount_TradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxSubAccountTradingBalance>(GetUri(v5UsersSubaccountTradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -114,12 +112,12 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
     {
         var parameters = new Dictionary<string, object>
         {
-            {"subAcct", subAccountName },
+            { "subAcct", subAccountName },
         };
 
         parameters.AddOptionalParameter("ccy", currency);
 
-        return await SendOKXSingleRequest<OkxSubAccountFundingBalance>(RootClient.GetUri(Endpoints_V5_SubAccount_FundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -151,7 +149,7 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
         parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
 
-        return await SendOKXRequest<IEnumerable<OkxSubAccountBill>>(RootClient.GetUri(Endpoints_V5_SubAccount_Bills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxSubAccountBill>>(GetUri(v5UsersSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -172,6 +170,8 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         OkxAccount toAccount,
         string fromSubAccountName,
         string toSubAccountName,
+        bool? loanTrans = null,
+        bool? omitPosRisk = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -183,12 +183,15 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
             {"fromSubAccount", fromSubAccountName },
             {"toSubAccount", toSubAccountName },
         };
+        parameters.AddOptionalParameter("loanTrans", loanTrans);
+        parameters.AddOptionalParameter("omitPosRisk", omitPosRisk);
 
-        return await SendOKXSingleRequest<OkxSubAccountTransfer>(RootClient.GetUri(Endpoints_V5_SubAccount_Transfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     // TODO: Set Permission Of Transfer Out
     // TODO: Get custody trading sub-account list
+    // TODO: Get the user's affiliate rebate information
     #endregion
 
 }

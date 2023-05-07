@@ -6,5 +6,5 @@ public class OkxLightningWithdrawal
     public DateTime Time { get; set; }
 
     [JsonProperty("wdId")]
-    public string WithdrawalId { get; set; }
+    public long WithdrawalId { get; set; }
 }

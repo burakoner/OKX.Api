@@ -2,13 +2,18 @@
 
 public enum OkxWithdrawalState
 {
-    PendingCancel,
+    Canceling,
     Canceled,
     Failed,
     Pending,
-    Sending,
-    Sent,
-    AwaitingEmailVerification,
-    AwaitingManualVerification,
-    AwaitingIdentityVerification,
+    Withdrawing,
+    WithdrawSuccess,
+    Approved,
+    WaitingTransfer,
+    WaitingManualReview04,
+    WaitingManualReview05,
+    WaitingManualReview06,
+    WaitingManualReview08,
+    WaitingManualReview09,
+    WaitingManualReview12,
 }

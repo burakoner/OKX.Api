@@ -20,42 +20,48 @@ public class OkxAccountPositionRiskBalanceData
     [JsonProperty("ccy")]
     public string Currency { get; set; }
 
-    [JsonProperty("disEq")]
-    public decimal? DiscountEquity { get; set; }
-
     [JsonProperty("eq")]
     public decimal? Equity { get; set; }
+
+    [JsonProperty("disEq")]
+    public decimal? DiscountEquity { get; set; }
 }
 
 public class OkxAccountPositionRiskPositionData
 {
-    [JsonProperty("ccy")]
-    public string Currency { get; set; }
-
-    [JsonProperty("instId")]
-    public string Instrument { get; set; }
-
     [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
     public OkxMarginMode MarginMode { get; set; }
 
+    [JsonProperty("posId")]
+    public long PositionId { get; set; }
+
+    [JsonProperty("instId")]
+    public string Instrument { get; set; }
+
+    [JsonProperty("pos")]
+    public decimal? Quantity { get; set; }
+
+    [JsonProperty("baseBal")]
+    public decimal? BaseBalance { get; set; }
+    
+    [JsonProperty("quoteBal")]
+    public decimal? QuoteBalance { get; set; }
+
+    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
+    public OkxPositionSide PositionSide { get; set; }
+
+    [JsonProperty("posCcy")]
+    public string PositionCurrency { get; set; }
+
+    [JsonProperty("ccy")]
+    public string Currency { get; set; }
+
     [JsonProperty("notionalCcy")]
     public decimal? NotionalCcy { get; set; }
 
     [JsonProperty("notionalUsd")]
     public decimal? NotionalUsd { get; set; }
-
-    [JsonProperty("pos")]
-    public decimal? Quantity { get; set; }
-
-    [JsonProperty("posCcy")]
-    public string PositionCurrency { get; set; }
-
-    [JsonProperty("posId")]
-    public long PositionId { get; set; }
-
-    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-    public OkxPositionSide PositionSide { get; set; }
 }

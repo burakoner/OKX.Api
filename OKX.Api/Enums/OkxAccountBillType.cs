@@ -14,4 +14,9 @@ public enum OkxAccountBillType
     Clawback,
     SystemTokenConversion,
     StrategyTransfer,
+    DDH,
+    BlockTrade,
+    QuickMargin,
+    ProfitSharing,
+    Repay
 }

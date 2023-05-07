@@ -8,6 +8,6 @@ public class OkxOrderPlaceResponse : OkxRestApiResponseModel
     [JsonProperty("clOrdId")]
     public string ClientOrderId { get; set; }
 
-    [JsonProperty("tag")]
-    public string Tag { get; set; }
+    //[JsonProperty("tag")]
+    //public string Tag { get; set; }
 }

@@ -9,5 +9,6 @@ internal class MarginTransferModeConverter : BaseConverter<OkxMarginTransferMode
     {
         new KeyValuePair<OkxMarginTransferMode, string>(OkxMarginTransferMode.AutoTransfer, "automatic"),
         new KeyValuePair<OkxMarginTransferMode, string>(OkxMarginTransferMode.ManualTransfer, "autonomy"),
+        new KeyValuePair<OkxMarginTransferMode, string>(OkxMarginTransferMode.QuickMarginMode, "quick_margin"),
     };
 }

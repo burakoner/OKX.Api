@@ -8,6 +8,6 @@ internal class ConvertUnitConverter : BaseConverter<OkxConvertUnit>
     protected override List<KeyValuePair<OkxConvertUnit, string>> Mapping => new List<KeyValuePair<OkxConvertUnit, string>>
     {
         new KeyValuePair<OkxConvertUnit, string>(OkxConvertUnit.Coin, "coin"),
-        new KeyValuePair<OkxConvertUnit, string>(OkxConvertUnit.Usdt, "usdt"),
+        new KeyValuePair<OkxConvertUnit, string>(OkxConvertUnit.Usds, "usds"),
     };
 }

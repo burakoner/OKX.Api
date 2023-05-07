@@ -38,14 +38,14 @@ public class OkxAccountBalanceDetail
     [JsonProperty("ccy")]
     public string Currency { get; set; }
 
-    [JsonProperty("uTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime UpdateTime { get; set; }
-
     [JsonProperty("eq")]
     public decimal? Equity { get; set; }
 
     [JsonProperty("cashBal")]
     public decimal? CashBalance { get; set; }
+
+    [JsonProperty("uTime"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime UpdateTime { get; set; }
 
     [JsonProperty("isoEq")]
     public decimal? IsolatedMarginEquity { get; set; }
@@ -71,11 +71,8 @@ public class OkxAccountBalanceDetail
     [JsonProperty("upl")]
     public decimal? UnrealizedProfitAndLoss { get; set; }
 
-    [JsonProperty("uplLib")]
+    [JsonProperty("uplLiab")]
     public decimal? UnrealizedProfitAndLossLiabilities { get; set; }
-
-    [JsonProperty("isoUpl")]
-    public decimal? IsolatedUnrealizedProfitAndLoss { get; set; }
 
     [JsonProperty("crossLiab")]
     public decimal? CrossLiabilities { get; set; }
@@ -103,4 +100,10 @@ public class OkxAccountBalanceDetail
 
     [JsonProperty("stgyEq")]
     public decimal? StrategyEquity { get; set; }
+
+    [JsonProperty("isoUpl")]
+    public decimal? IsolatedUnrealizedProfitAndLoss { get; set; }
+
+    [JsonProperty("spotInUseAmt")]
+    public decimal? SpotInUseAmount { get; set; }
 }

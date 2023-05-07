@@ -19,5 +19,10 @@ internal class AccountBillTypeConverter : BaseConverter<OkxAccountBillType>
         new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.Clawback, "10"),
         new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.SystemTokenConversion, "11"),
         new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.StrategyTransfer, "12"),
+        new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.DDH, "13"),
+        new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.BlockTrade, "14"),
+        new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.QuickMargin, "15"),
+        new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.ProfitSharing, "18"),
+        new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.Repay, "22"),
     };
-}
+}   

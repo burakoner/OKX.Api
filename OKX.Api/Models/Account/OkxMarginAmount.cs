@@ -9,8 +9,14 @@ public class OkxMarginAmount
     public OkxPositionSide? PositionSide { get; set; }
 
     [JsonProperty("amt")]
-    public decimal? amt { get; set; }
+    public decimal? Amount { get; set; }
 
     [JsonProperty("type"), JsonConverter(typeof(MarginAddReduceConverter))]
     public OkxMarginAddReduce? MarginAddReduce { get; set; }
+
+    [JsonProperty("leverage")]
+    public decimal? Leverage { get; set; }
+
+    [JsonProperty("ccy")]
+    public string Currency { get; set; }
 }
