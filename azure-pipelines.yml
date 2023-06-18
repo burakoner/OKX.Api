@@ -23,14 +23,16 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: '**/*.sln'
+    restoreSolution: 'OKX Api Client.sln'
     feedsToUse: 'select'
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: '**/*.csproj'
-    versioningScheme: 'off'
-    includeNuGetOrg: false
+    packagesToPack: 'OKX.Api/OKX.Api.csproj'
+    versioningScheme: byPrereleaseNumber
+    majorVersion: '$(Major)'
+    minorVersion: '$(Minor)'
+    patchVersion: '$(Patch)'
 - task: NuGetCommand@2
   inputs:
     command: 'push'
