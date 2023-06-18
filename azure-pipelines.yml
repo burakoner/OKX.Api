@@ -10,29 +10,39 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: 'OKX Api Client.sln'
+  solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
 - task: NuGetToolInstaller@1
 
+
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-- task: NuGetCommand@2
+
+
+- task: VSBuild@1
   inputs:
-    command: 'restore'
-    restoreSolution: 'OKX Api Client.sln'
-    feedsToUse: 'select'
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: 'OKX.Api/OKX.Api.csproj'
-    versioningScheme: byPrereleaseNumber
-    majorVersion: '$(Major)'
-    minorVersion: '$(Minor)'
-    patchVersion: '$(Patch)'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
+
+
 - task: NuGetCommand@2
   inputs:
     command: 'push'
