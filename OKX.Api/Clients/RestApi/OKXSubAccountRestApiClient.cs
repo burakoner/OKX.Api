@@ -9,6 +9,8 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
     protected const string v5UsersSubaccountFundingBalances = "api/v5/asset/subaccount/balances";
     protected const string v5UsersSubaccountBills = "api/v5/asset/subaccount/bills";
     protected const string v5UsersSubaccountTransfer = "api/v5/asset/subaccount/transfer";
+    protected const string v5BrokerCreateSubaccount = "api/v5/broker/nd/create-subaccount";
+    protected const string v5BrokerCreateAddressSubacount = "api/v5/asset/broker/nd/subaccount-deposit-address";
 
     internal OKXSubAccountRestApiClient(OKXRestApiClient root) : base(root)
     {
@@ -188,7 +190,48 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
 
         return await SendOKXSingleRequest<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
+    /// <summary>
+    /// Create a sub-account from the broker master account.
+    /// </summary>
+    /// <param name="subAcct">Sub-account name 6-20 letters(case sensitive) or numbers, which can be pure letters and not pure numbers.</param>
+    /// <param name="Label">Sub-account notes No more than 50 letters(case sensitive) or numbers, which can be pure letters or pure numbers.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxSubCreateAccount>> BrokerCreateSubAccountAsync(string subAcct,string Label, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            {"subAcct",subAcct },
+            {"label", Label}
+        };
+        return await SendOKXSingleRequest<OkxSubCreateAccount>(GetUri(v5BrokerCreateSubaccount), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+    }
+    /// <summary>
+    /// Create deposit address for sub-account
+    /// </summary>
+    /// <param name="subAcct">Sub-account name</param>
+    /// <param name="currency">Currency, e.g. USDT</param>
+    /// <param name="chain">Chain name, e.g. USDT-ERC20, USDT-TRC20</param>
+    /// <param name="toAccount">The beneficiary account</param>
+    /// <param name="depositAddressType">Deposit address type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxSubAccountCreateAddress>> BrokerCreateAddressSubAccount(string subAcct,string currency,string chain,
+        OkxAccount toAccount,
+        OkxDepositAddressType depositAddressType,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            {"ccy", currency },
+            {"subAcct",subAcct },
+            {"chain",chain },
+            {"to", JsonConvert.SerializeObject(toAccount, new AccountConverter(false)) },
+            {"addrType", JsonConvert.SerializeObject(depositAddressType, new DepositAddressTypeConverter(false)) },
+        };
+        return await SendOKXSingleRequest<OkxSubAccountCreateAddress>(GetUri(v5BrokerCreateAddressSubacount), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
 
+    }
     // TODO: Set Permission Of Transfer Out
     // TODO: Get custody trading sub-account list
     // TODO: Get the user's affiliate rebate information
