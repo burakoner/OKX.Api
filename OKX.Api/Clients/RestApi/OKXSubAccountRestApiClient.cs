@@ -120,6 +120,8 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         return await SendOKXSingleRequest<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
+    // TODO: Get sub-account maximum withdrawals
+
     /// <summary>
     /// applies to master accounts only
     /// </summary>
@@ -151,6 +153,8 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
 
         return await SendOKXRequest<IEnumerable<OkxSubAccountBill>>(GetUri(v5UsersSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
+
+    // TODO: Get history of managed sub-account transfer
 
     /// <summary>
     /// applies to master accounts only

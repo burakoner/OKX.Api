@@ -6,6 +6,7 @@ public enum OkxAlgoOrderState
     Pause,
     Effective,
     PartiallyEffective,
+    PartiallyFailed,
     Canceled,
     Failed,
 }

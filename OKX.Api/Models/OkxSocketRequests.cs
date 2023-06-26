@@ -1,15 +1,4 @@
-﻿/* Unmerged change from project 'OKX.Api (netstandard2.0)'
-Before:
-namespace OKX.Api.Models.Core;
-After:
-using OKX;
-using OKX.Api;
-using OKX.Api.Models;
-using OKX.Api.Models;
-using OKX.Api.Models.Core;
-*/
-
-namespace OKX.Api.Models;
+﻿namespace OKX.Api.Models;
 
 public class OkxSocketRequest
 {
@@ -30,42 +19,6 @@ public class OkxSocketRequest
         Operation = op;
         Arguments = args.ToList();
     }
-
-    public OkxSocketRequest(OkxSocketOperation op, string channel)
-    {
-        Operation = op;
-        Arguments = new List<OkxSocketRequestArgument>();
-        Arguments.Add(new OkxSocketRequestArgument(channel));
-    }
-
-    public OkxSocketRequest(OkxSocketOperation op, string channel, string instrumentId)
-    {
-        Operation = op;
-        Arguments = new List<OkxSocketRequestArgument>();
-        Arguments.Add(new OkxSocketRequestArgument(channel, instrumentId));
-    }
-
-    public OkxSocketRequest(OkxSocketOperation op, string channel, string underlying, string instrumentId)
-    {
-        Operation = op;
-        Arguments = new List<OkxSocketRequestArgument>();
-        Arguments.Add(new OkxSocketRequestArgument(channel, underlying, instrumentId));
-    }
-
-    public OkxSocketRequest(OkxSocketOperation op, string channel, OkxInstrumentType instrumentType)
-    {
-        Operation = op;
-        Arguments = new List<OkxSocketRequestArgument>();
-        Arguments.Add(new OkxSocketRequestArgument(channel, instrumentType));
-    }
-
-    public OkxSocketRequest(OkxSocketOperation op, string channel, OkxInstrumentType instrumentType, string underlying)
-    {
-        Operation = op;
-        Arguments = new List<OkxSocketRequestArgument>();
-        Arguments.Add(new OkxSocketRequestArgument(channel, instrumentType, underlying));
-    }
-
 }
 
 public class OkxSocketRequestArgument
@@ -73,8 +26,8 @@ public class OkxSocketRequestArgument
     [JsonProperty("channel")]
     public string Channel { get; set; }
 
-    [JsonProperty("uly", NullValueHandling = NullValueHandling.Ignore)]
-    public string Underlying { get; set; }
+    [JsonProperty("instFamily", NullValueHandling = NullValueHandling.Ignore)]
+    public string InstrumentFamily { get; set; }
 
     [JsonProperty("instId", NullValueHandling = NullValueHandling.Ignore)]
     public string InstrumentId { get; set; }
@@ -84,37 +37,6 @@ public class OkxSocketRequestArgument
 
     public OkxSocketRequestArgument()
     {
-    }
-
-    public OkxSocketRequestArgument(string channel)
-    {
-        if (!string.IsNullOrEmpty(channel)) Channel = channel;
-    }
-
-    public OkxSocketRequestArgument(string channel, string instrumentId)
-    {
-        if (!string.IsNullOrEmpty(channel)) Channel = channel;
-        if (!string.IsNullOrEmpty(instrumentId)) InstrumentId = instrumentId;
-    }
-
-    public OkxSocketRequestArgument(string channel, string underlying, string instrumentId)
-    {
-        if (!string.IsNullOrEmpty(channel)) Channel = channel;
-        if (!string.IsNullOrEmpty(underlying)) Underlying = underlying;
-        if (!string.IsNullOrEmpty(instrumentId)) InstrumentId = instrumentId;
-    }
-
-    public OkxSocketRequestArgument(string channel, OkxInstrumentType? instrumentType)
-    {
-        if (!string.IsNullOrEmpty(channel)) Channel = channel;
-        if (instrumentType != null) InstrumentType = instrumentType;
-    }
-
-    public OkxSocketRequestArgument(string channel, OkxInstrumentType? instrumentType, string underlying)
-    {
-        if (!string.IsNullOrEmpty(channel)) Channel = channel;
-        if (!string.IsNullOrEmpty(underlying)) Underlying = underlying;
-        if (instrumentType != null) InstrumentType = instrumentType;
     }
 }
 

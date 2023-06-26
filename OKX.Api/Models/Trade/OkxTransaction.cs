@@ -28,6 +28,9 @@ public class OkxTransaction
 
     [JsonProperty("fillSz")]
     public decimal? FillQuantity { get; set; }
+    
+    [JsonProperty("fillIdxPx")]
+    public decimal? FillIndexPrice { get; set; }
 
     [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
     public OkxOrderSide OrderSide { get; set; }

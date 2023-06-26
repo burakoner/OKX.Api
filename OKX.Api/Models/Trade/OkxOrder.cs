@@ -256,4 +256,23 @@ public class OkxOrder
     /// </summary>
     [JsonProperty("cTime"), JsonConverter(typeof(DateTimeConverter))]
     public DateTime CreateTime { get; set; }
+
+    /// <summary>
+    /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.
+    /// Numerical integers defined by user in the range of 1<= x<= 999999999
+    /// </summary>
+    [JsonProperty("stpId", NullValueHandling = NullValueHandling.Ignore)]
+    public long? SelfTradePreventionId { get; set; }
+
+    /// <summary>
+    /// Self trade prevention mode
+    /// Default to cancel maker
+    /// cancel_maker,cancel_taker, cancel_both
+    /// Cancel both does not support FOK.
+    /// </summary>
+    [JsonProperty("stpMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(SelfTradePreventionModeConverter))]
+    public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
+
+    [JsonProperty("attachAlgoClOrdId", NullValueHandling = NullValueHandling.Ignore)]
+    public long? AttachAlgoClientOrderOrderId { get; set; }
 }

@@ -75,6 +75,10 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         decimal? slTriggerPx = null,
         decimal? slOrdPx = null,
 
+        string attachAlgoClientOrderOrderId = null,
+
+        long? selfTradePreventionId = null,
+        OkxSelfTradePreventionMode? selfTradePreventionMode = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -102,6 +106,11 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(slTriggerPxType, new AlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("slTriggerPx", slTriggerPx?.ToOkxString());
         parameters.AddOptionalParameter("slOrdPx", slOrdPx?.ToOkxString());
+
+        parameters.AddOptionalParameter("attachAlgoClOrdId", attachAlgoClientOrderOrderId);
+
+        parameters.AddOptionalParameter("stpId", selfTradePreventionId?.ToOkxString());
+        parameters.AddOptionalParameter("stpMode", JsonConvert.SerializeObject(selfTradePreventionMode, new SelfTradePreventionModeConverter(false)));
 
         return await SendOKXSingleRequest<OkxOrderPlaceResponse>(GetUri(v5TradeOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }

@@ -43,9 +43,12 @@ public class OkxPosition
 
     [JsonProperty("avgPx")]
     public decimal? AveragePrice { get; set; }
-    
+
     [JsonProperty("markPx")]
     public decimal? MarkPrice { get; set; }
+
+    [JsonProperty("idxPx")]
+    public decimal? IndexPrice { get; set; }
 
     [JsonProperty("upl")]
     public decimal? UnrealizedProfitAndLoss { get; set; }

@@ -223,26 +223,26 @@ namespace OKX.Api.Examples
             var subs = new List<UpdateSubscription>();
 
             /* Instruments (Public) */
-            await ws.SubscribeToInstrumentsAsync(OkxInstrumentType.Spot, (data) =>
+            await ws.SubscribeToInstrumentsAsync((data) =>
             {
                 if (data != null)
                 {
                     // ... Your logic here
                     Console.WriteLine($"Instrument {data.Instrument} BaseCurrency:{data.BaseCurrency}");
                 }
-            });
+            }, OkxInstrumentType.Spot);
 
             /* Tickers (Public) */
             foreach (var pair in sample_pairs)
             {
-                var subscription = await ws.SubscribeToTickersAsync(pair, (data) =>
+                var subscription = await ws.SubscribeToTickersAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                         Console.WriteLine($"Ticker {data.Instrument} Ask:{data.AskPrice} Bid:{data.BidPrice}");
                     }
-                });
+                }, pair);
                 subs.Add(subscription.Data);
             }
 
@@ -255,142 +255,142 @@ namespace OKX.Api.Examples
             /* Interests (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToInterestsAsync(pair, (data) =>
+                await ws.SubscribeToOpenInterestsAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair);
             }
 
             /* Candlesticks (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToCandlesticksAsync(pair, OkxPeriod.FiveMinutes, (data) =>
+                await ws.SubscribeToCandlesticksAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair, OkxPeriod.FiveMinutes);
             }
 
             /* Trades (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToTradesAsync(pair, (data) =>
+                await ws.SubscribeToTradesAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair);
             }
 
             /* Estimated Price (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToTradesAsync(pair, (data) =>
+                await ws.SubscribeToTradesAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair);
             }
 
             /* Mark Price (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToMarkPriceAsync(pair, (data) =>
+                await ws.SubscribeToMarkPriceAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair);
             }
 
             /* Mark Price Candlesticks (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToMarkPriceCandlesticksAsync(pair, OkxPeriod.FiveMinutes, (data) =>
+                await ws.SubscribeToMarkPriceCandlesticksAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair, OkxPeriod.FiveMinutes);
             }
 
             /* Limit Price (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToPriceLimitAsync(pair, (data) =>
+                await ws.SubscribeToPriceLimitAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair);
             }
 
             /* Order Book (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToOrderBookAsync(pair, OkxOrderBookType.OrderBook, (data) =>
+                await ws.SubscribeToOrderBookAsync((data) =>
                 {
                     if (data != null && data.Asks != null && data.Asks.Count() > 0 && data.Bids != null && data.Bids.Count() > 0)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair, OkxOrderBookType.OrderBook);
             }
 
             /* Option Summary (Public) */
-            await ws.SubscribeToOptionSummaryAsync("USD", (data) =>
+            await ws.SubscribeToOptionSummaryAsync((data) =>
             {
                 if (data != null)
                 {
                     // ... Your logic here
                 }
-            });
+            }, "USD");
 
             /* Funding Rates (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToFundingRatesAsync(pair, (data) =>
+                await ws.SubscribeToFundingRatesAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair);
             }
 
             /* Index Candlesticks (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToIndexCandlesticksAsync(pair, OkxPeriod.FiveMinutes, (data) =>
+                await ws.SubscribeToIndexCandlesticksAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair, OkxPeriod.FiveMinutes);
             }
 
             /* Index Tickers (Public) */
             foreach (var pair in sample_pairs)
             {
-                await ws.SubscribeToIndexTickersAsync(pair, (data) =>
+                await ws.SubscribeToIndexTickersAsync((data) =>
                 {
                     if (data != null)
                     {
                         // ... Your logic here
                     }
-                });
+                }, pair);
             }
 
             /* System Status (Public) */
@@ -412,13 +412,13 @@ namespace OKX.Api.Examples
             });
 
             /* Position Updates (Private) */
-            await ws.SubscribeToPositionUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
+            await ws.SubscribeToPositionUpdatesAsync((data) =>
             {
                 if (data != null)
                 {
                     // ... Your logic here
                 }
-            });
+            }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
             /* Balance And Position Updates (Private) */
             await ws.SubscribeToBalanceAndPositionUpdatesAsync((data) =>
@@ -430,31 +430,31 @@ namespace OKX.Api.Examples
             });
 
             /* Order Updates (Private) */
-            await ws.SubscribeToOrderUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
+            await ws.SubscribeToOrderUpdatesAsync((data) =>
             {
                 if (data != null)
                 {
                     // ... Your logic here
                 }
-            });
+            }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
             /* Algo Order Updates (Private) */
-            await ws.SubscribeToAlgoOrderUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
+            await ws.SubscribeToAlgoOrderUpdatesAsync((data) =>
             {
                 if (data != null)
                 {
                     // ... Your logic here
                 }
-            });
+            }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
             /* Advance Algo Order Updates (Private) */
-            await ws.SubscribeToAdvanceAlgoOrderUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
+            await ws.SubscribeToAdvanceAlgoOrderUpdatesAsync((data) =>
             {
                 if (data != null)
                 {
                     // ... Your logic here
                 }
-            });
+            }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
             #endregion
 
         }

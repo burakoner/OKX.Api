@@ -1,17 +1,4 @@
-﻿/* Unmerged change from project 'OKX.Api (netstandard2.0)'
-Before:
-namespace OKX.Api.Models.Core;
-After:
-using OKX;
-using OKX.Api;
-using OKX.Api.Models;
-using OKX.Api.Models;
-using OKX.Api.Models.Core;
-*/
-
-using OKX.Api.Models.MarketData;
-
-namespace OKX.Api.Models;
+﻿namespace OKX.Api.Models;
 
 public class OkxSocketResponse
 {
@@ -37,13 +24,6 @@ public class OkxSocketResponse
 
 public class OkxSocketUpdateResponse<T> : OkxSocketResponse
 {
-    /*
-    [JsonOptionalProperty]
-    public T Data { get; set; } = default!;
-    [JsonOptionalProperty, JsonProperty("data")]
-    private T Tick { set => Data = value; get => Data; }
-    */
-
     [JsonProperty("data")]
     public T Data { get; set; } = default!;
 }
