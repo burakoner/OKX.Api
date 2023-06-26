@@ -5,10 +5,10 @@ public class OKXBaseRestApiClient : RestApiClient
     // Internal
     internal Log Log { get => this.log; }
     internal TimeSyncState TimeSyncState = new("OKX RestApi");
+    internal CultureInfo CI = CultureInfo.InvariantCulture;
 
     // Root Client
     internal OKXRestApiClient RootClient { get; }
-    internal CultureInfo CI { get { return RootClient.CI; } }
     internal new OKXRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
 
     internal OKXBaseRestApiClient(OKXRestApiClient root) : base("OKX RestApi", root.ClientOptions)

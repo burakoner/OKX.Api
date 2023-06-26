@@ -132,9 +132,9 @@ public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
             { "instId", instrumentId },
             { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
         };
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         var result = await SendOKXRequest<IEnumerable<OkxCandlestick>>(GetUri(v5MarketCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
         if (!result.Success) return result;
@@ -161,9 +161,9 @@ public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
             { "instId", instrumentId },
             { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
         };
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         var result = await SendOKXRequest<IEnumerable<OkxCandlestick>>(GetUri(v5MarketHistoryCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
         if (!result.Success) return result;
@@ -190,9 +190,9 @@ public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
             { "instId", instrumentId },
             { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
         };
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         var result = await SendOKXRequest<IEnumerable<OkxIndexCandlestick>>(GetUri(v5MarketIndexCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
         if (!result.Success) return result;
@@ -221,9 +221,9 @@ public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
             { "instId", instrumentId },
             { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
         };
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         var result = await SendOKXRequest<IEnumerable<OkxMarkCandlestick>>(GetUri(v5MarketMarkPriceCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
         if (!result.Success) return result;
@@ -248,7 +248,7 @@ public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
         {
             { "instId", instrumentId },
         };
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxTrade>>(GetUri(v5MarketTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -280,9 +280,9 @@ public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
         };
 
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new TradeHistoryPaginationTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxTrade>>(GetUri(v5MarketTradesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }

@@ -68,6 +68,25 @@ public static class OkxExtensions
     }
     #endregion
 
+    #region ToOkxString
+    public static string ToOkxString(this object @this)
+    {
+        bool isNull = @this == null ? true : false;
+        bool isDBNull = @this != null && @this.GetType() == typeof(DBNull) ? true : false;
+
+        if (isNull) return string.Empty;
+        if (isDBNull) return string.Empty;
+        if (@this is float s02) return s02.ToString(OkxGlobals.OkxCultureInfo);
+        if (@this is double s03) return s03.ToString(OkxGlobals.OkxCultureInfo);
+        if (@this is decimal s01) return s01.ToString(OkxGlobals.OkxCultureInfo);
+        if (@this is short s06) return s06.ToString(OkxGlobals.OkxCultureInfo);
+        if (@this is int s04) return s04.ToString(OkxGlobals.OkxCultureInfo);
+        if (@this is long s05) return s05.ToString(OkxGlobals.OkxCultureInfo);
+
+        return @this?.ToString();
+    }
+    #endregion
+
     #region ToNumber
     public static int ToInt(this object @this)
     {

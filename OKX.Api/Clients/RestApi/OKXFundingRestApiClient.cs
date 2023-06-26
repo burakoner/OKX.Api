@@ -78,7 +78,7 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
     {
         var parameters = new Dictionary<string, object> {
             { "ccy",currency},
-            { "amt",amount.ToString(OkxGlobals.OkxCultureInfo)},
+            { "amt",amount.ToOkxString()},
             { "from", JsonConvert.SerializeObject(fromAccount, new AccountConverter(false)) },
             { "to", JsonConvert.SerializeObject(toAccount, new AccountConverter(false)) },
             { "type", JsonConvert.SerializeObject(type, new TransferTypeConverter(false)) },
@@ -118,9 +118,9 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("clientId", clientOrderId);
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new FundingBillTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxFundingBill>>(GetUri(v5AssetBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -142,7 +142,7 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
         var parameters = new Dictionary<string, object>
         {
             { "ccy", currency },
-            { "amt", amount.ToString(OkxGlobals.OkxCultureInfo) },
+            { "amt", amount.ToOkxString() },
         };
         parameters.AddOptionalParameter("to", JsonConvert.SerializeObject(account, new LightningDepositAccountConverter(false)));
 
@@ -198,9 +198,9 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("txId", transactionId);
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new DepositTypeConverter(false)));
         parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new DepositStateConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxDepositHistory>>(GetUri(v5AssetDepositHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -231,10 +231,10 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
     {
         var parameters = new Dictionary<string, object> {
             { "ccy",currency},
-            { "amt",amount.ToString(OkxGlobals.OkxCultureInfo)},
+            { "amt",amount.ToOkxString()},
             { "dest", JsonConvert.SerializeObject(destination, new WithdrawalDestinationConverter(false)) },
             { "toAddr",toAddress},
-            { "fee",fee   .ToString(OkxGlobals.OkxCultureInfo)},
+            { "fee",fee   .ToOkxString()},
         };
         parameters.AddOptionalParameter("chain", chain);
         parameters.AddOptionalParameter("areaCode", areaCode);
@@ -318,9 +318,9 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("txId", transactionId);
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new WithdrawalTypeConverter(false)));
         parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new WithdrawalStateConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxWithdrawalHistory>>(GetUri(v5AssetWithdrawalHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -353,10 +353,10 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
     {
         var parameters = new Dictionary<string, object> {
             { "ccy",currency},
-            { "amt",amount.ToString(OkxGlobals.OkxCultureInfo)},
+            { "amt",amount.ToOkxString()},
             { "side", JsonConvert.SerializeObject(side, new SavingActionSideConverter(false)) },
         };
-        parameters.AddOptionalParameter("rate", rate?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("rate", rate?.ToOkxString());
 
         return await SendOKXSingleRequest<OkxSavingActionResponse>(GetUri(v5AssetSavingPurchaseRedempt), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }

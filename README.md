@@ -184,6 +184,77 @@ var trade_17 = await api.Trade.GetAlgoOrderListAsync(OkxAlgoOrderType.OCO);
 var trade_18 = await api.Trade.GetAlgoOrderHistoryAsync(OkxAlgoOrderType.Conditional);
 ```
 
+**Grid Trading Endpoints (Signed)**
+```csharp
+var api = new OKXRestApiClient();
+api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
+var grid_01 = await api.GridTrading.PlaceAlgoOrderAsync(new OkxGridPlaceOrderRequest
+{
+    InstrumentId = "BTC-USDT",
+    AlgoOrderType = OkxGridAlgoOrderType.SpotGrid,
+    MaximumPrice = 5000,
+    MinimumPrice = 400,
+    GridNumber = 10,
+    GridRunType = OkxGridRunType.Arithmetic,
+    QuoteSize = 25,
+    TriggerParameters = new List<OkxGridPlaceTriggerParameters>
+    {
+        new OkxGridPlaceTriggerParameters
+        {
+            TriggerAction = OkxGridAlgoTriggerAction.Stop,
+            TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
+            TriggerPrice = "1000"
+        }
+    }
+});
+var grid_02 = await api.GridTrading.PlaceAlgoOrderAsync(
+    instrumentId: "BTC-USDT-SWAP",
+    algoOrderType: OkxGridAlgoOrderType.ContractGrid,
+    maximumPrice: 5000,
+    minimumPrice: 400,
+    gridNumber: 10,
+    gridRunType: OkxGridRunType.Arithmetic,
+    size: 200,
+    contractGridDirection: OkxGridContractDirection.Long,
+    leverage: 2,
+    triggerParameters: new List<OkxGridPlaceTriggerParameters>
+    {
+        new OkxGridPlaceTriggerParameters
+        {
+            TriggerAction = OkxGridAlgoTriggerAction.Start,
+            TriggerStrategy =  OkxGridAlgoTriggerStrategy.Rsi,
+            TimeFrame = OkxGridAlgoTimeFrame.ThirtyMinutes,
+            Threshold = "10",
+            TriggerCondition = OkxGridAlgoTriggerCondition.Cross,
+            TimePeriod = "14"
+        },
+        new OkxGridPlaceTriggerParameters
+        {
+            TriggerAction = OkxGridAlgoTriggerAction.Stop,
+            TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
+            TriggerPrice = "1000",
+            ContractAlgoStopType = OkxGridContractAlgoStopType.KeepPositions,
+        }
+    }
+);
+var grid_03 = await api.GridTrading.AmendAlgoOrderAsync(448965992920907776, "BTC-USDT-SWAP", 1200);
+var grid_04 = await api.GridTrading.StopAlgoOrderAsync(448965992920907776, "BTC-USDT", OkxGridAlgoOrderType.SpotGrid, OkxGridSpotAlgoStopType.SellBaseCurrency);
+var grid_05 = await api.GridTrading.CloseContractPositionAsync(448965992920907776, true);
+var grid_06 = await api.GridTrading.CancelCloseContractPositionAsync(448965992920907776, 570627699870375936);
+var grid_07 = await api.GridTrading.TriggerAlgoOrderAsync(448965992920907776);
+var grid_08 = await api.GridTrading.GetOpenAlgoOrdersAsync(OkxGridAlgoOrderType.SpotGrid);
+var grid_09 = await api.GridTrading.GetAlgoOrdersHistoryAsync(OkxGridAlgoOrderType.SpotGrid);
+var grid_10 = await api.GridTrading.GetAlgoOrderAsync(OkxGridAlgoOrderType.SpotGrid, 448965992920907776);
+var grid_11 = await api.GridTrading.GetAlgoSubOrdersAsync(OkxGridAlgoOrderType.SpotGrid, 448965992920907776, OkxGridAlgoSubOrderType.Live);
+var grid_12 = await api.GridTrading.GetAlgoPositionsAsync(OkxGridAlgoOrderType.ContractGrid, 448965992920907776);
+var grid_13 = await api.GridTrading.GetWithdrawIncomeAsync(448965992920907776);
+var grid_14 = await api.GridTrading.ComputeMarginBalanceAsync(448965992920907776, OkxMarginAddReduce.Add, 10.0m);
+var grid_15 = await api.GridTrading.AdjustMarginBalanceAsync(448965992920907776, OkxMarginAddReduce.Add, 10.0m);
+var grid_16 = await api.GridTrading.GetAiParameterAsync( OkxGridAlgoOrderType.SpotGrid, "BTC-USDT");
+var grid_17 = await api.GridTrading.ComputeMinimumInvestmentAsync("ETH-USDT",  OkxGridAlgoOrderType.SpotGrid, 5000, 3000, 50, OkxGridRunType.Arithmetic);
+var grid_18 = await api.GridTrading.RsiBackTestingAsync("BTC-USDT", OkxGridAlgoTimeFrame.ThreeMinutes, 30, 14);
+```
+            
 ## Websocket Api Examples
 The OKX.Api socket client provides several socket endpoint to which can be subscribed.
 

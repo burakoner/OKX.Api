@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Clients.RestApi;
+﻿using OKX.Api.Helpers;
+
+namespace OKX.Api.Clients.RestApi;
 
 public class OKXAccountRestApiClient : OKXBaseRestApiClient
 {
@@ -96,9 +98,9 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)));
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new ClosingPositionTypeConverter(false)));
         parameters.AddOptionalParameter("posId", positionId);
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxPositionHistory>>(GetUri(v5AccountPositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -155,11 +157,11 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("ctType", JsonConvert.SerializeObject(contractType, new ContractTypeConverter(false)));
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(billType, new AccountBillTypeConverter(false)));
         parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new AccountBillSubTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("begin", begin?.ToString());
-        parameters.AddOptionalParameter("end", end?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxAccountBill>>(GetUri(v5AccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -202,11 +204,11 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("ctType", JsonConvert.SerializeObject(contractType, new ContractTypeConverter(false)));
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(billType, new AccountBillTypeConverter(false)));
         parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new AccountBillSubTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("begin", begin?.ToString());
-        parameters.AddOptionalParameter("end", end?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxAccountBill>>(GetUri(v5AccountBillsArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -268,7 +270,7 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
             throw new ArgumentException("marginMode is required");
 
         var parameters = new Dictionary<string, object> {
-            {"lever", leverage.ToString(CI) },
+            {"lever", leverage.ToOkxString() },
             {"mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)) },
         };
         parameters.AddOptionalParameter("ccy", currency);
@@ -301,8 +303,8 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
             { "tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
         };
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("px", price?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("leverage", leverage?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("px", price?.ToOkxString());
+        parameters.AddOptionalParameter("leverage", leverage?.ToOkxString());
         parameters.AddOptionalParameter("unSpotOffset", unSpotOffset);
 
         return await SendOKXRequest<IEnumerable<OkxMaximumAmount>>(GetUri(v5AccountMaxSize), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
@@ -361,7 +363,7 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
             { "instId", instrumentId },
             { "posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)) },
             { "type", JsonConvert.SerializeObject(marginAddReduce, new MarginAddReduceConverter(false)) },
-            { "amt", amount.ToString(OkxGlobals.OkxCultureInfo) },
+            { "amt", amount.ToOkxString() },
         };
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("auto", auto);
@@ -466,9 +468,9 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxInterestAccrued>>(GetUri(v5AccountInterestAccrued), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
