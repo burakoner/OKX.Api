@@ -512,6 +512,10 @@ await ws.SubscribeToAdvanceAlgoOrderUpdatesAsync((data) =>
 ```
 
 ## Release Notes
+* Version 1.1.7 - 26 Jun 2023
+    * It's possible to subscribe multiple symbols at once on WebSocket
+    * Fixed issue at https://github.com/burakoner/OKX.Api/issues/16
+
 * Version 1.1.6 - 26 Jun 2023
     * Updated All Methods and Models, synced with OKX Api 2023-06-20 version
     * OKXStreamClient has some parameter and parameter order changes

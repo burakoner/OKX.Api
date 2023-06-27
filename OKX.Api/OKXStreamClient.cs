@@ -289,6 +289,16 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToInstrumentsAsync(Action<OkxInstrument> onData, OkxInstrumentType instrumentType, CancellationToken ct = default)
+        => await SubscribeToInstrumentsAsync(onData, new OkxInstrumentType[] { instrumentType }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// The full instrument list will be pushed for the first time after subscription. Subsequently, the instruments will be pushed if there's any change to the instrument’s state (such as delivery of FUTURES, exercise of OPTION, listing of new contracts / trading pairs, trading suspension, etc.).
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentTypes">List of Instrument Type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToInstrumentsAsync(Action<OkxInstrument> onData, IEnumerable<OkxInstrumentType> instrumentTypes, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxInstrument>>>>(data =>
         {
@@ -296,11 +306,13 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentType in instrumentTypes) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "instruments",
             InstrumentType = instrumentType,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -312,6 +324,16 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToTickersAsync(Action<OkxTicker> onData, string instrumentId, CancellationToken ct = default)
+        => await SubscribeToTickersAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the last traded price, bid price, ask price and 24-hour trading volume of instruments. Data will be pushed every 100 ms.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToTickersAsync(Action<OkxTicker> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxTicker>>>>(data =>
         {
@@ -319,11 +341,13 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "tickers",
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -334,6 +358,15 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="instrumentId">Instrument ID</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOpenInterestsAsync(Action<OkxOpenInterest> onData, string instrumentId, CancellationToken ct = default)
+        => await SubscribeToOpenInterestsAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the open interest. Data will by pushed every 3 seconds.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">Lİst of Instrument ID</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOpenInterestsAsync(Action<OkxOpenInterest> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxOpenInterest>>>>(data =>
         {
@@ -341,11 +374,13 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "open-interest",
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -358,21 +393,34 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToCandlesticksAsync(Action<OkxCandlestick> onData, string instrumentId, OkxPeriod period, CancellationToken ct = default)
+        => await SubscribeToCandlesticksAsync(onData, new string[] { instrumentId }, period, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the candlesticks data of an instrument. Data will be pushed every 500 ms.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="period"></param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToCandlesticksAsync(Action<OkxCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxCandlestick>>>>(data =>
         {
             foreach (var d in data.Data.Data)
             {
-                d.Instrument = instrumentId;
+                if (instrumentIds.Count() == 1) d.Instrument = instrumentIds.FirstOrDefault();
                 onData(d);
             }
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "candle" + JsonConvert.SerializeObject(period, new PeriodConverter(false)),
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -384,6 +432,16 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToTradesAsync(Action<OkxTrade> onData, string instrumentId, CancellationToken ct = default)
+        => await SubscribeToTradesAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the recent trades data. Data will be pushed whenever there is a trade.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToTradesAsync(Action<OkxTrade> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxTrade>>>>(data =>
         {
@@ -391,11 +449,13 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "trades",
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -410,19 +470,33 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToEstimatedPriceAsync(Action<OkxEstimatedPrice> onData, OkxInstrumentType instrumentType, string instrumentFamily = null, string instrumentId = null, CancellationToken ct = default)
+        => await SubscribeToEstimatedPriceAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the estimated delivery/exercise price of FUTURES contracts and OPTION.
+    /// Only the estimated delivery/exercise price will be pushed an hour before delivery/exercise, and will be pushed if there is any price change.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="symbols">Symbol List</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToEstimatedPriceAsync(Action<OkxEstimatedPrice> onData, IEnumerable<OkxSocketSymbolRequest> symbols, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxEstimatedPrice>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
         });
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var symbol in symbols) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "estimated-price",
-            InstrumentType = instrumentType,
-            InstrumentFamily = instrumentFamily,
-            InstrumentId = instrumentId,
+            InstrumentType = symbol.InstrumentType,
+            InstrumentFamily = symbol.InstrumentFamily,
+            InstrumentId = symbol.InstrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -434,6 +508,16 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceAsync(Action<OkxMarkPrice> onData, string instrumentId, CancellationToken ct = default)
+        => await SubscribeToMarkPriceAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the mark price. Data will be pushed every 200 ms when the mark price changes, and will be pushed every 10 seconds when the mark price does not change.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">Lİst of Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceAsync(Action<OkxMarkPrice> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxMarkPrice>>>>(data =>
         {
@@ -441,11 +525,13 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "mark-price",
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -458,21 +544,34 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceCandlesticksAsync(Action<OkxCandlestick> onData, string instrumentId, OkxPeriod period, CancellationToken ct = default)
+        => await SubscribeToMarkPriceCandlesticksAsync(onData, new string[] { instrumentId }, period, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the candlesticks data of the mark price. Data will be pushed every 500 ms.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="period">Period</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceCandlesticksAsync(Action<OkxCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxCandlestick>>>>(data =>
         {
             foreach (var d in data.Data.Data)
             {
-                d.Instrument = instrumentId;
+                if (instrumentIds.Count() == 1) d.Instrument = instrumentIds.FirstOrDefault();
                 onData(d);
             }
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "mark-price-candle" + JsonConvert.SerializeObject(period, new PeriodConverter(false)),
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -484,6 +583,16 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToPriceLimitAsync(Action<OkxLimitPrice> onData, string instrumentId, CancellationToken ct = default)
+        => await SubscribeToPriceLimitAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the maximum buy price and minimum sell price of the instrument. Data will be pushed every 5 seconds when there are changes in limits, and will not be pushed when there is no changes on limit.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToPriceLimitAsync(Action<OkxLimitPrice> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxLimitPrice>>>>(data =>
         {
@@ -491,11 +600,13 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "price-limit",
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -513,22 +624,40 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookAsync(Action<OkxOrderBook> onData, string instrumentId, OkxOrderBookType orderBookType, CancellationToken ct = default)
+        => await SubscribeToOrderBookAsync(onData, new string[] { instrumentId }, orderBookType, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve order book data.
+    /// Use books for 400 depth levels, book5 for 5 depth levels, books50-l2-tbt tick-by-tick 50 depth levels, and books-l2-tbt for tick-by-tick 400 depth levels.
+    /// books: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed every 100 ms when there is change in order book.
+    /// books5: 5 depth levels will be pushed every time.Data will be pushed every 200 ms when there is change in order book.
+    /// books50-l2-tbt: 50 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed tick by tick, i.e.whenever there is change in order book.
+    /// books-l2-tbt: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed tick by tick, i.e.whenever there is change in order book.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="orderBookType">Order Book Type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookAsync(Action<OkxOrderBook> onData, IEnumerable<string> instrumentIds, OkxOrderBookType orderBookType, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxOrderBookUpdate>>(data =>
         {
             foreach (var d in data.Data.Data)
             {
-                d.Instrument = instrumentId;
+                if (instrumentIds.Count() == 1) d.Instrument = instrumentIds.FirstOrDefault();
                 d.Action = data.Data.Action;
                 onData(d);
             }
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = JsonConvert.SerializeObject(orderBookType, new OrderBookTypeConverter(false)),
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -540,6 +669,16 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOptionSummaryAsync(Action<OkxOptionSummary> onData, string instrumentFamily, CancellationToken ct = default)
+        => await SubscribeToOptionSummaryAsync(onData, new string[] { instrumentFamily }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve detailed pricing information of all OPTION contracts. Data will be pushed at once.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentFamilies">List of Instrument Family</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOptionSummaryAsync(Action<OkxOptionSummary> onData, IEnumerable<string> instrumentFamilies, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxOptionSummary>>>>(data =>
         {
@@ -547,11 +686,13 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentFamily in instrumentFamilies) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "opt-summary",
             InstrumentFamily = instrumentFamily,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -563,6 +704,16 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToFundingRatesAsync(Action<OkxFundingRate> onData, string instrumentId, CancellationToken ct = default)
+        => await SubscribeToFundingRatesAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve funding rate. Data will be pushed every minute.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToFundingRatesAsync(Action<OkxFundingRate> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxFundingRate>>>>(data =>
         {
@@ -570,11 +721,13 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "funding-rate",
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -587,21 +740,34 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToIndexCandlesticksAsync(Action<OkxCandlestick> onData, string instrumentId, OkxPeriod period, CancellationToken ct = default)
+        => await SubscribeToIndexCandlesticksAsync(onData, new string[] { instrumentId }, period, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the candlesticks data of the index. Data will be pushed every 500 ms.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="period">Period</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToIndexCandlesticksAsync(Action<OkxCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxCandlestick>>>>(data =>
         {
             foreach (var d in data.Data.Data)
             {
-                d.Instrument = instrumentId;
+                if (instrumentIds.Count() == 1) d.Instrument = instrumentIds.FirstOrDefault();
                 onData(d);
             }
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "index-candle" + JsonConvert.SerializeObject(period, new PeriodConverter(false)),
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -613,6 +779,16 @@ public class OKXStreamClient : StreamApiClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToIndexTickersAsync(Action<OkxIndexTicker> onData, string instrumentId, CancellationToken ct = default)
+        => await SubscribeToIndexTickersAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve index tickers data
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToIndexTickersAsync(Action<OkxIndexTicker> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxIndexTicker>>>>(data =>
         {
@@ -620,11 +796,13 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "index-tickers",
             InstrumentId = instrumentId,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -653,7 +831,7 @@ public class OKXStreamClient : StreamApiClient
     // TODO: Liquidation orders channel
     #endregion
 
-    #region Private Signed Feeds
+    #region Private Channels
     /// <summary>
     /// Retrieve account information. Data will be pushed when triggered by events such as placing/canceling order, and will also be pushed in regular interval according to subscription granularity.
     /// </summary>
@@ -692,6 +870,12 @@ public class OKXStreamClient : StreamApiClient
         string instrumentFamily = null,
         string instrumentId = null,
         CancellationToken ct = default)
+        => await SubscribeToPositionUpdatesAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
+
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
+        Action<OkxPosition> onData,
+        IEnumerable<OkxSocketSymbolRequest> symbols,
+        CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxPosition>>>>(data =>
         {
@@ -699,13 +883,15 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var symbol in symbols) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "positions",
-            InstrumentId = instrumentId,
-            InstrumentType = instrumentType,
-            InstrumentFamily = instrumentFamily,
+            InstrumentId = symbol.InstrumentId,
+            InstrumentType = symbol.InstrumentType,
+            InstrumentFamily = symbol.InstrumentFamily,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -747,6 +933,12 @@ public class OKXStreamClient : StreamApiClient
         string instrumentFamily = null,
         string instrumentId = null,
         CancellationToken ct = default)
+        => await SubscribeToOrderUpdatesAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
+
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
+        Action<OkxOrder> onData,
+        IEnumerable<OkxSocketSymbolRequest> symbols,
+        CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxOrder>>>>(data =>
         {
@@ -754,13 +946,15 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var symbol in symbols) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "orders",
-            InstrumentId = instrumentId,
-            InstrumentType = instrumentType,
-            InstrumentFamily = instrumentFamily,
+            InstrumentId = symbol.InstrumentId,
+            InstrumentType = symbol.InstrumentType,
+            InstrumentFamily = symbol.InstrumentFamily,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -779,6 +973,12 @@ public class OKXStreamClient : StreamApiClient
         string instrumentFamily = null,
         string instrumentId = null,
         CancellationToken ct = default)
+        => await SubscribeToAlgoOrderUpdatesAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
+
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToAlgoOrderUpdatesAsync(
+        Action<OkxAlgoOrder> onData,
+        IEnumerable<OkxSocketSymbolRequest> symbols,
+        CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxAlgoOrder>>>>(data =>
         {
@@ -786,14 +986,15 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var symbol in symbols) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "orders-algo",
-            InstrumentId = instrumentId,
-            InstrumentType = instrumentType,
-            InstrumentFamily = instrumentFamily,
+            InstrumentId = symbol.InstrumentId,
+            InstrumentType = symbol.InstrumentType,
+            InstrumentFamily = symbol.InstrumentFamily,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -812,6 +1013,12 @@ public class OKXStreamClient : StreamApiClient
         string instrumentFamily = null,
         string instrumentId = null,
         CancellationToken ct = default)
+        => await SubscribeToAdvanceAlgoOrderUpdatesAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
+
+    public virtual async Task<CallResult<UpdateSubscription>> SubscribeToAdvanceAlgoOrderUpdatesAsync(
+        Action<OkxAlgoOrder> onData,
+        IEnumerable<OkxSocketSymbolRequest> symbols,
+        CancellationToken ct = default)
     {
         var internalHandler = new Action<StreamDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxAlgoOrder>>>>(data =>
         {
@@ -819,14 +1026,15 @@ public class OKXStreamClient : StreamApiClient
                 onData(d);
         });
 
-
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var symbol in symbols) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "algo-advance",
-            InstrumentId = instrumentId,
-            InstrumentType = instrumentType,
-            InstrumentFamily = instrumentFamily,
+            InstrumentId = symbol.InstrumentId,
+            InstrumentType = symbol.InstrumentType,
+            InstrumentFamily = symbol.InstrumentFamily,
         });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await SubscribeAsync(request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -842,4 +1050,5 @@ public class OKXStreamClient : StreamApiClient
     // TODO: Recurring buy orders channel
 
     #endregion
+
 }

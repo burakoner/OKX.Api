@@ -34,9 +34,20 @@ public class OkxSocketRequestArgument
 
     [JsonProperty("instType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(InstrumentTypeConverter))]
     public OkxInstrumentType? InstrumentType { get; set; }
+}
 
-    public OkxSocketRequestArgument()
+public class OkxSocketSymbolRequest
+{
+    public OkxInstrumentType InstrumentType { get; set; }
+    public string InstrumentFamily { get; set; }
+    public string InstrumentId { get; set; }
+
+    public OkxSocketSymbolRequest() { }
+    public OkxSocketSymbolRequest(OkxInstrumentType type, string family, string id)
     {
+        InstrumentType = type;
+        InstrumentFamily = family;
+        InstrumentId = id;
     }
 }
 
@@ -78,10 +89,6 @@ public class OkxSocketAuthRequestArgument
 
     [JsonProperty("sign", NullValueHandling = NullValueHandling.Ignore)]
     public string Signature { get; set; }
-
-    public OkxSocketAuthRequestArgument()
-    {
-    }
 }
 
 public enum OkxSocketOperation
