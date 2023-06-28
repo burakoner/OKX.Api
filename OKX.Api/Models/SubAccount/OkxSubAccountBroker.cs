@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace OKX.Api.Models.SubAccount;
 
-namespace OKX.Api.Models.SubAccount;
-public class OkxSubCreateAccount
+public class OkxSubAccountBroker
 {
+    [JsonProperty("type"), JsonConverter(typeof(SubAccountTypeConverter))]
+    public OkxSubAccountType Type { get; set; }
+
 
     [JsonProperty("subAcct")]
     public string SubAccountName { get; set; }
 
     [JsonProperty("label")]
     public string Label { get; set; }
-    [JsonProperty("acctLv")]
-    public string SubAccLevel { get; set; }
+
     [JsonProperty("uid")]
-    public string Uid { get; set; }
+    public string uid { get; set; }
+
     [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
     public DateTime Time { get; set; }
-
 }

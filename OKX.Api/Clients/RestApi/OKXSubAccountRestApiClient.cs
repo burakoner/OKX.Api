@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Clients.RestApi;
+﻿using System.Diagnostics;
+
+namespace OKX.Api.Clients.RestApi;
 
 public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
 {
@@ -11,6 +13,8 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
     protected const string v5UsersSubaccountTransfer = "api/v5/asset/subaccount/transfer";
     protected const string v5BrokerCreateSubaccount = "api/v5/broker/nd/create-subaccount";
     protected const string v5BrokerCreateAddressSubacount = "api/v5/asset/broker/nd/subaccount-deposit-address";
+    protected const string v5BrokerCreateApiSubacount = "api/v5/broker/nd/subaccount/apikey";
+    protected const string v5BrokerSubaccountList = "api/v5/broker/nd/subaccount-info";
 
     internal OKXSubAccountRestApiClient(OKXRestApiClient root) : base(root)
     {
@@ -231,6 +235,51 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         };
         return await SendOKXSingleRequest<OkxSubAccountCreateAddress>(GetUri(v5BrokerCreateAddressSubacount), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
 
+    }
+    /// <summary>
+    /// Create an API Key for a sub-account
+    /// </summary>
+    /// <param name="subAcc">Sub-account name, supports 6 to 20 characters that include numbers and letters (case sensitive, space character is not supported).</param>
+    /// <param name="label">API Key note</param>
+    /// <param name="password">API Key password, supports 8 to 32 alphanumeric characters containing at least 1 number, 1 uppercase letter, 1 lowercase letter and 1 special character.</param>
+    /// <param name="ips">Link IP addresses, separate with commas if more than one. Support up to 20 addresses.</param>
+    /// <param name="perm">API Key permissions read_only: Read only, trade: Trade, withdraw: Withdraw</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxSubAccountCreateApi>> BrokerCreateSubAccountApiAsync(string subAcc, string label, string password, string ips, string perm = "trade,withdraw", CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "subAcct",subAcc},
+            { "label", label },
+            { "passphrase", password },
+            {"perm",perm },
+            {"ip",ips }
+
+        };
+        return await SendOKXSingleRequest<OkxSubAccountCreateApi>(GetUri(v5BrokerCreateApiSubacount), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+
+    }
+    /// <summary>
+    /// Broker: Get sub-account list
+    /// </summary>
+    /// <param name="subAcct">Sub-account name</param>
+    /// <param name="uid">Sub-account UID</param>
+    /// <param name="page">Page for pagination</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxSubAccountDetailListModel>> BrkerListSubAccountAsync( string subAcct ="",string uid = "",int page = 1,int limit = 100, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            {"subAcct",subAcct}, 
+            {"uid",uid},
+            {"page",page.ToString(OkxGlobals.OkxCultureInfo)},
+            {"limit",limit.ToString(OkxGlobals.OkxCultureInfo)}
+        };
+        //parameters.AddOptionalParameter("after", after?.ToString(OkxGlobals.OkxCultureInfo));
+        return await SendOKXSingleRequest<OkxSubAccountDetailListModel>(GetUri(v5BrokerSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
     // TODO: Set Permission Of Transfer Out
     // TODO: Get custody trading sub-account list
