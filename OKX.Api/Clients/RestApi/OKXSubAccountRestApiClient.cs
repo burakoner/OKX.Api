@@ -299,10 +299,10 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         var parameters = new Dictionary<string, object>
         {
             {"subAcct",subAcct },
-            {"apiKey",apiKey},
+            {"apiKey",apiKey}
 
         };
-        return await SendOKXSingleRequest<OkxSubAccountName>(GetUri(v5BrokerSubaccountRemoveApiKey), HttpMethod.Post, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxSubAccountName>(GetUri(v5BrokerSubaccountRemoveApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
     /// <summary>
     /// Delete sub-account
@@ -317,7 +317,7 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
             {"subAcct",subAcct },
             
         };
-        return await SendOKXSingleRequest<OkxSubAccountName>(GetUri(v5BrokerSubaccountRemove), HttpMethod.Post, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXSingleRequest<OkxSubAccountName>(GetUri(v5BrokerSubaccountRemove), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
     // TODO: Set Permission Of Transfer Out
     // TODO: Get custody trading sub-account list
