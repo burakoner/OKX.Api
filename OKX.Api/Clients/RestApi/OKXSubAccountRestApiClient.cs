@@ -43,9 +43,9 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("enable", enable);
         parameters.AddOptionalParameter("subAcct", subAccountName);
-        parameters.AddOptionalParameter("after", after?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxSubAccount>>(GetUri(v5UsersSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -126,6 +126,8 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         return await SendOKXSingleRequest<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
+    // TODO: Get sub-account maximum withdrawals
+
     /// <summary>
     /// applies to master accounts only
     /// </summary>
@@ -151,12 +153,14 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("subAcct", subAccountName);
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new SubAccountTransferTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxSubAccountBill>>(GetUri(v5UsersSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
+
+    // TODO: Get history of managed sub-account transfer
 
     /// <summary>
     /// applies to master accounts only
@@ -183,7 +187,7 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         var parameters = new Dictionary<string, object>
         {
             {"ccy", currency },
-            {"amt", amount.ToString(OkxGlobals.OkxCultureInfo) },
+            {"amt", amount.ToOkxString() },
             {"from", JsonConvert.SerializeObject(fromAccount, new AccountConverter(false)) },
             {"to", JsonConvert.SerializeObject(toAccount, new AccountConverter(false)) },
             {"fromSubAccount", fromSubAccountName },

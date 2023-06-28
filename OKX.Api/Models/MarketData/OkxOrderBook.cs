@@ -18,4 +18,10 @@ public class OkxOrderBook
 
     [JsonProperty("checksum")]
     public long? Checksum { get; set; }
+
+    [JsonProperty("prevSeqId")]
+    public long? PreviousSequenceId { get; set; }
+
+    [JsonProperty("seqId")]
+    public long? SequenceId { get; set; }
 }
