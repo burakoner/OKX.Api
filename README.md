@@ -184,6 +184,77 @@ var trade_17 = await api.Trade.GetAlgoOrderListAsync(OkxAlgoOrderType.OCO);
 var trade_18 = await api.Trade.GetAlgoOrderHistoryAsync(OkxAlgoOrderType.Conditional);
 ```
 
+**Grid Trading Endpoints (Signed)**
+```csharp
+var api = new OKXRestApiClient();
+api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
+var grid_01 = await api.GridTrading.PlaceAlgoOrderAsync(new OkxGridPlaceOrderRequest
+{
+    InstrumentId = "BTC-USDT",
+    AlgoOrderType = OkxGridAlgoOrderType.SpotGrid,
+    MaximumPrice = 5000,
+    MinimumPrice = 400,
+    GridNumber = 10,
+    GridRunType = OkxGridRunType.Arithmetic,
+    QuoteSize = 25,
+    TriggerParameters = new List<OkxGridPlaceTriggerParameters>
+    {
+        new OkxGridPlaceTriggerParameters
+        {
+            TriggerAction = OkxGridAlgoTriggerAction.Stop,
+            TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
+            TriggerPrice = "1000"
+        }
+    }
+});
+var grid_02 = await api.GridTrading.PlaceAlgoOrderAsync(
+    instrumentId: "BTC-USDT-SWAP",
+    algoOrderType: OkxGridAlgoOrderType.ContractGrid,
+    maximumPrice: 5000,
+    minimumPrice: 400,
+    gridNumber: 10,
+    gridRunType: OkxGridRunType.Arithmetic,
+    size: 200,
+    contractGridDirection: OkxGridContractDirection.Long,
+    leverage: 2,
+    triggerParameters: new List<OkxGridPlaceTriggerParameters>
+    {
+        new OkxGridPlaceTriggerParameters
+        {
+            TriggerAction = OkxGridAlgoTriggerAction.Start,
+            TriggerStrategy =  OkxGridAlgoTriggerStrategy.Rsi,
+            TimeFrame = OkxGridAlgoTimeFrame.ThirtyMinutes,
+            Threshold = "10",
+            TriggerCondition = OkxGridAlgoTriggerCondition.Cross,
+            TimePeriod = "14"
+        },
+        new OkxGridPlaceTriggerParameters
+        {
+            TriggerAction = OkxGridAlgoTriggerAction.Stop,
+            TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
+            TriggerPrice = "1000",
+            ContractAlgoStopType = OkxGridContractAlgoStopType.KeepPositions,
+        }
+    }
+);
+var grid_03 = await api.GridTrading.AmendAlgoOrderAsync(448965992920907776, "BTC-USDT-SWAP", 1200);
+var grid_04 = await api.GridTrading.StopAlgoOrderAsync(448965992920907776, "BTC-USDT", OkxGridAlgoOrderType.SpotGrid, OkxGridSpotAlgoStopType.SellBaseCurrency);
+var grid_05 = await api.GridTrading.CloseContractPositionAsync(448965992920907776, true);
+var grid_06 = await api.GridTrading.CancelCloseContractPositionAsync(448965992920907776, 570627699870375936);
+var grid_07 = await api.GridTrading.TriggerAlgoOrderAsync(448965992920907776);
+var grid_08 = await api.GridTrading.GetOpenAlgoOrdersAsync(OkxGridAlgoOrderType.SpotGrid);
+var grid_09 = await api.GridTrading.GetAlgoOrdersHistoryAsync(OkxGridAlgoOrderType.SpotGrid);
+var grid_10 = await api.GridTrading.GetAlgoOrderAsync(OkxGridAlgoOrderType.SpotGrid, 448965992920907776);
+var grid_11 = await api.GridTrading.GetAlgoSubOrdersAsync(OkxGridAlgoOrderType.SpotGrid, 448965992920907776, OkxGridAlgoSubOrderType.Live);
+var grid_12 = await api.GridTrading.GetAlgoPositionsAsync(OkxGridAlgoOrderType.ContractGrid, 448965992920907776);
+var grid_13 = await api.GridTrading.GetWithdrawIncomeAsync(448965992920907776);
+var grid_14 = await api.GridTrading.ComputeMarginBalanceAsync(448965992920907776, OkxMarginAddReduce.Add, 10.0m);
+var grid_15 = await api.GridTrading.AdjustMarginBalanceAsync(448965992920907776, OkxMarginAddReduce.Add, 10.0m);
+var grid_16 = await api.GridTrading.GetAiParameterAsync( OkxGridAlgoOrderType.SpotGrid, "BTC-USDT");
+var grid_17 = await api.GridTrading.ComputeMinimumInvestmentAsync("ETH-USDT",  OkxGridAlgoOrderType.SpotGrid, 5000, 3000, 50, OkxGridRunType.Arithmetic);
+var grid_18 = await api.GridTrading.RsiBackTestingAsync("BTC-USDT", OkxGridAlgoTimeFrame.ThreeMinutes, 30, 14);
+```
+            
 ## Websocket Api Examples
 The OKX.Api socket client provides several socket endpoint to which can be subscribed.
 
@@ -199,26 +270,26 @@ var sample_pairs = new List<string> { "BTC-USDT", "LTC-USDT", "ETH-USDT", "XRP-U
 var subs = new List<UpdateSubscription>();
 
 /* Instruments (Public) */
-await ws.SubscribeToInstrumentsAsync(OkxInstrumentType.Spot, (data) =>
+await ws.SubscribeToInstrumentsAsync((data) =>
 {
     if (data != null)
     {
         // ... Your logic here
         Console.WriteLine($"Instrument {data.Instrument} BaseCurrency:{data.BaseCurrency}");
     }
-});
+}, OkxInstrumentType.Spot);
 
 /* Tickers (Public) */
 foreach (var pair in sample_pairs)
 {
-    var subscription = await ws.SubscribeToTickersAsync(pair, (data) =>
+    var subscription = await ws.SubscribeToTickersAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
             Console.WriteLine($"Ticker {data.Instrument} Ask:{data.AskPrice} Bid:{data.BidPrice}");
         }
-    });
+    }, pair);
     subs.Add(subscription.Data);
 }
 
@@ -231,142 +302,142 @@ foreach (var sub in subs)
 /* Interests (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToInterestsAsync(pair, (data) =>
+    await ws.SubscribeToOpenInterestsAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
         }
-    });
+    }, pair);
 }
 
 /* Candlesticks (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToCandlesticksAsync(pair, OkxPeriod.FiveMinutes, (data) =>
+    await ws.SubscribeToCandlesticksAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
         }
-    });
+    }, pair, OkxPeriod.FiveMinutes);
 }
 
 /* Trades (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToTradesAsync(pair, (data) =>
+    await ws.SubscribeToTradesAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
         }
-    });
+    }, pair);
 }
 
 /* Estimated Price (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToTradesAsync(pair, (data) =>
+    await ws.SubscribeToTradesAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
         }
-    });
+    }, pair);
 }
 
 /* Mark Price (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToMarkPriceAsync(pair, (data) =>
+    await ws.SubscribeToMarkPriceAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
         }
-    });
+    }, pair);
 }
 
 /* Mark Price Candlesticks (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToMarkPriceCandlesticksAsync(pair, OkxPeriod.FiveMinutes, (data) =>
+    await ws.SubscribeToMarkPriceCandlesticksAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
         }
-    });
+    }, pair, OkxPeriod.FiveMinutes);
 }
 
 /* Limit Price (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToPriceLimitAsync(pair, (data) =>
+    await ws.SubscribeToPriceLimitAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
         }
-    });
+    }, pair);
 }
 
 /* Order Book (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToOrderBookAsync(pair, OkxOrderBookType.OrderBook, (data) =>
+    await ws.SubscribeToOrderBookAsync((data) =>
     {
         if (data != null && data.Asks != null && data.Asks.Count() > 0 && data.Bids != null && data.Bids.Count() > 0)
         {
             // ... Your logic here
         }
-    });
+    }, pair, OkxOrderBookType.OrderBook);
 }
 
 /* Option Summary (Public) */
-await ws.SubscribeToOptionSummaryAsync("USD", (data) =>
+await ws.SubscribeToOptionSummaryAsync((data) =>
 {
     if (data != null)
     {
         // ... Your logic here
     }
-});
+}, "USD");
 
 /* Funding Rates (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToFundingRatesAsync(pair, (data) =>
+    await ws.SubscribeToFundingRatesAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
         }
-    });
+    }, pair);
 }
 
 /* Index Candlesticks (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToIndexCandlesticksAsync(pair, OkxPeriod.FiveMinutes, (data) =>
+    await ws.SubscribeToIndexCandlesticksAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
         }
-    });
+    }, pair, OkxPeriod.FiveMinutes);
 }
 
 /* Index Tickers (Public) */
 foreach (var pair in sample_pairs)
 {
-    await ws.SubscribeToIndexTickersAsync(pair, (data) =>
+    await ws.SubscribeToIndexTickersAsync((data) =>
     {
         if (data != null)
         {
             // ... Your logic here
         }
-    });
+    }, pair);
 }
 
 /* System Status (Public) */
@@ -395,13 +466,13 @@ await ws.SubscribeToAccountUpdatesAsync((data) =>
 });
 
 /* Position Updates (Private) */
-await ws.SubscribeToPositionUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
+await ws.SubscribeToPositionUpdatesAsync((data) =>
 {
     if (data != null)
     {
         // ... Your logic here
     }
-});
+}, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
 /* Balance And Position Updates (Private) */
 await ws.SubscribeToBalanceAndPositionUpdatesAsync((data) =>
@@ -413,34 +484,49 @@ await ws.SubscribeToBalanceAndPositionUpdatesAsync((data) =>
 });
 
 /* Order Updates (Private) */
-await ws.SubscribeToOrderUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
+await ws.SubscribeToOrderUpdatesAsync((data) =>
 {
     if (data != null)
     {
         // ... Your logic here
     }
-});
+}, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
 /* Algo Order Updates (Private) */
-await ws.SubscribeToAlgoOrderUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
+await ws.SubscribeToAlgoOrderUpdatesAsync((data) =>
 {
     if (data != null)
     {
         // ... Your logic here
     }
-});
+}, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
 /* Advance Algo Order Updates (Private) */
-await ws.SubscribeToAdvanceAlgoOrderUpdatesAsync(OkxInstrumentType.Futures, "INSTRUMENT", "UNDERLYING", (data) =>
+await ws.SubscribeToAdvanceAlgoOrderUpdatesAsync((data) =>
 {
     if (data != null)
     {
         // ... Your logic here
     }
-});
+}, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 ```
 
 ## Release Notes
+* Version 1.1.7 - 26 Jun 2023
+    * It's possible to subscribe multiple symbols at once on WebSocket
+    * Fixed issue at https://github.com/burakoner/OKX.Api/issues/16
+
+* Version 1.1.6 - 26 Jun 2023
+    * Updated All Methods and Models, synced with OKX Api 2023-06-20 version
+    * OKXStreamClient has some parameter and parameter order changes
+    * Fixed issue at https://github.com/burakoner/OKX.Api/issues/18
+    * Fixed some typos
+
+* Version 1.1.5 - 25 Jun 2023
+    * Added Grid Trading section endpoints
+    * ApiSharp updated to v1.3.6
+    * Fixed issue at https://github.com/burakoner/OKX.Api/issues/11
+
 * Version 1.1.0 - 07 May 2023
     * Updated All Methods and Models, synced with OKX Api 2023-04-27 version
 

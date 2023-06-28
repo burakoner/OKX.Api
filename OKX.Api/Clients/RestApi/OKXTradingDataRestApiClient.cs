@@ -52,8 +52,8 @@ public class OKXTradingDataRestApiClient : OKXBaseRestApiClient
             { "instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)) },
         };
         parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new PeriodConverter(false)));
-        parameters.AddOptionalParameter("begin", begin?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("end", end?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxTakerVolume>>(GetUri(v5RubikStatTakerVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -78,8 +78,8 @@ public class OKXTradingDataRestApiClient : OKXBaseRestApiClient
             { "ccy", currency},
         };
         parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new PeriodConverter(false)));
-        parameters.AddOptionalParameter("begin", begin?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("end", end?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxRatio>>(GetUri(v5RubikStatMarginLoanRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -104,8 +104,8 @@ public class OKXTradingDataRestApiClient : OKXBaseRestApiClient
             { "ccy", currency},
         };
         parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new PeriodConverter(false)));
-        parameters.AddOptionalParameter("begin", begin?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("end", end?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxRatio>>(GetUri(v5RubikStatContractsLongShortAccountRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -130,8 +130,8 @@ public class OKXTradingDataRestApiClient : OKXBaseRestApiClient
             { "ccy", currency},
         };
         parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new PeriodConverter(false)));
-        parameters.AddOptionalParameter("begin", begin?.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("end", end?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxInterestVolume>>(GetUri(v5RubikStatContractsOpenInterestVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }

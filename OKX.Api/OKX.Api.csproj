@@ -19,9 +19,23 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
-			Version 0.0.3 - 28 May 2023
-			* Add create SubAccApiKey
-			* Add list SubAcc
+			Version 1.1.7 - 26 Jun 2023
+			* It's possible to subscribe multiple symbols at once on WebSocket
+			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/16
+			
+			Version 1.1.6 - 26 Jun 2023
+			* Updated All Methods and Models, synced with OKX Api 2023-06-20 version
+			* OKXStreamClient has some parameter and parameter order changes
+			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/18
+			* Fixed some typos
+
+			Version 1.1.5 - 25 Jun 2023
+			* Added Grid Trading section endpoints
+			* ApiSharp updated to v1.3.6
+			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/11
+
+			Version 1.1.0 - 07 May 2023
+			* Updated All Methods and Models, synced with OKX Api 2023-04-27 version
 
 			Version 1.0.6 - 06 May 2023
 			* Updated WithdrawAsync Method (https://github.com/burakoner/OKEx.Net/issues/97)
@@ -38,7 +52,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="ApiSharp" Version="1.3.3" />
+	  <PackageReference Include="ApiSharp" Version="1.3.6" />
 	</ItemGroup>
 
 </Project>

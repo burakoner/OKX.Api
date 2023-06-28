@@ -27,6 +27,9 @@ public class OkxAlgoOrder
     [JsonProperty("ordId")]
     public long? OrderId { get; set; }
 
+    [JsonProperty("ordIdList")]
+    public IEnumerable<long> OrderIdList { get; set; }
+
     /// <summary>
     /// Algo ID
     /// </summary>

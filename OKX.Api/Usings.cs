@@ -22,6 +22,7 @@ global using OKX.Api.Helpers;
 global using OKX.Api.Models;
 global using OKX.Api.Models.Account;
 global using OKX.Api.Models.Funding;
+global using OKX.Api.Models.GridTrading;
 global using OKX.Api.Models.MarketData;
 global using OKX.Api.Models.PublicData;
 global using OKX.Api.Models.SubAccount;

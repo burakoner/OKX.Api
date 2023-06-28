@@ -11,6 +11,7 @@ internal class AlgoOrderStateConverter : BaseConverter<OkxAlgoOrderState>
         new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.Pause, "pause"),
         new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.Effective, "effective"),
         new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.PartiallyEffective, "partially_effective"),
+        new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.PartiallyFailed, "partially_failed"),
         new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.Canceled, "canceled"),
         new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.Failed, "order_failed"),
     };

@@ -5,6 +5,9 @@ public class OkxAccountConfiguration
     [JsonProperty("uid")]
     public long UserId { get; set; }
 
+    [JsonProperty("mainUid")]
+    public long MainUserId { get; set; }
+
     [JsonProperty("acctLv"), JsonConverter(typeof(AccountLevelConverter))]
     public OkxAccountLevel AccountLevel { get; set; }
 
@@ -46,4 +49,10 @@ public class OkxAccountConfiguration
 
     [JsonProperty("ip")]
     public string IpAddresses { get; set; }
+
+    [JsonProperty("perm"), JsonConverter(typeof(ApiKeyPermissionConverter))]
+    public OkxApiKeyPermission ApiKeyPermission { get; set; }
+
+    [JsonProperty("kycLv"), JsonConverter(typeof(KycLevelConverter))]
+    public OkxKycLevel KycLevel { get; set; }
 }

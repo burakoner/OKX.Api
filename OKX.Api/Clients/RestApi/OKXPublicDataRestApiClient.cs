@@ -83,9 +83,9 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
         };
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxDeliveryExerciseHistory>>(GetUri(v5PublicDeliveryExerciseHistory), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -154,9 +154,9 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
         {
             { "instId", instrumentId },
         };
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxFundingRateHistory>>(GetUri(v5PublicFundingRateHistory), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -225,7 +225,7 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
         discountLevel?.ValidateIntBetween(nameof(discountLevel), 1, 100);
 
         var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("discountLv", discountLevel?.ToString());
+        parameters.AddOptionalParameter("discountLv", discountLevel?.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxDiscountInfo>>(GetUri(v5PublicDiscountRateInterestFreeQuota), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -383,9 +383,9 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("after", after?.ToString());
-        parameters.AddOptionalParameter("before", before?.ToString());
-        parameters.AddOptionalParameter("limit", limit.ToString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXSingleRequest<OkxInsuranceFund>(GetUri(v5PublicInsuranceFund), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -407,8 +407,8 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new ConvertTypeConverter(false)));
         parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("sz", size.ToString(OkxGlobals.OkxCultureInfo));
-        parameters.AddOptionalParameter("px", price?.ToString(OkxGlobals.OkxCultureInfo));
+        parameters.AddOptionalParameter("sz", size.ToOkxString());
+        parameters.AddOptionalParameter("px", price?.ToOkxString());
         parameters.AddOptionalParameter("unit", JsonConvert.SerializeObject(unit, new ConvertUnitConverter(false)));
 
         return await SendOKXSingleRequest<OkxUnitConvert>(GetUri(v5PublicConvertContractCoin), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
