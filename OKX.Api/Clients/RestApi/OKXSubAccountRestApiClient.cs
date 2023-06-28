@@ -15,6 +15,8 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
     protected const string v5BrokerCreateAddressSubacount = "api/v5/asset/broker/nd/subaccount-deposit-address";
     protected const string v5BrokerCreateApiSubacount = "api/v5/broker/nd/subaccount/apikey";
     protected const string v5BrokerSubaccountList = "api/v5/broker/nd/subaccount-info";
+    protected const string v5BrokerSubaccountRemoveApiKey = "api/v5/broker/nd/subaccount/delete-apikey";
+    protected const string v5BrokerSubaccountRemove = "/api/v5/broker/nd/delete-subaccount";
 
     internal OKXSubAccountRestApiClient(OKXRestApiClient root) : base(root)
     {
@@ -273,7 +275,7 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxSubAccountDetailListModel>> BrkerListSubAccountAsync( string subAcct ="",string uid = "",int page = 1,int limit = 100, CancellationToken ct = default)
+    public virtual async Task<RestCallResult<OkxSubAccountDetailListModel>> BrokerListSubAccountAsync( string subAcct ="",string uid = "",int page = 1,int limit = 100, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -284,6 +286,38 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
         };
         //parameters.AddOptionalParameter("after", after?.ToString(OkxGlobals.OkxCultureInfo));
         return await SendOKXSingleRequest<OkxSubAccountDetailListModel>(GetUri(v5BrokerSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+    /// <summary>
+    /// Delete the API Key of sub-accounts
+    /// </summary>
+    /// <param name="subAcct">Sub-account name</param>
+    /// <param name="apiKey">Api Key</param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxSubAccountName>> BrokerRemoveSubAccountApiKeyAsync(string subAcct,string apiKey, CancellationToken ct = default) 
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            {"subAcct",subAcct },
+            {"apiKey",apiKey},
+
+        };
+        return await SendOKXSingleRequest<OkxSubAccountName>(GetUri(v5BrokerSubaccountRemoveApiKey), HttpMethod.Post, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+    /// <summary>
+    /// Delete sub-account
+    /// </summary>
+    /// <param name="subAcct">Sub-account name</param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    public virtual async Task<RestCallResult<OkxSubAccountName>> BrokerRemoveSubAccountAsync (string subAcct, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            {"subAcct",subAcct },
+            
+        };
+        return await SendOKXSingleRequest<OkxSubAccountName>(GetUri(v5BrokerSubaccountRemove), HttpMethod.Post, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
     // TODO: Set Permission Of Transfer Out
     // TODO: Get custody trading sub-account list
