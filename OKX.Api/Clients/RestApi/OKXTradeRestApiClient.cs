@@ -471,12 +471,13 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("begin", before?.ToOkxString());
-        parameters.AddOptionalParameter("end", before?.ToOkxString());
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString()); // Use 'begin' variable for the 'begin' parameter
+        parameters.AddOptionalParameter("end", end?.ToOkxString()); // Use 'end' variable for the 'end' parameter
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxTransaction>>(GetUri(v5TradeFills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
+
 
     /// <summary>
     /// Retrieve recently-filled transaction details in the last 3 months.
