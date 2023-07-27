@@ -1,21 +1,24 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
+/// <summary>
+/// OKX Funding Rest Api Client
+/// </summary>
 public class OKXFundingRestApiClient : OKXBaseRestApiClient
 {
     // Endpoints
-    protected const string v5AssetCurrencies = "api/v5/asset/currencies";
-    protected const string v5AssetBalances = "api/v5/asset/balances";
-    protected const string v5AssetTransfer = "api/v5/asset/transfer";
-    protected const string v5AssetBills = "api/v5/asset/bills";
-    protected const string v5AssetDepositLightning = "api/v5/asset/deposit-lightning";
-    protected const string v5AssetDepositAddress = "api/v5/asset/deposit-address";
-    protected const string v5AssetDepositHistory = "api/v5/asset/deposit-history";
-    protected const string v5AssetWithdrawal = "api/v5/asset/withdrawal";
-    protected const string v5AssetWithdrawalLightning = "api/v5/asset/withdrawal-lightning";
-    protected const string v5AssetWithdrawalCancel = "api/v5/asset/cancel-withdrawal";
-    protected const string v5AssetWithdrawalHistory = "api/v5/asset/withdrawal-history";
-    protected const string v5AssetSavingBalance = "api/v5/asset/saving-balance";
-    protected const string v5AssetSavingPurchaseRedempt = "api/v5/asset/purchase_redempt";
+    private const string v5AssetCurrencies = "api/v5/asset/currencies";
+    private const string v5AssetBalances = "api/v5/asset/balances";
+    private const string v5AssetTransfer = "api/v5/asset/transfer";
+    private const string v5AssetBills = "api/v5/asset/bills";
+    private const string v5AssetDepositLightning = "api/v5/asset/deposit-lightning";
+    private const string v5AssetDepositAddress = "api/v5/asset/deposit-address";
+    private const string v5AssetDepositHistory = "api/v5/asset/deposit-history";
+    private const string v5AssetWithdrawal = "api/v5/asset/withdrawal";
+    private const string v5AssetWithdrawalLightning = "api/v5/asset/withdrawal-lightning";
+    private const string v5AssetWithdrawalCancel = "api/v5/asset/cancel-withdrawal";
+    private const string v5AssetWithdrawalHistory = "api/v5/asset/withdrawal-history";
+    private const string v5AssetSavingBalance = "api/v5/asset/saving-balance";
+    private const string v5AssetSavingPurchaseRedempt = "api/v5/asset/purchase_redempt";
 
     internal OKXFundingRestApiClient(OKXRestApiClient root) : base(root)
     {

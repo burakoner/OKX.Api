@@ -1,5 +1,8 @@
 ﻿namespace OKX.Api.Enums;
 
+/// <summary>
+/// OKX Period
+/// </summary>
 public enum OkxPeriod
 {
     /// <summary>

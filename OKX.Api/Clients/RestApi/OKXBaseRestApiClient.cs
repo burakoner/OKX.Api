@@ -1,6 +1,9 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
-public class OKXBaseRestApiClient : RestApiClient
+/// <summary>
+/// OKX Base Rest Api Client
+/// </summary>
+public abstract class OKXBaseRestApiClient : RestApiClient
 {
     // Internal
     internal Log Log { get => this.log; }

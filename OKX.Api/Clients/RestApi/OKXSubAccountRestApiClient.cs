@@ -1,14 +1,17 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
+/// <summary>
+/// OKX Sub-Account Rest Api Client
+/// </summary>
 public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
 {
     // Endpoints
-    protected const string v5UsersSubaccountList = "api/v5/users/subaccount/list";
-    protected const string v5UsersSubaccountResetApiKey = "api/v5/users/subaccount/modify-apikey";
-    protected const string v5UsersSubaccountTradingBalances = "api/v5/account/subaccount/balances";
-    protected const string v5UsersSubaccountFundingBalances = "api/v5/asset/subaccount/balances";
-    protected const string v5UsersSubaccountBills = "api/v5/asset/subaccount/bills";
-    protected const string v5UsersSubaccountTransfer = "api/v5/asset/subaccount/transfer";
+    private const string v5UsersSubaccountList = "api/v5/users/subaccount/list";
+    private const string v5UsersSubaccountResetApiKey = "api/v5/users/subaccount/modify-apikey";
+    private const string v5UsersSubaccountTradingBalances = "api/v5/account/subaccount/balances";
+    private const string v5UsersSubaccountFundingBalances = "api/v5/asset/subaccount/balances";
+    private const string v5UsersSubaccountBills = "api/v5/asset/subaccount/bills";
+    private const string v5UsersSubaccountTransfer = "api/v5/asset/subaccount/transfer";
 
     internal OKXSubAccountRestApiClient(OKXRestApiClient root) : base(root)
     {

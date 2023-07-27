@@ -17,6 +17,7 @@ public sealed class OKXRestApiClient
     // TODO: Earn
     // TODO: Copy Trading
     // TODO: Block Trading
+    // TODO: Spread Trading
     public OKXMarketDataRestApiClient MarketData { get; }
     public OKXPublicDataRestApiClient PublicData { get; }
     public OKXTradingDataRestApiClient TradingData { get; }

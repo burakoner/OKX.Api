@@ -1,26 +1,29 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
+/// <summary>
+/// OKX Public Data Rest Api Client
+/// </summary>
 public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
 {
     // Endpoints
-    protected const string v5PublicInstruments = "api/v5/public/instruments";
-    protected const string v5PublicDeliveryExerciseHistory = "api/v5/public/delivery-exercise-history";
-    protected const string v5PublicOpenInterest = "api/v5/public/open-interest";
-    protected const string v5PublicFundingRate = "api/v5/public/funding-rate";
-    protected const string v5PublicFundingRateHistory = "api/v5/public/funding-rate-history";
-    protected const string v5PublicPriceLimit = "api/v5/public/price-limit";
-    protected const string v5PublicOptionSummary = "api/v5/public/opt-summary";
-    protected const string v5PublicEstimatedPrice = "api/v5/public/estimated-price";
-    protected const string v5PublicDiscountRateInterestFreeQuota = "api/v5/public/discount-rate-interest-free-quota";
-    protected const string v5PublicTime = "api/v5/public/time";
-    protected const string v5PublicLiquidationOrders = "api/v5/public/liquidation-orders";
-    protected const string v5PublicMarkPrice = "api/v5/public/mark-price";
-    protected const string v5PublicPositionTiers = "api/v5/public/position-tiers";
-    protected const string v5PublicInterestRateLoanQuota = "api/v5/public/interest-rate-loan-quota";
-    protected const string v5PublicVIPInterestRateLoanQuota = "api/v5/public/vip-interest-rate-loan-quota";
-    protected const string v5PublicUnderlying = "api/v5/public/underlying";
-    protected const string v5PublicInsuranceFund = "api/v5/public/insurance-fund";
-    protected const string v5PublicConvertContractCoin = "api/v5/public/convert-contract-coin";
+    private const string v5PublicInstruments = "api/v5/public/instruments";
+    private const string v5PublicDeliveryExerciseHistory = "api/v5/public/delivery-exercise-history";
+    private const string v5PublicOpenInterest = "api/v5/public/open-interest";
+    private const string v5PublicFundingRate = "api/v5/public/funding-rate";
+    private const string v5PublicFundingRateHistory = "api/v5/public/funding-rate-history";
+    private const string v5PublicPriceLimit = "api/v5/public/price-limit";
+    private const string v5PublicOptionSummary = "api/v5/public/opt-summary";
+    private const string v5PublicEstimatedPrice = "api/v5/public/estimated-price";
+    private const string v5PublicDiscountRateInterestFreeQuota = "api/v5/public/discount-rate-interest-free-quota";
+    private const string v5PublicTime = "api/v5/public/time";
+    private const string v5PublicLiquidationOrders = "api/v5/public/liquidation-orders";
+    private const string v5PublicMarkPrice = "api/v5/public/mark-price";
+    private const string v5PublicPositionTiers = "api/v5/public/position-tiers";
+    private const string v5PublicInterestRateLoanQuota = "api/v5/public/interest-rate-loan-quota";
+    private const string v5PublicVIPInterestRateLoanQuota = "api/v5/public/vip-interest-rate-loan-quota";
+    private const string v5PublicUnderlying = "api/v5/public/underlying";
+    private const string v5PublicInsuranceFund = "api/v5/public/insurance-fund";
+    private const string v5PublicConvertContractCoin = "api/v5/public/convert-contract-coin";
 
     internal OKXPublicDataRestApiClient(OKXRestApiClient root) : base(root)
     {

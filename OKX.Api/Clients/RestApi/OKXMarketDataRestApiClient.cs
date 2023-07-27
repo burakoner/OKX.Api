@@ -1,25 +1,28 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
+/// <summary>
+/// OKX Market Data Rest Api Client
+/// </summary>
 public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
 {
     // Endpoints
-    protected const string v5MarketTickers = "api/v5/market/tickers";
-    protected const string v5MarketTicker = "api/v5/market/ticker";
-    protected const string v5MarketIndexTickers = "api/v5/market/index-tickers";
-    protected const string v5MarketBooks = "api/v5/market/books";
-    protected const string v5MarketCandles = "api/v5/market/candles";
-    protected const string v5MarketHistoryCandles = "api/v5/market/history-candles";
-    protected const string v5MarketIndexCandles = "api/v5/market/index-candles";
-    protected const string v5MarketMarkPriceCandles = "api/v5/market/mark-price-candles";
-    protected const string v5MarketTrades = "api/v5/market/trades";
-    protected const string v5MarketTradesHistory = "api/v5/market/history-trades";
-    protected const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
-    protected const string v5MarketOpenOracle = "api/v5/market/open-oracle";
-    protected const string v5MarketExchangeRate = "api/v5/market/exchange-rate";
-    protected const string v5MarketIndexComponents = "api/v5/market/index-components";
-    protected const string v5MarketBlockTickers = "api/v5/market/block-tickers";
-    protected const string v5MarketBlockTicker = "api/v5/market/block-ticker";
-    protected const string v5MarketBlockTrades = "api/v5/market/block-trades";
+    private const string v5MarketTickers = "api/v5/market/tickers";
+    private const string v5MarketTicker = "api/v5/market/ticker";
+    private const string v5MarketIndexTickers = "api/v5/market/index-tickers";
+    private const string v5MarketBooks = "api/v5/market/books";
+    private const string v5MarketCandles = "api/v5/market/candles";
+    private const string v5MarketHistoryCandles = "api/v5/market/history-candles";
+    private const string v5MarketIndexCandles = "api/v5/market/index-candles";
+    private const string v5MarketMarkPriceCandles = "api/v5/market/mark-price-candles";
+    private const string v5MarketTrades = "api/v5/market/trades";
+    private const string v5MarketTradesHistory = "api/v5/market/history-trades";
+    private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
+    private const string v5MarketOpenOracle = "api/v5/market/open-oracle";
+    private const string v5MarketExchangeRate = "api/v5/market/exchange-rate";
+    private const string v5MarketIndexComponents = "api/v5/market/index-components";
+    private const string v5MarketBlockTickers = "api/v5/market/block-tickers";
+    private const string v5MarketBlockTicker = "api/v5/market/block-ticker";
+    private const string v5MarketBlockTrades = "api/v5/market/block-trades";
 
     internal OKXMarketDataRestApiClient(OKXRestApiClient root) : base(root)
     {

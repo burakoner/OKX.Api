@@ -1,6 +1,9 @@
 ﻿namespace OKX.Api.Helpers;
 
-public static class OkxGlobals
+/// <summary>
+/// OKX Globals
+/// </summary>
+internal static class OkxGlobals
 {
     // Local Settings
     public static CultureInfo OkxCultureInfo = new CultureInfo("en-US");

@@ -1,18 +1,21 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
+/// <summary>
+/// OKX Trading Data Rest Api Client
+/// </summary>
 public class OKXTradingDataRestApiClient : OKXBaseRestApiClient
 {
     // Endpoints
-    protected const string v5RubikStatTradingDataSupportCoin = "api/v5/rubik/stat/trading-data/support-coin";
-    protected const string v5RubikStatTakerVolume = "api/v5/rubik/stat/taker-volume";
-    protected const string v5RubikStatMarginLoanRatio = "api/v5/rubik/stat/margin/loan-ratio";
-    protected const string v5RubikStatContractsLongShortAccountRatio = "api/v5/rubik/stat/contracts/long-short-account-ratio";
-    protected const string v5RubikStatContractsOpenInterestVolume = "api/v5/rubik/stat/contracts/open-interest-volume";
-    protected const string v5RubikStatOptionOpenInterestVolume = "api/v5/rubik/stat/option/open-interest-volume";
-    protected const string v5RubikStatOptionOpenInterestVolumeRatio = "api/v5/rubik/stat/option/open-interest-volume-ratio";
-    protected const string v5RubikStatOptionOpenInterestVolumeExpiry = "api/v5/rubik/stat/option/open-interest-volume-expiry";
-    protected const string v5RubikStatOptionOpenInterestVolumeStrike = "api/v5/rubik/stat/option/open-interest-volume-strike";
-    protected const string v5RubikStatOptionTakerBlockVolume = "api/v5/rubik/stat/option/taker-block-volume";
+    private const string v5RubikStatTradingDataSupportCoin = "api/v5/rubik/stat/trading-data/support-coin";
+    private const string v5RubikStatTakerVolume = "api/v5/rubik/stat/taker-volume";
+    private const string v5RubikStatMarginLoanRatio = "api/v5/rubik/stat/margin/loan-ratio";
+    private const string v5RubikStatContractsLongShortAccountRatio = "api/v5/rubik/stat/contracts/long-short-account-ratio";
+    private const string v5RubikStatContractsOpenInterestVolume = "api/v5/rubik/stat/contracts/open-interest-volume";
+    private const string v5RubikStatOptionOpenInterestVolume = "api/v5/rubik/stat/option/open-interest-volume";
+    private const string v5RubikStatOptionOpenInterestVolumeRatio = "api/v5/rubik/stat/option/open-interest-volume-ratio";
+    private const string v5RubikStatOptionOpenInterestVolumeExpiry = "api/v5/rubik/stat/option/open-interest-volume-expiry";
+    private const string v5RubikStatOptionOpenInterestVolumeStrike = "api/v5/rubik/stat/option/open-interest-volume-strike";
+    private const string v5RubikStatOptionTakerBlockVolume = "api/v5/rubik/stat/option/taker-block-volume";
 
     internal OKXTradingDataRestApiClient(OKXRestApiClient root) : base(root)
     {

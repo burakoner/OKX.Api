@@ -1,6 +1,9 @@
 ﻿namespace OKX.Api.Helpers;
 
-public static class OkxExtensions
+/// <summary>
+/// OKX Extensions
+/// </summary>
+internal static class OkxExtensions
 {
     /// <summary>
     /// Validate the string is a valid spot symbol.

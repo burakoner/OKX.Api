@@ -1,25 +1,28 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
+/// <summary>
+/// OKX Trade Rest Api Client
+/// </summary>
 public class OKXTradeRestApiClient : OKXBaseRestApiClient
 {
     // Endpoints
-    protected const string v5TradeOrder = "api/v5/trade/order";
-    protected const string v5TradeBatchOrders = "api/v5/trade/batch-orders";
-    protected const string v5TradeCancelOrder = "api/v5/trade/cancel-order";
-    protected const string v5TradeCancelBatchOrders = "api/v5/trade/cancel-batch-orders";
-    protected const string v5TradeAmendOrder = "api/v5/trade/amend-order";
-    protected const string v5TradeAmendBatchOrders = "api/v5/trade/amend-batch-orders";
-    protected const string v5TradeClosePosition = "api/v5/trade/close-position";
-    protected const string v5TradeOrdersPending = "api/v5/trade/orders-pending";
-    protected const string v5TradeOrdersHistory = "api/v5/trade/orders-history";
-    protected const string v5TradeOrdersHistoryArchive = "api/v5/trade/orders-history-archive";
-    protected const string v5TradeFills = "api/v5/trade/fills";
-    protected const string v5TradeFillsHistory = "api/v5/trade/fills-history";
-    protected const string v5TradeOrderAlgo = "api/v5/trade/order-algo";
-    protected const string v5TradeCancelAlgos = "api/v5/trade/cancel-algos";
-    protected const string v5TradeCancelAdvanceAlgos = "api/v5/trade/cancel-advance-algos";
-    protected const string v5TradeOrdersAlgoPending = "api/v5/trade/orders-algo-pending";
-    protected const string v5TradeOrdersAlgoHistory = "api/v5/trade/orders-algo-history";
+    private const string v5TradeOrder = "api/v5/trade/order";
+    private const string v5TradeBatchOrders = "api/v5/trade/batch-orders";
+    private const string v5TradeCancelOrder = "api/v5/trade/cancel-order";
+    private const string v5TradeCancelBatchOrders = "api/v5/trade/cancel-batch-orders";
+    private const string v5TradeAmendOrder = "api/v5/trade/amend-order";
+    private const string v5TradeAmendBatchOrders = "api/v5/trade/amend-batch-orders";
+    private const string v5TradeClosePosition = "api/v5/trade/close-position";
+    private const string v5TradeOrdersPending = "api/v5/trade/orders-pending";
+    private const string v5TradeOrdersHistory = "api/v5/trade/orders-history";
+    private const string v5TradeOrdersHistoryArchive = "api/v5/trade/orders-history-archive";
+    private const string v5TradeFills = "api/v5/trade/fills";
+    private const string v5TradeFillsHistory = "api/v5/trade/fills-history";
+    private const string v5TradeOrderAlgo = "api/v5/trade/order-algo";
+    private const string v5TradeCancelAlgos = "api/v5/trade/cancel-algos";
+    private const string v5TradeCancelAdvanceAlgos = "api/v5/trade/cancel-advance-algos";
+    private const string v5TradeOrdersAlgoPending = "api/v5/trade/orders-algo-pending";
+    private const string v5TradeOrdersAlgoHistory = "api/v5/trade/orders-algo-history";
 
     internal OKXTradeRestApiClient(OKXRestApiClient root) : base(root)
     {
@@ -471,8 +474,8 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString()); // Use 'begin' variable for the 'begin' parameter
-        parameters.AddOptionalParameter("end", end?.ToOkxString()); // Use 'end' variable for the 'end' parameter
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxTransaction>>(GetUri(v5TradeFills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);

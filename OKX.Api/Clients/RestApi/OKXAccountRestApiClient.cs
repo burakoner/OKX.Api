@@ -1,29 +1,30 @@
-﻿using OKX.Api.Helpers;
+﻿namespace OKX.Api.Clients.RestApi;
 
-namespace OKX.Api.Clients.RestApi;
-
+/// <summary>
+/// OKX Account Rest Api Client
+/// </summary>
 public class OKXAccountRestApiClient : OKXBaseRestApiClient
 {
     // Endpoints
-    protected const string v5AccountBalance = "api/v5/account/balance";
-    protected const string v5AccountPositions = "api/v5/account/positions";
-    protected const string v5AccountPositionsHistory = "api/v5/account/positions-history";
-    protected const string v5AccountPositionRisk = "api/v5/account/account-position-risk";
-    protected const string v5AccountBills = "api/v5/account/bills";
-    protected const string v5AccountBillsArchive = "api/v5/account/bills-archive";
-    protected const string v5AccountConfig = "api/v5/account/config";
-    protected const string v5AccountSetPositionMode = "api/v5/account/set-position-mode";
-    protected const string v5AccountSetLeverage = "api/v5/account/set-leverage";
-    protected const string v5AccountMaxSize = "api/v5/account/max-size";
-    protected const string v5AccountMaxAvailSize = "api/v5/account/max-avail-size";
-    protected const string v5AccountPositionMarginBalance = "api/v5/account/position/margin-balance";
-    protected const string v5AccountLeverageInfo = "api/v5/account/leverage-info";
-    protected const string v5AccountMaxLoan = "api/v5/account/max-loan";
-    protected const string v5AccountTradeFee = "api/v5/account/trade-fee";
-    protected const string v5AccountInterestAccrued = "api/v5/account/interest-accrued";
-    protected const string v5AccountInterestRate = "api/v5/account/interest-rate";
-    protected const string v5AccountSetGreeks = "api/v5/account/set-greeks";
-    protected const string v5AccountMaxWithdrawal = "api/v5/account/max-withdrawal";
+    private const string v5AccountBalance = "api/v5/account/balance";
+    private const string v5AccountPositions = "api/v5/account/positions";
+    private const string v5AccountPositionsHistory = "api/v5/account/positions-history";
+    private const string v5AccountPositionRisk = "api/v5/account/account-position-risk";
+    private const string v5AccountBills = "api/v5/account/bills";
+    private const string v5AccountBillsArchive = "api/v5/account/bills-archive";
+    private const string v5AccountConfig = "api/v5/account/config";
+    private const string v5AccountSetPositionMode = "api/v5/account/set-position-mode";
+    private const string v5AccountSetLeverage = "api/v5/account/set-leverage";
+    private const string v5AccountMaxSize = "api/v5/account/max-size";
+    private const string v5AccountMaxAvailSize = "api/v5/account/max-avail-size";
+    private const string v5AccountPositionMarginBalance = "api/v5/account/position/margin-balance";
+    private const string v5AccountLeverageInfo = "api/v5/account/leverage-info";
+    private const string v5AccountMaxLoan = "api/v5/account/max-loan";
+    private const string v5AccountTradeFee = "api/v5/account/trade-fee";
+    private const string v5AccountInterestAccrued = "api/v5/account/interest-accrued";
+    private const string v5AccountInterestRate = "api/v5/account/interest-rate";
+    private const string v5AccountSetGreeks = "api/v5/account/set-greeks";
+    private const string v5AccountMaxWithdrawal = "api/v5/account/max-withdrawal";
 
     internal OKXAccountRestApiClient(OKXRestApiClient root) : base(root)
     {

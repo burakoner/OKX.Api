@@ -1,25 +1,28 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
+/// <summary>
+/// OKX Grid Trading Rest Api Client
+/// </summary>
 public class OKXGridTradingRestApiClient : OKXBaseRestApiClient
 {
     // Endpoints
-    protected const string v5TradingBotGridOrderAlgo = "api/v5/tradingBot/grid/order-algo";
-    protected const string v5TradingBotGridAmendOrderAlgo = "api/v5/tradingBot/grid/amend-order-algo";
-    protected const string v5TradingBotGridStopOrderAlgo = "api/v5/tradingBot/grid/stop-order-algo";
-    protected const string v5TradingBotGridClosePosition = "api/v5/tradingBot/grid/close-position";
-    protected const string v5TradingBotGridCancelCloseOrder = "api/v5/tradingBot/grid/cancel-close-order";
-    protected const string v5TradingBotGridOrderInstantTrigger = "api/v5/tradingBot/grid/order-instant-trigger";
-    protected const string v5TradingBotGridOrdersAlgoPending = "api/v5/tradingBot/grid/orders-algo-pending";
-    protected const string v5TradingBotGridOrdersAlgoHistory = "api/v5/tradingBot/grid/orders-algo-history";
-    protected const string v5TradingBotGridOrdersAlgoDetails = "api/v5/tradingBot/grid/orders-algo-details";
-    protected const string v5TradingBotGridSubOrders = "api/v5/tradingBot/grid/sub-orders";
-    protected const string v5TradingBotGridPositions = "api/v5/tradingBot/grid/positions";
-    protected const string v5TradingBotGridWithdrawIncome = "api/v5/tradingBot/grid/withdraw-income";
-    protected const string v5TradingBotGridComputeMarginBalance = "api/v5/tradingBot/grid/compute-margin-balance";
-    protected const string v5TradingBotGridMarginBalance = "api/v5/tradingBot/grid/margin-balance";
-    protected const string v5TradingBotGridAiParam = "api/v5/tradingBot/grid/ai-param";
-    protected const string v5TradingBotGridMinInvestment = "api/v5/tradingBot/grid/min-investment";
-    protected const string v5TradingBotGridRsiBackTesting = "api/v5/tradingBot/grid/rsi-back-testing";
+    private const string v5TradingBotGridOrderAlgo = "api/v5/tradingBot/grid/order-algo";
+    private const string v5TradingBotGridAmendOrderAlgo = "api/v5/tradingBot/grid/amend-order-algo";
+    private const string v5TradingBotGridStopOrderAlgo = "api/v5/tradingBot/grid/stop-order-algo";
+    private const string v5TradingBotGridClosePosition = "api/v5/tradingBot/grid/close-position";
+    private const string v5TradingBotGridCancelCloseOrder = "api/v5/tradingBot/grid/cancel-close-order";
+    private const string v5TradingBotGridOrderInstantTrigger = "api/v5/tradingBot/grid/order-instant-trigger";
+    private const string v5TradingBotGridOrdersAlgoPending = "api/v5/tradingBot/grid/orders-algo-pending";
+    private const string v5TradingBotGridOrdersAlgoHistory = "api/v5/tradingBot/grid/orders-algo-history";
+    private const string v5TradingBotGridOrdersAlgoDetails = "api/v5/tradingBot/grid/orders-algo-details";
+    private const string v5TradingBotGridSubOrders = "api/v5/tradingBot/grid/sub-orders";
+    private const string v5TradingBotGridPositions = "api/v5/tradingBot/grid/positions";
+    private const string v5TradingBotGridWithdrawIncome = "api/v5/tradingBot/grid/withdraw-income";
+    private const string v5TradingBotGridComputeMarginBalance = "api/v5/tradingBot/grid/compute-margin-balance";
+    private const string v5TradingBotGridMarginBalance = "api/v5/tradingBot/grid/margin-balance";
+    private const string v5TradingBotGridAiParam = "api/v5/tradingBot/grid/ai-param";
+    private const string v5TradingBotGridMinInvestment = "api/v5/tradingBot/grid/min-investment";
+    private const string v5TradingBotGridRsiBackTesting = "api/v5/tradingBot/grid/rsi-back-testing";
 
     internal OKXGridTradingRestApiClient(OKXRestApiClient root) : base(root)
     {
