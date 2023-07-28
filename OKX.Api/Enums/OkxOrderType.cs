@@ -31,7 +31,17 @@ public enum OkxOrderType
     ImmediateOrCancel,
 
     /// <summary>
-    /// OptimalLimitOrder
+    /// Market order with immediate-or-cancel order (applicable only to Futures and Perpetual swap).
     /// </summary>
     OptimalLimitOrder,
+
+    /// <summary>
+    /// Market Maker Protection (only applicable to Option in Portfolio Margin mode)
+    /// </summary>
+    MarketMakerProtection,
+
+    /// <summary>
+    /// Marekt Maker Protection and Post-only order(only applicable to Option in Portfolio Margin mode)
+    /// </summary>
+    MarektMakerProtectionAndPostOnly
 }

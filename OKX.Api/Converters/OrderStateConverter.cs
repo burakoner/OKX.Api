@@ -11,5 +11,6 @@ internal class OrderStateConverter : BaseConverter<OkxOrderState>
         new KeyValuePair<OkxOrderState, string>(OkxOrderState.Canceled, "canceled"),
         new KeyValuePair<OkxOrderState, string>(OkxOrderState.PartiallyFilled, "partially_filled"),
         new KeyValuePair<OkxOrderState, string>(OkxOrderState.Filled, "filled"),
+        new KeyValuePair<OkxOrderState, string>(OkxOrderState.MmpCanceled, "mmp_canceled"),
     };
 }

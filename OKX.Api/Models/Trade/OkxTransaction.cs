@@ -54,19 +54,19 @@ public class OkxTransaction
     /// Order tag, which is always "sys:blocktrade" for block trading.
     /// </summary>
     [JsonProperty("tag")]
-    public string Tag { get; set; }
+    internal string Tag { get; set; }
 
     /// <summary>
     /// The price at which the last fill occurred.
     /// </summary>
     [JsonProperty("fillPx")]
-    public decimal? FillPrice { get; set; }
+    public decimal? LastFilledPrice { get; set; }
 
     /// <summary>
     /// The quantity that was filled in the last trade.
     /// </summary>
     [JsonProperty("fillSz")]
-    public decimal? FillQuantity { get; set; }
+    public decimal? LastFilledQuantity { get; set; }
 
     /// <summary>
     /// The index price at the moment of trade execution.
@@ -75,7 +75,13 @@ public class OkxTransaction
     /// For cross currency spot pairs (such as BTC-ETH), it returns baseCcy-USDT (BTC-USDT) index price.
     /// </remarks>
     [JsonProperty("fillIdxPx")]
-    public decimal? FillIndexPrice { get; set; }
+    public decimal? LastFilledIndexPrice { get; set; }
+
+    /// <summary>
+    /// Last filled profit and loss, applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
+    /// </summary>
+    [JsonProperty("fillIdxPx")]
+    public decimal? LastFilledProfitAndLoss { get; set; }
 
     /// <summary>
     /// Specifies whether the order was a buy or sell.
@@ -115,4 +121,10 @@ public class OkxTransaction
     /// </summary>
     [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
     public DateTime Time { get; set; }
+
+    /// <summary>
+    /// Trade time which is the same as fillTime for the order channel.
+    /// </summary>
+    [JsonProperty("fillTime"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime? FillTime { get; set; }
 }

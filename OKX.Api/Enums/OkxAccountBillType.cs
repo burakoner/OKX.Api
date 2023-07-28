@@ -88,5 +88,10 @@ public enum OkxAccountBillType
     /// <summary>
     /// Repay
     /// </summary>
-    Repay
+    Repay,
+
+    /// <summary>
+    /// SpreadTrading
+    /// </summary>
+    SpreadTrading
 }

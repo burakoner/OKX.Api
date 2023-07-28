@@ -24,4 +24,9 @@ public enum OkxOrderState
     /// Filled
     /// </summary>
     Filled,
+
+    /// <summary>
+    /// Order cancelled automatically due to Market Maker Protection
+    /// </summary>
+    MmpCanceled
 }

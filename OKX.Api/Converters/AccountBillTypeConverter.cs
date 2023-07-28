@@ -24,5 +24,6 @@ internal class AccountBillTypeConverter : BaseConverter<OkxAccountBillType>
         new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.QuickMargin, "15"),
         new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.ProfitSharing, "18"),
         new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.Repay, "22"),
+        new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.SpreadTrading, "24"),
     };
 }   
