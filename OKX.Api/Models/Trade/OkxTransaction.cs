@@ -80,7 +80,7 @@ public class OkxTransaction
     /// <summary>
     /// Last filled profit and loss, applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
     /// </summary>
-    [JsonProperty("fillIdxPx")]
+    [JsonProperty("fillPnl")]
     public decimal? LastFilledProfitAndLoss { get; set; }
 
     /// <summary>
