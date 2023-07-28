@@ -319,4 +319,34 @@ public enum OkxAccountBillSubType
     /// Profit Sharing Income
     /// </summary>
     ProfitSharingIncome,
+
+    /// <summary>
+    /// SpreadTradingBuy
+    /// </summary>
+    SpreadTradingBuy,
+
+    /// <summary>
+    /// SpreadTradingSell
+    /// </summary>
+    SpreadTradingSell,
+
+    /// <summary>
+    /// SpreadTradingOpenLong
+    /// </summary>
+    SpreadTradingOpenLong,
+
+    /// <summary>
+    /// SpreadTradingOpenShort
+    /// </summary>
+    SpreadTradingOpenShort,
+
+    /// <summary>
+    /// SpreadTradingCloseLong
+    /// </summary>
+    SpreadTradingCloseLong,
+
+    /// <summary>
+    /// SpreadTradingCloseShort
+    /// </summary>
+    SpreadTradingCloseShort,
 }
