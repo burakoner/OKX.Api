@@ -303,8 +303,8 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="underlying">Underlying</param>
     /// <param name="orderType">Order Type</param>
     /// <param name="state">State</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="after">Pagination of data to return records later than the requested ordId</param>
+    /// <param name="before">Pagination of data to return records earlier than the requested ordId</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -345,8 +345,8 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="orderType">Order Type</param>
     /// <param name="state">State</param>
     /// <param name="category">Category</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="after">Pagination of data to return records later than the requested order id</param>
+    /// <param name="before">Pagination of data to return records earlier than the requested order id</param>
     /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="end">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
@@ -397,8 +397,8 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="orderType">Order Type</param>
     /// <param name="state">State</param>
     /// <param name="category">Category</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="after">Pagination of data to return records later than the requested order id</param>
+    /// <param name="before">Pagination of data to return records earlier than the requested order id</param>
     /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="end">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
@@ -447,8 +447,8 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="instFamily">Instrument family</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="orderId">Order ID</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="after">Pagination of data to return records later than the requested <see cref="OkxTransaction.BillId"/></param>
+    /// <param name="before">Pagination of data to return records earlier than the requested <see cref="OkxTransaction.BillId"/></param>
     /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="end">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
@@ -492,13 +492,13 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="instFamily">Instrument family</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="orderId">Order ID</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="after">Pagination of data to return records later than the requested <see cref="OkxTransaction.BillId"/></param>
+    /// <param name="before">Pagination of data to return records earlier than the requested <see cref="OkxTransaction.BillId"/></param>
     /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="end">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
+    /// <returns>RestCallResult containing enumerable OkxTransaction list</returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxTransaction>>> GetTransactionArchiveAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
