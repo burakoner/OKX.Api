@@ -378,8 +378,8 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OrderCategoryConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("begin", before?.ToOkxString());
-        parameters.AddOptionalParameter("end", before?.ToOkxString());
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxOrder>>(GetUri(v5TradeOrdersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
@@ -430,8 +430,8 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OrderCategoryConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("begin", before?.ToOkxString());
-        parameters.AddOptionalParameter("end", before?.ToOkxString());
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxOrder>>(GetUri(v5TradeOrdersHistoryArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
@@ -519,8 +519,8 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("begin", before?.ToOkxString());
-        parameters.AddOptionalParameter("end", before?.ToOkxString());
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return await SendOKXRequest<IEnumerable<OkxTransaction>>(GetUri(v5TradeFillsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
