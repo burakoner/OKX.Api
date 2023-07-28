@@ -34,7 +34,7 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
     /// <summary>
     /// Retrieve a list of assets (with non-zero balance), remaining balance, and available amount in the account.
     /// </summary>
-    /// <param name="currency">Currency</param>
+    /// <param name="currencies">Currencies</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxAccountBalance>> GetAccountBalanceAsync(IEnumerable<string> currencies = null, CancellationToken ct = default)
@@ -288,6 +288,8 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
     /// <param name="tradeMode">Trade Mode</param>
     /// <param name="currency">Currency</param>
     /// <param name="price">Price</param>
+    /// <param name="leverage">Leverage for instrument</param>
+    /// <param name="unSpotOffset">Spot-Derivatives risk offset</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxMaximumAmount>>> GetMaximumAmountAsync(
@@ -318,6 +320,8 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
     /// <param name="tradeMode">Trade Mode</param>
     /// <param name="currency">Currency</param>
     /// <param name="reduceOnly">Reduce Only</param>
+    /// <param name="unSpotOffset">Spot-Derivatives risk offset</param>
+    /// <param name="quickMgnType">Quick Margin type. Only applicable to Quick Margin Mode of isolated margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxMaximumAvailableAmount>>> GetMaximumAvailableAmountAsync(
@@ -348,6 +352,8 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
     /// <param name="positionSide">Position Side</param>
     /// <param name="marginAddReduce">Type</param>
     /// <param name="amount">Amount</param>
+    /// <param name="currency">Currency, only applicable to MARGIN（Manual transfers and Quick Margin Mode</param>
+    /// <param name="auto">Automatic loan transfer out, true or false, the default is false. Only applicable to MARGIN（Manual transfers）</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxMarginAmount>>> SetMarginAmountAsync(
@@ -357,7 +363,6 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
         decimal amount,
         string currency = null,
         bool? auto = null,
-        bool? loanTrans = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -368,7 +373,6 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
         };
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("auto", auto);
-        parameters.AddOptionalParameter("loanTrans", loanTrans);
 
         return await SendOKXRequest<IEnumerable<OkxMarginAmount>>(GetUri(v5AccountPositionMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
@@ -422,7 +426,7 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="underlying">Underlying</param>
-    /// <param name="category">Category</param>
+    /// <param name="instrumentFamily">Instrument family</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxFeeRate>> GetFeeRatesAsync(
@@ -445,6 +449,7 @@ public class OKXAccountRestApiClient : OKXBaseRestApiClient
     /// <summary>
     /// Get interest-accrued
     /// </summary>
+    /// <param name="type">Loan type</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="currency">Currency</param>
     /// <param name="marginMode">Margin Mode</param>

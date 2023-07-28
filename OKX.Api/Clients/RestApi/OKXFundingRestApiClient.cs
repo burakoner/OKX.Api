@@ -18,7 +18,7 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
     private const string v5AssetWithdrawalCancel = "api/v5/asset/cancel-withdrawal";
     private const string v5AssetWithdrawalHistory = "api/v5/asset/withdrawal-history";
     private const string v5AssetSavingBalance = "api/v5/asset/saving-balance";
-    private const string v5AssetSavingPurchaseRedempt = "api/v5/asset/purchase_redempt";
+    private const string v5AssetSavingPurchaseRedempt = "api/v5/asset/purchase-redempt";
 
     internal OKXFundingRestApiClient(OKXRestApiClient root) : base(root)
     {
@@ -347,6 +347,15 @@ public class OKXFundingRestApiClient : OKXBaseRestApiClient
         return await SendOKXRequest<IEnumerable<OkxSavingBalance>>(GetUri(v5AssetSavingBalance), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Only the assets in the funding account can be used for saving.
+    /// </summary>
+    /// <param name="currency">Currency, e.g. BTC</param>
+    /// <param name="amount">Purchase/redemption amount</param>
+    /// <param name="side">Action type.</param>
+    /// <param name="rate">Annual purchase rate</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public virtual async Task<RestCallResult<OkxSavingActionResponse>> SavingPurchaseRedemptionAsync(
         string currency,
         decimal amount,

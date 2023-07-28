@@ -53,6 +53,8 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
     /// <param name="subAccountName">Sub Account Name</param>
     /// <param name="apiKey">APIKey note</param>
     /// <param name="apiLabel">APIKey note</param>
+    /// <param name="readPermission">Read Permission</param>
+    /// <param name="tradePermission">Trade Permission</param>
     /// <param name="ipAddresses">Link IP addresses, separate with commas if more than one. Support up to 20 IP addresses.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -168,6 +170,8 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
     /// <param name="toAccount">6:Funding Account 18:Unified Account</param>
     /// <param name="fromSubAccountName">Sub-account name of the account that transfers funds out.</param>
     /// <param name="toSubAccountName">Sub-account name of the account that transfers funds in.</param>
+    /// <param name="loanTrans">Whether or not borrowed coins can be transferred out under Multi-currency margin and Portfolio margin. the default is false</param>
+    /// <param name="omitPosRisk">Ignore position risk. Default is false. Applicable to Portfolio margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxSubAccountTransfer>> TransferBetweenSubAccountsAsync(

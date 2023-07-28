@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Clients.RestApi;
+﻿using Newtonsoft.Json.Linq;
+using System.Diagnostics.Contracts;
+
+namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
 /// OKX Public Data Rest Api Client
@@ -62,6 +65,7 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="underlying">Underlying</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
@@ -99,6 +103,7 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxOpenInterest>>> GetOpenInterestsAsync(
@@ -184,6 +189,7 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
     /// Retrieve option market data.
     /// </summary>
     /// <param name="underlying">Underlying</param>
+    /// <param name="instrumentFamily">Instrument family, only applicable to OPTION. Either uly or instFamily is required. If both are passed, instFamily will be used.</param>
     /// <param name="expiryDate">Contract expiry date, the format is "YYMMDD", e.g. "200527"</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -251,6 +257,7 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<IEnumerable<OkxMarkPrice>>> GetMarkPricesAsync(
@@ -281,6 +288,8 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
     /// <param name="marginMode">Margin Mode</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
+    /// <param name="currency">Currency</param>
     /// <param name="tier"></param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -357,6 +366,7 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
     /// <param name="instrumentType"></param>
     /// <param name="type"></param>
     /// <param name="underlying"></param>
+    /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="currency"></param>
     /// <param name="after"></param>
     /// <param name="before"></param>
@@ -394,9 +404,21 @@ public class OKXPublicDataRestApiClient : OKXBaseRestApiClient
     }
 
     /// <summary>
-    /// Get Underlying
+    /// Convert the crypto value to the number of contracts, or vice versa
     /// </summary>
-    /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="instrumentId">Instrument ID, only applicable to FUTURES/SWAP/OPTION</param>
+    /// <param name="size">Quantity to buy or sell
+    /// It is quantity of currency while converting currency to contract;
+    /// It is quantity of contract while contract to currency.Quantity of coin needs to be positive integer</param>
+    /// <param name="price">Order price
+    /// For crypto-margined contracts, it is necessary while converting;
+    /// For USDT-margined contracts, it is necessary while converting between usdt and contract, it is optional while converting between coin and contract.
+    /// For OPTION, it is optional.</param>
+    /// <param name="type">Convert type
+    /// 1: Convert currency to contract.It will be rounded up when the value of contract is decimal
+    /// 2: Convert contract to currency
+    /// The defautl is 1</param>
+    /// <param name="unit">The unit of currency. coin usds: usdt or usdc, only applicable to USDⓈ-margined contracts from FUTURES/SWAP</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxUnitConvert>> UnitConvertAsync(

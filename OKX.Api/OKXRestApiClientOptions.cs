@@ -1,23 +1,47 @@
 ﻿namespace OKX.Api;
 
+/// <summary>
+/// OKX Rest API Client Options
+/// </summary>
 public class OKXRestApiClientOptions : RestApiClientOptions
 {
-    // Receive Window
+    /// <summary>
+    /// Receive Window
+    /// </summary>
     public TimeSpan ReceiveWindow { get; set; }
 
-    // Auto Timestamp
+    /// <summary>
+    /// Auto Timestamp
+    /// </summary>
     public bool AutoTimestamp { get; set; }
-    public TimeSpan TimestampRecalculationInterval { get; set; }
 
-    // Demo
+    /// <summary>
+    /// Auto Timestamp Interval
+    /// </summary>
+    public TimeSpan AutoTimestampInterval { get; set; }
+
+    /// <summary>
+    /// Use Demo Trading Service
+    /// </summary>
     public bool DemoTradingService { get; set; } = false;
+
+    /// <summary>
+    /// Flag for signing public requests with API credentials
+    /// </summary>
     public bool SignPublicRequests { get; set; } = false;
 
+    /// <summary>
+    /// OKXRestApiClientOptions Constructor
+    /// </summary>
     public OKXRestApiClientOptions() : this(null)
     {
     }
 
-    public OKXRestApiClientOptions(ApiCredentials credentials)
+    /// <summary>
+    /// OKXRestApiClientOptions Constructor
+    /// </summary>
+    /// <param name="credentials">OkxApiCredentials</param>
+    public OKXRestApiClientOptions(OkxApiCredentials credentials)
     {
         // API Credentials
         ApiCredentials = credentials;
@@ -48,7 +72,7 @@ public class OKXRestApiClientOptions : RestApiClientOptions
 
         // Auto Timestamp
         AutoTimestamp = true;
-        TimestampRecalculationInterval = TimeSpan.FromHours(1);
+        AutoTimestampInterval = TimeSpan.FromHours(1);
 
         // Http Options
         HttpOptions = new HttpOptions

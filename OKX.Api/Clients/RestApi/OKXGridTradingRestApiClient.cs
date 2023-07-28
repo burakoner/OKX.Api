@@ -374,10 +374,9 @@ public class OKXGridTradingRestApiClient : OKXBaseRestApiClient
     {
         var parameters = new Dictionary<string, object> {
             { "algoOrdType", JsonConvert.SerializeObject(algoOrderType, new GridAlgoOrderTypeConverter(false)) },
-            { "algoId", algoOrderId.ToOkxString() }
+            { "algoId", algoOrderId.ToOkxString() },
+            { "type", JsonConvert.SerializeObject(type, new GridAlgoSubOrderTypeConverter(false)) },
         };
-        if (type != null)
-            parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new GridAlgoSubOrderTypeConverter(false)));
         parameters.AddOptionalParameter("groupId", groupId);
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());

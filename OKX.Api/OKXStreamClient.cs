@@ -1,13 +1,23 @@
 ﻿namespace OKX.Api;
 
+/// <summary>
+/// OKX WebSocket Client
+/// </summary>
 public class OKXStreamClient : StreamApiClient
 {
     internal bool IsAuthendicated { get; private set; }
 
+    /// <summary>
+    /// OKXStreamClient Constructor
+    /// </summary>
     public OKXStreamClient() : this(new OKXStreamClientOptions())
     {
     }
 
+    /// <summary>
+    /// OKXStreamClient Constructor
+    /// </summary>
+    /// <param name="options">OKXStreamClientOptions</param>
     public OKXStreamClient(OKXStreamClientOptions options) : base("OKX Stream", options)
     {
         RateLimitPerConnectionPerSecond = 4;
@@ -18,9 +28,11 @@ public class OKXStreamClient : StreamApiClient
     }
 
     #region Overrided Methods
+    /// <inheritdoc />
     protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
         => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
 
+    /// <inheritdoc />
     protected override async Task<CallResult<bool>> AuthenticateAsync(StreamConnection connection)
     {
         // Check Point
@@ -86,6 +98,7 @@ public class OKXStreamClient : StreamApiClient
         return result;
     }
 
+    /// <inheritdoc />
     protected override bool HandleQueryResponse<T>(StreamConnection connection, object request, JToken data, out CallResult<T> callResult)
     {
         callResult = null;
@@ -121,6 +134,7 @@ public class OKXStreamClient : StreamApiClient
         return false;
     }
 
+    /// <inheritdoc />
     protected override bool HandleSubscriptionResponse(StreamConnection connection, StreamSubscription subscription, object request, JToken data, out CallResult<object> callResult)
     {
         callResult = null;
@@ -156,6 +170,7 @@ public class OKXStreamClient : StreamApiClient
         return false;
     }
 
+    /// <inheritdoc />
     protected override bool MessageMatchesHandler(StreamConnection connection, JToken message, object request)
     {
         // Ping Request
@@ -198,11 +213,13 @@ public class OKXStreamClient : StreamApiClient
         return false;
     }
 
+    /// <inheritdoc />
     protected override bool MessageMatchesHandler(StreamConnection connection, JToken message, string identifier)
     {
         return true;
     }
 
+    /// <inheritdoc />
     protected override async Task<bool> UnsubscribeAsync(StreamConnection connection, StreamSubscription subscription)
     {
         if (subscription == null || subscription.Request == null)
@@ -224,6 +241,7 @@ public class OKXStreamClient : StreamApiClient
         return false;
     }
 
+    /// <inheritdoc />
     protected override async Task<CallResult<StreamConnection>> GetStreamConnection(string address, bool authenticated)
     {
         address = authenticated
@@ -256,6 +274,10 @@ public class OKXStreamClient : StreamApiClient
     #endregion
 
     #region Ping
+    /// <summary>
+    /// Send Ping Request
+    /// </summary>
+    /// <returns></returns>
     public virtual async Task<CallResult<OkxSocketPingPong>> PingAsync()
     {
         var pit = DateTime.UtcNow;
@@ -356,6 +378,7 @@ public class OKXStreamClient : StreamApiClient
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOpenInterestsAsync(Action<OkxOpenInterest> onData, string instrumentId, CancellationToken ct = default)
         => await SubscribeToOpenInterestsAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
@@ -365,6 +388,7 @@ public class OKXStreamClient : StreamApiClient
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentIds">Lİst of Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOpenInterestsAsync(Action<OkxOpenInterest> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
@@ -872,6 +896,13 @@ public class OKXStreamClient : StreamApiClient
         CancellationToken ct = default)
         => await SubscribeToPositionUpdatesAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
 
+    /// <summary>
+    /// Retrieve position information. Initial snapshot will be pushed according to subscription granularity. Data will be pushed when triggered by events such as placing/canceling order, and will also be pushed in regular interval according to subscription granularity.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="symbols">Symbols to subscribe</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(
         Action<OkxPosition> onData,
         IEnumerable<OkxSocketSymbolRequest> symbols,
@@ -935,6 +966,13 @@ public class OKXStreamClient : StreamApiClient
         CancellationToken ct = default)
         => await SubscribeToOrderUpdatesAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
 
+    /// <summary>
+    /// Retrieve order information. Data will not be pushed when first subscribed. Data will only be pushed when there are order updates.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="symbols">Symbols to subscribe</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(
         Action<OkxOrder> onData,
         IEnumerable<OkxSocketSymbolRequest> symbols,
@@ -975,6 +1013,13 @@ public class OKXStreamClient : StreamApiClient
         CancellationToken ct = default)
         => await SubscribeToAlgoOrderUpdatesAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
 
+    /// <summary>
+    /// Retrieve algo orders (includes trigger order, oco order, conditional order). Data will not be pushed when first subscribed. Data will only be pushed when there are order updates.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="symbols">Symbols to subscribe</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToAlgoOrderUpdatesAsync(
         Action<OkxAlgoOrder> onData,
         IEnumerable<OkxSocketSymbolRequest> symbols,
@@ -1015,6 +1060,13 @@ public class OKXStreamClient : StreamApiClient
         CancellationToken ct = default)
         => await SubscribeToAdvanceAlgoOrderUpdatesAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
 
+    /// <summary>
+    /// Retrieve advance algo orders (including Iceberg order, TWAP order, Trailing order). Data will be pushed when first subscribed. Data will be pushed when triggered by events such as placing/canceling order.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="symbols">Symbols to subscribe</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public virtual async Task<CallResult<UpdateSubscription>> SubscribeToAdvanceAlgoOrderUpdatesAsync(
         Action<OkxAlgoOrder> onData,
         IEnumerable<OkxSocketSymbolRequest> symbols,

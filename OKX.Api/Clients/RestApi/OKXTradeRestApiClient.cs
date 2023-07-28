@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Diagnostics;
 
 namespace OKX.Api.Clients.RestApi;
 
@@ -46,14 +46,23 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="clientOrderId">Client Order ID</param>
     /// <param name="reduceOnly">Whether to reduce position only or not, true false, the default is false.</param>
     /// <param name="quantityType">Quantity Type</param>
+    /// 
     /// <param name="quickMgnType">Quick Margin type. Only applicable to Quick Margin Mode of isolated margin. The default value is manual</param>
     /// <param name="banAmend">Whether to disallow the system from amending the size of the SPOT Market Order.</param>
+    /// 
     /// <param name="tpTriggerPxType">Take-profit trigger price type. The Default is last</param>
     /// <param name="tpTriggerPx">Take-profit trigger price. If you fill in this parameter, you should fill in the take-profit order price as well.</param>
     /// <param name="tpOrdPx">Take-profit order price</param>
+    /// 
     /// <param name="slTriggerPxType">Stop-loss trigger price type. The Default is last</param>
     /// <param name="slTriggerPx">Stop-loss trigger price. If you fill in this parameter, you should fill in the stop-loss order price.</param>
     /// <param name="slOrdPx">Stop-loss order price. If you fill in this parameter, you should fill in the stop-loss trigger price. If the price is -1, stop-loss will be executed at the market price.</param>
+    /// 
+    /// <param name="attachAlgoClientOrderOrderId">Client-supplied Algo ID when plaing order attaching TP/SL. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters. It will be posted to algoClOrdId when placing TP/SL order once the general order is filled completely.</param>
+    /// 
+    /// <param name="selfTradePreventionId">Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.</param>
+    /// <param name="selfTradePreventionMode">Self trade prevention mode. Default to cancel maker. cancel_maker,cancel_taker, cancel_both. Cancel both does not support FOK.</param>
+    /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(
@@ -181,6 +190,15 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
     /// <param name="cancelOnFail">Cancel On Fail</param>
     /// <param name="newQuantity">New Quantity</param>
     /// <param name="newPrice">New Price</param>
+    /// 
+    /// <param name="newTakeProfitTriggerPriceType">Take-profit trigger price. Either the take profit trigger price or order price is 0, it means that the take profit is deleted. Only applicable to Futures and Perpetual swap.</param>
+    /// <param name="newTakeProfitTriggerPrice">Take-profit order price. If the price is -1, take-profit will be executed at the market price. Only applicable to Futures and Perpetual swap.</param>
+    /// <param name="newTakeProfitOrderPrice">Take-profit order price. If the price is -1, take-profit will be executed at the market price. Only applicable to Futures and Perpetual swap.</param>
+    ///
+    /// <param name="newStopLossTriggerPriceType">Price</param>
+    /// <param name="newStopLossTriggerPrice">Stop-loss trigger price. Either the stop loss trigger price or order price is 0, it means that the stop loss is deleted. Only applicable to Futures and Perpetual swap.</param>
+    /// <param name="newStopLossOrderPrice">Stop-loss order price. If the price is -1, stop-loss will be executed at the market price. Only applicable to Futures and Perpetual swap.</param>
+    /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public virtual async Task<RestCallResult<OkxOrderAmendResponse>> AmendOrderAsync(
@@ -192,33 +210,33 @@ public class OKXTradeRestApiClient : OKXBaseRestApiClient
         decimal? newQuantity = null,
         decimal? newPrice = null,
 
-        OkxAlgoPriceType? newTpTriggerPxType = null,
-        decimal? newTpTriggerPx = null,
-        decimal? newTpOrdPx = null,
+        OkxAlgoPriceType? newTakeProfitTriggerPriceType = null,
+        decimal? newTakeProfitTriggerPrice = null,
+        decimal? newTakeProfitOrderPrice = null,
 
-        OkxAlgoPriceType? newSlTriggerPxType = null,
-        decimal? newSlTriggerPx = null,
-        decimal? newSlOrdPx = null,
+        OkxAlgoPriceType? newStopLossTriggerPriceType = null,
+        decimal? newStopLossTriggerPrice = null,
+        decimal? newStopLossOrderPrice = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
         };
+        parameters.AddOptionalParameter("cxlOnFail", cancelOnFail);
         parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
         parameters.AddOptionalParameter("clOrdId", clientOrderId);
-        parameters.AddOptionalParameter("cxlOnFail", cancelOnFail);
         parameters.AddOptionalParameter("reqId", requestId);
         parameters.AddOptionalParameter("newSz", newQuantity?.ToOkxString());
         parameters.AddOptionalParameter("newPx", newPrice?.ToOkxString());
 
-        parameters.AddOptionalParameter("newTpTriggerPxType", JsonConvert.SerializeObject(newTpTriggerPxType, new AlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("newTpTriggerPx", newTpTriggerPx?.ToOkxString());
-        parameters.AddOptionalParameter("newTpOrdPx", newTpOrdPx?.ToOkxString());
-
-        parameters.AddOptionalParameter("newSlTriggerPxType", JsonConvert.SerializeObject(newSlTriggerPxType, new AlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("newSlTriggerPx", newSlTriggerPx?.ToOkxString());
-        parameters.AddOptionalParameter("newSlOrdPx", newSlOrdPx?.ToOkxString());
+        parameters.AddOptionalParameter("newTpTriggerPxType", JsonConvert.SerializeObject(newTakeProfitTriggerPriceType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("newTpTriggerPx", newTakeProfitTriggerPrice?.ToOkxString());
+        parameters.AddOptionalParameter("newTpOrdPx", newTakeProfitOrderPrice?.ToOkxString());
+        
+        parameters.AddOptionalParameter("newSlTriggerPxType", JsonConvert.SerializeObject(newStopLossTriggerPriceType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("newSlTriggerPx", newStopLossTriggerPrice?.ToOkxString());
+        parameters.AddOptionalParameter("newSlOrdPx", newStopLossOrderPrice?.ToOkxString());
 
         return await SendOKXSingleRequest<OkxOrderAmendResponse>(GetUri(v5TradeAmendOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }

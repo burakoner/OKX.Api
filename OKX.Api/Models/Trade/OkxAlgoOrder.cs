@@ -167,7 +167,7 @@ public class OkxAlgoOrder
     public decimal? ActualOrderPrice { get; set; }
 
     /// <summary>
-    /// Broker Id
+    /// Order tag. Used for Broker Id
     /// </summary>
     [JsonProperty("tag")]
     internal string Tag { get; set; }

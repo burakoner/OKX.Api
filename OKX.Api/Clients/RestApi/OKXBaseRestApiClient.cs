@@ -26,9 +26,11 @@ public abstract class OKXBaseRestApiClient : RestApiClient
     }
 
     #region Override Methods
+    /// <inheritdoc />
     protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
         => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
 
+    /// <inheritdoc />
     protected override Error ParseErrorResponse(JToken error)
     {
         if (!error.HasValues)
@@ -43,18 +45,21 @@ public abstract class OKXBaseRestApiClient : RestApiClient
         return new ServerError((int)error["code"], (string)error["message"]);
     }
 
+    /// <inheritdoc />
     protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync()
         => RootClient.PublicData.GetServerTimeAsync();
 
+    /// <inheritdoc />
     protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
+        => new(log, ClientOptions.AutoTimestamp, ClientOptions.AutoTimestampInterval, TimeSyncState);
 
+    /// <inheritdoc />
     protected override TimeSpan GetTimeOffset()
         => TimeSyncState.TimeOffset;
     #endregion
 
     #region Internal Methods
-    protected Uri GetUri(string endpoint, string param = "")
+    internal Uri GetUri(string endpoint, string param = "")
     {
         var x = endpoint.IndexOf('<');
         var y = endpoint.IndexOf('>');
@@ -67,7 +72,7 @@ public abstract class OKXBaseRestApiClient : RestApiClient
     /// Sets the API Credentials
     /// </summary>
     /// <param name="credentials">API Credentials Object</param>
-    protected void SetApiCredentials(OkxApiCredentials credentials)
+    internal void SetApiCredentials(OkxApiCredentials credentials)
     {
         base.SetApiCredentials(credentials);
     }
@@ -78,12 +83,12 @@ public abstract class OKXBaseRestApiClient : RestApiClient
     /// <param name="apiKey">The api key</param>
     /// <param name="apiSecret">The api secret</param>
     /// <param name="passPhrase">The passphrase you specified when creating the API key</param>
-    protected virtual void SetApiCredentials(string apiKey, string apiSecret, string passPhrase)
+    internal virtual void SetApiCredentials(string apiKey, string apiSecret, string passPhrase)
     {
         SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
     }
 
-    protected async Task<RestCallResult<T>> SendRawRequest<T>(
+    internal async Task<RestCallResult<T>> SendRawRequest<T>(
         Uri uri, 
         HttpMethod method, 
         CancellationToken cancellationToken, 
@@ -101,7 +106,7 @@ public abstract class OKXBaseRestApiClient : RestApiClient
         return await SendRequestAsync<T>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
     }
 
-    protected async Task<RestCallResult<T>> SendOKXRequest<T>(
+    internal async Task<RestCallResult<T>> SendOKXRequest<T>(
         Uri uri, 
         HttpMethod method, 
         CancellationToken cancellationToken, 
@@ -123,7 +128,7 @@ public abstract class OKXBaseRestApiClient : RestApiClient
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
-    protected async Task<RestCallResult<T>> SendOKXSingleRequest<T>(
+    internal async Task<RestCallResult<T>> SendOKXSingleRequest<T>(
         Uri uri, 
         HttpMethod method, 
         CancellationToken cancellationToken, 

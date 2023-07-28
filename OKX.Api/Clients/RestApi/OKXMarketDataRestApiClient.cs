@@ -33,6 +33,7 @@ public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
     /// Retrieve the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -344,6 +345,7 @@ public class OKXMarketDataRestApiClient : OKXBaseRestApiClient
     /// Rate Limit: 20 requests per 2 seconds
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
