@@ -31,6 +31,11 @@ public class OKXRestApiClientOptions : RestApiClientOptions
     public bool SignPublicRequests { get; set; } = false;
 
     /// <summary>
+    /// OKX API Broker Id
+    /// </summary>
+    public string BrokerId { get; }
+
+    /// <summary>
     /// OKXRestApiClientOptions Constructor
     /// </summary>
     public OKXRestApiClientOptions() : this(null)
