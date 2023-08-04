@@ -3,7 +3,7 @@
 [JsonConverter(typeof(ArrayConverter))]
 public class OkxCandlestick
 {
-    [ArrayProperty(9)]
+    [JsonIgnore]
     public string Instrument { get; set; }
 
     [ArrayProperty(0), JsonConverter(typeof(DateTimeConverter))]
