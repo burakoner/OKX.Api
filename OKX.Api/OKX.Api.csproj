@@ -19,7 +19,7 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
-      Version 1.2.4 - 04 Aug 2023
+      Version 1.2.4 - 05 Aug 2023
       * Multiple subscription to index candle instrument name issue solved.
       
       Version 1.2.3 - 03 Aug 2023
