@@ -25,7 +25,7 @@ public class OkxSocketResponse
 public class OkxSocketUpdateResponse<T> : OkxSocketResponse
 {
     [JsonProperty("arg")]
-    public OkxSocketUpdateArgs Args { get; set; }
+    public OkxSocketUpdateArgs? Args { get; set; }
     [JsonProperty("data")]
     public T Data { get; set; } = default!;
 }

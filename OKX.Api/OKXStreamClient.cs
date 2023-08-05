@@ -433,14 +433,7 @@ public class OKXStreamClient : StreamApiClient
         {
             foreach (var d in data.Data.Data)
             {
-                if (instrumentIds.Count() == 1)
-                {
-                    d.Instrument = instrumentIds.FirstOrDefault();
-                }
-                else
-                {
-                    d.Instrument = data.Data.Args.Instrument;
-                }
+                d.Instrument = data.Data.Args.Instrument;
                 onData(d);
             }
         });
