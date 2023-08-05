@@ -433,7 +433,7 @@ public class OKXStreamClient : StreamApiClient
         {
             foreach (var d in data.Data.Data)
             {
-                d.Instrument = data.Data.Args.Instrument;
+                d.Instrument = data.Data.Args?.Instrument;
                 onData(d);
             }
         });
