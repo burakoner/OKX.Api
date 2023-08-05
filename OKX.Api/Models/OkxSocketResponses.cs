@@ -24,8 +24,18 @@ public class OkxSocketResponse
 
 public class OkxSocketUpdateResponse<T> : OkxSocketResponse
 {
+    [JsonProperty("arg")]
+    public OkxSocketUpdateArgs? Args { get; set; }
     [JsonProperty("data")]
     public T Data { get; set; } = default!;
+}
+public class OkxSocketUpdateArgs
+{
+    [JsonProperty("channel")]
+    public string Channel { get; set; }
+
+    [JsonProperty("instId")]
+    public string Instrument { get; set; }
 }
 
 public class OkxOrderBookUpdate
