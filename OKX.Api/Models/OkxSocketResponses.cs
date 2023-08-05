@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Models;
+﻿using OKX.Api.Models.MarketData;
+
+namespace OKX.Api.Models;
 
 public class OkxSocketResponse
 {

@@ -5,56 +5,60 @@
 /// </summary>
 public sealed class OKXRestApiClient
 {
-    // Options
+    /// <summary>
+    /// Client Options
+    /// </summary>
     internal OKXRestApiClientOptions ClientOptions { get; }
 
     /// <summary>
-    /// Trade Client
+    /// Trading Account Client
     /// </summary>
-    public OKXTradeRestApiClient Trade { get; }
+    public OKXRestApiTradingAccountClient TradingAccount { get; }
 
     /// <summary>
-    /// Funding Client
+    /// OrderBook Trading Client
     /// </summary>
-    public OKXFundingRestApiClient Funding { get; }
+    public OKXRestApiOrderBookTradingClient OrderBookTrading { get; }
 
     /// <summary>
-    /// Account Client
+    /// Block Trading Client
     /// </summary>
-    public OKXAccountRestApiClient Account { get; }
+    public OKXRestApiBlockTradingClient BlockTrading { get; }
 
     /// <summary>
-    /// SubAccount Client
+    /// Spread Trading Client
     /// </summary>
-    public OKXSubAccountRestApiClient SubAccount { get; }
-
-    /// <summary>
-    /// GridTrading  Client
-    /// </summary>
-    public OKXGridTradingRestApiClient GridTrading { get; }
-
-    /// <summary>
-    /// MarketData Client
-    /// </summary>
-    public OKXMarketDataRestApiClient MarketData { get; }
+    public OKXRestApiSpreadTradingClient SpreadTrading { get; }
 
     /// <summary>
     /// PublicData Client
     /// </summary>
-    public OKXPublicDataRestApiClient PublicData { get; }
+    public OKXRestApiPublicDataClient PublicData { get; }
 
     /// <summary>
-    /// TradingData Client
+    /// Trading Statistics Client
     /// </summary>
-    public OKXTradingDataRestApiClient TradingData { get; }
+    public OKXRestApiTradingStatisticsClient TradingStatistics { get; }
 
-    // TODO: Convert
-    // TODO: Recurring Buy
-    // TODO: Savings
-    // TODO: Earn
-    // TODO: Copy Trading
-    // TODO: Block Trading
-    // TODO: Spread Trading
+    /// <summary>
+    /// Funding Account Client
+    /// </summary>
+    public OKXRestApiFundingAccountClient FundingAccount { get; }
+
+    /// <summary>
+    /// SubAccount Client
+    /// </summary>
+    public OKXRestApiSubAccountClient SubAccount { get; }
+
+    /// <summary>
+    /// Financial Product Client
+    /// </summary>
+    public OKXRestApiFinancialProductClient FinancialProduct { get; }
+
+    /// <summary>
+    /// Status Client
+    /// </summary>
+    public OKXRestApiSystemClient Status { get; }
 
     /// <summary>
     /// OKXRestApiClient Constructor
@@ -71,14 +75,15 @@ public sealed class OKXRestApiClient
     {
         ClientOptions = options;
 
-        Trade = new OKXTradeRestApiClient(this);
-        Funding = new OKXFundingRestApiClient(this);
-        Account = new OKXAccountRestApiClient(this);
-        SubAccount = new OKXSubAccountRestApiClient(this);
-        GridTrading = new OKXGridTradingRestApiClient(this);
-        MarketData = new OKXMarketDataRestApiClient(this);
-        PublicData = new OKXPublicDataRestApiClient(this);
-        TradingData = new OKXTradingDataRestApiClient(this);
+        TradingAccount = new OKXRestApiTradingAccountClient(this);
+        OrderBookTrading = new OKXRestApiOrderBookTradingClient(this);
+        BlockTrading = new OKXRestApiBlockTradingClient(this);
+        SpreadTrading = new OKXRestApiSpreadTradingClient(this);
+        PublicData = new OKXRestApiPublicDataClient(this);
+        TradingStatistics = new OKXRestApiTradingStatisticsClient(this);
+        SubAccount = new OKXRestApiSubAccountClient(this);
+        FundingAccount = new OKXRestApiFundingAccountClient(this);
+        Status = new OKXRestApiSystemClient(this);
     }
 
     /// <summary>
@@ -98,13 +103,14 @@ public sealed class OKXRestApiClient
     /// <param name="credentials">OkxApiCredentials Object</param>
     public void SetApiCredentials(OkxApiCredentials credentials)
     {
-        Trade.SetApiCredentials(credentials);
-        Funding.SetApiCredentials(credentials);
-        Account.SetApiCredentials(credentials);
-        SubAccount.SetApiCredentials(credentials);
-        GridTrading.SetApiCredentials(credentials);
-        MarketData.SetApiCredentials(credentials);
+        FundingAccount.SetApiCredentials(credentials);
+        OrderBookTrading.SetApiCredentials(credentials);
+        BlockTrading.SetApiCredentials(credentials);
+        SpreadTrading.SetApiCredentials(credentials);
         PublicData.SetApiCredentials(credentials);
-        TradingData.SetApiCredentials(credentials);
+        TradingStatistics.SetApiCredentials(credentials);
+        SubAccount.SetApiCredentials(credentials);
+        FundingAccount.SetApiCredentials(credentials);
+        Status.SetApiCredentials(credentials);
     }
 }

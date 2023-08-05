@@ -1,0 +1,36 @@
+﻿namespace OKX.Api.Clients.RestApi;
+
+/// <summary>
+/// OKX Financial Product Base Client
+/// </summary>
+public class OKXRestApiFinancialProductClient
+{
+    /// <summary>
+    /// Earn Client
+    /// </summary>
+    public OKXRestApiEarnClient Earn { get; }
+
+    /// <summary>
+    /// Savings Client
+    /// </summary>
+    public OKXRestApiSavingsClient Savings { get; }
+
+    /// <summary>
+    /// OKXFinancialProductBaseClient Constructor
+    /// </summary>
+    public OKXRestApiFinancialProductClient(OKXRestApiClient root)
+    {
+        Earn = new OKXRestApiEarnClient(root);
+        Savings = new OKXRestApiSavingsClient(root);
+    }
+
+    /// <summary>
+    /// Sets API Credentials
+    /// </summary>
+    /// <param name="credentials">OkxApiCredentials Object</param>
+    public void SetApiCredentials(OkxApiCredentials credentials)
+    {
+        Earn.SetApiCredentials(credentials);
+        Savings.SetApiCredentials(credentials);
+    }
+}

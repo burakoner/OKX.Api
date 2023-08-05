@@ -1,5 +1,6 @@
-﻿using ApiSharp.Stream;
+﻿using ApiSharp.WebSocket;
 using OKX.Api.Enums;
+using OKX.Api.Models.AlgoTrading;
 using OKX.Api.Models.GridTrading;
 using OKX.Api.Models.Trade;
 using System;
@@ -70,38 +71,38 @@ namespace OKX.Api.Examples
             var market_19 = await api.MarketData.GetBlockTradesAsync("BTC-USDT");
 
             /* Rubik Endpoints (Unsigned) */
-            var rubik_01 = await api.TradingData.GetSupportCoinAsync();
-            var rubik_02 = await api.TradingData.GetTakerVolumeAsync("BTC", OkxInstrumentType.Spot);
-            var rubik_03 = await api.TradingData.GetMarginLendingRatioAsync("BTC", OkxPeriod.OneDay);
-            var rubik_04 = await api.TradingData.GetLongShortRatioAsync("BTC", OkxPeriod.OneDay);
-            var rubik_05 = await api.TradingData.GetContractSummaryAsync("BTC", OkxPeriod.OneDay);
-            var rubik_06 = await api.TradingData.GetOptionsSummaryAsync("BTC", OkxPeriod.OneDay);
-            var rubik_07 = await api.TradingData.GetPutCallRatioAsync("BTC", OkxPeriod.OneDay);
-            var rubik_08 = await api.TradingData.GetInterestVolumeExpiryAsync("BTC", OkxPeriod.OneDay);
-            var rubik_09 = await api.TradingData.GetInterestVolumeStrikeAsync("BTC", "20210623", OkxPeriod.OneDay);
-            var rubik_10 = await api.TradingData.GetTakerFlowAsync("BTC", OkxPeriod.OneDay);
+            var rubik_01 = await api.TradingStatistics.GetSupportCoinAsync();
+            var rubik_02 = await api.TradingStatistics.GetTakerVolumeAsync("BTC", OkxInstrumentType.Spot);
+            var rubik_03 = await api.TradingStatistics.GetMarginLendingRatioAsync("BTC", OkxPeriod.OneDay);
+            var rubik_04 = await api.TradingStatistics.GetLongShortRatioAsync("BTC", OkxPeriod.OneDay);
+            var rubik_05 = await api.TradingStatistics.GetContractSummaryAsync("BTC", OkxPeriod.OneDay);
+            var rubik_06 = await api.TradingStatistics.GetOptionsSummaryAsync("BTC", OkxPeriod.OneDay);
+            var rubik_07 = await api.TradingStatistics.GetPutCallRatioAsync("BTC", OkxPeriod.OneDay);
+            var rubik_08 = await api.TradingStatistics.GetInterestVolumeExpiryAsync("BTC", OkxPeriod.OneDay);
+            var rubik_09 = await api.TradingStatistics.GetInterestVolumeStrikeAsync("BTC", "20210623", OkxPeriod.OneDay);
+            var rubik_10 = await api.TradingStatistics.GetTakerFlowAsync("BTC", OkxPeriod.OneDay);
 
             /* Wallet (Account) Endpoints (Signed) */
-            var wallet_01 = await api.Account.GetAccountBalanceAsync();
-            var wallet_02 = await api.Account.GetAccountPositionsAsync();
-            var wallet_03 = await api.Account.GetAccountPositionsHistoryAsync();
-            var wallet_04 = await api.Account.GetAccountPositionRiskAsync();
-            var wallet_05 = await api.Account.GetBillHistoryAsync();
-            var wallet_06 = await api.Account.GetBillArchiveAsync();
-            var wallet_07 = await api.Account.GetAccountConfigurationAsync();
-            var wallet_08 = await api.Account.SetAccountPositionModeAsync(OkxPositionMode.LongShortMode);
-            var wallet_09 = await api.Account.GetAccountLeverageAsync("BTC-USD-211008", OkxMarginMode.Isolated);
-            var wallet_10 = await api.Account.SetAccountLeverageAsync(30, null, "BTC-USD-211008", OkxMarginMode.Isolated, OkxPositionSide.Long);
-            var wallet_11 = await api.Account.GetMaximumAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
-            var wallet_12 = await api.Account.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
-            var wallet_13 = await api.Account.SetMarginAmountAsync("BTC-USDT", OkxPositionSide.Long, OkxMarginAddReduce.Add, 100.0m);
-            var wallet_14 = await api.Account.GetMaximumLoanAmountAsync("BTC-USDT", OkxMarginMode.Cross);
-            var wallet_15 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Spot);
-            var wallet_16 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Futures);
-            var wallet_17 = await api.Account.GetInterestAccruedAsync();
-            var wallet_18 = await api.Account.GetInterestRateAsync();
-            var wallet_19 = await api.Account.SetGreeksAsync(OkxGreeksType.GreeksInCoins);
-            var wallet_20 = await api.Account.GetMaximumWithdrawalsAsync();
+            var wallet_01 = await api.TradingAccount.GetAccountBalanceAsync();
+            var wallet_02 = await api.TradingAccount.GetAccountPositionsAsync();
+            var wallet_03 = await api.TradingAccount.GetAccountPositionsHistoryAsync();
+            var wallet_04 = await api.TradingAccount.GetAccountPositionRiskAsync();
+            var wallet_05 = await api.TradingAccount.GetBillHistoryAsync();
+            var wallet_06 = await api.TradingAccount.GetBillArchiveAsync();
+            var wallet_07 = await api.TradingAccount.GetAccountConfigurationAsync();
+            var wallet_08 = await api.TradingAccount.SetAccountPositionModeAsync(OkxPositionMode.LongShortMode);
+            var wallet_09 = await api.TradingAccount.GetAccountLeverageAsync("BTC-USD-211008", OkxMarginMode.Isolated);
+            var wallet_10 = await api.TradingAccount.SetAccountLeverageAsync(30, null, "BTC-USD-211008", OkxMarginMode.Isolated, OkxPositionSide.Long);
+            var wallet_11 = await api.TradingAccount.GetMaximumAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
+            var wallet_12 = await api.TradingAccount.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
+            var wallet_13 = await api.TradingAccount.SetMarginAmountAsync("BTC-USDT", OkxPositionSide.Long, OkxMarginAddReduce.Add, 100.0m);
+            var wallet_14 = await api.TradingAccount.GetMaximumLoanAmountAsync("BTC-USDT", OkxMarginMode.Cross);
+            var wallet_15 = await api.TradingAccount.GetFeeRatesAsync(OkxInstrumentType.Spot);
+            var wallet_16 = await api.TradingAccount.GetFeeRatesAsync(OkxInstrumentType.Futures);
+            var wallet_17 = await api.TradingAccount.GetInterestAccruedAsync();
+            var wallet_18 = await api.TradingAccount.GetInterestRateAsync();
+            var wallet_19 = await api.TradingAccount.SetGreeksAsync(OkxGreeksType.GreeksInCoins);
+            var wallet_20 = await api.TradingAccount.GetMaximumWithdrawalsAsync();
 
             /* SubAccount Endpoints (Signed) */
             var subaccount_01 = await api.SubAccount.GetSubAccountsAsync();
@@ -112,19 +113,19 @@ namespace OKX.Api.Examples
             var subaccount_06 = await api.SubAccount.TransferBetweenSubAccountsAsync("BTC", 0.5m, OkxAccount.Funding, OkxAccount.Trading, "fromSubAccountName", "toSubAccountName");
 
             /* Funding Endpoints (Signed) */
-            var funding_01 = await api.Funding.GetCurrenciesAsync();
-            var funding_02 = await api.Funding.GetFundingBalanceAsync();
-            var funding_03 = await api.Funding.FundTransferAsync("BTC", 0.5m, OkxTransferType.TransferWithinAccount, OkxAccount.Funding, OkxAccount.Trading);
-            var funding_04 = await api.Funding.GetFundingBillDetailsAsync("BTC");
-            var funding_05 = await api.Funding.GetLightningDepositsAsync("BTC", 0.001m);
-            var funding_06 = await api.Funding.GetDepositAddressAsync("BTC");
-            var funding_07 = await api.Funding.GetDepositAddressAsync("USDT");
-            var funding_08 = await api.Funding.GetDepositHistoryAsync("USDT");
-            var funding_09 = await api.Funding.WithdrawAsync("USDT", 100.0m, OkxWithdrawalDestination.DigitalCurrencyAddress, "toAddress", 1.0m, "USDT-TRC20");
-            var funding_10 = await api.Funding.GetLightningWithdrawalsAsync("BTC", "invoice", "password");
-            var funding_11 = await api.Funding.GetWithdrawalHistoryAsync("USDT");
-            var funding_12 = await api.Funding.GetSavingBalancesAsync();
-            var funding_13 = await api.Funding.SavingPurchaseRedemptionAsync("USDT", 10.0m, OkxSavingActionSide.Purchase);
+            var funding_01 = await api.FundingAccount.GetCurrenciesAsync();
+            var funding_02 = await api.FundingAccount.GetFundingBalanceAsync();
+            var funding_03 = await api.FundingAccount.FundTransferAsync("BTC", 0.5m, OkxTransferType.TransferWithinAccount, OkxAccount.Funding, OkxAccount.Trading);
+            var funding_04 = await api.FundingAccount.GetFundingBillDetailsAsync("BTC");
+            var funding_05 = await api.FundingAccount.GetLightningDepositsAsync("BTC", 0.001m);
+            var funding_06 = await api.FundingAccount.GetDepositAddressAsync("BTC");
+            var funding_07 = await api.FundingAccount.GetDepositAddressAsync("USDT");
+            var funding_08 = await api.FundingAccount.GetDepositHistoryAsync("USDT");
+            var funding_09 = await api.FundingAccount.WithdrawAsync("USDT", 100.0m, OkxWithdrawalDestination.DigitalCurrencyAddress, "toAddress", 1.0m, "USDT-TRC20");
+            var funding_10 = await api.FundingAccount.GetLightningWithdrawalsAsync("BTC", "invoice", "password");
+            var funding_11 = await api.FundingAccount.GetWithdrawalHistoryAsync("USDT");
+            var funding_12 = await api.FundingAccount.GetSavingBalancesAsync();
+            var funding_13 = await api.FundingAccount.SavingPurchaseRedemptionAsync("USDT", 10.0m, OkxSavingActionSide.Purchase);
 
             /* Trade Endpoints (Signed) */
             var trade_01 = await api.Trade.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxOrderSide.Buy, OkxPositionSide.Long, OkxOrderType.MarketOrder, 0.1m);
@@ -216,14 +217,14 @@ namespace OKX.Api.Examples
 
             #region WebSocket Api Client Examples
             /* OKX Socket Client */
-            var ws = new OKXStreamClient();
+            var ws = new OKXWebSocketApiClient();
             ws.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
             /* Sample Pairs */
             var sample_pairs = new List<string> { "BTC-USDT", "LTC-USDT", "ETH-USDT", "XRP-USDT", "BCH-USDT", "EOS-USDT", "OKB-USDT", "ETC-USDT", "TRX-USDT", "BSV-USDT", "DASH-USDT", "NEO-USDT", "QTUM-USDT", "XLM-USDT", "ADA-USDT", "AE-USDT", "BLOC-USDT", "EGT-USDT", "IOTA-USDT", "SC-USDT", "WXT-USDT", "ZEC-USDT", };
 
             /* WS Subscriptions */
-            var subs = new List<UpdateSubscription>();
+            var subs = new List<WebSocketUpdateSubscription>();
 
             /* Instruments (Public) */
             await ws.SubscribeToInstrumentsAsync((data) =>
