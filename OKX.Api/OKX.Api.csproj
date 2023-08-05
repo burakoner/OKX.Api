@@ -19,52 +19,53 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
-      Version 1.2.4 - 05 Aug 2023
-      * Multiple subscription to index candle instrument name issue solved.
-      
-      Version 1.2.3 - 03 Aug 2023
-      * ApiSharp version updated to 1.4.1
+			Version 1.2.4 - 05 Aug 2023
+			* Multiple subscription to index candle instrument name issue solved 
+			  as described at https://github.com/burakoner/OKX.Api/issues/30 and solved at https://github.com/burakoner/OKX.Api/pull/31
 
-      Version 1.2.2 - 28 Jul 2023
-      * Merged pull request https://github.com/burakoner/OKX.Api/pull/28
+			Version 1.2.3 - 03 Aug 2023
+			* ApiSharp version updated to 1.4.1
 
-      Version 1.2.1 - 28 Jul 2023
-      * Synced with OKX Api 2023-07-26 version
-      * Added some other missing documentation symbols
-      * Merged pull request https://github.com/burakoner/OKX.Api/pull/25
-      * Merged pull request https://github.com/burakoner/OKX.Api/pull/26
-      * Merged pull request https://github.com/burakoner/OKX.Api/pull/27
+			Version 1.2.2 - 28 Jul 2023
+			* Merged pull request https://github.com/burakoner/OKX.Api/pull/28
 
-      Version 1.2.0 - 27 Jul 2023
-      * Added documentation symbols
-      * Synced with OKX Api 2023-06-28 version
-      * Fixed issue at https://github.com/burakoner/OKX.Api/issues/21
-      * Fixed issue at https://github.com/burakoner/OKX.Api/issues/21
-      * Merged pull request https://github.com/burakoner/OKX.Api/pull/23
-      * Merged pull request https://github.com/burakoner/OKX.Api/pull/24
+			Version 1.2.1 - 28 Jul 2023
+			* Synced with OKX Api 2023-07-26 version
+			* Added some other missing documentation symbols
+			* Merged pull request https://github.com/burakoner/OKX.Api/pull/25
+			* Merged pull request https://github.com/burakoner/OKX.Api/pull/26
+			* Merged pull request https://github.com/burakoner/OKX.Api/pull/27
 
-      Version 1.1.7 - 26 Jun 2023
-      * It's possible to subscribe multiple symbols at once on WebSocket
-      * Fixed issue at https://github.com/burakoner/OKX.Api/issues/16
+			Version 1.2.0 - 27 Jul 2023
+			* Added documentation symbols
+			* Synced with OKX Api 2023-06-28 version
+			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/21
+			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/21
+			* Merged pull request https://github.com/burakoner/OKX.Api/pull/23
+			* Merged pull request https://github.com/burakoner/OKX.Api/pull/24
 
-      Version 1.1.6 - 26 Jun 2023
-      * Updated All Methods and Models, synced with OKX Api 2023-06-20 version
-      * OKXStreamClient has some parameter and parameter order changes
-      * Fixed issue at https://github.com/burakoner/OKX.Api/issues/18
-      * Fixed some typos
+			Version 1.1.7 - 26 Jun 2023
+			* It's possible to subscribe multiple symbols at once on WebSocket
+			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/16
 
-      Version 1.1.5 - 25 Jun 2023
-      * Added Grid Trading section endpoints
-      * ApiSharp updated to v1.3.6
-      * Fixed issue at https://github.com/burakoner/OKX.Api/issues/11
+			Version 1.1.6 - 26 Jun 2023
+			* Updated All Methods and Models, synced with OKX Api 2023-06-20 version
+			* OKXStreamClient has some parameter and parameter order changes
+			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/18
+			* Fixed some typos
 
-      Version 1.1.0 - 07 May 2023
-      * Updated All Methods and Models, synced with OKX Api 2023-04-27 version
+			Version 1.1.5 - 25 Jun 2023
+			* Added Grid Trading section endpoints
+			* ApiSharp updated to v1.3.6
+			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/11
 
-      Version 1.0.6 - 06 May 2023
-      * Updated WithdrawAsync Method (https://github.com/burakoner/OKEx.Net/issues/97)
-      * Updated GetInstrumentsAsync Method (https://github.com/burakoner/OKX.Api/issues/7)
-    </PackageReleaseNotes>
+			Version 1.1.0 - 07 May 2023
+			* Updated All Methods and Models, synced with OKX Api 2023-04-27 version
+
+			Version 1.0.6 - 06 May 2023
+			* Updated WithdrawAsync Method (https://github.com/burakoner/OKEx.Net/issues/97)
+			* Updated GetInstrumentsAsync Method (https://github.com/burakoner/OKX.Api/issues/7)
+		</PackageReleaseNotes>
 		<PackageIcon>OKX.png</PackageIcon>
 		<PackageIconUrl />
 		<PackageProjectUrl>https://github.com/burakoner/OKX.Api</PackageProjectUrl>

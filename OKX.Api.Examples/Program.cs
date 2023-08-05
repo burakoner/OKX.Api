@@ -14,7 +14,10 @@ namespace OKX.Api.Examples
         static async Task Main(string[] args)
         {
             #region Rest Api Client Examples
-            var api = new OKXRestApiClient();
+            var api = new OKXRestApiClient(new OKXRestApiClientOptions
+            {
+                RawResponse = true,
+            });
             api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
             /* Public Endpoints (Unsigned) */
@@ -137,7 +140,7 @@ namespace OKX.Api.Examples
             var trade_11 = await api.Trade.GetOrderArchiveAsync(OkxInstrumentType.Futures);
             var trade_12 = await api.Trade.GetTransactionHistoryAsync();
             var trade_13 = await api.Trade.GetTransactionArchiveAsync(OkxInstrumentType.Futures);
-            var trade_14 = await api.Trade.PlaceAlgoOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxOrderSide.Sell, OkxAlgoOrderType.Conditional, 0.1m);
+            var trade_14 = await api.Trade.PlaceAlgoOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxOrderSide.Sell, OkxAlgoOrderType.Conditional);
             var trade_15 = await api.Trade.CancelAlgoOrderAsync(new List<OkxAlgoOrderRequest>());
             var trade_16 = await api.Trade.CancelAdvanceAlgoOrderAsync(new List<OkxAlgoOrderRequest>());
             var trade_17 = await api.Trade.GetAlgoOrderListAsync(OkxAlgoOrderType.OCO);
