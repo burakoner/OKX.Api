@@ -109,6 +109,7 @@ public sealed class OKXRestApiClient
     /// <param name="credentials">OkxApiCredentials Object</param>
     public void SetApiCredentials(OkxApiCredentials credentials)
     {
+        TradingAccount.SetApiCredentials(credentials);
         FundingAccount.SetApiCredentials(credentials);
         OrderBookTrading.SetApiCredentials(credentials);
         BlockTrading.SetApiCredentials(credentials);
@@ -119,6 +120,5 @@ public sealed class OKXRestApiClient
         FundingAccount.SetApiCredentials(credentials);
         Status.SetApiCredentials(credentials);
         Broker.SetApiCredentials(credentials);
-        TradingAccount.SetApiCredentials(credentials);
     }
 }
