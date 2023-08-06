@@ -4,7 +4,7 @@ using OKX.Api.Models.MarketData;
 namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
-/// OKX Market Data Rest Api Client
+/// OKX Rest Api Market Data Client
 /// </summary>
 public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
 {

@@ -4,14 +4,14 @@ using OKX.Api.Models.Trade;
 namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
-/// OKX OrderBook Trading Trade Web Socket Api Client
+/// OKX WebSocket Api Trade Client
 /// </summary>
-public class OKXWebSocketTradeClient
+public class OKXWebSocketApiTradeClient
 {
     // Root Client
     internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketTradeClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiTradeClient(OKXWebSocketApiClient root)
     {
         this.RootClient = root;
     }

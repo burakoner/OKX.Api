@@ -1,7 +1,7 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
-/// OKX Status Rest Api Client
+/// OKX Rest Api System Client
 /// </summary>
 public class OKXRestApiSystemClient : OKXRestApiBaseClient
 {

@@ -1,7 +1,7 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
-/// OKX Copy Trading Rest Api Client
+/// OKX Rest Api Copy Trading Client
 /// </summary>
 public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
 {

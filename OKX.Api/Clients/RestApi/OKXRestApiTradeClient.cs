@@ -3,7 +3,7 @@
 namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
-/// OKX Trade Rest Api Client
+/// OKX Rest Api Trade Client
 /// </summary>
 public class OKXRestApiTradeClient : OKXRestApiBaseClient
 {

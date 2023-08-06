@@ -248,14 +248,24 @@ public class OkxOrder
     /// <summary>
     /// Update time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
-    [JsonProperty("uTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime UpdateTime { get; set; }
+    [JsonProperty("uTime")]
+    public long? UpdateTimestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Creation time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
-    [JsonProperty("cTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime CreateTime { get; set; }
+
+    [JsonProperty("cTime")]
+    public long CreateTimestamp { get; set; }
+
+    /// <summary>
+    /// Creation time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.

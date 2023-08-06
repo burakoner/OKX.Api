@@ -2,8 +2,11 @@
 
 public class OkxLightningWithdrawal
 {
-    [JsonProperty("cTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+    [JsonProperty("cTime")]
+    public long CreateTimestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
 
     [JsonProperty("wdId")]
     public long WithdrawalId { get; set; }

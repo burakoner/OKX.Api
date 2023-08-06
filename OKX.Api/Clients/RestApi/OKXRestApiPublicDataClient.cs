@@ -3,7 +3,7 @@
 namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
-/// OKX Public Data Rest Api Client
+/// OKX Rest Api Public Data Client
 /// </summary>
 public class OKXRestApiPublicDataClient : OKXRestApiBaseClient
 {
@@ -64,7 +64,7 @@ public class OKXRestApiPublicDataClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
-        return await SendOKXRequest<IEnumerable<OkxInstrument>>(GetUri(v5PublicInstruments), HttpMethod.Get, ct, true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxInstrument>>(GetUri(v5PublicInstruments), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
-/// OKX Financial Product Earn Client
+/// OKX Rest Api Earn Client
 /// </summary>
 public class OKXRestApiEarnClient : OKXRestApiBaseClient
 {

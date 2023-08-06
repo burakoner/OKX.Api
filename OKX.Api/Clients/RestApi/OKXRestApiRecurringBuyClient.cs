@@ -1,7 +1,7 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
-/// OKX Recurring Buy Rest Api Client
+/// OKX Rest Api Recurring Buy Client
 /// </summary>
 public class OKXRestApiRecurringBuyClient : OKXRestApiBaseClient
 {

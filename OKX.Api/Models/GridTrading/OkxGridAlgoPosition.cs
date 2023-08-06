@@ -14,11 +14,18 @@ public class OkxGridAlgoPosition
     [JsonProperty("instId")]
     public string InstrumentId { get; set; }
 
-    [JsonProperty("cTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime CreateTime { get; set; }
+    [JsonProperty("cTime")]
+    public long CreateTimestamp { get; set; }
 
-    [JsonProperty("uTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime? UpdateTime { get; set; }
+    [JsonIgnore]
+    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+
+    [JsonProperty("uTime")]
+    public long? UpdateTimestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+
 
     [JsonProperty("avgPx")]
     public decimal? AveragePrice { get; set; }

@@ -1,14 +1,14 @@
 ﻿namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
-/// OKX Block Trading WebSocket Api Client
+/// OKX WebSocket Api Block Trading Client
 /// </summary>
-public class OKXWebSocketBlockTradingClient
+public class OKXWebSocketApiBlockTradingClient
 {
     // Root Client
     internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketBlockTradingClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiBlockTradingClient(OKXWebSocketApiClient root)
     {
         this.RootClient = root;
     }

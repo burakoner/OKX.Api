@@ -5,14 +5,14 @@ using OKX.Api.Models.PublicData;
 namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
-/// OKX Public Data WebSocket Api Client
+/// OKX WebSocket Api Public Data Client
 /// </summary>
-public class OKXWebSocketPublicDataClient
+public class OKXWebSocketApiPublicDataClient
 {
     // Root Client
     internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketPublicDataClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiPublicDataClient(OKXWebSocketApiClient root)
     {
         this.RootClient = root;
     }

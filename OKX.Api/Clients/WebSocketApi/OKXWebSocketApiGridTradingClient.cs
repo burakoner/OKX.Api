@@ -1,14 +1,14 @@
 ﻿namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
-/// OKX OrderBook Trading Grid Trading WebSocket Api Client
+/// OKX WebSocket Api Grid Trading Client
 /// </summary>
-public class OKXWebSocketGridTradingClient
+public class OKXWebSocketApiGridTradingClient
 {
     // Root Client
     internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketGridTradingClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiGridTradingClient(OKXWebSocketApiClient root)
     {
         this.RootClient = root;
     }

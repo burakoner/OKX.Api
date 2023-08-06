@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
-/// OKX OrderBook Trading Base Client
+/// OKX Rest Api Order Book Trading Client
 /// </summary>
-public  class OKXRestApiOrderBookTradingClient
+public class OKXRestApiOrderBookTradingClient
 {
     /// <summary>
     /// Trading Client

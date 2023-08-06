@@ -4,14 +4,14 @@ using OKX.Api.Models.AlgoTrading;
 namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
-/// OKX OrderBook Trading Algo Trading Web Socket Api Client
+/// OKX WebSocket Api Algo Trading Client
 /// </summary>
-public class OKXWebSocketAlgoTradingClient
+public class OKXWebSocketApiAlgoTradingClient
 {
     // Root Client
     internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketAlgoTradingClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiAlgoTradingClient(OKXWebSocketApiClient root)
     {
         this.RootClient = root;
     }

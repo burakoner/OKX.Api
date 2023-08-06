@@ -1,14 +1,14 @@
 ﻿namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
-/// OKX OrderBook Trading Recurring Buy WebSocket Api Client
+/// OKX WebSocket Api RecurringBuy Client
 /// </summary>
-public class OKXWebSocketRecurringBuyClient
+public class OKXWebSocketApiRecurringBuyClient
 {
     // Root Client
     internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketRecurringBuyClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiRecurringBuyClient(OKXWebSocketApiClient root)
     {
         this.RootClient = root;
     }

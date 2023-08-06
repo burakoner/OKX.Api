@@ -1,14 +1,14 @@
 ﻿namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
-/// OKX Spread Trading WebSocket Api Client
+/// OKX WebSocket Api Spread Trading Client
 /// </summary>
-public class OKXWebSocketSpreadTradingClient
+public class OKXWebSocketApiSpreadTradingClient
 {
     // Root Client
     internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketSpreadTradingClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiSpreadTradingClient(OKXWebSocketApiClient root)
     {
         this.RootClient = root;
     }

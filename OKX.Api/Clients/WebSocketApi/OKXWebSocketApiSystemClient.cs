@@ -4,14 +4,14 @@ using OKX.Api.Models.System;
 namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
-/// OKX Status WebSocket Api Client
+/// OKX WebSocket Api System Client
 /// </summary>
-public class OKXWebSocketSystemClient
+public class OKXWebSocketApiSystemClient
 {
     // Root Client
     internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketSystemClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiSystemClient(OKXWebSocketApiClient root)
     {
         this.RootClient = root;
     }

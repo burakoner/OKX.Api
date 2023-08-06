@@ -1,7 +1,7 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
-/// OKX Spread Trading Rest Api Client
+/// OKX Rest Api Spread Trading Client
 /// </summary>
 public class OKXRestApiSpreadTradingClient : OKXRestApiBaseClient
 {
