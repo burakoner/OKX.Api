@@ -61,6 +61,11 @@ public sealed class OKXRestApiClient
     public OKXRestApiSystemClient Status { get; }
 
     /// <summary>
+    /// Broker Client
+    /// </summary>
+    public OKXRestApiBrokerClient Broker { get; }
+
+    /// <summary>
     /// OKXRestApiClient Constructor
     /// </summary>
     public OKXRestApiClient() : this(new OKXRestApiClientOptions())
@@ -84,6 +89,7 @@ public sealed class OKXRestApiClient
         SubAccount = new OKXRestApiSubAccountClient(this);
         FundingAccount = new OKXRestApiFundingAccountClient(this);
         Status = new OKXRestApiSystemClient(this);
+        Broker = new OKXRestApiBrokerClient(this);
     }
 
     /// <summary>
@@ -112,5 +118,6 @@ public sealed class OKXRestApiClient
         SubAccount.SetApiCredentials(credentials);
         FundingAccount.SetApiCredentials(credentials);
         Status.SetApiCredentials(credentials);
+        Broker.SetApiCredentials(credentials);
     }
 }

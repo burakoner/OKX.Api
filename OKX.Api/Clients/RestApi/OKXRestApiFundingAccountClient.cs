@@ -41,7 +41,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxCurrency>>> GetCurrenciesAsync(CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<OkxCurrency>>> GetCurrenciesAsync(CancellationToken ct = default)
     {
         return await SendOKXRequest<IEnumerable<OkxCurrency>>(GetUri(v5AssetCurrencies), HttpMethod.Get, ct, true).ConfigureAwait(false);
     }
@@ -52,7 +52,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxFundingBalance>>> GetFundingBalanceAsync(string currency = null, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<OkxFundingBalance>>> GetFundingBalanceAsync(string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -74,7 +74,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="clientOrderId">Client-supplied ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxTransferResponse>> FundTransferAsync(
+    public async Task<RestCallResult<OkxTransferResponse>> FundTransferAsync(
         string currency,
         decimal amount,
         OkxTransferType type,
@@ -112,7 +112,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxFundingBill>>> GetFundingBillDetailsAsync(
+    public async Task<RestCallResult<IEnumerable<OkxFundingBill>>> GetFundingBillDetailsAsync(
         string currency = null,
         OkxFundingBillType? type = null,
         string clientOrderId = null,
@@ -141,7 +141,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="account">Receiving account</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxLightningDeposit>>> GetLightningDepositsAsync(
+    public async Task<RestCallResult<IEnumerable<OkxLightningDeposit>>> GetLightningDepositsAsync(
         string currency,
         decimal amount,
         OkxLightningDepositAccount? account = null,
@@ -163,7 +163,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxDepositAddress>>> GetDepositAddressAsync(string currency = null, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<OkxDepositAddress>>> GetDepositAddressAsync(string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "ccy", currency },
@@ -186,7 +186,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxDepositHistory>>> GetDepositHistoryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxDepositHistory>>> GetDepositHistoryAsync(
         string currency = null,
         string depositId = null,
         long? fromWithdrawalId = null,
@@ -226,7 +226,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="clientOrderId">Client-supplied ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxWithdrawalResponse>> WithdrawAsync(
+    public async Task<RestCallResult<OkxWithdrawalResponse>> WithdrawAsync(
         string currency,
         decimal amount,
         OkxWithdrawalDestination destination,
@@ -259,7 +259,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="memo">Lightning withdrawal memo</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxLightningWithdrawal>> GetLightningWithdrawalsAsync(
+    public async Task<RestCallResult<OkxLightningWithdrawal>> GetLightningWithdrawalsAsync(
         string currency,
         string invoice,
         string memo = null,
@@ -283,7 +283,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="withdrawalId">Withdrawal ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxWithdrawalId>> CancelWithdrawalAsync(long withdrawalId, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxWithdrawalId>> CancelWithdrawalAsync(long withdrawalId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "wdId", withdrawalId},
@@ -306,7 +306,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxWithdrawalHistory>>> GetWithdrawalHistoryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxWithdrawalHistory>>> GetWithdrawalHistoryAsync(
         string currency = null,
         long? withdrawalId = null,
         string clientOrderId = null,

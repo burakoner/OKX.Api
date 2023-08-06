@@ -25,7 +25,7 @@ public class OKXWebSocketApiTradeClient
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderUpdatesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderUpdatesAsync(
         Action<OkxOrder> onData,
         OkxInstrumentType instrumentType,
         string instrumentFamily = null,
@@ -40,7 +40,7 @@ public class OKXWebSocketApiTradeClient
     /// <param name="symbols">Symbols to subscribe</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderUpdatesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderUpdatesAsync(
         Action<OkxOrder> onData,
         IEnumerable<OkxSocketSymbolRequest> symbols,
         CancellationToken ct = default)

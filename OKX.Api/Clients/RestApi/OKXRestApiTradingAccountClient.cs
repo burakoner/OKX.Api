@@ -60,7 +60,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="currencies">Currencies</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxAccountBalance>> GetAccountBalanceAsync(IEnumerable<string> currencies = null, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxAccountBalance>> GetAccountBalanceAsync(IEnumerable<string> currencies = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         if (currencies != null && currencies.Count() > 0) 
@@ -77,7 +77,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="positionId">Position ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxPosition>>> GetAccountPositionsAsync(
+    public async Task<RestCallResult<IEnumerable<OkxPosition>>> GetAccountPositionsAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         string positionId = null,
@@ -105,7 +105,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public virtual async Task<RestCallResult<IEnumerable<OkxPositionHistory>>> GetAccountPositionsHistoryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxPositionHistory>>> GetAccountPositionsHistoryAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         OkxMarginMode? marginMode = null,
@@ -135,7 +135,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxPositionRisk>>> GetAccountPositionRiskAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<OkxPositionRisk>>> GetAccountPositionRiskAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
@@ -159,7 +159,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxAccountBill>>> GetBillHistoryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxAccountBill>>> GetBillHistoryAsync(
         OkxInstrumentType? instrumentType = null,
         string currency = null,
         OkxMarginMode? marginMode = null,
@@ -206,7 +206,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxAccountBill>>> GetBillArchiveAsync(
+    public async Task<RestCallResult<IEnumerable<OkxAccountBill>>> GetBillArchiveAsync(
         OkxInstrumentType? instrumentType = null,
         string currency = null,
         OkxMarginMode? marginMode = null,
@@ -242,7 +242,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxAccountConfiguration>> GetAccountConfigurationAsync(CancellationToken ct = default)
+    public async Task<RestCallResult<OkxAccountConfiguration>> GetAccountConfigurationAsync(CancellationToken ct = default)
     {
         return await SendOKXSingleRequest<OkxAccountConfiguration>(GetUri(v5AccountConfig), HttpMethod.Get, ct, true).ConfigureAwait(false);
     }
@@ -253,7 +253,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="positionMode"></param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxAccountPositionMode>> SetAccountPositionModeAsync(OkxPositionMode positionMode, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxAccountPositionMode>> SetAccountPositionModeAsync(OkxPositionMode positionMode, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             {"posMode", JsonConvert.SerializeObject(positionMode, new PositionModeConverter(false)) },
@@ -276,7 +276,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="positionSide">Position Side</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxLeverage>>> SetAccountLeverageAsync(
+    public async Task<RestCallResult<IEnumerable<OkxLeverage>>> SetAccountLeverageAsync(
         decimal leverage,
         string currency = null,
         string instrumentId = null,
@@ -315,7 +315,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="unSpotOffset">Spot-Derivatives risk offset</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxMaximumAmount>>> GetMaximumAmountAsync(
+    public async Task<RestCallResult<IEnumerable<OkxMaximumAmount>>> GetMaximumAmountAsync(
         string instrumentId,
         OkxTradeMode tradeMode,
         string currency = null,
@@ -347,7 +347,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="quickMgnType">Quick Margin type. Only applicable to Quick Margin Mode of isolated margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxMaximumAvailableAmount>>> GetMaximumAvailableAmountAsync(
+    public async Task<RestCallResult<IEnumerable<OkxMaximumAvailableAmount>>> GetMaximumAvailableAmountAsync(
         string instrumentId,
         OkxTradeMode tradeMode,
         string currency = null,
@@ -379,7 +379,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="auto">Automatic loan transfer out, true or false, the default is false. Only applicable to MARGIN（Manual transfers）</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxMarginAmount>>> SetMarginAmountAsync(
+    public async Task<RestCallResult<IEnumerable<OkxMarginBalance>>> SetMarginAmountAsync(
         string instrumentId,
         OkxPositionSide positionSide,
         OkxMarginAddReduce marginAddReduce,
@@ -397,7 +397,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("auto", auto);
 
-        return await SendOKXRequest<IEnumerable<OkxMarginAmount>>(GetUri(v5AccountPositionMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxMarginBalance>>(GetUri(v5AccountPositionMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -407,7 +407,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="marginMode">Margin Mode</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxLeverage>>> GetAccountLeverageAsync(
+    public async Task<RestCallResult<IEnumerable<OkxLeverage>>> GetAccountLeverageAsync(
         string instrumentIds,
         OkxMarginMode marginMode,
         CancellationToken ct = default)
@@ -428,7 +428,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="marginCurrency">Margin Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxMaximumLoanAmount>>> GetMaximumLoanAmountAsync(
+    public async Task<RestCallResult<IEnumerable<OkxMaximumLoanAmount>>> GetMaximumLoanAmountAsync(
         string instrumentId,
         OkxMarginMode marginMode,
         string marginCurrency = null,
@@ -452,7 +452,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="instrumentFamily">Instrument family</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxFeeRate>> GetFeeRatesAsync(
+    public async Task<RestCallResult<OkxFeeRate>> GetFeeRatesAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
         string underlying = null,
@@ -481,7 +481,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxInterestAccrued>>> GetInterestAccruedAsync(
+    public async Task<RestCallResult<IEnumerable<OkxInterestAccrued>>> GetInterestAccruedAsync(
         OkxLoanType? type = null,
         string currency = null,
         string instrumentId = null,
@@ -510,14 +510,14 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<Models.TradingAccount.OkxInterestRate>>> GetInterestRateAsync(
+    public async Task<RestCallResult<IEnumerable<OkxInterestRate>>> GetInterestRateAsync(
         string currency = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
 
-        return await SendOKXRequest<IEnumerable<Models.TradingAccount.OkxInterestRate>>(GetUri(v5AccountInterestRate), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest<IEnumerable<OkxInterestRate>>(GetUri(v5AccountInterestRate), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -526,7 +526,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="greeksType">Display type of Greeks.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxAccountGreeksType>> SetGreeksAsync(Enums.OkxGreeksType greeksType, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxAccountGreeksType>> SetGreeksAsync(Enums.OkxGreeksType greeksType, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             {"greeksType", JsonConvert.SerializeObject(greeksType, new GreeksTypeConverter(false)) },
@@ -541,7 +541,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxWithdrawalAmount>>> GetMaximumWithdrawalsAsync(
+    public async Task<RestCallResult<IEnumerable<OkxWithdrawalAmount>>> GetMaximumWithdrawalsAsync(
         string currency = null,
         CancellationToken ct = default)
     {

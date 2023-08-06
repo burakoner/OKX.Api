@@ -22,7 +22,7 @@ public class OKXWebSocketApiTradingAccountClient
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAccountUpdatesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAccountUpdatesAsync(
         Action<OkxAccountBalance> onData,
         CancellationToken ct = default)
     {
@@ -48,7 +48,7 @@ public class OKXWebSocketApiTradingAccountClient
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(
         Action<OkxPosition> onData,
         OkxInstrumentType instrumentType,
         string instrumentFamily = null,
@@ -63,7 +63,7 @@ public class OKXWebSocketApiTradingAccountClient
     /// <param name="symbols">Symbols to subscribe</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(
         Action<OkxPosition> onData,
         IEnumerable<OkxSocketSymbolRequest> symbols,
         CancellationToken ct = default)
@@ -92,7 +92,7 @@ public class OKXWebSocketApiTradingAccountClient
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToBalanceAndPositionUpdatesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToBalanceAndPositionUpdatesAsync(
         Action<OkxPositionRisk> onData,
         CancellationToken ct = default)
     {

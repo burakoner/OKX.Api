@@ -32,8 +32,14 @@ public class OkxAccountBill
     /// <summary>
     /// Creation time, Unix timestamp format in milliseconds, e.g.1597026383085
     /// </summary>
-    [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// Creation time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Change in balance amount at the account level
@@ -88,7 +94,7 @@ public class OkxAccountBill
     /// Profit and loss
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal? ProfitNLoss { get; set; }
+    public decimal? ProfitLoss { get; set; }
 
     /// <summary>
     /// Fee

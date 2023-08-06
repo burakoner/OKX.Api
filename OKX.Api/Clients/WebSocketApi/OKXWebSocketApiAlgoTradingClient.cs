@@ -26,7 +26,7 @@ public class OKXWebSocketApiAlgoTradingClient
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAlgoOrderUpdatesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAlgoOrderUpdatesAsync(
         Action<OkxAlgoOrder> onData,
         OkxInstrumentType instrumentType,
         string instrumentFamily = null,
@@ -41,7 +41,7 @@ public class OKXWebSocketApiAlgoTradingClient
     /// <param name="symbols">Symbols to subscribe</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAlgoOrderUpdatesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAlgoOrderUpdatesAsync(
         Action<OkxAlgoOrder> onData,
         IEnumerable<OkxSocketSymbolRequest> symbols,
         CancellationToken ct = default)
@@ -74,7 +74,7 @@ public class OKXWebSocketApiAlgoTradingClient
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAdvanceAlgoOrderUpdatesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAdvanceAlgoOrderUpdatesAsync(
         Action<OkxAlgoOrder> onData,
         OkxInstrumentType instrumentType,
         string instrumentFamily = null,
@@ -89,7 +89,7 @@ public class OKXWebSocketApiAlgoTradingClient
     /// <param name="symbols">Symbols to subscribe</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAdvanceAlgoOrderUpdatesAsync(
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAdvanceAlgoOrderUpdatesAsync(
         Action<OkxAlgoOrder> onData,
         IEnumerable<OkxSocketSymbolRequest> symbols,
         CancellationToken ct = default)

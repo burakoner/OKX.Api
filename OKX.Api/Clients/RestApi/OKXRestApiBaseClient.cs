@@ -85,7 +85,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
     /// <param name="apiKey">The api key</param>
     /// <param name="apiSecret">The api secret</param>
     /// <param name="passPhrase">The passphrase you specified when creating the API key</param>
-    internal virtual void SetApiCredentials(string apiKey, string apiSecret, string passPhrase)
+    internal void SetApiCredentials(string apiKey, string apiSecret, string passPhrase)
     {
         SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
     }

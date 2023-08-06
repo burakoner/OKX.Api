@@ -116,6 +116,13 @@ public class OkxOptionSummary
     /// <summary>
     /// Data update time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
-    [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// Data update time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 }

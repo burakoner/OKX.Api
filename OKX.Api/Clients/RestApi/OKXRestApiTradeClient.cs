@@ -68,7 +68,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(
+    public async Task<RestCallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(
         string instrumentId,
         OkxTradeMode tradeMode,
         OkxOrderSide orderSide,
@@ -138,7 +138,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxOrderPlaceResponse>>> PlaceMultipleOrdersAsync(IEnumerable<OkxOrderPlaceRequest> orders, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<OkxOrderPlaceResponse>>> PlaceMultipleOrdersAsync(IEnumerable<OkxOrderPlaceRequest> orders, CancellationToken ct = default)
     {
         foreach (var order in orders) order.Tag = ClientOptions.BrokerId;
         var parameters = new Dictionary<string, object>
@@ -157,7 +157,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="clientOrderId">Client Order ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxOrderCancelResponse>> CancelOrderAsync(string instrumentId, long? orderId = null, string clientOrderId = null, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxOrderCancelResponse>> CancelOrderAsync(string instrumentId, long? orderId = null, string clientOrderId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             {"instId", instrumentId },
@@ -174,7 +174,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxOrderCancelResponse>>> CancelMultipleOrdersAsync(IEnumerable<OkxOrderCancelRequest> orders, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<OkxOrderCancelResponse>>> CancelMultipleOrdersAsync(IEnumerable<OkxOrderCancelRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { ClientOptions.RequestBodyParameterKey, orders },
@@ -204,7 +204,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxOrderAmendResponse>> AmendOrderAsync(
+    public async Task<RestCallResult<OkxOrderAmendResponse>> AmendOrderAsync(
         string instrumentId,
         long? orderId = null,
         string clientOrderId = null,
@@ -250,7 +250,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxOrderAmendResponse>>> AmendMultipleOrdersAsync(IEnumerable<OkxOrderAmendRequest> orders, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<OkxOrderAmendResponse>>> AmendMultipleOrdersAsync(IEnumerable<OkxOrderAmendRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { ClientOptions.RequestBodyParameterKey, orders },
@@ -270,7 +270,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="clientOrderId">Client-supplied ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxClosePositionResponse>> ClosePositionAsync(
+    public async Task<RestCallResult<OkxClosePositionResponse>> ClosePositionAsync(
         string instrumentId,
         OkxMarginMode marginMode,
         OkxPositionSide? positionSide = null,
@@ -300,7 +300,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="clientOrderId">Client Order ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxOrder>> GetOrderDetailsAsync(
+    public async Task<RestCallResult<OkxOrder>> GetOrderDetailsAsync(
         string instrumentId,
         long? orderId = null,
         string clientOrderId = null,
@@ -329,7 +329,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxOrder>>> GetOrderListAsync(
+    public async Task<RestCallResult<IEnumerable<OkxOrder>>> GetOrderListAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         string instFamily = null,
@@ -373,7 +373,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxOrder>>> GetOrderHistoryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxOrder>>> GetOrderHistoryAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
         string instFamily = null,
@@ -425,7 +425,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxOrder>>> GetOrderArchiveAsync(
+    public async Task<RestCallResult<IEnumerable<OkxOrder>>> GetOrderArchiveAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
         string instFamily = null,
@@ -475,7 +475,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxTransaction>>> GetTransactionHistoryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxTransaction>>> GetTransactionHistoryAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         string instFamily = null,
@@ -519,7 +519,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns>RestCallResult containing enumerable OkxTransaction list</returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxTransaction>>> GetTransactionArchiveAsync(
+    public async Task<RestCallResult<IEnumerable<OkxTransaction>>> GetTransactionArchiveAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
         string instFamily = null,

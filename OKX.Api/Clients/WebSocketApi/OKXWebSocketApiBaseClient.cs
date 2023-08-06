@@ -295,7 +295,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// Send Ping Request
     /// </summary>
     /// <returns></returns>
-    public virtual async Task<CallResult<OkxSocketPingPong>> PingAsync()
+    public async Task<CallResult<OkxSocketPingPong>> PingAsync()
     {
         var pit = DateTime.UtcNow;
         var sw = Stopwatch.StartNew();

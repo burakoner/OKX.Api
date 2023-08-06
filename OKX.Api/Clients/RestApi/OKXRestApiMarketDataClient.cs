@@ -34,7 +34,7 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
     /// <param name="underlying">Underlying</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxTicker>>> GetTickersAsync(
+    public async Task<RestCallResult<IEnumerable<OkxTicker>>> GetTickersAsync(
         OkxInstrumentType instrumentType, 
         string instrumentFamily = null,
         string underlying = null, 
@@ -56,7 +56,7 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxTicker>> GetTickerAsync(string instrumentId, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxTicker>> GetTickerAsync(string instrumentId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -73,7 +73,7 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
     /// <param name="depth">Order book depth per side. Maximum 400, e.g. 400 bids + 400 asks. Default returns to 1 depth data</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxOrderBook>> GetOrderBookAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxOrderBook>> GetOrderBookAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
     {
         depth.ValidateIntBetween(nameof(depth), 1, 400);
         var parameters = new Dictionary<string, object>
@@ -101,7 +101,7 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 300; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxCandlestick>>> GetCandlesticksAsync(
+    public async Task<RestCallResult<IEnumerable<OkxCandlestick>>> GetCandlesticksAsync(
         string instrumentId, 
         OkxPeriod period, 
         long? after = null, 
@@ -136,7 +136,7 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxCandlestick>>> GetCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<OkxCandlestick>>> GetCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
@@ -162,7 +162,7 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxTrade>>> GetTradesAsync(string instrumentId, int limit = 100, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<OkxTrade>>> GetTradesAsync(string instrumentId, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 500);
         var parameters = new Dictionary<string, object>
@@ -186,7 +186,7 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxTrade>>> GetTradesHistoryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxTrade>>> GetTradesHistoryAsync(
         string instrumentId,
         OkxTradeHistoryPaginationType? type = null,
         long? after = null,
@@ -213,7 +213,7 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<Okx24HourVolume>> Get24HourVolumeAsync(CancellationToken ct = default)
+    public async Task<RestCallResult<Okx24HourVolume>> Get24HourVolumeAsync(CancellationToken ct = default)
     {
         return await SendOKXSingleRequest<Okx24HourVolume>(GetUri(v5MarketPlatform24Volume), HttpMethod.Get, ct).ConfigureAwait(false);
     }

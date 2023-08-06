@@ -53,6 +53,9 @@ public class OkxTicker
     [JsonProperty("sodUtc8")]
     public decimal OpenPriceUtc8 { get; set; }
 
-    [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 }

@@ -29,7 +29,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxSupportCoins>> GetSupportCoinAsync(CancellationToken ct = default)
+    public async Task<RestCallResult<OkxSupportCoins>> GetSupportCoinAsync(CancellationToken ct = default)
     {
         return await SendOKXRequest<OkxSupportCoins>(GetUri(v5RubikStatTradingDataSupportCoin), HttpMethod.Get, ct).ConfigureAwait(false);
     }
@@ -44,7 +44,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// <param name="end">end, e.g. 1597026383011</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxTakerVolume>>> GetTakerVolumeAsync(
+    public async Task<RestCallResult<IEnumerable<OkxTakerVolume>>> GetTakerVolumeAsync(
         string currency,
         OkxInstrumentType instrumentType,
         OkxPeriod? period = null,
@@ -72,7 +72,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// <param name="end">end, e.g. 1597026383085</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxRatio>>> GetMarginLendingRatioAsync(
+    public async Task<RestCallResult<IEnumerable<OkxRatio>>> GetMarginLendingRatioAsync(
         string currency,
         OkxPeriod? period = null,
         long? begin = null,
@@ -98,7 +98,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// <param name="end">end, e.g. 1597026383011</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxRatio>>> GetLongShortRatioAsync(
+    public async Task<RestCallResult<IEnumerable<OkxRatio>>> GetLongShortRatioAsync(
         string currency,
         OkxPeriod? period = null,
         long? begin = null,
@@ -124,7 +124,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// <param name="end">end, e.g. 1597026383011</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxInterestVolume>>> GetContractSummaryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxInterestVolume>>> GetContractSummaryAsync(
         string currency,
         OkxPeriod? period = null,
         long? begin = null,
@@ -148,7 +148,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// <param name="period">period, the default is 8H. e.g. [8H/1D]</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxInterestVolume>>> GetOptionsSummaryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxInterestVolume>>> GetOptionsSummaryAsync(
         string currency,
         OkxPeriod? period = null,
         CancellationToken ct = default)
@@ -168,7 +168,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// <param name="period">period, the default is 8H. e.g. [8H/1D]</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxPutCallRatio>>> GetPutCallRatioAsync(
+    public async Task<RestCallResult<IEnumerable<OkxPutCallRatio>>> GetPutCallRatioAsync(
         string currency,
         OkxPeriod? period = null,
         CancellationToken ct = default)
@@ -188,7 +188,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// <param name="period">period, the default is 8H. e.g. [8H/1D]</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxInterestVolumeExpiry>>> GetInterestVolumeExpiryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxInterestVolumeExpiry>>> GetInterestVolumeExpiryAsync(
         string currency,
         OkxPeriod? period = null,
         CancellationToken ct = default)
@@ -209,7 +209,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// <param name="period">period, the default is 8H. e.g. [8H/1D]</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxInterestVolumeStrike>>> GetInterestVolumeStrikeAsync(
+    public async Task<RestCallResult<IEnumerable<OkxInterestVolumeStrike>>> GetInterestVolumeStrikeAsync(
         string currency,
         string expiryTime,
         OkxPeriod? period = null,
@@ -231,7 +231,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// <param name="period">period, the default is 8H. e.g. [8H/1D]</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxTakerFlow>> GetTakerFlowAsync(
+    public async Task<RestCallResult<OkxTakerFlow>> GetTakerFlowAsync(
         string currency,
         OkxPeriod? period = null,
         CancellationToken ct = default)

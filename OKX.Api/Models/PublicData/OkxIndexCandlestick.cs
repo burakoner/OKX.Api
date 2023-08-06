@@ -8,8 +8,11 @@ public class OkxIndexCandlestick
     [JsonIgnore]
     public string Instrument { get; set; }
 
-    [ArrayProperty(0), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+    [ArrayProperty(0)]
+    public long Timestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Open price

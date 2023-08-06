@@ -119,12 +119,24 @@ public class OkxTransaction
     /// <summary>
     /// Unix timestamp of the transaction's generation time in milliseconds.
     /// </summary>
-    [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// the transaction's generation time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Trade time which is the same as fillTime for the order channel.
     /// </summary>
-    [JsonProperty("fillTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime? FillTime { get; set; }
+    [JsonProperty("fillTime")]
+    public long? FillTimestamp { get; set; }
+
+    /// <summary>
+    /// Trade time which is the same as fillTime for the order channel.
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? FillTime { get { return FillTimestamp?.ConvertFromMilliseconds(); } }
 }

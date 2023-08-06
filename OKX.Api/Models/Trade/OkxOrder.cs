@@ -60,7 +60,7 @@ public class OkxOrder
     /// Profit and loss, Applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal? ProfitAndLoss { get; set; }
+    public decimal? ProfitLoss { get; set; }
 
     /// <summary>
     /// Order type
@@ -113,8 +113,14 @@ public class OkxOrder
     /// <summary>
     /// Last filled time
     /// </summary>
-    [JsonProperty("fillTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime? FillTime { get; set; }
+    [JsonProperty("fillTime")]
+    public long? FillTimestamp { get; set; }
+
+    /// <summary>
+    /// Update time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? FillTime { get { return FillTimestamp?.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Average filled price. If none is filled, it will return "".
@@ -251,6 +257,9 @@ public class OkxOrder
     [JsonProperty("uTime")]
     public long? UpdateTimestamp { get; set; }
 
+    /// <summary>
+    /// Update time
+    /// </summary>
     [JsonIgnore]
     public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 

@@ -9,7 +9,7 @@ public class OKXWebSocketApiOrderBookTradingClient
     /// Trading Client
     /// </summary>
     public OKXWebSocketApiTradeClient Trade { get; }
-
+    
     /// <summary>
     /// Algo Trading Client
     /// </summary>

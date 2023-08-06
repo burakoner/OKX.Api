@@ -14,8 +14,11 @@ public class OkxWithdrawalHistory
     [JsonProperty("amt")]
     public decimal Amount { get; set; }
 
-    [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 
     [JsonProperty("from")]
     public string From { get; set; }

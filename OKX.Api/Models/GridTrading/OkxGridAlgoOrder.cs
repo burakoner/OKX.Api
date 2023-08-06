@@ -120,13 +120,13 @@ public class OkxGridAlgoOrder
     /// Total P&L
     /// </summary>
     [JsonProperty("totalPnl")]
-    public decimal? TotalProfitAndLoss { get; set; }
+    public decimal? TotalProfitLoss { get; set; }
 
     /// <summary>
     /// P&L ratio
     /// </summary>
     [JsonProperty("pnlRatio")]
-    public decimal? ProfitAndLossRatio { get; set; }
+    public decimal? ProfitLossRatio { get; set; }
 
     /// <summary>
     /// Investment amount

@@ -14,6 +14,9 @@ public class OkxFundingRateHistory
     [JsonProperty("realizedRate")]
     public decimal RealizedRate { get; set; }
 
-    [JsonProperty("fundingTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime FundingTime { get; set; }
+    [JsonProperty("fundingTime")]
+    public long FundingTimestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime FundingTime { get { return FundingTimestamp.ConvertFromMilliseconds(); } }
 }

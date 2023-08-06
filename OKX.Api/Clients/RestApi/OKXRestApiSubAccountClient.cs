@@ -37,7 +37,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxSubAccount>>> GetSubAccountsAsync(
+    public async Task<RestCallResult<IEnumerable<OkxSubAccount>>> GetSubAccountsAsync(
         bool? enable = null,
         string subAccountName = null,
         long? after = null,
@@ -67,7 +67,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="ipAddresses">Link IP addresses, separate with commas if more than one. Support up to 20 IP addresses.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxSubAccountApiKey>> ResetSubAccountApiKeyAsync(
+    public async Task<RestCallResult<OkxSubAccountApiKey>> ResetSubAccountApiKeyAsync(
         string subAccountName,
         string apiKey,
         string apiLabel = null,
@@ -99,7 +99,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="subAccountName">Sub Account Name</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxSubAccountTradingBalance>> GetSubAccountTradingBalancesAsync(
+    public async Task<RestCallResult<OkxSubAccountTradingBalance>> GetSubAccountTradingBalancesAsync(
         string subAccountName,
         CancellationToken ct = default)
     {
@@ -119,7 +119,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="currency">Single currency or multiple currencies (no more than 20) separated with comma, e.g. BTC or BTC,ETH.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxSubAccountFundingBalance>> GetSubAccountFundingBalancesAsync(
+    public async Task<RestCallResult<OkxSubAccountFundingBalance>> GetSubAccountFundingBalancesAsync(
         string subAccountName,
         string currency = null,
         CancellationToken ct = default)
@@ -147,7 +147,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxSubAccountBill>>> GetSubAccountBillsAsync(
+    public async Task<RestCallResult<IEnumerable<OkxSubAccountBill>>> GetSubAccountBillsAsync(
         string subAccountName = null,
         string currency = null,
         OkxSubAccountTransferType? type = null,
@@ -183,7 +183,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="omitPosRisk">Ignore position risk. Default is false. Applicable to Portfolio margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxSubAccountTransfer>> TransferBetweenSubAccountsAsync(
+    public async Task<RestCallResult<OkxSubAccountTransfer>> TransferBetweenSubAccountsAsync(
         string currency,
         decimal amount,
         OkxAccount fromAccount,

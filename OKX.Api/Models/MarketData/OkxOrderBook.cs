@@ -10,8 +10,11 @@ public class OkxOrderBook
     [JsonProperty("bids")]
     public IEnumerable<OkxOrderBookRow> Bids { get; set; } = new List<OkxOrderBookRow>();
 
-    [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 
     [JsonProperty("action")]
     public string Action { get; set; }

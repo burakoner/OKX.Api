@@ -11,15 +11,11 @@ public class OkxAccountBalance
     [JsonProperty("uTime")]
     public long? UpdateTimestamp { get; set; }
 
-    [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
-
-
     /// <summary>
     /// Update time of account information
     /// </summary>
     [JsonIgnore]
-    public DateTime UpdateTime { get { return UpdateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// The total amount of equity in USD
@@ -118,6 +114,9 @@ public class OkxAccountBalanceDetail
     [JsonProperty("uTime")]
     public long? UpdateTimestamp { get; set; }
 
+    /// <summary>
+    /// Update time of currency balance information
+    /// </summary>
     [JsonIgnore]
     public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 

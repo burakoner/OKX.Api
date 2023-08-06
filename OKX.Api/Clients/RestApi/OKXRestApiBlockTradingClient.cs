@@ -45,7 +45,7 @@ public class OKXRestApiBlockTradingClient : OKXRestApiBaseClient
     /// <param name="underlying">Underlying</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxBlockTicker>>> GetBlockTickersAsync(
+    public async Task<RestCallResult<IEnumerable<OkxBlockTicker>>> GetBlockTickersAsync(
         OkxInstrumentType instrumentType,
         string instrumentFamily = null,
         string underlying = null,
@@ -69,7 +69,7 @@ public class OKXRestApiBlockTradingClient : OKXRestApiBaseClient
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxBlockTicker>> GetBlockTickerAsync(string instrumentId, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxBlockTicker>> GetBlockTickerAsync(string instrumentId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -87,7 +87,7 @@ public class OKXRestApiBlockTradingClient : OKXRestApiBaseClient
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxBlockTrade>>> GetBlockTradesAsync(string instrumentId, CancellationToken ct = default)
+    public async Task<RestCallResult<IEnumerable<OkxBlockTrade>>> GetBlockTradesAsync(string instrumentId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {

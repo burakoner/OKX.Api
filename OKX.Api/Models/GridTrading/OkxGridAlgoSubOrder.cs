@@ -78,7 +78,7 @@ public class OkxGridAlgoSubOrder
     public OkxPositionSide PositionSide { get; set; }
 
     [JsonProperty("pnl")]
-    public decimal? PnL { get; set; }
+    public decimal? ProfitLoss { get; set; }
     
     [JsonProperty("ctVal")]
     public decimal? ContractValue { get; set; }

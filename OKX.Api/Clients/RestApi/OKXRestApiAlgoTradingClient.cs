@@ -9,9 +9,9 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
 {
     private const string v5TradeOrderAlgo = "api/v5/trade/order-algo";
     private const string v5TradeCancelAlgos = "api/v5/trade/cancel-algos";
-    // TODO: api/v5/trade/amend-algos
+    private const string v5TradeAmendAlgos = "api/v5/trade/amend-algos";
     private const string v5TradeCancelAdvanceAlgos = "api/v5/trade/cancel-advance-algos";
-    // TODO: GET api/v5/trade/order-algo
+    private const string v5TradeOrderAlgoGet = "api/v5/trade/order-algo";
     private const string v5TradeOrdersAlgoPending = "api/v5/trade/orders-algo-pending";
     private const string v5TradeOrdersAlgoHistory = "api/v5/trade/orders-algo-history";
 
@@ -75,7 +75,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxAlgoOrderResponse>> PlaceAlgoOrderAsync(
+    public  async Task<RestCallResult<OkxAlgoOrderResponse>> PlaceAlgoOrderAsync(
 
         // Common
         string instrumentId,
@@ -183,7 +183,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxAlgoOrderResponse>> CancelAlgoOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
+    public  async Task<RestCallResult<OkxAlgoOrderResponse>> CancelAlgoOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { ClientOptions.RequestBodyParameterKey, orders },
@@ -193,18 +193,103 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     }
 
     /// <summary>
+    /// Amend unfilled algo orders (Support stop order only, not including Move_order_stop order, Trigger order, Iceberg order, TWAP order, Trailing Stop order).
+    /// Only applicable to Futures and Perpetual swap.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="algoOrderId">Algo ID. Either algoId or algoClOrdId is required. If both are passed, algoId will be used.</param>
+    /// <param name="algoClientOrderId">Client-supplied Algo ID. Either algoId or algoClOrdId is required. If both are passed, algoId will be used.</param>
+    /// <param name="cancelOnFail">Whether the order needs to be automatically canceled when the order amendment fails. Valid options: false or true, the default is false.</param>
+    /// <param name="clientRequestId">Client Request ID as assigned by the client for order amendment. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.The response will include the corresponding reqId to help you identify the request if you provide it in the request.</param>
+    /// <param name="newSize">New quantity after amendment.</param>
+    /// <param name="newTakeProfitTriggerPriceType">Take-profit trigger price type</param>
+    /// <param name="newTakeProfitTriggerPrice">Take-profit trigger price. Either the take-profit trigger price or order price is 0, it means that the take-profit is deleted</param>
+    /// <param name="newTakeProfitOrderPrice">Take-profit order price. If the price is -1, take-profit will be executed at the market price.</param>
+    /// <param name="newStopLossTriggerPriceType">Stop-loss trigger price type</param>
+    /// <param name="newStopLossTriggerPrice">Stop-loss trigger price. Either the stop-loss trigger price or order price is 0, it means that the stop-loss is deleted</param>
+    /// <param name="newStopLossOrderPrice">Stop-loss order price. If the price is -1, stop-loss will be executed at the market price.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<OkxAlgoOrderAmendResponse>> AmendAlgoOrderAsync(
+
+        // Common
+        string instrumentId,
+        long? algoOrderId = null,
+        string algoClientOrderId = null,
+        bool? cancelOnFail = null,
+
+        string clientRequestId = null,
+        decimal? newSize = null,
+
+        // Take Profit
+        OkxAlgoPriceType? newTakeProfitTriggerPriceType = null,
+        decimal? newTakeProfitTriggerPrice = null,
+        decimal? newTakeProfitOrderPrice = null,
+
+        // Stop Loss
+        OkxAlgoPriceType? newStopLossTriggerPriceType = null,
+        decimal? newStopLossTriggerPrice = null,
+        decimal? newStopLossOrderPrice = null,
+
+        // Cancellation Token
+        CancellationToken ct = default)
+    {
+        // Common
+        var parameters = new Dictionary<string, object> {
+            {"instId", instrumentId },
+        };
+        parameters.AddOptionalParameter("algoId", algoOrderId);
+        parameters.AddOptionalParameter("algoClOrdId", algoClientOrderId);
+        parameters.AddOptionalParameter("cxlOnFail", cancelOnFail);
+        parameters.AddOptionalParameter("reqId", clientRequestId);
+        parameters.AddOptionalParameter("newSz", newSize);
+
+        // Take Profit
+        parameters.AddOptionalParameter("newTpTriggerPxType", JsonConvert.SerializeObject(newTakeProfitTriggerPriceType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("newTpTriggerPx", newTakeProfitTriggerPrice?.ToOkxString());
+        parameters.AddOptionalParameter("newTpOrdPx", newTakeProfitOrderPrice?.ToOkxString());
+        
+        // Stop Loss
+        parameters.AddOptionalParameter("newSlTriggerPxType", JsonConvert.SerializeObject(newStopLossTriggerPriceType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("newSlTriggerPx", newStopLossTriggerPrice?.ToOkxString());
+        parameters.AddOptionalParameter("newSlOrdPx", newStopLossOrderPrice?.ToOkxString());
+
+        // Reequest
+        return await SendOKXSingleRequest<OkxAlgoOrderAmendResponse>(GetUri(v5TradeAmendAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
     /// Cancel unfilled algo orders(iceberg order and twap order). A maximum of 10 orders can be canceled at a time. Request parameters should be passed in the form of an array.
     /// </summary>
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxAlgoOrderResponse>> CancelAdvanceAlgoOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxAlgoOrderResponse>> CancelAdvanceAlgoOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { ClientOptions.RequestBodyParameterKey, orders },
         };
 
         return await SendOKXSingleRequest<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get Algo order details
+    /// </summary>
+    /// <param name="algoOrderId">Algo ID. Either algoId or algoClOrdId is required.If both are passed, algoId will be used.</param>
+    /// <param name="algoClientOrderId">Client-supplied Algo ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<OkxAlgoOrder>> GetAlgoOrderDetailsAsync(
+        long? algoOrderId = null,
+        string algoClientOrderId = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("algoId", algoOrderId?.ToOkxString());
+        parameters.AddOptionalParameter("algoClOrdId", algoClientOrderId);
+
+        return await SendOKXSingleRequest<OkxAlgoOrder>(GetUri(v5TradeOrderAlgoGet), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -220,7 +305,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxAlgoOrder>>> GetAlgoOrderListAsync(
+    public async Task<RestCallResult<IEnumerable<OkxAlgoOrder>>> GetAlgoOrderListAsync(
         OkxAlgoOrderType algoOrderType,
         long? algoId = null,
         string algoClientOrderId = null,
@@ -260,7 +345,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<IEnumerable<OkxAlgoOrder>>> GetAlgoOrderHistoryAsync(
+    public async Task<RestCallResult<IEnumerable<OkxAlgoOrder>>> GetAlgoOrderHistoryAsync(
         OkxAlgoOrderType algoOrderType,
         OkxAlgoOrderState? algoOrderState = null,
         long? algoId = null,
