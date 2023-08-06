@@ -119,5 +119,6 @@ public sealed class OKXRestApiClient
         FundingAccount.SetApiCredentials(credentials);
         Status.SetApiCredentials(credentials);
         Broker.SetApiCredentials(credentials);
+        TradingAccount.SetApiCredentials(credentials);
     }
 }
