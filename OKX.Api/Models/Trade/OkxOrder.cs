@@ -60,7 +60,7 @@ public class OkxOrder
     /// Profit and loss, Applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal? ProfitAndLoss { get; set; }
+    public decimal? ProfitLoss { get; set; }
 
     /// <summary>
     /// Order type
@@ -113,8 +113,14 @@ public class OkxOrder
     /// <summary>
     /// Last filled time
     /// </summary>
-    [JsonProperty("fillTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime? FillTime { get; set; }
+    [JsonProperty("fillTime")]
+    public long? FillTimestamp { get; set; }
+
+    /// <summary>
+    /// Update time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? FillTime { get { return FillTimestamp?.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Average filled price. If none is filled, it will return "".
@@ -248,14 +254,27 @@ public class OkxOrder
     /// <summary>
     /// Update time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
-    [JsonProperty("uTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime UpdateTime { get; set; }
+    [JsonProperty("uTime")]
+    public long? UpdateTimestamp { get; set; }
+
+    /// <summary>
+    /// Update time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Creation time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
-    [JsonProperty("cTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime CreateTime { get; set; }
+
+    [JsonProperty("cTime")]
+    public long CreateTimestamp { get; set; }
+
+    /// <summary>
+    /// Creation time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.

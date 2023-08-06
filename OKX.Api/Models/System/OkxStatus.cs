@@ -17,14 +17,26 @@ public class OkxStatus
     /// <summary>
     /// Begin time of system maintenance, Unix timestamp format in milliseconds, e.g. 1617788463867
     /// </summary>
-    [JsonProperty("begin"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime? Begin { get; set; }
+    [JsonProperty("begin")]
+    public long? BeginTimestamp { get; set; }
+
+    /// <summary>
+    /// Begin time of system maintenance
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? BeginTime { get { return BeginTimestamp?.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// End time of system maintenance, Unix timestamp format in milliseconds, e.g. 1617788463867
     /// </summary>
-    [JsonProperty("end"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime? End { get; set; }
+    [JsonProperty("end")]
+    public long? EndTimestamp { get; set; }
+
+    /// <summary>
+    /// End time of system maintenance
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? EndTime { get { return EndTimestamp?.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Hyperlink for system maintenance details, if there is no return value, the default value will be empty. e.g. “”

@@ -47,11 +47,17 @@ public class OkxInstrument
     [JsonProperty("stk")]
     public decimal? StrikePrice { get; set; }
 
-    [JsonProperty("listTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime? ListingTime { get; set; }
+    [JsonProperty("listTime")]
+    public long? ListingTimestamp { get; set; }
 
-    [JsonProperty("expTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime? ExpiryTime { get; set; }
+    [JsonIgnore]
+    public DateTime? ListingTime { get { return ListingTimestamp?.ConvertFromMilliseconds(); } }
+
+    [JsonProperty("expTime")]
+    public long? ExpiryTimestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime? ExpiryTime { get { return ExpiryTimestamp?.ConvertFromMilliseconds(); } }
 
     [JsonProperty("lever")]
     public decimal? MaximumLeverage { get; set; }

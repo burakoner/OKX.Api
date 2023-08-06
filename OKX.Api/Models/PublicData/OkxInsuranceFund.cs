@@ -23,6 +23,9 @@ public class OkxInsuranceFundDetail
     [JsonProperty("type"), JsonConverter(typeof(InsuranceTypeConverter))]
     public OkxInsuranceType Type { get; set; }
 
-    [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Timestamp { get; set; }
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 }

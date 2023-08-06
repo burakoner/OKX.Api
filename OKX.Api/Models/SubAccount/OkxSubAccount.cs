@@ -59,6 +59,12 @@ public class OkxSubAccount
     /// <summary>
     /// Sub-account creation time, Unix timestamp in millisecond format. e.g. 1597026383085
     /// </summary>
-    [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// Sub-account creation time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 }
