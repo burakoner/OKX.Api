@@ -113,7 +113,7 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
     /// <param name="currency">Single currency or multiple currencies (no more than 20) separated with comma, e.g. BTC or BTC,ETH.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public virtual async Task<RestCallResult<OkxSubAccountFundingBalance>> GetSubAccountFundingBalancesAsync(
+    public virtual async Task<RestCallResult<IEnumerable<OkxSubAccountFundingBalance>>> GetSubAccountFundingBalancesAsync(
         string subAccountName,
         string currency = null,
         CancellationToken ct = default)
@@ -125,7 +125,7 @@ public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
 
         parameters.AddOptionalParameter("ccy", currency);
 
-        return await SendOKXSingleRequest<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await SendOKXRequest <IEnumerable< OkxSubAccountFundingBalance>>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     // TODO: Get sub-account maximum withdrawals
