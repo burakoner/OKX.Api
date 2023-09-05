@@ -2,8 +2,11 @@
 
 public class OkxSubAccountTradingBalance
 {
-    [JsonProperty("uTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime UpdateTime { get; set; }
+    [JsonProperty("uTime")]
+    public long? UpdateTimestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 
     [JsonProperty("totalEq")]
     public decimal TotalEquity { get; set; }
@@ -44,8 +47,11 @@ public class OkxSubAccountTradingBalanceDetail
     [JsonProperty("cashBal")]
     public decimal? CashBalance { get; set; }
 
-    [JsonProperty("uTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime UpdateTime { get; set; }
+    [JsonProperty("uTime")]
+    public long? UpdateTimestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 
     [JsonProperty("isoEq")]
     public decimal? IsolatedMarginEquity { get; set; }

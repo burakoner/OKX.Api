@@ -23,11 +23,17 @@ public class OkxGridAlgoSubOrder
     [JsonProperty("ordId")]
     public long? SubOrderId { get; set; }
 
-    [JsonProperty("cTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime CreateTime { get; set; }
+    [JsonProperty("cTime")]
+    public long CreateTimestamp { get; set; }
 
-    [JsonProperty("uTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime? UpdateTime { get; set; }
+    [JsonIgnore]
+    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+
+    [JsonProperty("uTime")]
+    public long? UpdateTimestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 
     [JsonProperty("tdMode"), JsonConverter(typeof(TradeModeConverter))]
     public OkxTradeMode TradeMode { get; set; }
@@ -72,14 +78,17 @@ public class OkxGridAlgoSubOrder
     public OkxPositionSide PositionSide { get; set; }
 
     [JsonProperty("pnl")]
-    public decimal? PnL { get; set; }
+    public decimal? ProfitLoss { get; set; }
     
     [JsonProperty("ctVal")]
     public decimal? ContractValue { get; set; }
     
     [JsonProperty("lever")]
     public decimal? Leverage { get; set; }
-    
+
+    /// <summary>
+    /// Order tag. Used for Broker Id
+    /// </summary>
     [JsonProperty("tag")]
-    public string Tag { get; set; }
+    internal string Tag { get; set; }
 }

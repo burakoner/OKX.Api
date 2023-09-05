@@ -29,6 +29,9 @@ public class OkxGridPlaceOrderRequest
     [JsonProperty("algoClOrdId", NullValueHandling = NullValueHandling.Ignore)]
     public string AlgoClientOrderId { get; set; }
 
+    /// <summary>
+    /// Order tag. Used for Broker Id
+    /// </summary>
     [JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
     internal string Tag { get; set; }
 

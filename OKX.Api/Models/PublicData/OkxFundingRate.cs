@@ -14,9 +14,15 @@ public class OkxFundingRate
     [JsonProperty("nextFundingRate")]
     public decimal NextFundingRate { get; set; }
 
-    [JsonProperty("fundingTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime FundingTime { get; set; }
+    [JsonProperty("fundingTime")]
+    public long FundingTimestamp { get; set; }
 
-    [JsonProperty("nextFundingTime"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime NextFundingTime { get; set; }
+    [JsonIgnore]
+    public DateTime FundingTime { get { return FundingTimestamp.ConvertFromMilliseconds(); } }
+
+    [JsonProperty("nextFundingTime")]
+    public long NextFundingTimestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime NextFundingTime { get { return NextFundingTimestamp.ConvertFromMilliseconds(); } }
 }

@@ -17,6 +17,9 @@ public class OkxTrade
     [JsonProperty("side"), JsonConverter(typeof(TradeSideConverter))]
     public OkxTradeSide Side { get; set; }
 
-    [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 }

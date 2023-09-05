@@ -70,5 +70,12 @@ internal class AccountBillSubTypeConverter : BaseConverter<OkxAccountBillSubType
             new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ProfitSharingExpenses, "250"),
             new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ProfitSharingRefund, "251"),
             new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ProfitSharingIncome, "252"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpreadTradingBuy, "270"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpreadTradingSell, "271"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpreadTradingOpenLong, "272"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpreadTradingOpenShort, "273"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpreadTradingCloseLong, "274"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpreadTradingCloseShort, "275"),
+
         };
 }

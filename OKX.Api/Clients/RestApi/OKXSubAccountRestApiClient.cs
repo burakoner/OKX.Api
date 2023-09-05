@@ -1,8 +1,9 @@
-﻿using System.Diagnostics;
+﻿using OKX.Api.Models.SubAccount;
+using System.Diagnostics;
 
 namespace OKX.Api.Clients.RestApi;
 
-public class OKXSubAccountRestApiClient : OKXBaseRestApiClient
+public class OKXSubAccountRestApiClient : OKXRestApiBaseClient
 {
     // Endpoints
     protected const string v5UsersSubaccountList = "api/v5/users/subaccount/list";
