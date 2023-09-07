@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>OKX</PackageId>
+		<Authors>Burak Öner</Authors>
+		<Version>0.0.5</Version>
+		<FileVersion>0.0.5</FileVersion>
+		<PackageVersion>0.0.5</PackageVersion>
+		<AssemblyVersion>0.0.5</AssemblyVersion>
+		<Description>Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<NeutralLanguage>en</NeutralLanguage>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageReleaseNotes>
+			Version 0.0.5 - 07 Mar 2023
+		</PackageReleaseNotes>
+		<PackageIcon>OKX.png</PackageIcon>
+		<PackageIconUrl />
+		<PackageProjectUrl>https://github.com/burakoner/OKX.Api</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/burakoner/OKX.Api</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="OKX.png" Pack="true" PackagePath="" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\ApiSharp\ApiSharp\ApiSharp.csproj" />
+	</ItemGroup>
+
+</Project>
