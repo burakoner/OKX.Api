@@ -38,7 +38,7 @@ public class OKXWebSocketApiOrderBookTradingClient
     // Root Client
     internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiOrderBookTradingClient(OKXWebSocketApiClient root)
+    public OKXWebSocketApiOrderBookTradingClient(OKXWebSocketApiClient root)
     {
         this.RootClient = root;
 
