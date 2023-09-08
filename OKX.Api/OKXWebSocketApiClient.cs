@@ -1,4 +1,6 @@
-﻿namespace OKX.Api;
+﻿using System.Net.WebSockets;
+
+namespace OKX.Api;
 
 /// <summary>
 /// OKX WebSocket Client
@@ -83,5 +85,10 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     internal Task<CallResult<WebSocketUpdateSubscription>> RootSubscribeAsync<T>(object request, string identifier, bool authenticated, Action<WebSocketDataEvent<T>> dataHandler, CancellationToken ct)
     {
         return SubscribeAsync<T>(request, identifier, authenticated, dataHandler, ct);
+    } 
+    
+    internal Task<CallResult<T>> QueryAsync<T>(string url, object request, bool authenticated = true)
+    {
+        return QueryAsync<T>(url ,request, authenticated); ;
     }
 }

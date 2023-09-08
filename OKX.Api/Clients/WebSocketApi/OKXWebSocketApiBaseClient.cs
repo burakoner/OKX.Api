@@ -263,6 +263,11 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
 
         return await base.GetWebSocketConnection(address, authenticated);
     }
+
+    protected override Task<CallResult<T>> QueryAsync<T>(object request, bool authenticated)
+    {
+        return QueryAsync<T>(ClientOptions.BaseAddress, request, authenticated);
+    }
     #endregion
 
     #region Private Methods
