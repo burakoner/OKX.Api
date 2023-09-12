@@ -97,9 +97,9 @@ public class OKXWebSocketApiTradeClient
         var parameters = new Dictionary<string, string>()
         {
             { "instId", symbol },
-            { "tdMode", EnumConverter.GetString(tradeMode) },
-            { "side", EnumConverter.GetString(side) },
-            { "ordType", EnumConverter.GetString(type) },
+            { "tdMode", "cash" }, //EnumConverter.GetString(tradeMode
+            { "side", "buy"},//EnumConverter.GetString(side) 
+            { "ordType", "market" }, //EnumConverter.GetString(type)
             { "sz", quantity.ToString(CultureInfo.InvariantCulture) },
         };
         string operation = "order";
