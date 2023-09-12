@@ -129,8 +129,10 @@ parameters.AddOptionalParameter("stpMode", EnumConverter.GetString(selfTradePrev
         var url = "/ws/v5/private";
 
         var result = await RootClient.InternalQueryAsync<OkxOrderPlaceResponse>(url, request, true);
-        if (result.Data?.ErrorCode!= "0")
-            return result.AsError<OkxOrderPlaceResponse>(new ServerError(int.Parse(result.Data?.ErrorCode), result.Data?.ErrorMessage, null));
+        if (result.Data?.ErrorCode!= "0" && int.TryParse(result.Data?.ErrorCode, out var code))
+        {
+            return result.AsError<OkxOrderPlaceResponse>(new ServerError(code, result.Data?.ErrorMessage, null));
+        }
 
         return result;
     }
