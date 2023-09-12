@@ -1,4 +1,5 @@
 ﻿using ApiSharp.Helpers;
+using ApiSharp.Rest;
 using OKX.Api.Enums;
 using OKX.Api.Models;
 using OKX.Api.Models.Trade;
@@ -92,7 +93,8 @@ public class OKXWebSocketApiTradeClient
         string? clientOrderId = null,
         bool? reduceOnly = null)
     {
-        var parameters = new Dictionary<string, object>()
+
+        var parameters = new Dictionary<string, string>()
         {
             { "instId", symbol },
             { "tdMode", EnumConverter.GetString(tradeMode) },
@@ -100,17 +102,18 @@ public class OKXWebSocketApiTradeClient
             { "ordType", EnumConverter.GetString(type) },
             { "sz", quantity.ToString(CultureInfo.InvariantCulture) },
         };
-
-        parameters.AddOptionalParameter("ccy", asset);
-        parameters.AddOptionalParameter("clOrdId", _ref + (clientOrderId ?? RandomString(15)));
-        parameters.AddOptionalParameter("tag", _ref);
-        parameters.AddOptionalParameter("posSide", EnumConverter.GetString(positionSide));
-        parameters.AddOptionalParameter("px", price?.ToString(CultureInfo.InvariantCulture));
-        parameters.AddOptionalParameter("reduceOnly", reduceOnly);
-        parameters.AddOptionalParameter("tgtCcy", EnumConverter.GetString(quantityAsset));
-        parameters.AddOptionalParameter("quickMgnType", EnumConverter.GetString(quickMarginType));
-        parameters.AddOptionalParameter("stpId", selfTradePreventionId);
-        parameters.AddOptionalParameter("stpMode", EnumConverter.GetString(selfTradePreventionMode));
+        string operation = "order";
+        /* TODO
+parameters.AddOptionalParameter("ccy", asset);
+parameters.AddOptionalParameter("clOrdId", _ref + (clientOrderId ?? RandomString(15)));
+parameters.AddOptionalParameter("tag", _ref);
+parameters.AddOptionalParameter("posSide", EnumConverter.GetString(positionSide));
+parameters.AddOptionalParameter("px", price?.ToString(CultureInfo.InvariantCulture));
+parameters.AddOptionalParameter("reduceOnly", reduceOnly);
+parameters.AddOptionalParameter("tgtCcy", EnumConverter.GetString(quantityAsset));
+parameters.AddOptionalParameter("quickMgnType", EnumConverter.GetString(quickMarginType));
+parameters.AddOptionalParameter("stpId", selfTradePreventionId);
+parameters.AddOptionalParameter("stpMode", EnumConverter.GetString(selfTradePreventionMode));/**/
         /*  "id": "1512",
 "op": "order",
 "args": [
@@ -121,17 +124,13 @@ public class OKXWebSocketApiTradeClient
 "ordType": "market",
 "sz": "100"
 }
-]*/        string operation = "order";
-        var requestWrapper = new OkxSocketMessage
-        {
-            Id = _ref + RandomString(10),
-            Operation = operation,
-            Args = new[] { parameters }
-        };
+]*/
+        var request = new OkxBaseSocketRequest(operation, parameters);
         var url = "/ws/v5/private";
-        var result = await RootClient.QueryAsync<OkxOrderPlaceResponse>(url, requestWrapper, true);
-        if (result.Data.ErrorCode!= "0")
-            return result.AsError<OkxOrderPlaceResponse>(new ServerError(int.Parse(result.Data.ErrorCode), result.Data.ErrorMessage, null));
+
+        var result = await RootClient.InternalQueryAsync<OkxOrderPlaceResponse>(url, request, true);
+        if (result.Data?.ErrorCode!= "0")
+            return result.AsError<OkxOrderPlaceResponse>(new ServerError(int.Parse(result.Data?.ErrorCode), result.Data?.ErrorMessage, null));
 
         return result;
     }
@@ -148,5 +147,9 @@ public class OKXWebSocketApiTradeClient
         const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         return new string(Enumerable.Repeat(chars, length)
             .Select(s => s[_random.Next(s.Length)]).ToArray());
+    }
+
+    public async Task<object> LoginAsync() {
+        return await RootClient.InternalQueryAsync<OkxOrderPlaceResponse>("login", null, true);
     }
 }

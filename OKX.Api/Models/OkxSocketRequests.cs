@@ -96,6 +96,7 @@ public enum OkxSocketOperation
     Subscribe,
     Unsubscribe,
     Login,
+    Query,
 }
 
 public class OkxSocketOperationConverter : BaseConverter<OkxSocketOperation>
@@ -108,5 +109,49 @@ public class OkxSocketOperationConverter : BaseConverter<OkxSocketOperation>
         new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Subscribe, "subscribe"),
         new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Unsubscribe, "unsubscribe"),
         new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Login, "login"),
+        new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Query, "query"),
     };
+}
+
+public class OkxSocketArgument
+{
+    [JsonProperty("sprdId")]
+    public string Symbol { get; set; }
+
+    [JsonProperty("clOrdId", NullValueHandling = NullValueHandling.Ignore)]
+    public string ClientID { get; set; }
+
+    [JsonProperty("side", NullValueHandling = NullValueHandling.Ignore)]
+    public string Side { get; set; }
+
+    [JsonProperty("ordType", NullValueHandling = NullValueHandling.Ignore)]
+    public string? OrderType { get; set; }
+
+    [JsonProperty("px", NullValueHandling = NullValueHandling.Ignore)]
+    public decimal? Price { get; set; }
+
+    [JsonProperty("sz", NullValueHandling = NullValueHandling.Ignore)]
+    public decimal Size { get; set; }
+
+    [JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
+    public string? Tags { get; set; }
+}
+
+public class OkxBaseSocketRequest
+{
+    [JsonProperty("id")]
+    public string Id { get; set; }
+
+    [JsonProperty("op")]
+    public string Operation { get; set; }
+
+    [JsonProperty("args")]
+    public Dictionary<string,string> Arguments { get; set; }
+
+
+    public OkxBaseSocketRequest(string op, Dictionary<string, string> args)
+    {
+        Operation = op;
+        Arguments = args;
+    }
 }

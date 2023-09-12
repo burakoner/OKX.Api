@@ -1,7 +1,16 @@
-﻿namespace OKX.Api.Authentication;
+﻿using System.Net;
+using System.Net.WebSockets;
 
-internal class OkxAuthenticationProvider : AuthenticationProvider
+namespace OKX.Api.Authentication;
+
+public class OkxAuthenticationProvider : AuthenticationProvider
 {
+    //
+    public string GetApiKey() => Credentials.Key!.GetString();
+    public string GetPassPhrase() => (Credentials as OkxApiCredentials)?.PassPhrase.GetString();
+    public Dictionary<string, string> inputParameters { get; set; }
+    public Dictionary<string, string> outputParameters { get; set; }
+    //
     private readonly HMACSHA256 encryptor;
 
     public OkxAuthenticationProvider(OkxApiCredentials credentials) : base(credentials)
@@ -48,12 +57,44 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
 
     public override void AuthenticateTcpSocketApi()
     {
-        throw new NotImplementedException();
+        var creds = Credentials as OkxApiCredentials;
+        var timestamp = (DateTime.UtcNow.ToUnixTimeMilliSeconds() / 1000.0m).ToString(CultureInfo.InvariantCulture);
+        var sortedParameters = new SortedDictionary<string, string>(inputParameters)
+        {
+                { "apiKey", Credentials.Key!.GetString() },
+
+                { "apiSecret", Credentials.Secret!.GetString() },
+
+                { "passphrase", creds.PassPhrase!.GetString() },
+
+                { "timestamp", timestamp }
+            };
+        var paramString = string.Join("&", sortedParameters.Select(p => p.Key + "=" + Convert.ToString(p.Value, CultureInfo.InvariantCulture)));
+
+        var sign = SignHMACSHA256(paramString); //HMAC SHA256
+        outputParameters = sortedParameters.ToDictionary(p => p.Key, p => p.Value);
+        outputParameters.Add("sign", sign);
     }
 
     public override void AuthenticateWebSocketApi()
     {
-        throw new NotImplementedException();
+        var creds = Credentials as OkxApiCredentials;
+        var timestamp = (DateTime.UtcNow.ToUnixTimeMilliSeconds() / 1000.0m).ToString(CultureInfo.InvariantCulture);
+        var sortedParameters = new SortedDictionary<string, string>(inputParameters)
+        {
+                { "apiKey", Credentials.Key!.GetString() },
+
+                { "apiSecret", Credentials.Secret!.GetString() },
+
+                { "passphrase", creds.PassPhrase!.GetString() },
+
+                { "timestamp", timestamp }
+            };
+        var paramString = string.Join("&", sortedParameters.Select(p => p.Key + "=" + Convert.ToString(p.Value, CultureInfo.InvariantCulture)));
+
+        var sign = SignHMACSHA256(paramString); //HMAC SHA256
+        outputParameters = sortedParameters.ToDictionary(p => p.Key, p => p.Value);
+        outputParameters.Add("sign", sign);
     }
 
     public static string Base64Encode(byte[] plainBytes)
