@@ -137,6 +137,16 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
             return true;
         }
 
+        // Check for Error
+        var token = data["data"].FirstOrDefault();
+        var cd = (string)data["code"];
+        if (token != null && cd != "0")
+        {
+            log.Write(LogLevel.Warning, $"Query failed:  {token.ToString()}");
+            callResult = new CallResult<T>(new ServerError(cd, token.ToString()));
+            return false;
+        }
+
         return false;
     }
 

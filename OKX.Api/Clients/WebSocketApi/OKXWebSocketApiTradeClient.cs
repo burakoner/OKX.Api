@@ -4,6 +4,7 @@ using OKX.Api.Enums;
 using OKX.Api.Models;
 using OKX.Api.Models.Trade;
 using System;
+using System.Drawing;
 
 namespace OKX.Api.Clients.WebSocketApi;
 
@@ -76,7 +77,7 @@ public class OKXWebSocketApiTradeClient
     /// <param name="symbols">Symbols to subscribe</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(string symbol,
+    public async Task<CallResult<OkxBaseSocketResponse<OkxBaseSocketResponse>>> PlaceOrderAsync(string symbol,
         OkxOrderSide side,
         OkxOrderType type,
         OkxTradeMode tradeMode,
@@ -93,48 +94,30 @@ public class OKXWebSocketApiTradeClient
         string? clientOrderId = null,
         bool? reduceOnly = null)
     {
-
-        var parameters = new Dictionary<string, string>()
-        {
-            { "instId", symbol },
-            { "tdMode", "cash" }, //EnumConverter.GetString(tradeMode
-            { "side", "buy"},//EnumConverter.GetString(side) 
-            { "ordType", "market" }, //EnumConverter.GetString(type)
-            { "sz", quantity.ToString(CultureInfo.InvariantCulture) },
-        };
         string operation = "order";
-        /* TODO
-parameters.AddOptionalParameter("ccy", asset);
-parameters.AddOptionalParameter("clOrdId", _ref + (clientOrderId ?? RandomString(15)));
-parameters.AddOptionalParameter("tag", _ref);
-parameters.AddOptionalParameter("posSide", EnumConverter.GetString(positionSide));
-parameters.AddOptionalParameter("px", price?.ToString(CultureInfo.InvariantCulture));
-parameters.AddOptionalParameter("reduceOnly", reduceOnly);
-parameters.AddOptionalParameter("tgtCcy", EnumConverter.GetString(quantityAsset));
-parameters.AddOptionalParameter("quickMgnType", EnumConverter.GetString(quickMarginType));
-parameters.AddOptionalParameter("stpId", selfTradePreventionId);
-parameters.AddOptionalParameter("stpMode", EnumConverter.GetString(selfTradePreventionMode));/**/
-        /*  "id": "1512",
-"op": "order",
-"args": [
-{
-"side": "buy",
-"instId": "BTC-USDT",
-"tdMode": "isolated",
-"ordType": "market",
-"sz": "100"
-}
-]*/
-        var request = new OkxBaseSocketRequest(operation, parameters);
+
+        var args = new OkxBaseSocketRequestArg
+        { 
+            tag = "forkTest",
+            instId = symbol,
+            tdMode = JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)),
+            side = JsonConvert.SerializeObject(side, new OrderSideConverter(false)),
+            posSide = JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)),
+            ordType = JsonConvert.SerializeObject(type, new OrderTypeConverter(false)),
+            sz = quantity.ToString(CultureInfo.InvariantCulture),
+        };
+
+        var request = new OkxBaseSocketRequest(operation, new List<OkxBaseSocketRequestArg> { args });
+        request.Id =RandomString(10);
         var url = "/ws/v5/private";
-
-        var result = await RootClient.InternalQueryAsync<OkxOrderPlaceResponse>(url, request, true);
-        if (result.Data?.ErrorCode!= "0" && int.TryParse(result.Data?.ErrorCode, out var code))
-        {
-            return result.AsError<OkxOrderPlaceResponse>(new ServerError(code, result.Data?.ErrorMessage, null));
+        var json = JsonConvert.SerializeObject(request);
+        var result = await RootClient.InternalQueryAsync<OkxBaseSocketResponse<OkxBaseSocketResponse>>(url, json, true);
+        if (result.Success) {
+            return result;
         }
-
-        return result;
+        var errCode = result.Error?.Code ?? 0;
+        var errMsg = result.Error?.Message ?? "empty";
+        return result.AsError<OkxBaseSocketResponse<OkxBaseSocketResponse>>(new ServerError(errCode, errMsg, null));
     }
 
     // TODO: WS / Place order
@@ -149,9 +132,5 @@ parameters.AddOptionalParameter("stpMode", EnumConverter.GetString(selfTradePrev
         const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         return new string(Enumerable.Repeat(chars, length)
             .Select(s => s[_random.Next(s.Length)]).ToArray());
-    }
-
-    public async Task<object> LoginAsync() {
-        return await RootClient.InternalQueryAsync<OkxOrderPlaceResponse>("login", null, true);
     }
 }

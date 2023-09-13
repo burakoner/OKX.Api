@@ -7,6 +7,7 @@ public class OkxAuthenticationProvider : AuthenticationProvider
 {
     //
     public string GetApiKey() => Credentials.Key!.GetString();
+    public string GetApiSecret() => Credentials.Secret!.GetString();
     public string GetPassPhrase() => (Credentials as OkxApiCredentials)?.PassPhrase.GetString();
     public Dictionary<string, string> inputParameters { get; set; }
     public Dictionary<string, string> outputParameters { get; set; }

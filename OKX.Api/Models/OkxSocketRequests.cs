@@ -135,6 +135,7 @@ public class OkxSocketArgument
 
     [JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
     public string? Tags { get; set; }
+
 }
 
 public class OkxBaseSocketRequest
@@ -146,12 +147,96 @@ public class OkxBaseSocketRequest
     public string Operation { get; set; }
 
     [JsonProperty("args")]
-    public Dictionary<string,string> Arguments { get; set; }
+    public List<OkxBaseSocketRequestArg> Args { get; set; } = new List<OkxBaseSocketRequestArg> { };
 
 
-    public OkxBaseSocketRequest(string op, Dictionary<string, string> args)
+    public OkxBaseSocketRequest(string op, List<OkxBaseSocketRequestArg> args)
     {
         Operation = op;
-        Arguments = args;
+        Args = args;
     }
 }
+
+public class OkxBaseSocketRequestArg
+{
+    [JsonProperty("tag")]
+    public string tag { get; set; }
+
+    [JsonProperty("instId")]
+    public string instId { get; set; }
+
+    [JsonProperty("tdMode")]
+    public string tdMode { get; set; }
+
+    [JsonProperty("side")]
+    public string side { get; set; }
+
+    [JsonProperty("posSide")]
+    public string posSide { get; set; }
+
+    [JsonProperty("ordType")]
+    public string ordType { get; set; }
+    [JsonProperty("sz")]
+    public string sz { get; set; }
+
+}
+public class OkxBaseSocketResponse
+{
+    [JsonProperty("tag")]
+    public string Tags { get; set; }
+
+    [JsonProperty("ordId")]
+    public long? OrderId { get; set; }
+
+    [JsonProperty("clOrdId")]
+    public string ClientID { get; set; }
+
+    [JsonProperty("sCode")]
+    public string Code { get; set; }
+
+    [JsonProperty("sMsg")]
+    public string Message { get; set; }
+}
+/*{
+  "id": "1512",
+  "op": "order",
+  "data": [
+  {
+    ""tag"": ""test"",
+    ""ordId"": """",
+    ""clOrdId"": """",
+    ""sCode"": ""51008"",
+    ""sMsg"": ""Order failed. Insufficient USDT balance in account""
+  }
+],
+  "code": "60013",
+  "msg": "Invalid args"
+}*/
+public class OkxBaseSocketResponse<T>
+{
+    public bool Success
+    {
+        get
+        {
+            return
+                string.IsNullOrEmpty(Code)
+                || Code.Trim() == "0";
+        }
+    }
+
+    [JsonProperty("id")]
+    public string Id { get; set; }
+
+    [JsonProperty("op")]
+    public string Operation { get; set; }
+
+    [JsonProperty("code")]
+    public string Code { get; set; }
+
+    [JsonProperty("msg")]
+    public string Message { get; set; }
+
+    [JsonProperty("data")]
+    public List<T> Data { get; set; } = default!;
+}
+

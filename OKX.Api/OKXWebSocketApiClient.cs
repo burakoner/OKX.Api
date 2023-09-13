@@ -90,28 +90,16 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
         return SubscribeAsync<T>(request, identifier, authenticated, dataHandler, ct);
     } 
     
-    internal Task<CallResult<T>> InternalQueryAsync<T>(string url, OkxBaseSocketRequest request, bool authenticated = true, bool sign = true)
+    internal Task<CallResult<T>> InternalQueryAsync<T>(string url, object request, bool authenticated = true, bool sign = true)
     {
-        var parameters = new Dictionary<string, string>();
-
         if (authenticated)
         {
             if (AuthenticationProvider == null)
                 throw new InvalidOperationException("No credentials provided for authenticated endpoint");
 
             var authProvider = AuthenticationProvider  as OkxAuthenticationProvider;
-            parameters = authProvider.AuthenticateWithSocketParameters(request.Arguments);
 
-            if (sign)
-            {
-                //request.Arguments = parameters;
-            }
-            else
-            {
-                request.Arguments.Add("apiKey", authProvider.GetApiKey());
-                request.Arguments.Add("passphrase", authProvider.GetPassPhrase());
-            }
-            base.ClientOptions.ApiCredentials = new OkxApiCredentials(authProvider.GetApiKey(), parameters["apiSecret"], authProvider.GetPassPhrase());
+            base.ClientOptions.ApiCredentials = new OkxApiCredentials(authProvider.GetApiKey(), authProvider.GetApiSecret(), authProvider.GetPassPhrase());
         }
         return QueryAsync<T>(url ,request, authenticated);
     }
