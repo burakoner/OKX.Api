@@ -1,5 +1,8 @@
 ﻿namespace OKX.Api.Models.TradingAccount;
 
+/// <summary>
+/// OkxPositionHistory
+/// </summary>
 public class OkxPositionHistory
 {
     /// <summary>
@@ -81,6 +84,31 @@ public class OkxPositionHistory
     public decimal? CloseTotalPos { get; set; }
 
     /// <summary>
+    /// Realized profit and loss
+    /// </summary>
+    [JsonProperty("realizedPnl")]
+    public decimal? RealizedProfitLoss { get; set; }
+
+    /// <summary>
+    /// Accumulated fee
+    /// Negative number represents the user transaction fee charged by the platform.Positive number represents rebate.
+    /// </summary>
+    [JsonProperty("fee")]
+    public decimal? Fee { get; set; }
+
+    /// <summary>
+    /// Accumulated funding fee
+    /// </summary>
+    [JsonProperty("fundingFee")]
+    public decimal? FundingFee { get; set; }
+
+    /// <summary>
+    /// Accumulated liquidation penalty. It is negative when there is a value.
+    /// </summary>
+    [JsonProperty("liqPenalty")]
+    public decimal? LiquidationPenalty { get; set; }
+
+    /// <summary>
     /// Profit and loss
     /// </summary>
     [JsonProperty("pnl")]
@@ -112,12 +140,6 @@ public class OkxPositionHistory
     public decimal? TriggerMarkPrice { get; set; }
 
     /// <summary>
-    /// Estimated liquidation price
-    /// </summary>
-    [JsonProperty("liqPx")]
-    public decimal? LiquidationPrice { get; set; }
-
-    /// <summary>
     /// Underlying
     /// </summary>
     [JsonProperty("uly")]
@@ -126,6 +148,6 @@ public class OkxPositionHistory
     /// <summary>
     /// Currency used for margin
     /// </summary>
-    [JsonProperty("uly")]
+    [JsonProperty("ccy")]
     public string Currency { get; set; }
 }

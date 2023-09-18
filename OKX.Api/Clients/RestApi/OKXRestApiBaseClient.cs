@@ -1,6 +1,4 @@
-﻿using OKX.Api.Models;
-
-namespace OKX.Api.Clients.RestApi;
+﻿namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
 /// OKX Rest Api Base Client

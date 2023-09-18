@@ -1,5 +1,4 @@
-﻿using OKX.Api.Models;
-using OKX.Api.Models.Trade;
+﻿using OKX.Api.Models.Trade;
 
 namespace OKX.Api.Clients.WebSocketApi;
 
@@ -60,7 +59,7 @@ public class OKXWebSocketApiTradeClient
             InstrumentFamily = symbol.InstrumentFamily,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     // TODO: WS / Place order

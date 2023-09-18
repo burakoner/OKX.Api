@@ -1,5 +1,4 @@
-﻿using OKX.Api.Models;
-using OKX.Api.Models.MarketData;
+﻿using OKX.Api.Models.MarketData;
 
 namespace OKX.Api.Clients.RestApi;
 
@@ -12,13 +11,13 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
     private const string v5MarketTickers = "api/v5/market/tickers";
     private const string v5MarketTicker = "api/v5/market/ticker";
     private const string v5MarketBooks = "api/v5/market/books";
-    // TODO: api/v5/market/books-lite
+    private const string v5MarketBooksLite = "api/v5/market/books-lite";
     private const string v5MarketCandles = "api/v5/market/candles";
     private const string v5MarketHistoryCandles = "api/v5/market/history-candles";
     private const string v5MarketTrades = "api/v5/market/trades";
     private const string v5MarketTradesHistory = "api/v5/market/history-trades";
-    // TODO: api/v5/market/option/instrument-family-trades
-    // TODO: api/v5/public/option-trades
+    private const string v5MarketOptionInstrumentFamilyTrades = "api/v5/market/option/instrument-family-trades";
+    private const string v5PublicOptionTrades = "api/v5/public/option-trades";
     private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
 
     internal OKXRestApiMarketDataClient(OKXRestApiClient root) : base(root)
@@ -83,6 +82,29 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
         };
 
         var result = await SendOKXRequest<IEnumerable<OkxOrderBook>>(GetUri(v5MarketBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        if (!result.Success || result.Data.Count() == 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+        if (result.Error != null && result.Error.Code > 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, null));
+
+        var orderbook = result.Data.FirstOrDefault();
+        orderbook.Instrument = instrumentId;
+        return result.As(orderbook);
+    }
+
+    // BURAK
+    /// <summary>
+    /// Retrieve order top 25 book of the instrument more quickly
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<OkxOrderBook>> GetOrderBookLiteAsync(string instrumentId, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "instId", instrumentId},
+        };
+
+        var result = await SendOKXRequest<IEnumerable<OkxOrderBook>>(GetUri(v5MarketBooksLite), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
         if (!result.Success || result.Data.Count() == 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
         if (result.Error != null && result.Error.Code > 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, null));
 
@@ -208,6 +230,48 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
         return await SendOKXRequest<IEnumerable<OkxTrade>>(GetUri(v5MarketTradesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
+    // BURAK
+    /// <summary>
+    /// Retrieve the recent transactions of an instrument under same instFamily. The maximum is 100.
+    /// </summary>
+    /// <param name="instrumentFamily">Instrument family, e.g. BTC-USD. Applicable to OPTION</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<IEnumerable<OkxOptionTradeByInstrumentFamily>>> GetOptionTradesByInstrumentFamilyAsync(
+        string instrumentFamily,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "instFamily", instrumentFamily },
+        };
+
+        return await SendOKXRequest<IEnumerable<OkxOptionTradeByInstrumentFamily>>(GetUri(v5MarketOptionInstrumentFamilyTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    // BURAK
+    /// <summary>
+    /// The maximum is 100.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USD-221230-4000-C, Either instId or instFamily is required. If both are passed, instId will be used.</param>
+    /// <param name="instrumentFamily">Instrument family, e.g. BTC-USD</param>
+    /// <param name="optionType">Option type, C: Call P: put</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<IEnumerable<OkxOptionTrade>>> GetOptionTradesByInstrumentFamilyAsync(
+    string instrumentId = null,
+    string instrumentFamily = null,
+    OkxOptionType? optionType = null,
+    CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("instFamily", instrumentFamily);
+        parameters.AddOptionalParameter("optType", JsonConvert.SerializeObject(optionType, new OptionTypeConverter(false)));
+
+        return await SendOKXRequest<IEnumerable<OkxOptionTrade>>(GetUri(v5PublicOptionTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+    }
+
     /// <summary>
     /// The 24-hour trading volume is calculated on a rolling basis, using USD as the pricing unit.
     /// </summary>
@@ -217,40 +281,6 @@ public class OKXRestApiMarketDataClient : OKXRestApiBaseClient
     {
         return await SendOKXSingleRequest<Okx24HourVolume>(GetUri(v5MarketPlatform24Volume), HttpMethod.Get, ct).ConfigureAwait(false);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     #endregion
 
 }

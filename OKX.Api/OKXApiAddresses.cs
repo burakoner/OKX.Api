@@ -21,6 +21,11 @@ public class OKXApiAddresses
     public string WebSocketPrivateAddress { get; set; }
 
     /// <summary>
+    /// WebSocket Business Address
+    /// </summary>
+    public string WebSocketBusinessAddress { get; set; }
+
+    /// <summary>
     /// Default Environment Endpoints
     /// </summary>
     public static OKXApiAddresses Default = new()
@@ -28,6 +33,7 @@ public class OKXApiAddresses
         RestApiAddress = "https://www.okx.com",
         WebSocketPublicAddress = "wss://ws.okx.com:8443/ws/v5/public",
         WebSocketPrivateAddress = "wss://ws.okx.com:8443/ws/v5/private",
+        WebSocketBusinessAddress = "wss://ws.okx.com:8443/ws/v5/business",
     };
 
     /// <summary>
@@ -38,6 +44,7 @@ public class OKXApiAddresses
         RestApiAddress = "https://aws.okx.com",
         WebSocketPublicAddress = "wss://wsaws.okx.com:8443/ws/v5/public",
         WebSocketPrivateAddress = "wss://wsaws.okx.com:8443/ws/v5/private",
+        WebSocketBusinessAddress = "wss://wsaws.okx.com:8443/ws/v5/business",
     };
 
     /// <summary>
@@ -48,5 +55,6 @@ public class OKXApiAddresses
         RestApiAddress = "https://www.okx.com",
         WebSocketPublicAddress = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999",
         WebSocketPrivateAddress = "wss://wspap.okx.com:8443/ws/v5/private?brokerId=9999",
+        WebSocketBusinessAddress = "wss://wspap.okx.com:8443/ws/v5/business?brokerId=9999",
     };
 }

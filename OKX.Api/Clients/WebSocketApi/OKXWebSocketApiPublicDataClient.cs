@@ -1,5 +1,4 @@
-﻿using OKX.Api.Models;
-using OKX.Api.Models.MarketData;
+﻿using OKX.Api.Models.MarketData;
 using OKX.Api.Models.PublicData;
 
 namespace OKX.Api.Clients.WebSocketApi;
@@ -49,7 +48,7 @@ public class OKXWebSocketApiPublicDataClient
             InstrumentType = instrumentType,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -84,7 +83,7 @@ public class OKXWebSocketApiPublicDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -119,7 +118,7 @@ public class OKXWebSocketApiPublicDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -154,7 +153,7 @@ public class OKXWebSocketApiPublicDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -189,7 +188,7 @@ public class OKXWebSocketApiPublicDataClient
             InstrumentFamily = instrumentFamily,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -230,7 +229,7 @@ public class OKXWebSocketApiPublicDataClient
             InstrumentId = symbol.InstrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -265,7 +264,7 @@ public class OKXWebSocketApiPublicDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -300,7 +299,7 @@ public class OKXWebSocketApiPublicDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -340,7 +339,7 @@ public class OKXWebSocketApiPublicDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
 
@@ -381,7 +380,7 @@ public class OKXWebSocketApiPublicDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     // TODO: Liquidation orders channel

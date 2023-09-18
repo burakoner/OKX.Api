@@ -1,5 +1,4 @@
-﻿using OKX.Api.Models;
-using OKX.Api.Models.AlgoTrading;
+﻿using OKX.Api.Models.AlgoTrading;
 
 namespace OKX.Api.Clients.WebSocketApi;
 
@@ -61,7 +60,7 @@ public class OKXWebSocketApiAlgoTradingClient
             InstrumentFamily = symbol.InstrumentFamily,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync( OkxSocketEndpoint.Business, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
 
@@ -109,7 +108,7 @@ public class OKXWebSocketApiAlgoTradingClient
             InstrumentFamily = symbol.InstrumentFamily,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
 }

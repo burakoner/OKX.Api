@@ -20,6 +20,7 @@ global using OKX.Api.Clients.WebSocketApi;
 global using OKX.Api.Converters;
 global using OKX.Api.Enums;
 global using OKX.Api.Helpers;
+global using OKX.Api.Models;
 global using System;
 global using System.Collections.Generic;
 global using System.Diagnostics;

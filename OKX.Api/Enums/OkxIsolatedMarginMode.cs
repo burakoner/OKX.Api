@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Enums;
 
 /// <summary>
-/// OKX Margin Transfer Mode
+/// Okx Isolated Margin Mode
 /// </summary>
-public enum OkxMarginTransferMode
+public enum OkxIsolatedMarginMode
 {
     /// <summary>
     /// AutoTransfer

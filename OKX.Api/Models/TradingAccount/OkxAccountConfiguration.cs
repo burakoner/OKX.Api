@@ -58,14 +58,14 @@ public class OkxAccountConfiguration
     /// <summary>
     /// Contract isolated margin trading settings
     /// </summary>
-    [JsonProperty("ctIsoMode"), JsonConverter(typeof(MarginTransferModeConverter))]
-    public OkxMarginTransferMode ContractIsolatedMarginTradingMode { get; set; }
+    [JsonProperty("ctIsoMode"), JsonConverter(typeof(IsolatedMarginModeConverter))]
+    public Enums.OkxIsolatedMarginMode ContractIsolatedMarginTradingMode { get; set; }
 
     /// <summary>
     /// Margin isolated margin trading settings
     /// </summary>
-    [JsonProperty("mgnIsoMode"), JsonConverter(typeof(MarginTransferModeConverter))]
-    public OkxMarginTransferMode MarginIsolatedMarginTradingMode { get; set; }
+    [JsonProperty("mgnIsoMode"), JsonConverter(typeof(IsolatedMarginModeConverter))]
+    public Enums.OkxIsolatedMarginMode MarginIsolatedMarginTradingMode { get; set; }
 
     /// <summary>
     /// Risk offset type

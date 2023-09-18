@@ -14,5 +14,5 @@ public class OKXWebSocketApiFundingAccountClient
     }
 
     // TODO: Deposit info channel
-
+    // TODO: Withdrawal info channel
 }

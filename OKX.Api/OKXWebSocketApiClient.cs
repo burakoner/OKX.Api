@@ -80,8 +80,29 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
         this.Status = new OKXWebSocketApiSystemClient(this);
     }
 
-    internal Task<CallResult<WebSocketUpdateSubscription>> RootSubscribeAsync<T>(object request, string identifier, bool authenticated, Action<WebSocketDataEvent<T>> dataHandler, CancellationToken ct)
+    internal Task<CallResult<WebSocketUpdateSubscription>> RootSubscribeAsync<T>(OkxSocketEndpoint endpoint, object request, string identifier, bool authenticated, Action<WebSocketDataEvent<T>> dataHandler, CancellationToken ct)
     {
-        return SubscribeAsync<T>(request, identifier, authenticated, dataHandler, ct);
+        var url = ClientOptions.BaseAddress;
+        if (endpoint == OkxSocketEndpoint.Public)
+            url = OKXApiAddresses.Default.WebSocketPublicAddress;
+        else if (endpoint == OkxSocketEndpoint.Private)
+            url = OKXApiAddresses.Default.WebSocketPrivateAddress;
+        else if (endpoint == OkxSocketEndpoint.Business)
+            url = OKXApiAddresses.Default.WebSocketBusinessAddress;
+
+        return SubscribeAsync<T>(url, request, identifier, authenticated, dataHandler, ct);
+    }
+
+    internal Task<CallResult<T>> RootQueryAsync<T>(OkxSocketEndpoint endpoint, object request, bool authenticated)
+    {
+        var url = ClientOptions.BaseAddress;
+        if (endpoint == OkxSocketEndpoint.Public)
+            url = OKXApiAddresses.Default.WebSocketPublicAddress;
+        else if (endpoint == OkxSocketEndpoint.Private)
+            url = OKXApiAddresses.Default.WebSocketPrivateAddress;
+        else if (endpoint == OkxSocketEndpoint.Business)
+            url = OKXApiAddresses.Default.WebSocketBusinessAddress;
+
+        return QueryAsync<T>(url, request, authenticated);
     }
 }

@@ -1,5 +1,4 @@
-﻿using OKX.Api.Models;
-using OKX.Api.Models.System;
+﻿using OKX.Api.Models.System;
 
 namespace OKX.Api.Clients.WebSocketApi;
 
@@ -34,6 +33,6 @@ public class OKXWebSocketApiSystemClient
         {
             Channel = "status",
         });
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 }

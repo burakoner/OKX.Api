@@ -26,7 +26,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     private const string v5AccountInterestAccrued = "api/v5/account/interest-accrued";
     private const string v5AccountInterestRate = "api/v5/account/interest-rate";
     private const string v5AccountSetGreeks = "api/v5/account/set-greeks";
-    // TODO: api/v5/account/set-isolated-mode
+    private const string v5AccountSetIsolatedMode = "api/v5/account/set-isolated-mode";
     private const string v5AccountMaxWithdrawal = "api/v5/account/max-withdrawal";
     // TODO: api/v5/account/risk-state
     // TODO: api/v5/account/quick-margin-borrow-repay
@@ -526,13 +526,33 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="greeksType">Display type of Greeks.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxAccountGreeksType>> SetGreeksAsync(Enums.OkxGreeksType greeksType, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxAccountGreeksType>> SetGreeksAsync(OkxGreeksType greeksType, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             {"greeksType", JsonConvert.SerializeObject(greeksType, new GreeksTypeConverter(false)) },
         };
 
         return await SendOKXSingleRequest<OkxAccountGreeksType>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+    }
+
+    // BURAK
+    /// <summary>
+    /// You can set the currency margin and futures/perpetual Isolated margin trading mode
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="marginMode">Isolated margin trading settings</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public async Task<RestCallResult<OkxIsolatedMarginModeSettings>> SetIsolatedMarginModeAsync(OkxInstrumentType instrumentType, Enums.OkxIsolatedMarginMode marginMode,   CancellationToken ct = default)
+    {
+        if (!instrumentType.IsIn(OkxInstrumentType.Margin, OkxInstrumentType.Contracts)) throw new ArgumentException("Only Margin and Contracts allowed", nameof(instrumentType));
+        var parameters = new Dictionary<string, object> {
+            {"isoMode", JsonConvert.SerializeObject(marginMode, new IsolatedMarginModeConverter(false)) },
+            {"type", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)) },
+        };
+
+        return await SendOKXSingleRequest<OkxIsolatedMarginModeSettings>(GetUri(v5AccountSetIsolatedMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>

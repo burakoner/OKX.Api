@@ -1,6 +1,4 @@
-﻿using OKX.Api.Models;
-
-namespace OKX.Api;
+﻿namespace OKX.Api;
 
 /// <summary>
 /// OKX WebSocket Api Base Client
@@ -30,7 +28,6 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
 
         SetDataInterpreter(DecompressData, null);
         SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");
-
     }
 
     #region Overrided Methods
@@ -152,10 +149,11 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
 
         // Check for Error
         // 30040: {0} Channel : {1} doesn't exist
-        if (data.HasValues && data["event"] != null && (string)data["event"]! == "error" && data["errorCode"] != null && (string)data["errorCode"]! == "30040")
+        if (data.HasValues && data["event"] != null && (string)data["event"] == "error" && 
+            data["msg"] != null && data["code"] != null)
         {
-            log.Write(LogLevel.Warning, "Subscription failed: " + (string)data["message"]!);
-            callResult = new CallResult<object>(new ServerError($"{(string)data["errorCode"]!}, {(string)data["message"]!}"));
+            log.Write(LogLevel.Warning, "Subscription failed: " + (string)data["msg"]!);
+            callResult = new CallResult<object>(new ServerError(data["code"].ToInt(), (string)data["msg"]));
             return true;
         }
 
@@ -246,23 +244,6 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
         });
         return false;
     }
-
-    /// <inheritdoc />
-    protected override async Task<CallResult<WebSocketConnection>> GetWebSocketConnection(string address, bool authenticated)
-    {
-        address = authenticated
-            ? "wss://ws.okx.com:8443/ws/v5/private"
-            : "wss://ws.okx.com:8443/ws/v5/public";
-
-        if (((OKXWebSocketApiClientOptions)ClientOptions).DemoTradingService)
-        {
-            address = authenticated
-                ? "wss://wspap.okx.com:8443/ws/v5/private?brokerId=9999"
-                : "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999";
-        }
-
-        return await base.GetWebSocketConnection(address, authenticated);
-    }
     #endregion
 
     #region Private Methods
@@ -287,7 +268,9 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// <param name="passPhrase">The passphrase you specified when creating the API key</param>
     public void SetApiCredentials(string apiKey, string apiSecret, string passPhrase)
     {
-        SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
+        var credentials = new OkxApiCredentials(apiKey, apiSecret, passPhrase);
+        ClientOptions.ApiCredentials = credentials;
+        SetApiCredentials(credentials);
     }
 
     #region Ping

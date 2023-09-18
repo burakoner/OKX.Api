@@ -1,5 +1,4 @@
-﻿using OKX.Api.Models;
-using OKX.Api.Models.TradingAccount;
+﻿using OKX.Api.Models.TradingAccount;
 
 namespace OKX.Api.Clients.WebSocketApi;
 
@@ -36,7 +35,7 @@ public class OKXWebSocketApiTradingAccountClient
         {
             Channel = "account"
         });
-        return await this.RootClient.RootSubscribeAsync(request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -83,7 +82,7 @@ public class OKXWebSocketApiTradingAccountClient
             InstrumentFamily = symbol.InstrumentFamily,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -106,7 +105,7 @@ public class OKXWebSocketApiTradingAccountClient
         {
             Channel = "balance_and_position"
         });
-        return await this.RootClient.RootSubscribeAsync(request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     // TODO: Position risk warning

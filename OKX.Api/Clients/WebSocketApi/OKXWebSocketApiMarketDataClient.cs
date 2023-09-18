@@ -1,5 +1,4 @@
-﻿using OKX.Api.Models;
-using OKX.Api.Models.MarketData;
+﻿using OKX.Api.Models.MarketData;
 
 namespace OKX.Api.Clients.WebSocketApi;
 
@@ -48,7 +47,7 @@ public class OKXWebSocketApiMarketDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -88,7 +87,7 @@ public class OKXWebSocketApiMarketDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -123,8 +122,10 @@ public class OKXWebSocketApiMarketDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
+
+    // TODO: WS / All trades channel
 
     /// <summary>
     /// Retrieve order book data.
@@ -174,7 +175,7 @@ public class OKXWebSocketApiMarketDataClient
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await this.RootClient.RootSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
     // TODO: WS / Option trades channel

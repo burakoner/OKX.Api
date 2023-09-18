@@ -2,6 +2,9 @@
 
 public class OkxSocketRequest
 {
+    [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+    public int? RequestId { get; set; }
+
     [JsonProperty("op"), JsonConverter(typeof(OkxSocketOperationConverter))]
     public OkxSocketOperation Operation { get; set; }
 
@@ -96,6 +99,7 @@ public enum OkxSocketOperation
     Subscribe,
     Unsubscribe,
     Login,
+    Order
 }
 
 public class OkxSocketOperationConverter : BaseConverter<OkxSocketOperation>
@@ -108,5 +112,6 @@ public class OkxSocketOperationConverter : BaseConverter<OkxSocketOperation>
         new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Subscribe, "subscribe"),
         new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Unsubscribe, "unsubscribe"),
         new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Login, "login"),
+        new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Order, "order"),
     };
 }
