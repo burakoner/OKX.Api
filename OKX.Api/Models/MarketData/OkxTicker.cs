@@ -15,16 +15,16 @@ public class OkxTicker
     public decimal LastSize { get; set; }
 
     [JsonProperty("askPx")]
-    public decimal AskPrice { get; set; }
+    public decimal? AskPrice { get; set; }
 
     [JsonProperty("askSz")]
-    public decimal AskSize { get; set; }
+    public decimal? AskSize { get; set; }
 
     [JsonProperty("bidPx")]
-    public decimal BidPrice { get; set; }
+    public decimal? BidPrice { get; set; }
 
     [JsonProperty("bidSz")]
-    public decimal BidSize { get; set; }
+    public decimal? BidSize { get; set; }
 
     [JsonProperty("open24h")]
     public decimal Open { get; set; }

@@ -23,7 +23,19 @@ public class OKXRestApiClientOptions : RestApiClientOptions
     /// <summary>
     /// Use Demo Trading Service
     /// </summary>
-    public bool DemoTradingService { get; set; } = false;
+    public bool DemoTradingService
+    {
+        get
+        {
+            return _demoTradingService;
+        }
+        set
+        {
+            _demoTradingService = value;
+            BaseAddress = value ? OKXApiAddresses.Demo.RestApiAddress : OKXApiAddresses.Default.RestApiAddress;
+        }
+    }
+    private bool _demoTradingService = false;
 
     /// <summary>
     /// Flag for signing public requests with API credentials

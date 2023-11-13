@@ -19,6 +19,9 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
+			Version 1.4.1 - XX Sep 2023
+			* Fixed DemoTradingService usage
+
 			Version 1.4.0 - 16 Sep 2023
 			* Added Business WebSocket endpoint and moved related methods
 			* Fixed websocket endpoint division (public, private, business) related issues

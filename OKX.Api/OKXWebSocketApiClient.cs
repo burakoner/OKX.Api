@@ -83,12 +83,13 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     internal Task<CallResult<WebSocketUpdateSubscription>> RootSubscribeAsync<T>(OkxSocketEndpoint endpoint, object request, string identifier, bool authenticated, Action<WebSocketDataEvent<T>> dataHandler, CancellationToken ct)
     {
         var url = ClientOptions.BaseAddress;
+        var env = ((OKXWebSocketApiClientOptions)ClientOptions).DemoTradingService ? OKXApiAddresses.Demo : OKXApiAddresses.Default;
         if (endpoint == OkxSocketEndpoint.Public)
-            url = OKXApiAddresses.Default.WebSocketPublicAddress;
+            url = env.WebSocketPublicAddress;
         else if (endpoint == OkxSocketEndpoint.Private)
-            url = OKXApiAddresses.Default.WebSocketPrivateAddress;
+            url = env.WebSocketPrivateAddress;
         else if (endpoint == OkxSocketEndpoint.Business)
-            url = OKXApiAddresses.Default.WebSocketBusinessAddress;
+            url = env.WebSocketBusinessAddress;
 
         return SubscribeAsync<T>(url, request, identifier, authenticated, dataHandler, ct);
     }
@@ -96,12 +97,13 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     internal Task<CallResult<T>> RootQueryAsync<T>(OkxSocketEndpoint endpoint, object request, bool authenticated)
     {
         var url = ClientOptions.BaseAddress;
+        var env = ((OKXWebSocketApiClientOptions)ClientOptions).DemoTradingService ? OKXApiAddresses.Demo : OKXApiAddresses.Default;
         if (endpoint == OkxSocketEndpoint.Public)
-            url = OKXApiAddresses.Default.WebSocketPublicAddress;
+            url = env.WebSocketPublicAddress;
         else if (endpoint == OkxSocketEndpoint.Private)
-            url = OKXApiAddresses.Default.WebSocketPrivateAddress;
+            url = env.WebSocketPrivateAddress;
         else if (endpoint == OkxSocketEndpoint.Business)
-            url = OKXApiAddresses.Default.WebSocketBusinessAddress;
+            url = env.WebSocketBusinessAddress;
 
         return QueryAsync<T>(url, request, authenticated);
     }
