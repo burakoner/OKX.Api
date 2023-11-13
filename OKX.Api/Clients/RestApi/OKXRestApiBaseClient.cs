@@ -17,6 +17,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
     internal OKXRestApiBaseClient(OKXRestApiClient root) : base("OKX RestApi", root.ClientOptions)
     {
         RootClient = root;
+        this.ManualParseError = true;
 
         RequestBodyFormat = RestRequestBodyFormat.Json;
         ArraySerialization = ArraySerialization.MultipleValues;
@@ -40,9 +41,23 @@ public abstract class OKXRestApiBaseClient : RestApiClient
             return new ServerError(error.ToString());
 
         if (error["msg"] != null && error["code"] == null || (!string.IsNullOrWhiteSpace((string)error["msg"])))
-            return new ServerError((string)error["message"]!);
+            return new ServerError((string)error["msg"]!);
 
-        return new ServerError((int)error["code"], (string)error["message"]);
+        return new ServerError((int)error["code"], (string)error["msg"]);
+    }
+
+    /// <inheritdoc />
+    protected override Task<ServerError> TryParseErrorAsync(JToken error)
+    {
+        if (!error.HasValues)
+        return Task.FromResult<ServerError>(null);
+
+        if ((error["msg"] != null
+            && (!string.IsNullOrWhiteSpace((string)error["msg"]))
+            && error["code"] != null))
+            return Task.FromResult(new ServerError((int)error["code"], (string)error["msg"]));
+
+        return Task.FromResult<ServerError>(null);
     }
 
     /// <inheritdoc />

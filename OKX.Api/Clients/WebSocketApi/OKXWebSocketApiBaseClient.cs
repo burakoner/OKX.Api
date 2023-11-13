@@ -160,13 +160,16 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
         // Check for Success
         if (data.HasValues && data["event"] != null && (string)data["event"]! == "subscribe" && data["arg"]["channel"] != null)
         {
-            if (request is OkxSocketRequest socRequest)
+            if (request is OkxSocketRequest socRequest && socRequest.Arguments != null)
             {
-                if (socRequest.Arguments.FirstOrDefault().Channel == (string)data["arg"]["channel"]!)
+                foreach (var arg in socRequest.Arguments)
                 {
-                    log.Write(LogLevel.Debug, "Subscription completed");
-                    callResult = new CallResult<object>(true);
-                    return true;
+                    if (arg.Channel == (string)data["arg"]["channel"]!)
+                    {
+                        log.Write(LogLevel.Debug, "Subscription completed");
+                        callResult = new CallResult<object>(true);
+                        return true;
+                    }
                 }
             }
         }
@@ -197,19 +200,24 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
                 return false;
 
             // Compare Request and Response Arguments
-            var reqArg = hRequest.Arguments.FirstOrDefault();
             var resArg = JsonConvert.DeserializeObject<OkxSocketRequestArgument>(message["arg"].ToString());
 
             // Check Data
             var data = message["data"];
             if (data?.HasValues ?? false)
             {
-                if (reqArg.Channel == resArg.Channel &&
-                    reqArg.InstrumentId == resArg.InstrumentId &&
-                    reqArg.InstrumentType == resArg.InstrumentType &&
-                    reqArg.InstrumentFamily == resArg.InstrumentFamily)
+                if (hRequest.Arguments != null)
                 {
-                    return true;
+                    foreach (var arg in hRequest.Arguments)
+                    {
+                        if (arg.Channel == resArg.Channel &&
+                            arg.InstrumentId == resArg.InstrumentId &&
+                            arg.InstrumentType == resArg.InstrumentType &&
+                            arg.InstrumentFamily == resArg.InstrumentFamily)
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
         }
@@ -237,11 +245,16 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
 
             if ((string)data["event"] == "unsubscribe")
             {
-                return (string)data["arg"]["channel"] == request.Arguments.FirstOrDefault().Channel;
+                foreach(var arg in request.Arguments)
+                {
+                    if ((string)data["arg"]["channel"] == arg.Channel) ;
+                    return true;
+                }
             }
 
             return false;
         });
+
         return false;
     }
     #endregion
