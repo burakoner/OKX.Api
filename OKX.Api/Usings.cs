@@ -4,7 +4,6 @@ global using ApiSharp.Authentication;
 global using ApiSharp.Converters;
 global using ApiSharp.Enums;
 global using ApiSharp.Extensions;
-global using ApiSharp.Logging;
 global using ApiSharp.Models;
 global using ApiSharp.Security;
 global using ApiSharp.Throttling;

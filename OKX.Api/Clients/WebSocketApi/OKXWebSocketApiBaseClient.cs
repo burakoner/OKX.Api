@@ -6,6 +6,11 @@
 public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
 {
     /// <summary>
+    /// Logger
+    /// </summary>
+    internal ILogger Logger { get => this._logger; }
+
+    /// <summary>
     /// If Websocket is authendicated
     /// </summary>
     internal bool IsAuthendicated { get; private set; }
@@ -13,7 +18,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// <summary>
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
-    internal OKXWebSocketApiBaseClient() : this(new OKXWebSocketApiClientOptions())
+    internal OKXWebSocketApiBaseClient() : this(null, new OKXWebSocketApiClientOptions())
     {
     }
 
@@ -21,7 +26,16 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
     /// <param name="options">OKXStreamClientOptions</param>
-    internal OKXWebSocketApiBaseClient(OKXWebSocketApiClientOptions options) : base("OKX WebSocket", options)
+    internal OKXWebSocketApiBaseClient(OKXWebSocketApiClientOptions options) : this(null, options)
+    {
+    }
+
+    /// <summary>
+    /// OKXWebSocketBaseClient Constructor
+    /// </summary>
+    /// <param name="logger">ILogger</param>
+    /// <param name="options">OKXStreamClientOptions</param>
+    internal OKXWebSocketApiBaseClient(ILogger logger, OKXWebSocketApiClientOptions options) : base(logger, options)
     {
         RateLimitPerConnectionPerSecond = 4;
         this.IgnoreHandlingList = new List<string> { "pong" };
@@ -80,18 +94,18 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
             var authResponse = Deserialize<OkxSocketResponse>(data);
             if (!authResponse)
             {
-                log.Write(LogLevel.Warning, "Authorization failed: " + authResponse.Error);
+                Logger.Log(LogLevel.Warning, "Authorization failed: " + authResponse.Error);
                 result = new CallResult<bool>(authResponse.Error);
                 return true;
             }
             if (!authResponse.Data.Success)
             {
-                log.Write(LogLevel.Warning, "Authorization failed: " + authResponse.Error.Message);
+                Logger.Log(LogLevel.Warning, "Authorization failed: " + authResponse.Error.Message);
                 result = new CallResult<bool>(new ServerError(authResponse.Error.Code.Value, authResponse.Error.Message));
                 return true;
             }
 
-            log.Write(LogLevel.Debug, "Authorization completed");
+            Logger.Log(LogLevel.Debug, "Authorization completed");
             result = new CallResult<bool>(true);
 
             IsAuthendicated = true;
@@ -115,7 +129,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
         // Check for Error
         if (data is JObject && data["event"] != null && (string)data["event"]! == "error" && data["code"] != null && data["msg"] != null)
         {
-            log.Write(LogLevel.Warning, "Query failed: " + (string)data["msg"]!);
+            Logger.Log(LogLevel.Warning, "Query failed: " + (string)data["msg"]!);
             callResult = new CallResult<T>(new ServerError($"{(string)data["code"]!}, {(string)data["msg"]!}"));
             return true;
         }
@@ -126,7 +140,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
             var desResult = Deserialize<T>(data);
             if (!desResult)
             {
-                log.Write(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
+                Logger.Log(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
                 return false;
             }
 
@@ -152,7 +166,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
         if (data.HasValues && data["event"] != null && (string)data["event"] == "error" && 
             data["msg"] != null && data["code"] != null)
         {
-            log.Write(LogLevel.Warning, "Subscription failed: " + (string)data["msg"]!);
+            Logger.Log(LogLevel.Warning, "Subscription failed: " + (string)data["msg"]!);
             callResult = new CallResult<object>(new ServerError(data["code"].ToInt(), (string)data["msg"]));
             return true;
         }
@@ -166,7 +180,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
                 {
                     if (arg.Channel == (string)data["arg"]["channel"]!)
                     {
-                        log.Write(LogLevel.Debug, "Subscription completed");
+                        Logger.Log(LogLevel.Debug, "Subscription completed");
                         callResult = new CallResult<object>(true);
                         return true;
                     }

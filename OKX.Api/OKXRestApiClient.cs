@@ -1,10 +1,17 @@
-﻿namespace OKX.Api;
+﻿using Microsoft.Extensions.Logging.Abstractions;
+
+namespace OKX.Api;
 
 /// <summary>
 /// OKX Rest API Client
 /// </summary>
 public sealed class OKXRestApiClient
 {
+    /// <summary>
+    /// Logger
+    /// </summary>
+    internal ILogger Logger { get; }
+
     /// <summary>
     /// Client Options
     /// </summary>
@@ -68,7 +75,14 @@ public sealed class OKXRestApiClient
     /// <summary>
     /// OKXRestApiClient Constructor
     /// </summary>
-    public OKXRestApiClient() : this(new OKXRestApiClientOptions())
+    public OKXRestApiClient() : this(null, new OKXRestApiClientOptions())
+    {
+    }
+
+    /// <summary>
+    /// OKXRestApiClient Constructor
+    /// </summary>
+    public OKXRestApiClient(OKXRestApiClientOptions options) : this(null, options)
     {
     }
 
@@ -76,9 +90,10 @@ public sealed class OKXRestApiClient
     /// OKXRestApiClient Constructor
     /// </summary>
     /// <param name="options">OKXRestApiClientOptions</param>
-    public OKXRestApiClient(OKXRestApiClientOptions options)
+    public OKXRestApiClient(ILogger logger, OKXRestApiClientOptions options)
     {
         ClientOptions = options;
+        Logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX Api");
 
         TradingAccount = new OKXRestApiTradingAccountClient(this);
         OrderBookTrading = new OKXRestApiOrderBookTradingClient(this);

@@ -6,7 +6,7 @@
 public abstract class OKXRestApiBaseClient : RestApiClient
 {
     // Internal
-    internal Log Log { get => this.log; }
+    internal ILogger Logger { get => this._logger; }
     internal TimeSyncState TimeSyncState = new("OKX RestApi");
     internal CultureInfo CI = CultureInfo.InvariantCulture;
 
@@ -14,7 +14,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
     internal OKXRestApiClient RootClient { get; }
     internal new OKXRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
 
-    internal OKXRestApiBaseClient(OKXRestApiClient root) : base("OKX RestApi", root.ClientOptions)
+    internal OKXRestApiBaseClient(OKXRestApiClient root) : base(root.Logger, root.ClientOptions)
     {
         RootClient = root;
         this.ManualParseError = true;
@@ -66,7 +66,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
 
     /// <inheritdoc />
     protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.AutoTimestampInterval, TimeSyncState);
+        => new(Logger, ClientOptions.AutoTimestamp, ClientOptions.AutoTimestampInterval, TimeSyncState);
 
     /// <inheritdoc />
     protected override TimeSpan GetTimeOffset()

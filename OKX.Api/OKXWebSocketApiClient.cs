@@ -58,7 +58,11 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// <summary>
     /// OKXWebSocketApiClient Constructor
     /// </summary>
-    public OKXWebSocketApiClient() : this(new OKXWebSocketApiClientOptions())
+    public OKXWebSocketApiClient() : this(null, new OKXWebSocketApiClientOptions())
+    {
+    }
+
+    public OKXWebSocketApiClient(OKXWebSocketApiClientOptions options) : this(null, options)
     {
     }
 
@@ -66,7 +70,7 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// OKXWebSocketApiClient Constructor
     /// </summary>
     /// <param name="options">OKXStreamClientOptions</param>
-    public OKXWebSocketApiClient(OKXWebSocketApiClientOptions options) : base(options)
+    public OKXWebSocketApiClient(ILogger logger, OKXWebSocketApiClientOptions options) : base(logger, options)
     {
         this.TradingAccount = new OKXWebSocketApiTradingAccountClient(this);
         this.OrderBookTrading = new OKXWebSocketApiOrderBookTradingClient(this);
