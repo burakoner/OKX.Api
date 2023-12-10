@@ -349,4 +349,14 @@ public enum OkxAccountBillSubType
     /// SpreadTradingCloseShort
     /// </summary>
     SpreadTradingCloseShort,
+
+    /// <summary>
+    /// SPOT profit sharing expenses
+    /// </summary>
+    SpotProfitSharingExpenses,
+
+    /// <summary>
+    /// SPOT profit sharing refund
+    /// </summary>
+    SpotProfitSharingRefund,
 }

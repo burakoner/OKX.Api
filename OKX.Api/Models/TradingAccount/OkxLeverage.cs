@@ -6,10 +6,10 @@
 public class OkxLeverage
 {
     /// <summary>
-    /// Instrument ID
+    /// Leverage
     /// </summary>
-    [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    [JsonProperty("lever")]
+    public decimal Leverage { get; set; }
 
     /// <summary>
     /// Margin mode
@@ -18,14 +18,14 @@ public class OkxLeverage
     public OkxMarginMode MarginMode { get; set; }
 
     /// <summary>
+    /// Instrument ID
+    /// </summary>
+    [JsonProperty("instId")]
+    public string Instrument { get; set; }
+
+    /// <summary>
     /// Position side
     /// </summary>
     [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
     public OkxPositionSide PositionSide { get; set; }
-
-    /// <summary>
-    /// Leverage
-    /// </summary>
-    [JsonProperty("lever")]
-    public decimal? Leverage { get; set; }
 }

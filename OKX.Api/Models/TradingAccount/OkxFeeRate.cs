@@ -76,4 +76,35 @@ public class OkxFeeRate
     /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+
+    /// <summary>
+    /// Details of fiat fee rate
+    /// </summary>
+    [JsonProperty("fiat")]
+    public IEnumerable<OkxFiatFeeRate> FiatFeeRates { get; set; }
+}
+
+
+/// <summary>
+/// OkxFiatFeeRate
+/// </summary>
+public class OkxFiatFeeRate
+{
+    /// <summary>
+    /// Fiat currency
+    /// </summary>
+    [JsonProperty("ccy")]
+    public string FiatCurrency { get; set; }
+    ///             
+    /// <summary>
+    /// Taker fee rate
+    /// </summary>
+    [JsonProperty("taker")]
+    public decimal? Taker { get; set; }
+    ///             
+    /// <summary>
+    /// Maker fee rate
+    /// </summary>
+    [JsonProperty("maker")]
+    public decimal? Maker { get; set; }
 }

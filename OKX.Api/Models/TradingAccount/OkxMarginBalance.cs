@@ -15,26 +15,26 @@ public class OkxMarginBalance
     /// Position side, long short
     /// </summary>
     [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-    public OkxPositionSide? PositionSide { get; set; }
+    public OkxPositionSide PositionSide { get; set; }
 
     /// <summary>
     /// Amount to be increase or decrease
     /// </summary>
     [JsonProperty("amt")]
-    public decimal? Amount { get; set; }
+    public decimal Amount { get; set; }
 
     /// <summary>
     /// add: add margin, or transfer collaterals in (Quick Margin Mode)
     /// reduce: reduce margin, transfer collaterals out (Quick Margin Mode)
     /// </summary>
     [JsonProperty("type"), JsonConverter(typeof(MarginAddReduceConverter))]
-    public OkxMarginAddReduce? MarginAddReduce { get; set; }
+    public OkxMarginAddReduce MarginAddReduce { get; set; }
 
     /// <summary>
     /// Real leverage after the margin adjustment
     /// </summary>
     [JsonProperty("leverage")]
-    public decimal? Leverage { get; set; }
+    public decimal Leverage { get; set; }
 
     /// <summary>
     /// Currency, only applicable to MARGIN（Manual transfers and Quick Margin Mode）

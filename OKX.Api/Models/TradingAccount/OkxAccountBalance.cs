@@ -64,6 +64,13 @@ public class OkxAccountBalance
     public decimal? MaintenanceMarginRequirement { get; set; }
 
     /// <summary>
+    /// Potential borrowing IMR of the account in USD
+    /// Only applicable to Multi-currency margin and Portfolio margin.It is "" for other margin modes.
+    /// </summary>
+    [JsonProperty("borrowFroz")]
+    public decimal? BorrowFrozen { get; set; }
+
+    /// <summary>
     /// Margin ratio in USD
     /// The index for measuring the risk of a certain asset in the account.
     /// Applicable to Multi-currency margin and Portfolio margin
@@ -100,25 +107,25 @@ public class OkxAccountBalanceDetail
     /// Equity of the currency
     /// </summary>
     [JsonProperty("eq")]
-    public decimal? Equity { get; set; }
+    public decimal Equity { get; set; }
 
     /// <summary>
     /// Cash balance
     /// </summary>
     [JsonProperty("cashBal")]
-    public decimal? CashBalance { get; set; }
+    public decimal CashBalance { get; set; }
 
     /// <summary>
     /// Update time of currency balance information, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("uTime")]
-    public long? UpdateTimestamp { get; set; }
+    public long UpdateTimestamp { get; set; }
 
     /// <summary>
     /// Update time of currency balance information
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime UpdateTime { get { return UpdateTimestamp.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Isolated margin equity of the currency
@@ -139,7 +146,13 @@ public class OkxAccountBalanceDetail
     /// Discount equity of the currency in USD.
     /// </summary>
     [JsonProperty("disEq")]
-    public decimal? DiscountEquity { get; set; }
+    public decimal DiscountEquity { get; set; }
+
+    /// <summary>
+    /// Frozen balance for Dip Sniper and Peak Sniper
+    /// </summary>
+    [JsonProperty("fixedBal")]
+    public decimal? FixedBalance { get; set; }
 
     /// <summary>
     /// Available balance of the currency
@@ -147,19 +160,19 @@ public class OkxAccountBalanceDetail
     /// Applicable to Simple, Single-currency margin, Multi-currency margin and Portfolio margin
     /// </summary>
     [JsonProperty("availBal")]
-    public decimal? AvailableBalance { get; set; }
+    public decimal AvailableBalance { get; set; }
 
     /// <summary>
     /// Frozen balance of the currency
     /// </summary>
     [JsonProperty("frozenBal")]
-    public decimal? FrozenBalance { get; set; }
+    public decimal FrozenBalance { get; set; }
 
     /// <summary>
     /// Margin frozen for open orders
     /// </summary>
     [JsonProperty("ordFrozen")]
-    public decimal? OrderFrozen { get; set; }
+    public decimal OrderFrozen { get; set; }
 
     /// <summary>
     /// Liabilities of the currency
@@ -208,8 +221,8 @@ public class OkxAccountBalanceDetail
     /// Accrued interest of the currency
     /// Applicable to Multi-currency margin and Portfolio margin
     /// </summary>
-    [JsonProperty("Interest")]
-    public decimal? interest { get; set; }
+    [JsonProperty("interest")]
+    public decimal? Interest { get; set; }
 
     /// <summary>
     /// Risk indicator of auto liability repayment
@@ -230,7 +243,14 @@ public class OkxAccountBalanceDetail
     /// Equity in USD of the currency
     /// </summary>
     [JsonProperty("eqUsd")]
-    public decimal? UsdEquity { get; set; }
+    public decimal UsdEquity { get; set; }
+
+    /// <summary>
+    /// Potential borrowing IMR of currency in USD
+    /// Only applicable to Multi-currency margin and Portfolio margin.It is "" for other margin modes.
+        /// </summary>
+        [JsonProperty("borrowFroz")]
+    public decimal? BorrowFrozen { get; set; }
 
     /// <summary>
     /// Leverage of the currency
@@ -243,7 +263,7 @@ public class OkxAccountBalanceDetail
     /// Strategy equity
     /// </summary>
     [JsonProperty("stgyEq")]
-    public decimal? StrategyEquity { get; set; }
+    public decimal StrategyEquity { get; set; }
 
     /// <summary>
     /// Isolated unrealized profit and loss of the currency
@@ -258,4 +278,10 @@ public class OkxAccountBalanceDetail
     /// </summary>
     [JsonProperty("spotInUseAmt")]
     public decimal? SpotInUseAmount { get; set; }
+
+    /// <summary>
+    /// SPOT isolated balance. only applicable to copy trading
+    /// </summary>
+    [JsonProperty("spotIsoBal")]
+    public decimal? SpotIsolatedBalance { get; set; }
 }

@@ -15,11 +15,11 @@ public class OkxMaximumAvailableAmount
     /// Amount available to buy
     /// </summary>
     [JsonProperty("availBuy")]
-    public decimal? AvailableBuy { get; set; }
+    public decimal AvailableBuy { get; set; }
 
     /// <summary>
     /// Amount available to sell
     /// </summary>
     [JsonProperty("availSell")]
-    public decimal? AvailableSell { get; set; }
+    public decimal AvailableSell { get; set; }
 }

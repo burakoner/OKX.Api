@@ -6,7 +6,7 @@
 public class OkxIsolatedMarginModeSettings
 {
     /// <summary>
-    /// 	Isolated margin trading settings
+    /// Isolated margin trading settings
     /// </summary>
     [JsonProperty("isoMode"), JsonConverter(typeof(IsolatedMarginModeConverter))]
     public OkxIsolatedMarginMode MarginMode { get; set; }

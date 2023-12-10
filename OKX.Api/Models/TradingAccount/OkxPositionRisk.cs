@@ -20,8 +20,8 @@ public class OkxPositionRisk
     /// <summary>
     /// Adjusted / Effective equity in USD
     /// Applicable to Multi-currency margin and Portfolio margin
-        /// </summary>
-        [JsonProperty("adjEq")]
+    /// </summary>
+    [JsonProperty("adjEq")]
     public decimal? AdjustedEquity { get; set; }
 
     /// <summary>

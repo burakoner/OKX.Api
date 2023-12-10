@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging.Abstractions;
-
-namespace OKX.Api;
+﻿namespace OKX.Api;
 
 /// <summary>
 /// OKX Rest API Client
@@ -65,7 +63,12 @@ public sealed class OKXRestApiClient
     /// <summary>
     /// Status Client
     /// </summary>
-    public OKXRestApiSystemClient Status { get; }
+    public OKXRestApiAffiliateClient Affiliate { get; }
+
+    /// <summary>
+    /// Status Client
+    /// </summary>
+    public OKXRestApiStatusClient Status { get; }
 
     /// <summary>
     /// Broker Client
@@ -103,7 +106,8 @@ public sealed class OKXRestApiClient
         TradingStatistics = new OKXRestApiTradingStatisticsClient(this);
         SubAccount = new OKXRestApiSubAccountClient(this);
         FundingAccount = new OKXRestApiFundingAccountClient(this);
-        Status = new OKXRestApiSystemClient(this);
+        Affiliate = new OKXRestApiAffiliateClient(this);
+        Status = new OKXRestApiStatusClient(this);
         Broker = new OKXRestApiBrokerClient(this);
     }
 
@@ -133,6 +137,7 @@ public sealed class OKXRestApiClient
         TradingStatistics.SetApiCredentials(credentials);
         SubAccount.SetApiCredentials(credentials);
         FundingAccount.SetApiCredentials(credentials);
+        Affiliate.SetApiCredentials(credentials);
         Status.SetApiCredentials(credentials);
         Broker.SetApiCredentials(credentials);
     }

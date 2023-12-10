@@ -15,7 +15,7 @@ public class OkxMaximumLoanAmount
     /// Margin mode
     /// </summary>
     [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
-    public OkxMarginMode? MarginMode { get; set; }
+    public OkxMarginMode MarginMode { get; set; }
 
     /// <summary>
     /// Margin currency
@@ -27,7 +27,7 @@ public class OkxMaximumLoanAmount
     /// Max loan
     /// </summary>
     [JsonProperty("maxLoan")]
-    public decimal? MaximumLoan { get; set; }
+    public decimal MaximumLoan { get; set; }
 
     /// <summary>
     /// Currency
@@ -39,5 +39,5 @@ public class OkxMaximumLoanAmount
     /// Order side
     /// </summary>
     [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
-    public OkxOrderSide? OrderSide { get; set; }
+    public OkxOrderSide OrderSide { get; set; }
 }

@@ -1,14 +1,14 @@
 ﻿namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
-/// OKX Rest Api System Client
+/// OKX Rest Api Status Client
 /// </summary>
-public class OKXRestApiSystemClient : OKXRestApiBaseClient
+public class OKXRestApiStatusClient : OKXRestApiBaseClient
 {
     // Endpoints
     // TODO: api/v5/system/status
 
-    internal OKXRestApiSystemClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiStatusClient(OKXRestApiClient root) : base(root)
     {
     }
 

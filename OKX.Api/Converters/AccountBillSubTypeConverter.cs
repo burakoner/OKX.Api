@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Converters;
+﻿using System;
+
+namespace OKX.Api.Converters;
 
 internal class AccountBillSubTypeConverter : BaseConverter<OkxAccountBillSubType>
 {
@@ -76,6 +78,8 @@ internal class AccountBillSubTypeConverter : BaseConverter<OkxAccountBillSubType
             new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpreadTradingOpenShort, "273"),
             new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpreadTradingCloseLong, "274"),
             new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpreadTradingCloseShort, "275"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpotProfitSharingExpenses, "280"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SpotProfitSharingRefund, "281"),
 
         };
 }

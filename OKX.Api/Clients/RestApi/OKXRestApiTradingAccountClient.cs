@@ -21,6 +21,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     private const string v5AccountMaxAvailSize = "api/v5/account/max-avail-size";
     private const string v5AccountPositionMarginBalance = "api/v5/account/position/margin-balance";
     private const string v5AccountLeverageInfo = "api/v5/account/leverage-info";
+    private const string v5AccountAdjustLeverageInfo = "api/v5/account/adjust-leverage-info";
     private const string v5AccountMaxLoan = "api/v5/account/max-loan";
     private const string v5AccountTradeFee = "api/v5/account/trade-fee";
     private const string v5AccountInterestAccrued = "api/v5/account/interest-accrued";
@@ -263,11 +264,20 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     }
 
     /// <summary>
-    /// The following are the setting leverage cases for an instrument:
-    /// Set leverage for isolated MARGIN at pairs level.
-    /// Set leverage for cross MARGIN in Single-currency margin at pairs level.
-    /// Set leverage for cross MARGIN in Multi-currency margin at currency level.
-    /// Set leverage for cross/isolated FUTURES/SWAP at underlying/contract level.
+    /// There are 10 different scenarios for leverage setting:
+    /// 1. Set leverage for MARGIN instruments under isolated-margin trade mode at pairs level.
+    /// 2. Set leverage for MARGIN instruments under cross-margin trade mode and Single-currency margin account mode at pairs level.
+    /// 3. Set leverage for MARGIN instruments under cross-margin trade mode and Multi-currency margin at currency level.
+    /// 4. Set leverage for MARGIN instruments under cross-margin trade mode and Portfolio margin at currency level.
+    /// 5. Set leverage for FUTURES instruments under cross-margin trade mode at underlying level.
+    /// 6. Set leverage for FUTURES instruments under isolated-margin trade mode and buy/sell position mode at contract level.
+    /// 7. Set leverage for FUTURES instruments under isolated-margin trade mode and long/short position mode at contract and position side level.
+    /// 8. Set leverage for SWAP instruments under cross-margin trade at contract level.
+    /// 9. Set leverage for SWAP instruments under isolated-margin trade mode and buy/sell position mode at contract level.
+    /// 10. Set leverage for SWAP instruments under isolated-margin trade mode and long/short position mode at contract and position side level.
+    /// 
+    /// Note that the request parameter posSide is only required when margin mode is isolated in long/short position mode for FUTURES/SWAP instruments (see scenario 7 and 10 above).
+    /// Please refer to the request examples on the right for each case.
     /// </summary>
     /// <param name="leverage">Leverage</param>
     /// <param name="currency">Currency</param>
@@ -342,6 +352,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="tradeMode">Trade Mode</param>
     /// <param name="currency">Currency</param>
+    /// <param name="price">The available amount corresponds to price of close position. Only applicable to reduceOnly MARGIN.</param>
     /// <param name="reduceOnly">Reduce Only</param>
     /// <param name="unSpotOffset">Spot-Derivatives risk offset</param>
     /// <param name="quickMgnType">Quick Margin type. Only applicable to Quick Margin Mode of isolated margin</param>
@@ -351,6 +362,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
         string instrumentId,
         OkxTradeMode tradeMode,
         string currency = null,
+        decimal? price = null,
         bool? reduceOnly = null,
         bool? unSpotOffset = null,
         OkxQuickMarginType? quickMgnType = null,
@@ -362,6 +374,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
         };
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("reduceOnly", reduceOnly);
+        parameters.AddOptionalParameter("px", price?.ToOkxString());
         parameters.AddOptionalParameter("unSpotOffset", unSpotOffset);
         parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new QuickMarginTypeConverter(false)));
 
@@ -418,6 +431,38 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
         };
 
         return await SendOKXRequest<IEnumerable<OkxLeverage>>(GetUri(v5AccountLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Get leverage estimated info
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="marginMode">Margin mode</param>
+    /// <param name="leverage">Leverage</param>
+    /// <param name="instrumentId">Instrument ID，e.g. BTC-USDT</param>
+    /// <param name="currency">Currency used for margin, e.g. BTC</param>
+    /// <param name="positionSide">posSide</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<IEnumerable<OkxLeverageEstimatedInfo>>> GetAccountLeverageEstimatedInfoAsync(
+        OkxInstrumentType instrumentType,
+        OkxMarginMode marginMode,
+        decimal leverage,
+        string instrumentId = null,
+        string currency = null,
+        OkxPositionSide? positionSide = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            {"instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)) },
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)) },
+            {"lever", leverage.ToOkxString() },
+        };
+        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)));
+
+        return await SendOKXRequest<IEnumerable<OkxLeverageEstimatedInfo>>(GetUri(v5AccountAdjustLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -529,7 +574,7 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     public async Task<RestCallResult<OkxAccountGreeksType>> SetGreeksAsync(OkxGreeksType greeksType, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            {"greeksType", JsonConvert.SerializeObject(greeksType, new GreeksTypeConverter(false)) },
+            { "greeksType", JsonConvert.SerializeObject(greeksType, new GreeksTypeConverter(false)) },
         };
 
         return await SendOKXSingleRequest<OkxAccountGreeksType>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
@@ -548,8 +593,8 @@ public class OKXRestApiTradingAccountClient : OKXRestApiBaseClient
     {
         if (!instrumentType.IsIn(OkxInstrumentType.Margin, OkxInstrumentType.Contracts)) throw new ArgumentException("Only Margin and Contracts allowed", nameof(instrumentType));
         var parameters = new Dictionary<string, object> {
-            {"isoMode", JsonConvert.SerializeObject(marginMode, new IsolatedMarginModeConverter(false)) },
-            {"type", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)) },
+            { "isoMode", JsonConvert.SerializeObject(marginMode, new IsolatedMarginModeConverter(false)) },
+            { "type", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)) },
         };
 
         return await SendOKXSingleRequest<OkxIsolatedMarginModeSettings>(GetUri(v5AccountSetIsolatedMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);

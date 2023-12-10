@@ -69,7 +69,7 @@ public class OkxPositionHistory
     /// Position ID
     /// </summary>
     [JsonProperty("posId")]
-    public long? PositionId { get; set; }
+    public long PositionId { get; set; }
 
     /// <summary>
     /// Max quantity of position
@@ -129,8 +129,8 @@ public class OkxPositionHistory
     /// <summary>
     /// Direction: long short
     /// Only applicable to MARGIN/FUTURES/SWAP/OPTION
-        /// </summary>
-        [JsonProperty("direction"), JsonConverter(typeof(PositionSideConverter))]
+    /// </summary>
+    [JsonProperty("direction"), JsonConverter(typeof(PositionSideConverter))]
     public OkxPositionSide Direction { get; set; }
 
     /// <summary>

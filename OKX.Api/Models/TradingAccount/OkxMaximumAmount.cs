@@ -23,7 +23,7 @@ public class OkxMaximumAmount
     /// FUTURES/SWAP/OPTIONS: The maximum number of contracts that you can buy
     /// </summary>
     [JsonProperty("maxBuy")]
-    public decimal? MaximumBuy { get; set; }
+    public decimal MaximumBuy { get; set; }
 
     /// <summary>
     /// SPOT/MARGIN: The maximum quantity in quote currency that you can sell
@@ -31,5 +31,5 @@ public class OkxMaximumAmount
     /// FUTURES/SWAP/OPTIONS: The maximum number of contracts that you can sell
     /// </summary>
     [JsonProperty("maxSell")]
-    public decimal? MaximumSell { get; set; }
+    public decimal MaximumSell { get; set; }
 }

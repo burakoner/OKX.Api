@@ -21,7 +21,7 @@ public class OkxPosition
     /// Position ID
     /// </summary>
     [JsonProperty("posId")]
-    public long? PositionId { get; set; }
+    public long PositionId { get; set; }
 
     /// <summary>
     /// Position side
@@ -33,7 +33,7 @@ public class OkxPosition
     /// Quantity of positions. In the mode of autonomous transfer from position to position, after the deposit is transferred, a position with pos of 0 will be generated
     /// </summary>
     [JsonProperty("pos")]
-    public decimal? PositionsQuantity { get; set; }
+    public decimal PositionsQuantity { get; set; }
 
     /// <summary>
     /// Base currency balance, only applicable to MARGIN（Manual transfers and Quick Margin Mode）
@@ -231,6 +231,12 @@ public class OkxPosition
     public decimal? UsdPrice { get; set; }
 
     /// <summary>
+    /// Breakeven price
+    /// </summary>
+    [JsonProperty("bePx")]
+    public decimal? BreakevenPrice { get; set; }
+
+    /// <summary>
     /// delta：Black-Scholes Greeks in dollars, only applicable to OPTION
     /// </summary>
     [JsonProperty("deltaBS")]
@@ -305,6 +311,37 @@ public class OkxPosition
     public string ExternalBusinessType { get; set; }
 
     /// <summary>
+    /// Realized profit and loss
+    /// </summary>
+    [JsonProperty("realizedPnl")]
+    public decimal? RealizedPnl { get; set; }
+
+    /// <summary>
+    /// Accumulated pnl of closing order(s)
+    /// </summary>
+    [JsonProperty("pnl")]
+    public decimal? Pnl { get; set; }
+
+    /// <summary>
+    /// Accumulated fee
+    /// Negative number represents the user transaction fee charged by the platform.Positive number represents rebate.
+        /// </summary>
+        [JsonProperty("fee")]
+    public decimal? Fee { get; set; }
+
+    /// <summary>
+    /// Accumulated funding fee
+    /// </summary>
+    [JsonProperty("fundingFee")]
+    public decimal? FundingFee { get; set; }
+
+    /// <summary>
+    /// Accumulated liquidation penalty. It is negative when there is a value.
+    /// </summary>
+    [JsonProperty("liqPenalty")]
+    public decimal? LiquidationPenalty { get; set; }
+
+    /// <summary>
     /// Close position algo orders attached to the position. This array will have values only after you request "Place algo order" with closeFraction=1.
     /// </summary>
     [JsonProperty("closeOrderAlgo")]
@@ -333,18 +370,6 @@ public class OkxPosition
     /// </summary>
     [JsonIgnore]
     public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
-
-    /// <summary>
-    /// Push time of positions information, Unix timestamp format in milliseconds, e.g. 1597026383085.
-    /// </summary>
-    [JsonProperty("pTime")]
-    public long? PushTimestamp { get; set; }
-
-    /// <summary>
-    /// Push time of positions information
-    /// </summary>
-    [JsonIgnore]
-    public DateTime? PushTime { get { return PushTimestamp?.ConvertFromMilliseconds(); } }
 }
 
 public class OkxCloseAlgoOrder

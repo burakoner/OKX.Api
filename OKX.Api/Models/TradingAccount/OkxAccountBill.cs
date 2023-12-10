@@ -15,19 +15,19 @@ public class OkxAccountBill
     /// Bill ID
     /// </summary>
     [JsonProperty("billId")]
-    public long? BillId { get; set; }
+    public long BillId { get; set; }
 
     /// <summary>
     /// Bill type
     /// </summary>
     [JsonProperty("type"), JsonConverter(typeof(AccountBillTypeConverter))]
-    public OkxAccountBillType? BillType { get; set; }
+    public OkxAccountBillType BillType { get; set; }
 
     /// <summary>
     /// Bill subtype
     /// </summary>
     [JsonProperty("subType"), JsonConverter(typeof(AccountBillSubTypeConverter))]
-    public OkxAccountBillSubType? BillSubType { get; set; }
+    public OkxAccountBillSubType BillSubType { get; set; }
 
     /// <summary>
     /// Creation time, Unix timestamp format in milliseconds, e.g.1597026383085
@@ -100,8 +100,8 @@ public class OkxAccountBill
     /// Fee
     /// Negative number represents the user transaction fee charged by the platform.
     /// Positive number represents rebate.
-        /// </summary>
-        [JsonProperty("fee")]
+    /// </summary>
+    [JsonProperty("fee")]
     public decimal? Fee { get; set; }
 
     /// <summary>
@@ -153,4 +153,83 @@ public class OkxAccountBill
     /// </summary>
     [JsonProperty("notes")]
     public string Notes { get; set; }
+
+    /// <summary>
+    /// Interest
+    /// </summary>
+    [JsonProperty("interest")]
+    public decimal? Interest { get; set; }
+
+    // <summary>
+    // Order tag
+    // </summary>
+    //[JsonProperty("tag")]
+    //public string OrderTag { get; set; }
+
+    /// <summary>
+    /// Last filled time
+    /// </summary>
+    [JsonProperty("fillTime")]
+    public long? FillTimestamp { get; set; }
+
+    /// <summary>
+    /// Last filled time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? FillTime { get { return FillTimestamp?.ConvertFromMilliseconds(); } }
+
+    /// <summary>
+    /// Last traded ID
+    /// </summary>
+    [JsonProperty("tradeId")]
+    public long? TradeId { get; set; }
+
+    /// <summary>
+    /// Client Order ID as assigned by the client
+    /// A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.
+    /// </summary>
+    [JsonProperty("clOrdId")]
+    public string ClientOrderId { get; set; }
+
+    /// <summary>
+    /// Index price at the moment of trade execution
+    /// For cross currency spot pairs, it returns baseCcy-USDT index price.For example, for LTC-ETH, this field returns the index price of LTC-USDT.
+    /// </summary>
+    [JsonProperty("fillIdxPx")]
+    public decimal? FillIndexPrice { get; set; }
+
+    /// <summary>
+    /// Mark price when filled
+    /// Applicable to FUTURES/SWAP/OPTIONS, return "" for other instrument types
+    /// </summary>
+    [JsonProperty("fillMarkPx")]
+    public decimal? FillMarkPrice { get; set; }
+
+    /// <summary>
+    /// Implied volatility when filled
+    /// Only applicable to options; return "" for other instrument types
+    /// </summary>
+    [JsonProperty("fillPxVol")]
+    public decimal? FillImpliedVolatility { get; set; }
+
+    /// <summary>
+    /// Options price when filled, in the unit of USD
+    /// Only applicable to options; return "" for other instrument types
+    /// </summary>
+    [JsonProperty("fillPxUsd")]
+    public decimal? FillUsdPrice { get; set; }
+
+    /// <summary>
+    /// Mark volatility when filled
+    /// Only applicable to options; return "" for other instrument types
+    /// </summary>
+    [JsonProperty("fillMarkVol")]
+    public decimal? FillMarkVolatility { get; set; }
+
+    /// <summary>
+    /// Forward price when filled
+    /// Only applicable to options; return "" for other instrument types
+    /// </summary>
+    [JsonProperty("fillFwdPx")]
+    public decimal? FillForwardPrice { get; set; }
 }

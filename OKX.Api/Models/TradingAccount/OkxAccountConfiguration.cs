@@ -87,6 +87,19 @@ public class OkxAccountConfiguration
     public IEnumerable<string> TraderInstruments { get; set; }
 
     /// <summary>
+    /// SPOT copy trading role type
+    /// 0: General user；1：Leading trader；2：Copy trader
+    /// </summary>
+    [JsonProperty("roleType"), JsonConverter(typeof(SpotCopyTradingRoleConverter))]
+    public OkxSpotCopyTradingRole? SpotCopyTradingRole { get; set; }
+
+    /// <summary>
+    /// Spot lead trading instruments, only applicable to Leanding trader
+    /// </summary>
+    [JsonProperty("spotTraderInsts")]
+    public string SpotLeadTradingInstruments { get; set; }
+
+    /// <summary>
     /// Whether the optional trading was activated
     /// </summary>
     [JsonProperty("opAuth"), JsonConverter(typeof(OkxBooleanConverter))]

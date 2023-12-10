@@ -20,8 +20,8 @@ public class OkxInterestAccrued
     /// <summary>
     /// Instrument ID, e.g. BTC-USDT
     /// Only applicable to Market loans
-        /// </summary>
-        [JsonProperty("instId")]
+    /// </summary>
+    [JsonProperty("instId")]
     public string Instrument { get; set; }
 
     /// <summary>
