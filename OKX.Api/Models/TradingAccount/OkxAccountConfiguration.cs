@@ -90,7 +90,7 @@ public class OkxAccountConfiguration
     /// SPOT copy trading role type
     /// 0: General user；1：Leading trader；2：Copy trader
     /// </summary>
-    [JsonProperty("roleType"), JsonConverter(typeof(SpotCopyTradingRoleConverter))]
+    [JsonProperty("spotRoleType"), JsonConverter(typeof(SpotCopyTradingRoleConverter))]
     public OkxSpotCopyTradingRole? SpotCopyTradingRole { get; set; }
 
     /// <summary>

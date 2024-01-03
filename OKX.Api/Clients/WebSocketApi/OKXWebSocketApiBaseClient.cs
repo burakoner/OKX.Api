@@ -1,4 +1,4 @@
-﻿namespace OKX.Api;
+﻿namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
 /// OKX WebSocket Api Base Client
