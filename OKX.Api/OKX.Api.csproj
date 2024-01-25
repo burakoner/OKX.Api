@@ -1,24 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-		<LangVersion>latest</LangVersion>
-	</PropertyGroup>
-
-	<PropertyGroup>
-		<PackageId>OKX.Api</PackageId>
-		<Authors>Burak Öner</Authors>
-		<Version>1.5.6</Version>
-		<FileVersion>1.5.6</FileVersion>
-		<PackageVersion>1.5.6</PackageVersion>
-		<AssemblyVersion>1.5.6</AssemblyVersion>
-		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<NeutralLanguage>en</NeutralLanguage>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageReleaseNotes>
+  <PropertyGroup>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>OKX.Api</PackageId>
+    <Authors>Burak Öner</Authors>
+    <Version>1.5.6</Version>
+    <FileVersion>1.5.6</FileVersion>
+    <PackageVersion>1.5.6</PackageVersion>
+    <AssemblyVersion>1.5.6</AssemblyVersion>
+    <Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <NeutralLanguage>en</NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReleaseNotes>
 			Version 1.5.6 - 03 Jan 2024
 			* Fixed issue https://github.com/burakoner/OKX.Api/issues/53
 
@@ -114,44 +112,36 @@
 			* Updated WithdrawAsync Method (https://github.com/burakoner/OKEx.Net/issues/97)
 			* Updated GetInstrumentsAsync Method (https://github.com/burakoner/OKX.Api/issues/7)
 		</PackageReleaseNotes>
-		<PackageIcon>OKX.png</PackageIcon>
-		<PackageIconUrl />
-		<PackageProjectUrl>https://github.com/burakoner/OKX.Api</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/burakoner/OKX.Api</RepositoryUrl>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<None Include="OKX.png" Pack="true" PackagePath="" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Models\Earn\" />
-	  <Folder Include="Models\Status\" />
-	  <Folder Include="Models\SpreadTrading\" />
-	  <Folder Include="Models\RecurringBuy\" />
-	  <Folder Include="Models\Savings\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="ApiSharp" Version="2.0.5" />
-	</ItemGroup>
-
+    <PackageIcon>OKX.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageProjectUrl>https://github.com/burakoner/OKX.Api</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/burakoner/OKX.Api</RepositoryUrl>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="OKX.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Earn\" />
+    <Folder Include="Models\Status\" />
+    <Folder Include="Models\SpreadTrading\" />
+    <Folder Include="Models\RecurringBuy\" />
+    <Folder Include="Models\Savings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ApiSharp" Version="2.0.5" />
+  </ItemGroup>
 </Project>

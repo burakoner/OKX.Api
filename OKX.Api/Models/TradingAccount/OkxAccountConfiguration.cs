@@ -97,7 +97,7 @@ public class OkxAccountConfiguration
     /// Spot lead trading instruments, only applicable to Leanding trader
     /// </summary>
     [JsonProperty("spotTraderInsts")]
-    public string SpotLeadTradingInstruments { get; set; }
+    public List<string> SpotLeadTradingInstruments { get; set; }
 
     /// <summary>
     /// Whether the optional trading was activated
