@@ -84,7 +84,7 @@ public class OkxAccountConfiguration
     /// Leading trade instruments, only applicable to Leading trader
     /// </summary>
     [JsonProperty("traderInsts")]
-    public IEnumerable<string> TraderInstruments { get; set; }
+    public IEnumerable<string> LeadingTraderInstruments { get; set; }
 
     /// <summary>
     /// SPOT copy trading role type
@@ -97,7 +97,7 @@ public class OkxAccountConfiguration
     /// Spot lead trading instruments, only applicable to Leanding trader
     /// </summary>
     [JsonProperty("spotTraderInsts")]
-    public string SpotLeadTradingInstruments { get; set; }
+    public IEnumerable<string> SpotLeadingTraderInstruments { get; set; }
 
     /// <summary>
     /// Whether the optional trading was activated

@@ -8,6 +8,11 @@ public enum OkxPeriod
     /// <summary>
     /// 1m
     /// </summary>
+    OneSecond,
+
+    /// <summary>
+    /// 1m
+    /// </summary>
     OneMinute,
 
     /// <summary>

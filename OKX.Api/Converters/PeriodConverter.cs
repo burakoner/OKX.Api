@@ -7,6 +7,7 @@ internal class PeriodConverter : BaseConverter<OkxPeriod>
 
     protected override List<KeyValuePair<OkxPeriod, string>> Mapping => new List<KeyValuePair<OkxPeriod, string>>
     {
+        new KeyValuePair<OkxPeriod, string>(OkxPeriod.OneSecond, "1s"),
         new KeyValuePair<OkxPeriod, string>(OkxPeriod.OneMinute, "1m"),
         new KeyValuePair<OkxPeriod, string>(OkxPeriod.ThreeMinutes, "3m"),
         new KeyValuePair<OkxPeriod, string>(OkxPeriod.FiveMinutes, "5m"),
