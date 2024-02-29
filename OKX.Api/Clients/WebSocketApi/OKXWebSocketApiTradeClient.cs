@@ -62,11 +62,83 @@ public class OKXWebSocketApiTradeClient
         return await this.RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
-    // TODO: WS / Place order
-    // TODO: WS / Place multiple orders
-    // TODO: WS / Cancel order
-    // TODO: WS / Cancel multiple orders
-    // TODO: WS / Amend order
-    // TODO: WS / Amend multiple orders
-    // TODO: WS / Mass cancel order
+    /// <summary>
+    /// You can place an order only if you have sufficient funds.
+    /// </summary>
+    /// <param name="request">Request</param>
+    /// <returns></returns>
+    public async Task<CallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(OkxOrderPlaceRequest request)
+    {
+        request.Tag = OKXConstants.BROKER_ID;
+        var req = new OkxSocketRequest<OkxOrderPlaceRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.Order, [request]);
+        return await this.RootClient.RootQueryAsync<OkxOrderPlaceResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Amend an incomplete order.
+    /// </summary>
+    /// <param name="request">Request</param>
+    /// <returns></returns>
+    public async Task<CallResult<OkxOrderAmendResponse>> AmendOrderAsync(OkxOrderAmendRequest request)
+    {
+        var req = new OkxSocketRequest<OkxOrderAmendRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.AmendOrder, [request]);
+        return await this.RootClient.RootQueryAsync<OkxOrderAmendResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Cancel an incomplete order
+    /// </summary>
+    /// <param name="request">Request</param>
+    /// <returns></returns>
+    public async Task<CallResult<OkxOrderCancelResponse>> CancelOrderAsync(OkxOrderCancelRequest request)
+    {
+        var req = new OkxSocketRequest<OkxOrderCancelRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.CancelOrder, [request]);
+        return await this.RootClient.RootQueryAsync<OkxOrderCancelResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Cancel all the MMP pending orders of an instrument family.
+    /// Only applicable to Option in Portfolio Margin mode, and MMP privilege is required.
+    /// </summary>
+    /// <param name="request">Request</param>
+    /// <returns></returns>
+    public async Task<CallResult<OkxMassCancelResponse>> CancelMassOrdersAsync(OkxMassCancelRequest request)
+    {
+        var req = new OkxSocketRequest<OkxMassCancelRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.MassCancel, [request]);
+        return await this.RootClient.RootQueryAsync<OkxMassCancelResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Place orders in a batch. Maximum 20 orders can be placed per request
+    /// </summary>
+    /// <param name="requests">Requests</param>
+    /// <returns></returns>
+    public async Task<CallResult<IEnumerable<OkxOrderPlaceResponse>>> PlaceMultipleOrdersAsync(IEnumerable<OkxOrderPlaceRequest> requests)
+    {
+        foreach (var order in requests) order.Tag = OKXConstants.BROKER_ID;
+        var req = new OkxSocketRequest<OkxOrderPlaceRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.BatchOrders, requests);
+        return await this.RootClient.RootQueryAsync<IEnumerable<OkxOrderPlaceResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Amend incomplete orders in batches. Maximum 20 orders can be amended per request.
+    /// </summary>
+    /// <param name="requests">Requests</param>
+    /// <returns></returns>
+    public async Task<CallResult<IEnumerable<OkxOrderAmendResponse>>> AmendMultipleOrdersAsync(IEnumerable<OkxOrderAmendRequest> requests)
+    {
+        var req = new OkxSocketRequest<OkxOrderAmendRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, requests);
+        return await this.RootClient.RootQueryAsync<IEnumerable<OkxOrderAmendResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Cancel incomplete orders in batches. Maximum 20 orders can be canceled per request.
+    /// </summary>
+    /// <param name="requests">Requests</param>
+    /// <returns></returns>
+    public async Task<CallResult<IEnumerable<OkxOrderCancelResponse>>> CancelMultipleOrdersAsync(IEnumerable<OkxOrderCancelRequest> requests)
+    {
+        var req = new OkxSocketRequest<OkxOrderCancelRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, requests);
+        return await this.RootClient.RootQueryAsync<IEnumerable<OkxOrderCancelResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+    }
 }

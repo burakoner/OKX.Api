@@ -98,7 +98,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            { "tag", ClientOptions.BrokerId },
+            { "tag", OKXConstants.BROKER_ID },
             { "instId", instrumentId },
             { "algoOrdType", JsonConvert.SerializeObject(algoOrderType, new GridAlgoOrderTypeConverter(false)) },
             { "maxPx", maximumPrice.ToOkxString() },

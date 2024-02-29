@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Clients.WebSocketApi;
+﻿using OKX.Api.Models.Trade;
+
+namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
 /// OKX WebSocket Api Base Client
@@ -126,6 +128,45 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
             return true;
         }
 
+        // Web Socket Orders
+        if (data["id"] != null && data["op"] != null)
+        {
+            var id = (string)data["id"]!;
+            var op = (string)data["op"]!;
+            var placeOrderRequest = op == "order" && request is OkxSocketRequest<OkxOrderPlaceRequest> socRequest01 && socRequest01.RequestId == id;
+            var amendOrderRequest = op == "amend-order" && request is OkxSocketRequest<OkxOrderAmendRequest> socRequest02 && socRequest02.RequestId == id;
+            var cancelOrderRequest = op == "cancel-order" && request is OkxSocketRequest<OkxOrderCancelRequest> socRequest03 && socRequest03.RequestId == id;
+            var massCancelOrderRequest = op == "mass-cancel" && request is OkxSocketRequest<OkxMassCancelRequest> socRequest04 && socRequest04.RequestId == id;
+            if (placeOrderRequest || amendOrderRequest || cancelOrderRequest || massCancelOrderRequest)
+            {
+                var desResult = Deserialize<IEnumerable<T>>(data["data"]);
+                if (!desResult)
+                {
+                    Logger.Log(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
+                    return false;
+                }
+
+                callResult = new CallResult<T>(desResult.Data.FirstOrDefault());
+                return true;
+            }
+
+            var placeBatchOrdersRequest = op == "batch-orders" && request is OkxSocketRequest<OkxOrderPlaceRequest> socRequest05 && socRequest05.RequestId == id;
+            var amendBatchOrdersRequest = op == "batch-amend-orders" && request is OkxSocketRequest<OkxOrderPlaceRequest> socRequest06 && socRequest06.RequestId == id;
+            var cancelBatchOrdersRequest = op == "batch-cancel-orders" && request is OkxSocketRequest<OkxOrderPlaceRequest> socRequest07 && socRequest07.RequestId == id;
+            if (placeBatchOrdersRequest || amendBatchOrdersRequest || cancelBatchOrdersRequest)
+            {
+                var desResult = Deserialize<T>(data["data"]);
+                if (!desResult)
+                {
+                    Logger.Log(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
+                    return false;
+                }
+
+                callResult = new CallResult<T>(desResult.Data);
+                return true;
+            }
+        }
+
         // Check for Error
         if (data is JObject && data["event"] != null && (string)data["event"]! == "error" && data["code"] != null && data["msg"] != null)
         {
@@ -163,7 +204,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
 
         // Check for Error
         // 30040: {0} Channel : {1} doesn't exist
-        if (data.HasValues && data["event"] != null && (string)data["event"] == "error" && 
+        if (data.HasValues && data["event"] != null && (string)data["event"] == "error" &&
             data["msg"] != null && data["code"] != null)
         {
             Logger.Log(LogLevel.Warning, "Subscription failed: " + (string)data["msg"]!);
@@ -210,7 +251,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
                 return false;
 
             // Check for Channel
-            if (hRequest.Operation != OkxSocketOperation.Subscribe || message["arg"]["channel"] == null)
+            if (hRequest.Operation != OkxSocketOperation.Subscribe || message["arg"] == null || message["arg"]["channel"] == null)
                 return false;
 
             // Compare Request and Response Arguments
@@ -259,7 +300,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
 
             if ((string)data["event"] == "unsubscribe")
             {
-                foreach(var arg in request.Arguments)
+                foreach (var arg in request.Arguments)
                 {
                     if ((string)data["arg"]["channel"] == arg.Channel) ;
                     return true;

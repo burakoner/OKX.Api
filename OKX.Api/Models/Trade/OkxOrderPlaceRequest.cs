@@ -1,5 +1,8 @@
 ﻿namespace OKX.Api.Models.Trade;
 
+/// <summary>
+/// Order Place Request
+/// </summary>
 public class OkxOrderPlaceRequest
 {
     /// <summary>
@@ -39,27 +42,44 @@ public class OkxOrderPlaceRequest
     public string Size { get; set; }
 
     /// <summary>
-    /// Price
+    /// Order price. Only applicable to limit,post_only,fok,ioc,mmp,mmp_and_post_only order.
+    /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in
     /// </summary>
     [JsonProperty("px", NullValueHandling = NullValueHandling.Ignore)]
     public string Price { get; set; }
 
     /// <summary>
+    /// Place options orders in USD
+    /// Only applicable to option
+    /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in
+    /// </summary>
+    [JsonProperty("pxUsd", NullValueHandling = NullValueHandling.Ignore)]
+    public string PriceUsd { get; set; }
+
+    /// <summary>
+    /// Place options orders based on implied volatility, where 1 represents 100%
+    /// Only applicable to options
+    /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in
+    /// </summary>
+    [JsonProperty("pxVol", NullValueHandling = NullValueHandling.Ignore)]
+    public string PriceVolatility { get; set; }
+
+    /// <summary>
     /// Currency
     /// </summary>
-    [JsonProperty("ccy")]
+    [JsonProperty("ccy", NullValueHandling = NullValueHandling.Ignore)]
     public string Currency { get; set; }
 
     /// <summary>
     /// Client Order ID
     /// </summary>
-    [JsonProperty("clOrdId")]
+    [JsonProperty("clOrdId", NullValueHandling = NullValueHandling.Ignore)]
     public string ClientOrderId { get; set; }
 
     /// <summary>
     /// Order tag. Used for Broker Id
     /// </summary>
-    [JsonProperty("tag")]
+    [JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
     internal string Tag { get; set; }
 
     /// <summary>
@@ -77,7 +97,7 @@ public class OkxOrderPlaceRequest
     /// <summary>
     /// Whether to disallow the system from amending the size of the SPOT Market Order.
     /// </summary>
-    [JsonProperty("banAmend")]
+    [JsonProperty("banAmend", NullValueHandling = NullValueHandling.Ignore)]
     internal bool? BanAmend { get; set; }
 
     /// <summary>
@@ -115,12 +135,6 @@ public class OkxOrderPlaceRequest
     /// </summary>
     [JsonProperty("slTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(AlgoPriceTypeConverter))]
     public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
-
-    /// <summary>
-    /// Quick Margin type. Only applicable to Quick Margin Mode of isolated margin. The default value is manual
-    /// </summary>
-    [JsonProperty("quickMgnType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(QuickMarginTypeConverter))]
-    public OkxQuickMarginType? QuickMarginType { get; set; }
 
     /// <summary>
     /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.

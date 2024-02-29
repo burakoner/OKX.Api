@@ -62,6 +62,10 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     {
     }
 
+    /// <summary>
+    /// OKXWebSocketApiClient Constructor
+    /// </summary>
+    /// <param name="options"></param>
     public OKXWebSocketApiClient(OKXWebSocketApiClientOptions options) : this(null, options)
     {
     }
@@ -110,5 +114,10 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
             url = env.WebSocketBusinessAddress;
 
         return QueryAsync<T>(url, request, authenticated);
+    }
+
+    internal int RequestId()
+    {
+        return base.NextId();
     }
 }

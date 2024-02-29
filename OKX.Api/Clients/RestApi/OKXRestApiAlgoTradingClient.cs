@@ -125,7 +125,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     {
         // Common
         var parameters = new Dictionary<string, object> {
-            {"tag", ClientOptions.BrokerId },
+            {"tag", OKXConstants.BROKER_ID },
             {"instId", instrumentId },
             {"tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
             {"side", JsonConvert.SerializeObject(orderSide, new OrderSideConverter(false)) },

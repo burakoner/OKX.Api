@@ -43,11 +43,6 @@ public class OKXRestApiClientOptions : RestApiClientOptions
     public bool SignPublicRequests { get; set; } = false;
 
     /// <summary>
-    /// OKX API Broker Id
-    /// </summary>
-    public string BrokerId { get; }
-
-    /// <summary>
     /// OKXRestApiClientOptions Constructor
     /// </summary>
     public OKXRestApiClientOptions() : this(null)
@@ -100,9 +95,6 @@ public class OKXRestApiClientOptions : RestApiClientOptions
             EncodeQueryString = true,
             BodyFormat = RestBodyFormat.Json,
         };
-
-        // Broker Id
-        BrokerId = "538a3965e538BCDE";
 
         // Request Body
         RequestBodyParameterKey = "BODY";

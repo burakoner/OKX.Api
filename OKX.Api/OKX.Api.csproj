@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>1.6.0</Version>
-		<FileVersion>1.6.0</FileVersion>
-		<PackageVersion>1.6.0</PackageVersion>
-		<AssemblyVersion>1.6.0</AssemblyVersion>
+		<Version>1.7.0</Version>
+		<FileVersion>1.7.0</FileVersion>
+		<PackageVersion>1.7.0</PackageVersion>
+		<AssemblyVersion>1.7.0</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -19,6 +19,11 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
+			Version 1.7.0 - 29 Feb 2024
+			* Added WebSocket order management methods
+			* Removed deprecated fields from request models
+			* Released https://github.com/burakoner/OKX.Api/issues/12
+
 			Version 1.6.0 - 05 Feb 2024
 			* ApiSharp updated to 2.1.0
 			* Added feature https://github.com/burakoner/OKX.Api/issues/56
