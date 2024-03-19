@@ -38,7 +38,7 @@ public sealed class OKXRestApiClient
     /// <summary>
     /// PublicData Client
     /// </summary>
-    public OKXRestApiPublicDataClient PublicData { get; }
+    public OKXRestApiPublicClient PublicData { get; }
 
     /// <summary>
     /// Trading Statistics Client
@@ -98,11 +98,11 @@ public sealed class OKXRestApiClient
         ClientOptions = options;
         Logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX Api");
 
+        PublicData = new OKXRestApiPublicClient(this);
         TradingAccount = new OKXRestApiTradingAccountClient(this);
         OrderBookTrading = new OKXRestApiOrderBookTradingClient(this);
         BlockTrading = new OKXRestApiBlockTradingClient(this);
         SpreadTrading = new OKXRestApiSpreadTradingClient(this);
-        PublicData = new OKXRestApiPublicDataClient(this);
         TradingStatistics = new OKXRestApiTradingStatisticsClient(this);
         SubAccount = new OKXRestApiSubAccountClient(this);
         FundingAccount = new OKXRestApiFundingAccountClient(this);

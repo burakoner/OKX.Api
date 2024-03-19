@@ -1,4 +1,4 @@
-﻿using OKX.Api.Models.MarketData;
+﻿using OKX.Api.Models.Public;
 
 namespace OKX.Api.Models;
 

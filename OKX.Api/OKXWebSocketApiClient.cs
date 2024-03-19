@@ -28,7 +28,7 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// <summary>
     /// PublicData Client
     /// </summary>
-    public OKXWebSocketApiPublicDataClient PublicData { get; }
+    public OKXWebSocketApiPublicClient PublicData { get; }
 
     /// <summary>
     /// Trading Statistics Client
@@ -76,11 +76,11 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// <param name="options">OKXStreamClientOptions</param>
     public OKXWebSocketApiClient(ILogger logger, OKXWebSocketApiClientOptions options) : base(logger, options)
     {
+        this.PublicData = new OKXWebSocketApiPublicClient(this);
         this.TradingAccount = new OKXWebSocketApiTradingAccountClient(this);
         this.OrderBookTrading = new OKXWebSocketApiOrderBookTradingClient(this);
         this.BlockTrading = new OKXWebSocketApiBlockTradingClient(this);
         this.SpreadTrading = new OKXWebSocketApiSpreadTradingClient(this);
-        this.PublicData = new OKXWebSocketApiPublicDataClient(this);
         this.TradingStatistics = new OKXWebSocketApiTradingStatisticsClient(this);
         this.FundingAccount = new OKXWebSocketApiFundingAccountClient(this);
         this.SubAccount = new OKXWebSocketApiSubAccountClient(this);
