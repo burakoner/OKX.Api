@@ -3,7 +3,7 @@
 public class OkxGridInvestment
 {
     [JsonProperty("minInvestmentData")]
-    public IEnumerable<OkxGridInvestmentData> MinimumInvestmentData { get; set; }
+    public List<OkxGridInvestmentData> MinimumInvestmentData { get; set; }
 
     [JsonProperty("singleAmt")]
     public decimal? SingleQuantity { get; set; }

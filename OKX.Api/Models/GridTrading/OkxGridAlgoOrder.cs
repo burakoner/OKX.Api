@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Models.GridTrading;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+
+namespace OKX.Api.Models.GridTrading;
 
 /// <summary>
 /// OKX Grid Algo Order
@@ -20,14 +23,14 @@ public class OkxGridAlgoOrder
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string Instrument { get; set; }
 
     /// <summary>
     /// Algo order created time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -66,13 +69,13 @@ public class OkxGridAlgoOrder
     /// Rebate transfer info
     /// </summary>
     [JsonProperty("rebateTrans")]
-    public IEnumerable<OkxGridRebateTransfer> RebateTransfers { get; set; }
+    public List<OkxGridRebateTransfer> RebateTransfers { get; set; }
 
     /// <summary>
     /// Trigger Parameters
     /// </summary>
     [JsonProperty("triggerParams")]
-    public IEnumerable<OkxGridTriggerParameters> TriggerParameters { get; set; }
+    public List<OkxGridTriggerParameters> TriggerParameters { get; set; }
 
     /// <summary>
     /// Upper price of price range

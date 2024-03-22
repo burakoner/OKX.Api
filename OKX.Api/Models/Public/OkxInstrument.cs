@@ -1,11 +1,14 @@
-﻿namespace OKX.Api.Models.Public;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+
+namespace OKX.Api.Models.Public;
 
 public class OkxInstrument
 {
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -71,7 +74,7 @@ public class OkxInstrument
     [JsonProperty("minSz")]
     public decimal MinimumOrderSize { get; set; }
 
-    [JsonProperty("ctType"), JsonConverter(typeof(ContractTypeConverter))]
+    [JsonProperty("ctType"), JsonConverter(typeof(OkxContractTypeConverter))]
     public OkxContractType? ContractType { get; set; }
 
     [JsonProperty("alias"), JsonConverter(typeof(InstrumentAliasConverter))]

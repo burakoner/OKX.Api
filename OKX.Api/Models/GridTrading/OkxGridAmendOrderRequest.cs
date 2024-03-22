@@ -6,7 +6,7 @@ public class OkxGridAmendOrderRequest
     public long AlgoOrderId { get; set; }
 
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string Instrument { get; set; }
 
     [JsonProperty("tpTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
     public decimal? TakeProfitTriggerPrice { get; set; }
@@ -15,7 +15,7 @@ public class OkxGridAmendOrderRequest
     public decimal? StopLossTriggerPrice { get; set; }
 
     [JsonProperty("triggerParams", NullValueHandling = NullValueHandling.Ignore)]
-    public IEnumerable< OkxGridAmendTriggerParameters> TriggerParameters { get; set; }
+    public List< OkxGridAmendTriggerParameters> TriggerParameters { get; set; }
 }
 
 public class OkxGridAmendTriggerParameters

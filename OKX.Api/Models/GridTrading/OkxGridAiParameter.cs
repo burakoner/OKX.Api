@@ -3,7 +3,7 @@
 public class OkxGridAiParameter
 {
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string Instrument { get; set; }
 
     [JsonProperty("algoOrdType"), JsonConverter(typeof(GridAlgoOrderTypeConverter))]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }

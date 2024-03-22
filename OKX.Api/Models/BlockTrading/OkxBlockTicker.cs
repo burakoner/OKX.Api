@@ -1,11 +1,14 @@
-﻿namespace OKX.Api.Models.BlockTrading;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+
+namespace OKX.Api.Models.BlockTrading;
 
 public class OkxBlockTicker
 {
     [JsonProperty("instId")]
     public string Instrument { get; set; }
 
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>

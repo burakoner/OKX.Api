@@ -33,7 +33,7 @@ public class OkxSubAccountTradingBalance
     public decimal? NotionalUsd { get; set; }
 
     [JsonProperty("details")]
-    public IEnumerable<OkxSubAccountTradingBalanceDetail> Details { get; set; }
+    public List<OkxSubAccountTradingBalanceDetail> Details { get; set; }
 }
 
 public class OkxSubAccountTradingBalanceDetail

@@ -16,6 +16,8 @@ global using Newtonsoft.Json.Serialization;
 global using OKX.Api.Authentication;
 global using OKX.Api.Clients.RestApi;
 global using OKX.Api.Clients.WebSocketApi;
+global using OKX.Api.Common.Converters;
+global using OKX.Api.Common.Enums;
 global using OKX.Api.Converters;
 global using OKX.Api.Enums;
 global using OKX.Api.Helpers;

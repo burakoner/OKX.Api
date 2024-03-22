@@ -42,7 +42,7 @@ public class OkxOrderBookUpdate
     public OkxSocketUpdateArgs? Args { get; set; }
 
     [JsonProperty("data")]
-    public IEnumerable<OkxOrderBook> Data { get; set; } = default!;
+    public List<OkxOrderBook> Data { get; set; } = default!;
 }
 
 public class OkxSocketUpdateArgs

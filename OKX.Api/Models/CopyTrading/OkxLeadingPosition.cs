@@ -1,4 +1,9 @@
-﻿namespace OKX.Api.Models.CopyTrading;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Models.CopyTrading;
 
 /// <summary>
 /// OkxLeadingPosition
@@ -20,13 +25,13 @@ public class OkxLeadingPosition
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
     public OkxPositionSide PositionSide { get; set; }
 
     /// <summary>
     /// Margin mode
     /// </summary>
-    [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
+    [JsonProperty("mgnMode"), JsonConverter(typeof(OkxMarginModeConverter))]
     public OkxMarginMode? MarginMode { get; set; }
 
     /// <summary>

@@ -1,4 +1,9 @@
-﻿namespace OKX.Api.Models.Trade;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Models.Trade;
 
 /// <summary>
 /// Represents a transaction in OKX, a cryptocurrency exchange platform.
@@ -8,7 +13,7 @@ public class OkxTransaction
     /// <summary>
     /// Type of the instrument involved in the transaction.
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -92,7 +97,7 @@ public class OkxTransaction
     /// <summary>
     /// Specifies the position side of the order (long, short, or net innet mode).
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
     public OkxPositionSide PositionSide { get; set; }
 
     /// <summary>

@@ -12,7 +12,7 @@ public class OkxVipInterestRate
     public decimal? Quota { get; set; }
 
     [JsonProperty("levelList")]
-    public IEnumerable<OkxVipInterestRateLevel> LevelList { get; set; }
+    public List<OkxVipInterestRateLevel> LevelList { get; set; }
 }
 
 public class OkxVipInterestRateLevel

@@ -1,8 +1,11 @@
-﻿namespace OKX.Api.Models.Trade;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+
+namespace OKX.Api.Models.Trade;
 
 public class OkxMassCancelRequest
 {
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     [JsonProperty("instFamily")]

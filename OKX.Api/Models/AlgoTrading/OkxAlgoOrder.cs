@@ -1,11 +1,16 @@
-﻿namespace OKX.Api.Models.AlgoTrading;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Models.AlgoTrading;
 
 public class OkxAlgoOrder
 {
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -28,7 +33,7 @@ public class OkxAlgoOrder
     public long? OrderId { get; set; }
 
     [JsonProperty("ordIdList")]
-    public IEnumerable<long> OrderIdList { get; set; }
+    public List<long> OrderIdList { get; set; }
 
     /// <summary>
     /// Algo ID
@@ -69,7 +74,7 @@ public class OkxAlgoOrder
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
     public OkxPositionSide PositionSide { get; set; }
 
     /// <summary>

@@ -9,7 +9,7 @@ public class OkxDeliveryExerciseHistory
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 
     [JsonProperty("details")]
-    public IEnumerable<OkxPublicDeliveryExerciseHistoryDetail> Details { get; set; }
+    public List<OkxPublicDeliveryExerciseHistoryDetail> Details { get; set; }
 }
 
 public class OkxPublicDeliveryExerciseHistoryDetail

@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Models;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+
+namespace OKX.Api.Models;
 
 internal class OkxSocketRequest
 {
@@ -73,7 +76,7 @@ internal class OkxSocketRequestArgument
     [JsonProperty("instId", NullValueHandling = NullValueHandling.Ignore)]
     public string InstrumentId { get; set; }
 
-    [JsonProperty("instType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType? InstrumentType { get; set; }
 }
 

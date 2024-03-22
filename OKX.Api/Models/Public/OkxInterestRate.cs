@@ -3,13 +3,13 @@
 public class OkxInterestRate
 {
     [JsonProperty("basic")]
-    public IEnumerable<OkxPublicInterestRateBasic> Basic { get; set; }
+    public List<OkxPublicInterestRateBasic> Basic { get; set; }
 
     [JsonProperty("vip")]
-    public IEnumerable<OkxPublicInterestRateVip> Vip { get; set; }
+    public List<OkxPublicInterestRateVip> Vip { get; set; }
 
     [JsonProperty("regular")]
-    public IEnumerable<OkxPublicInterestRateRegular> regular { get; set; }
+    public List<OkxPublicInterestRateRegular> regular { get; set; }
 
 }
 

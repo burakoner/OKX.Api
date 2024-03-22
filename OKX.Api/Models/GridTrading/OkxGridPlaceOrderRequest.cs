@@ -3,7 +3,7 @@
 public class OkxGridPlaceOrderRequest
 {
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string Instrument { get; set; }
 
     [JsonProperty("algoOrdType"), JsonConverter(typeof(GridAlgoOrderTypeConverter))]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }
@@ -36,7 +36,7 @@ public class OkxGridPlaceOrderRequest
     internal string Tag { get; set; }
 
     [JsonProperty("triggerParams", NullValueHandling = NullValueHandling.Ignore)]
-    public IEnumerable< OkxGridPlaceTriggerParameters> TriggerParameters { get; set; }
+    public List< OkxGridPlaceTriggerParameters> TriggerParameters { get; set; }
 
     [JsonProperty("quoteSz", NullValueHandling = NullValueHandling.Ignore)]
     public decimal? QuoteSize { get; set; }

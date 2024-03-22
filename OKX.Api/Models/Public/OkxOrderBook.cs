@@ -5,10 +5,10 @@ public class OkxOrderBook
     public string Instrument { get; set; }
 
     [JsonProperty("asks")]
-    public IEnumerable<OkxOrderBookRow> Asks { get; set; } = new List<OkxOrderBookRow>();
+    public List<OkxOrderBookRow> Asks { get; set; } = [];
 
     [JsonProperty("bids")]
-    public IEnumerable<OkxOrderBookRow> Bids { get; set; } = new List<OkxOrderBookRow>();
+    public List<OkxOrderBookRow> Bids { get; set; } = [];
 
     [JsonProperty("ts")]
     public long Timestamp { get; set; }

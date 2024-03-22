@@ -3,7 +3,7 @@
 public class OkxIndexComponents
 {
     [JsonProperty("components")]
-    public IEnumerable<OkxIndexComponent> Components { get; set; }
+    public List<OkxIndexComponent> Components { get; set; }
 
     [JsonProperty("index")]
     public string Index { get; set; }

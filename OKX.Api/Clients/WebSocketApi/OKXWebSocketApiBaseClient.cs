@@ -11,6 +11,11 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// Logger
     /// </summary>
     internal ILogger Logger { get => this._logger; }
+    
+    /// <summary>
+    /// Client Options
+    /// </summary>
+    internal OKXWebSocketApiOptions Options { get; }
 
     /// <summary>
     /// If Websocket is authendicated
@@ -20,15 +25,15 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// <summary>
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
-    internal OKXWebSocketApiBaseClient() : this(null, new OKXWebSocketApiClientOptions())
+    internal OKXWebSocketApiBaseClient() : this(null, new OKXWebSocketApiOptions())
     {
     }
 
     /// <summary>
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
-    /// <param name="options">OKXStreamClientOptions</param>
-    internal OKXWebSocketApiBaseClient(OKXWebSocketApiClientOptions options) : this(null, options)
+    /// <param name="options">Options</param>
+    internal OKXWebSocketApiBaseClient(OKXWebSocketApiOptions options) : this(null, options)
     {
     }
 
@@ -36,11 +41,12 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
     /// <param name="logger">ILogger</param>
-    /// <param name="options">OKXStreamClientOptions</param>
-    internal OKXWebSocketApiBaseClient(ILogger logger, OKXWebSocketApiClientOptions options) : base(logger, options)
+    /// <param name="options">Options</param>
+    internal OKXWebSocketApiBaseClient(ILogger logger, OKXWebSocketApiOptions options) : base(logger, options)
     {
         RateLimitPerConnectionPerSecond = 4;
-        this.IgnoreHandlingList = new List<string> { "pong" };
+        IgnoreHandlingList = ["pong"];
+        Options = options;
 
         SetDataInterpreter(DecompressData, null);
         SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");
@@ -139,7 +145,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
             var massCancelOrderRequest = op == "mass-cancel" && request is OkxSocketRequest<OkxMassCancelRequest> socRequest04 && socRequest04.RequestId == id;
             if (placeOrderRequest || amendOrderRequest || cancelOrderRequest || massCancelOrderRequest)
             {
-                var desResult = Deserialize<IEnumerable<T>>(data["data"]);
+                var desResult = Deserialize<List<T>>(data["data"]);
                 if (!desResult)
                 {
                     Logger.Log(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");

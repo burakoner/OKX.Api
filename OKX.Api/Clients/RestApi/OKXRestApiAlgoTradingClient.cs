@@ -1,4 +1,8 @@
-﻿using OKX.Api.Models.AlgoTrading;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+using OKX.Api.Models.AlgoTrading;
 
 namespace OKX.Api.Clients.RestApi;
 
@@ -125,14 +129,14 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     {
         // Common
         var parameters = new Dictionary<string, object> {
-            {"tag", OKXConstants.BROKER_ID },
+            {"tag", Options.BrokerId },
             {"instId", instrumentId },
             {"tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
             {"side", JsonConvert.SerializeObject(orderSide, new OrderSideConverter(false)) },
             {"ordType", JsonConvert.SerializeObject(algoOrderType, new AlgoOrderTypeConverter(false)) },
         };
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)));
+        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)));
         parameters.AddOptionalParameter("sz", size?.ToOkxString());
         parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new QuantityTypeConverter(false)));
         parameters.AddOptionalParameter("algoClOrdId", clientOrderId);
@@ -174,7 +178,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("timeInterval", timeInterval?.ToOkxString());
 
         // Reequest
-        return await SendOKXSingleRequest<OkxAlgoOrderResponse>(GetUri(v5TradeOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxAlgoOrderResponse>(GetUri(v5TradeOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -186,10 +190,10 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     public  async Task<RestCallResult<OkxAlgoOrderResponse>> CancelAlgoOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            { ClientOptions.RequestBodyParameterKey, orders },
+            { Options.RequestBodyParameterKey, orders },
         };
 
-        return await SendOKXSingleRequest<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -255,7 +259,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("newSlOrdPx", newStopLossOrderPrice?.ToOkxString());
 
         // Reequest
-        return await SendOKXSingleRequest<OkxAlgoOrderAmendResponse>(GetUri(v5TradeAmendAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxAlgoOrderAmendResponse>(GetUri(v5TradeAmendAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -267,10 +271,10 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     public async Task<RestCallResult<OkxAlgoOrderResponse>> CancelAdvanceAlgoOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            { ClientOptions.RequestBodyParameterKey, orders },
+            { Options.RequestBodyParameterKey, orders },
         };
 
-        return await SendOKXSingleRequest<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -289,7 +293,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("algoId", algoOrderId?.ToOkxString());
         parameters.AddOptionalParameter("algoClOrdId", algoClientOrderId);
 
-        return await SendOKXSingleRequest<OkxAlgoOrder>(GetUri(v5TradeOrderAlgoGet), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxAlgoOrder>(GetUri(v5TradeOrderAlgoGet), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -305,7 +309,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxAlgoOrder>>> GetAlgoOrderListAsync(
+    public async Task<RestCallResult<List<OkxAlgoOrder>>> GetAlgoOrderListAsync(
         OkxAlgoOrderType algoOrderType,
         long? algoId = null,
         string algoClientOrderId = null,
@@ -323,13 +327,13 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
         };
         parameters.AddOptionalParameter("algoId", algoId?.ToOkxString());
         parameters.AddOptionalParameter("algoClOrdId", algoClientOrderId);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await SendOKXRequest<IEnumerable<OkxAlgoOrder>>(GetUri(v5TradeOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxAlgoOrder>(GetUri(v5TradeOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -345,7 +349,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxAlgoOrder>>> GetAlgoOrderHistoryAsync(
+    public async Task<RestCallResult<List<OkxAlgoOrder>>> GetAlgoOrderHistoryAsync(
         OkxAlgoOrderType algoOrderType,
         OkxAlgoOrderState? algoOrderState = null,
         long? algoId = null,
@@ -367,8 +371,8 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
         parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(algoOrderState, new AlgoOrderStateConverter(false)));
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
-        return await SendOKXRequest<IEnumerable<OkxAlgoOrder>>(GetUri(v5TradeOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxAlgoOrder>(GetUri(v5TradeOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 }

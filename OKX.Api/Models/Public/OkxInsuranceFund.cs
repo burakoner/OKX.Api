@@ -6,7 +6,7 @@ public class OkxInsuranceFund
     public decimal Total { get; set; }
 
     [JsonProperty("details")]
-    public IEnumerable<OkxInsuranceFundDetail> Details { get; set; }
+    public List<OkxInsuranceFundDetail> Details { get; set; }
 }
 
 public class OkxInsuranceFundDetail
