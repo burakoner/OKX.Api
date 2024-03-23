@@ -1,7 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-
-namespace OKX.Api.Models.BlockTrading;
+﻿namespace OKX.Api.Models.BlockTrading;
 
 public class OkxBlockTicker
 {

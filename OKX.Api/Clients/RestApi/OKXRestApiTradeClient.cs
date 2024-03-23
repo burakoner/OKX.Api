@@ -1,13 +1,15 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
 using OKX.Api.Models.Trade;
+using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
 /// OKX Rest Api Trade Client
 /// </summary>
-public class OKXRestApiTradeClient : OKXRestApiBaseClient
+public class OKXRestApiTradeClient : OkxRestApiBaseClient
 {
     // Endpoints
     private const string v5TradeOrder = "api/v5/trade/order";
@@ -103,8 +105,8 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
         var parameters = new Dictionary<string, object> {
             {"tag", Options.BrokerId },
             {"instId", instrumentId },
-            {"tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
-            {"side", JsonConvert.SerializeObject(orderSide, new OrderSideConverter(false)) },
+            {"tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
+            {"side", JsonConvert.SerializeObject(orderSide, new OkxOrderSideConverter(false)) },
             {"posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)) },
             {"ordType", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)) },
             {"sz", size.ToOkxString() },
@@ -350,7 +352,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("instFamily", instFamily);
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OrderStateConverter(false)));
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxOrderStateConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
@@ -399,7 +401,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("instFamily", instFamily);
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OrderStateConverter(false)));
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxOrderStateConverter(false)));
         parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OrderCategoryConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
@@ -451,7 +453,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("instFamily", instFamily);
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OrderStateConverter(false)));
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxOrderStateConverter(false)));
         parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OrderCategoryConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());

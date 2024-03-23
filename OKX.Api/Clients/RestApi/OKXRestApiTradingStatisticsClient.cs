@@ -1,5 +1,4 @@
 ﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
 using OKX.Api.Models.Rubik;
 
 namespace OKX.Api.Clients.RestApi;
@@ -7,7 +6,7 @@ namespace OKX.Api.Clients.RestApi;
 /// <summary>
 /// OKX Rest Api Trading Statistics Client
 /// </summary>
-public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
+public class OKXRestApiTradingStatisticsClient : OkxRestApiBaseClient
 {
     // Endpoints
     private const string v5RubikStatTradingDataSupportCoin = "api/v5/rubik/stat/trading-data/support-coin";

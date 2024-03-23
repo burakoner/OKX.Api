@@ -1,13 +1,15 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
 using OKX.Api.Account.Models;
+using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Account.Clients;
 
 /// <summary>
 /// OKX Trading Account Rest Api Client
 /// </summary>
-public class OkxAccountRestClient : OKXRestApiBaseClient
+public class OkxAccountRestClient : OkxRestApiBaseClient
 {
     // Endpoints
     private const string v5AccountBalance = "api/v5/account/balance";
@@ -338,7 +340,7 @@ public class OkxAccountRestClient : OKXRestApiBaseClient
     {
         var parameters = new Dictionary<string, object> {
             { "instId", instrumentId },
-            { "tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
+            { "tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
         };
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("px", price?.ToOkxString());
@@ -372,7 +374,7 @@ public class OkxAccountRestClient : OKXRestApiBaseClient
     {
         var parameters = new Dictionary<string, object> {
             { "instId", instrumentId },
-            { "tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
+            { "tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
         };
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("reduceOnly", reduceOnly);

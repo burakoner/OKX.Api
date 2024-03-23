@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Spread Trading Client
 /// </summary>
-public class OKXRestApiSpreadTradingClient : OKXRestApiBaseClient
+public class OKXRestApiSpreadTradingClient : OkxRestApiBaseClient
 {
     // Endpoints
     // TODO: api/v5/sprd/order

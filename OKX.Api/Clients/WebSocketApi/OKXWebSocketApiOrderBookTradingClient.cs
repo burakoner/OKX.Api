@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Clients.WebSocketApi;
+﻿using OKX.Api.Public.Clients;
+
+namespace OKX.Api.Clients.WebSocketApi;
 
 /// <summary>
 /// OKX WebSocket Api Order Book Trading Client
@@ -33,7 +35,7 @@ public class OKXWebSocketApiOrderBookTradingClient
     /// <summary>
     /// Market Data Client
     /// </summary>
-    public OKXWebSocketApiPublicClient MarketData { get; }
+    public OkxPublicSocketClient MarketData { get; }
 
     // Root Client
     internal OkxSocketApiClient RootClient { get; }

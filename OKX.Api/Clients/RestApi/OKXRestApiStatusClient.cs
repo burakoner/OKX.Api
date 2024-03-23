@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Status Client
 /// </summary>
-public class OKXRestApiStatusClient : OKXRestApiBaseClient
+public class OKXRestApiStatusClient : OkxRestApiBaseClient
 {
     // Endpoints
     // TODO: api/v5/system/status

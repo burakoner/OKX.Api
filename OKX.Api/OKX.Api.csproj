@@ -206,10 +206,6 @@
 	  <Folder Include="RecurringBuy\Converters\" />
 	  <Folder Include="RecurringBuy\Enums\" />
 	  <Folder Include="RecurringBuy\Models\" />
-	  <Folder Include="Public\Clients\" />
-	  <Folder Include="Public\Converters\" />
-	  <Folder Include="Public\Enums\" />
-	  <Folder Include="Public\Models\" />
 	  <Folder Include="Trade\Clients\" />
 	  <Folder Include="Trade\Converters\" />
 	  <Folder Include="Trade\Enums\" />

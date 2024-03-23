@@ -1,5 +1,4 @@
-﻿using OKX.Api.Account.Enums;
-using OKX.Api.Account.Models;
+﻿using OKX.Api.Account.Models;
 
 namespace OKX.Api.Account.Clients;
 

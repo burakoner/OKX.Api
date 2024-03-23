@@ -5,7 +5,7 @@ namespace OKX.Api.Clients.RestApi;
 /// <summary>
 /// OKX Rest Api Copy Trading Client
 /// </summary>
-public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
+public class OKXRestApiCopyTradingClient : OkxRestApiBaseClient
 {
     // Endpoints
     private const string v5CopyTradingCurrentSubpositions = "api/v5/copytrading/current-subpositions";

@@ -1,7 +1,5 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
+﻿using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Models.GridTrading;
 
@@ -40,7 +38,7 @@ public class OkxGridAlgoSubOrder
     [JsonIgnore]
     public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 
-    [JsonProperty("tdMode"), JsonConverter(typeof(TradeModeConverter))]
+    [JsonProperty("tdMode"), JsonConverter(typeof(OkxTradeModeConverter))]
     public OkxTradeMode TradeMode { get; set; }
 
     [JsonProperty("ccy")]
@@ -55,7 +53,7 @@ public class OkxGridAlgoSubOrder
     [JsonProperty("state"), JsonConverter(typeof(GridAlgoSubOrderStatusConverter))]
     public OkxGridAlgoSubOrderStatus AlgoSubOrderStatus { get; set; }
 
-    [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
+    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
     public OkxOrderSide OrderSide { get; set; }
 
     [JsonProperty("px")]

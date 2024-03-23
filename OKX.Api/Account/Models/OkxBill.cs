@@ -1,5 +1,7 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
+using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Account.Models;
 
@@ -131,7 +133,7 @@ public class OkxBill
     /// <summary>
     /// Liquidity taker or maker, T: taker M: maker
     /// </summary>
-    [JsonProperty("execType"), JsonConverter(typeof(TradeRoleConverter))]
+    [JsonProperty("execType"), JsonConverter(typeof(OkxTradeRoleConverter))]
     public OkxTradeRole? TradeRole { get; set; }
 
     /// <summary>

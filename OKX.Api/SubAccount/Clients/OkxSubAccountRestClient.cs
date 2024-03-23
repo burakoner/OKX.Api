@@ -7,7 +7,7 @@ namespace OKX.Api.SubAccount.Clients;
 /// <summary>
 /// OKX Rest Api Sub Account Client
 /// </summary>
-public class OkxSubAccountRestClient : OKXRestApiBaseClient
+public class OkxSubAccountRestClient : OkxRestApiBaseClient
 {
     // Endpoints
     private const string v5UsersSubaccountList = "api/v5/users/subaccount/list";

@@ -1,5 +1,6 @@
 ﻿using OKX.Api.Account.Clients;
 using OKX.Api.Funding.Clients;
+using OKX.Api.Public.Clients;
 
 namespace OKX.Api;
 
@@ -11,7 +12,7 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
     /// <summary>
     /// PublicData Client
     /// </summary>
-    public OKXWebSocketApiPublicClient Public { get; }
+    public OkxPublicSocketClient Public { get; }
 
     /// <summary>
     /// Trading Account Client
@@ -86,7 +87,7 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
     /// <param name="options">Options</param>
     public OkxSocketApiClient(ILogger logger, OkxSocketApiOptions options) : base(logger, options)
     {
-        this.Public = new OKXWebSocketApiPublicClient(this);
+        this.Public = new OkxPublicSocketClient(this);
         this.Account = new OkxAccountSocketClient(this);
         this.Funding = new OkxFundingSocketClient(this);
 

@@ -1,6 +1,7 @@
 ﻿using OKX.Api.Account.Enums;
 using OKX.Api.Common.Enums;
 using OKX.Api.Funding.Enums;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Examples;
 

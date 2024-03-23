@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Earn Client
 /// </summary>
-public class OKXRestApiEarnClient : OKXRestApiBaseClient
+public class OKXRestApiEarnClient : OkxRestApiBaseClient
 {
     // Endpoints
     // TODO: api/v5/finance/staking-defi/offers

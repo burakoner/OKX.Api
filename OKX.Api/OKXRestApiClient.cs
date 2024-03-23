@@ -22,7 +22,7 @@ public sealed class OkxRestApiClient
     /// <summary>
     /// Public - Market Data Client
     /// </summary>
-    public OKXRestApiPublicClient Public { get; }
+    public OkxPublicRestClient Public { get; }
 
     /// <summary>
     /// Trading Account Client
@@ -119,7 +119,7 @@ public sealed class OkxRestApiClient
         Options = options;
         Logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX Api");
 
-        Public = new OKXRestApiPublicClient(this);
+        Public = new OkxPublicRestClient(this);
         Account = new OkxAccountRestClient(this);
         Funding = new OkxFundingRestClient(this);
         SubAccount = new OkxSubAccountRestClient(this);

@@ -1,5 +1,5 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
+﻿using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Models.Trade;
 
@@ -17,13 +17,13 @@ public class OkxOrderPlaceRequest
     /// <summary>
     /// Trade Mode
     /// </summary>
-    [JsonProperty("tdMode"), JsonConverter(typeof(TradeModeConverter))]
+    [JsonProperty("tdMode"), JsonConverter(typeof(OkxTradeModeConverter))]
     public OkxTradeMode TradeMode { get; set; }
 
     /// <summary>
     /// Order Side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
+    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
     public OkxOrderSide OrderSide { get; set; }
 
     /// <summary>

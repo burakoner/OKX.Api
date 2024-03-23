@@ -1,7 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-
-namespace OKX.Api.Models.Trade;
+﻿namespace OKX.Api.Models.Trade;
 
 public class OkxMassCancelRequest
 {

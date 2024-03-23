@@ -33,7 +33,7 @@ public class OKXRestApiOrderBookTradingClient
     /// <summary>
     /// Market Data Client
     /// </summary>
-    public OKXRestApiPublicClient MarketData { get; }
+    public OkxPublicRestClient MarketData { get; }
 
     /// <summary>
     /// OKXOrderBookTradingRestApiClient Constructor

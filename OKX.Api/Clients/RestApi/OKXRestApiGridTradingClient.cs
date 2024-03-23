@@ -7,7 +7,7 @@ namespace OKX.Api.Clients.RestApi;
 /// <summary>
 /// OKX Rest Api Grid Trading Client
 /// </summary>
-public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
+public class OKXRestApiGridTradingClient : OkxRestApiBaseClient
 {
     // Endpoints
     private const string v5TradingBotGridOrderAlgo = "api/v5/tradingBot/grid/order-algo";

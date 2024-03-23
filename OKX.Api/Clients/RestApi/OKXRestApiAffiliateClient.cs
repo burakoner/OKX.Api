@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Affiliate Client
 /// </summary>
-public class OKXRestApiAffiliateClient : OKXRestApiBaseClient
+public class OKXRestApiAffiliateClient : OkxRestApiBaseClient
 {
     internal OKXRestApiAffiliateClient(OkxRestApiClient root) : base(root)
     {

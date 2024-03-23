@@ -1,7 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-
-namespace OKX.Api.Models.GridTrading;
+﻿namespace OKX.Api.Models.GridTrading;
 
 /// <summary>
 /// OKX Grid Algo Order

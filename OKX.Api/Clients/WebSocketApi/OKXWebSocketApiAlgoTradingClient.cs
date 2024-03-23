@@ -1,5 +1,4 @@
-﻿using OKX.Api.Account.Enums;
-using OKX.Api.Models.AlgoTrading;
+﻿using OKX.Api.Models.AlgoTrading;
 
 namespace OKX.Api.Clients.WebSocketApi;
 

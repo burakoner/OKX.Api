@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Fully Disclosed Broker Client
 /// </summary>
-public class OKXRestApiFullyDisclosedBrokerClient : OKXRestApiBaseClient
+public class OKXRestApiFullyDisclosedBrokerClient : OkxRestApiBaseClient
 {
     // Endpoints
     // TODO: api/v5/broker/fd/rebate-per-orders

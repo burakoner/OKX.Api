@@ -1,15 +1,15 @@
 ﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
 using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
 using OKX.Api.Models.AlgoTrading;
+using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Clients.RestApi;
 
 /// <summary>
 /// OKX Rest Api Algo Trading Client
 /// </summary>
-public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
+public class OKXRestApiAlgoTradingClient : OkxRestApiBaseClient
 {
     private const string v5TradeOrderAlgo = "api/v5/trade/order-algo";
     private const string v5TradeCancelAlgos = "api/v5/trade/cancel-algos";
@@ -131,8 +131,8 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
         var parameters = new Dictionary<string, object> {
             {"tag", Options.BrokerId },
             {"instId", instrumentId },
-            {"tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
-            {"side", JsonConvert.SerializeObject(orderSide, new OrderSideConverter(false)) },
+            {"tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
+            {"side", JsonConvert.SerializeObject(orderSide, new OkxOrderSideConverter(false)) },
             {"ordType", JsonConvert.SerializeObject(algoOrderType, new AlgoOrderTypeConverter(false)) },
         };
         parameters.AddOptionalParameter("ccy", currency);

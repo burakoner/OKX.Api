@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Non Disclosed Broker Client
 /// </summary>
-public class OKXRestApiNonDisclosedBrokerClient : OKXRestApiBaseClient
+public class OKXRestApiNonDisclosedBrokerClient : OkxRestApiBaseClient
 {
     // Endpoints
     // TODO: api/v5/broker/nd/info

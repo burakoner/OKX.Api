@@ -1,7 +1,5 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
+﻿using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Models.Trade;
 
@@ -91,7 +89,7 @@ public class OkxTransaction
     /// <summary>
     /// Specifies whether the order was a buy or sell.
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
+    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
     public OkxOrderSide OrderSide { get; set; }
 
     /// <summary>
@@ -106,7 +104,7 @@ public class OkxTransaction
     /// <remarks>
     /// Not applicable to system orders such as ADL and liquidation.
     /// </remarks>
-    [JsonProperty("execType"), JsonConverter(typeof(TradeRoleConverter))]
+    [JsonProperty("execType"), JsonConverter(typeof(OkxTradeRoleConverter))]
     public OkxTradeRole OrderFlowType { get; set; }
 
     /// <summary>

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Recurring Buy Client
 /// </summary>
-public class OKXRestApiRecurringBuyClient : OKXRestApiBaseClient
+public class OKXRestApiRecurringBuyClient : OkxRestApiBaseClient
 {
     // Endpoints
     // TODO: api/v5/tradingBot/recurring/order-algo

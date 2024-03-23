@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Base Client
 /// </summary>
-public abstract class OKXRestApiBaseClient : RestApiClient
+public abstract class OkxRestApiBaseClient : RestApiClient
 {
     // Internal
     internal ILogger Logger { get => this._logger; }
@@ -14,7 +14,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
     internal OkxRestApiClient RootClient { get; }
     internal OkxRestApiOptions Options { get { return RootClient.Options; } }
 
-    internal OKXRestApiBaseClient(OkxRestApiClient root) : base(root.Logger, root.Options)
+    internal OkxRestApiBaseClient(OkxRestApiClient root) : base(root.Logger, root.Options)
     {
         RootClient = root;
         this.ManualParseError = true;

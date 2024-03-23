@@ -7,7 +7,7 @@ namespace OKX.Api.Funding.Clients;
 /// <summary>
 /// OKX Rest Api Funding Account Client
 /// </summary>
-public class OkxFundingRestClient : OKXRestApiBaseClient
+public class OkxFundingRestClient : OkxRestApiBaseClient
 {
     // Endpoints
     private const string v5AssetCurrencies = "api/v5/asset/currencies";

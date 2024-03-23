@@ -1,5 +1,4 @@
 ﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
 using OKX.Api.Models.BlockTrading;
 
 namespace OKX.Api.Clients.RestApi;
@@ -7,7 +6,7 @@ namespace OKX.Api.Clients.RestApi;
 /// <summary>
 /// OKX Rest Api Block Trading Client
 /// </summary>
-public class OKXRestApiBlockTradingClient : OKXRestApiBaseClient
+public class OKXRestApiBlockTradingClient : OkxRestApiBaseClient
 {
     // Endpoints
     // TODO: api/v5/rfq/counterparties

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Savings Client
 /// </summary>
-public class OKXRestApiSavingsClient : OKXRestApiBaseClient
+public class OKXRestApiSavingsClient : OkxRestApiBaseClient
 {
     // Endpoints
     // TODO: api/v5/finance/savings/balance

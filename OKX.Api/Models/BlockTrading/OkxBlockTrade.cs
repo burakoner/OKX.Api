@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Models.BlockTrading;
+﻿using OKX.Api.Public.Converters;
+
+namespace OKX.Api.Models.BlockTrading;
 
 public class OkxBlockTrade
 {
@@ -14,7 +16,7 @@ public class OkxBlockTrade
     [JsonProperty("sz")]
     public decimal Quantity { get; set; }
 
-    [JsonProperty("side"), JsonConverter(typeof(TradeSideConverter))]
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeSideConverter))]
     public OkxTradeSide Side { get; set; }
 
     [JsonProperty("ts")]

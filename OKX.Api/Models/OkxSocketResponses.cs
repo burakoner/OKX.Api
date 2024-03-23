@@ -1,4 +1,4 @@
-﻿using OKX.Api.Models.Public;
+﻿using OKX.Api.Public.Models;
 
 namespace OKX.Api.Models;
 
