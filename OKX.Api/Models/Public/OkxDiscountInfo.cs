@@ -12,7 +12,7 @@ public class OkxDiscountInfo
     public int DiscountLevel { get; set; }
 
     [JsonProperty("discountInfo")]
-    public IEnumerable<OkxPublicDiscountInfoDetail> Details { get; set; }
+    public List<OkxPublicDiscountInfoDetail> Details { get; set; }
 }
 
 public class OkxPublicDiscountInfoDetail

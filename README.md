@@ -88,7 +88,7 @@ var algo_07 = await api.OrderBookTrading.AlgoTrading.GetAlgoOrderHistoryAsync(Ok
 /* OrderBookTrading.GridTrading Methods (Signed) */
 var grid_01 = await api.OrderBookTrading.GridTrading.PlaceAlgoOrderAsync(new OkxGridPlaceOrderRequest
 {
-    InstrumentId = "BTC-USDT",
+    Instrument = "BTC-USDT",
     AlgoOrderType = OkxGridAlgoOrderType.SpotGrid,
     MaximumPrice = 5000,
     MinimumPrice = 400,

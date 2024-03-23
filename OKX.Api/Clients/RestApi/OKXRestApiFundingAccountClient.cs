@@ -41,9 +41,9 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxCurrency>>> GetCurrenciesAsync(CancellationToken ct = default)
+    public async Task<RestCallResult<List<OkxCurrency>>> GetCurrenciesAsync(CancellationToken ct = default)
     {
-        return await SendOKXRequest<IEnumerable<OkxCurrency>>(GetUri(v5AssetCurrencies), HttpMethod.Get, ct, true).ConfigureAwait(false);
+        return await ProcessListRequest<OkxCurrency>(GetUri(v5AssetCurrencies), HttpMethod.Get, ct, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -52,12 +52,12 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxFundingBalance>>> GetFundingBalanceAsync(string currency = null, CancellationToken ct = default)
+    public async Task<RestCallResult<List<OkxFundingBalance>>> GetFundingBalanceAsync(string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
 
-        return await SendOKXRequest<IEnumerable<OkxFundingBalance>>(GetUri(v5AssetBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxFundingBalance>(GetUri(v5AssetBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("clientId", clientOrderId);
         parameters.AddOptionalParameter("omitPosRisk", omitPositionRisk);
 
-        return await SendOKXSingleRequest<OkxTransferResponse>(GetUri(v5AssetTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxTransferResponse>(GetUri(v5AssetTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxFundingBill>>> GetFundingBillDetailsAsync(
+    public async Task<RestCallResult<List<OkxFundingBill>>> GetFundingBillDetailsAsync(
         string currency = null,
         OkxFundingBillType? type = null,
         string clientOrderId = null,
@@ -130,7 +130,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await SendOKXRequest<IEnumerable<OkxFundingBill>>(GetUri(v5AssetBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxFundingBill>(GetUri(v5AssetBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -141,7 +141,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="account">Receiving account</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxLightningDeposit>>> GetLightningDepositsAsync(
+    public async Task<RestCallResult<List<OkxLightningDeposit>>> GetLightningDepositsAsync(
         string currency,
         decimal amount,
         OkxLightningDepositAccount? account = null,
@@ -154,7 +154,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
         };
         parameters.AddOptionalParameter("to", JsonConvert.SerializeObject(account, new LightningDepositAccountConverter(false)));
 
-        return await SendOKXRequest<IEnumerable<OkxLightningDeposit>>(GetUri(v5AssetDepositLightning), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxLightningDeposit>(GetUri(v5AssetDepositLightning), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -163,13 +163,13 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxDepositAddress>>> GetDepositAddressAsync(string currency = null, CancellationToken ct = default)
+    public async Task<RestCallResult<List<OkxDepositAddress>>> GetDepositAddressAsync(string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "ccy", currency },
         };
 
-        return await SendOKXRequest<IEnumerable<OkxDepositAddress>>(GetUri(v5AssetDepositAddress), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxDepositAddress>(GetUri(v5AssetDepositAddress), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -186,7 +186,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxDepositHistory>>> GetDepositHistoryAsync(
+    public async Task<RestCallResult<List<OkxDepositHistory>>> GetDepositHistoryAsync(
         string currency = null,
         string depositId = null,
         long? fromWithdrawalId = null,
@@ -210,7 +210,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await SendOKXRequest<IEnumerable<OkxDepositHistory>>(GetUri(v5AssetDepositHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxDepositHistory>(GetUri(v5AssetDepositHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -248,7 +248,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("areaCode", areaCode);
         parameters.AddOptionalParameter("clientId", clientOrderId);
 
-        return await SendOKXSingleRequest<OkxWithdrawalResponse>(GetUri(v5AssetWithdrawal), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxWithdrawalResponse>(GetUri(v5AssetWithdrawal), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -272,7 +272,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
         };
         parameters.AddOptionalParameter("memo", memo);
 
-        return await SendOKXSingleRequest<OkxLightningWithdrawal>(GetUri(v5AssetWithdrawalLightning), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxLightningWithdrawal>(GetUri(v5AssetWithdrawalLightning), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -289,7 +289,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
             { "wdId", withdrawalId},
         };
 
-        return await SendOKXSingleRequest<OkxWithdrawalId>(GetUri(v5AssetWithdrawalCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxWithdrawalId>(GetUri(v5AssetWithdrawalCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -306,7 +306,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxWithdrawalHistory>>> GetWithdrawalHistoryAsync(
+    public async Task<RestCallResult<List<OkxWithdrawalHistory>>> GetWithdrawalHistoryAsync(
         string currency = null,
         long? withdrawalId = null,
         string clientOrderId = null,
@@ -330,7 +330,7 @@ public class OKXRestApiFundingAccountClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await SendOKXRequest<IEnumerable<OkxWithdrawalHistory>>(GetUri(v5AssetWithdrawalHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxWithdrawalHistory>(GetUri(v5AssetWithdrawalHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
     #endregion
 

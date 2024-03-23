@@ -1,8 +1,11 @@
-﻿namespace OKX.Api.Models.Public;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+
+namespace OKX.Api.Models.Public;
 
 public class OkxFundingRate
 {
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     [JsonProperty("instId")]

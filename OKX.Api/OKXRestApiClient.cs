@@ -1,4 +1,6 @@
-﻿namespace OKX.Api;
+﻿using OKX.Api.Account.Clients;
+
+namespace OKX.Api;
 
 /// <summary>
 /// OKX Rest API Client
@@ -13,12 +15,12 @@ public sealed class OKXRestApiClient
     /// <summary>
     /// Client Options
     /// </summary>
-    internal OKXRestApiClientOptions ClientOptions { get; }
+    internal OKXRestApiOptions Options { get; }
 
     /// <summary>
     /// Trading Account Client
     /// </summary>
-    public OKXRestApiTradingAccountClient TradingAccount { get; }
+    public OkxAccountRestClient TradingAccount { get; }
 
     /// <summary>
     /// OrderBook Trading Client
@@ -78,28 +80,29 @@ public sealed class OKXRestApiClient
     /// <summary>
     /// OKXRestApiClient Constructor
     /// </summary>
-    public OKXRestApiClient() : this(null, new OKXRestApiClientOptions())
+    public OKXRestApiClient() : this(null, new OKXRestApiOptions())
     {
     }
 
     /// <summary>
     /// OKXRestApiClient Constructor
     /// </summary>
-    public OKXRestApiClient(OKXRestApiClientOptions options) : this(null, options)
+    public OKXRestApiClient(OKXRestApiOptions options) : this(null, options)
     {
     }
 
     /// <summary>
     /// OKXRestApiClient Constructor
     /// </summary>
-    /// <param name="options">OKXRestApiClientOptions</param>
-    public OKXRestApiClient(ILogger logger, OKXRestApiClientOptions options)
+    /// <param name="logger">Logger</param>
+    /// <param name="options">Options</param>
+    public OKXRestApiClient(ILogger logger, OKXRestApiOptions options)
     {
-        ClientOptions = options;
+        Options = options;
         Logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX Api");
 
         PublicData = new OKXRestApiPublicClient(this);
-        TradingAccount = new OKXRestApiTradingAccountClient(this);
+        TradingAccount = new OkxAccountRestClient(this);
         OrderBookTrading = new OKXRestApiOrderBookTradingClient(this);
         BlockTrading = new OKXRestApiBlockTradingClient(this);
         SpreadTrading = new OKXRestApiSpreadTradingClient(this);
@@ -128,12 +131,12 @@ public sealed class OKXRestApiClient
     /// <param name="credentials">OkxApiCredentials Object</param>
     public void SetApiCredentials(OkxApiCredentials credentials)
     {
+        PublicData.SetApiCredentials(credentials);
         TradingAccount.SetApiCredentials(credentials);
         FundingAccount.SetApiCredentials(credentials);
         OrderBookTrading.SetApiCredentials(credentials);
         BlockTrading.SetApiCredentials(credentials);
         SpreadTrading.SetApiCredentials(credentials);
-        PublicData.SetApiCredentials(credentials);
         TradingStatistics.SetApiCredentials(credentials);
         SubAccount.SetApiCredentials(credentials);
         FundingAccount.SetApiCredentials(credentials);

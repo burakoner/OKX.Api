@@ -1,11 +1,16 @@
-﻿namespace OKX.Api.Models.Trade;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Models.Trade;
 
 public class OkxOrder
 {
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -77,7 +82,7 @@ public class OkxOrder
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
     public OkxPositionSide? PositionSide { get; set; }
 
     /// <summary>

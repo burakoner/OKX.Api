@@ -3,11 +3,11 @@
 public class OkxSupportCoins
 {
     [JsonProperty("contract")]
-    public IEnumerable<string> Contract { get; set; }
+    public List<string> Contract { get; set; }
 
     [JsonProperty("option")]
-    public IEnumerable<string> Option { get; set; }
+    public List<string> Option { get; set; }
 
     [JsonProperty("spot")]
-    public IEnumerable<string> Spot { get; set; }
+    public List<string> Spot { get; set; }
 }

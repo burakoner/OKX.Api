@@ -1,11 +1,14 @@
-﻿namespace OKX.Api.Examples;
+﻿using OKX.Api.Account.Enums;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Examples;
 
 internal class Program
 {
     static async Task Main(string[] args)
     {
         #region Rest Api Client Examples
-        var api = new OKXRestApiClient(new OKXRestApiClientOptions
+        var api = new OKXRestApiClient(new OKXRestApiOptions
         {
             RawResponse = true,
         });
@@ -60,7 +63,7 @@ internal class Program
         // OrderBookTrading.GridTrading Methods (Signed)
         var grid_01 = await api.OrderBookTrading.GridTrading.PlaceAlgoOrderAsync(new OkxGridPlaceOrderRequest
         {
-            InstrumentId = "BTC-USDT",
+            Instrument = "BTC-USDT",
             AlgoOrderType = OkxGridAlgoOrderType.SpotGrid,
             MaximumPrice = 5000,
             MinimumPrice = 400,

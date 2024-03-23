@@ -15,7 +15,7 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
     public override void AuthenticateRestApi(RestApiClient apiClient, Uri uri, HttpMethod method, bool signed, ArraySerialization serialization, SortedDictionary<string, object> query, SortedDictionary<string, object> body, string bodyContent, SortedDictionary<string, string> headers)
     {
         // Options
-        var options = (OKXRestApiClientOptions)apiClient.ClientOptions;
+        var options = (OKXRestApiOptions)apiClient.ClientOptions;
         var credentials = (OkxApiCredentials)Credentials;
 
         // Check Point
@@ -30,7 +30,6 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
         uri = uri.SetParameters(query, serialization);
 
         // Signature
-        // var time = (DateTime.UtcNow.ToUnixTimeMilliSeconds() / 1000.0m).ToString(CultureInfo.InvariantCulture);
         var time = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.sssZ");
         var signtext = time + method.Method.ToUpper() + uri.PathAndQuery.Trim('?') + bodyContent;
         var signature = Base64Encode(encryptor.ComputeHash(Encoding.UTF8.GetBytes(signtext)));
@@ -56,20 +55,7 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
         throw new NotImplementedException();
     }
 
-    public static string Base64Encode(byte[] plainBytes)
-    {
-        return Convert.ToBase64String(plainBytes);
-    }
-
-    public static string Base64Encode(string plainText)
-    {
-        var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
-        return Convert.ToBase64String(plainTextBytes);
-    }
-
-    public static string Base64Decode(string base64EncodedData)
-    {
-        var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
-        return Encoding.UTF8.GetString(base64EncodedBytes);
-    }
+    public static string Base64Encode(byte[] plainBytes) => Convert.ToBase64String(plainBytes);
+    public static string Base64Encode(string plainText) => Convert.ToBase64String(Encoding.UTF8.GetBytes(plainText));
+    public static string Base64Decode(string base64EncodedData) => Encoding.UTF8.GetString(Convert.FromBase64String(base64EncodedData));
 }

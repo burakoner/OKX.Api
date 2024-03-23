@@ -1,4 +1,9 @@
-﻿namespace OKX.Api.Models.GridTrading;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Models.GridTrading;
 
 public class OkxGridAlgoSubOrder
 {
@@ -8,11 +13,11 @@ public class OkxGridAlgoSubOrder
     [JsonProperty("algoClOrdId")]
     public string AlgoClientOrderId { get; set; }
 
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string Instrument { get; set; }
 
     [JsonProperty("algoOrdType"), JsonConverter(typeof(GridAlgoOrderTypeConverter))]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }
@@ -74,7 +79,7 @@ public class OkxGridAlgoSubOrder
     [JsonProperty("accFillSz")]
     public decimal? AccumulatedFillQuantity { get; set; }
 
-    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
     public OkxPositionSide PositionSide { get; set; }
 
     [JsonProperty("pnl")]

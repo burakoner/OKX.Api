@@ -9,7 +9,7 @@ public class OkxOptionTrade
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string Instrument { get; set; }
 
     /// <summary>
     /// Instrument family

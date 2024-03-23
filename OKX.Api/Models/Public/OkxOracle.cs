@@ -3,10 +3,10 @@
 public class OkxOracle
 {
     [JsonProperty("messages")]
-    public IEnumerable<string> Messages { get; set; }
+    public List<string> Messages { get; set; }
 
     [JsonProperty("signatures")]
-    public IEnumerable<string> Signatures { get; set; }
+    public List<string> Signatures { get; set; }
 
     [JsonProperty("timestamp")]
     public long Timestamp { get; set; }

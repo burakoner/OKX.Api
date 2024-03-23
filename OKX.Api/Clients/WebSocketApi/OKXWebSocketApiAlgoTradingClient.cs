@@ -1,4 +1,5 @@
-﻿using OKX.Api.Models.AlgoTrading;
+﻿using OKX.Api.Account.Enums;
+using OKX.Api.Models.AlgoTrading;
 
 namespace OKX.Api.Clients.WebSocketApi;
 
@@ -45,7 +46,7 @@ public class OKXWebSocketApiAlgoTradingClient
         IEnumerable<OkxSocketSymbolRequest> symbols,
         CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxAlgoOrder>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAlgoOrder>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -93,7 +94,7 @@ public class OKXWebSocketApiAlgoTradingClient
         IEnumerable<OkxSocketSymbolRequest> symbols,
         CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxAlgoOrder>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAlgoOrder>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);

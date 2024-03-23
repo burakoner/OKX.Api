@@ -3,7 +3,7 @@
 public class OkxOrderCancelRequest
 {
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string Instrument { get; set; }
 
     [JsonProperty("ordId", NullValueHandling = NullValueHandling.Ignore)]
     public long? OrderId { get; set; }

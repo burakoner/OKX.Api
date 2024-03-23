@@ -1,4 +1,6 @@
-﻿using OKX.Api.Models.GridTrading;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Models.GridTrading;
 
 namespace OKX.Api.Clients.RestApi;
 
@@ -39,7 +41,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
     /// <returns></returns>
     public async Task<RestCallResult<OkxGridOrderResponse>> PlaceAlgoOrderAsync(OkxGridPlaceOrderRequest request, CancellationToken ct = default)
         => await PlaceAlgoOrderAsync(
-        request.InstrumentId,
+        request.Instrument,
         request.AlgoOrderType,
         request.MaximumPrice,
         request.MinimumPrice,
@@ -98,7 +100,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            { "tag", OKXConstants.BROKER_ID },
+            { "tag", Options.BrokerId },
             { "instId", instrumentId },
             { "algoOrdType", JsonConvert.SerializeObject(algoOrderType, new GridAlgoOrderTypeConverter(false)) },
             { "maxPx", maximumPrice.ToOkxString() },
@@ -118,7 +120,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("lever", leverage?.ToOkxString());
         parameters.AddOptionalParameter("basePos", basePosition);
 
-        return await SendOKXSingleRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -131,7 +133,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
     public async Task<RestCallResult<OkxGridOrderResponse>> AmendAlgoOrderAsync(OkxGridAmendOrderRequest request, CancellationToken ct = default)
         => await AmendAlgoOrderAsync(
         request.AlgoOrderId,
-        request.InstrumentId,
+        request.Instrument,
         request.StopLossTriggerPrice,
         request.TakeProfitTriggerPrice,
         request.TriggerParameters,
@@ -165,7 +167,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         if (triggerParameters != null)
             parameters.AddOptionalParameter("triggerParams", JsonConvert.SerializeObject(triggerParameters));
 
-        return await SendOKXSingleRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridAmendOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridAmendOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -196,7 +198,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         else if (contractAlgoStopType.HasValue)
             parameters.AddOptionalParameter("stopType", JsonConvert.SerializeObject(contractAlgoStopType, new GridContractAlgoStopTypeConverter(false)));
 
-        return await SendOKXSingleRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -222,7 +224,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("sz", size?.ToOkxString());
         parameters.AddOptionalParameter("px", price?.ToOkxString());
 
-        return await SendOKXSingleRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -241,7 +243,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
             { "algoId", algoOrderId.ToOkxString() },
             { "ordId", orderId.ToOkxString() },
         };
-        return await SendOKXSingleRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridCancelCloseOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridCancelCloseOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -257,7 +259,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         var parameters = new Dictionary<string, object> {
             { "algoId", algoOrderId.ToOkxString() },
         };
-        return await SendOKXSingleRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridOrderInstantTrigger), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridOrderInstantTrigger), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -272,7 +274,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxGridAlgoOrder>>> GetOpenAlgoOrdersAsync(
+    public async Task<RestCallResult<List<OkxGridAlgoOrder>>> GetOpenAlgoOrdersAsync(
         OkxGridAlgoOrderType algoOrderType,
         long? algoOrderId = null,
         string instrumentId = null,
@@ -288,12 +290,12 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("algoId", algoOrderId?.ToOkxString());
         parameters.AddOptionalParameter("instId", instrumentId);
         if (instrumentType != null)
-            parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
+            parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await SendOKXRequest<IEnumerable<OkxGridAlgoOrder>>(GetUri(v5TradingBotGridOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxGridAlgoOrder>(GetUri(v5TradingBotGridOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -308,7 +310,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxGridAlgoOrder>>> GetAlgoOrdersHistoryAsync(
+    public async Task<RestCallResult<List<OkxGridAlgoOrder>>> GetAlgoOrdersHistoryAsync(
         OkxGridAlgoOrderType algoOrderType,
         long? algoOrderId = null,
         string instrumentId = null,
@@ -324,12 +326,12 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("algoId", algoOrderId?.ToOkxString());
         parameters.AddOptionalParameter("instId", instrumentId);
         if (instrumentType != null)
-            parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
+            parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await SendOKXRequest<IEnumerable<OkxGridAlgoOrder>>(GetUri(v5TradingBotGridOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxGridAlgoOrder>(GetUri(v5TradingBotGridOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -349,7 +351,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
             { "algoId", algoOrderId}
         };
 
-        return await SendOKXSingleRequest<OkxGridAlgoOrder>(GetUri(v5TradingBotGridOrdersAlgoDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridAlgoOrder>(GetUri(v5TradingBotGridOrdersAlgoDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -364,7 +366,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<IEnumerable<OkxGridAlgoSubOrder>>> GetAlgoSubOrdersAsync(
+    public async Task<RestCallResult<List<OkxGridAlgoSubOrder>>> GetAlgoSubOrdersAsync(
         OkxGridAlgoOrderType algoOrderType,
         long algoOrderId,
         OkxGridAlgoSubOrderType type,
@@ -384,7 +386,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await SendOKXRequest<IEnumerable<OkxGridAlgoSubOrder>>(GetUri(v5TradingBotGridSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequest<OkxGridAlgoSubOrder>(GetUri(v5TradingBotGridSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -404,7 +406,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
             { "algoId", algoOrderId.ToOkxString() }
         };
 
-        return await SendOKXSingleRequest<OkxGridAlgoPosition>(GetUri(v5TradingBotGridPositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridAlgoPosition>(GetUri(v5TradingBotGridPositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -421,7 +423,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
             { "algoId", algoOrderId.ToOkxString() }
         };
 
-        return await SendOKXSingleRequest<OkxGridWithdrawIncome>(GetUri(v5TradingBotGridWithdrawIncome), HttpMethod.Post, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridWithdrawIncome>(GetUri(v5TradingBotGridWithdrawIncome), HttpMethod.Post, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -440,11 +442,11 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
     {
         var parameters = new Dictionary<string, object> {
             { "algoId", algoOrderId.ToOkxString() },
-            { "type", JsonConvert.SerializeObject(type, new MarginAddReduceConverter(false)) },
+            { "type", JsonConvert.SerializeObject(type, new OkxMarginAddReduceConverter(false)) },
             { "amt", quantity.ToOkxString() },
         };
 
-        return await SendOKXSingleRequest<OkxGridComputedMarginBalance>(GetUri(v5TradingBotGridComputeMarginBalance), HttpMethod.Post, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridComputedMarginBalance>(GetUri(v5TradingBotGridComputeMarginBalance), HttpMethod.Post, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -465,12 +467,12 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
     {
         var parameters = new Dictionary<string, object> {
             { "algoId", algoOrderId.ToOkxString() },
-            { "type", JsonConvert.SerializeObject(type, new MarginAddReduceConverter(false)) },
+            { "type", JsonConvert.SerializeObject(type, new OkxMarginAddReduceConverter(false)) },
         };
         parameters.AddOptionalParameter("amt", quantity?.ToOkxString());
         parameters.AddOptionalParameter("percent", percent?.ToOkxString());
 
-        return await SendOKXSingleRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridMarginBalance), HttpMethod.Post, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridOrderResponse>(GetUri(v5TradingBotGridMarginBalance), HttpMethod.Post, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -496,7 +498,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("direction", JsonConvert.SerializeObject(contractGridDirection, new GridContractDirectionConverter(false)));
         parameters.AddOptionalParameter("duration", JsonConvert.SerializeObject(backTestingDuration, new GridBackTestingDurationConverter(false)));
 
-        return await SendOKXSingleRequest<OkxGridAiParameter>(GetUri(v5TradingBotGridAiParam), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridAiParameter>(GetUri(v5TradingBotGridAiParam), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -541,7 +543,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         if (investmentData != null)
             parameters.AddOptionalParameter("investmentData", JsonConvert.SerializeObject(investmentData));
 
-        return await SendOKXSingleRequest<OkxGridInvestment>(GetUri(v5TradingBotGridMinInvestment), HttpMethod.Post, ct, signed: false, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridInvestment>(GetUri(v5TradingBotGridMinInvestment), HttpMethod.Post, ct, signed: false, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -573,7 +575,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("triggerCond", JsonConvert.SerializeObject(triggerCondition, new GridAlgoTriggerConditionConverter(false)));
         parameters.AddOptionalParameter("duration", duration);
 
-        return await SendOKXSingleRequest<OkxGridInvestment>(GetUri(v5TradingBotGridRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequest<OkxGridInvestment>(GetUri(v5TradingBotGridRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters).ConfigureAwait(false);
     }
     #endregion
 

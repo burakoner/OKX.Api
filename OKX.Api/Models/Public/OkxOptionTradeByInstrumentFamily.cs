@@ -15,7 +15,7 @@ public class OkxOptionTradeByInstrumentFamily
     /// The list trade data
     /// </summary>
     [JsonProperty("tradeInfo")]
-    public IEnumerable<OkxOptionTradeInfo> TradeInfo { get; set; }
+    public List<OkxOptionTradeInfo> TradeInfo { get; set; }
 
     /// <summary>
     /// Option type, C: Call P: Put

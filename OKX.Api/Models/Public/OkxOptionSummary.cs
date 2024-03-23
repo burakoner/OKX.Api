@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Models.Public;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+
+namespace OKX.Api.Models.Public;
 
 /// <summary>
 /// OKX Option Market Data
@@ -8,7 +11,7 @@ public class OkxOptionSummary
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>

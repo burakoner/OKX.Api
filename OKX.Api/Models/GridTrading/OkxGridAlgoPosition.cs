@@ -1,4 +1,9 @@
-﻿namespace OKX.Api.Models.GridTrading;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Models.GridTrading;
 
 public class OkxGridAlgoPosition
 {
@@ -8,11 +13,11 @@ public class OkxGridAlgoPosition
     [JsonProperty("algoClOrdId")]
     public string AlgoClientOrderId { get; set; }
 
-    [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string Instrument { get; set; }
 
     [JsonProperty("cTime")]
     public long CreateTimestamp { get; set; }
@@ -39,13 +44,13 @@ public class OkxGridAlgoPosition
     [JsonProperty("liqPx")]
     public decimal? LiquidationPrice { get; set; }
 
-    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
     public OkxPositionSide PositionSide { get; set; }
 
     [JsonProperty("pos")]
     public decimal? Quantity { get; set; }
 
-    [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
+    [JsonProperty("mgnMode"), JsonConverter(typeof(OkxMarginModeConverter))]
     public OkxMarginMode? MarginMode { get; set; }
 
     [JsonProperty("mgnRatio")]

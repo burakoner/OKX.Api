@@ -1,4 +1,5 @@
-﻿using OKX.Api.Models.Trade;
+﻿using OKX.Api.Account.Enums;
+using OKX.Api.Models.Trade;
 
 namespace OKX.Api.Clients.WebSocketApi;
 
@@ -9,6 +10,7 @@ public class OKXWebSocketApiTradeClient
 {
     // Root Client
     internal OKXWebSocketApiClient RootClient { get; }
+    internal OKXWebSocketApiOptions Options { get { return RootClient.Options; } }
 
     internal OKXWebSocketApiTradeClient(OKXWebSocketApiClient root)
     {
@@ -44,7 +46,7 @@ public class OKXWebSocketApiTradeClient
         IEnumerable<OkxSocketSymbolRequest> symbols,
         CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxOrder>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxOrder>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -69,7 +71,7 @@ public class OKXWebSocketApiTradeClient
     /// <returns></returns>
     public async Task<CallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(OkxOrderPlaceRequest request)
     {
-        request.Tag = OKXConstants.BROKER_ID;
+        request.Tag = Options.BrokerId;
         var req = new OkxSocketRequest<OkxOrderPlaceRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.Order, [request]);
         return await this.RootClient.RootQueryAsync<OkxOrderPlaceResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
@@ -115,7 +117,7 @@ public class OKXWebSocketApiTradeClient
     /// <returns></returns>
     public async Task<CallResult<IEnumerable<OkxOrderPlaceResponse>>> PlaceMultipleOrdersAsync(IEnumerable<OkxOrderPlaceRequest> requests)
     {
-        foreach (var order in requests) order.Tag = OKXConstants.BROKER_ID;
+        foreach (var order in requests) order.Tag = Options.BrokerId;
         var req = new OkxSocketRequest<OkxOrderPlaceRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.BatchOrders, requests);
         return await this.RootClient.RootQueryAsync<IEnumerable<OkxOrderPlaceResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }

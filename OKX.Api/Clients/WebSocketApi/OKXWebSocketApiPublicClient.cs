@@ -1,4 +1,5 @@
-﻿using OKX.Api.Models.Public;
+﻿using OKX.Api.Account.Enums;
+using OKX.Api.Models.Public;
 
 namespace OKX.Api.Clients.WebSocketApi;
 
@@ -35,7 +36,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToInstrumentsAsync(Action<OkxInstrument> onData, IEnumerable<OkxInstrumentType> instrumentTypes, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxInstrument>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxInstrument>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -70,7 +71,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOpenInterestsAsync(Action<OkxOpenInterest> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxOpenInterest>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxOpenInterest>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -105,7 +106,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToFundingRatesAsync(Action<OkxFundingRate> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxFundingRate>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxFundingRate>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -140,7 +141,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPriceLimitAsync(Action<OkxLimitPrice> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxLimitPrice>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxLimitPrice>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -175,7 +176,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOptionSummaryAsync(Action<OkxOptionSummary> onData, IEnumerable<string> instrumentFamilies, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxOptionSummary>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxOptionSummary>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -214,7 +215,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToEstimatedPriceAsync(Action<OkxEstimatedPrice> onData, IEnumerable<OkxSocketSymbolRequest> symbols, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxEstimatedPrice>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxEstimatedPrice>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -251,7 +252,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToMarkPriceAsync(Action<OkxMarkPrice> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxMarkPrice>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxMarkPrice>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -286,7 +287,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToIndexTickersAsync(Action<OkxIndexTicker> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxIndexTicker>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxIndexTicker>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -311,7 +312,7 @@ public class OKXWebSocketApiPublicClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToMarkPriceCandlesticksAsync(Action<OkxMarkCandlestick> onData, string instrumentId, OkxPeriod period, CancellationToken ct = default)
-        => await SubscribeToMarkPriceCandlesticksAsync(onData, new string[] { instrumentId }, period, ct).ConfigureAwait(false);
+        => await SubscribeToMarkPriceCandlesticksAsync(onData, [instrumentId], period, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the candlesticks data of the mark price. Data will be pushed every 500 ms.
@@ -323,7 +324,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToMarkPriceCandlesticksAsync(Action<OkxMarkCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxMarkCandlestick>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxMarkCandlestick>>>>(data =>
         {
             foreach (var d in data.Data.Data)
             {
@@ -364,7 +365,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToIndexCandlesticksAsync(Action<OkxIndexCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxIndexCandlestick>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxIndexCandlestick>>>>(data =>
         {
             foreach (var d in data.Data.Data)
             {
@@ -406,7 +407,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTickersAsync(Action<OkxTicker> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxTicker>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxTicker>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
@@ -443,7 +444,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToCandlesticksAsync(Action<OkxCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxCandlestick>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxCandlestick>>>>(data =>
         {
             foreach (var d in data.Data.Data)
             {
@@ -481,7 +482,7 @@ public class OKXWebSocketApiPublicClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAsync(Action<OkxTrade> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxTrade>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxTrade>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);

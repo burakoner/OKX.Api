@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Models.Trade;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Models.Trade;
 
 /// <summary>
 /// Order Place Request
@@ -9,7 +12,7 @@ public class OkxOrderPlaceRequest
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string Instrument { get; set; }
 
     /// <summary>
     /// Trade Mode
@@ -26,7 +29,7 @@ public class OkxOrderPlaceRequest
     /// <summary>
     /// Position Side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
     public OkxPositionSide PositionSide { get; set; }
 
     /// <summary>

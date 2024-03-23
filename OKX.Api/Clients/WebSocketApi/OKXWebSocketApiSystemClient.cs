@@ -23,7 +23,7 @@ public class OKXWebSocketApiSystemClient
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSystemStatusAsync(Action<OkxStatus> onData, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<IEnumerable<OkxStatus>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxStatus>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 onData(d);
