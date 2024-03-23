@@ -6,7 +6,7 @@ namespace OKX.Api.Account.Models;
 /// <summary>
 /// OKX Account Bill
 /// </summary>
-public class OkxAccountBill
+public class OkxBill
 {
     /// <summary>
     /// Instrument type
@@ -23,14 +23,14 @@ public class OkxAccountBill
     /// <summary>
     /// Bill type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxAccountBillTypeConverter))]
-    public OkxAccountBillType BillType { get; set; }
+    [JsonProperty("type"), JsonConverter(typeof(OkxBillTypeConverter))]
+    public OkxBillType BillType { get; set; }
 
     /// <summary>
     /// Bill subtype
     /// </summary>
-    [JsonProperty("subType"), JsonConverter(typeof(OkxAccountBillSubTypeConverter))]
-    public OkxAccountBillSubType BillSubType { get; set; }
+    [JsonProperty("subType"), JsonConverter(typeof(OkxBillSubTypeConverter))]
+    public OkxBillSubType BillSubType { get; set; }
 
     /// <summary>
     /// Creation time, Unix timestamp format in milliseconds, e.g.1597026383085
@@ -139,7 +139,7 @@ public class OkxAccountBill
     /// 6: FUNDING 18: Trading account
     /// Only applicable to transfer.When bill type is not transfer, the field returns "".
     /// </summary>
-    [JsonProperty("from"), JsonConverter(typeof(AccountConverter))]
+    [JsonProperty("from"), JsonConverter(typeof(OkxAccountConverter))]
     public OkxAccount? FromAccount { get; set; }
 
     /// <summary>
@@ -147,7 +147,7 @@ public class OkxAccountBill
     /// 6: FUNDING 18: Trading account
     /// Only applicable to transfer.When bill type is not transfer, the field returns "".
     /// </summary>
-    [JsonProperty("to"), JsonConverter(typeof(AccountConverter))]
+    [JsonProperty("to"), JsonConverter(typeof(OkxAccountConverter))]
     public OkxAccount? ToAccount { get; set; }
 
     /// <summary>

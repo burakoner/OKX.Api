@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Enums;
+﻿namespace OKX.Api.Account.Enums;
 
 /// <summary>
 /// OKX Account

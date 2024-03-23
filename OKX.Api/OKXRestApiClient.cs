@@ -1,4 +1,4 @@
-﻿using OKX.Api.Account.Clients;
+﻿global using OKX.Api.Account.Clients;
 
 namespace OKX.Api;
 
@@ -20,7 +20,7 @@ public sealed class OKXRestApiClient
     /// <summary>
     /// Trading Account Client
     /// </summary>
-    public OkxAccountRestClient TradingAccount { get; }
+    public OkxAccountRestClient Account { get; }
 
     /// <summary>
     /// OrderBook Trading Client
@@ -40,7 +40,7 @@ public sealed class OKXRestApiClient
     /// <summary>
     /// PublicData Client
     /// </summary>
-    public OKXRestApiPublicClient PublicData { get; }
+    public OKXRestApiPublicClient Public { get; }
 
     /// <summary>
     /// Trading Statistics Client
@@ -101,8 +101,8 @@ public sealed class OKXRestApiClient
         Options = options;
         Logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX Api");
 
-        PublicData = new OKXRestApiPublicClient(this);
-        TradingAccount = new OkxAccountRestClient(this);
+        Public = new OKXRestApiPublicClient(this);
+        Account = new OkxAccountRestClient(this);
         OrderBookTrading = new OKXRestApiOrderBookTradingClient(this);
         BlockTrading = new OKXRestApiBlockTradingClient(this);
         SpreadTrading = new OKXRestApiSpreadTradingClient(this);
@@ -131,8 +131,8 @@ public sealed class OKXRestApiClient
     /// <param name="credentials">OkxApiCredentials Object</param>
     public void SetApiCredentials(OkxApiCredentials credentials)
     {
-        PublicData.SetApiCredentials(credentials);
-        TradingAccount.SetApiCredentials(credentials);
+        Public.SetApiCredentials(credentials);
+        Account.SetApiCredentials(credentials);
         FundingAccount.SetApiCredentials(credentials);
         OrderBookTrading.SetApiCredentials(credentials);
         BlockTrading.SetApiCredentials(credentials);

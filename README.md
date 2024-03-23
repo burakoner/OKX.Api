@@ -483,6 +483,52 @@ await ws.Status.SubscribeToSystemStatusAsync((data) =>
 ```
 
 ## Release Notes
+
+* Version 1.7.2 - 19 Mar 2024
+    * Merged MarketData and PublicData clients
+
+* Version 1.7.0 - 29 Feb 2024
+    * Added WebSocket order management methods
+    * Removed deprecated fields from request models
+    * Released https://github.com/burakoner/OKX.Api/issues/12
+
+* Version 1.6.0 - 05 Feb 2024
+    * ApiSharp updated to 2.1.0
+    * Added feature https://github.com/burakoner/OKX.Api/issues/56
+    * Imported pull request https://github.com/burakoner/OKX.Api/pull/55
+
+* Version 1.5.6 - 03 Jan 2024
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/53
+
+* Version 1.5.5 - 10 Dec 2023
+    * Updated ApiSharp to 2.0.5
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/52
+    * Refactored OKXRestApiTradingAccountClient and related models
+
+* Version 1.5.1 - 15 Nov 2023
+    * Updated ApiSharp to 2.0.1
+
+* Version 1.5.0 - 13 Nov 2023
+    * Fixed DemoTradingService usage
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/39
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/48
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/49
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/50
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/51
+
+* Version 1.4.0 - 16 Sep 2023
+    * Added Business WebSocket endpoint and moved related methods
+    * Fixed websocket endpoint division (public, private, business) related issues
+    * Some models changed (OkxPositionHistory)
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/37
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/40
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/43
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/46
+
+* Version 1.3.1 - 06 Aug 2023
+    * Fixed issue https://github.com/burakoner/OKX.Api/issues/20
+    * Merged pull request https://github.com/burakoner/OKX.Api/pull/36
+
 * Version 1.3.0 - 06 Aug 2023
     * ApiSharp version updated to 1.5.0
     * Both Rest and Websocket Api client hierarchies synced with OKX Api Documentation

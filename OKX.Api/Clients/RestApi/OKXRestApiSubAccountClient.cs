@@ -1,4 +1,6 @@
-﻿using OKX.Api.Models.SubAccount;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Models.SubAccount;
 
 namespace OKX.Api.Clients.RestApi;
 
@@ -53,7 +55,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequest<OkxSubAccount>(GetUri(v5UsersSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxSubAccount>(GetUri(v5UsersSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -90,7 +92,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
         if (permissions.Count > 0)
             parameters.AddOptionalParameter("perm", string.Join(",", permissions));
 
-        return await ProcessFirstOrDefaultRequest<OkxSubAccountApiKey>(GetUri(v5UsersSubaccountResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequestAsync<OkxSubAccountApiKey>(GetUri(v5UsersSubaccountResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -108,7 +110,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
             {"subAcct", subAccountName },
         };
 
-        return await ProcessFirstOrDefaultRequest<OkxSubAccountTradingBalance>(GetUri(v5UsersSubaccountTradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequestAsync<OkxSubAccountTradingBalance>(GetUri(v5UsersSubaccountTradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -131,7 +133,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
 
         parameters.AddOptionalParameter("ccy", currency);
 
-        return await ProcessFirstOrDefaultRequest<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequestAsync<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     // TODO: Get sub-account maximum withdrawals
@@ -165,7 +167,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequest<OkxSubAccountBill>(GetUri(v5UsersSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxSubAccountBill>(GetUri(v5UsersSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     // TODO: Get history of managed sub-account transfer
@@ -198,15 +200,15 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
         {
             {"ccy", currency },
             {"amt", amount.ToOkxString() },
-            {"from", JsonConvert.SerializeObject(fromAccount, new AccountConverter(false)) },
-            {"to", JsonConvert.SerializeObject(toAccount, new AccountConverter(false)) },
+            {"from", JsonConvert.SerializeObject(fromAccount, new OkxAccountConverter(false)) },
+            {"to", JsonConvert.SerializeObject(toAccount, new OkxAccountConverter(false)) },
             {"fromSubAccount", fromSubAccountName },
             {"toSubAccount", toSubAccountName },
         };
         parameters.AddOptionalParameter("loanTrans", loanTrans);
         parameters.AddOptionalParameter("omitPosRisk", omitPosRisk);
 
-        return await ProcessFirstOrDefaultRequest<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
     #endregion
 

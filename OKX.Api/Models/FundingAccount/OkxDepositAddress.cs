@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Models.FundingAccount;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+
+namespace OKX.Api.Models.FundingAccount;
 
 public class OkxDepositAddress
 {
@@ -23,7 +26,7 @@ public class OkxDepositAddress
     [JsonProperty("chain")]
     public string Chain { get; set; }
 
-    [JsonProperty("to"), JsonConverter(typeof(AccountConverter))]
+    [JsonProperty("to"), JsonConverter(typeof(OkxAccountConverter))]
     public OkxAccount? Account { get; set; }
 
     [JsonProperty("selected")]

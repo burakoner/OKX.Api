@@ -45,7 +45,7 @@ public class OKXRestApiOrderBookTradingClient
         GridTrading = new OKXRestApiGridTradingClient(root);
         RecurringBuy = new OKXRestApiRecurringBuyClient(root);
         CopyTrading = new OKXRestApiCopyTradingClient(root);
-        MarketData = root.PublicData;
+        MarketData = root.Public;
     }
 
     /// <summary>

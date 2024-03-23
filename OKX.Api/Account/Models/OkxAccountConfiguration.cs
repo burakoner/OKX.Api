@@ -27,7 +27,7 @@ public class OkxAccountConfiguration
     /// <summary>
     /// Account level
     /// </summary>
-    [JsonProperty("acctLv"), JsonConverter(typeof(AccountLevelConverter))]
+    [JsonProperty("acctLv"), JsonConverter(typeof(OkxAccountLevelConverter))]
     public OkxAccountLevel AccountLevel { get; set; }
 
     /// <summary>

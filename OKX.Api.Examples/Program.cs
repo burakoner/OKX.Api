@@ -15,26 +15,26 @@ internal class Program
         api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
         // Trading Account Methods (Signed)
-        var account_01 = await api.TradingAccount.GetAccountBalanceAsync();
-        var account_02 = await api.TradingAccount.GetAccountPositionsAsync();
-        var account_03 = await api.TradingAccount.GetAccountPositionsHistoryAsync();
-        var account_04 = await api.TradingAccount.GetAccountPositionRiskAsync();
-        var account_05 = await api.TradingAccount.GetBillHistoryAsync();
-        var account_06 = await api.TradingAccount.GetBillArchiveAsync();
-        var account_07 = await api.TradingAccount.GetAccountConfigurationAsync();
-        var account_08 = await api.TradingAccount.SetAccountPositionModeAsync(OkxPositionMode.LongShortMode);
-        var account_09 = await api.TradingAccount.GetAccountLeverageAsync("BTC-USD-211008", OkxMarginMode.Isolated);
-        var account_10 = await api.TradingAccount.SetAccountLeverageAsync(30, null, "BTC-USD-211008", OkxMarginMode.Isolated, OkxPositionSide.Long);
-        var account_11 = await api.TradingAccount.GetMaximumAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
-        var account_12 = await api.TradingAccount.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
-        var account_13 = await api.TradingAccount.SetMarginAmountAsync("BTC-USDT", OkxPositionSide.Long, OkxMarginAddReduce.Add, 100.0m);
-        var account_14 = await api.TradingAccount.GetMaximumLoanAmountAsync("BTC-USDT", OkxMarginMode.Cross);
-        var account_15 = await api.TradingAccount.GetFeeRatesAsync(OkxInstrumentType.Spot);
-        var account_16 = await api.TradingAccount.GetFeeRatesAsync(OkxInstrumentType.Futures);
-        var account_17 = await api.TradingAccount.GetInterestAccruedAsync();
-        var account_18 = await api.TradingAccount.GetInterestRateAsync();
-        var account_19 = await api.TradingAccount.SetGreeksAsync(OkxGreeksType.GreeksInCoins);
-        var account_20 = await api.TradingAccount.GetMaximumWithdrawalsAsync();
+        var account_01 = await api.Account.GetAccountBalanceAsync();
+        var account_02 = await api.Account.GetAccountPositionsAsync();
+        var account_03 = await api.Account.GetAccountPositionsHistoryAsync();
+        var account_04 = await api.Account.GetAccountPositionRiskAsync();
+        var account_05 = await api.Account.GetBillHistoryAsync();
+        var account_06 = await api.Account.GetBillArchiveAsync();
+        var account_07 = await api.Account.GetAccountConfigurationAsync();
+        var account_08 = await api.Account.SetAccountPositionModeAsync(OkxPositionMode.LongShortMode);
+        var account_09 = await api.Account.GetAccountLeverageAsync("BTC-USD-211008", OkxMarginMode.Isolated);
+        var account_10 = await api.Account.SetAccountLeverageAsync(30, null, "BTC-USD-211008", OkxMarginMode.Isolated, OkxPositionSide.Long);
+        var account_11 = await api.Account.GetMaximumAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
+        var account_12 = await api.Account.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
+        var account_13 = await api.Account.SetMarginAmountAsync("BTC-USDT", OkxPositionSide.Long, OkxMarginAddReduce.Add, 100.0m);
+        var account_14 = await api.Account.GetMaximumLoanAmountAsync("BTC-USDT", OkxMarginMode.Cross);
+        var account_15 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Spot);
+        var account_16 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Futures);
+        var account_17 = await api.Account.GetInterestAccruedAsync();
+        var account_18 = await api.Account.GetInterestRateAsync();
+        var account_19 = await api.Account.SetGreeksAsync(OkxGreeksType.GreeksInCoins);
+        var account_20 = await api.Account.GetMaximumWithdrawalsAsync();
 
         // OrderBookTrading.Trade Methods (Signed)
         var trade_01 = await api.OrderBookTrading.Trade.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxOrderSide.Buy, OkxPositionSide.Long, OkxOrderType.MarketOrder, 0.1m);
@@ -161,39 +161,39 @@ internal class Program
         // TODO: SpreadTrading Methods (Signed)
 
         // PublicData Methods (Unsigned)
-        var public_01 = await api.PublicData.GetInstrumentsAsync(OkxInstrumentType.Spot);
-        var public_02 = await api.PublicData.GetInstrumentsAsync(OkxInstrumentType.Margin);
-        var public_03 = await api.PublicData.GetInstrumentsAsync(OkxInstrumentType.Swap, instrumentId: "BTC-USDT-SWAP");
-        var public_04 = await api.PublicData.GetInstrumentsAsync(OkxInstrumentType.Futures);
-        var public_05 = await api.PublicData.GetInstrumentsAsync(OkxInstrumentType.Option, "USD");
-        var public_06 = await api.PublicData.GetInstrumentsAsync(OkxInstrumentType.Swap, instrumentId: "BTC-USDT-SWAP", signed: true);
-        var public_07 = await api.PublicData.GetDeliveryExerciseHistoryAsync(OkxInstrumentType.Futures, "BTC-USD");
-        var public_08 = await api.PublicData.GetDeliveryExerciseHistoryAsync(OkxInstrumentType.Option, "BTC-USD");
-        var public_09 = await api.PublicData.GetOpenInterestsAsync(OkxInstrumentType.Futures);
-        var public_10 = await api.PublicData.GetOpenInterestsAsync(OkxInstrumentType.Option, "BTC-USD");
-        var public_11 = await api.PublicData.GetOpenInterestsAsync(OkxInstrumentType.Swap, "BTC-USD");
-        var public_12 = await api.PublicData.GetFundingRatesAsync("BTC-USD-SWAP");
-        var public_13 = await api.PublicData.GetFundingRateHistoryAsync("BTC-USD-SWAP");
-        var public_14 = await api.PublicData.GetLimitPriceAsync("BTC-USD-SWAP");
-        var public_15 = await api.PublicData.GetOptionMarketDataAsync("BTC-USD");
-        var public_16 = await api.PublicData.GetEstimatedPriceAsync("BTC-USD-211004-41000-C");
-        var public_17 = await api.PublicData.GetDiscountInfoAsync();
-        var public_18 = await api.PublicData.GetServerTimeAsync();
-        var public_19 = await api.PublicData.GetMarkPricesAsync(OkxInstrumentType.Futures);
-        var public_20 = await api.PublicData.GetPositionTiersAsync(OkxInstrumentType.Futures, OkxMarginMode.Isolated, "BTC-USD");
-        var public_21 = await api.PublicData.GetInterestRatesAsync();
-        var public_22 = await api.PublicData.GetVIPInterestRatesAsync();
-        var public_23 = await api.PublicData.GetUnderlyingAsync(OkxInstrumentType.Futures);
-        var public_24 = await api.PublicData.GetUnderlyingAsync(OkxInstrumentType.Option);
-        var public_25 = await api.PublicData.GetUnderlyingAsync(OkxInstrumentType.Swap);
-        var public_26 = await api.PublicData.GetInsuranceFundAsync(OkxInstrumentType.Margin, currency: "BTC");
-        var public_27 = await api.PublicData.UnitConvertAsync("BTC-USD-SWAP", price: 35000, size: 0.888m);
-        var public_28 = await api.PublicData.GetIndexTickersAsync(instrumentId: "BTC-USDT");
-        var public_29 = await api.PublicData.GetIndexCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);
-        var public_30 = await api.PublicData.GetMarkPriceCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);
-        var public_31 = await api.PublicData.GetOracleAsync();
-        var public_32 = await api.PublicData.GetExchangeRatesAsync();
-        var public_33 = await api.PublicData.GetIndexComponentsAsync("BTC-USDT");
+        var public_01 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Spot);
+        var public_02 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Margin);
+        var public_03 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Swap, instrumentId: "BTC-USDT-SWAP");
+        var public_04 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Futures);
+        var public_05 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Option, "USD");
+        var public_06 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Swap, instrumentId: "BTC-USDT-SWAP", signed: true);
+        var public_07 = await api.Public.GetDeliveryExerciseHistoryAsync(OkxInstrumentType.Futures, "BTC-USD");
+        var public_08 = await api.Public.GetDeliveryExerciseHistoryAsync(OkxInstrumentType.Option, "BTC-USD");
+        var public_09 = await api.Public.GetOpenInterestsAsync(OkxInstrumentType.Futures);
+        var public_10 = await api.Public.GetOpenInterestsAsync(OkxInstrumentType.Option, "BTC-USD");
+        var public_11 = await api.Public.GetOpenInterestsAsync(OkxInstrumentType.Swap, "BTC-USD");
+        var public_12 = await api.Public.GetFundingRatesAsync("BTC-USD-SWAP");
+        var public_13 = await api.Public.GetFundingRateHistoryAsync("BTC-USD-SWAP");
+        var public_14 = await api.Public.GetLimitPriceAsync("BTC-USD-SWAP");
+        var public_15 = await api.Public.GetOptionMarketDataAsync("BTC-USD");
+        var public_16 = await api.Public.GetEstimatedPriceAsync("BTC-USD-211004-41000-C");
+        var public_17 = await api.Public.GetDiscountInfoAsync();
+        var public_18 = await api.Public.GetServerTimeAsync();
+        var public_19 = await api.Public.GetMarkPricesAsync(OkxInstrumentType.Futures);
+        var public_20 = await api.Public.GetPositionTiersAsync(OkxInstrumentType.Futures, OkxMarginMode.Isolated, "BTC-USD");
+        var public_21 = await api.Public.GetInterestRatesAsync();
+        var public_22 = await api.Public.GetVIPInterestRatesAsync();
+        var public_23 = await api.Public.GetUnderlyingAsync(OkxInstrumentType.Futures);
+        var public_24 = await api.Public.GetUnderlyingAsync(OkxInstrumentType.Option);
+        var public_25 = await api.Public.GetUnderlyingAsync(OkxInstrumentType.Swap);
+        var public_26 = await api.Public.GetInsuranceFundAsync(OkxInstrumentType.Margin, currency: "BTC");
+        var public_27 = await api.Public.UnitConvertAsync("BTC-USD-SWAP", price: 35000, size: 0.888m);
+        var public_28 = await api.Public.GetIndexTickersAsync(instrumentId: "BTC-USDT");
+        var public_29 = await api.Public.GetIndexCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);
+        var public_30 = await api.Public.GetMarkPriceCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);
+        var public_31 = await api.Public.GetOracleAsync();
+        var public_32 = await api.Public.GetExchangeRatesAsync();
+        var public_33 = await api.Public.GetIndexComponentsAsync("BTC-USDT");
 
         // TradingStatistics Methods (Unsigned)
         var rubik_01 = await api.TradingStatistics.GetSupportCoinAsync();
@@ -239,21 +239,21 @@ internal class Program
         ws.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
         // TradingAccount Updates (Private)
-        await ws.TradingAccount.SubscribeToAccountUpdatesAsync((data) =>
+        await ws.Account.SubscribeToAccountUpdatesAsync((data) =>
         {
             if (data != null)
             {
                 // ... Your logic here
             }
         });
-        await ws.TradingAccount.SubscribeToPositionUpdatesAsync((data) =>
+        await ws.Account.SubscribeToPositionUpdatesAsync((data) =>
         {
             if (data != null)
             {
                 // ... Your logic here
             }
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
-        await ws.TradingAccount.SubscribeToBalanceAndPositionUpdatesAsync((data) =>
+        await ws.Account.SubscribeToBalanceAndPositionUpdatesAsync((data) =>
         {
             if (data != null)
             {
@@ -342,7 +342,7 @@ internal class Program
         // TODO: SpreadTrading Updates (Private)
 
         // PublicData Updates (Public)
-        await ws.PublicData.SubscribeToInstrumentsAsync((data) =>
+        await ws.Public.SubscribeToInstrumentsAsync((data) =>
         {
             if (data != null)
             {
@@ -352,7 +352,7 @@ internal class Program
         }, OkxInstrumentType.Spot);
         foreach (var pair in sample_pairs)
         {
-            await ws.PublicData.SubscribeToOpenInterestsAsync((data) =>
+            await ws.Public.SubscribeToOpenInterestsAsync((data) =>
             {
                 if (data != null)
                 {
@@ -362,7 +362,7 @@ internal class Program
         }
         foreach (var pair in sample_pairs)
         {
-            await ws.PublicData.SubscribeToFundingRatesAsync((data) =>
+            await ws.Public.SubscribeToFundingRatesAsync((data) =>
             {
                 if (data != null)
                 {
@@ -372,7 +372,7 @@ internal class Program
         }
         foreach (var pair in sample_pairs)
         {
-            await ws.PublicData.SubscribeToPriceLimitAsync((data) =>
+            await ws.Public.SubscribeToPriceLimitAsync((data) =>
             {
                 if (data != null)
                 {
@@ -380,7 +380,7 @@ internal class Program
                 }
             }, pair);
         }
-        await ws.PublicData.SubscribeToOptionSummaryAsync((data) =>
+        await ws.Public.SubscribeToOptionSummaryAsync((data) =>
         {
             if (data != null)
             {
@@ -389,7 +389,7 @@ internal class Program
         }, "USD");
         foreach (var pair in sample_pairs)
         {
-            await ws.PublicData.SubscribeToEstimatedPriceAsync((data) =>
+            await ws.Public.SubscribeToEstimatedPriceAsync((data) =>
             {
                 if (data != null)
                 {
@@ -399,7 +399,7 @@ internal class Program
         }
         foreach (var pair in sample_pairs)
         {
-            await ws.PublicData.SubscribeToMarkPriceAsync((data) =>
+            await ws.Public.SubscribeToMarkPriceAsync((data) =>
             {
                 if (data != null)
                 {
@@ -409,7 +409,7 @@ internal class Program
         }
         foreach (var pair in sample_pairs)
         {
-            await ws.PublicData.SubscribeToIndexTickersAsync((data) =>
+            await ws.Public.SubscribeToIndexTickersAsync((data) =>
             {
                 if (data != null)
                 {
@@ -419,7 +419,7 @@ internal class Program
         }
         foreach (var pair in sample_pairs)
         {
-            await ws.PublicData.SubscribeToMarkPriceCandlesticksAsync((data) =>
+            await ws.Public.SubscribeToMarkPriceCandlesticksAsync((data) =>
             {
                 if (data != null)
                 {
@@ -429,7 +429,7 @@ internal class Program
         }
         foreach (var pair in sample_pairs)
         {
-            await ws.PublicData.SubscribeToIndexCandlesticksAsync((data) =>
+            await ws.Public.SubscribeToIndexCandlesticksAsync((data) =>
             {
                 if (data != null)
                 {

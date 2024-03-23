@@ -10,7 +10,7 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// <summary>
     /// Trading Account Client
     /// </summary>
-    public OkxAccountSocketClient TradingAccount { get; }
+    public OkxAccountSocketClient Account { get; }
 
     /// <summary>
     /// OrderBook Trading Client
@@ -30,7 +30,7 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// <summary>
     /// PublicData Client
     /// </summary>
-    public OKXWebSocketApiPublicClient PublicData { get; }
+    public OKXWebSocketApiPublicClient Public { get; }
 
     /// <summary>
     /// Trading Statistics Client
@@ -79,8 +79,8 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// <param name="options">Options</param>
     public OKXWebSocketApiClient(ILogger logger, OKXWebSocketApiOptions options) : base(logger, options)
     {
-        this.PublicData = new OKXWebSocketApiPublicClient(this);
-        this.TradingAccount = new OkxAccountSocketClient(this);
+        this.Public = new OKXWebSocketApiPublicClient(this);
+        this.Account = new OkxAccountSocketClient(this);
         this.OrderBookTrading = new OKXWebSocketApiOrderBookTradingClient(this);
         this.BlockTrading = new OKXWebSocketApiBlockTradingClient(this);
         this.SpreadTrading = new OKXWebSocketApiSpreadTradingClient(this);

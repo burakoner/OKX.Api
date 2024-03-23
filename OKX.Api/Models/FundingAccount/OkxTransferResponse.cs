@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Models.FundingAccount;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+
+namespace OKX.Api.Models.FundingAccount;
 
 public class OkxTransferResponse
 {
@@ -14,9 +17,9 @@ public class OkxTransferResponse
     [JsonProperty("amt")]
     public decimal Amount { get; set; }
 
-    [JsonProperty("from"), JsonConverter(typeof(AccountConverter))]
+    [JsonProperty("from"), JsonConverter(typeof(OkxAccountConverter))]
     public OkxAccount? From { get; set; }
 
-    [JsonProperty("to"), JsonConverter(typeof(AccountConverter))]
+    [JsonProperty("to"), JsonConverter(typeof(OkxAccountConverter))]
     public OkxAccount? To { get; set; }
 }

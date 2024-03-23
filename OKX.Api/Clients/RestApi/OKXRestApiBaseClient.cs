@@ -62,7 +62,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
 
     /// <inheritdoc />
     protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync()
-        => RootClient.PublicData.GetServerTimeAsync();
+        => RootClient.Public.GetServerTimeAsync();
 
     /// <inheritdoc />
     protected override TimeSyncInfo GetTimeSyncInfo()
@@ -103,7 +103,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
         SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
     }
 
-    internal async Task<RestCallResult<T>> SendRawRequest<T>(
+    internal async Task<RestCallResult<T>> SendRawRequestAsync<T>(
         Uri uri, 
         HttpMethod method, 
         CancellationToken cancellationToken, 
@@ -121,7 +121,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
         return await SendRequestAsync<T>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
     }
 
-    internal async Task<RestCallResult<List<T>>> ProcessListRequest<T>(
+    internal async Task<RestCallResult<List<T>>> ProcessListRequestAsync<T>(
         Uri uri, 
         HttpMethod method, 
         CancellationToken cancellationToken, 
@@ -142,7 +142,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
         return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
     
-    internal async Task<RestCallResult<T>> ProcessArrayModelRequest<T>(
+    internal async Task<RestCallResult<T>> ProcessArrayModelRequestAsync<T>(
         Uri uri, 
         HttpMethod method, 
         CancellationToken cancellationToken, 
@@ -163,7 +163,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
-    internal async Task<RestCallResult<T>> ProcessFirstOrDefaultRequest<T>(
+    internal async Task<RestCallResult<T>> ProcessFirstOrDefaultRequestAsync<T>(
         Uri uri, 
         HttpMethod method, 
         CancellationToken cancellationToken, 
@@ -184,7 +184,7 @@ public abstract class OKXRestApiBaseClient : RestApiClient
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data.FirstOrDefault(), result.Raw, result.Error);
     }
     
-    internal async Task<RestCallResult<T>> ProcessModelRequest<T>(
+    internal async Task<RestCallResult<T>> ProcessModelRequestAsync<T>(
         Uri uri, 
         HttpMethod method, 
         CancellationToken cancellationToken, 

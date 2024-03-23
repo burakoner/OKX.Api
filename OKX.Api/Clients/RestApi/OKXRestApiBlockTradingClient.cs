@@ -60,7 +60,7 @@ public class OKXRestApiBlockTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
-        return await ProcessListRequest<OkxBlockTicker>(GetUri(v5MarketBlockTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxBlockTicker>(GetUri(v5MarketBlockTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -78,7 +78,7 @@ public class OKXRestApiBlockTradingClient : OKXRestApiBaseClient
             { "instId", instrumentId },
         };
 
-        return await ProcessFirstOrDefaultRequest<OkxBlockTicker>(GetUri(v5MarketBlockTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequestAsync<OkxBlockTicker>(GetUri(v5MarketBlockTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ public class OKXRestApiBlockTradingClient : OKXRestApiBaseClient
             { "instId", instrumentId },
         };
 
-        return await ProcessListRequest<OkxBlockTrade>(GetUri(v5MarketBlockTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxBlockTrade>(GetUri(v5MarketBlockTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
     #endregion
 

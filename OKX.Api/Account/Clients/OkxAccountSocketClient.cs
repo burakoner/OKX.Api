@@ -22,9 +22,7 @@ public class OkxAccountSocketClient
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAccountUpdatesAsync(
-        Action<OkxAccountBalance> onData,
-        CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<OkxAccountBalance> onData, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountBalance>>>>(data =>
         {
@@ -48,13 +46,8 @@ public class OkxAccountSocketClient
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(
-        Action<OkxPosition> onData,
-        OkxInstrumentType instrumentType,
-        string instrumentFamily = null,
-        string instrumentId = null,
-        CancellationToken ct = default)
-        => await SubscribeToPositionUpdatesAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxPosition> onData, OkxInstrumentType instrumentType, string instrumentFamily = null, string instrumentId = null, CancellationToken ct = default)
+        => await SubscribeToPositionUpdatesAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve position information. Initial snapshot will be pushed according to subscription granularity. Data will be pushed when triggered by events such as placing/canceling order, and will also be pushed in regular interval according to subscription granularity.
@@ -63,10 +56,7 @@ public class OkxAccountSocketClient
     /// <param name="symbols">Symbols to subscribe</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(
-        Action<OkxPosition> onData,
-        IEnumerable<OkxSocketSymbolRequest> symbols,
-        CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxPosition> onData, IEnumerable<OkxSocketSymbolRequest> symbols, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPosition>>>>(data =>
         {
@@ -92,9 +82,7 @@ public class OkxAccountSocketClient
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToBalanceAndPositionUpdatesAsync(
-        Action<OkxPositionRisk> onData,
-        CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToBalanceAndPositionUpdatesAsync(Action<OkxPositionRisk> onData, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPositionRisk>>>>(data =>
         {

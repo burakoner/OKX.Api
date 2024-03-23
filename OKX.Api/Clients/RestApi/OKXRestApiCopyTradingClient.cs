@@ -37,7 +37,7 @@ public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instId", instrumentId);
 
-        return await ProcessListRequest<OkxLeadingPosition>(GetUri(v5CopyTradingCurrentSubpositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxLeadingPosition>(GetUri(v5CopyTradingCurrentSubpositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -63,7 +63,7 @@ public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequest<OkxLeadingPositionHistory>(GetUri(v5CopyTradingSubpositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxLeadingPositionHistory>(GetUri(v5CopyTradingSubpositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -93,7 +93,7 @@ public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(takeProfitTriggerPriceType, new AlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(stopLossTriggerPriceType, new AlgoPriceTypeConverter(false)));
 
-        return await ProcessFirstOrDefaultRequest<OkxLeadingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequestAsync<OkxLeadingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
             { "subPosId", leadingPositionId },
         };
 
-        return await ProcessFirstOrDefaultRequest<OkxLeadingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessFirstOrDefaultRequestAsync<OkxLeadingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -123,7 +123,7 @@ public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
     public async Task<RestCallResult<List<OkxLeadingInstrument>>> GetLeadingInstrumentsAsync(
         CancellationToken ct = default)
     {
-        return await ProcessListRequest<OkxLeadingInstrument>(GetUri(v5CopyTradingInstruments), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxLeadingInstrument>(GetUri(v5CopyTradingInstruments), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
             { "instId", string.Join(",", instrumentIds) },
         };
 
-        return await ProcessListRequest<OkxLeadingInstrument>(GetUri(v5CopyTradingSetInstruments), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxLeadingInstrument>(GetUri(v5CopyTradingSetInstruments), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -164,7 +164,7 @@ public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequest<OkxProfitSharingDetails>(GetUri(v5CopyTradingProfitSharingDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxProfitSharingDetails>(GetUri(v5CopyTradingProfitSharingDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -175,7 +175,7 @@ public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
     public async Task<RestCallResult<List<OkxProfitSharingTotal>>> GetTotalProfitSharingAsync(
         CancellationToken ct = default)
     {
-        return await ProcessListRequest<OkxProfitSharingTotal>(GetUri(v5CopyTradingTotalProfitSharing), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxProfitSharingTotal>(GetUri(v5CopyTradingTotalProfitSharing), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -187,7 +187,7 @@ public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
     public async Task<RestCallResult<List<OkxProfitSharingUnrealized>>> GetUnrealizedProfitSharingDetailsAsync(
         CancellationToken ct = default)
     {
-        return await ProcessListRequest<OkxProfitSharingUnrealized>(GetUri(v5CopyTradingUnrealizedProfitSharingDetails), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxProfitSharingUnrealized>(GetUri(v5CopyTradingUnrealizedProfitSharingDetails), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
     }
     #endregion
 

@@ -1,9 +1,11 @@
-﻿namespace OKX.Api.Converters;
+﻿using OKX.Api.Account.Enums;
 
-internal class AccountConverter : BaseConverter<OkxAccount>
+namespace OKX.Api.Account.Converters;
+
+internal class OkxAccountConverter : BaseConverter<OkxAccount>
 {
-    public AccountConverter() : this(true) { }
-    public AccountConverter(bool quotes) : base(quotes) { }
+    public OkxAccountConverter() : this(true) { }
+    public OkxAccountConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxAccount, string>> Mapping => new()
     {

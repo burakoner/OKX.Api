@@ -47,7 +47,7 @@ public class OKXWebSocketApiOrderBookTradingClient
         GridTrading = new  OKXWebSocketApiGridTradingClient(root);
         RecurringBuy = new  OKXWebSocketApiRecurringBuyClient(root);
         CopyTrading = new  OKXWebSocketApiCopyTradingClient(root);
-        MarketData = root.PublicData;
+        MarketData = root.Public;
     }
 
 }

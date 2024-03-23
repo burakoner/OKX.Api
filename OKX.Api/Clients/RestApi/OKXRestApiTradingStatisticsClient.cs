@@ -33,7 +33,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     /// <returns></returns>
     public async Task<RestCallResult<OkxSupportCoins>> GetSupportCoinAsync(CancellationToken ct = default)
     {
-        return await ProcessModelRequest<OkxSupportCoins>(GetUri(v5RubikStatTradingDataSupportCoin), HttpMethod.Get, ct).ConfigureAwait(false);
+        return await ProcessModelRequestAsync<OkxSupportCoins>(GetUri(v5RubikStatTradingDataSupportCoin), HttpMethod.Get, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
         parameters.AddOptionalParameter("end", end?.ToOkxString());
 
-        return await ProcessListRequest<OkxTakerVolume>(GetUri(v5RubikStatTakerVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxTakerVolume>(GetUri(v5RubikStatTakerVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
         parameters.AddOptionalParameter("end", end?.ToOkxString());
 
-        return await ProcessListRequest<OkxRatio>(GetUri(v5RubikStatMarginLoanRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxRatio>(GetUri(v5RubikStatMarginLoanRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
         parameters.AddOptionalParameter("end", end?.ToOkxString());
 
-        return await ProcessListRequest<OkxRatio>(GetUri(v5RubikStatContractsLongShortAccountRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxRatio>(GetUri(v5RubikStatContractsLongShortAccountRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
         parameters.AddOptionalParameter("end", end?.ToOkxString());
 
-        return await ProcessListRequest<OkxInterestVolume>(GetUri(v5RubikStatContractsOpenInterestVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxInterestVolume>(GetUri(v5RubikStatContractsOpenInterestVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
         };
         parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new PeriodConverter(false)));
 
-        return await ProcessListRequest<OkxInterestVolume>(GetUri(v5RubikStatOptionOpenInterestVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxInterestVolume>(GetUri(v5RubikStatOptionOpenInterestVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -180,7 +180,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
         };
         parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new PeriodConverter(false)));
 
-        return await ProcessListRequest<OkxPutCallRatio>(GetUri(v5RubikStatOptionOpenInterestVolumeRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxPutCallRatio>(GetUri(v5RubikStatOptionOpenInterestVolumeRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
         };
         parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new PeriodConverter(false)));
 
-        return await ProcessListRequest<OkxInterestVolumeExpiry>(GetUri(v5RubikStatOptionOpenInterestVolumeExpiry), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxInterestVolumeExpiry>(GetUri(v5RubikStatOptionOpenInterestVolumeExpiry), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -223,7 +223,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
         };
         parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new PeriodConverter(false)));
 
-        return await ProcessListRequest<OkxInterestVolumeStrike>(GetUri(v5RubikStatOptionOpenInterestVolumeStrike), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessListRequestAsync<OkxInterestVolumeStrike>(GetUri(v5RubikStatOptionOpenInterestVolumeStrike), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -243,7 +243,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
         };
         parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new PeriodConverter(false)));
 
-        return await ProcessArrayModelRequest<OkxTakerFlow>(GetUri(v5RubikStatOptionTakerBlockVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessArrayModelRequestAsync<OkxTakerFlow>(GetUri(v5RubikStatOptionTakerBlockVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
     #endregion
 
