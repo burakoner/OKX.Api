@@ -8,9 +8,9 @@ namespace OKX.Api.Clients.WebSocketApi;
 public class OKXWebSocketApiSystemClient
 {
     // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
+    internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiSystemClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiSystemClient(OkxSocketApiClient root)
     {
         this.RootClient = root;
     }

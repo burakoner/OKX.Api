@@ -5,7 +5,7 @@
 /// </summary>
 public class OKXRestApiAffiliateClient : OKXRestApiBaseClient
 {
-    internal OKXRestApiAffiliateClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiAffiliateClient(OkxRestApiClient root) : base(root)
     {
     }
 

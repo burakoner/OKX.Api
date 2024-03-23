@@ -15,7 +15,7 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
     public override void AuthenticateRestApi(RestApiClient apiClient, Uri uri, HttpMethod method, bool signed, ArraySerialization serialization, SortedDictionary<string, object> query, SortedDictionary<string, object> body, string bodyContent, SortedDictionary<string, string> headers)
     {
         // Options
-        var options = (OKXRestApiOptions)apiClient.ClientOptions;
+        var options = (OkxRestApiOptions)apiClient.ClientOptions;
         var credentials = (OkxApiCredentials)Credentials;
 
         // Check Point

@@ -13,7 +13,7 @@ public class OKXRestApiSavingsClient : OKXRestApiBaseClient
     // TODO: api/v5/finance/savings/lending-rate-summary
     // TODO: api/v5/finance/savings/lending-rate-history
 
-    internal OKXRestApiSavingsClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiSavingsClient(OkxRestApiClient root) : base(root)
     {
     }
 

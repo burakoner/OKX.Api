@@ -31,7 +31,7 @@ public class OKXRestApiNonDisclosedBrokerClient : OKXRestApiBaseClient
     // TODO: api/v5/finance/sfp/dcd/orders
     // TODO: api/v5/broker/nd/set-subaccount-assets
 
-    internal OKXRestApiNonDisclosedBrokerClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiNonDisclosedBrokerClient(OkxRestApiClient root) : base(root)
     {
     }
 

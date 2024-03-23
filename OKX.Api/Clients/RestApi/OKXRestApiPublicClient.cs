@@ -50,7 +50,7 @@ public class OKXRestApiPublicClient : OKXRestApiBaseClient
     private const string v5PublicOptionTrades = "api/v5/public/option-trades";
     private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
 
-    internal OKXRestApiPublicClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiPublicClient(OkxRestApiClient root) : base(root)
     {
     }
 

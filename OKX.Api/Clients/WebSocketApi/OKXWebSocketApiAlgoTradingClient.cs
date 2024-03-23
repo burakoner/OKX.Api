@@ -9,9 +9,9 @@ namespace OKX.Api.Clients.WebSocketApi;
 public class OKXWebSocketApiAlgoTradingClient
 {
     // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
+    internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiAlgoTradingClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiAlgoTradingClient(OkxSocketApiClient root)
     {
         this.RootClient = root;
     }

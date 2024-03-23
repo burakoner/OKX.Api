@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxLeverageEstimatedInfo
 /// </summary>
-public class OkxLeverageEstimatedInfo
+public class OkxLeverageEstimatedInformation
 {
     /// <summary>
     /// The estimated margin(in quote currency) can be transferred out under the corresponding leverage

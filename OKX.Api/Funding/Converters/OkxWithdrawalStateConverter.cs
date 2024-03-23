@@ -2,10 +2,10 @@
 
 namespace OKX.Api.Funding.Converters;
 
-internal class WithdrawalStateConverter : BaseConverter<OkxWithdrawalState>
+internal class OkxWithdrawalStateConverter : BaseConverter<OkxWithdrawalState>
 {
-    public WithdrawalStateConverter() : this(true) { }
-    public WithdrawalStateConverter(bool quotes) : base(quotes) { }
+    public OkxWithdrawalStateConverter() : this(true) { }
+    public OkxWithdrawalStateConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxWithdrawalState, string>> Mapping =>
     [

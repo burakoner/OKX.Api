@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Models.SubAccount;
+﻿namespace OKX.Api.SubAccount.Models;
 
 public class OkxSubAccountName
 {

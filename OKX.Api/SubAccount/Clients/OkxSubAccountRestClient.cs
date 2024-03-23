@@ -1,29 +1,29 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Models.SubAccount;
+﻿using OKX.Api.SubAccount.Converters;
+using OKX.Api.SubAccount.Enums;
+using OKX.Api.SubAccount.Models;
 
-namespace OKX.Api.Clients.RestApi;
+namespace OKX.Api.SubAccount.Clients;
 
 /// <summary>
 /// OKX Rest Api Sub Account Client
 /// </summary>
-public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
+public class OkxSubAccountRestClient : OKXRestApiBaseClient
 {
     // Endpoints
     private const string v5UsersSubaccountList = "api/v5/users/subaccount/list";
     private const string v5UsersSubaccountResetApiKey = "api/v5/users/subaccount/modify-apikey";
     private const string v5UsersSubaccountTradingBalances = "api/v5/account/subaccount/balances";
     private const string v5UsersSubaccountFundingBalances = "api/v5/asset/subaccount/balances";
-    // TODO: api/v5/account/subaccount/max-withdrawal
+    private const string v5AccountSubaccountMaxWithdrawal = "api/v5/account/subaccount/max-withdrawal";
     private const string v5UsersSubaccountBills = "api/v5/asset/subaccount/bills";
-    // TODO: api/v5/asset/subaccount/managed-subaccount-bills
+    private const string v5AssetSubaccountManagedSubaccountBills = "api/v5/asset/subaccount/managed-subaccount-bills";
     private const string v5UsersSubaccountTransfer = "api/v5/asset/subaccount/transfer";
     // TODO: api/v5/users/subaccount/set-transfer-out
     // TODO: api/v5/users/entrust-subaccount-list
-    // TODO: api/v5/users/partner/if-rebate
     // TODO: api/v5/account/subaccount/set-loan-allocation
     // TODO: api/v5/account/subaccount/interest-limits
 
-    internal OKXRestApiSubAccountClient(OKXRestApiClient root) : base(root)
+    internal OkxSubAccountRestClient(OkxRestApiClient root) : base(root)
     {
     }
 
@@ -38,7 +38,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxSubAccount>>> GetSubAccountsAsync(
+    public Task<RestCallResult<List<OkxSubAccount>>> GetSubAccountsAsync(
         bool? enable = null,
         string subAccountName = null,
         long? after = null,
@@ -54,7 +54,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequestAsync<OkxSubAccount>(GetUri(v5UsersSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return ProcessListRequestAsync<OkxSubAccount>(GetUri(v5UsersSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="ipAddresses">Link IP addresses, separate with commas if more than one. Support up to 20 IP addresses.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxSubAccountApiKey>> ResetSubAccountApiKeyAsync(
+    public Task<RestCallResult<OkxSubAccountApiKey>> ResetSubAccountApiKeyAsync(
         string subAccountName,
         string apiKey,
         string apiLabel = null,
@@ -91,7 +91,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
         if (permissions.Count > 0)
             parameters.AddOptionalParameter("perm", string.Join(",", permissions));
 
-        return await ProcessFirstOrDefaultRequestAsync<OkxSubAccountApiKey>(GetUri(v5UsersSubaccountResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return ProcessFirstOrDefaultRequestAsync<OkxSubAccountApiKey>(GetUri(v5UsersSubaccountResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -100,7 +100,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="subAccountName">Sub Account Name</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxSubAccountTradingBalance>> GetSubAccountTradingBalancesAsync(
+    public Task<RestCallResult<OkxSubAccountTradingBalance>> GetSubAccountTradingBalancesAsync(
         string subAccountName,
         CancellationToken ct = default)
     {
@@ -109,7 +109,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
             {"subAcct", subAccountName },
         };
 
-        return await ProcessFirstOrDefaultRequestAsync<OkxSubAccountTradingBalance>(GetUri(v5UsersSubaccountTradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return ProcessFirstOrDefaultRequestAsync<OkxSubAccountTradingBalance>(GetUri(v5UsersSubaccountTradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -120,7 +120,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="currency">Single currency or multiple currencies (no more than 20) separated with comma, e.g. BTC or BTC,ETH.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxSubAccountFundingBalance>> GetSubAccountFundingBalancesAsync(
+    public Task<RestCallResult<OkxSubAccountFundingBalance>> GetSubAccountFundingBalancesAsync(
         string subAccountName,
         string currency = null,
         CancellationToken ct = default)
@@ -132,10 +132,23 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
 
         parameters.AddOptionalParameter("ccy", currency);
 
-        return await ProcessFirstOrDefaultRequestAsync<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return ProcessFirstOrDefaultRequestAsync<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    // TODO: Get sub-account maximum withdrawals
+    public Task<RestCallResult<List<OkxSubAccountMaximumWithdrawal>>> GetSubAccountMaximumWithdrawalsAsync(
+    string subAccountName,
+    string currency = null,
+    CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "subAcct", subAccountName },
+        };
+
+        parameters.AddOptionalParameter("ccy", currency);
+
+        return ProcessListRequestAsync<OkxSubAccountMaximumWithdrawal>(GetUri(v5AccountSubaccountMaxWithdrawal), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
 
     /// <summary>
     /// applies to master accounts only
@@ -148,7 +161,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxSubAccountBill>>> GetSubAccountBillsAsync(
+    public Task<RestCallResult<List<OkxSubAccountBill>>> GetSubAccountBillsAsync(
         string subAccountName = null,
         string currency = null,
         OkxSubAccountTransferType? type = null,
@@ -161,15 +174,36 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("subAcct", subAccountName);
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new SubAccountTransferTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxSubAccountTransferTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequestAsync<OkxSubAccountBill>(GetUri(v5UsersSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return ProcessListRequestAsync<OkxSubAccountBill>(GetUri(v5UsersSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    // TODO: Get history of managed sub-account transfer
+    public Task<RestCallResult<List<OkxManagedSubAccountBill>>> GetManagedSubAccountBillsAsync(
+    string currency = null,
+    OkxSubAccountTransferType? type = null,
+    string subAccountName = null,
+    long? subAccountId = null,
+    long? after = null,
+    long? before = null,
+    int limit = 100,
+    CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxSubAccountTransferTypeConverter(false)));
+        parameters.AddOptionalParameter("subAcct", subAccountName);
+        parameters.AddOptionalParameter("subUid", subAccountId?.ToOkxString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxManagedSubAccountBill>(GetUri(v5AssetSubaccountManagedSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
 
     /// <summary>
     /// applies to master accounts only
@@ -184,7 +218,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
     /// <param name="omitPosRisk">Ignore position risk. Default is false. Applicable to Portfolio margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxSubAccountTransfer>> TransferBetweenSubAccountsAsync(
+    public Task<RestCallResult<OkxSubAccountTransfer>> TransferBetweenSubAccountsAsync(
         string currency,
         decimal amount,
         OkxAccount fromAccount,
@@ -207,7 +241,7 @@ public class OKXRestApiSubAccountClient : OKXRestApiBaseClient
         parameters.AddOptionalParameter("loanTrans", loanTrans);
         parameters.AddOptionalParameter("omitPosRisk", omitPosRisk);
 
-        return await ProcessFirstOrDefaultRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return ProcessFirstOrDefaultRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     #endregion
 

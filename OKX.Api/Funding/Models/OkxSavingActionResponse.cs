@@ -14,6 +14,6 @@ public class OkxSavingActionResponse
     [JsonProperty("rate")]
     public decimal? PurchaseRate { get; set; }
 
-    [JsonProperty("side"), JsonConverter(typeof(SavingActionSideConverter))]
+    [JsonProperty("side"), JsonConverter(typeof(OkxSavingActionSideConverter))]
     public OkxSavingActionSide Side { get; set; }
 }

@@ -6,9 +6,9 @@
 public class OKXWebSocketApiSavingsClient
 {
     // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
+    internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiSavingsClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiSavingsClient(OkxSocketApiClient root)
     {
         this.RootClient = root;
     }

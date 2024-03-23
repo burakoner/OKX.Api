@@ -19,7 +19,7 @@ public class OKXRestApiAlgoTradingClient : OKXRestApiBaseClient
     private const string v5TradeOrdersAlgoPending = "api/v5/trade/orders-algo-pending";
     private const string v5TradeOrdersAlgoHistory = "api/v5/trade/orders-algo-history";
 
-    internal OKXRestApiAlgoTradingClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiAlgoTradingClient(OkxRestApiClient root) : base(root)
     {
     }
 

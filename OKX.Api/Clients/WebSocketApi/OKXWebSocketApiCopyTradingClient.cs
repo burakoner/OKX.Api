@@ -6,9 +6,9 @@
 public class OKXWebSocketApiCopyTradingClient
 {
     // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
+    internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiCopyTradingClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiCopyTradingClient(OkxSocketApiClient root)
     {
         this.RootClient = root;
     }

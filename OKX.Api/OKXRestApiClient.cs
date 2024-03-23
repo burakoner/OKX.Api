@@ -1,12 +1,13 @@
 ﻿using OKX.Api.Account.Clients;
 using OKX.Api.Funding.Clients;
+using OKX.Api.SubAccount.Clients;
 
 namespace OKX.Api;
 
 /// <summary>
 /// OKX Rest API Client
 /// </summary>
-public sealed class OKXRestApiClient
+public sealed class OkxRestApiClient
 {
     /// <summary>
     /// Logger
@@ -16,7 +17,12 @@ public sealed class OKXRestApiClient
     /// <summary>
     /// Client Options
     /// </summary>
-    internal OKXRestApiOptions Options { get; }
+    internal OkxRestApiOptions Options { get; }
+    
+    /// <summary>
+    /// Public - Market Data Client
+    /// </summary>
+    public OKXRestApiPublicClient Public { get; }
 
     /// <summary>
     /// Trading Account Client
@@ -26,7 +32,12 @@ public sealed class OKXRestApiClient
     /// <summary>
     /// Funding Account Client
     /// </summary>
-    public OKXFundingRestClient Funding { get; }
+    public OkxFundingRestClient Funding { get; }
+    
+    /// <summary>
+    /// SubAccount Client
+    /// </summary>
+    public OkxSubAccountRestClient SubAccount { get; }
 
 
 
@@ -60,19 +71,9 @@ public sealed class OKXRestApiClient
     public OKXRestApiSpreadTradingClient SpreadTrading { get; }
 
     /// <summary>
-    /// PublicData Client
-    /// </summary>
-    public OKXRestApiPublicClient Public { get; }
-
-    /// <summary>
     /// Trading Statistics Client
     /// </summary>
     public OKXRestApiTradingStatisticsClient TradingStatistics { get; }
-
-    /// <summary>
-    /// SubAccount Client
-    /// </summary>
-    public OKXRestApiSubAccountClient SubAccount { get; }
 
     /// <summary>
     /// Financial Product Client
@@ -97,14 +98,14 @@ public sealed class OKXRestApiClient
     /// <summary>
     /// OKXRestApiClient Constructor
     /// </summary>
-    public OKXRestApiClient() : this(null, new OKXRestApiOptions())
+    public OkxRestApiClient() : this(null, new OkxRestApiOptions())
     {
     }
 
     /// <summary>
     /// OKXRestApiClient Constructor
     /// </summary>
-    public OKXRestApiClient(OKXRestApiOptions options) : this(null, options)
+    public OkxRestApiClient(OkxRestApiOptions options) : this(null, options)
     {
     }
 
@@ -113,14 +114,15 @@ public sealed class OKXRestApiClient
     /// </summary>
     /// <param name="logger">Logger</param>
     /// <param name="options">Options</param>
-    public OKXRestApiClient(ILogger logger, OKXRestApiOptions options)
+    public OkxRestApiClient(ILogger logger, OkxRestApiOptions options)
     {
         Options = options;
         Logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX Api");
 
         Public = new OKXRestApiPublicClient(this);
         Account = new OkxAccountRestClient(this);
-        Funding = new OKXFundingRestClient(this);
+        Funding = new OkxFundingRestClient(this);
+        SubAccount = new OkxSubAccountRestClient(this);
 
 
 
@@ -133,7 +135,6 @@ public sealed class OKXRestApiClient
         BlockTrading = new OKXRestApiBlockTradingClient(this);
         SpreadTrading = new OKXRestApiSpreadTradingClient(this);
         TradingStatistics = new OKXRestApiTradingStatisticsClient(this);
-        SubAccount = new OKXRestApiSubAccountClient(this);
         Affiliate = new OKXRestApiAffiliateClient(this);
         Status = new OKXRestApiStatusClient(this);
         Broker = new OKXRestApiBrokerClient(this);

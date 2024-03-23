@@ -15,7 +15,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// <summary>
     /// Client Options
     /// </summary>
-    internal OKXWebSocketApiOptions Options { get; }
+    internal OkxSocketApiOptions Options { get; }
 
     /// <summary>
     /// If Websocket is authendicated
@@ -25,7 +25,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// <summary>
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
-    internal OKXWebSocketApiBaseClient() : this(null, new OKXWebSocketApiOptions())
+    internal OKXWebSocketApiBaseClient() : this(null, new OkxSocketApiOptions())
     {
     }
 
@@ -33,7 +33,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
     /// <param name="options">Options</param>
-    internal OKXWebSocketApiBaseClient(OKXWebSocketApiOptions options) : this(null, options)
+    internal OKXWebSocketApiBaseClient(OkxSocketApiOptions options) : this(null, options)
     {
     }
 
@@ -42,7 +42,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// </summary>
     /// <param name="logger">ILogger</param>
     /// <param name="options">Options</param>
-    internal OKXWebSocketApiBaseClient(ILogger logger, OKXWebSocketApiOptions options) : base(logger, options)
+    internal OKXWebSocketApiBaseClient(ILogger logger, OkxSocketApiOptions options) : base(logger, options)
     {
         RateLimitPerConnectionPerSecond = 4;
         IgnoreHandlingList = ["pong"];

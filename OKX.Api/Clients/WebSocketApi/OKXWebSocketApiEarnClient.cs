@@ -6,9 +6,9 @@
 public class OKXWebSocketApiEarnClient
 {
     // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
+    internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiEarnClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiEarnClient(OkxSocketApiClient root)
     {
         this.RootClient = root;
     }

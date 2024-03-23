@@ -9,23 +9,23 @@ internal class Program
     static async Task Main(string[] args)
     {
         #region Rest Api Client Examples
-        var api = new OKXRestApiClient(new OKXRestApiOptions
+        var api = new OkxRestApiClient(new OkxRestApiOptions
         {
             RawResponse = true,
         });
         api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
         // Trading Account Methods (Signed)
-        var account_01 = await api.Account.GetAccountBalanceAsync();
-        var account_02 = await api.Account.GetAccountPositionsAsync();
-        var account_03 = await api.Account.GetAccountPositionsHistoryAsync();
-        var account_04 = await api.Account.GetAccountPositionRiskAsync();
+        var account_01 = await api.Account.GetBalancesAsync();
+        var account_02 = await api.Account.GetPositionsAsync();
+        var account_03 = await api.Account.GetPositionsHistoryAsync();
+        var account_04 = await api.Account.GetPositionRiskAsync();
         var account_05 = await api.Account.GetBillHistoryAsync();
         var account_06 = await api.Account.GetBillArchiveAsync();
-        var account_07 = await api.Account.GetAccountConfigurationAsync();
-        var account_08 = await api.Account.SetAccountPositionModeAsync(OkxPositionMode.LongShortMode);
-        var account_09 = await api.Account.GetAccountLeverageAsync("BTC-USD-211008", OkxMarginMode.Isolated);
-        var account_10 = await api.Account.SetAccountLeverageAsync(30, null, "BTC-USD-211008", OkxMarginMode.Isolated, OkxPositionSide.Long);
+        var account_07 = await api.Account.GetConfigurationAsync();
+        var account_08 = await api.Account.SetPositionModeAsync(OkxPositionMode.LongShortMode);
+        var account_09 = await api.Account.GetLeverageAsync("BTC-USD-211008", OkxMarginMode.Isolated);
+        var account_10 = await api.Account.SetLeverageAsync(30, null, "BTC-USD-211008", OkxMarginMode.Isolated, OkxPositionSide.Long);
         var account_11 = await api.Account.GetMaximumAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
         var account_12 = await api.Account.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
         var account_13 = await api.Account.SetMarginAmountAsync("BTC-USDT", OkxPositionSide.Long, OkxMarginAddReduce.Add, 100.0m);
@@ -210,7 +210,7 @@ internal class Program
 
         // FundingAccount Methods (Signed)
         var funding_01 = await api.Funding.GetCurrenciesAsync();
-        var funding_02 = await api.Funding.GetFundingBalanceAsync();
+        var funding_02 = await api.Funding.GetBalancesAsync();
         var funding_03 = await api.Funding.FundTransferAsync("BTC", 0.5m, OkxTransferType.TransferWithinAccount, OkxAccount.Funding, OkxAccount.Trading);
         var funding_04 = await api.Funding.GetFundingBillDetailsAsync("BTC");
         var funding_05 = await api.Funding.GetLightningDepositsAsync("BTC", 0.001m);
@@ -236,7 +236,7 @@ internal class Program
 
         #region WebSocket Api Client Examples
         // OKX Socket Client
-        var ws = new OKXWebSocketApiClient();
+        var ws = new OkxSocketApiClient();
         ws.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
         // TradingAccount Updates (Private)

@@ -36,9 +36,9 @@ public class OKXWebSocketApiOrderBookTradingClient
     public OKXWebSocketApiPublicClient MarketData { get; }
 
     // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
+    internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiOrderBookTradingClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiOrderBookTradingClient(OkxSocketApiClient root)
     {
         this.RootClient = root;
 

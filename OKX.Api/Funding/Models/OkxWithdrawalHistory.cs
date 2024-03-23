@@ -56,7 +56,7 @@ public class OkxWithdrawalHistory
     [JsonProperty("feeCcy")]
     public string FeeCurrency { get; set; }
 
-    [JsonProperty("state"), JsonConverter(typeof(WithdrawalStateConverter))]
+    [JsonProperty("state"), JsonConverter(typeof(OkxWithdrawalStateConverter))]
     public OkxWithdrawalState State { get; set; }
 
     [JsonProperty("wdId")]

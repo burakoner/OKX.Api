@@ -11,10 +11,10 @@ public abstract class OKXRestApiBaseClient : RestApiClient
     internal CultureInfo CI = CultureInfo.InvariantCulture;
 
     // Root Client
-    internal OKXRestApiClient RootClient { get; }
-    internal OKXRestApiOptions Options { get { return RootClient.Options; } }
+    internal OkxRestApiClient RootClient { get; }
+    internal OkxRestApiOptions Options { get { return RootClient.Options; } }
 
-    internal OKXRestApiBaseClient(OKXRestApiClient root) : base(root.Logger, root.Options)
+    internal OKXRestApiBaseClient(OkxRestApiClient root) : base(root.Logger, root.Options)
     {
         RootClient = root;
         this.ManualParseError = true;

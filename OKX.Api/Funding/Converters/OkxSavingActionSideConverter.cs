@@ -2,10 +2,10 @@
 
 namespace OKX.Api.Funding.Converters;
 
-internal class SavingActionSideConverter : BaseConverter<OkxSavingActionSide>
+internal class OkxSavingActionSideConverter : BaseConverter<OkxSavingActionSide>
 {
-    public SavingActionSideConverter() : this(true) { }
-    public SavingActionSideConverter(bool quotes) : base(quotes) { }
+    public OkxSavingActionSideConverter() : this(true) { }
+    public OkxSavingActionSideConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxSavingActionSide, string>> Mapping =>
     [

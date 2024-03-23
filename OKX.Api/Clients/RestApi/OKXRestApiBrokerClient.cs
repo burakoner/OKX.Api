@@ -18,7 +18,7 @@ public class OKXRestApiBrokerClient
     /// <summary>
     /// OKXFinancialProductBaseClient Constructor
     /// </summary>
-    public OKXRestApiBrokerClient(OKXRestApiClient root)
+    public OKXRestApiBrokerClient(OkxRestApiClient root)
     {
         NonDisclosedBroker = new OKXRestApiNonDisclosedBrokerClient(root);
         FullyDisclosedBroker = new OKXRestApiFullyDisclosedBrokerClient(root);

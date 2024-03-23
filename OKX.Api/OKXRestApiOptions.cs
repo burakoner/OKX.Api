@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest API Options
 /// </summary>
-public class OKXRestApiOptions : RestApiClientOptions
+public class OkxRestApiOptions : RestApiClientOptions
 {
     /// <summary>
     /// Receive Window
@@ -32,7 +32,7 @@ public class OKXRestApiOptions : RestApiClientOptions
         set
         {
             _demoTradingService = value;
-            BaseAddress = value ? OKXAddress.Demo.RestApiAddress : OKXAddress.Default.RestApiAddress;
+            BaseAddress = value ? OkxAddress.Demo.RestApiAddress : OkxAddress.Default.RestApiAddress;
         }
     }
     private bool _demoTradingService = false;
@@ -50,7 +50,7 @@ public class OKXRestApiOptions : RestApiClientOptions
     /// <summary>
     /// Constructor
     /// </summary>
-    public OKXRestApiOptions() : this(null)
+    public OkxRestApiOptions() : this(null)
     {
     }
 
@@ -58,13 +58,13 @@ public class OKXRestApiOptions : RestApiClientOptions
     /// Constructor
     /// </summary>
     /// <param name="credentials">OkxApiCredentials</param>
-    public OKXRestApiOptions(OkxApiCredentials credentials)
+    public OkxRestApiOptions(OkxApiCredentials credentials)
     {
         // API Credentials
         ApiCredentials = credentials;
 
         // Api Addresses
-        BaseAddress = OKXAddress.Default.RestApiAddress;
+        BaseAddress = OkxAddress.Default.RestApiAddress;
 
         // Rate Limiters
         RateLimiters = new List<IRateLimiter>

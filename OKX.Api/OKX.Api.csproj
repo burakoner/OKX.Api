@@ -226,10 +226,6 @@
 	  <Folder Include="GridTrade\Converters\" />
 	  <Folder Include="GridTrade\Enums\" />
 	  <Folder Include="GridTrade\Models\" />
-	  <Folder Include="SubAccount\Clients\" />
-	  <Folder Include="SubAccount\Converters\" />
-	  <Folder Include="SubAccount\Enums\" />
-	  <Folder Include="SubAccount\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>

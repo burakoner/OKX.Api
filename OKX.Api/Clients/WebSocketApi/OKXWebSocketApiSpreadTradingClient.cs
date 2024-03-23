@@ -6,9 +6,9 @@
 public class OKXWebSocketApiSpreadTradingClient
 {
     // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
+    internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiSpreadTradingClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiSpreadTradingClient(OkxSocketApiClient root)
     {
         this.RootClient = root;
     }

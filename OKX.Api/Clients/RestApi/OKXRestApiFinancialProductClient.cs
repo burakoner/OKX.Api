@@ -18,7 +18,7 @@ public class OKXRestApiFinancialProductClient
     /// <summary>
     /// OKXFinancialProductBaseClient Constructor
     /// </summary>
-    public OKXRestApiFinancialProductClient(OKXRestApiClient root)
+    public OKXRestApiFinancialProductClient(OkxRestApiClient root)
     {
         Earn = new OKXRestApiEarnClient(root);
         Savings = new OKXRestApiSavingsClient(root);

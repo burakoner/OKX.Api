@@ -6,8 +6,13 @@ namespace OKX.Api;
 /// <summary>
 /// OKX WebSocket Client
 /// </summary>
-public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
+public class OkxSocketApiClient : OKXWebSocketApiBaseClient
 {
+    /// <summary>
+    /// PublicData Client
+    /// </summary>
+    public OKXWebSocketApiPublicClient Public { get; }
+
     /// <summary>
     /// Trading Account Client
     /// </summary>
@@ -16,8 +21,8 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// <summary>
     /// Funding Account Client
     /// </summary>
-    public OKXFundingSocketClient Funding { get; }
-
+    public OkxFundingSocketClient Funding { get; }
+    
 
 
 
@@ -45,19 +50,9 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     public OKXWebSocketApiSpreadTradingClient SpreadTrading { get; }
 
     /// <summary>
-    /// PublicData Client
-    /// </summary>
-    public OKXWebSocketApiPublicClient Public { get; }
-
-    /// <summary>
     /// Trading Statistics Client
     /// </summary>
     public OKXWebSocketApiTradingStatisticsClient TradingStatistics { get; }
-
-    /// <summary>
-    /// SubAccount Client
-    /// </summary>
-    public OKXWebSocketApiSubAccountClient SubAccount { get; }
 
     /// <summary>
     /// Financial Product Client
@@ -72,7 +67,7 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// <summary>
     /// OKXWebSocketApiClient Constructor
     /// </summary>
-    public OKXWebSocketApiClient() : this(null, new OKXWebSocketApiOptions())
+    public OkxSocketApiClient() : this(null, new OkxSocketApiOptions())
     {
     }
 
@@ -80,7 +75,7 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// OKXWebSocketApiClient Constructor
     /// </summary>
     /// <param name="options"></param>
-    public OKXWebSocketApiClient(OKXWebSocketApiOptions options) : this(null, options)
+    public OkxSocketApiClient(OkxSocketApiOptions options) : this(null, options)
     {
     }
 
@@ -89,11 +84,11 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// </summary>
     /// <param name="logger">Logger</param>
     /// <param name="options">Options</param>
-    public OKXWebSocketApiClient(ILogger logger, OKXWebSocketApiOptions options) : base(logger, options)
+    public OkxSocketApiClient(ILogger logger, OkxSocketApiOptions options) : base(logger, options)
     {
         this.Public = new OKXWebSocketApiPublicClient(this);
         this.Account = new OkxAccountSocketClient(this);
-        this.Funding = new OKXFundingSocketClient(this);
+        this.Funding = new OkxFundingSocketClient(this);
 
 
 
@@ -101,7 +96,6 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
         this.BlockTrading = new OKXWebSocketApiBlockTradingClient(this);
         this.SpreadTrading = new OKXWebSocketApiSpreadTradingClient(this);
         this.TradingStatistics = new OKXWebSocketApiTradingStatisticsClient(this);
-        this.SubAccount = new OKXWebSocketApiSubAccountClient(this);
         this.FinancialProduct = new OKXWebSocketApiFinancialProductClient(this);
         this.Status = new OKXWebSocketApiSystemClient(this);
     }
@@ -109,7 +103,7 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     internal Task<CallResult<WebSocketUpdateSubscription>> RootSubscribeAsync<T>(OkxSocketEndpoint endpoint, object request, string identifier, bool authenticated, Action<WebSocketDataEvent<T>> dataHandler, CancellationToken ct)
     {
         var url = ClientOptions.BaseAddress;
-        var env = ((OKXWebSocketApiOptions)ClientOptions).DemoTradingService ? OKXAddress.Demo : OKXAddress.Default;
+        var env = ((OkxSocketApiOptions)ClientOptions).DemoTradingService ? OkxAddress.Demo : OkxAddress.Default;
         if (endpoint == OkxSocketEndpoint.Public)
             url = env.WebSocketPublicAddress;
         else if (endpoint == OkxSocketEndpoint.Private)
@@ -123,7 +117,7 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     internal Task<CallResult<T>> RootQueryAsync<T>(OkxSocketEndpoint endpoint, object request, bool authenticated)
     {
         var url = ClientOptions.BaseAddress;
-        var env = ((OKXWebSocketApiOptions)ClientOptions).DemoTradingService ? OKXAddress.Demo : OKXAddress.Default;
+        var env = ((OkxSocketApiOptions)ClientOptions).DemoTradingService ? OkxAddress.Demo : OkxAddress.Default;
         if (endpoint == OkxSocketEndpoint.Public)
             url = env.WebSocketPublicAddress;
         else if (endpoint == OkxSocketEndpoint.Private)

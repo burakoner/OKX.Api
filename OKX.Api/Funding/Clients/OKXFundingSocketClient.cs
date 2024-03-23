@@ -3,12 +3,12 @@
 /// <summary>
 /// OKX WebSocket Api Funding Account Client
 /// </summary>
-public class OKXFundingSocketClient
+public class OkxFundingSocketClient
 {
     // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
+    internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXFundingSocketClient(OKXWebSocketApiClient root)
+    internal OkxFundingSocketClient(OkxSocketApiClient root)
     {
         RootClient = root;
     }

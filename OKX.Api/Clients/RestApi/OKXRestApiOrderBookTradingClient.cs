@@ -38,7 +38,7 @@ public class OKXRestApiOrderBookTradingClient
     /// <summary>
     /// OKXOrderBookTradingRestApiClient Constructor
     /// </summary>
-    public OKXRestApiOrderBookTradingClient(OKXRestApiClient root)
+    public OKXRestApiOrderBookTradingClient(OkxRestApiClient root)
     {
         Trade = new OKXRestApiTradeClient(root);
         AlgoTrading = new OKXRestApiAlgoTradingClient(root);

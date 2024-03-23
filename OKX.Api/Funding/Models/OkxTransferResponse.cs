@@ -6,7 +6,7 @@ public class OkxTransferResponse
     public string Currency { get; set; }
 
     [JsonProperty("transId")]
-    public long? TransferId { get; set; }
+    public long TransferId { get; set; }
 
     [JsonProperty("clientId")]
     public string ClientOrderId { get; set; }
@@ -15,8 +15,8 @@ public class OkxTransferResponse
     public decimal Amount { get; set; }
 
     [JsonProperty("from"), JsonConverter(typeof(OkxAccountConverter))]
-    public OkxAccount? From { get; set; }
+    public OkxAccount RemittingAccount { get; set; }
 
     [JsonProperty("to"), JsonConverter(typeof(OkxAccountConverter))]
-    public OkxAccount? To { get; set; }
+    public OkxAccount BeneficiaryAccount { get; set; }
 }

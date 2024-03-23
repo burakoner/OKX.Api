@@ -18,7 +18,7 @@ public class OKXRestApiCopyTradingClient : OKXRestApiBaseClient
     private const string v5CopyTradingTotalProfitSharing = "api/v5/copytrading/total-profit-sharing";
     private const string v5CopyTradingUnrealizedProfitSharingDetails = "api/v5/copytrading/unrealized-profit-sharing-details";
 
-    internal OKXRestApiCopyTradingClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiCopyTradingClient(OkxRestApiClient root) : base(root)
     {
     }
 

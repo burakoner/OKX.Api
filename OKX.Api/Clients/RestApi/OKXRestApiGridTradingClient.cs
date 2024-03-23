@@ -28,7 +28,7 @@ public class OKXRestApiGridTradingClient : OKXRestApiBaseClient
     private const string v5TradingBotGridMinInvestment = "api/v5/tradingBot/grid/min-investment";
     private const string v5TradingBotGridRsiBackTesting = "api/v5/tradingBot/grid/rsi-back-testing";
 
-    internal OKXRestApiGridTradingClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiGridTradingClient(OkxRestApiClient root) : base(root)
     {
     }
 

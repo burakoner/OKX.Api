@@ -18,7 +18,7 @@ public class OKXRestApiSpreadTradingClient : OKXRestApiBaseClient
     // TODO: api/v5/sprd/ticker
     // TODO: api/v5/sprd/public-trades
 
-    internal OKXRestApiSpreadTradingClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiSpreadTradingClient(OkxRestApiClient root) : base(root)
     {
     }
 

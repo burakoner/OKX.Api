@@ -10,7 +10,7 @@ public class OKXRestApiFullyDisclosedBrokerClient : OKXRestApiBaseClient
     // TODO: api/v5/broker/fd/rebate-per-orders
     // TODO: api/v5/broker/fd/if-rebate
 
-    internal OKXRestApiFullyDisclosedBrokerClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiFullyDisclosedBrokerClient(OkxRestApiClient root) : base(root)
     {
     }
 

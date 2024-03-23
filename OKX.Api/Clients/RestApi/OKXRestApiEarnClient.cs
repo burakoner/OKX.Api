@@ -13,7 +13,7 @@ public class OKXRestApiEarnClient : OKXRestApiBaseClient
     // TODO: api/v5/finance/staking-defi/orders-active
     // TODO: api/v5/finance/staking-defi/orders-history
 
-    internal OKXRestApiEarnClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiEarnClient(OkxRestApiClient root) : base(root)
     {
     }
 

@@ -31,7 +31,7 @@ public class OKXRestApiBlockTradingClient : OKXRestApiBaseClient
     private const string v5MarketBlockTicker = "api/v5/market/block-ticker";
     private const string v5MarketBlockTrades = "api/v5/market/block-trades";
 
-    internal OKXRestApiBlockTradingClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiBlockTradingClient(OkxRestApiClient root) : base(root)
     {
     }
 

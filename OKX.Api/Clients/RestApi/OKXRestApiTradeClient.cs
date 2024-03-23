@@ -31,7 +31,7 @@ public class OKXRestApiTradeClient : OKXRestApiBaseClient
     // TODO: api/v5/trade/mass-cancel
     // TODO: api/v5/trade/cancel-all-after
 
-    internal OKXRestApiTradeClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiTradeClient(OkxRestApiClient root) : base(root)
     {
     }
 

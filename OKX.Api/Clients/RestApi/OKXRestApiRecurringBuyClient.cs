@@ -14,7 +14,7 @@ public class OKXRestApiRecurringBuyClient : OKXRestApiBaseClient
     // TODO: api/v5/tradingBot/recurring/orders-algo-details
     // TODO: api/v5/tradingBot/recurring/sub-orders
 
-    internal OKXRestApiRecurringBuyClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiRecurringBuyClient(OkxRestApiClient root) : base(root)
     {
     }
 

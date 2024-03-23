@@ -16,9 +16,9 @@ public class OKXWebSocketApiFinancialProductClient
     public OKXWebSocketApiSavingsClient Savings { get; }
 
     // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
+    internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiFinancialProductClient(OKXWebSocketApiClient root)
+    internal OKXWebSocketApiFinancialProductClient(OkxSocketApiClient root)
     {
         this.RootClient = root;
 

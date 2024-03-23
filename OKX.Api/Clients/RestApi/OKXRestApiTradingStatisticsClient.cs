@@ -21,7 +21,7 @@ public class OKXRestApiTradingStatisticsClient : OKXRestApiBaseClient
     private const string v5RubikStatOptionOpenInterestVolumeStrike = "api/v5/rubik/stat/option/open-interest-volume-strike";
     private const string v5RubikStatOptionTakerBlockVolume = "api/v5/rubik/stat/option/taker-block-volume";
 
-    internal OKXRestApiTradingStatisticsClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiTradingStatisticsClient(OkxRestApiClient root) : base(root)
     {
     }
 

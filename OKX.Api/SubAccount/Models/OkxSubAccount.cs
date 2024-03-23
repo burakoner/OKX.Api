@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Models.SubAccount;
+﻿using OKX.Api.SubAccount.Converters;
+using OKX.Api.SubAccount.Enums;
+
+namespace OKX.Api.SubAccount.Models;
 
 /// <summary>
 /// OKX Sub-Account
@@ -8,7 +11,7 @@ public class OkxSubAccount
     /// <summary>
     /// Sub-account type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(SubAccountTypeConverter))]
+    [JsonProperty("type"), JsonConverter(typeof(OkxSubAccountTypeConverter))]
     public OkxSubAccountType Type { get; set; }
 
     /// <summary>
@@ -27,7 +30,7 @@ public class OkxSubAccount
     /// Sub-account uid
     /// </summary>
     [JsonProperty("uid")]
-    public string SubAccountUID { get; set; }
+    public string SubAccountId { get; set; }
 
     /// <summary>
     /// Sub-account note

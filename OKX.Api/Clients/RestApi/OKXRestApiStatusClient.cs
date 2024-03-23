@@ -8,7 +8,7 @@ public class OKXRestApiStatusClient : OKXRestApiBaseClient
     // Endpoints
     // TODO: api/v5/system/status
 
-    internal OKXRestApiStatusClient(OKXRestApiClient root) : base(root)
+    internal OKXRestApiStatusClient(OkxRestApiClient root) : base(root)
     {
     }
 

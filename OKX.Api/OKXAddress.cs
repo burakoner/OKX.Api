@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Api Addresses
 /// </summary>
-public class OKXAddress
+public class OkxAddress
 {
     /// <summary>
     /// Rest Api Address
@@ -28,7 +28,7 @@ public class OKXAddress
     /// <summary>
     /// Default Environment Endpoints
     /// </summary>
-    public static OKXAddress Default = new()
+    public static OkxAddress Default = new()
     {
         RestApiAddress = "https://www.okx.com",
         WebSocketPublicAddress = "wss://ws.okx.com:8443/ws/v5/public",
@@ -39,7 +39,7 @@ public class OKXAddress
     /// <summary>
     /// AWS Environment Endpoints
     /// </summary>
-    public static OKXAddress AWS = new()
+    public static OkxAddress AWS = new()
     {
         RestApiAddress = "https://aws.okx.com",
         WebSocketPublicAddress = "wss://wsaws.okx.com:8443/ws/v5/public",
@@ -50,7 +50,7 @@ public class OKXAddress
     /// <summary>
     /// Demo Environment Endpoints
     /// </summary>
-    public static OKXAddress Demo = new()
+    public static OkxAddress Demo = new()
     {
         RestApiAddress = "https://www.okx.com",
         WebSocketPublicAddress = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999",
