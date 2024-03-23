@@ -1,4 +1,5 @@
-﻿global using OKX.Api.Account.Clients;
+﻿using OKX.Api.Account.Clients;
+using OKX.Api.Funding.Clients;
 
 namespace OKX.Api;
 
@@ -21,6 +22,27 @@ public sealed class OKXRestApiClient
     /// Trading Account Client
     /// </summary>
     public OkxAccountRestClient Account { get; }
+    
+    /// <summary>
+    /// Funding Account Client
+    /// </summary>
+    public OKXFundingRestClient Funding { get; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// OrderBook Trading Client
@@ -46,11 +68,6 @@ public sealed class OKXRestApiClient
     /// Trading Statistics Client
     /// </summary>
     public OKXRestApiTradingStatisticsClient TradingStatistics { get; }
-
-    /// <summary>
-    /// Funding Account Client
-    /// </summary>
-    public OKXRestApiFundingAccountClient FundingAccount { get; }
 
     /// <summary>
     /// SubAccount Client
@@ -103,12 +120,20 @@ public sealed class OKXRestApiClient
 
         Public = new OKXRestApiPublicClient(this);
         Account = new OkxAccountRestClient(this);
+        Funding = new OKXFundingRestClient(this);
+
+
+
+
+
+
+
+
         OrderBookTrading = new OKXRestApiOrderBookTradingClient(this);
         BlockTrading = new OKXRestApiBlockTradingClient(this);
         SpreadTrading = new OKXRestApiSpreadTradingClient(this);
         TradingStatistics = new OKXRestApiTradingStatisticsClient(this);
         SubAccount = new OKXRestApiSubAccountClient(this);
-        FundingAccount = new OKXRestApiFundingAccountClient(this);
         Affiliate = new OKXRestApiAffiliateClient(this);
         Status = new OKXRestApiStatusClient(this);
         Broker = new OKXRestApiBrokerClient(this);
@@ -133,13 +158,13 @@ public sealed class OKXRestApiClient
     {
         Public.SetApiCredentials(credentials);
         Account.SetApiCredentials(credentials);
-        FundingAccount.SetApiCredentials(credentials);
+        Funding.SetApiCredentials(credentials);
         OrderBookTrading.SetApiCredentials(credentials);
         BlockTrading.SetApiCredentials(credentials);
         SpreadTrading.SetApiCredentials(credentials);
         TradingStatistics.SetApiCredentials(credentials);
         SubAccount.SetApiCredentials(credentials);
-        FundingAccount.SetApiCredentials(credentials);
+        Funding.SetApiCredentials(credentials);
         Affiliate.SetApiCredentials(credentials);
         Status.SetApiCredentials(credentials);
         Broker.SetApiCredentials(credentials);

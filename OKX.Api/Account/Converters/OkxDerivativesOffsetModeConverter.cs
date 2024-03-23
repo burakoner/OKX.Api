@@ -7,10 +7,10 @@ internal class OkxDerivativesOffsetModeConverter : BaseConverter<OkxDerivativesO
     public OkxDerivativesOffsetModeConverter() : this(true) { }
     public OkxDerivativesOffsetModeConverter(bool quotes) : base(quotes) { }
 
-    protected override List<KeyValuePair<OkxDerivativesOffsetMode, string>> Mapping => new List<KeyValuePair<OkxDerivativesOffsetMode, string>>
-    {
+    protected override List<KeyValuePair<OkxDerivativesOffsetMode, string>> Mapping =>
+    [
         new(OkxDerivativesOffsetMode.UsdtDerivatives, "1"),
         new(OkxDerivativesOffsetMode.CryptoDerivatives, "2"),
         new(OkxDerivativesOffsetMode.DerivativesOnly, "3"),
-    };
+    ];
 }

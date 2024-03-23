@@ -1,4 +1,5 @@
 ﻿using OKX.Api.Account.Clients;
+using OKX.Api.Funding.Clients;
 
 namespace OKX.Api;
 
@@ -11,6 +12,22 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// Trading Account Client
     /// </summary>
     public OkxAccountSocketClient Account { get; }
+    
+    /// <summary>
+    /// Funding Account Client
+    /// </summary>
+    public OKXFundingSocketClient Funding { get; }
+
+
+
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// OrderBook Trading Client
@@ -36,11 +53,6 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     /// Trading Statistics Client
     /// </summary>
     public OKXWebSocketApiTradingStatisticsClient TradingStatistics { get; }
-
-    /// <summary>
-    /// Funding Account Client
-    /// </summary>
-    public OKXWebSocketApiFundingAccountClient FundingAccount { get; }
 
     /// <summary>
     /// SubAccount Client
@@ -81,11 +93,14 @@ public class OKXWebSocketApiClient : OKXWebSocketApiBaseClient
     {
         this.Public = new OKXWebSocketApiPublicClient(this);
         this.Account = new OkxAccountSocketClient(this);
+        this.Funding = new OKXFundingSocketClient(this);
+
+
+
         this.OrderBookTrading = new OKXWebSocketApiOrderBookTradingClient(this);
         this.BlockTrading = new OKXWebSocketApiBlockTradingClient(this);
         this.SpreadTrading = new OKXWebSocketApiSpreadTradingClient(this);
         this.TradingStatistics = new OKXWebSocketApiTradingStatisticsClient(this);
-        this.FundingAccount = new OKXWebSocketApiFundingAccountClient(this);
         this.SubAccount = new OKXWebSocketApiSubAccountClient(this);
         this.FinancialProduct = new OKXWebSocketApiFinancialProductClient(this);
         this.Status = new OKXWebSocketApiSystemClient(this);

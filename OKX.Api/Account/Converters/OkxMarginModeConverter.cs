@@ -7,9 +7,9 @@ internal class OkxMarginModeConverter : BaseConverter<OkxMarginMode>
     public OkxMarginModeConverter() : this(true) { }
     public OkxMarginModeConverter(bool quotes) : base(quotes) { }
 
-    protected override List<KeyValuePair<OkxMarginMode, string>> Mapping => new List<KeyValuePair<OkxMarginMode, string>>
-    {
+    protected override List<KeyValuePair<OkxMarginMode, string>> Mapping =>
+    [
         new(OkxMarginMode.Isolated, "isolated"),
         new(OkxMarginMode.Cross, "cross"),
-    };
+    ];
 }

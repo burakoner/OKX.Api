@@ -7,12 +7,12 @@ internal class OkxAccountVipLoanStateConverter : BaseConverter<OkxAccountVipLoan
     public OkxAccountVipLoanStateConverter() : this(true) { }
     public OkxAccountVipLoanStateConverter(bool quotes) : base(quotes) { }
 
-    protected override List<KeyValuePair<OkxAccountVipLoanState, string>> Mapping => new List<KeyValuePair<OkxAccountVipLoanState, string>>
-    {
+    protected override List<KeyValuePair<OkxAccountVipLoanState, string>> Mapping =>
+    [
         new(OkxAccountVipLoanState.Borrowing, "1"),
         new(OkxAccountVipLoanState.Borrowed, "2"),
         new(OkxAccountVipLoanState.Repaying, "3"),
         new(OkxAccountVipLoanState.Repaid, "4"),
         new(OkxAccountVipLoanState.BorrowFailed, "5"),
-    };
+    ];
 }

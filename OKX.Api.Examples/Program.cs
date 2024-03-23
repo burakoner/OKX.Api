@@ -1,5 +1,6 @@
 ﻿using OKX.Api.Account.Enums;
 using OKX.Api.Common.Enums;
+using OKX.Api.Funding.Enums;
 
 namespace OKX.Api.Examples;
 
@@ -208,18 +209,18 @@ internal class Program
         var rubik_10 = await api.TradingStatistics.GetTakerFlowAsync("BTC", OkxPeriod.OneDay);
 
         // FundingAccount Methods (Signed)
-        var funding_01 = await api.FundingAccount.GetCurrenciesAsync();
-        var funding_02 = await api.FundingAccount.GetFundingBalanceAsync();
-        var funding_03 = await api.FundingAccount.FundTransferAsync("BTC", 0.5m, OkxTransferType.TransferWithinAccount, OkxAccount.Funding, OkxAccount.Trading);
-        var funding_04 = await api.FundingAccount.GetFundingBillDetailsAsync("BTC");
-        var funding_05 = await api.FundingAccount.GetLightningDepositsAsync("BTC", 0.001m);
-        var funding_06 = await api.FundingAccount.GetDepositAddressAsync("BTC");
-        var funding_07 = await api.FundingAccount.GetDepositAddressAsync("USDT");
-        var funding_08 = await api.FundingAccount.GetDepositHistoryAsync("USDT");
-        var funding_09 = await api.FundingAccount.WithdrawAsync("USDT", 100.0m, OkxWithdrawalDestination.DigitalCurrencyAddress, "toAddress", 1.0m, "USDT-TRC20");
-        var funding_10 = await api.FundingAccount.GetLightningWithdrawalsAsync("BTC", "invoice", "password");
-        var funding_11 = await api.FundingAccount.CancelWithdrawalAsync(1_000_001);
-        var funding_12 = await api.FundingAccount.GetWithdrawalHistoryAsync("USDT");
+        var funding_01 = await api.Funding.GetCurrenciesAsync();
+        var funding_02 = await api.Funding.GetFundingBalanceAsync();
+        var funding_03 = await api.Funding.FundTransferAsync("BTC", 0.5m, OkxTransferType.TransferWithinAccount, OkxAccount.Funding, OkxAccount.Trading);
+        var funding_04 = await api.Funding.GetFundingBillDetailsAsync("BTC");
+        var funding_05 = await api.Funding.GetLightningDepositsAsync("BTC", 0.001m);
+        var funding_06 = await api.Funding.GetDepositAddressAsync("BTC");
+        var funding_07 = await api.Funding.GetDepositAddressAsync("USDT");
+        var funding_08 = await api.Funding.GetDepositHistoryAsync("USDT");
+        var funding_09 = await api.Funding.WithdrawAsync("USDT", 100.0m, OkxWithdrawalDestination.DigitalCurrencyAddress, "toAddress", 1.0m, "USDT-TRC20");
+        var funding_10 = await api.Funding.GetLightningWithdrawalsAsync("BTC", "invoice", "password");
+        var funding_11 = await api.Funding.CancelWithdrawalAsync(1_000_001);
+        var funding_12 = await api.Funding.GetWithdrawalHistoryAsync("USDT");
 
         // SubAccount Methods (Signed)
         var subaccount_01 = await api.SubAccount.GetSubAccountsAsync();

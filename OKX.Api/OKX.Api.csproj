@@ -181,6 +181,7 @@
 	  <Folder Include="Broker\Converters\" />
 	  <Folder Include="Broker\Enums\" />
 	  <Folder Include="Broker\Models\" />
+	  <Folder Include="Common\Models\" />
 	  <Folder Include="Rubik\Clients\" />
 	  <Folder Include="Rubik\Converters\" />
 	  <Folder Include="Rubik\Enums\" />
@@ -229,10 +230,6 @@
 	  <Folder Include="SubAccount\Converters\" />
 	  <Folder Include="SubAccount\Enums\" />
 	  <Folder Include="SubAccount\Models\" />
-	  <Folder Include="Funding\Converters\" />
-	  <Folder Include="Funding\Models\" />
-	  <Folder Include="Funding\Enums\" />
-	  <Folder Include="Funding\Clients\" />
 	</ItemGroup>
 
 	<ItemGroup>

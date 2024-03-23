@@ -1,7 +1,6 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
 using OKX.Api.Account.Models;
-using OKX.Api.Common.Models;
 
 namespace OKX.Api.Account.Clients;
 
@@ -139,12 +138,12 @@ public class OkxAccountRestClient : OKXRestApiBaseClient
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPositionRisk>>> GetAccountPositionRiskAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPositionBalance>>> GetAccountPositionRiskAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
-        return ProcessListRequestAsync<OkxPositionRisk>(GetUri(v5AccountPositionRisk), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPositionBalance>(GetUri(v5AccountPositionRisk), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
