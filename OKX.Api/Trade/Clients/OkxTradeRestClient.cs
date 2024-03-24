@@ -79,7 +79,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(
+    public Task<RestCallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(
         string instrumentId,
         OkxTradeMode tradeMode,
         OkxOrderSide orderSide,
@@ -140,7 +140,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("stpId", selfTradePreventionId?.ToOkxString());
         parameters.AddOptionalParameter("stpMode", JsonConvert.SerializeObject(selfTradePreventionMode, new SelfTradePreventionModeConverter(false)));
 
-        return await ProcessOneRequestAsync<OkxOrderPlaceResponse>(GetUri(v5TradeOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return ProcessOneRequestAsync<OkxOrderPlaceResponse>(GetUri(v5TradeOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -149,7 +149,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxOrderPlaceRequest> orders, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxOrderPlaceRequest> orders, CancellationToken ct = default)
     {
         foreach (var order in orders) order.Tag = Options.BrokerId;
         var parameters = new Dictionary<string, object>
@@ -157,7 +157,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
             { Options.RequestBodyParameterKey, orders },
         };
 
-        return await ProcessListRequestAsync<OkxOrderPlaceResponse>(GetUri(v5TradeBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return ProcessListRequestAsync<OkxOrderPlaceResponse>(GetUri(v5TradeBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -168,7 +168,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="clientOrderId">Client Order ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxOrderCancelResponse>> CancelOrderAsync(string instrumentId, long? orderId = null, string clientOrderId = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxOrderCancelResponse>> CancelOrderAsync(string instrumentId, long? orderId = null, string clientOrderId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             {"instId", instrumentId },
@@ -176,7 +176,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
         parameters.AddOptionalParameter("clOrdId", clientOrderId);
 
-        return await ProcessOneRequestAsync<OkxOrderCancelResponse>(GetUri(v5TradeCancelOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return ProcessOneRequestAsync<OkxOrderCancelResponse>(GetUri(v5TradeCancelOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -185,13 +185,13 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxOrderCancelResponse>>> CancelOrdersAsync(IEnumerable<OkxOrderCancelRequest> orders, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxOrderCancelResponse>>> CancelOrdersAsync(IEnumerable<OkxOrderCancelRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { Options.RequestBodyParameterKey, orders },
         };
 
-        return await ProcessListRequestAsync<OkxOrderCancelResponse>(GetUri(v5TradeCancelBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return ProcessListRequestAsync<OkxOrderCancelResponse>(GetUri(v5TradeCancelBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -215,7 +215,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxOrderAmendResponse>> AmendOrderAsync(
+    public Task<RestCallResult<OkxOrderAmendResponse>> AmendOrderAsync(
         string instrumentId,
         long? orderId = null,
         string clientOrderId = null,
@@ -252,7 +252,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("newSlTriggerPx", newStopLossTriggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("newSlOrdPx", newStopLossOrderPrice?.ToOkxString());
 
-        return await ProcessOneRequestAsync<OkxOrderAmendResponse>(GetUri(v5TradeAmendOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return ProcessOneRequestAsync<OkxOrderAmendResponse>(GetUri(v5TradeAmendOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -261,13 +261,13 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxOrderAmendResponse>>> AmendOrdersAsync(IEnumerable<OkxOrderAmendRequest> orders, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxOrderAmendResponse>>> AmendOrdersAsync(IEnumerable<OkxOrderAmendRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { Options.RequestBodyParameterKey, orders },
         };
 
-        return await ProcessListRequestAsync<OkxOrderAmendResponse>(GetUri(v5TradeAmendBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return ProcessListRequestAsync<OkxOrderAmendResponse>(GetUri(v5TradeAmendBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -281,7 +281,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="clientOrderId">Client-supplied ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxClosePositionResponse>> ClosePositionAsync(
+    public Task<RestCallResult<OkxClosePositionResponse>> ClosePositionAsync(
         string instrumentId,
         OkxMarginMode marginMode,
         OkxPositionSide? positionSide = null,
@@ -300,7 +300,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("autoCxl", autoCxl);
         parameters.AddOptionalParameter("clOrdId", clientOrderId);
 
-        return await ProcessOneRequestAsync<OkxClosePositionResponse>(GetUri(v5TradeClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return ProcessOneRequestAsync<OkxClosePositionResponse>(GetUri(v5TradeClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -311,7 +311,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="clientOrderId">Client Order ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxOrder>> GetOrderAsync(
+    public Task<RestCallResult<OkxOrder>> GetOrderAsync(
         string instrumentId,
         long? orderId = null,
         string clientOrderId = null,
@@ -323,7 +323,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
         parameters.AddOptionalParameter("clOrdId", clientOrderId);
 
-        return await ProcessOneRequestAsync<OkxOrder>(GetUri(v5TradeOrder), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return ProcessOneRequestAsync<OkxOrder>(GetUri(v5TradeOrder), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -340,7 +340,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxOrder>>> GetOrdersAsync(
+    public Task<RestCallResult<List<OkxOrder>>> GetOrdersAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         string instFamily = null,
@@ -364,7 +364,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequestAsync<OkxOrder>(GetUri(v5TradeOrdersPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return ProcessListRequestAsync<OkxOrder>(GetUri(v5TradeOrdersPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -384,7 +384,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxOrder>>> GetOrderHistoryAsync(
+    public Task<RestCallResult<List<OkxOrder>>> GetOrderHistoryAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
         string instFamily = null,
@@ -416,7 +416,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequestAsync<OkxOrder>(GetUri(v5TradeOrdersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return ProcessListRequestAsync<OkxOrder>(GetUri(v5TradeOrdersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -436,7 +436,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxOrder>>> GetOrderArchiveAsync(
+    public Task<RestCallResult<List<OkxOrder>>> GetOrderArchiveAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
         string instFamily = null,
@@ -468,7 +468,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequestAsync<OkxOrder>(GetUri(v5TradeOrdersHistoryArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return ProcessListRequestAsync<OkxOrder>(GetUri(v5TradeOrdersHistoryArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -486,7 +486,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxTransaction>>> GetTradesHistoryAsync(
+    public Task<RestCallResult<List<OkxTransaction>>> GetTradesHistoryAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         string instFamily = null,
@@ -512,7 +512,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequestAsync<OkxTransaction>(GetUri(v5TradeFills), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return ProcessListRequestAsync<OkxTransaction>(GetUri(v5TradeFills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -530,7 +530,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns>RestCallResult containing enumerable OkxTransaction list</returns>
-    public async Task<RestCallResult<List<OkxTransaction>>> GetTradesArchiveAsync(
+    public Task<RestCallResult<List<OkxTransaction>>> GetTradesArchiveAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
         string instFamily = null,
@@ -556,7 +556,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return await ProcessListRequestAsync<OkxTransaction>(GetUri(v5TradeFillsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return ProcessListRequestAsync<OkxTransaction>(GetUri(v5TradeFillsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     #endregion
 
