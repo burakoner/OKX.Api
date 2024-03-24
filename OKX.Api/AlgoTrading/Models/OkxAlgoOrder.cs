@@ -271,7 +271,7 @@ public class OkxAlgoOrder
     /// <summary>
     /// Quick Margin type, Only applicable to Quick Margin Mode of isolated margin
     /// </summary>
-    [JsonProperty("quickMgnType"), JsonConverter(typeof(QuickMarginTypeConverter))]
+    [JsonProperty("quickMgnType"), JsonConverter(typeof(OkxQuickMarginTypeConverter))]
     public OkxQuickMarginType? QuickMarginType { get; set; }
 
     /// <summary>

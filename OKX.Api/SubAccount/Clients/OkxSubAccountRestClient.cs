@@ -1,4 +1,5 @@
-﻿using OKX.Api.SubAccount.Converters;
+﻿using OKX.Api.Common.Clients.RestApi;
+using OKX.Api.SubAccount.Converters;
 using OKX.Api.SubAccount.Enums;
 using OKX.Api.SubAccount.Models;
 

@@ -76,13 +76,13 @@ public class OkxAccountConfiguration
     /// Risk offset type
     /// Only applicable to Portfolio margin
     /// </summary>
-    [JsonProperty("spotOffsetType"), JsonConverter(typeof(RiskOffsetTypeConverter))]
+    [JsonProperty("spotOffsetType"), JsonConverter(typeof(OkxRiskOffsetTypeConverter))]
     public OkxRiskOffsetType? RiskOffsetType { get; set; }
 
     /// <summary>
     /// Role type.
     /// </summary>
-    [JsonProperty("roleType"), JsonConverter(typeof(AccountRoleTypeConverter))]
+    [JsonProperty("roleType"), JsonConverter(typeof(OkxAccountRoleTypeConverter))]
     public OkxAccountRoleType? AccountRoleType { get; set; }
 
     /// <summary>
@@ -95,7 +95,7 @@ public class OkxAccountConfiguration
     /// SPOT copy trading role type
     /// 0: General user；1：Leading trader；2：Copy trader
     /// </summary>
-    [JsonProperty("spotRoleType"), JsonConverter(typeof(SpotCopyTradingRoleConverter))]
+    [JsonProperty("spotRoleType"), JsonConverter(typeof(OkxSpotCopyTradingRoleConverter))]
     public OkxSpotCopyTradingRole? SpotCopyTradingRole { get; set; }
 
     /// <summary>
@@ -116,7 +116,7 @@ public class OkxAccountConfiguration
     /// If the request originates from a subaccount, kycLv is the KYC level of the main account.
     /// If the request originates from the main account, kycLv is the KYC level of the current account.
     /// </summary>
-    [JsonProperty("kycLv"), JsonConverter(typeof(KycLevelConverter))]
+    [JsonProperty("kycLv"), JsonConverter(typeof(OkxKycLevelConverter))]
     public OkxKycLevel KycLevel { get; set; }
 
     /// <summary>
@@ -134,6 +134,6 @@ public class OkxAccountConfiguration
     /// <summary>
     /// The permission of the urrent request API Key. read_only：Read only；trade ：Trade; withdraw: Withdraw
     /// </summary>
-    [JsonProperty("perm"), JsonConverter(typeof(ApiKeyPermissionConverter))]
+    [JsonProperty("perm"), JsonConverter(typeof(OkxApiKeyPermissionConverter))]
     public OkxApiKeyPermission ApiKeyPermission { get; set; }
 }

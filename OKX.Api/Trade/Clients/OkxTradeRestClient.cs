@@ -2,6 +2,7 @@
 using OKX.Api.Account.Enums;
 using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
+using OKX.Api.Common.Clients.RestApi;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
@@ -124,7 +125,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("reduceOnly", reduceOnly);
         parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new OkxQuantityTypeConverter(false)));
 
-        parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new QuickMarginTypeConverter(false)));
+        parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new OkxQuickMarginTypeConverter(false)));
         parameters.AddOptionalParameter("banAmend", banAmend);
 
         parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(tpTriggerPxType, new OkxAlgoPriceTypeConverter(false)));
@@ -138,7 +139,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("attachAlgoClOrdId", attachAlgoClientOrderOrderId);
 
         parameters.AddOptionalParameter("stpId", selfTradePreventionId?.ToOkxString());
-        parameters.AddOptionalParameter("stpMode", JsonConvert.SerializeObject(selfTradePreventionMode, new SelfTradePreventionModeConverter(false)));
+        parameters.AddOptionalParameter("stpMode", JsonConvert.SerializeObject(selfTradePreventionMode, new OkxSelfTradePreventionModeConverter(false)));
 
         return ProcessOneRequestAsync<OkxOrderPlaceResponse>(GetUri(v5TradeOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -409,7 +410,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OkxOrderTypeConverter(false)));
         parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxOrderStateConverter(false)));
-        parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OrderCategoryConverter(false)));
+        parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OkxOrderCategoryConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
@@ -461,7 +462,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OkxOrderTypeConverter(false)));
         parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxOrderStateConverter(false)));
-        parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OrderCategoryConverter(false)));
+        parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OkxOrderCategoryConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());

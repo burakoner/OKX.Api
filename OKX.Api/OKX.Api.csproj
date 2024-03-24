@@ -163,12 +163,9 @@
 	  <Folder Include="Broker\Converters\" />
 	  <Folder Include="Broker\Enums\" />
 	  <Folder Include="Broker\Models\" />
-	  <Folder Include="Common\Models\" />
-	  <Folder Include="Helpers\" />
 	  <Folder Include="Rubik\Clients\" />
 	  <Folder Include="Rubik\Converters\" />
 	  <Folder Include="Rubik\Enums\" />
-	  <Folder Include="Rubik\Models\" />
 	  <Folder Include="SignalTrading\Converters\" />
 	  <Folder Include="SignalTrading\Enums\" />
 	  <Folder Include="SignalTrading\Models\" />

@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.RecurringBuy.Clients;
+﻿using OKX.Api.Common.Clients.RestApi;
+
+namespace OKX.Api.RecurringBuy.Clients;
 
 /// <summary>
 /// OKX Rest Api Recurring Buy Client

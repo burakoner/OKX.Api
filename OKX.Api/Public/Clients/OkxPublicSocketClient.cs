@@ -1,4 +1,5 @@
-﻿using OKX.Api.Public.Models;
+﻿using OKX.Api.Common.Models;
+using OKX.Api.Public.Models;
 
 namespace OKX.Api.Public.Clients;
 
@@ -335,7 +336,7 @@ public class OkxPublicSocketClient
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = "mark-price-candle" + JsonConvert.SerializeObject(period, new PeriodConverter(false)),
+            Channel = "mark-price-candle" + JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)),
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
@@ -376,7 +377,7 @@ public class OkxPublicSocketClient
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = "index-candle" + JsonConvert.SerializeObject(period, new PeriodConverter(false)),
+            Channel = "index-candle" + JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)),
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
@@ -459,7 +460,7 @@ public class OkxPublicSocketClient
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = "candle" + JsonConvert.SerializeObject(period, new PeriodConverter(false)),
+            Channel = "candle" + JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)),
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
@@ -547,7 +548,7 @@ public class OkxPublicSocketClient
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = JsonConvert.SerializeObject(orderBookType, new OrderBookTypeConverter(false)),
+            Channel = JsonConvert.SerializeObject(orderBookType, new OkxOrderBookTypeConverter(false)),
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);

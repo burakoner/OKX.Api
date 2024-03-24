@@ -219,7 +219,7 @@ public class OkxOrder
     /// <summary>
     /// Category
     /// </summary>
-    [JsonProperty("category"), JsonConverter(typeof(OrderCategoryConverter))]
+    [JsonProperty("category"), JsonConverter(typeof(OkxOrderCategoryConverter))]
     public OkxOrderCategory? Category { get; set; }
 
     /// <summary>
@@ -243,7 +243,7 @@ public class OkxOrder
     /// <summary>
     /// Quick Margin type, Only applicable to Quick Margin Mode of isolated margin
     /// </summary>
-    [JsonProperty("quickMgnType"), JsonConverter(typeof(QuickMarginTypeConverter))]
+    [JsonProperty("quickMgnType"), JsonConverter(typeof(OkxQuickMarginTypeConverter))]
     public OkxQuickMarginType? QuickMarginType { get; set; }
 
     /// <summary>
@@ -296,7 +296,7 @@ public class OkxOrder
     /// cancel_maker,cancel_taker, cancel_both
     /// Cancel both does not support FOK.
     /// </summary>
-    [JsonProperty("stpMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(SelfTradePreventionModeConverter))]
+    [JsonProperty("stpMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxSelfTradePreventionModeConverter))]
     public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
 
     [JsonProperty("attachAlgoClOrdId", NullValueHandling = NullValueHandling.Ignore)]

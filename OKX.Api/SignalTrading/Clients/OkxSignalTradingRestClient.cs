@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.SignalTrading.Clients;
+﻿using OKX.Api.Common.Clients.RestApi;
+
+namespace OKX.Api.SignalTrading.Clients;
 
 /// <summary>
 /// OKX Rest Api Signal Trading Client

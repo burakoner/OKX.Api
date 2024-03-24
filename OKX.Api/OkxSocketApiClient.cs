@@ -1,6 +1,8 @@
 ﻿using OKX.Api.Account.Clients;
 using OKX.Api.AlgoTrading.Clients;
 using OKX.Api.BlockTrading.Clients;
+using OKX.Api.Common.Clients.WebSocketApi;
+using OKX.Api.Common.Models;
 using OKX.Api.CopyTrading.Clients;
 using OKX.Api.Funding.Clients;
 using OKX.Api.GridTrading.Clients;

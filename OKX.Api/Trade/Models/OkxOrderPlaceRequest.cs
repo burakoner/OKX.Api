@@ -156,6 +156,6 @@ public class OkxOrderPlaceRequest
     /// cancel_maker,cancel_taker, cancel_both
     /// Cancel both does not support FOK.
     /// </summary>
-    [JsonProperty("stpMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(SelfTradePreventionModeConverter))]
+    [JsonProperty("stpMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxSelfTradePreventionModeConverter))]
     public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
 }

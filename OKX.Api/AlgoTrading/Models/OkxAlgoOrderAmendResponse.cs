@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.AlgoTrading.Models;
+﻿using OKX.Api.Common.Models;
+
+namespace OKX.Api.AlgoTrading.Models;
 
 public class OkxAlgoOrderAmendResponse : OkxRestApiResponseModel
 {

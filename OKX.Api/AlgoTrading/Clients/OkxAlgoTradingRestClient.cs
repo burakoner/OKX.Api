@@ -1,6 +1,7 @@
 ﻿using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
 using OKX.Api.AlgoTrading.Models;
+using OKX.Api.Common.Clients.RestApi;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
@@ -157,7 +158,7 @@ public class OkxAlgoTradingRestClient : OkxRestApiBaseClient
         // Take Profit / Stop Loss
         // Trigger Order
         // Trailing Stop Order
-        parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMarginType, new QuickMarginTypeConverter(false)));
+        parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMarginType, new OkxQuickMarginTypeConverter(false)));
 
         // Trigger Order
         parameters.AddOptionalParameter("triggerPx", triggerPrice?.ToOkxString());
@@ -171,7 +172,7 @@ public class OkxAlgoTradingRestClient : OkxRestApiBaseClient
 
         // Iceberg Order
         // TWAP Order
-        parameters.AddOptionalParameter("pxVar", JsonConvert.SerializeObject(priceVariance, new PriceVarianceConverter(false)));
+        parameters.AddOptionalParameter("pxVar", JsonConvert.SerializeObject(priceVariance, new OkxPriceVarianceConverter(false)));
         parameters.AddOptionalParameter("pxSpread", priceRatio?.ToOkxString());
         parameters.AddOptionalParameter("szLimit", sizeLimit?.ToOkxString());
         parameters.AddOptionalParameter("pxLimit", priceLimit?.ToOkxString());

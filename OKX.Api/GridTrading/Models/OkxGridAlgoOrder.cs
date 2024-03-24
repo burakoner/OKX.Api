@@ -275,7 +275,7 @@ public class OkxGridAlgoOrder
     /// <summary>
     /// Profit sharing order type
     /// </summary>
-    [JsonProperty("copyType"), JsonConverter(typeof(ProfitSharingOrderTypeConverter))]
+    [JsonProperty("copyType"), JsonConverter(typeof(OkxProfitSharingOrderTypeConverter))]
     public OkxProfitSharingOrderType ProfitSharingOrderType { get; set; }
 }
 

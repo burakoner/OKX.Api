@@ -11,7 +11,7 @@ public class OkxStatus
     /// <summary>
     /// System maintenance status
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(MaintenanceStateConverter))]
+    [JsonProperty("state"), JsonConverter(typeof(OkxMaintenanceStateConverter))]
     public OkxMaintenanceState Status { get; set; }
 
     /// <summary>
@@ -47,13 +47,13 @@ public class OkxStatus
     /// <summary>
     /// Service type, 0：WebSocket ; 1：Spot/Margin ; 2：Futures ; 3：Perpetual ; 4：Options ; 5：Trading service
     /// </summary>
-    [JsonProperty("serviceType"), JsonConverter(typeof(MaintenanceServiceConverter))]
+    [JsonProperty("serviceType"), JsonConverter(typeof(OkxMaintenanceServiceConverter))]
     public OkxMaintenanceService Product { get; set; }
 
     /// <summary>
     /// Service type, 0：WebSocket ; 1：Spot/Margin ; 2：Futures ; 3：Perpetual ; 4：Options ; 5：Trading service
     /// </summary>
-    [JsonProperty("system"), JsonConverter(typeof(MaintenanceSystemConverter))]
+    [JsonProperty("system"), JsonConverter(typeof(OkxMaintenanceSystemConverter))]
     public OkxMaintenanceSystem System { get; set; }
 
     /// <summary>

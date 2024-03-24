@@ -1,4 +1,5 @@
-﻿using OKX.Api.Funding.Converters;
+﻿using OKX.Api.Common.Clients.RestApi;
+using OKX.Api.Funding.Converters;
 using OKX.Api.Funding.Enums;
 using OKX.Api.Funding.Models;
 
@@ -185,7 +186,7 @@ public class OkxFundingRestClient : OkxRestApiBaseClient
             { "ccy", currency },
             { "amt", amount.ToOkxString() },
         };
-        parameters.AddOptionalParameter("to", JsonConvert.SerializeObject(account, new LightningDepositAccountConverter(false)));
+        parameters.AddOptionalParameter("to", JsonConvert.SerializeObject(account, new OkxLightningDepositAccountConverter(false)));
 
         return ProcessListRequestAsync<OkxLightningDeposit>(GetUri(v5AssetDepositLightning), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

@@ -1,5 +1,6 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
+using OKX.Api.Common.Clients.RestApi;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Public.Models;
@@ -517,7 +518,7 @@ public class OkxPublicRestClient : OkxRestApiBaseClient
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
+            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
         };
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
@@ -546,7 +547,7 @@ public class OkxPublicRestClient : OkxRestApiBaseClient
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
+            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
         };
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
@@ -575,7 +576,7 @@ public class OkxPublicRestClient : OkxRestApiBaseClient
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
+            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
         };
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
@@ -604,7 +605,7 @@ public class OkxPublicRestClient : OkxRestApiBaseClient
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
+            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
         };
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
@@ -796,7 +797,7 @@ public class OkxPublicRestClient : OkxRestApiBaseClient
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
+            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
         };
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
@@ -825,7 +826,7 @@ public class OkxPublicRestClient : OkxRestApiBaseClient
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
+            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
         };
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());

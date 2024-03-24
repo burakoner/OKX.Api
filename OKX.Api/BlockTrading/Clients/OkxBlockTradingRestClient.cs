@@ -1,4 +1,5 @@
 ﻿using OKX.Api.BlockTrading.Models;
+using OKX.Api.Common.Clients.RestApi;
 
 namespace OKX.Api.BlockTrading.Clients;
 

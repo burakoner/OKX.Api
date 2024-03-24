@@ -1,5 +1,6 @@
 ﻿using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
+using OKX.Api.Common.Clients.RestApi;
 using OKX.Api.CopyTrading.Models;
 
 namespace OKX.Api.CopyTrading.Clients;

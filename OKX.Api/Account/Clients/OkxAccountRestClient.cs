@@ -1,6 +1,7 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
 using OKX.Api.Account.Models;
+using OKX.Api.Common.Clients.RestApi;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
@@ -127,7 +128,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)));
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new ClosingPositionTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxClosingPositionTypeConverter(false)));
         parameters.AddOptionalParameter("posId", positionId);
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
@@ -382,7 +383,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("reduceOnly", reduceOnly);
         parameters.AddOptionalParameter("px", price?.ToOkxString());
         parameters.AddOptionalParameter("unSpotOffset", unSpotOffset);
-        parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new QuickMarginTypeConverter(false)));
+        parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new OkxQuickMarginTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxMaximumAvailableAmount>(GetUri(v5AccountMaxAvailSize), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

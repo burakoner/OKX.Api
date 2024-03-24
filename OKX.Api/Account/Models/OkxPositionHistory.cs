@@ -31,7 +31,7 @@ public class OkxPositionHistory
     /// <summary>
     /// The type of closing position
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(ClosingPositionTypeConverter))]
+    [JsonProperty("type"), JsonConverter(typeof(OkxClosingPositionTypeConverter))]
     public OkxClosingPositionType Type { get; set; }
 
     /// <summary>
