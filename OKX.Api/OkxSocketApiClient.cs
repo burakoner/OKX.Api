@@ -1,6 +1,7 @@
 ﻿using OKX.Api.Account.Clients;
 using OKX.Api.AlgoTrading.Clients;
 using OKX.Api.Funding.Clients;
+using OKX.Api.GridTrading.Clients;
 using OKX.Api.Public.Clients;
 using OKX.Api.Trade.Clients;
 
@@ -35,25 +36,25 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
     /// Algo Trading Client
     /// </summary>
     public OkxAlgoTradingSocketClient AlgoTrading { get; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     /// <summary>
     /// Grid Trading Client
     /// </summary>
-    public OKXWebSocketApiGridTradingClient GridTrading { get; }
+    public OkxGridTradingSocketClient GridTrading { get; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// Recurring Buy Client
@@ -117,10 +118,10 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
         this.Funding = new OkxFundingSocketClient(this);
         this.Trade = new OkxTradeSocketClient(this);
         this.AlgoTrading = new OkxAlgoTradingSocketClient(this);
+        this.GridTrading = new OkxGridTradingSocketClient(this);
 
 
 
-        this.GridTrading = new OKXWebSocketApiGridTradingClient(this);
         this.RecurringBuy = new OKXWebSocketApiRecurringBuyClient(this);
         this.CopyTrading = new OKXWebSocketApiCopyTradingClient(this);
         this.BlockTrading = new OKXWebSocketApiBlockTradingClient(this);

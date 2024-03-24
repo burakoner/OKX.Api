@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Models.GridTrading;
+﻿namespace OKX.Api.GridTrading.Models;
 
 public class OkxGridInvestment
 {

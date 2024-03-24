@@ -1,16 +1,16 @@
-﻿namespace OKX.Api.Clients.WebSocketApi;
+﻿namespace OKX.Api.GridTrading.Clients;
 
 /// <summary>
 /// OKX WebSocket Api Grid Trading Client
 /// </summary>
-public class OKXWebSocketApiGridTradingClient
+public class OkxGridTradingSocketClient
 {
     // Root Client
     internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiGridTradingClient(OkxSocketApiClient root)
+    internal OkxGridTradingSocketClient(OkxSocketApiClient root)
     {
-        this.RootClient = root;
+        RootClient = root;
     }
 
     // TODO: WS / Spot grid algo orders channel

@@ -1,6 +1,7 @@
 ﻿using OKX.Api.Account.Clients;
 using OKX.Api.AlgoTrading.Clients;
 using OKX.Api.Funding.Clients;
+using OKX.Api.GridTrading.Clients;
 using OKX.Api.SubAccount.Clients;
 using OKX.Api.Trade.Clients;
 
@@ -50,26 +51,26 @@ public sealed class OkxRestApiClient
     /// Algo Trading Client
     /// </summary>
     public OkxAlgoTradingRestClient AlgoTrading { get; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     /// <summary>
     /// Grid Trading Client
     /// </summary>
-    public OKXRestApiGridTradingClient GridTrading { get; }
+    public OkxGridTradingRestClient GridTrading { get; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// Recurring Buy Client
@@ -146,13 +147,13 @@ public sealed class OkxRestApiClient
         SubAccount = new OkxSubAccountRestClient(this);
         Trade = new OkxTradeRestClient(this);
         AlgoTrading = new OkxAlgoTradingRestClient(this);
+        GridTrading = new OkxGridTradingRestClient(this);
 
 
 
 
 
         
-        GridTrading = new OKXRestApiGridTradingClient(this);
         RecurringBuy = new OKXRestApiRecurringBuyClient(this);
         CopyTrading = new OKXRestApiCopyTradingClient(this);
         BlockTrading = new OKXRestApiBlockTradingClient(this);
@@ -186,11 +187,11 @@ public sealed class OkxRestApiClient
         SubAccount.SetApiCredentials(credentials);
         Trade.SetApiCredentials(credentials);
         AlgoTrading.SetApiCredentials(credentials);
+        GridTrading.SetApiCredentials(credentials);
 
 
 
         
-        GridTrading.SetApiCredentials(credentials);
         RecurringBuy.SetApiCredentials(credentials);
         GridTrading.SetApiCredentials(credentials);
         CopyTrading.SetApiCredentials(credentials);

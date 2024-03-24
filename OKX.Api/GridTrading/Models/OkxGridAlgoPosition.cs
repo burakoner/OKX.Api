@@ -3,7 +3,7 @@ using OKX.Api.Account.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 
-namespace OKX.Api.Models.GridTrading;
+namespace OKX.Api.GridTrading.Models;
 
 public class OkxGridAlgoPosition
 {
@@ -40,7 +40,7 @@ public class OkxGridAlgoPosition
 
     [JsonProperty("lever")]
     public decimal? Leverage { get; set; }
-    
+
     [JsonProperty("liqPx")]
     public decimal? LiquidationPrice { get; set; }
 

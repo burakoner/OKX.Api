@@ -192,8 +192,6 @@
 	  <Folder Include="CopyTrading\Converters\" />
 	  <Folder Include="CopyTrading\Enums\" />
 	  <Folder Include="CopyTrading\Models\" />
-	  <Folder Include="GridTrading\Clients\" />
-	  <Folder Include="GridTrading\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>

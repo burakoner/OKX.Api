@@ -1,7 +1,7 @@
 ﻿using OKX.Api.GridTrading.Converters;
 using OKX.Api.GridTrading.Enums;
 
-namespace OKX.Api.Models.GridTrading;
+namespace OKX.Api.GridTrading.Models;
 
 /// <summary>
 /// OKX Grid Algo Order
@@ -56,13 +56,13 @@ public class OkxGridAlgoOrder
     /// <summary>
     /// Algo order type
     /// </summary>
-    [JsonProperty("algoOrdType"), JsonConverter(typeof(GridAlgoOrderTypeConverter))]
+    [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxGridAlgoOrderTypeConverter))]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }
 
     /// <summary>
     /// Algo order state
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(GridAlgoOrderStatusConverter))]
+    [JsonProperty("state"), JsonConverter(typeof(OkxGridAlgoOrderStatusConverter))]
     public OkxGridAlgoOrderStatus AlgoOrderStatus { get; set; }
 
     /// <summary>
@@ -98,7 +98,7 @@ public class OkxGridAlgoOrder
     /// <summary>
     /// Grid type
     /// </summary>
-    [JsonProperty("runType"), JsonConverter(typeof(GridRunTypeConverter))]
+    [JsonProperty("runType"), JsonConverter(typeof(OkxGridRunTypeConverter))]
     public OkxGridRunType? GridRunType { get; set; }
 
     /// <summary>
@@ -153,7 +153,7 @@ public class OkxGridAlgoOrder
     /// <summary>
     /// Algo order stop reason
     /// </summary>
-    [JsonProperty("cancelType"), JsonConverter(typeof(GridCancelTypeConverter))]
+    [JsonProperty("cancelType"), JsonConverter(typeof(OkxGridCancelTypeConverter))]
     public OkxGridCancelType? CancelType { get; set; }
 
     /// <summary>
@@ -191,7 +191,7 @@ public class OkxGridAlgoOrder
     /// long,short,neutral
     /// Only applicable to contract grid
     /// </summary>
-    [JsonProperty("direction"), JsonConverter(typeof(GridContractDirectionConverter))]
+    [JsonProperty("direction"), JsonConverter(typeof(OkxGridContractDirectionConverter))]
     public OkxGridContractDirection? ContractGridDirection { get; set; }
 
     /// <summary>
@@ -305,13 +305,13 @@ public class OkxGridTriggerParameters
     /// <summary>
     /// Trigger action
     /// </summary>
-    [JsonProperty("triggerAction"), JsonConverter(typeof(GridAlgoTriggerActionConverter))]
+    [JsonProperty("triggerAction"), JsonConverter(typeof(OkxGridAlgoTriggerActionConverter))]
     public OkxGridAlgoTriggerAction TriggerAction { get; set; }
 
     /// <summary>
     /// Trigger strategy
     /// </summary>
-    [JsonProperty("triggerStrategy"), JsonConverter(typeof(GridAlgoTriggerStrategyConverter))]
+    [JsonProperty("triggerStrategy"), JsonConverter(typeof(OkxGridAlgoTriggerStrategyConverter))]
     public OkxGridAlgoTriggerStrategy TriggerStrategy { get; set; }
 
     /// <summary>
@@ -329,14 +329,14 @@ public class OkxGridTriggerParameters
     /// <summary>
     /// Actual action triggered type
     /// </summary>
-    [JsonProperty("triggerType"), JsonConverter(typeof(GridAlgoTriggerTypeConverter))]
+    [JsonProperty("triggerType"), JsonConverter(typeof(OkxGridAlgoTriggerTypeConverter))]
     public OkxGridAlgoTriggerType? TriggerType { get; set; }
 
     /// <summary>
     /// K-line type
     /// This field is only valid when triggerStrategy is rsi
     /// </summary>
-    [JsonProperty("timeframe"), JsonConverter(typeof(GridAlgoTimeFrameConverter))]
+    [JsonProperty("timeframe"), JsonConverter(typeof(OkxGridAlgoTimeFrameConverter))]
     public OkxGridAlgoTimeFrame? TimeFrame { get; set; }
 
     /// <summary>
@@ -351,7 +351,7 @@ public class OkxGridTriggerParameters
     /// Trigger condition
     /// This field is only valid when triggerStrategy is rsi
     /// </summary>
-    [JsonProperty("triggerCond"), JsonConverter(typeof(GridAlgoTriggerConditionConverter))]
+    [JsonProperty("triggerCond"), JsonConverter(typeof(OkxGridAlgoTriggerConditionConverter))]
     public OkxGridAlgoTriggerCondition? TriggerCondition { get; set; }
 
     /// <summary>

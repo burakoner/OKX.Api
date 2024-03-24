@@ -1,17 +1,17 @@
 ﻿using OKX.Api.GridTrading.Converters;
 using OKX.Api.GridTrading.Enums;
 
-namespace OKX.Api.Models.GridTrading;
+namespace OKX.Api.GridTrading.Models;
 
 public class OkxGridAiParameter
 {
     [JsonProperty("instId")]
     public string Instrument { get; set; }
 
-    [JsonProperty("algoOrdType"), JsonConverter(typeof(GridAlgoOrderTypeConverter))]
+    [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxGridAlgoOrderTypeConverter))]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }
 
-    [JsonProperty("duration"), JsonConverter(typeof(GridBackTestingDurationConverter))]
+    [JsonProperty("duration"), JsonConverter(typeof(OkxGridBackTestingDurationConverter))]
     public OkxGridBackTestingDuration Duration { get; set; }
 
     [JsonProperty("maxPx")]
@@ -38,10 +38,10 @@ public class OkxGridAiParameter
     [JsonProperty("ccy")]
     public string Currency { get; set; }
 
-    [JsonProperty("runType"), JsonConverter(typeof(GridRunTypeConverter))]
+    [JsonProperty("runType"), JsonConverter(typeof(OkxGridRunTypeConverter))]
     public OkxGridRunType RunType { get; set; }
-    
-    [JsonProperty("direction"), JsonConverter(typeof(GridContractDirectionConverter))]
+
+    [JsonProperty("direction"), JsonConverter(typeof(OkxGridContractDirectionConverter))]
     public OkxGridContractDirection Direction { get; set; }
 
     [JsonProperty("lever")]

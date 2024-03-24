@@ -4,6 +4,7 @@ using OKX.Api.AlgoTrading.Models;
 using OKX.Api.Common.Enums;
 using OKX.Api.Funding.Enums;
 using OKX.Api.GridTrading.Enums;
+using OKX.Api.GridTrading.Models;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Enums;
 using OKX.Api.Trade.Models;

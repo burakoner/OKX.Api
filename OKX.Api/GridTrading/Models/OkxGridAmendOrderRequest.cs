@@ -1,7 +1,7 @@
 ﻿using OKX.Api.GridTrading.Converters;
 using OKX.Api.GridTrading.Enums;
 
-namespace OKX.Api.Models.GridTrading;
+namespace OKX.Api.GridTrading.Models;
 
 public class OkxGridAmendOrderRequest
 {
@@ -18,15 +18,15 @@ public class OkxGridAmendOrderRequest
     public decimal? StopLossTriggerPrice { get; set; }
 
     [JsonProperty("triggerParams", NullValueHandling = NullValueHandling.Ignore)]
-    public List< OkxGridAmendTriggerParameters> TriggerParameters { get; set; }
+    public List<OkxGridAmendTriggerParameters> TriggerParameters { get; set; }
 }
 
 public class OkxGridAmendTriggerParameters
 {
-    [JsonProperty("triggerAction"), JsonConverter(typeof(GridAlgoTriggerActionConverter))]
+    [JsonProperty("triggerAction"), JsonConverter(typeof(OkxGridAlgoTriggerActionConverter))]
     public OkxGridAlgoTriggerAction TriggerAction { get; set; }
 
-    [JsonProperty("triggerStrategy"), JsonConverter(typeof(GridAlgoTriggerStrategyConverter))]
+    [JsonProperty("triggerStrategy"), JsonConverter(typeof(OkxGridAlgoTriggerStrategyConverter))]
     public OkxGridAlgoTriggerStrategy TriggerStrategy { get; set; }
 
     [JsonProperty("triggerPx", NullValueHandling = NullValueHandling.Ignore)]
@@ -43,8 +43,8 @@ public class OkxGridAmendTriggerParameters
     {
         get
         {
-            if (SpotAlgoStopType != null) return JsonConvert.SerializeObject(SpotAlgoStopType, new GridSpotAlgoStopTypeConverter(false));
-            if (ContractAlgoStopType != null) return JsonConvert.SerializeObject(ContractAlgoStopType, new GridContractAlgoStopTypeConverter(false));
+            if (SpotAlgoStopType != null) return JsonConvert.SerializeObject(SpotAlgoStopType, new OkxGridSpotAlgoStopTypeConverter(false));
+            if (ContractAlgoStopType != null) return JsonConvert.SerializeObject(ContractAlgoStopType, new OkxGridContractAlgoStopTypeConverter(false));
             return null;
         }
     }

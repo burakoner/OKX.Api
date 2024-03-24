@@ -5,7 +5,7 @@ using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 
-namespace OKX.Api.Models.GridTrading;
+namespace OKX.Api.GridTrading.Models;
 
 public class OkxGridAlgoSubOrder
 {
@@ -21,7 +21,7 @@ public class OkxGridAlgoSubOrder
     [JsonProperty("instId")]
     public string Instrument { get; set; }
 
-    [JsonProperty("algoOrdType"), JsonConverter(typeof(GridAlgoOrderTypeConverter))]
+    [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxGridAlgoOrderTypeConverter))]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }
 
     [JsonProperty("groupId")]
@@ -54,7 +54,7 @@ public class OkxGridAlgoSubOrder
     [JsonProperty("sz")]
     public decimal? Quantity { get; set; }
 
-    [JsonProperty("state"), JsonConverter(typeof(GridAlgoSubOrderStatusConverter))]
+    [JsonProperty("state"), JsonConverter(typeof(OkxGridAlgoSubOrderStatusConverter))]
     public OkxGridAlgoSubOrderStatus AlgoSubOrderStatus { get; set; }
 
     [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
@@ -86,10 +86,10 @@ public class OkxGridAlgoSubOrder
 
     [JsonProperty("pnl")]
     public decimal? ProfitLoss { get; set; }
-    
+
     [JsonProperty("ctVal")]
     public decimal? ContractValue { get; set; }
-    
+
     [JsonProperty("lever")]
     public decimal? Leverage { get; set; }
 
