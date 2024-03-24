@@ -1,8 +1,11 @@
 ﻿using OKX.Api.Account.Clients;
 using OKX.Api.AlgoTrading.Clients;
+using OKX.Api.BlockTrading.Clients;
+using OKX.Api.CopyTrading.Clients;
 using OKX.Api.Funding.Clients;
 using OKX.Api.GridTrading.Clients;
 using OKX.Api.Public.Clients;
+using OKX.Api.RecurringBuy.Clients;
 using OKX.Api.Trade.Clients;
 
 namespace OKX.Api;
@@ -42,39 +45,37 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
     /// </summary>
     public OkxGridTradingSocketClient GridTrading { get; }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /// <summary>
     /// Recurring Buy Client
     /// </summary>
-    public OKXWebSocketApiRecurringBuyClient RecurringBuy { get; }
+    public OkxRecurringBuySocketClient RecurringBuy { get; }
 
     /// <summary>
     /// Copy Trading Client
     /// </summary>
-    public OKXWebSocketApiCopyTradingClient CopyTrading { get; }
+    public OkxCopyTradingSocketClient CopyTrading { get; }
 
     /// <summary>
     /// Block Trading Client
     /// </summary>
-    public OKXWebSocketApiBlockTradingClient BlockTrading { get; }
+    public OkxBlockTradingSocketClient BlockTrading { get; }
 
     /// <summary>
     /// Spread Trading Client
     /// </summary>
     public OKXWebSocketApiSpreadTradingClient SpreadTrading { get; }
+
+
+
+
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// Trading Statistics Client
@@ -119,13 +120,13 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
         this.Trade = new OkxTradeSocketClient(this);
         this.AlgoTrading = new OkxAlgoTradingSocketClient(this);
         this.GridTrading = new OkxGridTradingSocketClient(this);
-
-
-
-        this.RecurringBuy = new OKXWebSocketApiRecurringBuyClient(this);
-        this.CopyTrading = new OKXWebSocketApiCopyTradingClient(this);
-        this.BlockTrading = new OKXWebSocketApiBlockTradingClient(this);
+        this.RecurringBuy = new OkxRecurringBuySocketClient(this);
+        this.CopyTrading = new OkxCopyTradingSocketClient(this);
+        this.BlockTrading = new OkxBlockTradingSocketClient(this);
         this.SpreadTrading = new OKXWebSocketApiSpreadTradingClient(this);
+        
+        
+        
         this.TradingStatistics = new OKXWebSocketApiTradingStatisticsClient(this);
         this.FinancialProduct = new OKXWebSocketApiFinancialProductClient(this);
         this.Status = new OKXWebSocketApiSystemClient(this);

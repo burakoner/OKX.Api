@@ -168,7 +168,6 @@
 	  <Folder Include="Rubik\Converters\" />
 	  <Folder Include="Rubik\Enums\" />
 	  <Folder Include="Rubik\Models\" />
-	  <Folder Include="SignalTrading\Clients\" />
 	  <Folder Include="SignalTrading\Converters\" />
 	  <Folder Include="SignalTrading\Enums\" />
 	  <Folder Include="SignalTrading\Models\" />
@@ -176,22 +175,17 @@
 	  <Folder Include="SpreadTrading\Converters\" />
 	  <Folder Include="SpreadTrading\Enums\" />
 	  <Folder Include="SpreadTrading\Models\" />
-	  <Folder Include="BlockTrading\Clients\" />
 	  <Folder Include="BlockTrading\Converters\" />
 	  <Folder Include="BlockTrading\Enums\" />
-	  <Folder Include="BlockTrading\Models\" />
 	  <Folder Include="Finance\Clients\" />
 	  <Folder Include="Finance\Converters\" />
 	  <Folder Include="Finance\Enums\" />
 	  <Folder Include="Finance\Models\" />
-	  <Folder Include="RecurringBuy\Clients\" />
 	  <Folder Include="RecurringBuy\Converters\" />
 	  <Folder Include="RecurringBuy\Enums\" />
 	  <Folder Include="RecurringBuy\Models\" />
-	  <Folder Include="CopyTrading\Clients\" />
 	  <Folder Include="CopyTrading\Converters\" />
 	  <Folder Include="CopyTrading\Enums\" />
-	  <Folder Include="CopyTrading\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>

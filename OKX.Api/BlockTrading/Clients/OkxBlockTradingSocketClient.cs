@@ -1,16 +1,16 @@
-﻿namespace OKX.Api.Clients.WebSocketApi;
+﻿namespace OKX.Api.BlockTrading.Clients;
 
 /// <summary>
 /// OKX WebSocket Api Block Trading Client
 /// </summary>
-public class OKXWebSocketApiBlockTradingClient
+public class OkxBlockTradingSocketClient
 {
     // Root Client
     internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiBlockTradingClient(OkxSocketApiClient root)
+    internal OkxBlockTradingSocketClient(OkxSocketApiClient root)
     {
-        this.RootClient = root;
+        RootClient = root;
     }
 
     // TODO: Rfqs channel

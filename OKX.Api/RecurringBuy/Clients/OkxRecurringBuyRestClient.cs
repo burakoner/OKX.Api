@@ -1,9 +1,9 @@
-﻿namespace OKX.Api.Clients.RestApi;
+﻿namespace OKX.Api.RecurringBuy.Clients;
 
 /// <summary>
 /// OKX Rest Api Recurring Buy Client
 /// </summary>
-public class OKXRestApiRecurringBuyClient : OkxRestApiBaseClient
+public class OkxRecurringBuyRestClient : OkxRestApiBaseClient
 {
     // Endpoints
     // TODO: api/v5/tradingBot/recurring/order-algo
@@ -14,12 +14,12 @@ public class OKXRestApiRecurringBuyClient : OkxRestApiBaseClient
     // TODO: api/v5/tradingBot/recurring/orders-algo-details
     // TODO: api/v5/tradingBot/recurring/sub-orders
 
-    internal OKXRestApiRecurringBuyClient(OkxRestApiClient root) : base(root)
+    internal OkxRecurringBuyRestClient(OkxRestApiClient root) : base(root)
     {
     }
 
     #region Recurring Buy API Endpoints
-    
+
     #endregion
 
 }

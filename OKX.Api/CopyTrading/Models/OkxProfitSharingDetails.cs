@@ -1,21 +1,21 @@
-﻿namespace OKX.Api.Models.CopyTrading;
+﻿namespace OKX.Api.CopyTrading.Models;
 
 /// <summary>
-/// OkxProfitSharingUnrealized
+/// OkxProfitSharingDetails
 /// </summary>
-public class OkxProfitSharingUnrealized
+public class OkxProfitSharingDetails
 {
     /// <summary>
-    /// The currency of profit sharing. e.g. USDT
+    /// The currency of profit sharing.
     /// </summary>
     [JsonProperty("ccy")]
     public string Currency { get; set; }
 
     /// <summary>
-    /// Unrealized profit sharing amount.
+    /// Profit sharing amount. Default is 0.
     /// </summary>
-    [JsonProperty("unrealizedProfitSharingAmt")]
-    public decimal UnrealizedProfitSharingAmount { get; set; }
+    [JsonProperty("profitSharingAmt")]
+    public decimal ProfitSharingAmount { get; set; }
 
     /// <summary>
     /// Nickname of copy trader.
@@ -24,13 +24,19 @@ public class OkxProfitSharingUnrealized
     public string Nickname { get; set; }
 
     /// <summary>
-    /// Update time.
+    /// Profit sharing ID.
+    /// </summary>
+    [JsonProperty("profitSharingId")]
+    public long ProfitSharingId { get; set; }
+
+    /// <summary>
+    /// Profit sharing time.
     /// </summary>
     [JsonProperty("ts")]
     public long Timestamp { get; set; }
 
     /// <summary>
-    /// Update time.
+    /// Profit sharing time.
     /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }

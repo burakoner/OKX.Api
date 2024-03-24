@@ -1,4 +1,4 @@
-﻿using OKX.Api.Models.System;
+﻿using OKX.Api.Public.Models;
 
 namespace OKX.Api.Clients.WebSocketApi;
 

@@ -3,12 +3,12 @@ using OKX.Api.Account.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 
-namespace OKX.Api.Models.CopyTrading;
+namespace OKX.Api.CopyTrading.Models;
 
 /// <summary>
-/// OkxLeadingPositionHistory
+/// OkxLeadingPosition
 /// </summary>
-public class OkxLeadingPositionHistory
+public class OkxLeadingPosition
 {
     /// <summary>
     /// Instrument ID, e.g. BTC-USDT-SWAP
@@ -53,13 +53,13 @@ public class OkxLeadingPositionHistory
     public decimal? AverageOpenPrice { get; set; }
 
     /// <summary>
-    /// Time of opening
+    /// Open time
     /// </summary>
     [JsonProperty("openTime")]
     public long OpenTimestamp { get; set; }
 
     /// <summary>
-    /// Time of opening
+    /// Open time
     /// </summary>
     [JsonIgnore]
     public DateTime OpenTime { get { return OpenTimestamp.ConvertFromMilliseconds(); } }
@@ -71,32 +71,20 @@ public class OkxLeadingPositionHistory
     public int QuantityOfPositions { get; set; }
 
     /// <summary>
-    /// Time of closing position
+    /// ake-profit trigger price. Take-profit order price will be the market price after triggering.
     /// </summary>
-    [JsonProperty("closeTime")]
-    public long? CloseTimestamp { get; set; }
+    [JsonProperty("tpTriggerPx")]
+    public decimal? TakeProfitTriggerPrice { get; set; }
 
     /// <summary>
-    /// Time of closing position
+    /// Stop-loss trigger price. Stop-loss order price will be the market price after triggering.
     /// </summary>
-    [JsonIgnore]
-    public DateTime? CloseTime { get { return CloseTimestamp?.ConvertFromMilliseconds(); } }
+    [JsonProperty("slTriggerPx")]
+    public decimal? StopLossTriggerPrice { get; set; }
 
     /// <summary>
-    /// Average price of closing position
+    /// Stop order ID
     /// </summary>
-    [JsonProperty("closeAvgPx")]
-    public decimal? AverageClosePrice { get; set; }
-
-    /// <summary>
-    /// Profit and loss
-    /// </summary>
-    [JsonProperty("pnl")]
-    public decimal ProfitLoss { get; set; }
-
-    /// <summary>
-    /// P&L ratio
-    /// </summary>
-    [JsonProperty("pnlRatio")]
-    public decimal ProfitLossRatio { get; set; }
+    [JsonProperty("algoId")]
+    public long? AlgoOrderId { get; set; }
 }

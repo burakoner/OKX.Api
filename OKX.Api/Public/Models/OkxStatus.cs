@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Models.System;
+﻿namespace OKX.Api.Public.Models;
 
 public class OkxStatus
 {

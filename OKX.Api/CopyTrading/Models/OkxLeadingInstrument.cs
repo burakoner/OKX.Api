@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Models.CopyTrading;
+﻿namespace OKX.Api.CopyTrading.Models;
 
 /// <summary>
 /// OkxLeadingInstrument

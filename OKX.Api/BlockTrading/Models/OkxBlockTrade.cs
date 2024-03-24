@@ -1,6 +1,6 @@
 ﻿using OKX.Api.Public.Converters;
 
-namespace OKX.Api.Models.BlockTrading;
+namespace OKX.Api.BlockTrading.Models;
 
 public class OkxBlockTrade
 {

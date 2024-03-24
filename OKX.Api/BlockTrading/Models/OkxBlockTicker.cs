@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Models.BlockTrading;
+﻿namespace OKX.Api.BlockTrading.Models;
 
 public class OkxBlockTicker
 {
