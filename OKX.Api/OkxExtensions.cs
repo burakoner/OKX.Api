@@ -1,4 +1,13 @@
-﻿namespace OKX.Api.Helpers;
+﻿/* Unmerged change from project 'OKX.Api (netstandard2.0)'
+Before:
+namespace OKX.Api.Helpers;
+After:
+using OKX;
+using OKX.Api;
+using OKX.Api;
+using OKX.Api.Helpers;
+*/
+namespace OKX.Api;
 
 /// <summary>
 /// OKX Extensions
@@ -47,7 +56,7 @@ internal static class OkxExtensions
     #region Null
     public static bool IsNull(this object @this)
     {
-        return (@this == null || @this.GetType() == typeof(DBNull));
+        return @this == null || @this.GetType() == typeof(DBNull);
     }
 
     public static bool IsNotNull(this object @this)
@@ -79,12 +88,12 @@ internal static class OkxExtensions
 
         if (isNull) return string.Empty;
         if (isDBNull) return string.Empty;
-        if (@this is float s02) return s02.ToString(OkxGlobals.OkxCultureInfo);
-        if (@this is double s03) return s03.ToString(OkxGlobals.OkxCultureInfo);
-        if (@this is decimal s01) return s01.ToString(OkxGlobals.OkxCultureInfo);
-        if (@this is short s06) return s06.ToString(OkxGlobals.OkxCultureInfo);
-        if (@this is int s04) return s04.ToString(OkxGlobals.OkxCultureInfo);
-        if (@this is long s05) return s05.ToString(OkxGlobals.OkxCultureInfo);
+        if (@this is float s02) return s02.ToString(OkxConstants.OkxCultureInfo);
+        if (@this is double s03) return s03.ToString(OkxConstants.OkxCultureInfo);
+        if (@this is decimal s01) return s01.ToString(OkxConstants.OkxCultureInfo);
+        if (@this is short s06) return s06.ToString(OkxConstants.OkxCultureInfo);
+        if (@this is int s04) return s04.ToString(OkxConstants.OkxCultureInfo);
+        if (@this is long s05) return s05.ToString(OkxConstants.OkxCultureInfo);
 
         return @this?.ToString();
     }
@@ -183,12 +192,12 @@ internal static class OkxExtensions
     #region ISO 8601 DateTime
     public static string DateTimeToIso8601String(this DateTime @this)
     {
-        return @this.ToString(OkxGlobals.OkxDatetimeFormat);
+        return @this.ToString(OkxConstants.OkxDatetimeFormat);
     }
 
     public static DateTime Iso8601StringToDateTime(this string @this)
     {
-        return DateTime.ParseExact(@this, OkxGlobals.OkxDatetimeFormat, CultureInfo.InvariantCulture);
+        return DateTime.ParseExact(@this, OkxConstants.OkxDatetimeFormat, CultureInfo.InvariantCulture);
     }
     #endregion
 

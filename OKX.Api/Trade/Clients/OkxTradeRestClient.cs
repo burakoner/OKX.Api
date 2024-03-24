@@ -110,7 +110,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            {"tag", Options.BrokerId },
+            {"tag", OkxConstants.BrokerId },
             {"instId", instrumentId },
             {"tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
             {"side", JsonConvert.SerializeObject(orderSide, new OkxOrderSideConverter(false)) },
@@ -151,7 +151,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     /// <returns></returns>
     public Task<RestCallResult<List<OkxOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxOrderPlaceRequest> orders, CancellationToken ct = default)
     {
-        foreach (var order in orders) order.Tag = Options.BrokerId;
+        foreach (var order in orders) order.Tag = OkxConstants.BrokerId;
         var parameters = new Dictionary<string, object>
         {
             { Options.RequestBodyParameterKey, orders },
@@ -291,7 +291,7 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            {"tag", Options.BrokerId },
+            {"tag", OkxConstants.BrokerId },
             {"instId", instrumentId },
             {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
         };

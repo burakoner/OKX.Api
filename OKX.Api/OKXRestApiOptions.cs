@@ -43,11 +43,6 @@ public class OkxRestApiOptions : RestApiClientOptions
     public bool SignPublicRequests { get; set; } = false;
 
     /// <summary>
-    /// Broker ID
-    /// </summary>
-    internal readonly string BrokerId = "538a3965e538BCDE";
-
-    /// <summary>
     /// Constructor
     /// </summary>
     public OkxRestApiOptions() : this(null)
@@ -67,8 +62,8 @@ public class OkxRestApiOptions : RestApiClientOptions
         BaseAddress = OkxAddress.Default.RestApiAddress;
 
         // Rate Limiters
-        RateLimiters = new List<IRateLimiter>
-        {
+        RateLimiters =
+        [
             new RateLimiter()
             .AddTotalRateLimit(20, TimeSpan.FromSeconds(2), false)
             .AddPartialEndpointLimit("/api/v5/public/delivery-exercise-history", 40, TimeSpan.FromSeconds(2), null, true, true)
@@ -82,7 +77,7 @@ public class OkxRestApiOptions : RestApiClientOptions
             .AddPartialEndpointLimit("/api/v5/public/vip-interest-rate-loan-quota", 2, TimeSpan.FromSeconds(2), null, true, true)
             .AddPartialEndpointLimit("/api/v5/public/insurance-fund", 10, TimeSpan.FromSeconds(2), null, true, true)
             .AddPartialEndpointLimit("/api/v5/public/convert-contract-coin", 10, TimeSpan.FromSeconds(2), null, true, true)
-        };
+        ];
 
         // Receive Window
         ReceiveWindow = TimeSpan.FromSeconds(5);

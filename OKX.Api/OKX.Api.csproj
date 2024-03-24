@@ -164,6 +164,7 @@
 	  <Folder Include="Broker\Enums\" />
 	  <Folder Include="Broker\Models\" />
 	  <Folder Include="Common\Models\" />
+	  <Folder Include="Helpers\" />
 	  <Folder Include="Rubik\Clients\" />
 	  <Folder Include="Rubik\Converters\" />
 	  <Folder Include="Rubik\Enums\" />
