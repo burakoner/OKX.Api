@@ -23,6 +23,6 @@ public class OkxPublicDeliveryExerciseHistoryDetail
     [JsonProperty("px")]
     public decimal Price { get; set; }
 
-    [JsonProperty("type"), JsonConverter(typeof(OkxDeliveryExerciseHistoryTypeConverter))]
-    public OkxDeliveryExerciseHistoryType Type { get; set; }
+    [JsonProperty("type"), JsonConverter(typeof(OkxDeliveryExerciseStatusConverter))]
+    public OkxDeliveryExerciseStatus Type { get; set; }
 }

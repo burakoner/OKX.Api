@@ -1,5 +1,9 @@
-﻿using OKX.Api.Public.Converters;
+﻿using OKX.Api.GridTrade.Converters;
+using OKX.Api.GridTrade.Enums;
+using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
+using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
 
 namespace OKX.Api.Models.GridTrading;
 
@@ -44,7 +48,7 @@ public class OkxGridAlgoSubOrder
     [JsonProperty("ccy")]
     public string Currency { get; set; }
 
-    [JsonProperty("ordType"), JsonConverter(typeof(OrderTypeConverter))]
+    [JsonProperty("ordType"), JsonConverter(typeof(OkxOrderTypeConverter))]
     public OkxOrderType OrderType { get; set; }
 
     [JsonProperty("sz")]

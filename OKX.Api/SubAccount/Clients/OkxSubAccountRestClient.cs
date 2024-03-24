@@ -91,7 +91,7 @@ public class OkxSubAccountRestClient : OkxRestApiBaseClient
         if (permissions.Count > 0)
             parameters.AddOptionalParameter("perm", string.Join(",", permissions));
 
-        return ProcessFirstOrDefaultRequestAsync<OkxSubAccountApiKey>(GetUri(v5UsersSubaccountResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSubAccountApiKey>(GetUri(v5UsersSubaccountResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -109,7 +109,7 @@ public class OkxSubAccountRestClient : OkxRestApiBaseClient
             {"subAcct", subAccountName },
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxSubAccountTradingBalance>(GetUri(v5UsersSubaccountTradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxSubAccountTradingBalance>(GetUri(v5UsersSubaccountTradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -132,7 +132,7 @@ public class OkxSubAccountRestClient : OkxRestApiBaseClient
 
         parameters.AddOptionalParameter("ccy", currency);
 
-        return ProcessFirstOrDefaultRequestAsync<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     public Task<RestCallResult<List<OkxSubAccountMaximumWithdrawal>>> GetSubAccountMaximumWithdrawalsAsync(
@@ -241,7 +241,7 @@ public class OkxSubAccountRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("loanTrans", loanTrans);
         parameters.AddOptionalParameter("omitPosRisk", omitPosRisk);
 
-        return ProcessFirstOrDefaultRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     #endregion
 

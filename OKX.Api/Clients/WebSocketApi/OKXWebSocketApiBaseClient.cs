@@ -1,4 +1,4 @@
-﻿using OKX.Api.Models.Trade;
+﻿using OKX.Api.Trade.Models;
 
 namespace OKX.Api.Clients.WebSocketApi;
 

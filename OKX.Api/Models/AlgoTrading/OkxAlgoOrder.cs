@@ -1,5 +1,9 @@
-﻿using OKX.Api.Public.Converters;
+﻿using OKX.Api.AlgoTrade.Converters;
+using OKX.Api.AlgoTrade.Enums;
+using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
+using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
 
 namespace OKX.Api.Models.AlgoTrading;
 
@@ -87,7 +91,7 @@ public class OkxAlgoOrder
     /// Only applicable to SPOT Market Orders
     /// Default is quote_ccy for buy, base_ccy for sell
     /// </summary>
-    [JsonProperty("tgtCcy"), JsonConverter(typeof(QuantityTypeConverter))]
+    [JsonProperty("tgtCcy"), JsonConverter(typeof(OkxQuantityTypeConverter))]
     public OkxQuantityType? QuantityType { get; set; }
 
     /// <summary>

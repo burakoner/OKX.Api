@@ -76,7 +76,7 @@ public class OkxFundingRestClient : OkxRestApiBaseClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
 
-        return ProcessFirstOrDefaultRequestAsync<OkxAssetValuation>(GetUri(v5AssetAssetValuation), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAssetValuation>(GetUri(v5AssetAssetValuation), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -117,7 +117,7 @@ public class OkxFundingRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("clientId", clientOrderId);
         parameters.AddOptionalParameter("omitPosRisk", omitPositionRisk);
 
-        return ProcessFirstOrDefaultRequestAsync<OkxTransferResponse>(GetUri(v5AssetTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxTransferResponse>(GetUri(v5AssetTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxTransferStateResponse>> FundTransferStateAsync(
@@ -131,7 +131,7 @@ public class OkxFundingRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("clientId", clientOrderId);
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxTransferTypeConverter(false)));
 
-        return ProcessFirstOrDefaultRequestAsync<OkxTransferStateResponse>(GetUri(v5AssetTransferState), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxTransferStateResponse>(GetUri(v5AssetTransferState), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -281,7 +281,7 @@ public class OkxFundingRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("areaCode", areaCode);
         parameters.AddOptionalParameter("clientId", clientOrderId);
 
-        return ProcessFirstOrDefaultRequestAsync<OkxWithdrawalResponse>(GetUri(v5AssetWithdrawal), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxWithdrawalResponse>(GetUri(v5AssetWithdrawal), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -305,7 +305,7 @@ public class OkxFundingRestClient : OkxRestApiBaseClient
         };
         parameters.AddOptionalParameter("memo", memo);
 
-        return ProcessFirstOrDefaultRequestAsync<OkxLightningWithdrawal>(GetUri(v5AssetWithdrawalLightning), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxLightningWithdrawal>(GetUri(v5AssetWithdrawalLightning), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -322,7 +322,7 @@ public class OkxFundingRestClient : OkxRestApiBaseClient
             { "wdId", withdrawalId},
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxWithdrawalId>(GetUri(v5AssetWithdrawalCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxWithdrawalId>(GetUri(v5AssetWithdrawalCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>

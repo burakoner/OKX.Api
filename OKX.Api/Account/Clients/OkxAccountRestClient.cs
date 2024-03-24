@@ -3,6 +3,8 @@ using OKX.Api.Account.Enums;
 using OKX.Api.Account.Models;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
+using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
 
 namespace OKX.Api.Account.Clients;
 
@@ -72,7 +74,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
         if (currencies != null && currencies.Count() > 0)
             parameters.AddOptionalParameter("ccy", string.Join(",", currencies));
 
-        return ProcessFirstOrDefaultRequestAsync<OkxAccountBalance>(GetUri(v5AccountBalance), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountBalance>(GetUri(v5AccountBalance), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -249,7 +251,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
     /// <returns></returns>
     public Task<RestCallResult<OkxAccountConfiguration>> GetConfigurationAsync(CancellationToken ct = default)
     {
-        return ProcessFirstOrDefaultRequestAsync<OkxAccountConfiguration>(GetUri(v5AccountConfig), HttpMethod.Get, ct, true);
+        return ProcessOneRequestAsync<OkxAccountConfiguration>(GetUri(v5AccountConfig), HttpMethod.Get, ct, true);
     }
 
     /// <summary>
@@ -264,7 +266,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             {"posMode", JsonConvert.SerializeObject(positionMode, new OkxPositionModeConverter(false)) },
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxAccountPositionMode>(GetUri(v5AccountSetPositionMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountPositionMode>(GetUri(v5AccountSetPositionMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -515,7 +517,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
-        return ProcessFirstOrDefaultRequestAsync<OkxFeeRate>(GetUri(v5AccountTradeFee), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxFeeRate>(GetUri(v5AccountTradeFee), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -581,7 +583,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             { "greeksType", JsonConvert.SerializeObject(greeksType, new OkxGreeksTypeConverter(false)) },
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxAccountGreeksType>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountGreeksType>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -600,7 +602,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             { "type", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxIsolatedMarginModeSettings>(GetUri(v5AccountSetIsolatedMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxIsolatedMarginModeSettings>(GetUri(v5AccountSetIsolatedMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -621,7 +623,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
 
     public Task<RestCallResult<OkxAccountRiskState>> GetRiskStateAsync(CancellationToken ct = default)
     {
-        return ProcessFirstOrDefaultRequestAsync<OkxAccountRiskState>(GetUri(v5AccountRiskState), HttpMethod.Get, ct, signed: true);
+        return ProcessOneRequestAsync<OkxAccountRiskState>(GetUri(v5AccountRiskState), HttpMethod.Get, ct, signed: true);
     }
 
     public Task<RestCallResult<OkxMarginBorrowRepay>> QuickMarginBorrowAsync(string instrumentId, string currency, decimal amount, CancellationToken ct = default)
@@ -634,7 +636,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             { "amt", amount.ToOkxString() }
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxMarginBorrowRepay>> QuickMarginRepayAsync(string instrumentId, string currency, decimal amount, CancellationToken ct = default)
@@ -647,7 +649,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             { "amt", amount.ToOkxString() }
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<List<OkxMarginBorrowRepayHistory>>> GetQuickMarginBorrowRepayHistoryAsync(
@@ -684,7 +686,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             { "amt", amount.ToOkxString() }
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxVipLoanBorrowRepay>> VipLoanRepayAsync(string currency, decimal amount, long orderId, CancellationToken ct = default)
@@ -697,7 +699,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             { "amt", amount.ToOkxString() }
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<List<OkxVipLoanBorrowRepayHistory>>> GetVipLoanBorrowRepayHistoryAsync(
@@ -849,7 +851,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
 
-        return ProcessFirstOrDefaultRequestAsync<OkxGreeks>(GetUri(v5AccountGreeks), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxGreeks>(GetUri(v5AccountGreeks), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     public Task<RestCallResult<OkxPositionTiers>> GetPositionTiersAsync(
@@ -863,7 +865,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
-        return ProcessFirstOrDefaultRequestAsync<OkxPositionTiers>(GetUri(v5AccountPositionTiers), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPositionTiers>(GetUri(v5AccountPositionTiers), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     public Task<RestCallResult<OkxDerivativesOffsetType>> SetRiskOffsetTypeAsync(
@@ -873,12 +875,12 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxDerivativesOffsetModeConverter(false)));
 
-        return ProcessFirstOrDefaultRequestAsync<OkxDerivativesOffsetType>(GetUri(v5AccountSetRiskOffsetType), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxDerivativesOffsetType>(GetUri(v5AccountSetRiskOffsetType), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxTimestamp>> ActivateOptionAsync(CancellationToken ct = default)
     {
-        return ProcessFirstOrDefaultRequestAsync<OkxTimestamp>(GetUri(v5AccountActivateOption), HttpMethod.Post, ct, signed: true);
+        return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5AccountActivateOption), HttpMethod.Post, ct, signed: true);
     }
 
     public Task<RestCallResult<OkxAutoLoan>> SetAutoLoanAsync(bool autoLoan, CancellationToken ct = default)
@@ -888,7 +890,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             { "autoLoan", autoLoan }
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxAutoLoan>(GetUri(v5AccountSetAutoLoan), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAutoLoan>(GetUri(v5AccountSetAutoLoan), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxAccountLevelData>> SetLevelAsync(OkxAccountLevel accountLevel, CancellationToken ct = default)
@@ -896,7 +898,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("acctLv", JsonConvert.SerializeObject(accountLevel, new OkxAccountLevelConverter(false)));
 
-        return ProcessFirstOrDefaultRequestAsync<OkxAccountLevelData>(GetUri(v5AccountSetAccountLevel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountLevelData>(GetUri(v5AccountSetAccountLevel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxBooleanResult>> ResetMmpAsync(string instrumentFamily, CancellationToken ct = default)
@@ -907,7 +909,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             { "instFamily", instrumentFamily }
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxBooleanResult>(GetUri(v5AccountMmpReset), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBooleanResult>(GetUri(v5AccountMmpReset), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxMmpConfiguration>> SetMmpConfigurationAsync(string instrumentFamily, int timeInterval, int frozenInterval, int quantityLimit, CancellationToken ct = default)
@@ -920,7 +922,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             { "qtyLimit", quantityLimit.ToOkxString() },
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxMmpConfiguration>(GetUri(v5AccountMmpConfig), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxMmpConfiguration>(GetUri(v5AccountMmpConfig), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxMmpConfigurationData>> GetMmpConfigurationAsync(string instrumentFamily, CancellationToken ct = default)
@@ -930,7 +932,7 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
             { "instFamily", instrumentFamily },
         };
 
-        return ProcessFirstOrDefaultRequestAsync<OkxMmpConfigurationData>(GetUri(v5AccountMmpConfig), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxMmpConfigurationData>(GetUri(v5AccountMmpConfig), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     #endregion
 

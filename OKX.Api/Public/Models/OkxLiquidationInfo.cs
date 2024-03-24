@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Public.Models;
+﻿using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
+
+namespace OKX.Api.Public.Models;
 
 public class OkxLiquidationInfo
 {

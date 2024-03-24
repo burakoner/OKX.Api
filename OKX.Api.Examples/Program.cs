@@ -1,7 +1,11 @@
 ﻿using OKX.Api.Account.Enums;
+using OKX.Api.AlgoTrade.Enums;
 using OKX.Api.Common.Enums;
 using OKX.Api.Funding.Enums;
+using OKX.Api.GridTrade.Enums;
 using OKX.Api.Public.Enums;
+using OKX.Api.Trade.Enums;
+using OKX.Api.Trade.Models;
 
 namespace OKX.Api.Examples;
 
@@ -38,32 +42,32 @@ internal class Program
         var account_19 = await api.Account.SetGreeksAsync(OkxGreeksType.GreeksInCoins);
         var account_20 = await api.Account.GetMaximumWithdrawalsAsync();
 
-        // OrderBookTrading.Trade Methods (Signed)
-        var trade_01 = await api.OrderBookTrading.Trade.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxOrderSide.Buy, OkxPositionSide.Long, OkxOrderType.MarketOrder, 0.1m);
-        var trade_02 = await api.OrderBookTrading.Trade.PlaceMultipleOrdersAsync(new List<OkxOrderPlaceRequest>());
-        var trade_03 = await api.OrderBookTrading.Trade.CancelOrderAsync("BTC-USDT");
-        var trade_04 = await api.OrderBookTrading.Trade.CancelMultipleOrdersAsync(new List<OkxOrderCancelRequest>());
-        var trade_05 = await api.OrderBookTrading.Trade.AmendOrderAsync("BTC-USDT");
-        var trade_06 = await api.OrderBookTrading.Trade.AmendMultipleOrdersAsync(new List<OkxOrderAmendRequest>());
-        var trade_07 = await api.OrderBookTrading.Trade.ClosePositionAsync("BTC-USDT", OkxMarginMode.Isolated);
-        var trade_08 = await api.OrderBookTrading.Trade.GetOrderDetailsAsync("BTC-USDT");
-        var trade_09 = await api.OrderBookTrading.Trade.GetOrderListAsync();
-        var trade_10 = await api.OrderBookTrading.Trade.GetOrderHistoryAsync(OkxInstrumentType.Swap);
-        var trade_11 = await api.OrderBookTrading.Trade.GetOrderArchiveAsync(OkxInstrumentType.Futures);
-        var trade_12 = await api.OrderBookTrading.Trade.GetTransactionHistoryAsync();
-        var trade_13 = await api.OrderBookTrading.Trade.GetTransactionArchiveAsync(OkxInstrumentType.Futures);
+        // Trade Methods (Signed)
+        var trade_01 = await api.Trade.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxOrderSide.Buy, OkxPositionSide.Long, OkxOrderType.MarketOrder, 0.1m);
+        var trade_02 = await api.Trade.PlaceOrdersAsync(new List<OkxOrderPlaceRequest>());
+        var trade_03 = await api.Trade.CancelOrderAsync("BTC-USDT");
+        var trade_04 = await api.Trade.CancelOrdersAsync(new List<OkxOrderCancelRequest>());
+        var trade_05 = await api.Trade.AmendOrderAsync("BTC-USDT");
+        var trade_06 = await api.Trade.AmendOrdersAsync(new List<OkxOrderAmendRequest>());
+        var trade_07 = await api.Trade.ClosePositionAsync("BTC-USDT", OkxMarginMode.Isolated);
+        var trade_08 = await api.Trade.GetOrderAsync("BTC-USDT");
+        var trade_09 = await api.Trade.GetOrdersAsync();
+        var trade_10 = await api.Trade.GetOrderHistoryAsync(OkxInstrumentType.Swap);
+        var trade_11 = await api.Trade.GetOrderArchiveAsync(OkxInstrumentType.Futures);
+        var trade_12 = await api.Trade.GetTradesHistoryAsync();
+        var trade_13 = await api.Trade.GetTradesArchiveAsync(OkxInstrumentType.Futures);
 
-        // OrderBookTrading.AlgoTrading Methods (Signed)
-        var algo_01 = await api.OrderBookTrading.AlgoTrading.PlaceAlgoOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxOrderSide.Sell, OkxAlgoOrderType.Conditional);
-        var algo_02 = await api.OrderBookTrading.AlgoTrading.CancelAlgoOrderAsync(new List<OkxAlgoOrderRequest>());
-        var algo_03 = await api.OrderBookTrading.AlgoTrading.AmendAlgoOrderAsync("BTC-USDT");
-        var algo_04 = await api.OrderBookTrading.AlgoTrading.CancelAdvanceAlgoOrderAsync(new List<OkxAlgoOrderRequest>());
-        var algo_05 = await api.OrderBookTrading.AlgoTrading.GetAlgoOrderDetailsAsync(algoOrderId: 1_000_001);
-        var algo_06 = await api.OrderBookTrading.AlgoTrading.GetAlgoOrderListAsync(OkxAlgoOrderType.OCO);
-        var algo_07 = await api.OrderBookTrading.AlgoTrading.GetAlgoOrderHistoryAsync(OkxAlgoOrderType.Conditional);
+        // AlgoTrading Methods (Signed)
+        var algo_01 = await api.AlgoTrading.PlaceAlgoOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxOrderSide.Sell, OkxAlgoOrderType.Conditional);
+        var algo_02 = await api.AlgoTrading.CancelAlgoOrderAsync(new List<OkxAlgoOrderRequest>());
+        var algo_03 = await api.AlgoTrading.AmendAlgoOrderAsync("BTC-USDT");
+        var algo_04 = await api.AlgoTrading.CancelAdvanceAlgoOrderAsync(new List<OkxAlgoOrderRequest>());
+        var algo_05 = await api.AlgoTrading.GetAlgoOrderDetailsAsync(algoOrderId: 1_000_001);
+        var algo_06 = await api.AlgoTrading.GetAlgoOrderListAsync(OkxAlgoOrderType.OCO);
+        var algo_07 = await api.AlgoTrading.GetAlgoOrderHistoryAsync(OkxAlgoOrderType.Conditional);
 
-        // OrderBookTrading.GridTrading Methods (Signed)
-        var grid_01 = await api.OrderBookTrading.GridTrading.PlaceAlgoOrderAsync(new OkxGridPlaceOrderRequest
+        // GridTrading Methods (Signed)
+        var grid_01 = await api.GridTrading.PlaceAlgoOrderAsync(new OkxGridPlaceOrderRequest
         {
             Instrument = "BTC-USDT",
             AlgoOrderType = OkxGridAlgoOrderType.SpotGrid,
@@ -82,7 +86,7 @@ internal class Program
                 }
             }
         });
-        var grid_02 = await api.OrderBookTrading.GridTrading.PlaceAlgoOrderAsync(
+        var grid_02 = await api.GridTrading.PlaceAlgoOrderAsync(
             instrumentId: "BTC-USDT-SWAP",
             algoOrderType: OkxGridAlgoOrderType.ContractGrid,
             maximumPrice: 5000,
@@ -112,45 +116,45 @@ internal class Program
                 }
             }
         );
-        var grid_03 = await api.OrderBookTrading.GridTrading.AmendAlgoOrderAsync(448965992920907776, "BTC-USDT-SWAP", 1200);
-        var grid_04 = await api.OrderBookTrading.GridTrading.StopAlgoOrderAsync(448965992920907776, "BTC-USDT", OkxGridAlgoOrderType.SpotGrid, OkxGridSpotAlgoStopType.SellBaseCurrency);
-        var grid_05 = await api.OrderBookTrading.GridTrading.CloseContractPositionAsync(448965992920907776, true);
-        var grid_06 = await api.OrderBookTrading.GridTrading.CancelCloseContractPositionAsync(448965992920907776, 570627699870375936);
-        var grid_07 = await api.OrderBookTrading.GridTrading.TriggerAlgoOrderAsync(448965992920907776);
-        var grid_08 = await api.OrderBookTrading.GridTrading.GetOpenAlgoOrdersAsync(OkxGridAlgoOrderType.SpotGrid);
-        var grid_09 = await api.OrderBookTrading.GridTrading.GetAlgoOrdersHistoryAsync(OkxGridAlgoOrderType.SpotGrid);
-        var grid_10 = await api.OrderBookTrading.GridTrading.GetAlgoOrderAsync(OkxGridAlgoOrderType.SpotGrid, 448965992920907776);
-        var grid_11 = await api.OrderBookTrading.GridTrading.GetAlgoSubOrdersAsync(OkxGridAlgoOrderType.SpotGrid, 448965992920907776, OkxGridAlgoSubOrderType.Live);
-        var grid_12 = await api.OrderBookTrading.GridTrading.GetAlgoPositionsAsync(OkxGridAlgoOrderType.ContractGrid, 448965992920907776);
-        var grid_13 = await api.OrderBookTrading.GridTrading.GetWithdrawIncomeAsync(448965992920907776);
-        var grid_14 = await api.OrderBookTrading.GridTrading.ComputeMarginBalanceAsync(448965992920907776, OkxMarginAddReduce.Add, 10.0m);
-        var grid_15 = await api.OrderBookTrading.GridTrading.AdjustMarginBalanceAsync(448965992920907776, OkxMarginAddReduce.Add, 10.0m);
-        var grid_16 = await api.OrderBookTrading.GridTrading.GetAiParameterAsync( OkxGridAlgoOrderType.SpotGrid, "BTC-USDT");
-        var grid_17 = await api.OrderBookTrading.GridTrading.ComputeMinimumInvestmentAsync("ETH-USDT",  OkxGridAlgoOrderType.SpotGrid, 5000, 3000, 50, OkxGridRunType.Arithmetic);
-        var grid_18 = await api.OrderBookTrading.GridTrading.RsiBackTestingAsync("BTC-USDT", OkxGridAlgoTimeFrame.ThreeMinutes, 30, 14);
+        var grid_03 = await api.GridTrading.AmendAlgoOrderAsync(448965992920907776, "BTC-USDT-SWAP", 1200);
+        var grid_04 = await api.GridTrading.StopAlgoOrderAsync(448965992920907776, "BTC-USDT", OkxGridAlgoOrderType.SpotGrid, OkxGridSpotAlgoStopType.SellBaseCurrency);
+        var grid_05 = await api.GridTrading.CloseContractPositionAsync(448965992920907776, true);
+        var grid_06 = await api.GridTrading.CancelCloseContractPositionAsync(448965992920907776, 570627699870375936);
+        var grid_07 = await api.GridTrading.TriggerAlgoOrderAsync(448965992920907776);
+        var grid_08 = await api.GridTrading.GetOpenAlgoOrdersAsync(OkxGridAlgoOrderType.SpotGrid);
+        var grid_09 = await api.GridTrading.GetAlgoOrdersHistoryAsync(OkxGridAlgoOrderType.SpotGrid);
+        var grid_10 = await api.GridTrading.GetAlgoOrderAsync(OkxGridAlgoOrderType.SpotGrid, 448965992920907776);
+        var grid_11 = await api.GridTrading.GetAlgoSubOrdersAsync(OkxGridAlgoOrderType.SpotGrid, 448965992920907776, OkxGridAlgoSubOrderType.Live);
+        var grid_12 = await api.GridTrading.GetAlgoPositionsAsync(OkxGridAlgoOrderType.ContractGrid, 448965992920907776);
+        var grid_13 = await api.GridTrading.GetWithdrawIncomeAsync(448965992920907776);
+        var grid_14 = await api.GridTrading.ComputeMarginBalanceAsync(448965992920907776, OkxMarginAddReduce.Add, 10.0m);
+        var grid_15 = await api.GridTrading.AdjustMarginBalanceAsync(448965992920907776, OkxMarginAddReduce.Add, 10.0m);
+        var grid_16 = await api.GridTrading.GetAiParameterAsync( OkxGridAlgoOrderType.SpotGrid, "BTC-USDT");
+        var grid_17 = await api.GridTrading.ComputeMinimumInvestmentAsync("ETH-USDT",  OkxGridAlgoOrderType.SpotGrid, 5000, 3000, 50, OkxGridRunType.Arithmetic);
+        var grid_18 = await api.GridTrading.RsiBackTestingAsync("BTC-USDT", OkxGridAlgoTimeFrame.ThreeMinutes, 30, 14);
 
-        // TODO: OrderBookTrading.RecurringBuy Methods (Signed)
+        // TODO: RecurringBuy Methods (Signed)
 
-        // OrderBookTrading.CopyTrading Methods (Signed)
-        var copy_01 = await api.OrderBookTrading.CopyTrading.GetExistingLeadingPositionsAsync();
-        var copy_02 = await api.OrderBookTrading.CopyTrading.GetExistingLeadingPositionsHistoryAsync();
-        var copy_03 = await api.OrderBookTrading.CopyTrading.PlaceLeadingStopOrderAsync(leadingPositionId: 1_000_001);
-        var copy_04 = await api.OrderBookTrading.CopyTrading.CloseLeadingPositionAsync(leadingPositionId: 1_000_001);
-        var copy_05 = await api.OrderBookTrading.CopyTrading.GetLeadingInstrumentsAsync();
-        var copy_06 = await api.OrderBookTrading.CopyTrading.AmendLeadingInstrumentsAsync(new List<string> { "BTC-USDT", "ETH-USDT" });
-        var copy_07 = await api.OrderBookTrading.CopyTrading.GetProfitSharingDetailsAsync();
-        var copy_08 = await api.OrderBookTrading.CopyTrading.GetTotalProfitSharingAsync();
-        var copy_09 = await api.OrderBookTrading.CopyTrading.GetUnrealizedProfitSharingDetailsAsync();
+        // CopyTrading Methods (Signed)
+        var copy_01 = await api.CopyTrading.GetExistingLeadingPositionsAsync();
+        var copy_02 = await api.CopyTrading.GetExistingLeadingPositionsHistoryAsync();
+        var copy_03 = await api.CopyTrading.PlaceLeadingStopOrderAsync(leadingPositionId: 1_000_001);
+        var copy_04 = await api.CopyTrading.CloseLeadingPositionAsync(leadingPositionId: 1_000_001);
+        var copy_05 = await api.CopyTrading.GetLeadingInstrumentsAsync();
+        var copy_06 = await api.CopyTrading.AmendLeadingInstrumentsAsync(new List<string> { "BTC-USDT", "ETH-USDT" });
+        var copy_07 = await api.CopyTrading.GetProfitSharingDetailsAsync();
+        var copy_08 = await api.CopyTrading.GetTotalProfitSharingAsync();
+        var copy_09 = await api.CopyTrading.GetUnrealizedProfitSharingDetailsAsync();
 
-        // OrderBookTrading.MarketData Methods (Unsigned)
-        var market_01 = await api.OrderBookTrading.MarketData.GetTickersAsync(OkxInstrumentType.Spot);
-        var market_02 = await api.OrderBookTrading.MarketData.GetTickerAsync("BTC-USDT");
-        var market_04 = await api.OrderBookTrading.MarketData.GetOrderBookAsync("BTC-USDT", 40);
-        var market_05 = await api.OrderBookTrading.MarketData.GetCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);
-        var market_06 = await api.OrderBookTrading.MarketData.GetCandlesticksHistoryAsync("BTC-USDT", OkxPeriod.OneHour);
-        var market_09 = await api.OrderBookTrading.MarketData.GetTradesAsync("BTC-USDT");
-        var market_10 = await api.OrderBookTrading.MarketData.GetTradesHistoryAsync("BTC-USDT");
-        var market_11 = await api.OrderBookTrading.MarketData.Get24HourVolumeAsync();
+        // MarketData Methods (Unsigned)
+        var market_01 = await api.Public.GetTickersAsync(OkxInstrumentType.Spot);
+        var market_02 = await api.Public.GetTickerAsync("BTC-USDT");
+        var market_04 = await api.Public.GetOrderBookAsync("BTC-USDT", 40);
+        var market_05 = await api.Public.GetCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);
+        var market_06 = await api.Public.GetCandlesticksHistoryAsync("BTC-USDT", OkxPeriod.OneHour);
+        var market_09 = await api.Public.GetTradesAsync("BTC-USDT");
+        var market_10 = await api.Public.GetTradesHistoryAsync("BTC-USDT");
+        var market_11 = await api.Public.Get24HourVolumeAsync();
 
         // BlockTrading Methods (Unsigned)
         var block_01 = await api.BlockTrading.GetBlockTickersAsync(OkxInstrumentType.Spot);
@@ -263,8 +267,8 @@ internal class Program
             }
         });
 
-        // OrderBookTrading.Trade Updates (Private)
-        await ws.OrderBookTrading.Trade.SubscribeToOrderUpdatesAsync((data) =>
+        // Trade Updates (Private)
+        await ws.Trade.SubscribeToOrderUpdatesAsync((data) =>
         {
             if (data != null)
             {
@@ -272,15 +276,15 @@ internal class Program
             }
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
-        // OrderBookTrading.AlgoTrading Updates (Private)
-        await ws.OrderBookTrading.AlgoTrading.SubscribeToAlgoOrderUpdatesAsync((data) =>
+        // AlgoTrading Updates (Private)
+        await ws.AlgoTrading.SubscribeToAlgoOrderUpdatesAsync((data) =>
         {
             if (data != null)
             {
                 // ... Your logic here
             }
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
-        await ws.OrderBookTrading.AlgoTrading.SubscribeToAdvanceAlgoOrderUpdatesAsync((data) =>
+        await ws.AlgoTrading.SubscribeToAdvanceAlgoOrderUpdatesAsync((data) =>
         {
             if (data != null)
             {
@@ -288,12 +292,12 @@ internal class Program
             }
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
-        // OrderBookTrading.MarketData Updates (Public)
+        // MarketData Updates (Public)
         var sample_pairs = new List<string> { "BTC-USDT", "LTC-USDT", "ETH-USDT", "XRP-USDT", "BCH-USDT", "EOS-USDT", "OKB-USDT", "ETC-USDT", "TRX-USDT", "BSV-USDT", "DASH-USDT", "NEO-USDT", "QTUM-USDT", "XLM-USDT", "ADA-USDT", "AE-USDT", "BLOC-USDT", "EGT-USDT", "IOTA-USDT", "SC-USDT", "WXT-USDT", "ZEC-USDT", };
         var subs = new List<WebSocketUpdateSubscription>();
         foreach (var pair in sample_pairs)
         {
-            var subscription = await ws.OrderBookTrading.MarketData.SubscribeToTickersAsync((data) =>
+            var subscription = await ws.Public.SubscribeToTickersAsync((data) =>
             {
                 if (data != null)
                 {
@@ -305,7 +309,7 @@ internal class Program
         }
         foreach (var pair in sample_pairs)
         {
-            await ws.OrderBookTrading.MarketData.SubscribeToCandlesticksAsync((data) =>
+            await ws.Public.SubscribeToCandlesticksAsync((data) =>
             {
                 if (data != null)
                 {
@@ -315,7 +319,7 @@ internal class Program
         }
         foreach (var pair in sample_pairs)
         {
-            await ws.OrderBookTrading.MarketData.SubscribeToTradesAsync((data) =>
+            await ws.Public.SubscribeToTradesAsync((data) =>
             {
                 if (data != null)
                 {
@@ -325,7 +329,7 @@ internal class Program
         }
         foreach (var pair in sample_pairs)
         {
-            await ws.OrderBookTrading.MarketData.SubscribeToOrderBookAsync((data) =>
+            await ws.Public.SubscribeToOrderBookAsync((data) =>
             {
                 if (data != null && data.Asks != null && data.Asks.Count() > 0 && data.Bids != null && data.Bids.Count() > 0)
                 {
@@ -455,5 +459,6 @@ internal class Program
             }
         });
         #endregion
+
     }
 }

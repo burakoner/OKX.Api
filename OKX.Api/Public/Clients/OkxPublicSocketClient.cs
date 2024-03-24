@@ -3,7 +3,7 @@
 namespace OKX.Api.Public.Clients;
 
 /// <summary>
-/// OKX WebSocket Api Public Client
+/// OKX WebSocket Api Public Market Data Client
 /// </summary>
 public class OkxPublicSocketClient
 {
@@ -24,7 +24,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToInstrumentsAsync(Action<OkxInstrument> onData, OkxInstrumentType instrumentType, CancellationToken ct = default)
-        => await SubscribeToInstrumentsAsync(onData, new OkxInstrumentType[] { instrumentType }, ct).ConfigureAwait(false);
+        => await SubscribeToInstrumentsAsync(onData, [instrumentType], ct).ConfigureAwait(false);
 
     /// <summary>
     /// The full instrument list will be pushed for the first time after subscription. Subsequently, the instruments will be pushed if there's any change to the instrument’s state (such as delivery of FUTURES, exercise of OPTION, listing of new contracts / trading pairs, trading suspension, etc.).
@@ -59,7 +59,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOpenInterestsAsync(Action<OkxOpenInterest> onData, string instrumentId, CancellationToken ct = default)
-        => await SubscribeToOpenInterestsAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+        => await SubscribeToOpenInterestsAsync(onData, [instrumentId], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the open interest. Data will by pushed every 3 seconds.
@@ -94,7 +94,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToFundingRatesAsync(Action<OkxFundingRate> onData, string instrumentId, CancellationToken ct = default)
-        => await SubscribeToFundingRatesAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+        => await SubscribeToFundingRatesAsync(onData, [instrumentId], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve funding rate. Data will be pushed every minute.
@@ -129,7 +129,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPriceLimitAsync(Action<OkxLimitPrice> onData, string instrumentId, CancellationToken ct = default)
-        => await SubscribeToPriceLimitAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+        => await SubscribeToPriceLimitAsync(onData, [instrumentId], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the maximum buy price and minimum sell price of the instrument. Data will be pushed every 5 seconds when there are changes in limits, and will not be pushed when there is no changes on limit.
@@ -164,7 +164,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOptionSummaryAsync(Action<OkxOptionSummary> onData, string instrumentFamily, CancellationToken ct = default)
-        => await SubscribeToOptionSummaryAsync(onData, new string[] { instrumentFamily }, ct).ConfigureAwait(false);
+        => await SubscribeToOptionSummaryAsync(onData, [instrumentFamily], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve detailed pricing information of all OPTION contracts. Data will be pushed at once.
@@ -202,7 +202,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToEstimatedPriceAsync(Action<OkxEstimatedPrice> onData, OkxInstrumentType instrumentType, string instrumentFamily = null, string instrumentId = null, CancellationToken ct = default)
-        => await SubscribeToEstimatedPriceAsync(onData, new OkxSocketSymbolRequest[] { new(instrumentType, instrumentFamily, instrumentId) }, ct).ConfigureAwait(false);
+        => await SubscribeToEstimatedPriceAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the estimated delivery/exercise price of FUTURES contracts and OPTION.
@@ -240,7 +240,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToMarkPriceAsync(Action<OkxMarkPrice> onData, string instrumentId, CancellationToken ct = default)
-        => await SubscribeToMarkPriceAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+        => await SubscribeToMarkPriceAsync(onData, [instrumentId], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the mark price. Data will be pushed every 200 ms when the mark price changes, and will be pushed every 10 seconds when the mark price does not change.
@@ -275,7 +275,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToIndexTickersAsync(Action<OkxIndexTicker> onData, string instrumentId, CancellationToken ct = default)
-        => await SubscribeToIndexTickersAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+        => await SubscribeToIndexTickersAsync(onData, [instrumentId], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve index tickers data
@@ -352,7 +352,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToIndexCandlesticksAsync(Action<OkxIndexCandlestick> onData, string instrumentId, OkxPeriod period, CancellationToken ct = default)
-        => await SubscribeToIndexCandlesticksAsync(onData, new string[] { instrumentId }, period, ct).ConfigureAwait(false);
+        => await SubscribeToIndexCandlesticksAsync(onData, [instrumentId], period, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the candlesticks data of the index. Data will be pushed every 500 ms.
@@ -383,6 +383,10 @@ public class OkxPublicSocketClient
         return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
+    // TODO: Liquidation orders channel
+    // TODO: ADL warning channel
+    // TODO: Economic calendar channel
+
     #endregion
 
     #region Market Data
@@ -395,7 +399,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTickersAsync(Action<OkxTicker> onData, string instrumentId, CancellationToken ct = default)
-        => await SubscribeToTickersAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+        => await SubscribeToTickersAsync(onData, [instrumentId], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the last traded price, bid price, ask price and 24-hour trading volume of instruments. Data will be pushed every 100 ms.
@@ -431,7 +435,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToCandlesticksAsync(Action<OkxCandlestick> onData, string instrumentId, OkxPeriod period, CancellationToken ct = default)
-        => await SubscribeToCandlesticksAsync(onData, new string[] { instrumentId }, period, ct).ConfigureAwait(false);
+        => await SubscribeToCandlesticksAsync(onData, [instrumentId], period, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the candlesticks data of an instrument. Data will be pushed every 500 ms.
@@ -470,7 +474,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAsync(Action<OkxTrade> onData, string instrumentId, CancellationToken ct = default)
-        => await SubscribeToTradesAsync(onData, new string[] { instrumentId }, ct).ConfigureAwait(false);
+        => await SubscribeToTradesAsync(onData, [instrumentId], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the recent trades data. Data will be pushed whenever there is a trade.
@@ -513,7 +517,7 @@ public class OkxPublicSocketClient
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderBookAsync(Action<OkxOrderBook> onData, string instrumentId, OkxOrderBookType orderBookType, CancellationToken ct = default)
-        => await SubscribeToOrderBookAsync(onData, new string[] { instrumentId }, orderBookType, ct).ConfigureAwait(false);
+        => await SubscribeToOrderBookAsync(onData, [instrumentId], orderBookType, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve order book data.
@@ -552,4 +556,5 @@ public class OkxPublicSocketClient
 
     // TODO: WS / Option trades channel
     #endregion
+
 }

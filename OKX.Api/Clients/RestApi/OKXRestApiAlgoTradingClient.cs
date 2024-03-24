@@ -1,8 +1,12 @@
 ﻿using OKX.Api.Account.Converters;
+using OKX.Api.AlgoTrade.Converters;
+using OKX.Api.AlgoTrade.Enums;
 using OKX.Api.Common.Converters;
 using OKX.Api.Models.AlgoTrading;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
+using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
 
 namespace OKX.Api.Clients.RestApi;
 
@@ -138,7 +142,7 @@ public class OKXRestApiAlgoTradingClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)));
         parameters.AddOptionalParameter("sz", size?.ToOkxString());
-        parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new QuantityTypeConverter(false)));
+        parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new OkxQuantityTypeConverter(false)));
         parameters.AddOptionalParameter("algoClOrdId", clientOrderId);
         parameters.AddOptionalParameter("closeFraction", closeFraction?.ToOkxString());
 
@@ -178,7 +182,7 @@ public class OKXRestApiAlgoTradingClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("timeInterval", timeInterval?.ToOkxString());
 
         // Reequest
-        return await ProcessFirstOrDefaultRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessOneRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -193,7 +197,7 @@ public class OKXRestApiAlgoTradingClient : OkxRestApiBaseClient
             { Options.RequestBodyParameterKey, orders },
         };
 
-        return await ProcessFirstOrDefaultRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessOneRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -259,7 +263,7 @@ public class OKXRestApiAlgoTradingClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("newSlOrdPx", newStopLossOrderPrice?.ToOkxString());
 
         // Reequest
-        return await ProcessFirstOrDefaultRequestAsync<OkxAlgoOrderAmendResponse>(GetUri(v5TradeAmendAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessOneRequestAsync<OkxAlgoOrderAmendResponse>(GetUri(v5TradeAmendAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -274,7 +278,7 @@ public class OKXRestApiAlgoTradingClient : OkxRestApiBaseClient
             { Options.RequestBodyParameterKey, orders },
         };
 
-        return await ProcessFirstOrDefaultRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessOneRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -293,7 +297,7 @@ public class OKXRestApiAlgoTradingClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("algoId", algoOrderId?.ToOkxString());
         parameters.AddOptionalParameter("algoClOrdId", algoClientOrderId);
 
-        return await ProcessFirstOrDefaultRequestAsync<OkxAlgoOrder>(GetUri(v5TradeOrderAlgoGet), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessOneRequestAsync<OkxAlgoOrder>(GetUri(v5TradeOrderAlgoGet), HttpMethod.Get, ct, signed: true, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>

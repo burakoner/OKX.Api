@@ -1,4 +1,6 @@
-﻿using OKX.Api.Models.CopyTrading;
+﻿using OKX.Api.AlgoTrade.Converters;
+using OKX.Api.AlgoTrade.Enums;
+using OKX.Api.Models.CopyTrading;
 
 namespace OKX.Api.Clients.RestApi;
 
@@ -93,7 +95,7 @@ public class OKXRestApiCopyTradingClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(takeProfitTriggerPriceType, new AlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(stopLossTriggerPriceType, new AlgoPriceTypeConverter(false)));
 
-        return await ProcessFirstOrDefaultRequestAsync<OkxLeadingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessOneRequestAsync<OkxLeadingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -112,7 +114,7 @@ public class OKXRestApiCopyTradingClient : OkxRestApiBaseClient
             { "subPosId", leadingPositionId },
         };
 
-        return await ProcessFirstOrDefaultRequestAsync<OkxLeadingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return await ProcessOneRequestAsync<OkxLeadingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>

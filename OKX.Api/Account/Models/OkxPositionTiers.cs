@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Account.Models;
+﻿using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
+
+namespace OKX.Api.Account.Models;
 
 /// <summary>
 /// OkxPosition

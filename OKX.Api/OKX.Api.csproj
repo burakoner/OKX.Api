@@ -182,6 +182,7 @@
 	  <Folder Include="Broker\Enums\" />
 	  <Folder Include="Broker\Models\" />
 	  <Folder Include="Common\Models\" />
+	  <Folder Include="Models\Trade\" />
 	  <Folder Include="Rubik\Clients\" />
 	  <Folder Include="Rubik\Converters\" />
 	  <Folder Include="Rubik\Enums\" />
@@ -206,21 +207,13 @@
 	  <Folder Include="RecurringBuy\Converters\" />
 	  <Folder Include="RecurringBuy\Enums\" />
 	  <Folder Include="RecurringBuy\Models\" />
-	  <Folder Include="Trade\Clients\" />
-	  <Folder Include="Trade\Converters\" />
-	  <Folder Include="Trade\Enums\" />
-	  <Folder Include="Trade\Models\" />
 	  <Folder Include="AlgoTrade\Clients\" />
-	  <Folder Include="AlgoTrade\Converters\" />
-	  <Folder Include="AlgoTrade\Enums\" />
 	  <Folder Include="AlgoTrade\Models\" />
 	  <Folder Include="CopyTrade\Clients\" />
 	  <Folder Include="CopyTrade\Converters\" />
 	  <Folder Include="CopyTrade\Enums\" />
 	  <Folder Include="CopyTrade\Models\" />
 	  <Folder Include="GridTrade\Clients\" />
-	  <Folder Include="GridTrade\Converters\" />
-	  <Folder Include="GridTrade\Enums\" />
 	  <Folder Include="GridTrade\Models\" />
 	</ItemGroup>
 

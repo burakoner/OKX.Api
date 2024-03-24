@@ -77,7 +77,7 @@ public class OKXRestApiBlockTradingClient : OkxRestApiBaseClient
             { "instId", instrumentId },
         };
 
-        return await ProcessFirstOrDefaultRequestAsync<OkxBlockTicker>(GetUri(v5MarketBlockTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+        return await ProcessOneRequestAsync<OkxBlockTicker>(GetUri(v5MarketBlockTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>

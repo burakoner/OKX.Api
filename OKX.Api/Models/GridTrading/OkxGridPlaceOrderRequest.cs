@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Models.GridTrading;
+﻿using OKX.Api.GridTrade.Converters;
+using OKX.Api.GridTrade.Enums;
+
+namespace OKX.Api.Models.GridTrading;
 
 public class OkxGridPlaceOrderRequest
 {
