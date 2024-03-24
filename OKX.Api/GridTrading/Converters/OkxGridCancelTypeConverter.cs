@@ -2,10 +2,9 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-internal class OkxGridCancelTypeConverter : BaseConverter<OkxGridCancelType>
+internal class OkxGridCancelTypeConverter(bool quotes) : BaseConverter<OkxGridCancelType>(quotes)
 {
     public OkxGridCancelTypeConverter() : this(true) { }
-    public OkxGridCancelTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxGridCancelType, string>> Mapping =>
     [

@@ -68,8 +68,8 @@ internal static class OkxExtensions
     #region ToStr
     public static string ToStr(this object @this, bool nullToEmpty = true)
     {
-        bool isNull = @this == null ? true : false;
-        bool isDBNull = @this != null && @this.GetType() == typeof(DBNull) ? true : false;
+        bool isNull = @this == null;
+        bool isDBNull = @this != null && @this.GetType() == typeof(DBNull);
 
         if (isNull)
             return nullToEmpty ? string.Empty : null;
@@ -83,8 +83,8 @@ internal static class OkxExtensions
     #region ToOkxString
     public static string ToOkxString(this object @this)
     {
-        bool isNull = @this == null ? true : false;
-        bool isDBNull = @this != null && @this.GetType() == typeof(DBNull) ? true : false;
+        bool isNull = @this == null;
+        bool isDBNull = @this != null && @this.GetType() == typeof(DBNull);
 
         if (isNull) return string.Empty;
         if (isDBNull) return string.Empty;

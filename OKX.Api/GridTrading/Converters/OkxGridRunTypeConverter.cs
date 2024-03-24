@@ -2,10 +2,9 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-internal class OkxGridRunTypeConverter : BaseConverter<OkxGridRunType>
+internal class OkxGridRunTypeConverter(bool quotes) : BaseConverter<OkxGridRunType>(quotes)
 {
     public OkxGridRunTypeConverter() : this(true) { }
-    public OkxGridRunTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxGridRunType, string>> Mapping =>
     [

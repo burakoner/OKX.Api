@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxClosingPositionTypeConverter : BaseConverter<OkxClosingPositionType>
+internal class OkxClosingPositionTypeConverter(bool quotes) : BaseConverter<OkxClosingPositionType>(quotes)
 {
     public OkxClosingPositionTypeConverter() : this(true) { }
-    public OkxClosingPositionTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxClosingPositionType, string>> Mapping =>
         [

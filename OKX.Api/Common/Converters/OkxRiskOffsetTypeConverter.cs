@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxRiskOffsetTypeConverter : BaseConverter<OkxRiskOffsetType>
+internal class OkxRiskOffsetTypeConverter(bool quotes) : BaseConverter<OkxRiskOffsetType>(quotes)
 {
     public OkxRiskOffsetTypeConverter() : this(true) { }
-    public OkxRiskOffsetTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxRiskOffsetType, string>> Mapping =>
     [

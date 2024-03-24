@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxAccountVipLoanStateConverter : BaseConverter<OkxAccountVipLoanState>
+internal class OkxAccountVipLoanStateConverter(bool quotes) : BaseConverter<OkxAccountVipLoanState>(quotes)
 {
     public OkxAccountVipLoanStateConverter() : this(true) { }
-    public OkxAccountVipLoanStateConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxAccountVipLoanState, string>> Mapping =>
     [

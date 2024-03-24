@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxKycLevelConverter : BaseConverter<OkxKycLevel>
+internal class OkxKycLevelConverter(bool quotes) : BaseConverter<OkxKycLevel>(quotes)
 {
     public OkxKycLevelConverter() : this(true) { }
-    public OkxKycLevelConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxKycLevel, string>> Mapping =>
     [

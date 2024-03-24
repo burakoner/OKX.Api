@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxAccountLevelConverter : BaseConverter<OkxAccountLevel>
+internal class OkxAccountLevelConverter(bool quotes) : BaseConverter<OkxAccountLevel>(quotes)
 {
     public OkxAccountLevelConverter() : this(true) { }
-    public OkxAccountLevelConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxAccountLevel, string>> Mapping =>
     [

@@ -8,7 +8,7 @@ namespace OKX.Api.Funding.Clients;
 /// <summary>
 /// OKX Rest Api Funding Account Client
 /// </summary>
-public class OkxFundingRestClient : OkxRestApiBaseClient
+public class OkxFundingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     // Endpoints
     private const string v5AssetCurrencies = "api/v5/asset/currencies";
@@ -25,19 +25,6 @@ public class OkxFundingRestClient : OkxRestApiBaseClient
     private const string v5AssetWithdrawalLightning = "api/v5/asset/withdrawal-lightning";
     private const string v5AssetWithdrawalCancel = "api/v5/asset/cancel-withdrawal";
     private const string v5AssetWithdrawalHistory = "api/v5/asset/withdrawal-history";
-    // TODO = "api/v5/asset/deposit-withdraw-status";
-    // TODO = "api/v5/asset/convert-dust-assets";
-    // TODO = "api/v5/asset/exchange-list";
-    // TODO = "api/v5/asset/monthly-statement";
-    // TODO = "api/v5/asset/convert/currencies";
-    // TODO = "api/v5/asset/convert/currency-pair";
-    // TODO = "api/v5/asset/convert/estimate-quote";
-    // TODO = "api/v5/asset/convert/trade";
-    // TODO = "api/v5/asset/convert/history";
-
-    internal OkxFundingRestClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     #region Funding API Endpoints
     /// <summary>

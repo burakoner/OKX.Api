@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Public.Converters;
 
-internal class OkxInstrumentAliasConverter : BaseConverter<OkxInstrumentAlias>
+internal class OkxInstrumentAliasConverter(bool quotes) : BaseConverter<OkxInstrumentAlias>(quotes)
 {
     public OkxInstrumentAliasConverter() : this(true) { }
-    public OkxInstrumentAliasConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxInstrumentAlias, string>> Mapping =>
     [

@@ -10,7 +10,7 @@ namespace OKX.Api.GridTrading.Clients;
 /// <summary>
 /// OKX Rest Api Grid Trading Client
 /// </summary>
-public class OkxGridTradingRestClient : OkxRestApiBaseClient
+public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     // Endpoints
     private const string v5TradingBotGridOrderAlgo = "api/v5/tradingBot/grid/order-algo";
@@ -30,10 +30,6 @@ public class OkxGridTradingRestClient : OkxRestApiBaseClient
     private const string v5TradingBotGridAiParam = "api/v5/tradingBot/grid/ai-param";
     private const string v5TradingBotGridMinInvestment = "api/v5/tradingBot/grid/min-investment";
     private const string v5TradingBotGridRsiBackTesting = "api/v5/tradingBot/grid/rsi-back-testing";
-
-    internal OkxGridTradingRestClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     #region Grid Trading API Endpoints
     /// <summary>

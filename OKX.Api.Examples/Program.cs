@@ -1,13 +1,11 @@
 ﻿using OKX.Api.Account.Enums;
 using OKX.Api.AlgoTrading.Enums;
-using OKX.Api.AlgoTrading.Models;
 using OKX.Api.Common.Enums;
 using OKX.Api.Funding.Enums;
 using OKX.Api.GridTrading.Enums;
 using OKX.Api.GridTrading.Models;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Enums;
-using OKX.Api.Trade.Models;
 
 namespace OKX.Api.Examples;
 
@@ -46,11 +44,11 @@ internal class Program
 
         // Trade Methods (Signed)
         var trade_01 = await api.Trade.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxOrderSide.Buy, OkxPositionSide.Long, OkxOrderType.MarketOrder, 0.1m);
-        var trade_02 = await api.Trade.PlaceOrdersAsync(new List<OkxOrderPlaceRequest>());
+        var trade_02 = await api.Trade.PlaceOrdersAsync([]);
         var trade_03 = await api.Trade.CancelOrderAsync("BTC-USDT");
-        var trade_04 = await api.Trade.CancelOrdersAsync(new List<OkxOrderCancelRequest>());
+        var trade_04 = await api.Trade.CancelOrdersAsync([]);
         var trade_05 = await api.Trade.AmendOrderAsync("BTC-USDT");
-        var trade_06 = await api.Trade.AmendOrdersAsync(new List<OkxOrderAmendRequest>());
+        var trade_06 = await api.Trade.AmendOrdersAsync([]);
         var trade_07 = await api.Trade.ClosePositionAsync("BTC-USDT", OkxMarginMode.Isolated);
         var trade_08 = await api.Trade.GetOrderAsync("BTC-USDT");
         var trade_09 = await api.Trade.GetOrdersAsync();
@@ -61,9 +59,9 @@ internal class Program
 
         // AlgoTrading Methods (Signed)
         var algo_01 = await api.AlgoTrading.PlaceAlgoOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxOrderSide.Sell, OkxAlgoOrderType.Conditional);
-        var algo_02 = await api.AlgoTrading.CancelAlgoOrderAsync(new List<OkxAlgoOrderRequest>());
+        var algo_02 = await api.AlgoTrading.CancelAlgoOrderAsync([]);
         var algo_03 = await api.AlgoTrading.AmendAlgoOrderAsync("BTC-USDT");
-        var algo_04 = await api.AlgoTrading.CancelAdvanceAlgoOrderAsync(new List<OkxAlgoOrderRequest>());
+        var algo_04 = await api.AlgoTrading.CancelAdvanceAlgoOrderAsync([]);
         var algo_05 = await api.AlgoTrading.GetAlgoOrderAsync(algoOrderId: 1_000_001);
         var algo_06 = await api.AlgoTrading.GetAlgoOrdersAsync(OkxAlgoOrderType.OCO);
         var algo_07 = await api.AlgoTrading.GetAlgoOrderHistoryAsync(OkxAlgoOrderType.Conditional);
@@ -78,15 +76,15 @@ internal class Program
             GridNumber = 10,
             GridRunType = OkxGridRunType.Arithmetic,
             QuoteSize = 25,
-            TriggerParameters = new List<OkxGridPlaceTriggerParameters>
-            {
+            TriggerParameters =
+            [
                 new OkxGridPlaceTriggerParameters
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Stop,
                     TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
                     TriggerPrice = "1000"
                 }
-            }
+            ]
         });
         var grid_02 = await api.GridTrading.PlaceAlgoOrderAsync(
             instrumentId: "BTC-USDT-SWAP",
@@ -98,8 +96,8 @@ internal class Program
             size: 200,
             contractGridDirection: OkxGridContractDirection.Long,
             leverage: 2,
-            triggerParameters: new List<OkxGridPlaceTriggerParameters>
-            {
+            triggerParameters:
+            [
                 new OkxGridPlaceTriggerParameters
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Start,
@@ -116,7 +114,7 @@ internal class Program
                     TriggerPrice = "1000",
                     ContractAlgoStopType = OkxGridContractAlgoStopType.KeepPositions,
                 }
-            }
+            ]
         );
         var grid_03 = await api.GridTrading.AmendAlgoOrderAsync(448965992920907776, "BTC-USDT-SWAP", 1200);
         var grid_04 = await api.GridTrading.StopAlgoOrderAsync(448965992920907776, "BTC-USDT", OkxGridAlgoOrderType.SpotGrid, OkxGridSpotAlgoStopType.SellBaseCurrency);
@@ -143,7 +141,7 @@ internal class Program
         var copy_03 = await api.CopyTrading.PlaceLeadingStopOrderAsync(leadingPositionId: 1_000_001);
         var copy_04 = await api.CopyTrading.CloseLeadingPositionAsync(leadingPositionId: 1_000_001);
         var copy_05 = await api.CopyTrading.GetLeadingInstrumentsAsync();
-        var copy_06 = await api.CopyTrading.AmendLeadingInstrumentsAsync(new List<string> { "BTC-USDT", "ETH-USDT" });
+        var copy_06 = await api.CopyTrading.AmendLeadingInstrumentsAsync(["BTC-USDT", "ETH-USDT"]);
         var copy_07 = await api.CopyTrading.GetProfitSharingDetailsAsync();
         var copy_08 = await api.CopyTrading.GetTotalProfitSharingAsync();
         var copy_09 = await api.CopyTrading.GetUnrealizedProfitSharingDetailsAsync();

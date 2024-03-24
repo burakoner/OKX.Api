@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Funding.Converters;
 
-internal class OkxDepositTypeConverter : BaseConverter<OkxDepositType>
+internal class OkxDepositTypeConverter(bool quotes) : BaseConverter<OkxDepositType>(quotes)
 {
     public OkxDepositTypeConverter() : this(true) { }
-    public OkxDepositTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxDepositType, string>> Mapping =>
     [

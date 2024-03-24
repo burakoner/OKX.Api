@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxOrderCategoryConverter : BaseConverter<OkxOrderCategory>
+internal class OkxOrderCategoryConverter(bool quotes) : BaseConverter<OkxOrderCategory>(quotes)
 {
     public OkxOrderCategoryConverter() : this(true) { }
-    public OkxOrderCategoryConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxOrderCategory, string>> Mapping =>
     [

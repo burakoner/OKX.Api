@@ -2,10 +2,9 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-internal class OkxGridBackTestingDurationConverter : BaseConverter<OkxGridBackTestingDuration>
+internal class OkxGridBackTestingDurationConverter(bool quotes) : BaseConverter<OkxGridBackTestingDuration>(quotes)
 {
     public OkxGridBackTestingDurationConverter() : this(true) { }
-    public OkxGridBackTestingDurationConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxGridBackTestingDuration, string>> Mapping =>
     [

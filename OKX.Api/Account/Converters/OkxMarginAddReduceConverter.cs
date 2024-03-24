@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxMarginAddReduceConverter : BaseConverter<OkxMarginAddReduce>
+internal class OkxMarginAddReduceConverter(bool quotes) : BaseConverter<OkxMarginAddReduce>(quotes)
 {
     public OkxMarginAddReduceConverter() : this(true) { }
-    public OkxMarginAddReduceConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxMarginAddReduce, string>> Mapping =>
     [

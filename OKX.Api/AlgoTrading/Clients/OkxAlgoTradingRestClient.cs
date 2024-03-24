@@ -12,7 +12,7 @@ namespace OKX.Api.AlgoTrading.Clients;
 /// <summary>
 /// OKX Rest Api Algo Trading Client
 /// </summary>
-public class OkxAlgoTradingRestClient : OkxRestApiBaseClient
+public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     private const string v5TradeOrderAlgo = "api/v5/trade/order-algo";
     private const string v5TradeCancelAlgos = "api/v5/trade/cancel-algos";
@@ -21,10 +21,6 @@ public class OkxAlgoTradingRestClient : OkxRestApiBaseClient
     private const string v5TradeOrderAlgoGet = "api/v5/trade/order-algo";
     private const string v5TradeOrdersAlgoPending = "api/v5/trade/orders-algo-pending";
     private const string v5TradeOrdersAlgoHistory = "api/v5/trade/orders-algo-history";
-
-    internal OkxAlgoTradingRestClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     /// <summary>
     /// The algo order includes trigger order, oco order, conditional order,iceberg order and twap order.

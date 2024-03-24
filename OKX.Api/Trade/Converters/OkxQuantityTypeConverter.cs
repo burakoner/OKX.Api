@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Trade.Converters;
 
-internal class OkxQuantityTypeConverter : BaseConverter<OkxQuantityType>
+internal class OkxQuantityTypeConverter(bool quotes) : BaseConverter<OkxQuantityType>(quotes)
 {
     public OkxQuantityTypeConverter() : this(true) { }
-    public OkxQuantityTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxQuantityType, string>> Mapping =>
     [

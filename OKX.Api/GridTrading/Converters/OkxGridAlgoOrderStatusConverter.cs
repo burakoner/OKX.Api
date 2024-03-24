@@ -2,10 +2,9 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-internal class OkxGridAlgoOrderStatusConverter : BaseConverter<OkxGridAlgoOrderStatus>
+internal class OkxGridAlgoOrderStatusConverter(bool quotes) : BaseConverter<OkxGridAlgoOrderStatus>(quotes)
 {
     public OkxGridAlgoOrderStatusConverter() : this(true) { }
-    public OkxGridAlgoOrderStatusConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxGridAlgoOrderStatus, string>> Mapping =>
     [

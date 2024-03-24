@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Funding.Converters;
 
-internal class OkxDepositStateConverter : BaseConverter<OkxDepositState>
+internal class OkxDepositStateConverter(bool quotes) : BaseConverter<OkxDepositState>(quotes)
 {
     public OkxDepositStateConverter() : this(true) { }
-    public OkxDepositStateConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxDepositState, string>> Mapping =>
     [

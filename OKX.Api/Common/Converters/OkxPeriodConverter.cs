@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxPeriodConverter : BaseConverter<OkxPeriod>
+internal class OkxPeriodConverter(bool quotes) : BaseConverter<OkxPeriod>(quotes)
 {
     public OkxPeriodConverter() : this(true) { }
-    public OkxPeriodConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxPeriod, string>> Mapping =>
     [

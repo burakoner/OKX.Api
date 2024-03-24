@@ -2,10 +2,9 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-internal class OkxGridAlgoTimeFrameConverter : BaseConverter<OkxGridAlgoTimeFrame>
+internal class OkxGridAlgoTimeFrameConverter(bool quotes) : BaseConverter<OkxGridAlgoTimeFrame>(quotes)
 {
     public OkxGridAlgoTimeFrameConverter() : this(true) { }
-    public OkxGridAlgoTimeFrameConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxGridAlgoTimeFrame, string>> Mapping =>
     [

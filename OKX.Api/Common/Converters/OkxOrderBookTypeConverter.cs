@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxOrderBookTypeConverter : BaseConverter<OkxOrderBookType>
+internal class OkxOrderBookTypeConverter(bool quotes) : BaseConverter<OkxOrderBookType>(quotes)
 {
     public OkxOrderBookTypeConverter() : this(true) { }
-    public OkxOrderBookTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxOrderBookType, string>> Mapping =>
     [

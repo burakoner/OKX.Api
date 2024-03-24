@@ -12,7 +12,7 @@ namespace OKX.Api.Account.Clients;
 /// <summary>
 /// OKX Trading Account Rest Api Client
 /// </summary>
-public class OkxAccountRestClient : OkxRestApiBaseClient
+public class OkxAccountRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     // Endpoints
     private const string v5AccountBalance = "api/v5/account/balance";
@@ -57,10 +57,6 @@ public class OkxAccountRestClient : OkxRestApiBaseClient
     private const string v5AccountSetAccountLevel = "api/v5/account/set-account-level";
     private const string v5AccountMmpReset = "api/v5/account/mmp-reset";
     private const string v5AccountMmpConfig = "api/v5/account/mmp-config";
-
-    internal OkxAccountRestClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     #region Account API Endpoints
     /// <summary>

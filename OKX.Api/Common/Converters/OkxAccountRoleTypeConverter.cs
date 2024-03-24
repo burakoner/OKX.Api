@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxAccountRoleTypeConverter : BaseConverter<OkxAccountRoleType>
+internal class OkxAccountRoleTypeConverter(bool quotes) : BaseConverter<OkxAccountRoleType>(quotes)
 {
     public OkxAccountRoleTypeConverter() : this(true) { }
-    public OkxAccountRoleTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxAccountRoleType, string>> Mapping =>
     [

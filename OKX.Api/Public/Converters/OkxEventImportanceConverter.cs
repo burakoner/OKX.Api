@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Public.Converters;
 
-internal class OkxEventImportanceConverter : BaseConverter<OkxEventImportance>
+internal class OkxEventImportanceConverter(bool quotes) : BaseConverter<OkxEventImportance>(quotes)
 {
     public OkxEventImportanceConverter() : this(true) { }
-    public OkxEventImportanceConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxEventImportance, string>> Mapping =>
     [

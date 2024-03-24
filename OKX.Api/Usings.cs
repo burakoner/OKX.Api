@@ -25,6 +25,7 @@ global using OKX.Api.CopyTrading.Clients;
 global using OKX.Api.Enums;
 global using OKX.Api.Funding.Clients;
 global using OKX.Api.GridTrading.Clients;
+global using OKX.Api.Public.Clients;
 global using OKX.Api.RecurringBuy.Clients;
 global using OKX.Api.SignalTrading.Clients;
 global using OKX.Api.SubAccount.Clients;

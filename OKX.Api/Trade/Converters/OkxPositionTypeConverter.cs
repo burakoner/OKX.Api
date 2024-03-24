@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Trade.Converters;
 
-internal class OkxPositionTypeConverter : BaseConverter<OkxPositionType>
+internal class OkxPositionTypeConverter(bool quotes) : BaseConverter<OkxPositionType>(quotes)
 {
     public OkxPositionTypeConverter() : this(true) { }
-    public OkxPositionTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxPositionType, string>> Mapping =>
     [

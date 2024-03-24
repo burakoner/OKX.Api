@@ -2,10 +2,9 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-internal class OkxGridAlgoTriggerActionConverter : BaseConverter<OkxGridAlgoTriggerAction>
+internal class OkxGridAlgoTriggerActionConverter(bool quotes) : BaseConverter<OkxGridAlgoTriggerAction>(quotes)
 {
     public OkxGridAlgoTriggerActionConverter() : this(true) { }
-    public OkxGridAlgoTriggerActionConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxGridAlgoTriggerAction, string>> Mapping =>
     [

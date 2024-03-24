@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxLightningDepositAccountConverter : BaseConverter<OkxLightningDepositAccount>
+internal class OkxLightningDepositAccountConverter(bool quotes) : BaseConverter<OkxLightningDepositAccount>(quotes)
 {
     public OkxLightningDepositAccountConverter() : this(true) { }
-    public OkxLightningDepositAccountConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxLightningDepositAccount, string>> Mapping =>
     [

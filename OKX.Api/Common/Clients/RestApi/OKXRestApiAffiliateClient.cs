@@ -3,11 +3,8 @@
 /// <summary>
 /// OKX Rest Api Affiliate Client
 /// </summary>
-public class OKXRestApiAffiliateClient : OkxRestApiBaseClient
+public class OKXRestApiAffiliateClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
-    internal OKXRestApiAffiliateClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     #region Affiliate API Endpoints
     #endregion

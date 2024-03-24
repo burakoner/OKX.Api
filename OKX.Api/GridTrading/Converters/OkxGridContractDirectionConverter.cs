@@ -2,10 +2,9 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-internal class OkxGridContractDirectionConverter : BaseConverter<OkxGridContractDirection>
+internal class OkxGridContractDirectionConverter(bool quotes) : BaseConverter<OkxGridContractDirection>(quotes)
 {
     public OkxGridContractDirectionConverter() : this(true) { }
-    public OkxGridContractDirectionConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxGridContractDirection, string>> Mapping =>
     [

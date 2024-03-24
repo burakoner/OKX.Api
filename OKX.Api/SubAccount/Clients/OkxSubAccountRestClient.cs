@@ -8,7 +8,7 @@ namespace OKX.Api.SubAccount.Clients;
 /// <summary>
 /// OKX Rest Api Sub Account Client
 /// </summary>
-public class OkxSubAccountRestClient : OkxRestApiBaseClient
+public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     // Endpoints
     private const string v5UsersSubaccountList = "api/v5/users/subaccount/list";
@@ -23,10 +23,6 @@ public class OkxSubAccountRestClient : OkxRestApiBaseClient
     // TODO: api/v5/users/entrust-subaccount-list
     // TODO: api/v5/account/subaccount/set-loan-allocation
     // TODO: api/v5/account/subaccount/interest-limits
-
-    internal OkxSubAccountRestClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     #region Sub-Account API Endpoints
     /// <summary>

@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxContractTypeConverter : BaseConverter<OkxContractType>
+internal class OkxContractTypeConverter(bool quotes) : BaseConverter<OkxContractType>(quotes)
 {
     public OkxContractTypeConverter() : this(true) { }
-    public OkxContractTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxContractType, string>> Mapping =>
     [

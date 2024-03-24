@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Public.Converters;
 
-internal class OkxOptionTypeConverter : BaseConverter<OkxOptionType>
+internal class OkxOptionTypeConverter(bool quotes) : BaseConverter<OkxOptionType>(quotes)
 {
     public OkxOptionTypeConverter() : this(true) { }
-    public OkxOptionTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxOptionType, string>> Mapping =>
     [

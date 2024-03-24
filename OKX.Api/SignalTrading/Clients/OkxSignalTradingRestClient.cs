@@ -5,7 +5,7 @@ namespace OKX.Api.SignalTrading.Clients;
 /// <summary>
 /// OKX Rest Api Signal Trading Client
 /// </summary>
-public class OkxSignalTradingRestClient : OkxRestApiBaseClient
+public class OkxSignalTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     // Endpoints
     // api/v5/tradingBot/signal/create-signal
@@ -26,12 +26,8 @@ public class OkxSignalTradingRestClient : OkxRestApiBaseClient
     // api/v5/tradingBot/signal/sub-orders
     // api/v5/tradingBot/signal/event-history
 
-    internal OkxSignalTradingRestClient(OkxRestApiClient root) : base(root)
-    {
-    }
-
     #region Signal Trading API Endpoints
-    
+
     #endregion
 
 }

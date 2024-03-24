@@ -6,7 +6,7 @@ namespace OKX.Api.BlockTrading.Clients;
 /// <summary>
 /// OKX Rest Api Block Trading Client
 /// </summary>
-public class OkxBlockTradingRestClient : OkxRestApiBaseClient
+public class OkxBlockTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     // Endpoints
     // TODO: api/v5/rfq/counterparties
@@ -29,10 +29,6 @@ public class OkxBlockTradingRestClient : OkxRestApiBaseClient
     private const string v5MarketBlockTickers = "api/v5/market/block-tickers";
     private const string v5MarketBlockTicker = "api/v5/market/block-ticker";
     private const string v5MarketBlockTrades = "api/v5/market/block-trades";
-
-    internal OkxBlockTradingRestClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     #region Block Trading API Endpoints
 

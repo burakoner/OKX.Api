@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxGreeksTypeConverter : BaseConverter<OkxGreeksType>
+internal class OkxGreeksTypeConverter(bool quotes) : BaseConverter<OkxGreeksType>(quotes)
 {
     public OkxGreeksTypeConverter() : this(true) { }
-    public OkxGreeksTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxGreeksType, string>> Mapping =>
     [

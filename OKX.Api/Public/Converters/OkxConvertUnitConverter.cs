@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Public.Converters;
 
-internal class OkxConvertUnitConverter : BaseConverter<OkxConvertUnit>
+internal class OkxConvertUnitConverter(bool quotes) : BaseConverter<OkxConvertUnit>(quotes)
 {
     public OkxConvertUnitConverter() : this(true) { }
-    public OkxConvertUnitConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxConvertUnit, string>> Mapping =>
     [

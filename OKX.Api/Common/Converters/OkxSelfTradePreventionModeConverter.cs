@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxSelfTradePreventionModeConverter : BaseConverter<OkxSelfTradePreventionMode>
+internal class OkxSelfTradePreventionModeConverter(bool quotes) : BaseConverter<OkxSelfTradePreventionMode>(quotes)
 {
     public OkxSelfTradePreventionModeConverter() : this(true) { }
-    public OkxSelfTradePreventionModeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxSelfTradePreventionMode, string>> Mapping =>
     [

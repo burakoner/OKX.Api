@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxLiquidationStateConverter : BaseConverter<OkxLiquidationState>
+internal class OkxLiquidationStateConverter(bool quotes) : BaseConverter<OkxLiquidationState>(quotes)
 {
     public OkxLiquidationStateConverter() : this(true) { }
-    public OkxLiquidationStateConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxLiquidationState, string>> Mapping =>
     [

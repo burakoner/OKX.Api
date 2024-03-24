@@ -6,15 +6,10 @@ namespace OKX.Api.Account.Clients;
 /// <summary>
 /// OKX WebSocket Api Trading Account Client
 /// </summary>
-public class OkxAccountSocketClient
+public class OkxAccountSocketClient(OkxSocketApiClient root)
 {
     // Root Client
-    internal OkxSocketApiClient RootClient { get; }
-
-    internal OkxAccountSocketClient(OkxSocketApiClient root)
-    {
-        RootClient = root;
-    }
+    internal OkxSocketApiClient RootClient { get; } = root;
 
     /// <summary>
     /// Retrieve account information. Data will be pushed when triggered by events such as placing/canceling order, and will also be pushed in regular interval according to subscription granularity.

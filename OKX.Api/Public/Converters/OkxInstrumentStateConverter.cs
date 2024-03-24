@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Public.Converters;
 
-internal class OkxInstrumentStateConverter : BaseConverter<OkxInstrumentState>
+internal class OkxInstrumentStateConverter(bool quotes) : BaseConverter<OkxInstrumentState>(quotes)
 {
     public OkxInstrumentStateConverter() : this(true) { }
-    public OkxInstrumentStateConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxInstrumentState, string>> Mapping =>
     [

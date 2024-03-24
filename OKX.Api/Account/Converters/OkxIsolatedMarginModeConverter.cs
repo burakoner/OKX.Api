@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxIsolatedMarginModeConverter : BaseConverter<OkxIsolatedMarginMode>
+internal class OkxIsolatedMarginModeConverter(bool quotes) : BaseConverter<OkxIsolatedMarginMode>(quotes)
 {
     public OkxIsolatedMarginModeConverter() : this(true) { }
-    public OkxIsolatedMarginModeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxIsolatedMarginMode, string>> Mapping =>
     [

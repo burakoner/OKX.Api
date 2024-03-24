@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxSpotCopyTradingRoleConverter : BaseConverter<OkxSpotCopyTradingRole>
+internal class OkxSpotCopyTradingRoleConverter(bool quotes) : BaseConverter<OkxSpotCopyTradingRole>(quotes)
 {
     public OkxSpotCopyTradingRoleConverter() : this(true) { }
-    public OkxSpotCopyTradingRoleConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxSpotCopyTradingRole, string>> Mapping =>
     [

@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Public.Converters;
 
-internal class OkxInsuranceTypeConverter : BaseConverter<OkxInsuranceType>
+internal class OkxInsuranceTypeConverter(bool quotes) : BaseConverter<OkxInsuranceType>(quotes)
 {
     public OkxInsuranceTypeConverter() : this(true) { }
-    public OkxInsuranceTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxInsuranceType, string>> Mapping =>
     [

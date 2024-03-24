@@ -2,10 +2,9 @@
 
 namespace OKX.Api.SubAccount.Converters;
 
-internal class OkxSubAccountTypeConverter : BaseConverter<OkxSubAccountType>
+internal class OkxSubAccountTypeConverter(bool quotes) : BaseConverter<OkxSubAccountType>(quotes)
 {
     public OkxSubAccountTypeConverter() : this(true) { }
-    public OkxSubAccountTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxSubAccountType, string>> Mapping =>
     [

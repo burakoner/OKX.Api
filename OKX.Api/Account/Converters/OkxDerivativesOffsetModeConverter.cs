@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxDerivativesOffsetModeConverter : BaseConverter<OkxDerivativesOffsetMode>
+internal class OkxDerivativesOffsetModeConverter(bool quotes) : BaseConverter<OkxDerivativesOffsetMode>(quotes)
 {
     public OkxDerivativesOffsetModeConverter() : this(true) { }
-    public OkxDerivativesOffsetModeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxDerivativesOffsetMode, string>> Mapping =>
     [

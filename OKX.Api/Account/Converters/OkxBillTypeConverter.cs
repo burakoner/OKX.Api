@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxBillTypeConverter : BaseConverter<OkxBillType>
+internal class OkxBillTypeConverter(bool quotes) : BaseConverter<OkxBillType>(quotes)
 {
     public OkxBillTypeConverter() : this(true) { }
-    public OkxBillTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxBillType, string>> Mapping =>
     [

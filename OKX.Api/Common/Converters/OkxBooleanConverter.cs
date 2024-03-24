@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxBooleanConverter : BaseConverter<bool>
+internal class OkxBooleanConverter(bool quotes) : BaseConverter<bool>(quotes)
 {
     public OkxBooleanConverter() : this(true) { }
-    public OkxBooleanConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<bool, string>> Mapping =>
     [

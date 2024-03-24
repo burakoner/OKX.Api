@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxAccountConverter : BaseConverter<OkxAccount>
+internal class OkxAccountConverter(bool quotes) : BaseConverter<OkxAccount>(quotes)
 {
     public OkxAccountConverter() : this(true) { }
-    public OkxAccountConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxAccount, string>> Mapping =>
     [

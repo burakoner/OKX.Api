@@ -14,7 +14,7 @@ namespace OKX.Api.Trade.Clients;
 /// <summary>
 /// OKX Rest Api Trade Client
 /// </summary>
-public class OkxTradeRestClient : OkxRestApiBaseClient
+public class OkxTradeRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     // Endpoints
     private const string v5TradeOrder = "api/v5/trade/order";
@@ -40,10 +40,6 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
     // TODO: api/v5/trade/mass-cancel
     // TODO: api/v5/trade/cancel-all-after
     // api/v5/trade/account-rate-limit
-
-    internal OkxTradeRestClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     #region Trade API Endpoints
     /// <summary>

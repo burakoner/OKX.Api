@@ -10,7 +10,7 @@ namespace OKX.Api.Clients.RestApi;
 /// <summary>
 /// OKX Rest Api Public Market Data Client
 /// </summary>
-public class OkxPublicRestClient : OkxRestApiBaseClient
+public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     // Public Data Endpoints
     private const string v5PublicInstruments = "api/v5/public/instruments";
@@ -53,10 +53,6 @@ public class OkxPublicRestClient : OkxRestApiBaseClient
     private const string v5MarketOptionInstrumentFamilyTrades = "api/v5/market/option/instrument-family-trades";
     private const string v5PublicOptionTrades = "api/v5/public/option-trades";
     private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
-
-    internal OkxPublicRestClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     #region Public Data Methods
     /// <summary>

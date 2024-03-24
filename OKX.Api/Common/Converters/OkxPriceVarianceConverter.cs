@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxPriceVarianceConverter : BaseConverter<OkxPriceVariance>
+internal class OkxPriceVarianceConverter(bool quotes) : BaseConverter<OkxPriceVariance>(quotes)
 {
     public OkxPriceVarianceConverter() : this(true) { }
-    public OkxPriceVarianceConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxPriceVariance, string>> Mapping =>
     [

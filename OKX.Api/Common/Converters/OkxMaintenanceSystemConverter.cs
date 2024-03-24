@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxMaintenanceSystemConverter : BaseConverter<OkxMaintenanceSystem>
+internal class OkxMaintenanceSystemConverter(bool quotes) : BaseConverter<OkxMaintenanceSystem>(quotes)
 {
     public OkxMaintenanceSystemConverter() : this(true) { }
-    public OkxMaintenanceSystemConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxMaintenanceSystem, string>> Mapping =>
     [

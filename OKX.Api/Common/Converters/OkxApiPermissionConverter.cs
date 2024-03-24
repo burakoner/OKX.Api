@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxApiPermissionConverter : BaseConverter<OkxApiPermission>
+internal class OkxApiPermissionConverter(bool quotes) : BaseConverter<OkxApiPermission>(quotes)
 {
     public OkxApiPermissionConverter() : this(true) { }
-    public OkxApiPermissionConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxApiPermission, string>> Mapping =>
     [

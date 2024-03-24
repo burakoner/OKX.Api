@@ -6,7 +6,7 @@ namespace OKX.Api.Common.Clients.RestApi;
 /// <summary>
 /// OKX Rest Api Trading Statistics Client
 /// </summary>
-public class OKXRestApiTradingStatisticsClient : OkxRestApiBaseClient
+public class OKXRestApiTradingStatisticsClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     // Endpoints
     private const string v5RubikStatTradingDataSupportCoin = "api/v5/rubik/stat/trading-data/support-coin";
@@ -19,10 +19,6 @@ public class OKXRestApiTradingStatisticsClient : OkxRestApiBaseClient
     private const string v5RubikStatOptionOpenInterestVolumeExpiry = "api/v5/rubik/stat/option/open-interest-volume-expiry";
     private const string v5RubikStatOptionOpenInterestVolumeStrike = "api/v5/rubik/stat/option/open-interest-volume-strike";
     private const string v5RubikStatOptionTakerBlockVolume = "api/v5/rubik/stat/option/taker-block-volume";
-
-    internal OKXRestApiTradingStatisticsClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     #region Rubik API Endpoints
     /// <summary>

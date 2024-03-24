@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Public.Converters;
 
-internal class OkxTradeSideConverter : BaseConverter<OkxTradeSide>
+internal class OkxTradeSideConverter(bool quotes) : BaseConverter<OkxTradeSide>(quotes)
 {
     public OkxTradeSideConverter() : this(true) { }
-    public OkxTradeSideConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxTradeSide, string>> Mapping =>
     [

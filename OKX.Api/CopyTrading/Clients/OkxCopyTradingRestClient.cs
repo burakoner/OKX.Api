@@ -8,7 +8,7 @@ namespace OKX.Api.CopyTrading.Clients;
 /// <summary>
 /// OKX Rest Api Copy Trading Client
 /// </summary>
-public class OkxCopyTradingRestClient : OkxRestApiBaseClient
+public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
 {
     // Endpoints
     private const string v5CopyTradingCurrentSubpositions = "api/v5/copytrading/current-subpositions";
@@ -20,10 +20,6 @@ public class OkxCopyTradingRestClient : OkxRestApiBaseClient
     private const string v5CopyTradingProfitSharingDetails = "api/v5/copytrading/profit-sharing-details";
     private const string v5CopyTradingTotalProfitSharing = "api/v5/copytrading/total-profit-sharing";
     private const string v5CopyTradingUnrealizedProfitSharingDetails = "api/v5/copytrading/unrealized-profit-sharing-details";
-
-    internal OkxCopyTradingRestClient(OkxRestApiClient root) : base(root)
-    {
-    }
 
     #region Copy Trading API Endpoints
     /// <summary>

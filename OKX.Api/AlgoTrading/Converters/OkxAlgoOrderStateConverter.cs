@@ -2,10 +2,9 @@
 
 namespace OKX.Api.AlgoTrading.Converters;
 
-internal class OkxAlgoOrderStateConverter : BaseConverter<OkxAlgoOrderState>
+internal class OkxAlgoOrderStateConverter(bool quotes) : BaseConverter<OkxAlgoOrderState>(quotes)
 {
     public OkxAlgoOrderStateConverter() : this(true) { }
-    public OkxAlgoOrderStateConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxAlgoOrderState, string>> Mapping =>
     [

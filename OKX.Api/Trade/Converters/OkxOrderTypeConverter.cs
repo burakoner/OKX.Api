@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Trade.Converters;
 
-internal class OkxOrderTypeConverter : BaseConverter<OkxOrderType>
+internal class OkxOrderTypeConverter(bool quotes) : BaseConverter<OkxOrderType>(quotes)
 {
     public OkxOrderTypeConverter() : this(true) { }
-    public OkxOrderTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxOrderType, string>> Mapping =>
     [

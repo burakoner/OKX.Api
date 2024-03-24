@@ -1,9 +1,8 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxQuickMarginTypeConverter : BaseConverter<OkxQuickMarginType>
+internal class OkxQuickMarginTypeConverter(bool quotes) : BaseConverter<OkxQuickMarginType>(quotes)
 {
     public OkxQuickMarginTypeConverter() : this(true) { }
-    public OkxQuickMarginTypeConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxQuickMarginType, string>> Mapping =>
     [

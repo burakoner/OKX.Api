@@ -2,10 +2,9 @@
 
 namespace OKX.Api.Public.Converters;
 
-internal class OkxDeliveryExerciseStatusConverter : BaseConverter<OkxDeliveryExerciseStatus>
+internal class OkxDeliveryExerciseStatusConverter(bool quotes) : BaseConverter<OkxDeliveryExerciseStatus>(quotes)
 {
     public OkxDeliveryExerciseStatusConverter() : this(true) { }
-    public OkxDeliveryExerciseStatusConverter(bool quotes) : base(quotes) { }
 
     protected override List<KeyValuePair<OkxDeliveryExerciseStatus, string>> Mapping =>
     [
