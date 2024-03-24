@@ -1,5 +1,5 @@
-﻿using OKX.Api.GridTrade.Converters;
-using OKX.Api.GridTrade.Enums;
+﻿using OKX.Api.GridTrading.Converters;
+using OKX.Api.GridTrading.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;

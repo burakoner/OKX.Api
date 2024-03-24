@@ -1,5 +1,5 @@
-﻿using OKX.Api.AlgoTrade.Converters;
-using OKX.Api.AlgoTrade.Enums;
+﻿using OKX.Api.AlgoTrading.Converters;
+using OKX.Api.AlgoTrading.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
@@ -156,7 +156,7 @@ public class OkxOrder
     /// <summary>
     /// Take-profit trigger price type.
     /// </summary>
-    [JsonProperty("tpTriggerPxType"), JsonConverter(typeof(AlgoPriceTypeConverter))]
+    [JsonProperty("tpTriggerPxType"), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
     public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; }
 
     /// <summary>
@@ -174,7 +174,7 @@ public class OkxOrder
     /// <summary>
     /// Stop-loss trigger price type.
     /// </summary>
-    [JsonProperty("slTriggerPxType"), JsonConverter(typeof(AlgoPriceTypeConverter))]
+    [JsonProperty("slTriggerPxType"), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
     public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
 
     /// <summary>

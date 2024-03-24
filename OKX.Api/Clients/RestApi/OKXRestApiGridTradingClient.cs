@@ -1,7 +1,7 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
-using OKX.Api.GridTrade.Converters;
-using OKX.Api.GridTrade.Enums;
+using OKX.Api.GridTrading.Converters;
+using OKX.Api.GridTrading.Enums;
 using OKX.Api.Models.GridTrading;
 
 namespace OKX.Api.Clients.RestApi;

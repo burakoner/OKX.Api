@@ -1,4 +1,5 @@
 ﻿using OKX.Api.Account.Clients;
+using OKX.Api.AlgoTrading.Clients;
 using OKX.Api.Funding.Clients;
 using OKX.Api.Public.Clients;
 using OKX.Api.Trade.Clients;
@@ -24,30 +25,30 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
     /// Funding Account Client
     /// </summary>
     public OkxFundingSocketClient Funding { get; }
-    
+
     /// <summary>
     /// Trading Client
     /// </summary>
     public OkxTradeSocketClient Trade { get; }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /// <summary>
     /// Algo Trading Client
     /// </summary>
-    public OKXWebSocketApiAlgoTradingClient AlgoTrading { get; }
+    public OkxAlgoTradingSocketClient AlgoTrading { get; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// Grid Trading Client
@@ -115,14 +116,13 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
         this.Account = new OkxAccountSocketClient(this);
         this.Funding = new OkxFundingSocketClient(this);
         this.Trade = new OkxTradeSocketClient(this);
+        this.AlgoTrading = new OkxAlgoTradingSocketClient(this);
 
 
 
-        this.AlgoTrading = new OKXWebSocketApiAlgoTradingClient(this);
         this.GridTrading = new OKXWebSocketApiGridTradingClient(this);
         this.RecurringBuy = new OKXWebSocketApiRecurringBuyClient(this);
         this.CopyTrading = new OKXWebSocketApiCopyTradingClient(this);
-
         this.BlockTrading = new OKXWebSocketApiBlockTradingClient(this);
         this.SpreadTrading = new OKXWebSocketApiSpreadTradingClient(this);
         this.TradingStatistics = new OKXWebSocketApiTradingStatisticsClient(this);
@@ -130,16 +130,15 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
         this.Status = new OKXWebSocketApiSystemClient(this);
     }
 
+    internal int RequestId() => base.NextId();
+
     internal Task<CallResult<WebSocketUpdateSubscription>> RootSubscribeAsync<T>(OkxSocketEndpoint endpoint, object request, string identifier, bool authenticated, Action<WebSocketDataEvent<T>> dataHandler, CancellationToken ct)
     {
         var url = ClientOptions.BaseAddress;
         var env = ((OkxSocketApiOptions)ClientOptions).DemoTradingService ? OkxAddress.Demo : OkxAddress.Default;
-        if (endpoint == OkxSocketEndpoint.Public)
-            url = env.WebSocketPublicAddress;
-        else if (endpoint == OkxSocketEndpoint.Private)
-            url = env.WebSocketPrivateAddress;
-        else if (endpoint == OkxSocketEndpoint.Business)
-            url = env.WebSocketBusinessAddress;
+        if (endpoint == OkxSocketEndpoint.Public) url = env.WebSocketPublicAddress;
+        else if (endpoint == OkxSocketEndpoint.Private) url = env.WebSocketPrivateAddress;
+        else if (endpoint == OkxSocketEndpoint.Business) url = env.WebSocketBusinessAddress;
 
         return SubscribeAsync<T>(url, request, identifier, authenticated, dataHandler, ct);
     }
@@ -148,18 +147,11 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
     {
         var url = ClientOptions.BaseAddress;
         var env = ((OkxSocketApiOptions)ClientOptions).DemoTradingService ? OkxAddress.Demo : OkxAddress.Default;
-        if (endpoint == OkxSocketEndpoint.Public)
-            url = env.WebSocketPublicAddress;
-        else if (endpoint == OkxSocketEndpoint.Private)
-            url = env.WebSocketPrivateAddress;
-        else if (endpoint == OkxSocketEndpoint.Business)
-            url = env.WebSocketBusinessAddress;
+        if (endpoint == OkxSocketEndpoint.Public) url = env.WebSocketPublicAddress;
+        else if (endpoint == OkxSocketEndpoint.Private) url = env.WebSocketPrivateAddress;
+        else if (endpoint == OkxSocketEndpoint.Business) url = env.WebSocketBusinessAddress;
 
         return QueryAsync<T>(url, request, authenticated);
     }
 
-    internal int RequestId()
-    {
-        return base.NextId();
-    }
 }

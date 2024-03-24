@@ -155,24 +155,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Models\Earn\**" />
-	  <Compile Remove="Models\RecurringBuy\**" />
-	  <Compile Remove="Models\Savings\**" />
-	  <Compile Remove="Models\SpreadTrading\**" />
-	  <Compile Remove="Models\Status\**" />
-	  <EmbeddedResource Remove="Models\Earn\**" />
-	  <EmbeddedResource Remove="Models\RecurringBuy\**" />
-	  <EmbeddedResource Remove="Models\Savings\**" />
-	  <EmbeddedResource Remove="Models\SpreadTrading\**" />
-	  <EmbeddedResource Remove="Models\Status\**" />
-	  <None Remove="Models\Earn\**" />
-	  <None Remove="Models\RecurringBuy\**" />
-	  <None Remove="Models\Savings\**" />
-	  <None Remove="Models\SpreadTrading\**" />
-	  <None Remove="Models\Status\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Include="OKX.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 
@@ -182,23 +164,22 @@
 	  <Folder Include="Broker\Enums\" />
 	  <Folder Include="Broker\Models\" />
 	  <Folder Include="Common\Models\" />
-	  <Folder Include="Models\Trade\" />
 	  <Folder Include="Rubik\Clients\" />
 	  <Folder Include="Rubik\Converters\" />
 	  <Folder Include="Rubik\Enums\" />
 	  <Folder Include="Rubik\Models\" />
-	  <Folder Include="SignalTrade\Clients\" />
-	  <Folder Include="SignalTrade\Converters\" />
-	  <Folder Include="SignalTrade\Enums\" />
-	  <Folder Include="SignalTrade\Models\" />
-	  <Folder Include="SpreadTrade\Clients\" />
-	  <Folder Include="SpreadTrade\Converters\" />
-	  <Folder Include="SpreadTrade\Enums\" />
-	  <Folder Include="SpreadTrade\Models\" />
-	  <Folder Include="BlockTrade\Clients\" />
-	  <Folder Include="BlockTrade\Converters\" />
-	  <Folder Include="BlockTrade\Enums\" />
-	  <Folder Include="BlockTrade\Models\" />
+	  <Folder Include="SignalTrading\Clients\" />
+	  <Folder Include="SignalTrading\Converters\" />
+	  <Folder Include="SignalTrading\Enums\" />
+	  <Folder Include="SignalTrading\Models\" />
+	  <Folder Include="SpreadTrading\Clients\" />
+	  <Folder Include="SpreadTrading\Converters\" />
+	  <Folder Include="SpreadTrading\Enums\" />
+	  <Folder Include="SpreadTrading\Models\" />
+	  <Folder Include="BlockTrading\Clients\" />
+	  <Folder Include="BlockTrading\Converters\" />
+	  <Folder Include="BlockTrading\Enums\" />
+	  <Folder Include="BlockTrading\Models\" />
 	  <Folder Include="Finance\Clients\" />
 	  <Folder Include="Finance\Converters\" />
 	  <Folder Include="Finance\Enums\" />
@@ -207,14 +188,12 @@
 	  <Folder Include="RecurringBuy\Converters\" />
 	  <Folder Include="RecurringBuy\Enums\" />
 	  <Folder Include="RecurringBuy\Models\" />
-	  <Folder Include="AlgoTrade\Clients\" />
-	  <Folder Include="AlgoTrade\Models\" />
-	  <Folder Include="CopyTrade\Clients\" />
-	  <Folder Include="CopyTrade\Converters\" />
-	  <Folder Include="CopyTrade\Enums\" />
-	  <Folder Include="CopyTrade\Models\" />
-	  <Folder Include="GridTrade\Clients\" />
-	  <Folder Include="GridTrade\Models\" />
+	  <Folder Include="CopyTrading\Clients\" />
+	  <Folder Include="CopyTrading\Converters\" />
+	  <Folder Include="CopyTrading\Enums\" />
+	  <Folder Include="CopyTrading\Models\" />
+	  <Folder Include="GridTrading\Clients\" />
+	  <Folder Include="GridTrading\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>

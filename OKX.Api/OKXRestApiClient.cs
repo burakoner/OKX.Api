@@ -1,4 +1,5 @@
 ﻿using OKX.Api.Account.Clients;
+using OKX.Api.AlgoTrading.Clients;
 using OKX.Api.Funding.Clients;
 using OKX.Api.SubAccount.Clients;
 using OKX.Api.Trade.Clients;
@@ -45,20 +46,25 @@ public sealed class OkxRestApiClient
     /// </summary>
     public OkxTradeRestClient Trade { get; }
 
-
-
-
-
-
-
-
-
-
-
     /// <summary>
     /// Algo Trading Client
     /// </summary>
-    public OKXRestApiAlgoTradingClient AlgoTrading { get; }
+    public OkxAlgoTradingRestClient AlgoTrading { get; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// Grid Trading Client
@@ -139,22 +145,16 @@ public sealed class OkxRestApiClient
         Funding = new OkxFundingRestClient(this);
         SubAccount = new OkxSubAccountRestClient(this);
         Trade = new OkxTradeRestClient(this);
+        AlgoTrading = new OkxAlgoTradingRestClient(this);
 
 
 
 
 
         
-        AlgoTrading = new OKXRestApiAlgoTradingClient(this);
         GridTrading = new OKXRestApiGridTradingClient(this);
         RecurringBuy = new OKXRestApiRecurringBuyClient(this);
         CopyTrading = new OKXRestApiCopyTradingClient(this);
-
-
-
-
-
-
         BlockTrading = new OKXRestApiBlockTradingClient(this);
         SpreadTrading = new OKXRestApiSpreadTradingClient(this);
         TradingStatistics = new OKXRestApiTradingStatisticsClient(this);
@@ -185,18 +185,15 @@ public sealed class OkxRestApiClient
         Funding.SetApiCredentials(credentials);
         SubAccount.SetApiCredentials(credentials);
         Trade.SetApiCredentials(credentials);
+        AlgoTrading.SetApiCredentials(credentials);
 
 
 
         
-        AlgoTrading.SetApiCredentials(credentials);
         GridTrading.SetApiCredentials(credentials);
         RecurringBuy.SetApiCredentials(credentials);
         GridTrading.SetApiCredentials(credentials);
         CopyTrading.SetApiCredentials(credentials);
-
-
-
         BlockTrading.SetApiCredentials(credentials);
         SpreadTrading.SetApiCredentials(credentials);
         TradingStatistics.SetApiCredentials(credentials);

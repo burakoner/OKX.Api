@@ -1,7 +1,7 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
-using OKX.Api.AlgoTrade.Converters;
-using OKX.Api.AlgoTrade.Enums;
+using OKX.Api.AlgoTrading.Converters;
+using OKX.Api.AlgoTrading.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
@@ -127,11 +127,11 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new QuickMarginTypeConverter(false)));
         parameters.AddOptionalParameter("banAmend", banAmend);
 
-        parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(tpTriggerPxType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(tpTriggerPxType, new OkxAlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("tpTriggerPx", tpTriggerPx?.ToOkxString());
         parameters.AddOptionalParameter("tpOrdPx", tpOrdPx?.ToOkxString());
 
-        parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(slTriggerPxType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(slTriggerPxType, new OkxAlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("slTriggerPx", slTriggerPx?.ToOkxString());
         parameters.AddOptionalParameter("slOrdPx", slOrdPx?.ToOkxString());
 
@@ -244,11 +244,11 @@ public class OkxTradeRestClient : OkxRestApiBaseClient
         parameters.AddOptionalParameter("newSz", newQuantity?.ToOkxString());
         parameters.AddOptionalParameter("newPx", newPrice?.ToOkxString());
 
-        parameters.AddOptionalParameter("newTpTriggerPxType", JsonConvert.SerializeObject(newTakeProfitTriggerPriceType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("newTpTriggerPxType", JsonConvert.SerializeObject(newTakeProfitTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("newTpTriggerPx", newTakeProfitTriggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("newTpOrdPx", newTakeProfitOrderPrice?.ToOkxString());
 
-        parameters.AddOptionalParameter("newSlTriggerPxType", JsonConvert.SerializeObject(newStopLossTriggerPriceType, new AlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("newSlTriggerPxType", JsonConvert.SerializeObject(newStopLossTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("newSlTriggerPx", newStopLossTriggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("newSlOrdPx", newStopLossOrderPrice?.ToOkxString());
 

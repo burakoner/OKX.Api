@@ -1,5 +1,5 @@
-﻿using OKX.Api.AlgoTrade.Converters;
-using OKX.Api.AlgoTrade.Enums;
+﻿using OKX.Api.AlgoTrading.Converters;
+using OKX.Api.AlgoTrading.Enums;
 
 namespace OKX.Api.Trade.Models;
 
@@ -53,13 +53,13 @@ public class OkxOrderAmendRequest
     /// <summary>
     /// Take-profit trigger price type.
     /// </summary>
-    [JsonProperty("newTpTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(AlgoPriceTypeConverter))]
+    [JsonProperty("newTpTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
     public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; }
 
     /// <summary>
     /// Stop-loss trigger price type.
     /// </summary>
-    [JsonProperty("newSlTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(AlgoPriceTypeConverter))]
+    [JsonProperty("newSlTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
     public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
 
 }

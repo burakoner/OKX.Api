@@ -1,8 +1,9 @@
 ﻿using OKX.Api.Account.Enums;
-using OKX.Api.AlgoTrade.Enums;
+using OKX.Api.AlgoTrading.Enums;
+using OKX.Api.AlgoTrading.Models;
 using OKX.Api.Common.Enums;
 using OKX.Api.Funding.Enums;
-using OKX.Api.GridTrade.Enums;
+using OKX.Api.GridTrading.Enums;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Enums;
 using OKX.Api.Trade.Models;
@@ -62,8 +63,8 @@ internal class Program
         var algo_02 = await api.AlgoTrading.CancelAlgoOrderAsync(new List<OkxAlgoOrderRequest>());
         var algo_03 = await api.AlgoTrading.AmendAlgoOrderAsync("BTC-USDT");
         var algo_04 = await api.AlgoTrading.CancelAdvanceAlgoOrderAsync(new List<OkxAlgoOrderRequest>());
-        var algo_05 = await api.AlgoTrading.GetAlgoOrderDetailsAsync(algoOrderId: 1_000_001);
-        var algo_06 = await api.AlgoTrading.GetAlgoOrderListAsync(OkxAlgoOrderType.OCO);
+        var algo_05 = await api.AlgoTrading.GetAlgoOrderAsync(algoOrderId: 1_000_001);
+        var algo_06 = await api.AlgoTrading.GetAlgoOrdersAsync(OkxAlgoOrderType.OCO);
         var algo_07 = await api.AlgoTrading.GetAlgoOrderHistoryAsync(OkxAlgoOrderType.Conditional);
 
         // GridTrading Methods (Signed)
