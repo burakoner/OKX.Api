@@ -216,7 +216,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             data["msg"] is not null && data["code"] is not null)
         {
             Logger.Log(LogLevel.Warning, "Subscription failed: " + (string)data["msg"]!);
-            callResult = new CallResult<object>(new ServerError(data["code"].ToInt(), (string)data["msg"]));
+            callResult = new CallResult<object>(new ServerError(data["code"].ToIntegerSafe(), (string)data["msg"]));
             return true;
         }
 

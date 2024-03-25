@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+	<Import Project="../common.props"/>
+	
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
@@ -153,6 +155,14 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
 	  <DebugType>embedded</DebugType>
 	</PropertyGroup>
+	
+	<PropertyGroup>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath=""/>
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="OKX.png" Pack="true" PackagePath="" />

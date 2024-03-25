@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0">
+ <PropertyGroup>
+     <PackageReadmeFile Condition="Exists('$(MSBuildProjectDirectory)\README.md')">README.md</PackageReadmeFile>
+  </PropertyGroup>
+  
+    <ItemGroup>
+      <None Include="$(MSBuildProjectDirectory)\README.md" Pack="true" PackagePath="\" Condition="Exists('$(MSBuildProjectDirectory)\README.md')"/>
+    </ItemGroup>
+</Project>

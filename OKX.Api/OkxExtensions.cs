@@ -9,6 +9,8 @@ internal static class OkxExtensions
     /// Validate the string is a valid spot symbol.
     /// </summary>
     /// <param name="symbol">string to validate</param>
+    /// <param name="messagePrefix"></param>
+    /// <param name="messageSuffix"></param>
     public static string ValidateSymbol(this string symbol, string messagePrefix = "", string messageSuffix = "")
     {
         if (string.IsNullOrEmpty(symbol))
@@ -25,6 +27,8 @@ internal static class OkxExtensions
     /// Validate the string is a valid spot currency.
     /// </summary>
     /// <param name="currency">Currency</param>
+    /// <param name="messagePrefix"></param>
+    /// <param name="messageSuffix"></param>
     /// <returns></returns>
     public static string ValidateCurrency(this string currency, string messagePrefix = "", string messageSuffix = "")
     {
@@ -62,12 +66,9 @@ internal static class OkxExtensions
         bool isNull = @this is null;
         bool isDBNull = @this is not null && @this.GetType() == typeof(DBNull);
 
-        if (isNull)
-            return nullToEmpty ? string.Empty : null;
-        else if (isDBNull)
-            return nullToEmpty ? string.Empty : null;
-        else
-            return @this?.ToString();
+        if (isNull) return nullToEmpty ? string.Empty : null;
+        else if (isDBNull) return nullToEmpty ? string.Empty : null;
+        else return @this?.ToString();
     }
     #endregion
 
@@ -91,25 +92,27 @@ internal static class OkxExtensions
     #endregion
 
     #region ToNumber
-    public static int ToInt(this object @this)
+    public static int ToIntegerSafe(this object @this)
     {
-        int result = 0;
-        if (@this.IsNotNull()) int.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
+        var result = 0;
+        if (@this.IsNull()) return result;
+        
+        int.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
         return result;
     }
 
-    public static long ToLong(this object @this)
+    public static long ToLongSafe(this object @this)
     {
-        long result = 0;
+        var result = 0L;
         if (@this.IsNotNull()) long.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
         return result;
     }
 
-    public static double ToDouble(this object @this)
+    public static double ToDoubleSafe(this object @this)
     {
         if (@this is null) return 0.0;
 
-        double result = 0.0;
+        var result = 0.0;
         if (@this.IsNotNull()) double.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
         return result;
     }
@@ -117,16 +120,16 @@ internal static class OkxExtensions
     {
         if (@this is null) return null;
 
-        double result = 0.0;
+        var result = 0.0;
         if (@this.IsNotNull()) double.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
         return result;
     }
 
-    public static decimal ToDecimal(this object @this)
+    public static decimal ToDecimalSafe(this object @this)
     {
         if (@this is null) return 0;
 
-        decimal result = 0.0m;
+        var result = 0.0m;
         if (@this.IsNotNull()) decimal.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
         return result;
     }
@@ -139,7 +142,7 @@ internal static class OkxExtensions
         return result;
     }
 
-    public static float ToFloat(this object @this)
+    public static float ToFloatSafe(this object @this)
     {
         if (@this is null) return 0;
 
