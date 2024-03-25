@@ -1,14 +1,14 @@
-﻿namespace OKX.Api.Common.Clients.WebSocketApi;
+﻿namespace OKX.Api.Earn.Clients;
 
 /// <summary>
 /// OKX WebSocket Api Earn Client
 /// </summary>
-public class OKXWebSocketApiEarnClient
+public class OkxEarnSocketClient
 {
     // Root Client
     internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiEarnClient(OkxSocketApiClient root)
+    internal OkxEarnSocketClient(OkxSocketApiClient root)
     {
         RootClient = root;
     }

@@ -15,7 +15,7 @@ public class OkxOrderAmendRequest
     public string RequestId { get; set; }
 
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("cxlOnFail", NullValueHandling = NullValueHandling.Ignore)]
     public bool? CancelOnFail { get; set; }

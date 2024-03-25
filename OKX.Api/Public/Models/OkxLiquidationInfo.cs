@@ -1,4 +1,6 @@
-﻿using OKX.Api.Trade.Converters;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 
 namespace OKX.Api.Public.Models;
@@ -6,7 +8,7 @@ namespace OKX.Api.Public.Models;
 public class OkxLiquidationInfo
 {
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }

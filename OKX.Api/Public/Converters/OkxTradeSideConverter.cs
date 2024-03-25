@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Public.Converters;
+﻿using OKX.Api.Public.Enums;
+
+namespace OKX.Api.Public.Converters;
 
 internal class OkxTradeSideConverter(bool quotes) : BaseConverter<OkxTradeSide>(quotes)
 {

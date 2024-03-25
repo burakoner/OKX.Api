@@ -25,7 +25,7 @@ public class OkxInterestAccrued
     /// Only applicable to Market loans
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Margin mode

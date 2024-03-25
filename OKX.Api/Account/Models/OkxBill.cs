@@ -1,5 +1,7 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 
@@ -121,7 +123,7 @@ public class OkxBill
     /// Instrument ID, e.g. BTC-USD-190927-5000-C
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Order ID

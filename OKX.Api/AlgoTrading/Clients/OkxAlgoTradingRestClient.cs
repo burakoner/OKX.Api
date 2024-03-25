@@ -1,7 +1,9 @@
 ﻿using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
 using OKX.Api.AlgoTrading.Models;
-using OKX.Api.Common.Clients.RestApi;
+using OKX.Api.Common.Clients;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
@@ -12,7 +14,7 @@ namespace OKX.Api.AlgoTrading.Clients;
 /// <summary>
 /// OKX Rest Api Algo Trading Client
 /// </summary>
-public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
+public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     private const string v5TradeOrderAlgo = "api/v5/trade/order-algo";
     private const string v5TradeCancelAlgos = "api/v5/trade/cancel-algos";

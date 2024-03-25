@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Common.Converters;
+﻿using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Common.Converters;
 
 internal class OkxMaintenanceServiceConverter(bool quotes) : BaseConverter<OkxMaintenanceService>(quotes)
 {

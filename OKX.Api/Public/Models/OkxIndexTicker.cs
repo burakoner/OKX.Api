@@ -3,7 +3,7 @@
 public class OkxIndexTicker
 {
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("idxPx")]
     public decimal IndexPrice { get; set; }

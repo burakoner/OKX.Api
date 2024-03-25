@@ -1,4 +1,6 @@
-﻿using OKX.Api.Common.Clients.RestApi;
+﻿using OKX.Api.Common.Clients;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
 using OKX.Api.SubAccount.Converters;
 using OKX.Api.SubAccount.Enums;
 using OKX.Api.SubAccount.Models;
@@ -8,7 +10,7 @@ namespace OKX.Api.SubAccount.Clients;
 /// <summary>
 /// OKX Rest Api Sub Account Client
 /// </summary>
-public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
+public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     private const string v5UsersSubaccountList = "api/v5/users/subaccount/list";

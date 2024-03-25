@@ -9,7 +9,7 @@ public class OkxGridAmendOrderRequest
     public long AlgoOrderId { get; set; }
 
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("tpTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
     public decimal? TakeProfitTriggerPrice { get; set; }

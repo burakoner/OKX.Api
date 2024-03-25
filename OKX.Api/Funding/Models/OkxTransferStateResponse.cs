@@ -1,4 +1,6 @@
-﻿using OKX.Api.Funding.Converters;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+using OKX.Api.Funding.Converters;
 using OKX.Api.Funding.Enums;
 
 namespace OKX.Api.Funding.Models;

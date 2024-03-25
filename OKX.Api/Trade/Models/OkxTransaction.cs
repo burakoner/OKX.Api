@@ -1,4 +1,6 @@
-﻿using OKX.Api.Public.Converters;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
@@ -20,7 +22,7 @@ public class OkxTransaction
     /// Unique identifier of the instrument involved in the transaction.
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Unique identifier of the last trade associated with this transaction.

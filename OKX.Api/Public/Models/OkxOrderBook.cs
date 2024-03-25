@@ -2,7 +2,7 @@
 
 public class OkxOrderBook
 {
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("asks")]
     public List<OkxOrderBookRow> Asks { get; set; } = [];

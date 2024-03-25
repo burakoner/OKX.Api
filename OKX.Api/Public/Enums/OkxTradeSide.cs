@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Enums;
+﻿namespace OKX.Api.Public.Enums;
 
 /// <summary>
 /// OKX Trade Side

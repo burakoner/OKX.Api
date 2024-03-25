@@ -9,7 +9,7 @@ public class OkxPositionTier
     public string InstrumentFamily { get; set; }
 
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("tier")]
     public int Tier { get; set; }

@@ -18,7 +18,7 @@ public class OkxDeliveryExerciseHistory
 public class OkxPublicDeliveryExerciseHistoryDetail
 {
     [JsonProperty("insId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("px")]
     public decimal Price { get; set; }

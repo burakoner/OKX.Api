@@ -1,4 +1,6 @@
-﻿using OKX.Api.Common.Clients.RestApi;
+﻿using OKX.Api.Common.Clients;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
 using OKX.Api.Funding.Converters;
 using OKX.Api.Funding.Enums;
 using OKX.Api.Funding.Models;
@@ -8,7 +10,7 @@ namespace OKX.Api.Funding.Clients;
 /// <summary>
 /// OKX Rest Api Funding Account Client
 /// </summary>
-public class OkxFundingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
+public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     private const string v5AssetCurrencies = "api/v5/asset/currencies";

@@ -1,4 +1,5 @@
 ﻿using OKX.Api.AlgoTrading.Models;
+using OKX.Api.Common.Enums;
 using OKX.Api.Common.Models;
 
 namespace OKX.Api.AlgoTrading.Clients;

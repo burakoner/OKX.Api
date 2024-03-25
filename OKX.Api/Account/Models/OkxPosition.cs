@@ -2,6 +2,8 @@
 using OKX.Api.Account.Enums;
 using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 
@@ -131,7 +133,7 @@ public class OkxPosition
     /// Instrument ID, e.g. BTC-USD-180216
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Leverage, not applicable to OPTION

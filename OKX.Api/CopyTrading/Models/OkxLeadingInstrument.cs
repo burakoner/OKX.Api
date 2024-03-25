@@ -9,7 +9,7 @@ public class OkxLeadingInstrument
     /// Instrument ID, e.g. BTC-USDT-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Whether instrument is a leading instrument. true or false

@@ -1,10 +1,12 @@
-﻿namespace OKX.Api.Public.Models;
+﻿using OKX.Api.Common.Converters;
+
+namespace OKX.Api.Public.Models;
 
 [JsonConverter(typeof(ArrayConverter))]
 public class OkxCandlestick
 {
     [JsonIgnore]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [ArrayProperty(0)]
     public long Timestamp { get; set; }

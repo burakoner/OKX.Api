@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Public.Models;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Public.Models;
 
 public class OkxOpenInterest
 {
@@ -6,7 +9,7 @@ public class OkxOpenInterest
     public OkxInstrumentType InstrumentType { get; set; }
 
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("oi")]
     public decimal? OpenInterestCont { get; set; }

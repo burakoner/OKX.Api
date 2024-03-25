@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Account.Models;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Account.Models;
 
 /// <summary>
 /// Okx Position Builder

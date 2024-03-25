@@ -1,6 +1,6 @@
 ﻿using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
-using OKX.Api.Common.Clients.RestApi;
+using OKX.Api.Common.Clients;
 using OKX.Api.CopyTrading.Models;
 
 namespace OKX.Api.CopyTrading.Clients;
@@ -8,7 +8,7 @@ namespace OKX.Api.CopyTrading.Clients;
 /// <summary>
 /// OKX Rest Api Copy Trading Client
 /// </summary>
-public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
+public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     private const string v5CopyTradingCurrentSubpositions = "api/v5/copytrading/current-subpositions";

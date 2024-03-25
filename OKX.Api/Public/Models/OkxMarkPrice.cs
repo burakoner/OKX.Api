@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Public.Models;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Public.Models;
 
 public class OkxMarkPrice
 {
@@ -6,7 +9,7 @@ public class OkxMarkPrice
     public OkxInstrumentType InstrumentType { get; set; }
 
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("markPx")]
     public decimal? MarkPrice { get; set; }

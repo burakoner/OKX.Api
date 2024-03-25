@@ -1,16 +1,19 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
-using OKX.Api.Common.Clients.RestApi;
+using OKX.Api.Common.Clients;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+using OKX.Api.Common.Models;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Public.Models;
 
-namespace OKX.Api.Clients.RestApi;
+namespace OKX.Api.Public.Clients;
 
 /// <summary>
 /// OKX Rest Api Public Market Data Client
 /// </summary>
-public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
+public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Public Data Endpoints
     private const string v5PublicInstruments = "api/v5/public/instruments";
@@ -53,6 +56,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(r
     private const string v5MarketOptionInstrumentFamilyTrades = "api/v5/market/option/instrument-family-trades";
     private const string v5PublicOptionTrades = "api/v5/public/option-trades";
     private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
+
+    // Status Endpoints
+    // api/v5/system/status
 
     #region Public Data Methods
     /// <summary>
@@ -523,7 +529,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(r
         var result = await ProcessListRequestAsync<OkxIndexCandlestick>(GetUri(v5MarketIndexCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
-        foreach (var candle in result.Data) candle.Instrument = instrumentId;
+        foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
         return result;
     }
 
@@ -552,7 +558,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(r
         var result = await ProcessListRequestAsync<OkxIndexCandlestick>(GetUri(v5MarketIndexCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
-        foreach (var candle in result.Data) candle.Instrument = instrumentId;
+        foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
         return result;
     }
 
@@ -581,7 +587,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(r
         var result = await ProcessListRequestAsync<OkxMarkCandlestick>(GetUri(v5MarketMarkPriceCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
-        foreach (var candle in result.Data) candle.Instrument = instrumentId;
+        foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
         return result;
     }
 
@@ -610,7 +616,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(r
         var result = await ProcessListRequestAsync<OkxMarkCandlestick>(GetUri(v5MarketMarkPriceCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
-        foreach (var candle in result.Data) candle.Instrument = instrumentId;
+        foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
         return result;
     }
 
@@ -741,7 +747,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(r
         if (result.Error != null && result.Error.Code > 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, null));
 
         var orderbook = result.Data.FirstOrDefault();
-        orderbook.Instrument = instrumentId;
+        orderbook.InstrumentId = instrumentId;
         return result.As(orderbook);
     }
 
@@ -767,7 +773,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(r
         if (result.Error != null && result.Error.Code > 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, null));
 
         var orderbook = result.Data.FirstOrDefault();
-        orderbook.Instrument = instrumentId;
+        orderbook.InstrumentId = instrumentId;
         return result.As(orderbook);
     }
 
@@ -802,7 +808,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(r
         var result = await ProcessListRequestAsync<OkxCandlestick>(GetUri(v5MarketCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
-        foreach (var candle in result.Data) candle.Instrument = instrumentId;
+        foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
         return result;
     }
 
@@ -831,7 +837,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(r
         var result = await ProcessListRequestAsync<OkxCandlestick>(GetUri(v5MarketCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
-        foreach (var candle in result.Data) candle.Instrument = instrumentId;
+        foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
         return result;
     }
 

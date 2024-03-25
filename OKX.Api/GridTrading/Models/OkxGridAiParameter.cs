@@ -6,7 +6,7 @@ namespace OKX.Api.GridTrading.Models;
 public class OkxGridAiParameter
 {
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxGridAlgoOrderTypeConverter))]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }

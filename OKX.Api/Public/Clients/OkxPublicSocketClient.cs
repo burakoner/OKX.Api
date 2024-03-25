@@ -1,4 +1,6 @@
-﻿using OKX.Api.Common.Models;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+using OKX.Api.Common.Models;
 using OKX.Api.Public.Models;
 
 namespace OKX.Api.Public.Clients;
@@ -328,7 +330,7 @@ public class OkxPublicSocketClient
         {
             foreach (var d in data.Data.Data)
             {
-                d.Instrument = data.Data.Args?.Instrument;
+                d.InstrumentId = data.Data.Args?.InstrumentId;
                 onData(d);
             }
         });
@@ -369,7 +371,7 @@ public class OkxPublicSocketClient
         {
             foreach (var d in data.Data.Data)
             {
-                d.Instrument = data.Data.Args?.Instrument;
+                d.InstrumentId = data.Data.Args?.InstrumentId;
                 onData(d);
             }
         });
@@ -452,7 +454,7 @@ public class OkxPublicSocketClient
         {
             foreach (var d in data.Data.Data)
             {
-                d.Instrument = data.Data.Args?.Instrument;
+                d.InstrumentId = data.Data.Args?.InstrumentId;
                 onData(d);
             }
         });
@@ -539,7 +541,7 @@ public class OkxPublicSocketClient
         {
             foreach (var d in data.Data.Data)
             {
-                d.Instrument = data.Data.Args?.Instrument;
+                d.InstrumentId = data.Data.Args?.InstrumentId;
                 d.Action = data.Data.Action;
                 onData(d);
             }
@@ -556,6 +558,29 @@ public class OkxPublicSocketClient
     }
 
     // TODO: WS / Option trades channel
+    #endregion
+
+    #region Status Updates
+    /// <summary>
+    /// Get the status of system maintenance and push when the system maintenance status changes. First subscription: "Push the latest change data"; every time there is a state change, push the changed content
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSystemStatusAsync(Action<OkxStatus> onData, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxStatus>>>>(data =>
+        {
+            foreach (var d in data.Data.Data)
+                onData(d);
+        });
+
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        {
+            Channel = "status",
+        });
+        return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
     #endregion
 
 }

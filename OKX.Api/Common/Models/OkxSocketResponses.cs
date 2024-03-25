@@ -51,5 +51,5 @@ public class OkxSocketUpdateArgs
     public string Channel { get; set; }
 
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 }

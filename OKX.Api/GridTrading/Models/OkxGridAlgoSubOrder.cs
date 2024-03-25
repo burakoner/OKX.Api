@@ -1,4 +1,6 @@
-﻿using OKX.Api.GridTrading.Converters;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+using OKX.Api.GridTrading.Converters;
 using OKX.Api.GridTrading.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
@@ -19,7 +21,7 @@ public class OkxGridAlgoSubOrder
     public OkxInstrumentType InstrumentType { get; set; }
 
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxGridAlgoOrderTypeConverter))]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }

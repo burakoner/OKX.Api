@@ -43,19 +43,19 @@ internal class Program
         var account_20 = await api.Account.GetMaximumWithdrawalsAsync();
 
         // Trade Methods (Signed)
-        var trade_01 = await api.Trade.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxOrderSide.Buy, OkxPositionSide.Long, OkxOrderType.MarketOrder, 0.1m);
-        var trade_02 = await api.Trade.PlaceOrdersAsync([]);
-        var trade_03 = await api.Trade.CancelOrderAsync("BTC-USDT");
-        var trade_04 = await api.Trade.CancelOrdersAsync([]);
-        var trade_05 = await api.Trade.AmendOrderAsync("BTC-USDT");
-        var trade_06 = await api.Trade.AmendOrdersAsync([]);
-        var trade_07 = await api.Trade.ClosePositionAsync("BTC-USDT", OkxMarginMode.Isolated);
-        var trade_08 = await api.Trade.GetOrderAsync("BTC-USDT");
-        var trade_09 = await api.Trade.GetOrdersAsync();
-        var trade_10 = await api.Trade.GetOrderHistoryAsync(OkxInstrumentType.Swap);
-        var trade_11 = await api.Trade.GetOrderArchiveAsync(OkxInstrumentType.Futures);
-        var trade_12 = await api.Trade.GetTradesHistoryAsync();
-        var trade_13 = await api.Trade.GetTradesArchiveAsync(OkxInstrumentType.Futures);
+        var trade_01 = await api.Trading.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxOrderSide.Buy, OkxPositionSide.Long, OkxOrderType.MarketOrder, 0.1m);
+        var trade_02 = await api.Trading.PlaceOrdersAsync([]);
+        var trade_03 = await api.Trading.CancelOrderAsync("BTC-USDT");
+        var trade_04 = await api.Trading.CancelOrdersAsync([]);
+        var trade_05 = await api.Trading.AmendOrderAsync("BTC-USDT");
+        var trade_06 = await api.Trading.AmendOrdersAsync([]);
+        var trade_07 = await api.Trading.ClosePositionAsync("BTC-USDT", OkxMarginMode.Isolated);
+        var trade_08 = await api.Trading.GetOrderAsync("BTC-USDT");
+        var trade_09 = await api.Trading.GetOrdersAsync();
+        var trade_10 = await api.Trading.GetOrderHistoryAsync(OkxInstrumentType.Swap);
+        var trade_11 = await api.Trading.GetOrderArchiveAsync(OkxInstrumentType.Futures);
+        var trade_12 = await api.Trading.GetTradesHistoryAsync();
+        var trade_13 = await api.Trading.GetTradesArchiveAsync(OkxInstrumentType.Futures);
 
         // AlgoTrading Methods (Signed)
         var algo_01 = await api.AlgoTrading.PlaceAlgoOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxOrderSide.Sell, OkxAlgoOrderType.Conditional);
@@ -69,7 +69,7 @@ internal class Program
         // GridTrading Methods (Signed)
         var grid_01 = await api.GridTrading.PlaceAlgoOrderAsync(new OkxGridPlaceOrderRequest
         {
-            Instrument = "BTC-USDT",
+            InstrumentId = "BTC-USDT",
             AlgoOrderType = OkxGridAlgoOrderType.SpotGrid,
             MaximumPrice = 5000,
             MinimumPrice = 400,
@@ -202,16 +202,16 @@ internal class Program
         var public_33 = await api.Public.GetIndexComponentsAsync("BTC-USDT");
 
         // TradingStatistics Methods (Unsigned)
-        var rubik_01 = await api.TradingStatistics.GetSupportCoinAsync();
-        var rubik_02 = await api.TradingStatistics.GetTakerVolumeAsync("BTC", OkxInstrumentType.Spot);
-        var rubik_03 = await api.TradingStatistics.GetMarginLendingRatioAsync("BTC", OkxPeriod.OneDay);
-        var rubik_04 = await api.TradingStatistics.GetLongShortRatioAsync("BTC", OkxPeriod.OneDay);
-        var rubik_05 = await api.TradingStatistics.GetContractSummaryAsync("BTC", OkxPeriod.OneDay);
-        var rubik_06 = await api.TradingStatistics.GetOptionsSummaryAsync("BTC", OkxPeriod.OneDay);
-        var rubik_07 = await api.TradingStatistics.GetPutCallRatioAsync("BTC", OkxPeriod.OneDay);
-        var rubik_08 = await api.TradingStatistics.GetInterestVolumeExpiryAsync("BTC", OkxPeriod.OneDay);
-        var rubik_09 = await api.TradingStatistics.GetInterestVolumeStrikeAsync("BTC", "20210623", OkxPeriod.OneDay);
-        var rubik_10 = await api.TradingStatistics.GetTakerFlowAsync("BTC", OkxPeriod.OneDay);
+        var rubik_01 = await api.Rubik.GetSupportCoinAsync();
+        var rubik_02 = await api.Rubik.GetTakerVolumeAsync("BTC", OkxInstrumentType.Spot);
+        var rubik_03 = await api.Rubik.GetMarginLendingRatioAsync("BTC", OkxPeriod.OneDay);
+        var rubik_04 = await api.Rubik.GetLongShortRatioAsync("BTC", OkxPeriod.OneDay);
+        var rubik_05 = await api.Rubik.GetContractSummaryAsync("BTC", OkxPeriod.OneDay);
+        var rubik_06 = await api.Rubik.GetOptionsSummaryAsync("BTC", OkxPeriod.OneDay);
+        var rubik_07 = await api.Rubik.GetPutCallRatioAsync("BTC", OkxPeriod.OneDay);
+        var rubik_08 = await api.Rubik.GetInterestVolumeExpiryAsync("BTC", OkxPeriod.OneDay);
+        var rubik_09 = await api.Rubik.GetInterestVolumeStrikeAsync("BTC", "20210623", OkxPeriod.OneDay);
+        var rubik_10 = await api.Rubik.GetTakerFlowAsync("BTC", OkxPeriod.OneDay);
 
         // FundingAccount Methods (Signed)
         var funding_01 = await api.Funding.GetCurrenciesAsync();
@@ -268,7 +268,7 @@ internal class Program
         });
 
         // Trade Updates (Private)
-        await ws.Trade.SubscribeToOrderUpdatesAsync((data) =>
+        await ws.Trading.SubscribeToOrderUpdatesAsync((data) =>
         {
             if (data != null)
             {
@@ -302,7 +302,7 @@ internal class Program
                 if (data != null)
                 {
                     // ... Your logic here
-                    Console.WriteLine($"Ticker {data.Instrument} Ask:{data.AskPrice} Bid:{data.BidPrice}");
+                    Console.WriteLine($"Ticker {data.InstrumentId} Ask:{data.AskPrice} Bid:{data.BidPrice}");
                 }
             }, pair);
             subs.Add(subscription.Data);
@@ -353,7 +353,7 @@ internal class Program
             if (data != null)
             {
                 // ... Your logic here
-                Console.WriteLine($"Instrument {data.Instrument} BaseCurrency:{data.BaseCurrency}");
+                Console.WriteLine($"Instrument {data.InstrumentId} BaseCurrency:{data.BaseCurrency}");
             }
         }, OkxInstrumentType.Spot);
         foreach (var pair in sample_pairs)
@@ -451,7 +451,7 @@ internal class Program
         // TODO: FinancialProduct.Savings (Private)
         
         // Status Updates (Public)
-        await ws.Status.SubscribeToSystemStatusAsync((data) =>
+        await ws.Public.SubscribeToSystemStatusAsync((data) =>
         {
             if (data != null)
             {

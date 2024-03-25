@@ -1,5 +1,7 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 
@@ -93,7 +95,7 @@ public class OkxAccountPositionRiskPositionData
     /// Instrument ID, e.g. BTC-USD-180216
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Quantity of positions contract. In the mode of autonomous transfer from position to position, after the deposit is transferred, a position with pos of 0 will be generated

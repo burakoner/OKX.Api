@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Common.Converters;
+﻿using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Common.Converters;
 
 internal class OkxClosingPositionTypeConverter(bool quotes) : BaseConverter<OkxClosingPositionType>(quotes)
 {

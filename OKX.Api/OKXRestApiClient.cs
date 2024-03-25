@@ -1,4 +1,21 @@
-﻿using OKX.Api.Common.Clients.RestApi;
+﻿using OKX.Api.Account.Clients;
+using OKX.Api.Affiliate.Clients;
+using OKX.Api.AlgoTrading.Clients;
+using OKX.Api.Authentication;
+using OKX.Api.BlockTrading.Clients;
+using OKX.Api.Broker.Clients;
+using OKX.Api.CopyTrading.Clients;
+using OKX.Api.Earn.Clients;
+using OKX.Api.Funding.Clients;
+using OKX.Api.GridTrading.Clients;
+using OKX.Api.Public.Clients;
+using OKX.Api.RecurringBuy.Clients;
+using OKX.Api.Rubik.Clients;
+using OKX.Api.Savings.Clients;
+using OKX.Api.SignalTrading.Clients;
+using OKX.Api.SpreadTrading.Clients;
+using OKX.Api.SubAccount.Clients;
+using OKX.Api.Trade.Clients;
 
 namespace OKX.Api;
 
@@ -16,7 +33,7 @@ public sealed class OkxRestApiClient
     /// Client Options
     /// </summary>
     internal OkxRestApiOptions Options { get; }
-    
+
     /// <summary>
     /// Public and Market Data Client
     /// </summary>
@@ -26,12 +43,12 @@ public sealed class OkxRestApiClient
     /// Trading Account Client
     /// </summary>
     public OkxAccountRestClient Account { get; }
-    
+
     /// <summary>
     /// Funding Account Client
     /// </summary>
     public OkxFundingRestClient Funding { get; }
-    
+
     /// <summary>
     /// SubAccount Client
     /// </summary>
@@ -40,13 +57,13 @@ public sealed class OkxRestApiClient
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradeRestClient Trade { get; }
+    public OkxTradingRestClient Trading { get; }
 
     /// <summary>
     /// Algo Trading Client
     /// </summary>
     public OkxAlgoTradingRestClient AlgoTrading { get; }
-    
+
     /// <summary>
     /// Grid Trading Client
     /// </summary>
@@ -75,39 +92,38 @@ public sealed class OkxRestApiClient
     /// <summary>
     /// Spread Trading Client
     /// </summary>
-    public OKXRestApiSpreadTradingClient SpreadTrading { get; }
+    public OkxSpreadTradingRestClient SpreadTrading { get; }
 
+    /// <summary>
+    /// Earn Client
+    /// </summary>
+    public OkxEarnRestClient Earn { get; }
 
-
-
-
-
-
+    /// <summary>
+    /// Savings Client
+    /// </summary>
+    public OkxSavingsRestClient Savings { get; }
 
     /// <summary>
     /// Trading Statistics Client
     /// </summary>
-    public OKXRestApiTradingStatisticsClient TradingStatistics { get; }
+    public OkxRubikRestClient Rubik { get; }
 
     /// <summary>
-    /// Financial Product Client
+    /// Affiliate Client
     /// </summary>
-    public OKXRestApiFinancialProductClient FinancialProduct { get; }
+    public OkxAffiliateRestClient Affiliate { get; }
 
     /// <summary>
-    /// Status Client
+    /// NonDisclosed Broker Client
     /// </summary>
-    public OKXRestApiAffiliateClient Affiliate { get; }
+    public OkxNonDisclosedBrokerRestClient NDBroker { get; }
 
     /// <summary>
-    /// Status Client
+    /// FullyDisclosed Broker Client
+    /// Savings Client
     /// </summary>
-    public OKXRestApiStatusClient Status { get; }
-
-    /// <summary>
-    /// Broker Client
-    /// </summary>
-    public OKXRestApiBrokerClient Broker { get; }
+    public OkxFullyDisclosedBrokerRestClient FDBroker { get; }
 
     /// <summary>
     /// OKXRestApiClient Constructor
@@ -137,21 +153,20 @@ public sealed class OkxRestApiClient
         Account = new OkxAccountRestClient(this);
         Funding = new OkxFundingRestClient(this);
         SubAccount = new OkxSubAccountRestClient(this);
-        Trade = new OkxTradeRestClient(this);
+        Trading = new OkxTradingRestClient(this);
         AlgoTrading = new OkxAlgoTradingRestClient(this);
         GridTrading = new OkxGridTradingRestClient(this);
         SignalTrading = new OkxSignalTradingRestClient(this);
         RecurringBuy = new OkxRecurringBuyRestClient(this);
         CopyTrading = new OkxCopyTradingRestClient(this);
         BlockTrading = new OkxBlockTradingRestClient(this);
-        SpreadTrading = new OKXRestApiSpreadTradingClient(this);
-        
-        
-        
-        TradingStatistics = new OKXRestApiTradingStatisticsClient(this);
-        Affiliate = new OKXRestApiAffiliateClient(this);
-        Status = new OKXRestApiStatusClient(this);
-        Broker = new OKXRestApiBrokerClient(this);
+        SpreadTrading = new OkxSpreadTradingRestClient(this);
+        Earn = new OkxEarnRestClient(this);
+        Savings = new OkxSavingsRestClient(this);
+        Rubik = new OkxRubikRestClient(this);
+        Affiliate = new OkxAffiliateRestClient(this);
+        NDBroker = new OkxNonDisclosedBrokerRestClient(this);
+        FDBroker = new OkxFullyDisclosedBrokerRestClient(this);
     }
 
     /// <summary>
@@ -175,7 +190,7 @@ public sealed class OkxRestApiClient
         Account.SetApiCredentials(credentials);
         Funding.SetApiCredentials(credentials);
         SubAccount.SetApiCredentials(credentials);
-        Trade.SetApiCredentials(credentials);
+        Trading.SetApiCredentials(credentials);
         AlgoTrading.SetApiCredentials(credentials);
         GridTrading.SetApiCredentials(credentials);
         SignalTrading.SetApiCredentials(credentials);
@@ -184,12 +199,11 @@ public sealed class OkxRestApiClient
         CopyTrading.SetApiCredentials(credentials);
         BlockTrading.SetApiCredentials(credentials);
         SpreadTrading.SetApiCredentials(credentials);
-        
-        
-        
-        TradingStatistics.SetApiCredentials(credentials);
+        Earn.SetApiCredentials(credentials);
+        Savings.SetApiCredentials(credentials);
+        Rubik.SetApiCredentials(credentials);
         Affiliate.SetApiCredentials(credentials);
-        Status.SetApiCredentials(credentials);
-        Broker.SetApiCredentials(credentials);
+        NDBroker.SetApiCredentials(credentials);
+        FDBroker.SetApiCredentials(credentials);
     }
 }

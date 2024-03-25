@@ -1,9 +1,25 @@
-﻿namespace OKX.Api;
+﻿using OKX.Api.Account.Clients;
+using OKX.Api.AlgoTrading.Clients;
+using OKX.Api.BlockTrading.Clients;
+using OKX.Api.Common.Clients;
+using OKX.Api.Common.Models;
+using OKX.Api.CopyTrading.Clients;
+using OKX.Api.Earn.Clients;
+using OKX.Api.Funding.Clients;
+using OKX.Api.GridTrading.Clients;
+using OKX.Api.Public.Clients;
+using OKX.Api.RecurringBuy.Clients;
+using OKX.Api.Rubik.Clients;
+using OKX.Api.Savings.Clients;
+using OKX.Api.SpreadTrading.Clients;
+using OKX.Api.Trade.Clients;
+
+namespace OKX.Api;
 
 /// <summary>
 /// OKX WebSocket Client
 /// </summary>
-public class OkxSocketApiClient : OKXWebSocketApiBaseClient
+public class OkxSocketApiClient : OkxBaseSocketClient
 {
     /// <summary>
     /// Public and Market Data Client
@@ -23,13 +39,13 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradeSocketClient Trade { get; }
+    public OkxTradingSocketClient Trading { get; }
 
     /// <summary>
     /// Algo Trading Client
     /// </summary>
     public OkxAlgoTradingSocketClient AlgoTrading { get; }
-    
+
     /// <summary>
     /// Grid Trading Client
     /// </summary>
@@ -53,34 +69,22 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
     /// <summary>
     /// Spread Trading Client
     /// </summary>
-    public OKXWebSocketApiSpreadTradingClient SpreadTrading { get; }
+    public OkxSpreadTradingSocketClient SpreadTrading { get; }
 
+    /// <summary>
+    /// Earn Client
+    /// </summary>
+    public OkxEarnSocketClient Earn { get; }
 
-
-
-
-
-
-
-
-
-
-
+    /// <summary>
+    /// Savings Client
+    /// </summary>
+    public OkxSavingsSocketClient Savings { get; }
 
     /// <summary>
     /// Trading Statistics Client
     /// </summary>
-    public OKXWebSocketApiTradingStatisticsClient TradingStatistics { get; }
-
-    /// <summary>
-    /// Financial Product Client
-    /// </summary>
-    public OKXWebSocketApiFinancialProductClient FinancialProduct { get; }
-
-    /// <summary>
-    /// Status Client
-    /// </summary>
-    public OKXWebSocketApiSystemClient Status { get; }
+    public OkxRubikSocketClient Rubik { get; }
 
     /// <summary>
     /// OKXWebSocketApiClient Constructor
@@ -107,19 +111,16 @@ public class OkxSocketApiClient : OKXWebSocketApiBaseClient
         this.Public = new OkxPublicSocketClient(this);
         this.Account = new OkxAccountSocketClient(this);
         this.Funding = new OkxFundingSocketClient(this);
-        this.Trade = new OkxTradeSocketClient(this);
+        this.Trading = new OkxTradingSocketClient(this);
         this.AlgoTrading = new OkxAlgoTradingSocketClient(this);
         this.GridTrading = new OkxGridTradingSocketClient(this);
         this.RecurringBuy = new OkxRecurringBuySocketClient(this);
         this.CopyTrading = new OkxCopyTradingSocketClient(this);
         this.BlockTrading = new OkxBlockTradingSocketClient(this);
-        this.SpreadTrading = new OKXWebSocketApiSpreadTradingClient(this);
-        
-        
-        
-        this.TradingStatistics = new OKXWebSocketApiTradingStatisticsClient(this);
-        this.FinancialProduct = new OKXWebSocketApiFinancialProductClient(this);
-        this.Status = new OKXWebSocketApiSystemClient(this);
+        this.SpreadTrading = new OkxSpreadTradingSocketClient(this);
+        this.Earn = new OkxEarnSocketClient(this);
+        this.Savings = new OkxSavingsSocketClient(this);
+        this.Rubik = new OkxRubikSocketClient(this);
     }
 
     internal int RequestId() => base.NextId();

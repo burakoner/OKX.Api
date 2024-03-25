@@ -1,11 +1,11 @@
-﻿using OKX.Api.Common.Clients.RestApi;
+﻿using OKX.Api.Common.Clients;
 
 namespace OKX.Api.RecurringBuy.Clients;
 
 /// <summary>
 /// OKX Rest Api Recurring Buy Client
 /// </summary>
-public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
+public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
 
     // Endpoints

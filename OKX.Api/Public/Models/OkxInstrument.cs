@@ -1,4 +1,6 @@
-﻿using OKX.Api.Public.Converters;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Public.Models;
@@ -15,7 +17,7 @@ public class OkxInstrument
     /// Instrument ID, e.g. BTC-USD-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Underlying, e.g. BTC-USD. Only applicable to FUTURES/SWAP/OPTION

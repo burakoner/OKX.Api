@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Common.Converters;
+﻿using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Common.Converters;
 
 internal class OkxProfitSharingOrderTypeConverter(bool quotes) : BaseConverter<OkxProfitSharingOrderType>(quotes)
 {

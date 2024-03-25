@@ -1,5 +1,7 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 
@@ -20,7 +22,7 @@ public class OkxPositionHistory
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Margin mode

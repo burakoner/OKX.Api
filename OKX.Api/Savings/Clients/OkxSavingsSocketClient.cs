@@ -1,14 +1,14 @@
-﻿namespace OKX.Api.Common.Clients.WebSocketApi;
+﻿namespace OKX.Api.Savings.Clients;
 
 /// <summary>
 /// OKX WebSocket Api Savings Client
 /// </summary>
-public class OKXWebSocketApiSavingsClient
+public class OkxSavingsSocketClient
 {
     // Root Client
     internal OkxSocketApiClient RootClient { get; }
 
-    internal OKXWebSocketApiSavingsClient(OkxSocketApiClient root)
+    internal OkxSavingsSocketClient(OkxSocketApiClient root)
     {
         RootClient = root;
     }

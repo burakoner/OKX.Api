@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Funding.Models;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Funding.Models;
 
 public class OkxTransferResponse
 {

@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Public.Models;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Public.Models;
 
 /// <summary>
 /// OKX Option Market Data
@@ -15,7 +18,7 @@ public class OkxOptionSummary
     /// Instrument ID, e.g. BTC-USD-200103-5500-C
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Underlying

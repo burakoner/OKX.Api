@@ -1,20 +1,22 @@
-﻿namespace OKX.Api.Common.Clients.RestApi;
+﻿using OKX.Api.Authentication;
+using OKX.Api.Common.Models;
+
+namespace OKX.Api.Common.Clients;
 
 /// <summary>
 /// OKX Rest Api Base Client
 /// </summary>
-public abstract class OkxRestApiBaseClient : RestApiClient
+public abstract class OkxBaseRestClient : RestApiClient
 {
     // Internal
     internal ILogger Logger { get => _logger; }
     internal TimeSyncState TimeSyncState = new("OKX RestApi");
-    internal CultureInfo CI = CultureInfo.InvariantCulture;
 
     // Root Client
     internal OkxRestApiClient RootClient { get; }
     internal OkxRestApiOptions Options { get { return RootClient.Options; } }
 
-    internal OkxRestApiBaseClient(OkxRestApiClient root) : base(root.Logger, root.Options)
+    internal OkxBaseRestClient(OkxRestApiClient root) : base(root.Logger, root.Options)
     {
         RootClient = root;
         ManualParseError = true;
@@ -22,8 +24,8 @@ public abstract class OkxRestApiBaseClient : RestApiClient
         RequestBodyFormat = RestRequestBodyFormat.Json;
         ArraySerialization = ArraySerialization.MultipleValues;
 
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
+        Thread.CurrentThread.CurrentCulture = OkxConstants.OkxCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = OkxConstants.OkxCultureInfo;
     }
 
     #region Override Methods
@@ -116,9 +118,21 @@ public abstract class OkxRestApiBaseClient : RestApiClient
         bool ignoreRatelimit = false,
         int requestWeight = 1) where T : class
     {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
-        return await SendRequestAsync<T>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+        // Pre-Actions
+        var culture = Thread.CurrentThread.CurrentCulture;
+        var cultureUI = Thread.CurrentThread.CurrentUICulture;
+        Thread.CurrentThread.CurrentCulture = OkxConstants.OkxCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = OkxConstants.OkxCultureInfo;
+
+        // Main Action
+        var result = await SendRequestAsync<T>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+
+        // Post-Actions
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = cultureUI;
+
+        // Return
+        return result;
     }
 
     internal async Task<RestCallResult<List<T>>> ProcessListRequestAsync<T>(
@@ -134,9 +148,20 @@ public abstract class OkxRestApiBaseClient : RestApiClient
         bool ignoreRatelimit = false,
         int requestWeight = 1) where T : class
     {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
+        // Pre-Actions
+        var culture = Thread.CurrentThread.CurrentCulture;
+        var cultureUI = Thread.CurrentThread.CurrentUICulture;
+        Thread.CurrentThread.CurrentCulture = OkxConstants.OkxCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = OkxConstants.OkxCultureInfo;
+
+        // Main Action
         var result = await SendRequestAsync<OkxRestApiResponse<List<T>>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+
+        // Post-Actions
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = cultureUI;
+
+        // Return
         if (!result.Success) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
         if (result.Data == null) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
@@ -155,9 +180,20 @@ public abstract class OkxRestApiBaseClient : RestApiClient
         bool ignoreRatelimit = false,
         int requestWeight = 1) where T : class
     {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
+        // Pre-Actions
+        var culture = Thread.CurrentThread.CurrentCulture;
+        var cultureUI = Thread.CurrentThread.CurrentUICulture;
+        Thread.CurrentThread.CurrentCulture = OkxConstants.OkxCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = OkxConstants.OkxCultureInfo;
+
+        // Main Action
         var result = await SendRequestAsync<OkxRestApiResponse<List<T>>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+
+        // Post-Actions
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = cultureUI;
+
+        // Return
         if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data.FirstOrDefault(), result.Raw, result.Error);
@@ -176,9 +212,20 @@ public abstract class OkxRestApiBaseClient : RestApiClient
         bool ignoreRatelimit = false,
         int requestWeight = 1) where T : class
     {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
+        // Pre-Actions
+        var culture = Thread.CurrentThread.CurrentCulture;
+        var cultureUI = Thread.CurrentThread.CurrentUICulture;
+        Thread.CurrentThread.CurrentCulture = OkxConstants.OkxCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = OkxConstants.OkxCultureInfo;
+
+        // Main Action
         var result = await SendRequestAsync<OkxRestApiResponse<T>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+
+        // Post-Actions
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = cultureUI;
+
+        // Return
         if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
@@ -197,9 +244,20 @@ public abstract class OkxRestApiBaseClient : RestApiClient
         bool ignoreRatelimit = false,
         int requestWeight = 1) where T : class
     {
-        Thread.CurrentThread.CurrentCulture = CI;
-        Thread.CurrentThread.CurrentUICulture = CI;
+        // Pre-Actions
+        var culture = Thread.CurrentThread.CurrentCulture;
+        var cultureUI = Thread.CurrentThread.CurrentUICulture;
+        Thread.CurrentThread.CurrentCulture = OkxConstants.OkxCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = OkxConstants.OkxCultureInfo;
+
+        // Main Action
         var result = await SendRequestAsync<OkxRestApiResponse<T>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+
+        // Post-Actions
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = cultureUI;
+
+        // Return
         if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);

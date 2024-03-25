@@ -9,7 +9,7 @@ public class OkxUnitConvert
     public OkxConvertType Type { get; set; }
 
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("px")]
     public decimal Price { get; set; }

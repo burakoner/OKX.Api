@@ -1,12 +1,13 @@
-﻿using OKX.Api.Common.Models;
+﻿using OKX.Api.Authentication;
+using OKX.Api.Common.Models;
 using OKX.Api.Trade.Models;
 
-namespace OKX.Api.Common.Clients.WebSocketApi;
+namespace OKX.Api.Common.Clients;
 
 /// <summary>
 /// OKX WebSocket Api Base Client
 /// </summary>
-public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
+public abstract class OkxBaseSocketClient : WebSocketApiClient
 {
     /// <summary>
     /// Logger
@@ -26,7 +27,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// <summary>
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
-    internal OKXWebSocketApiBaseClient() : this(null, new OkxSocketApiOptions())
+    internal OkxBaseSocketClient() : this(null, new OkxSocketApiOptions())
     {
     }
 
@@ -34,7 +35,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
     /// <param name="options">Options</param>
-    internal OKXWebSocketApiBaseClient(OkxSocketApiOptions options) : this(null, options)
+    internal OkxBaseSocketClient(OkxSocketApiOptions options) : this(null, options)
     {
     }
 
@@ -43,7 +44,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
     /// </summary>
     /// <param name="logger">ILogger</param>
     /// <param name="options">Options</param>
-    internal OKXWebSocketApiBaseClient(ILogger logger, OkxSocketApiOptions options) : base(logger, options)
+    internal OkxBaseSocketClient(ILogger logger, OkxSocketApiOptions options) : base(logger, options)
     {
         RateLimitPerConnectionPerSecond = 4;
         IgnoreHandlingList = ["pong"];
@@ -79,7 +80,7 @@ public abstract class OKXWebSocketApiBaseClient : WebSocketApiClient
             return new CallResult<bool>(new NoApiCredentialsError());
 
         // Timestamp
-        var timestamp = (DateTime.UtcNow.ToUnixTimeMilliSeconds() / 1000.0m).ToString(CultureInfo.InvariantCulture);
+        var timestamp = (DateTime.UtcNow.ToUnixTimeMilliSeconds() / 1000.0m).ToString(OkxConstants.OkxCultureInfo);
 
         // Signature
         var signtext = timestamp + "GET" + "/users/self/verify";

@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Common.Models;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Common.Models;
 
 internal class OkxSocketRequest
 {

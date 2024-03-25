@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Public.Models;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Public.Models;
 
 public class OkxStatus
 {

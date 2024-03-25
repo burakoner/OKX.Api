@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Trade.Models;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+
+namespace OKX.Api.Trade.Models;
 
 public class OkxMassCancelRequest
 {

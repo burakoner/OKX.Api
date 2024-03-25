@@ -1,11 +1,11 @@
-﻿using OKX.Api.Common.Clients.RestApi;
+﻿using OKX.Api.Common.Clients;
 
 namespace OKX.Api.SignalTrading.Clients;
 
 /// <summary>
 /// OKX Rest Api Signal Trading Client
 /// </summary>
-public class OkxSignalTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
+public class OkxSignalTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     // api/v5/tradingBot/signal/create-signal

@@ -9,7 +9,7 @@ public class OkxMaximumAmount
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Currency used for margin

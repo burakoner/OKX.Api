@@ -1,4 +1,6 @@
-﻿namespace OKX.Api;
+﻿using OKX.Api.Authentication;
+
+namespace OKX.Api;
 
 /// <summary>
 /// OKX Rest API Options

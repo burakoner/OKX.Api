@@ -1,4 +1,6 @@
-﻿using OKX.Api.GridTrading.Converters;
+﻿using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
+using OKX.Api.GridTrading.Converters;
 using OKX.Api.GridTrading.Enums;
 
 namespace OKX.Api.GridTrading.Models;
@@ -30,7 +32,7 @@ public class OkxGridAlgoOrder
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Algo order created time, Unix timestamp format in milliseconds, e.g. 1597026383085

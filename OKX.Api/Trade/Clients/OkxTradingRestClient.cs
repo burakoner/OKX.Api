@@ -2,7 +2,9 @@
 using OKX.Api.Account.Enums;
 using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
-using OKX.Api.Common.Clients.RestApi;
+using OKX.Api.Common.Clients;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
@@ -14,7 +16,7 @@ namespace OKX.Api.Trade.Clients;
 /// <summary>
 /// OKX Rest Api Trade Client
 /// </summary>
-public class OkxTradeRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
+public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     private const string v5TradeOrder = "api/v5/trade/order";

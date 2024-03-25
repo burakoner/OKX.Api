@@ -1,6 +1,8 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
-using OKX.Api.Common.Clients.RestApi;
+using OKX.Api.Common.Clients;
+using OKX.Api.Common.Converters;
+using OKX.Api.Common.Enums;
 using OKX.Api.GridTrading.Converters;
 using OKX.Api.GridTrading.Enums;
 using OKX.Api.GridTrading.Models;
@@ -10,7 +12,7 @@ namespace OKX.Api.GridTrading.Clients;
 /// <summary>
 /// OKX Rest Api Grid Trading Client
 /// </summary>
-public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseClient(root)
+public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     private const string v5TradingBotGridOrderAlgo = "api/v5/tradingBot/grid/order-algo";
@@ -40,7 +42,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseCli
     /// <returns></returns>
     public Task<RestCallResult<OkxGridOrderResponse>> PlaceAlgoOrderAsync(OkxGridPlaceOrderRequest request, CancellationToken ct = default)
         => PlaceAlgoOrderAsync(
-        request.Instrument,
+        request.InstrumentId,
         request.AlgoOrderType,
         request.MaximumPrice,
         request.MinimumPrice,
@@ -132,7 +134,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseCli
     public Task<RestCallResult<OkxGridOrderResponse>> AmendAlgoOrderAsync(OkxGridAmendOrderRequest request, CancellationToken ct = default)
         => AmendAlgoOrderAsync(
         request.AlgoOrderId,
-        request.Instrument,
+        request.InstrumentId,
         request.StopLossTriggerPrice,
         request.TakeProfitTriggerPrice,
         request.TriggerParameters,
@@ -324,8 +326,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxRestApiBaseCli
         };
         parameters.AddOptionalParameter("algoId", algoOrderId?.ToOkxString());
         parameters.AddOptionalParameter("instId", instrumentId);
-        if (instrumentType != null)
-            parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());

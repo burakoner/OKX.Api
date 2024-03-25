@@ -1,4 +1,5 @@
-﻿using OKX.Api.Common.Models;
+﻿using OKX.Api.Common.Enums;
+using OKX.Api.Common.Models;
 using OKX.Api.Trade.Models;
 
 namespace OKX.Api.Trade.Clients;
@@ -6,13 +7,13 @@ namespace OKX.Api.Trade.Clients;
 /// <summary>
 /// OKX WebSocket Api Trade Client
 /// </summary>
-public class OkxTradeSocketClient
+public class OkxTradingSocketClient
 {
     // Root Client
     internal OkxSocketApiClient RootClient { get; }
     internal OkxSocketApiOptions Options { get { return RootClient.Options; } }
 
-    internal OkxTradeSocketClient(OkxSocketApiClient root)
+    internal OkxTradingSocketClient(OkxSocketApiClient root)
     {
         RootClient = root;
     }

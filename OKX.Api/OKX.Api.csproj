@@ -159,17 +159,23 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Broker\Clients\" />
 	  <Folder Include="Broker\Converters\" />
 	  <Folder Include="Broker\Enums\" />
 	  <Folder Include="Broker\Models\" />
-	  <Folder Include="Rubik\Clients\" />
+	  <Folder Include="Affiliate\Converters\" />
+	  <Folder Include="Affiliate\Enums\" />
+	  <Folder Include="Affiliate\Models\" />
+	  <Folder Include="Savings\Converters\" />
+	  <Folder Include="Savings\Enums\" />
+	  <Folder Include="Savings\Models\" />
+	  <Folder Include="Earn\Converters\" />
+	  <Folder Include="Earn\Enums\" />
+	  <Folder Include="Earn\Models\" />
 	  <Folder Include="Rubik\Converters\" />
 	  <Folder Include="Rubik\Enums\" />
 	  <Folder Include="SignalTrading\Converters\" />
 	  <Folder Include="SignalTrading\Enums\" />
 	  <Folder Include="SignalTrading\Models\" />
-	  <Folder Include="SpreadTrading\Clients\" />
 	  <Folder Include="SpreadTrading\Converters\" />
 	  <Folder Include="SpreadTrading\Enums\" />
 	  <Folder Include="SpreadTrading\Models\" />

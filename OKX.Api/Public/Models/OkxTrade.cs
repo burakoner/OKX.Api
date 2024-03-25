@@ -1,11 +1,12 @@
 ﻿using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Public.Models;
 
 public class OkxTrade
 {
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     [JsonProperty("tradeId")]
     public long TradeId { get; set; }

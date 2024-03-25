@@ -9,7 +9,7 @@ public class OkxMarginBorrowRepay
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string Instrument { get; set; }
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Loan currency, e.g. BTC
