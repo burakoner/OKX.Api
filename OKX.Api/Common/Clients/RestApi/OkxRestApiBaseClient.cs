@@ -1,6 +1,4 @@
-﻿using OKX.Api.Common.Models;
-
-namespace OKX.Api.Common.Clients.RestApi;
+﻿namespace OKX.Api.Common.Clients.RestApi;
 
 /// <summary>
 /// OKX Rest Api Base Client
@@ -139,8 +137,8 @@ public abstract class OkxRestApiBaseClient : RestApiClient
         Thread.CurrentThread.CurrentCulture = CI;
         Thread.CurrentThread.CurrentUICulture = CI;
         var result = await SendRequestAsync<OkxRestApiResponse<List<T>>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
-        if (!result.Success) return new RestCallResult<List<T>>(result.Request, result.Response, result.Error);
-        if (result.Data == null) return new RestCallResult<List<T>>(result.Request, result.Response, result.Error);
+        if (!result.Success) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data == null) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
@@ -160,8 +158,8 @@ public abstract class OkxRestApiBaseClient : RestApiClient
         Thread.CurrentThread.CurrentCulture = CI;
         Thread.CurrentThread.CurrentUICulture = CI;
         var result = await SendRequestAsync<OkxRestApiResponse<List<T>>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
-        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Error);
+        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data.FirstOrDefault(), result.Raw, result.Error);
     }
 
@@ -181,8 +179,8 @@ public abstract class OkxRestApiBaseClient : RestApiClient
         Thread.CurrentThread.CurrentCulture = CI;
         Thread.CurrentThread.CurrentUICulture = CI;
         var result = await SendRequestAsync<OkxRestApiResponse<T>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
-        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Error);
+        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
@@ -202,8 +200,8 @@ public abstract class OkxRestApiBaseClient : RestApiClient
         Thread.CurrentThread.CurrentCulture = CI;
         Thread.CurrentThread.CurrentUICulture = CI;
         var result = await SendRequestAsync<OkxRestApiResponse<T>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
-        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Error);
-        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Error);
+        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
