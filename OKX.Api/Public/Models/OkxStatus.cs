@@ -3,6 +3,9 @@ using OKX.Api.Common.Enums;
 
 namespace OKX.Api.Public.Models;
 
+/// <summary>
+/// System Status
+/// </summary>
 public class OkxStatus
 {
     /// <summary>
@@ -22,13 +25,13 @@ public class OkxStatus
     /// </summary>
     [JsonProperty("begin")]
     public long? BeginTimestamp { get; set; }
-
+    
     /// <summary>
     /// Begin time of system maintenance
     /// </summary>
     [JsonIgnore]
     public DateTime? BeginTime { get { return BeginTimestamp?.ConvertFromMilliseconds(); } }
-
+    
     /// <summary>
     /// End time of system maintenance, Unix timestamp format in milliseconds, e.g. 1617788463867
     /// </summary>
@@ -40,6 +43,18 @@ public class OkxStatus
     /// </summary>
     [JsonIgnore]
     public DateTime? EndTime { get { return EndTimestamp?.ConvertFromMilliseconds(); } }
+
+    /// <summary>
+    /// The time of pre_open. Canceling orders, placing Post Only orders, and transferring funds to trading accounts are back after preOpenBegin.
+    /// </summary>
+    [JsonProperty("preOpenBegin")]
+    public long? PreOpenBeginTimestamp { get; set; }
+
+    /// <summary>
+    /// The time of pre_open. Canceling orders, placing Post Only orders, and transferring funds to trading accounts are back after preOpenBegin.
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? PreOpenBeginTime { get { return PreOpenBeginTimestamp?.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Hyperlink for system maintenance details, if there is no return value, the default value will be empty. e.g. “”
@@ -64,4 +79,16 @@ public class OkxStatus
     /// </summary>
     [JsonProperty("scheDesc")]
     public string RescheduledDescription { get; set; }
+
+    /// <summary>
+    /// Maintenance type
+    /// </summary>
+    [JsonProperty("maintType")]
+    public string MaintenanceType { get; set; }
+
+    /// <summary>
+    /// Environment
+    /// </summary>
+    [JsonProperty("env")]
+    public string Environment { get; set; }
 }

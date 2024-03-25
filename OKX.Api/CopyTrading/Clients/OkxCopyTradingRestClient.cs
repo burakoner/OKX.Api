@@ -29,7 +29,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxLeadingPosition>>> GetExistingLeadingPositionsAsync(
+    public Task<RestCallResult<List<OkxLeadingPosition>>> GetLeadingPositionsAsync(
         string instrumentId = null,
         CancellationToken ct = default)
     {
@@ -49,7 +49,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="limit">Number of results per request. Maximum is 100. Default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxLeadingPositionHistory>>> GetExistingLeadingPositionsHistoryAsync(
+    public Task<RestCallResult<List<OkxLeadingPositionHistory>>> GetLeadingPositionsHistoryAsync(
         string instrumentId = null,
         long? after = null,
         long? before = null,
@@ -132,7 +132,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="instrumentIds">Instrument ID, e.g. BTC-USDT-SWAP. If there are multiple instruments, separate them with commas. Maximum of 31 instruments can be selected.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxLeadingInstrument>>> AmendLeadingInstrumentsAsync(
+    public Task<RestCallResult<List<OkxLeadingInstrument>>> SetLeadingInstrumentsAsync(
         IEnumerable<string> instrumentIds,
         CancellationToken ct = default)
     {
@@ -171,7 +171,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxProfitSharingTotal>>> GetTotalProfitSharingAsync(
+    public Task<RestCallResult<List<OkxProfitSharingTotal>>> GetProfitSharingTotalAsync(
         CancellationToken ct = default)
     {
         return ProcessListRequestAsync<OkxProfitSharingTotal>(GetUri(v5CopyTradingTotalProfitSharing), HttpMethod.Get, ct, signed: true);

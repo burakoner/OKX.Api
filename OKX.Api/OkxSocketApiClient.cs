@@ -12,6 +12,7 @@ using OKX.Api.RecurringBuy.Clients;
 using OKX.Api.Rubik.Clients;
 using OKX.Api.Savings.Clients;
 using OKX.Api.SpreadTrading.Clients;
+using OKX.Api.Staking.Clients;
 using OKX.Api.Trade.Clients;
 
 namespace OKX.Api;
@@ -72,21 +73,6 @@ public class OkxSocketApiClient : OkxBaseSocketClient
     public OkxSpreadTradingSocketClient SpreadTrading { get; }
 
     /// <summary>
-    /// Earn Client
-    /// </summary>
-    public OkxEarnSocketClient Earn { get; }
-
-    /// <summary>
-    /// Savings Client
-    /// </summary>
-    public OkxSavingsSocketClient Savings { get; }
-
-    /// <summary>
-    /// Trading Statistics Client
-    /// </summary>
-    public OkxRubikSocketClient Rubik { get; }
-
-    /// <summary>
     /// OKXWebSocketApiClient Constructor
     /// </summary>
     public OkxSocketApiClient() : this(null, new OkxSocketApiOptions())
@@ -118,9 +104,6 @@ public class OkxSocketApiClient : OkxBaseSocketClient
         this.CopyTrading = new OkxCopyTradingSocketClient(this);
         this.BlockTrading = new OkxBlockTradingSocketClient(this);
         this.SpreadTrading = new OkxSpreadTradingSocketClient(this);
-        this.Earn = new OkxEarnSocketClient(this);
-        this.Savings = new OkxSavingsSocketClient(this);
-        this.Rubik = new OkxRubikSocketClient(this);
     }
 
     internal int RequestId() => base.NextId();

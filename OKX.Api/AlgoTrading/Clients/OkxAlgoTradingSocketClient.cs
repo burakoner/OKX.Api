@@ -49,7 +49,7 @@ public class OkxAlgoTradingSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAlgoOrder>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -97,7 +97,7 @@ public class OkxAlgoTradingSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAlgoOrder>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();

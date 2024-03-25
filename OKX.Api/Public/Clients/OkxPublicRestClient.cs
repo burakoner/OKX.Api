@@ -7,11 +7,12 @@ using OKX.Api.Common.Models;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Public.Models;
+using System.Numerics;
 
 namespace OKX.Api.Public.Clients;
 
 /// <summary>
-/// OKX Rest Api Public Market Data Client
+/// OKX Rest Api Public Data &amp; Market Data &amp; System Client
 /// </summary>
 public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
@@ -57,8 +58,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5PublicOptionTrades = "api/v5/public/option-trades";
     private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
 
-    // Status Endpoints
-    // api/v5/system/status
+    // System Endpoints
+    private const string v5SystemStatus = "api/v5/system/status";
 
     #region Public Data Methods
     /// <summary>
@@ -451,7 +452,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="unit">The unit of currency. coin usds: usdt or usdc, only applicable to USDⓈ-margined contracts from FUTURES/SWAP</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxUnitConvert>> UnitConvertAsync(
+    public Task<RestCallResult<OkxUnitConvert>> GetUnitConvertAsync(
         string instrumentId,
         decimal size,
         decimal? price = null,
@@ -761,7 +762,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public async Task<RestCallResult<OkxOrderBook>> GetOrderBookFullAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
     {
-        depth.ValidateIntBetween(nameof(depth), 1, 400);
+        depth.ValidateIntBetween(nameof(depth), 1, 5000);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId},
@@ -920,7 +921,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="optionType">Option type, C: Call P: put</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxOptionTrade>>> GetOptionTradesByInstrumentFamilyAsync(
+    public Task<RestCallResult<List<OkxOptionTrade>>> GetOptionTradesAsync(
     string instrumentId = null,
     string instrumentFamily = null,
     OkxOptionType? optionType = null,
@@ -942,6 +943,26 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     public Task<RestCallResult<OkxVolume>> Get24HourVolumeAsync(CancellationToken ct = default)
     {
         return ProcessOneRequestAsync<OkxVolume>(GetUri(v5MarketPlatform24Volume), HttpMethod.Get, ct);
+    }
+    #endregion
+
+    #region System Methods
+    /// <summary>
+    /// Get event status of system upgrade.
+    /// Planned system maintenance that may result in short interruption (lasting less than 5 seconds) or websocket disconnection (users can immediately reconnect) will not be announced. 
+    /// The maintenance will only be performed during times of low market volatility.
+    /// </summary>
+    /// <param name="state">System maintenance status</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxStatus>>> GetSystemUpgradeStatusAsync(
+        OkxMaintenanceState? state = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxMaintenanceStateConverter(false)));
+
+        return ProcessListRequestAsync<OkxStatus>(GetUri(v5SystemStatus), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
     #endregion
 

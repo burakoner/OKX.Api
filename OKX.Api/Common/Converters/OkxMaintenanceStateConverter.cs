@@ -10,6 +10,7 @@ internal class OkxMaintenanceStateConverter(bool quotes) : BaseConverter<OkxMain
     [
         new(OkxMaintenanceState.Scheduled, "scheduled"),
         new(OkxMaintenanceState.Ongoing, "ongoing"),
+        new(OkxMaintenanceState.PreOpen, "pre_open"),
         new(OkxMaintenanceState.Completed, "completed"),
         new(OkxMaintenanceState.Canceled, "canceled"),
     ];

@@ -41,7 +41,7 @@ public class OkxPublicSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxInstrument>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -76,7 +76,7 @@ public class OkxPublicSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxOpenInterest>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -111,7 +111,7 @@ public class OkxPublicSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxFundingRate>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -146,7 +146,7 @@ public class OkxPublicSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxLimitPrice>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -181,7 +181,7 @@ public class OkxPublicSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxOptionSummary>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -220,7 +220,7 @@ public class OkxPublicSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxEstimatedPrice>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -257,7 +257,7 @@ public class OkxPublicSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxMarkPrice>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -292,7 +292,7 @@ public class OkxPublicSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxIndexTicker>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -331,7 +331,7 @@ public class OkxPublicSocketClient
             foreach (var d in data.Data.Data)
             {
                 d.InstrumentId = data.Data.Args?.InstrumentId;
-                onData(d);
+                if (d is not null) onData(d);
             }
         });
 
@@ -372,7 +372,7 @@ public class OkxPublicSocketClient
             foreach (var d in data.Data.Data)
             {
                 d.InstrumentId = data.Data.Args?.InstrumentId;
-                onData(d);
+                if (d is not null) onData(d);
             }
         });
 
@@ -416,7 +416,7 @@ public class OkxPublicSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxTicker>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -455,7 +455,7 @@ public class OkxPublicSocketClient
             foreach (var d in data.Data.Data)
             {
                 d.InstrumentId = data.Data.Args?.InstrumentId;
-                onData(d);
+                if (d is not null) onData(d);
             }
         });
 
@@ -491,7 +491,7 @@ public class OkxPublicSocketClient
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxTrade>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -541,9 +541,12 @@ public class OkxPublicSocketClient
         {
             foreach (var d in data.Data.Data)
             {
-                d.InstrumentId = data.Data.Args?.InstrumentId;
-                d.Action = data.Data.Action;
-                onData(d);
+                if (d is not null)
+                {
+                    d.InstrumentId = data.Data.Args?.InstrumentId;
+                    d.Action = data.Data.Action;
+                    onData(d);
+                }
             }
         });
 
@@ -567,12 +570,12 @@ public class OkxPublicSocketClient
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSystemStatusAsync(Action<OkxStatus> onData, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSystemUpgradeStatusAsync(Action<OkxStatus> onData, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxStatus>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument

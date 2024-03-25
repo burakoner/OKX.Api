@@ -80,7 +80,7 @@ public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAlgoOrderResponse>> PlaceAlgoOrderAsync(
+    public Task<RestCallResult<OkxAlgoOrderResponse>> PlaceOrderAsync(
 
         // Common
         string instrumentId,
@@ -188,7 +188,7 @@ public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAlgoOrderResponse>> CancelAlgoOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAlgoOrderResponse>> CancelOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { Options.RequestBodyParameterKey, orders },
@@ -215,7 +215,7 @@ public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="newStopLossOrderPrice">Stop-loss order price. If the price is -1, stop-loss will be executed at the market price.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAlgoOrderAmendResponse>> AmendAlgoOrderAsync(
+    public Task<RestCallResult<OkxAlgoOrderAmendResponse>> AmendOrderAsync(
 
         // Common
         string instrumentId,
@@ -269,7 +269,7 @@ public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAlgoOrderResponse>> CancelAdvanceAlgoOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAlgoOrderResponse>> CancelAdvanceAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { Options.RequestBodyParameterKey, orders },
@@ -285,7 +285,7 @@ public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="algoClientOrderId">Client-supplied Algo ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAlgoOrder>> GetAlgoOrderAsync(
+    public Task<RestCallResult<OkxAlgoOrder>> GetOrderAsync(
         long? algoOrderId = null,
         string algoClientOrderId = null,
         CancellationToken ct = default)
@@ -310,7 +310,7 @@ public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxAlgoOrder>>> GetAlgoOrdersAsync(
+    public Task<RestCallResult<List<OkxAlgoOrder>>> GetOrdersAsync(
         OkxAlgoOrderType algoOrderType,
         long? algoId = null,
         string algoClientOrderId = null,
@@ -350,7 +350,7 @@ public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxAlgoOrder>>> GetAlgoOrderHistoryAsync(
+    public Task<RestCallResult<List<OkxAlgoOrder>>> GetOrderHistoryAsync(
         OkxAlgoOrderType algoOrderType,
         OkxAlgoOrderState? algoOrderState = null,
         long? algoId = null,

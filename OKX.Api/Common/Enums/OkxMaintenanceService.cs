@@ -10,6 +10,7 @@ public enum OkxMaintenanceService
     /// </summary>
     WebSocket,
 
+    /*
     /// <summary>
     /// SpotMargin
     /// </summary>
@@ -29,9 +30,45 @@ public enum OkxMaintenanceService
     /// Options
     /// </summary>
     Options,
+    */
 
     /// <summary>
-    /// Trading
+    /// TradingService
     /// </summary>
-    Trading,
+    TradingService,
+
+    /// <summary>
+    /// BlockTrading
+    /// </summary>
+    BlockTrading,
+
+    /// <summary>
+    /// TradingBot
+    /// </summary>
+    TradingBot,
+
+    /// <summary>
+    /// Trading Service (In Batches Of Accounts)
+    /// </summary>
+    TradingServiceInBatchesOfAccounts,
+
+    /// <summary>
+    /// Trading Service (In Batches Of Products)
+    /// </summary>
+    TradingServiceInBatchesOfProducts,
+
+    /// <summary>
+    /// SpreadTrading
+    /// </summary>
+    SpreadTrading,
+
+    /// <summary>
+    /// CopyTrading
+    /// </summary>
+    CopyTrading,
+
+    /// <summary>
+    /// Others
+    /// </summary>
+    Others
 }

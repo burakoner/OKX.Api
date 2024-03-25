@@ -7,11 +7,11 @@ internal class OkxClosingPositionTypeConverter(bool quotes) : BaseConverter<OkxC
     public OkxClosingPositionTypeConverter() : this(true) { }
 
     protected override List<KeyValuePair<OkxClosingPositionType, string>> Mapping =>
-        [
-            new(OkxClosingPositionType.ClosePartially, "1"),
-            new(OkxClosingPositionType.CloseAll, "2"),
-            new(OkxClosingPositionType.Liquidation, "3"),
-            new(OkxClosingPositionType.PartialLiquidation, "4"),
-            new(OkxClosingPositionType.ADL, "5"),
-        ];
+    [
+        new(OkxClosingPositionType.ClosePartially, "1"),
+        new(OkxClosingPositionType.CloseAll, "2"),
+        new(OkxClosingPositionType.Liquidation, "3"),
+        new(OkxClosingPositionType.PartialLiquidation, "4"),
+        new(OkxClosingPositionType.ADL, "5"),
+    ];
 }

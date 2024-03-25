@@ -40,8 +40,8 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="request">Request Object</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> PlaceAlgoOrderAsync(OkxGridPlaceOrderRequest request, CancellationToken ct = default)
-        => PlaceAlgoOrderAsync(
+    public Task<RestCallResult<OkxGridOrderResponse>> PlaceOrderAsync(OkxGridPlaceOrderRequest request, CancellationToken ct = default)
+        => PlaceOrderAsync(
         request.InstrumentId,
         request.AlgoOrderType,
         request.MaximumPrice,
@@ -81,7 +81,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="basePosition">Whether or not open a position when the strategy activates. Default is false. Neutral contract grid should omit the parameter</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> PlaceAlgoOrderAsync(
+    public Task<RestCallResult<OkxGridOrderResponse>> PlaceOrderAsync(
         string instrumentId,
         OkxGridAlgoOrderType algoOrderType,
         decimal maximumPrice,
@@ -131,8 +131,8 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="request">Request Object</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> AmendAlgoOrderAsync(OkxGridAmendOrderRequest request, CancellationToken ct = default)
-        => AmendAlgoOrderAsync(
+    public Task<RestCallResult<OkxGridOrderResponse>> AmendOrderAsync(OkxGridAmendOrderRequest request, CancellationToken ct = default)
+        => AmendOrderAsync(
         request.AlgoOrderId,
         request.InstrumentId,
         request.StopLossTriggerPrice,
@@ -151,7 +151,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="triggerParameters">Trigger Parameters. Applicable to Spot grid/Contract grid</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> AmendAlgoOrderAsync(
+    public Task<RestCallResult<OkxGridOrderResponse>> AmendOrderAsync(
         long algoOrderId,
         string instrumentId,
         decimal? stopLossTriggerPrice = null,
@@ -181,7 +181,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="contractAlgoStopType">Contract Grid Algo Stop Type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> StopAlgoOrderAsync(
+    public Task<RestCallResult<OkxGridOrderResponse>> StopOrderAsync(
         long algoOrderId,
         string instrumentId,
         OkxGridAlgoOrderType algoOrderType,
@@ -211,7 +211,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="price">Close position price. If mktClose is false, the parameter is required.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> CloseContractPositionAsync(
+    public Task<RestCallResult<OkxGridOrderResponse>> ClosePositionAsync(
         long algoOrderId,
         bool marketClose,
         decimal? size = null,
@@ -235,7 +235,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="orderId">Close position order ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> CancelCloseContractPositionAsync(
+    public Task<RestCallResult<OkxGridOrderResponse>> CancelClosePositionAsync(
         long algoOrderId,
         long orderId,
         CancellationToken ct = default)
@@ -253,7 +253,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> TriggerAlgoOrderAsync(
+    public Task<RestCallResult<OkxGridOrderResponse>> TriggerOrderAsync(
         long algoOrderId,
         CancellationToken ct = default)
     {
@@ -275,7 +275,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxGridAlgoOrder>>> GetOpenAlgoOrdersAsync(
+    public Task<RestCallResult<List<OkxGridAlgoOrder>>> GetOpenOrdersAsync(
         OkxGridAlgoOrderType algoOrderType,
         long? algoOrderId = null,
         string instrumentId = null,
@@ -311,7 +311,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxGridAlgoOrder>>> GetAlgoOrdersHistoryAsync(
+    public Task<RestCallResult<List<OkxGridAlgoOrder>>> GetOrdersHistoryAsync(
         OkxGridAlgoOrderType algoOrderType,
         long? algoOrderId = null,
         string instrumentId = null,
@@ -341,7 +341,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridAlgoOrder>> GetAlgoOrderAsync(
+    public Task<RestCallResult<OkxGridAlgoOrder>> GetOrderAsync(
         OkxGridAlgoOrderType algoOrderType,
         long algoOrderId,
         CancellationToken ct = default)
@@ -366,7 +366,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxGridAlgoSubOrder>>> GetAlgoSubOrdersAsync(
+    public Task<RestCallResult<List<OkxGridAlgoSubOrder>>> GetSubOrdersAsync(
         OkxGridAlgoOrderType algoOrderType,
         long algoOrderId,
         OkxGridAlgoSubOrderType type,
@@ -396,7 +396,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridAlgoPosition>> GetAlgoPositionsAsync(
+    public Task<RestCallResult<OkxGridAlgoPosition>> GetPositionsAsync(
         OkxGridAlgoOrderType algoOrderType,
         long algoOrderId,
         CancellationToken ct = default)
@@ -484,7 +484,7 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="backTestingDuration">Back testing duration. The default is 7D for Spot grid,180D for Moon grid. Only 7D is available for Contract grid</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridAiParameter>> GetAiParameterAsync(
+    public Task<RestCallResult<OkxGridAiParameter>> GetAIParameterAsync(
         OkxGridAlgoOrderType algoOrderType,
         string instrumentId,
         OkxGridContractDirection? contractGridDirection = null,

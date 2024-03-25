@@ -1,5 +1,6 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
+using OKX.Api.Account.Models;
 using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
 using OKX.Api.Common.Clients;
@@ -31,8 +32,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5TradeOrdersHistoryArchive = "api/v5/trade/orders-history-archive";
     private const string v5TradeFills = "api/v5/trade/fills";
     private const string v5TradeFillsHistory = "api/v5/trade/fills-history";
-    // /api/v5/trade/fills-archive
-    // /api/v5/trade/fills-archive
+    private const string v5TradeFillsArchive = "api/v5/trade/fills-archive";
     // TODO: api/v5/trade/easy-convert-currency-list
     // TODO: api/v5/trade/easy-convert
     // TODO: api/v5/trade/easy-convert-history
@@ -41,7 +41,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     // TODO: api/v5/trade/one-click-repay-history
     // TODO: api/v5/trade/mass-cancel
     // TODO: api/v5/trade/cancel-all-after
-    // api/v5/trade/account-rate-limit
+    // TODO: api/v5/trade/account-rate-limit
 
     #region Trade API Endpoints
     /// <summary>
@@ -485,7 +485,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxTransaction>>> GetTradesHistoryAsync(
+    public Task<RestCallResult<List<OkxTransaction>>> GetTradesAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         string instFamily = null,
@@ -529,7 +529,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns>RestCallResult containing enumerable OkxTransaction list</returns>
-    public Task<RestCallResult<List<OkxTransaction>>> GetTradesArchiveAsync(
+    public Task<RestCallResult<List<OkxTransaction>>> GetTradesHistoryAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
         string instFamily = null,
@@ -556,6 +556,46 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxTransaction>(GetUri(v5TradeFillsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Apply for recently-filled transaction details in the past 2 years except for last 3 months.
+    /// </summary>
+    /// <param name="year">4 digits year</param>
+    /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxTimestamp>> ApplyTradesArchiveAsync(
+        int year,
+        OkxQuarter quarter,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            {"year", year.ToOkxString() },
+            {"quarter", JsonConvert.SerializeObject(quarter, new OkxQuarterConverter(false)) },
+        };
+
+        return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5TradeFillsArchive), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve recently-filled transaction details in the past 2 years except for last 3 months.
+    /// </summary>
+    /// <param name="year">4 digits year</param>
+    /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxDownloadLink>> GetTradesArchiveAsync(
+        int year,
+        OkxQuarter quarter,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            {"year", year.ToOkxString() },
+            {"quarter", JsonConvert.SerializeObject(quarter, new OkxQuarterConverter(false)) },
+        };
+
+        return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5TradeFillsArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     #endregion
 

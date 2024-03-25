@@ -181,13 +181,12 @@
 	  <Folder Include="SpreadTrading\Models\" />
 	  <Folder Include="BlockTrading\Converters\" />
 	  <Folder Include="BlockTrading\Enums\" />
-	  <Folder Include="Finance\Clients\" />
-	  <Folder Include="Finance\Converters\" />
-	  <Folder Include="Finance\Enums\" />
-	  <Folder Include="Finance\Models\" />
 	  <Folder Include="RecurringBuy\Converters\" />
 	  <Folder Include="RecurringBuy\Enums\" />
 	  <Folder Include="RecurringBuy\Models\" />
+	  <Folder Include="Staking\Converters\" />
+	  <Folder Include="Staking\Enums\" />
+	  <Folder Include="Staking\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>

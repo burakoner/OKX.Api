@@ -14,6 +14,7 @@ using OKX.Api.Rubik.Clients;
 using OKX.Api.Savings.Clients;
 using OKX.Api.SignalTrading.Clients;
 using OKX.Api.SpreadTrading.Clients;
+using OKX.Api.Staking.Clients;
 using OKX.Api.SubAccount.Clients;
 using OKX.Api.Trade.Clients;
 
@@ -98,11 +99,16 @@ public sealed class OkxRestApiClient
     /// Earn Client
     /// </summary>
     public OkxEarnRestClient Earn { get; }
-
+    
     /// <summary>
     /// Savings Client
     /// </summary>
     public OkxSavingsRestClient Savings { get; }
+
+    /// <summary>
+    /// Staking Client
+    /// </summary>
+    public OkxStakingRestClient Staking { get; }
 
     /// <summary>
     /// Trading Statistics Client
@@ -163,6 +169,7 @@ public sealed class OkxRestApiClient
         SpreadTrading = new OkxSpreadTradingRestClient(this);
         Earn = new OkxEarnRestClient(this);
         Savings = new OkxSavingsRestClient(this);
+        Staking = new OkxStakingRestClient(this);
         Rubik = new OkxRubikRestClient(this);
         Affiliate = new OkxAffiliateRestClient(this);
         NDBroker = new OkxNonDisclosedBrokerRestClient(this);
@@ -201,6 +208,7 @@ public sealed class OkxRestApiClient
         SpreadTrading.SetApiCredentials(credentials);
         Earn.SetApiCredentials(credentials);
         Savings.SetApiCredentials(credentials);
+        Staking.SetApiCredentials(credentials);
         Rubik.SetApiCredentials(credentials);
         Affiliate.SetApiCredentials(credentials);
         NDBroker.SetApiCredentials(credentials);

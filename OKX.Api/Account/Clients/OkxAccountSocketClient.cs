@@ -23,7 +23,7 @@ public class OkxAccountSocketClient(OkxSocketApiClient root)
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountBalance>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
@@ -57,7 +57,7 @@ public class OkxAccountSocketClient(OkxSocketApiClient root)
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPosition>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
@@ -83,7 +83,7 @@ public class OkxAccountSocketClient(OkxSocketApiClient root)
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPositionBalance>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
@@ -109,7 +109,7 @@ public class OkxAccountSocketClient(OkxSocketApiClient root)
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPosition>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
@@ -132,7 +132,7 @@ public class OkxAccountSocketClient(OkxSocketApiClient root)
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxGreeks>>>>(data =>
         {
             foreach (var d in data.Data.Data)
-                onData(d);
+                if (d is not null) onData(d);
         });
 
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument

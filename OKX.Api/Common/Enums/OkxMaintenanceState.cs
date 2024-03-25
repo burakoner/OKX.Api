@@ -16,6 +16,11 @@ public enum OkxMaintenanceState
     Ongoing,
 
     /// <summary>
+    /// Pre-Open
+    /// </summary>
+    PreOpen,
+
+    /// <summary>
     /// Completed
     /// </summary>
     Completed,
