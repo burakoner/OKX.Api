@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Common.Enums;
+﻿namespace OKX.Api.Account.Enums;
 
 /// <summary>
 /// OKX Api Key Permission

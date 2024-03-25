@@ -188,8 +188,6 @@
 	  <Folder Include="RecurringBuy\Converters\" />
 	  <Folder Include="RecurringBuy\Enums\" />
 	  <Folder Include="RecurringBuy\Models\" />
-	  <Folder Include="CopyTrading\Converters\" />
-	  <Folder Include="CopyTrading\Enums\" />
 	</ItemGroup>
 
 	<ItemGroup>

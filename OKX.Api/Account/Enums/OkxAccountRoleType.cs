@@ -1,22 +1,22 @@
-﻿namespace OKX.Api.Common.Enums;
+﻿namespace OKX.Api.Account.Enums;
 
 /// <summary>
-/// OKX SpotCopyTradingRole
+/// OKX Account Role Type
 /// </summary>
-public enum OkxSpotCopyTradingRole
+public enum OkxAccountRoleType
 {
     /// <summary>
-    /// General user
+    /// General User
     /// </summary>
     GeneralUser,
 
     /// <summary>
-    /// Leading trader
+    /// Leading Trader
     /// </summary>
     LeadingTrader,
 
     /// <summary>
-    /// Copy trader
+    /// Copy Trader
     /// </summary>
-    CopyTrader,
+    CopyTrader
 }

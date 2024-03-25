@@ -1,6 +1,6 @@
-﻿using OKX.Api.Common.Enums;
+﻿using OKX.Api.Account.Enums;
 
-namespace OKX.Api.Common.Converters;
+namespace OKX.Api.Account.Converters;
 
 internal class OkxApiKeyPermissionConverter(bool quotes) : BaseConverter<OkxApiKeyPermission>(quotes)
 {

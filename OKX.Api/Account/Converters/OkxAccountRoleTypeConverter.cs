@@ -1,6 +1,6 @@
-﻿using OKX.Api.Common.Enums;
+﻿using OKX.Api.Account.Enums;
 
-namespace OKX.Api.Common.Converters;
+namespace OKX.Api.Account.Converters;
 
 internal class OkxAccountRoleTypeConverter(bool quotes) : BaseConverter<OkxAccountRoleType>(quotes)
 {

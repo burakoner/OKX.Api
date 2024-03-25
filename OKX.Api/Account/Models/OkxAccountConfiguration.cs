@@ -4,6 +4,8 @@ using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 using OKX.Api.Common.Converters;
 using OKX.Api.Common.Enums;
+using OKX.Api.CopyTrading.Enums;
+using OKX.Api.CopyTrading.Converters;
 
 namespace OKX.Api.Account.Models;
 
@@ -97,8 +99,8 @@ public class OkxAccountConfiguration
     /// SPOT copy trading role type
     /// 0: General user；1：Leading trader；2：Copy trader
     /// </summary>
-    [JsonProperty("spotRoleType"), JsonConverter(typeof(OkxSpotCopyTradingRoleConverter))]
-    public OkxSpotCopyTradingRole? SpotCopyTradingRole { get; set; }
+    [JsonProperty("spotRoleType"), JsonConverter(typeof(OkxCopyTradingRoleConverter))]
+    public OkxCopyTradingRole? SpotCopyTradingRole { get; set; }
 
     /// <summary>
     /// Spot lead trading instruments, only applicable to Leanding trader
