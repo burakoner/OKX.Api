@@ -1,13 +1,4 @@
-﻿/* Unmerged change from project 'OKX.Api (netstandard2.0)'
-Before:
-namespace OKX.Api.Helpers;
-After:
-using OKX;
-using OKX.Api;
-using OKX.Api;
-using OKX.Api.Helpers;
-*/
-namespace OKX.Api;
+﻿namespace OKX.Api;
 
 /// <summary>
 /// OKX Extensions
@@ -56,7 +47,7 @@ internal static class OkxExtensions
     #region Null
     public static bool IsNull(this object @this)
     {
-        return @this == null || @this.GetType() == typeof(DBNull);
+        return @this is null || @this.GetType() == typeof(DBNull);
     }
 
     public static bool IsNotNull(this object @this)
@@ -68,8 +59,8 @@ internal static class OkxExtensions
     #region ToStr
     public static string ToStr(this object @this, bool nullToEmpty = true)
     {
-        bool isNull = @this == null;
-        bool isDBNull = @this != null && @this.GetType() == typeof(DBNull);
+        bool isNull = @this is null;
+        bool isDBNull = @this is not null && @this.GetType() == typeof(DBNull);
 
         if (isNull)
             return nullToEmpty ? string.Empty : null;
@@ -83,8 +74,8 @@ internal static class OkxExtensions
     #region ToOkxString
     public static string ToOkxString(this object @this)
     {
-        bool isNull = @this == null;
-        bool isDBNull = @this != null && @this.GetType() == typeof(DBNull);
+        bool isNull = @this is null;
+        bool isDBNull = @this is not null && @this.GetType() == typeof(DBNull);
 
         if (isNull) return string.Empty;
         if (isDBNull) return string.Empty;
@@ -116,7 +107,7 @@ internal static class OkxExtensions
 
     public static double ToDouble(this object @this)
     {
-        if (@this == null) return 0.0;
+        if (@this is null) return 0.0;
 
         double result = 0.0;
         if (@this.IsNotNull()) double.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
@@ -124,7 +115,7 @@ internal static class OkxExtensions
     }
     public static double? ToDoubleNullable(this object @this)
     {
-        if (@this == null) return null;
+        if (@this is null) return null;
 
         double result = 0.0;
         if (@this.IsNotNull()) double.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
@@ -133,7 +124,7 @@ internal static class OkxExtensions
 
     public static decimal ToDecimal(this object @this)
     {
-        if (@this == null) return 0;
+        if (@this is null) return 0;
 
         decimal result = 0.0m;
         if (@this.IsNotNull()) decimal.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
@@ -141,7 +132,7 @@ internal static class OkxExtensions
     }
     public static decimal? ToDecimalNullable(this object @this)
     {
-        if (@this == null) return null;
+        if (@this is null) return null;
 
         decimal result = 0.0m;
         if (@this.IsNotNull()) decimal.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
@@ -150,7 +141,7 @@ internal static class OkxExtensions
 
     public static float ToFloat(this object @this)
     {
-        if (@this == null) return 0;
+        if (@this is null) return 0;
 
         float result = 0;
         if (@this.IsNotNull()) float.TryParse(@this.ToStr(), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);

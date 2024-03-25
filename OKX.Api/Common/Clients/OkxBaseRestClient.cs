@@ -39,10 +39,10 @@ public abstract class OkxBaseRestClient : RestApiClient
         if (!error.HasValues)
             return new ServerError(error.ToString());
 
-        if (error["msg"] == null && error["code"] == null || string.IsNullOrWhiteSpace((string)error["msg"]))
+        if (error["msg"] is null && error["code"] is null || string.IsNullOrWhiteSpace((string)error["msg"]))
             return new ServerError(error.ToString());
 
-        if (error["msg"] != null && error["code"] == null || !string.IsNullOrWhiteSpace((string)error["msg"]))
+        if (error["msg"] is not null && error["code"] is null || !string.IsNullOrWhiteSpace((string)error["msg"]))
             return new ServerError((string)error["msg"]!);
 
         return new ServerError((int)error["code"], (string)error["msg"]);
@@ -54,9 +54,9 @@ public abstract class OkxBaseRestClient : RestApiClient
         if (!error.HasValues)
             return Task.FromResult<ServerError>(null);
 
-        if (error["msg"] != null
+        if (error["msg"] is not null
             && !string.IsNullOrWhiteSpace((string)error["msg"])
-            && error["code"] != null)
+            && error["code"] is not null)
             return Task.FromResult(new ServerError((int)error["code"], (string)error["msg"]));
 
         return Task.FromResult<ServerError>(null);
@@ -163,7 +163,7 @@ public abstract class OkxBaseRestClient : RestApiClient
 
         // Return
         if (!result.Success) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
-        if (result.Data == null) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data is null) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
@@ -195,7 +195,7 @@ public abstract class OkxBaseRestClient : RestApiClient
 
         // Return
         if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
-        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data.FirstOrDefault(), result.Raw, result.Error);
     }
 
@@ -227,7 +227,7 @@ public abstract class OkxBaseRestClient : RestApiClient
 
         // Return
         if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
-        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
@@ -259,7 +259,7 @@ public abstract class OkxBaseRestClient : RestApiClient
 
         // Return
         if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
-        if (result.Data == null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 

@@ -75,7 +75,7 @@ internal class Program
         var account_11 = await api.Account.GetMaximumAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
         var account_12 = await api.Account.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
         var account_13 = await api.Account.SetMarginAmountAsync("BTC-USDT", OkxPositionSide.Long, OkxMarginAddReduce.Add, 100.0m);
-        var account_14 = await api.Account.GetLeverageEstimatedInformationAsync( OkxInstrumentType.Futures, OkxMarginMode.Cross, 10);
+        var account_14 = await api.Account.GetLeverageEstimatedInformationAsync(OkxInstrumentType.Futures, OkxMarginMode.Cross, 10);
         var account_15 = await api.Account.GetMaximumLoanAmountAsync("BTC-USDT", OkxMarginMode.Cross);
         var account_16 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Spot);
         var account_17 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Futures);
@@ -110,7 +110,7 @@ internal class Program
         var account_46 = await api.Account.ResetMmpAsync("BTC-USDT");
         var account_47 = await api.Account.SetMmpConfigurationAsync("BTC-USDT", 5000, 5000, 1);
         var account_48 = await api.Account.GetMmpConfigurationAsync("BTC-USDT");
-        
+
         // FundingAccount Methods (Signed)
         var funding_01 = await api.Funding.GetCurrenciesAsync();
         var funding_02 = await api.Funding.GetBalancesAsync();
@@ -227,8 +227,8 @@ internal class Program
         var grid_14 = await api.GridTrading.GetWithdrawIncomeAsync(448965992920907776);
         var grid_15 = await api.GridTrading.ComputeMarginBalanceAsync(448965992920907776, OkxMarginAddReduce.Add, 10.0m);
         var grid_16 = await api.GridTrading.AdjustMarginBalanceAsync(448965992920907776, OkxMarginAddReduce.Add, 10.0m);
-        var grid_17 = await api.GridTrading.GetAIParameterAsync( OkxGridAlgoOrderType.SpotGrid, "BTC-USDT");
-        var grid_18 = await api.GridTrading.ComputeMinimumInvestmentAsync("ETH-USDT",  OkxGridAlgoOrderType.SpotGrid, 5000, 3000, 50, OkxGridRunType.Arithmetic);
+        var grid_17 = await api.GridTrading.GetAIParameterAsync(OkxGridAlgoOrderType.SpotGrid, "BTC-USDT");
+        var grid_18 = await api.GridTrading.ComputeMinimumInvestmentAsync("ETH-USDT", OkxGridAlgoOrderType.SpotGrid, 5000, 3000, 50, OkxGridRunType.Arithmetic);
         var grid_19 = await api.GridTrading.RsiBackTestingAsync("BTC-USDT", OkxGridAlgoTimeFrame.ThreeMinutes, 30, 14);
 
         // TODO: SignalTrading Methods (Signed)
@@ -284,49 +284,31 @@ internal class Program
         // TradingAccount Updates (Private)
         await ws.Account.SubscribeToAccountUpdatesAsync((data) =>
         {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
+            // ... Your logic here
         });
         await ws.Account.SubscribeToPositionUpdatesAsync((data) =>
         {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
+            // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
         await ws.Account.SubscribeToBalanceAndPositionUpdatesAsync((data) =>
         {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
+            // ... Your logic here
         });
 
         // Trade Updates (Private)
         await ws.Trading.SubscribeToOrderUpdatesAsync((data) =>
         {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
+            // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
         // AlgoTrading Updates (Private)
         await ws.AlgoTrading.SubscribeToAlgoOrderUpdatesAsync((data) =>
         {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
+            // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
         await ws.AlgoTrading.SubscribeToAdvanceAlgoOrderUpdatesAsync((data) =>
         {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
+            // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
         // MarketData Updates (Public)
@@ -336,11 +318,8 @@ internal class Program
         {
             var subscription = await ws.Public.SubscribeToTickersAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                    Console.WriteLine($"Ticker {data.InstrumentId} Ask:{data.AskPrice} Bid:{data.BidPrice}");
-                }
+                // ... Your logic here
+                Console.WriteLine($"Ticker {data.InstrumentId} Ask:{data.AskPrice} Bid:{data.BidPrice}");
             }, pair);
             subs.Add(subscription.Data);
         }
@@ -348,27 +327,21 @@ internal class Program
         {
             await ws.Public.SubscribeToCandlesticksAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
+                // ... Your logic here
             }, pair, OkxPeriod.FiveMinutes);
         }
         foreach (var pair in sample_pairs)
         {
             await ws.Public.SubscribeToTradesAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
+                // ... Your logic here
             }, pair);
         }
         foreach (var pair in sample_pairs)
         {
             await ws.Public.SubscribeToOrderBookAsync((data) =>
             {
-                if (data != null && data.Asks != null && data.Asks.Count() > 0 && data.Bids != null && data.Bids.Count() > 0)
+                if (data.Asks is not null && data.Asks.Count() > 0 && data.Bids is not null && data.Bids.Count() > 0)
                 {
                     // ... Your logic here
                 }
@@ -387,97 +360,67 @@ internal class Program
         // PublicData Updates (Public)
         await ws.Public.SubscribeToInstrumentsAsync((data) =>
         {
-            if (data != null)
-            {
-                // ... Your logic here
-                Console.WriteLine($"Instrument {data.InstrumentId} BaseCurrency:{data.BaseCurrency}");
-            }
+            // ... Your logic here
+            Console.WriteLine($"Instrument {data.InstrumentId} BaseCurrency:{data.BaseCurrency}");
         }, OkxInstrumentType.Spot);
         foreach (var pair in sample_pairs)
         {
             await ws.Public.SubscribeToOpenInterestsAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
+                // ... Your logic here
             }, pair);
         }
         foreach (var pair in sample_pairs)
         {
             await ws.Public.SubscribeToFundingRatesAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
+                // ... Your logic here
             }, pair);
         }
         foreach (var pair in sample_pairs)
         {
             await ws.Public.SubscribeToPriceLimitAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
+                // ... Your logic here
             }, pair);
         }
         await ws.Public.SubscribeToOptionSummaryAsync((data) =>
         {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
+            // ... Your logic here
         }, "USD");
         foreach (var pair in sample_pairs)
         {
             await ws.Public.SubscribeToEstimatedPriceAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
+                // ... Your logic here
             }, OkxInstrumentType.Option);
         }
         foreach (var pair in sample_pairs)
         {
             await ws.Public.SubscribeToMarkPriceAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
+                // ... Your logic here
             }, pair);
         }
         foreach (var pair in sample_pairs)
         {
             await ws.Public.SubscribeToIndexTickersAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
+                // ... Your logic here
             }, pair);
         }
         foreach (var pair in sample_pairs)
         {
             await ws.Public.SubscribeToMarkPriceCandlesticksAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
+                // ... Your logic here
             }, pair, OkxPeriod.FiveMinutes);
         }
         foreach (var pair in sample_pairs)
         {
             await ws.Public.SubscribeToIndexCandlesticksAsync((data) =>
             {
-                if (data != null)
-                {
-                    // ... Your logic here
-                }
+                // ... Your logic here
             }, pair, OkxPeriod.FiveMinutes);
         }
 
@@ -486,14 +429,11 @@ internal class Program
         // TODO: SubAccount Updates (Private)
         // TODO: FinancialProduct.Earn (Private)
         // TODO: FinancialProduct.Savings (Private)
-        
+
         // Status Updates (Public)
         await ws.Public.SubscribeToSystemUpgradeStatusAsync((data) =>
         {
-            if (data != null)
-            {
-                // ... Your logic here
-            }
+            // ... Your logic here
         });
         #endregion
 

@@ -70,7 +70,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     public Task<RestCallResult<OkxAccountBalance>> GetBalancesAsync(IEnumerable<string> currencies = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
-        if (currencies != null && currencies.Count() > 0)
+        if (currencies is not null && currencies.Count() > 0)
             parameters.AddOptionalParameter("ccy", string.Join(",", currencies));
 
         return ProcessOneRequestAsync<OkxAccountBalance>(GetUri(v5AccountBalance), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
@@ -305,7 +305,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         if (string.IsNullOrEmpty(currency) && string.IsNullOrEmpty(instrumentId))
             throw new ArgumentException("Either instId or ccy is required; if both are passed, instId will be used by default.");
 
-        if (marginMode == null)
+        if (marginMode is null)
             throw new ArgumentException("marginMode is required");
 
         var parameters = new Dictionary<string, object> {
