@@ -1,7 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<Import Project="../common.props"/>
-	
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
@@ -22,7 +20,11 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
 			Version 2.0.0 - 22 Mar 2024
-			* .......
+			* Changed main structure, edited tons of models, refactored tons of codes
+			* Changed IEnumerable return types to List
+			* Merged pull request [https://github.com/burakoner/OKX.Api/pull/58](https://github.com/burakoner/OKX.Api/pull/58)
+			* Updated dependencies
+			* Updated README file. Please refer to code snippets for samples
 			
 			Version 1.7.2 - 19 Mar 2024
 			* Merged MarketData and PublicData clients
@@ -156,16 +158,16 @@
 	  <DebugType>embedded</DebugType>
 	</PropertyGroup>
 	
+	<ItemGroup>
+		<None Include="OKX.png" Pack="true" PackagePath="" />
+	</ItemGroup>
+
 	<PropertyGroup>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Include="../README.md" Pack="true" PackagePath=""/>
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="OKX.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 	<ItemGroup>

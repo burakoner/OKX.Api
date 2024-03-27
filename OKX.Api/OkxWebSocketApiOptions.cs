@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX WebSocket Options
 /// </summary>
-public class OkxSocketApiOptions : WebSocketApiClientOptions
+public class OkxWebSocketApiOptions : WebSocketApiClientOptions
 {
     /// <summary>
     /// Use Demo Trading Service
@@ -18,7 +18,7 @@ public class OkxSocketApiOptions : WebSocketApiClientOptions
     /// <summary>
     /// Constructor
     /// </summary>
-    public OkxSocketApiOptions()
+    public OkxWebSocketApiOptions()
     {
         this.BaseAddress = OkxAddress.Default.WebSocketPublicAddress;
     }

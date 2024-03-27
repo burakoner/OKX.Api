@@ -1,24 +1,4 @@
-﻿using OKX.Api.Account.Clients;
-using OKX.Api.Affiliate.Clients;
-using OKX.Api.AlgoTrading.Clients;
-using OKX.Api.Authentication;
-using OKX.Api.BlockTrading.Clients;
-using OKX.Api.Broker.Clients;
-using OKX.Api.CopyTrading.Clients;
-using OKX.Api.Earn.Clients;
-using OKX.Api.Funding.Clients;
-using OKX.Api.GridTrading.Clients;
-using OKX.Api.Public.Clients;
-using OKX.Api.RecurringBuy.Clients;
-using OKX.Api.Rubik.Clients;
-using OKX.Api.Savings.Clients;
-using OKX.Api.SignalTrading.Clients;
-using OKX.Api.SpreadTrading.Clients;
-using OKX.Api.Staking.Clients;
-using OKX.Api.SubAccount.Clients;
-using OKX.Api.Trade.Clients;
-
-namespace OKX.Api;
+﻿namespace OKX.Api;
 
 /// <summary>
 /// OKX Rest API Client

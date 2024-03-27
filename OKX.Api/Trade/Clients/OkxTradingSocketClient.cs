@@ -10,10 +10,10 @@ namespace OKX.Api.Trade.Clients;
 public class OkxTradingSocketClient
 {
     // Root Client
-    internal OkxSocketApiClient RootClient { get; }
-    internal OkxSocketApiOptions Options { get { return RootClient.Options; } }
+    internal OKXWebSocketApiClient RootClient { get; }
+    internal OkxWebSocketApiOptions Options { get { return RootClient.Options; } }
 
-    internal OkxTradingSocketClient(OkxSocketApiClient root)
+    internal OkxTradingSocketClient(OKXWebSocketApiClient root)
     {
         RootClient = root;
     }

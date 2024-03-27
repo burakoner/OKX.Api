@@ -6,9 +6,9 @@
 public class OkxRecurringBuySocketClient
 {
     // Root Client
-    internal OkxSocketApiClient RootClient { get; }
+    internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OkxRecurringBuySocketClient(OkxSocketApiClient root)
+    internal OkxRecurringBuySocketClient(OKXWebSocketApiClient root)
     {
         RootClient = root;
     }

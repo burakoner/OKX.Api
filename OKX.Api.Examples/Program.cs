@@ -278,10 +278,90 @@ internal class Program
 
         #region WebSocket Api Client Examples
         // OKX Socket Client
-        var ws = new OkxSocketApiClient();
+        var ws = new OKXWebSocketApiClient();
         ws.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
-        // TradingAccount Updates (Private)
+        // Subscription
+        var subscription = await ws.Public.SubscribeToTickersAsync((data) =>
+           {
+               // ... Your logic here
+               Console.WriteLine($"Ticker {data.InstrumentId} Ask:{data.AskPrice} Bid:{data.BidPrice}");
+           }, "BTC-USDT");
+
+        // UnSubscription
+        _ = ws.UnsubscribeAsync(subscription.Data);
+
+        // Public Updates --------------------------------------------------------------------------------
+        await ws.Public.SubscribeToInstrumentsAsync((data) =>
+        {
+            // ... Your logic here
+        }, OkxInstrumentType.Spot);
+        await ws.Public.SubscribeToOpenInterestsAsync((data) =>
+        {
+            // ... Your logic here
+        }, "BTC-USDT");
+        await ws.Public.SubscribeToFundingRatesAsync((data) =>
+        {
+            // ... Your logic here
+        }, "BTC-USDT");
+        await ws.Public.SubscribeToPriceLimitAsync((data) =>
+        {
+            // ... Your logic here
+        }, "BTC-USDT");
+        await ws.Public.SubscribeToOptionSummaryAsync((data) =>
+        {
+            // ... Your logic here
+        }, "USD");
+        await ws.Public.SubscribeToEstimatedPriceAsync((data) =>
+        {
+            // ... Your logic here
+        }, OkxInstrumentType.Option);
+        await ws.Public.SubscribeToMarkPriceAsync((data) =>
+        {
+            // ... Your logic here
+        }, "BTC-USDT");
+        await ws.Public.SubscribeToIndexTickersAsync((data) =>
+        {
+            // ... Your logic here
+        }, "BTC-USDT");
+        await ws.Public.SubscribeToMarkPriceCandlesticksAsync((data) =>
+        {
+            // ... Your logic here
+        }, "BTC-USDT", OkxPeriod.FiveMinutes);
+        await ws.Public.SubscribeToIndexCandlesticksAsync((data) =>
+        {
+            // ... Your logic here
+        }, "BTC-USDT", OkxPeriod.FiveMinutes);
+
+        var pairs = new List<string> { "BTC-USDT", "LTC-USDT", "ETH-USDT", "XRP-USDT", "BCH-USDT", "EOS-USDT", "OKB-USDT", "ETC-USDT", "TRX-USDT", "BSV-USDT", "DASH-USDT", "NEO-USDT", "QTUM-USDT", "XLM-USDT", "ADA-USDT", "AE-USDT", "BLOC-USDT", "EGT-USDT", "IOTA-USDT", "SC-USDT", "WXT-USDT", "ZEC-USDT", };
+        foreach (var pair in pairs)
+        {
+            await ws.Public.SubscribeToTickersAsync((data) =>
+            {
+                // ... Your logic here
+                Console.WriteLine($"Ticker {data.InstrumentId} Ask:{data.AskPrice} Bid:{data.BidPrice}");
+            }, pair);
+        }
+        await ws.Public.SubscribeToCandlesticksAsync((data) =>
+        {
+            // ... Your logic here
+        }, "BTC-USDT", OkxPeriod.FiveMinutes);
+        await ws.Public.SubscribeToTradesAsync((data) =>
+        {
+            // ... Your logic here
+        }, "BTC-USDT");
+        await ws.Public.SubscribeToOrderBookAsync((data) =>
+        {
+            // ... Your logic here
+        }, "BTC-USDT", OkxOrderBookType.OrderBook);
+        await ws.Public.SubscribeToSystemUpgradeStatusAsync((data) =>
+        {
+            // ... Your logic here
+        });
+        // End of Public Updates -------------------------------------------------------------------
+
+
+        // TradingAccount Updates
         await ws.Account.SubscribeToAccountUpdatesAsync((data) =>
         {
             // ... Your logic here
@@ -294,14 +374,33 @@ internal class Program
         {
             // ... Your logic here
         });
+        await ws.Account.SubscribeToPositionRiskUpdatesAsync(OkxInstrumentType.Futures, (data) =>
+        {
+            // ... Your logic here
+        });
+        await ws.Account.SubscribeToAccountGreeksUpdatesAsync((data) =>
+        {
+            // ... Your logic here
+        });
+        // End of TradingAccount Updates -----------------------------------------------------------
 
-        // Trade Updates (Private)
+        // TODO: FundingAccount Updates
+
+        // Trade Updates (Private) -----------------------------------------------------------------
         await ws.Trading.SubscribeToOrderUpdatesAsync((data) =>
         {
             // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
-        // AlgoTrading Updates (Private)
+        await ws.Trading.PlaceOrderAsync(new Trade.Models.OkxOrderPlaceRequest());
+        await ws.Trading.PlaceOrdersAsync(new List<Trade.Models.OkxOrderPlaceRequest>());
+        await ws.Trading.CancelOrderAsync(new Trade.Models.OkxOrderCancelRequest());
+        await ws.Trading.CancelOrdersAsync(new List<Trade.Models.OkxOrderCancelRequest>());
+        await ws.Trading.AmendOrderAsync(new Trade.Models.OkxOrderAmendRequest());
+        await ws.Trading.AmendOrdersAsync(new List<Trade.Models.OkxOrderAmendRequest>());
+        // End of Trade Updates (Private) ----------------------------------------------------------
+
+        // AlgoTrading Updates (Private) -----------------------------------------------------------
         await ws.AlgoTrading.SubscribeToAlgoOrderUpdatesAsync((data) =>
         {
             // ... Your logic here
@@ -310,133 +409,13 @@ internal class Program
         {
             // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
+        // End of AlgoTrading Updates (Private) ----------------------------------------------------
 
-        // MarketData Updates (Public)
-        var sample_pairs = new List<string> { "BTC-USDT", "LTC-USDT", "ETH-USDT", "XRP-USDT", "BCH-USDT", "EOS-USDT", "OKB-USDT", "ETC-USDT", "TRX-USDT", "BSV-USDT", "DASH-USDT", "NEO-USDT", "QTUM-USDT", "XLM-USDT", "ADA-USDT", "AE-USDT", "BLOC-USDT", "EGT-USDT", "IOTA-USDT", "SC-USDT", "WXT-USDT", "ZEC-USDT", };
-        var subs = new List<WebSocketUpdateSubscription>();
-        foreach (var pair in sample_pairs)
-        {
-            var subscription = await ws.Public.SubscribeToTickersAsync((data) =>
-            {
-                // ... Your logic here
-                Console.WriteLine($"Ticker {data.InstrumentId} Ask:{data.AskPrice} Bid:{data.BidPrice}");
-            }, pair);
-            subs.Add(subscription.Data);
-        }
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToCandlesticksAsync((data) =>
-            {
-                // ... Your logic here
-            }, pair, OkxPeriod.FiveMinutes);
-        }
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToTradesAsync((data) =>
-            {
-                // ... Your logic here
-            }, pair);
-        }
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToOrderBookAsync((data) =>
-            {
-                if (data.Asks is not null && data.Asks.Count() > 0 && data.Bids is not null && data.Bids.Count() > 0)
-                {
-                    // ... Your logic here
-                }
-            }, pair, OkxOrderBookType.OrderBook);
-        }
-
-
-
-        // Unsubscribe
-        foreach (var sub in subs)
-        {
-            _ = ws.UnsubscribeAsync(sub);
-        }
-
+        // TODO: GridTrading Updates (Private)
+        // TODO: RecurringBuy Updates (Private)
+        // TODO: CopyTrading Updates (Private)
         // TODO: BlockTrading Updates (Private)
         // TODO: SpreadTrading Updates (Private)
-
-        // PublicData Updates (Public)
-        await ws.Public.SubscribeToInstrumentsAsync((data) =>
-        {
-            // ... Your logic here
-            Console.WriteLine($"Instrument {data.InstrumentId} BaseCurrency:{data.BaseCurrency}");
-        }, OkxInstrumentType.Spot);
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToOpenInterestsAsync((data) =>
-            {
-                // ... Your logic here
-            }, pair);
-        }
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToFundingRatesAsync((data) =>
-            {
-                // ... Your logic here
-            }, pair);
-        }
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToPriceLimitAsync((data) =>
-            {
-                // ... Your logic here
-            }, pair);
-        }
-        await ws.Public.SubscribeToOptionSummaryAsync((data) =>
-        {
-            // ... Your logic here
-        }, "USD");
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToEstimatedPriceAsync((data) =>
-            {
-                // ... Your logic here
-            }, OkxInstrumentType.Option);
-        }
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToMarkPriceAsync((data) =>
-            {
-                // ... Your logic here
-            }, pair);
-        }
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToIndexTickersAsync((data) =>
-            {
-                // ... Your logic here
-            }, pair);
-        }
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToMarkPriceCandlesticksAsync((data) =>
-            {
-                // ... Your logic here
-            }, pair, OkxPeriod.FiveMinutes);
-        }
-        foreach (var pair in sample_pairs)
-        {
-            await ws.Public.SubscribeToIndexCandlesticksAsync((data) =>
-            {
-                // ... Your logic here
-            }, pair, OkxPeriod.FiveMinutes);
-        }
-
-        // TODO: TradingStatistics Updates (Private)
-        // TODO: FundingAccount Updates (Private)
-        // TODO: SubAccount Updates (Private)
-        // TODO: FinancialProduct.Earn (Private)
-        // TODO: FinancialProduct.Savings (Private)
-
-        // Status Updates (Public)
-        await ws.Public.SubscribeToSystemUpgradeStatusAsync((data) =>
-        {
-            // ... Your logic here
-        });
         #endregion
 
     }

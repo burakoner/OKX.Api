@@ -6,9 +6,9 @@
 public class OkxBlockTradingSocketClient
 {
     // Root Client
-    internal OkxSocketApiClient RootClient { get; }
+    internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OkxBlockTradingSocketClient(OkxSocketApiClient root)
+    internal OkxBlockTradingSocketClient(OKXWebSocketApiClient root)
     {
         RootClient = root;
     }

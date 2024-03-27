@@ -6,9 +6,9 @@
 public class OkxFundingSocketClient
 {
     // Root Client
-    internal OkxSocketApiClient RootClient { get; }
+    internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OkxFundingSocketClient(OkxSocketApiClient root)
+    internal OkxFundingSocketClient(OKXWebSocketApiClient root)
     {
         RootClient = root;
     }

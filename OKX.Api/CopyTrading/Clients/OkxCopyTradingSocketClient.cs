@@ -6,11 +6,13 @@
 public class OkxCopyTradingSocketClient
 {
     // Root Client
-    internal OkxSocketApiClient RootClient { get; }
+    internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OkxCopyTradingSocketClient(OkxSocketApiClient root)
+    internal OkxCopyTradingSocketClient(OKXWebSocketApiClient root)
     {
         RootClient = root;
     }
 
+    // WS / Copy trading notification channel
+    // WS / Lead trading notification channel
 }

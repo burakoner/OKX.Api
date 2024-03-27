@@ -11,9 +11,9 @@ namespace OKX.Api.Public.Clients;
 public class OkxPublicSocketClient
 {
     // Root Client
-    internal OkxSocketApiClient RootClient { get; }
+    internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OkxPublicSocketClient(OkxSocketApiClient root)
+    internal OkxPublicSocketClient(OKXWebSocketApiClient root)
     {
         RootClient = root;
     }

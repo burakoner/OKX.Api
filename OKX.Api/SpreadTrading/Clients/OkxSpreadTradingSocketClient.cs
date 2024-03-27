@@ -6,9 +6,9 @@
 public class OkxSpreadTradingSocketClient
 {
     // Root Client
-    internal OkxSocketApiClient RootClient { get; }
+    internal OKXWebSocketApiClient RootClient { get; }
 
-    internal OkxSpreadTradingSocketClient(OkxSocketApiClient root)
+    internal OkxSpreadTradingSocketClient(OKXWebSocketApiClient root)
     {
         RootClient = root;
     }
