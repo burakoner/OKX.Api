@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>2.0.0</Version>
-		<FileVersion>2.0.0</FileVersion>
-		<PackageVersion>2.0.0</PackageVersion>
-		<AssemblyVersion>2.0.0</AssemblyVersion>
+		<Version>2.0.1</Version>
+		<FileVersion>2.0.1</FileVersion>
+		<PackageVersion>2.0.1</PackageVersion>
+		<AssemblyVersion>2.0.1</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -19,10 +19,10 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
-			Version 2.0.0 - 22 Mar 2024
+			Version 2.0.1 - 22 Mar 2024
 			* Changed main structure, edited tons of models, refactored tons of codes
 			* Changed IEnumerable return types to List
-			* Merged pull request [https://github.com/burakoner/OKX.Api/pull/58](https://github.com/burakoner/OKX.Api/pull/58)
+			* Merged pull request https://github.com/burakoner/OKX.Api/pull/58
 			* Updated dependencies
 			* Updated README file. Please refer to code snippets for samples
 			
@@ -167,7 +167,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="../README.md" Pack="true" PackagePath=""/>
+		<None Include="../README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 	<ItemGroup>
