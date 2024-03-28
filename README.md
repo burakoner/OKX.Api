@@ -180,7 +180,7 @@ var trade_05 = await api.Trading.AmendOrderAsync("BTC-USDT");
 var trade_06 = await api.Trading.AmendOrdersAsync([]);
 var trade_07 = await api.Trading.ClosePositionAsync("BTC-USDT", OkxMarginMode.Isolated);
 var trade_08 = await api.Trading.GetOrderAsync("BTC-USDT");
-var trade_09 = await api.Trading.GetOrdersAsync();
+var trade_09 = await api.Trading.GetOpenOrdersAsync();
 var trade_10 = await api.Trading.GetOrderHistoryAsync(OkxInstrumentType.Swap);
 var trade_11 = await api.Trading.GetOrderArchiveAsync(OkxInstrumentType.Futures);
 var trade_12 = await api.Trading.GetTradesAsync();
@@ -194,7 +194,7 @@ var algo_02 = await api.AlgoTrading.CancelOrderAsync([]);
 var algo_03 = await api.AlgoTrading.AmendOrderAsync("BTC-USDT");
 var algo_04 = await api.AlgoTrading.CancelAdvanceAsync([]);
 var algo_05 = await api.AlgoTrading.GetOrderAsync(algoOrderId: 1_000_001);
-var algo_06 = await api.AlgoTrading.GetOrdersAsync(OkxAlgoOrderType.OCO);
+var algo_06 = await api.AlgoTrading.GetOpenOrdersAsync(OkxAlgoOrderType.OCO);
 var algo_07 = await api.AlgoTrading.GetOrderHistoryAsync(OkxAlgoOrderType.Conditional);
 
 // GridTrading Methods (Signed)
@@ -267,7 +267,14 @@ var grid_19 = await api.GridTrading.RsiBackTestingAsync("BTC-USDT", OkxGridAlgoT
 
 // TODO: SignalTrading Methods (Signed)
 
-// TODO: RecurringBuy Methods (Signed)
+// RecurringBuy Methods (Signed)
+var recurring_01 = await api.RecurringBuy.PlaceOrderAsync("Strategy Name", new List<OkxRecurringItem>(), OkxRecurringBuyPeriod.Monthly, 1, null, 1, "UTC", 1000.0m, "USDT", OkxTradeMode.Cross);
+var recurring_02 = await api.RecurringBuy.AmendOrderAsync(1_000_001, "Strategy Name");
+var recurring_03 = await api.RecurringBuy.StopOrderAsync(1_000_001);
+var recurring_04 = await api.RecurringBuy.GetOpenOrdersAsync();
+var recurring_05 = await api.RecurringBuy.GetOrderHistoryAsync();
+var recurring_06 = await api.RecurringBuy.GetOrderAsync(algoOrderId: 1_000_001);
+var recurring_07 = await api.RecurringBuy.GetSubOrdersAsync(algoOrderId: 1_000_001);
 
 // CopyTrading Methods (Signed)
 var copy_01 = await api.CopyTrading.GetLeadingPositionsAsync();
@@ -449,7 +456,14 @@ await ws.AlgoTrading.SubscribeToAdvanceAlgoOrderUpdatesAsync((data) =>
 // End of AlgoTrading Updates (Private) ----------------------------------------------------
 
 // TODO: GridTrading Updates (Private)
-// TODO: RecurringBuy Updates (Private)
+
+// RecurringBuy Updates (Private) ----------------------------------------------------------
+await ws.RecurringBuy.SubscribeToOrderUpdatesAsync((data) =>
+{
+    // ... Your logic here
+}, OkxInstrumentType.Spot);
+// End of RecurringBuy Updates (Private) ---------------------------------------------------
+
 // TODO: CopyTrading Updates (Private)
 // TODO: BlockTrading Updates (Private)
 // TODO: SpreadTrading Updates (Private)

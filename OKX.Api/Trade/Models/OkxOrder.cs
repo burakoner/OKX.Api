@@ -51,12 +51,6 @@ public class OkxOrder
     public string ClientOrderId { get; set; }
 
     /// <summary>
-    /// Order tag. Used for Broker Id
-    /// </summary>
-    [JsonProperty("tag")]
-    internal string Tag { get; set; }
-
-    /// <summary>
     /// Price
     /// </summary>
     [JsonProperty("px")]

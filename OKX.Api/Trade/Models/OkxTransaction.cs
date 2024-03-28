@@ -58,12 +58,6 @@ public class OkxTransaction
     public long? BillId { get; set; }
 
     /// <summary>
-    /// Order tag, which is always "sys:blocktrade" for block trading.
-    /// </summary>
-    [JsonProperty("tag")]
-    internal string Tag { get; set; }
-
-    /// <summary>
     /// The price at which the last fill occurred.
     /// </summary>
     [JsonProperty("fillPx")]

@@ -3,7 +3,6 @@ using OKX.Api.Account.Enums;
 using OKX.Api.Account.Models;
 using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
-using OKX.Api.Common.Clients;
 using OKX.Api.Common.Converters;
 using OKX.Api.Common.Enums;
 using OKX.Api.Public.Converters;
@@ -339,7 +338,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxOrder>>> GetOrdersAsync(
+    public Task<RestCallResult<List<OkxOrder>>> GetOpenOrdersAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         string instFamily = null,

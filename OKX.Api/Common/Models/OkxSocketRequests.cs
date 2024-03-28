@@ -78,6 +78,10 @@ internal class OkxSocketRequestArgument
 
     [JsonProperty("instType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType? InstrumentType { get; set; }
+
+    [JsonProperty("algoId", NullValueHandling = NullValueHandling.Ignore)]
+    public string AlgoOrderId { get; set; }
+
 }
 
 public class OkxSocketSymbolRequest

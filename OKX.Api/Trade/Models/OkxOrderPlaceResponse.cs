@@ -18,10 +18,4 @@ public class OkxOrderPlaceResponse : OkxRestApiResponseModel
     /// </summary>
     [JsonProperty("clOrdId")]
     public string ClientOrderId { get; set; }
-
-    /// <summary>
-    /// Order tag. Used for Broker Id
-    /// </summary>
-    [JsonProperty("tag")]
-    internal string Tag { get; set; }
 }

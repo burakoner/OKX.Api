@@ -94,10 +94,4 @@ public class OkxGridAlgoSubOrder
 
     [JsonProperty("lever")]
     public decimal? Leverage { get; set; }
-
-    /// <summary>
-    /// Order tag. Used for Broker Id
-    /// </summary>
-    [JsonProperty("tag")]
-    internal string Tag { get; set; }
 }

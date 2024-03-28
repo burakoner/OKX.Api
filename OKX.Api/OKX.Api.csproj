@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>2.0.1</Version>
-		<FileVersion>2.0.1</FileVersion>
-		<PackageVersion>2.0.1</PackageVersion>
-		<AssemblyVersion>2.0.1</AssemblyVersion>
+		<Version>2.0.2</Version>
+		<FileVersion>2.0.2</FileVersion>
+		<PackageVersion>2.0.2</PackageVersion>
+		<AssemblyVersion>2.0.2</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -19,6 +19,10 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
+			Version 2.0.2 - 28 Mar 2024
+			* ApiSharp updated to 2.2.1
+			* Added Recurring Buy Section
+			
 			Version 2.0.1 - 22 Mar 2024
 			* Changed main structure, edited tons of models, refactored tons of codes
 			* Changed IEnumerable return types to List
@@ -167,7 +171,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="../README.md" Pack="true" PackagePath="\"/>
+		<None Include="../README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -193,16 +197,13 @@
 	  <Folder Include="SpreadTrading\Models\" />
 	  <Folder Include="BlockTrading\Converters\" />
 	  <Folder Include="BlockTrading\Enums\" />
-	  <Folder Include="RecurringBuy\Converters\" />
-	  <Folder Include="RecurringBuy\Enums\" />
-	  <Folder Include="RecurringBuy\Models\" />
 	  <Folder Include="Staking\Converters\" />
 	  <Folder Include="Staking\Enums\" />
 	  <Folder Include="Staking\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="ApiSharp" Version="2.2.0" />
+	  <PackageReference Include="ApiSharp" Version="2.2.1" />
 	</ItemGroup>
 
 </Project>

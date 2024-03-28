@@ -167,12 +167,6 @@ public class OkxBill
     [JsonProperty("interest")]
     public decimal? Interest { get; set; }
 
-    // <summary>
-    // Order tag
-    // </summary>
-    //[JsonProperty("tag")]
-    //public string OrderTag { get; set; }
-
     /// <summary>
     /// Last filled time
     /// </summary>

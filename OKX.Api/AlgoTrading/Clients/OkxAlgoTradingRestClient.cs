@@ -310,7 +310,7 @@ public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxAlgoOrder>>> GetOrdersAsync(
+    public Task<RestCallResult<List<OkxAlgoOrder>>> GetOpenOrdersAsync(
         OkxAlgoOrderType algoOrderType,
         long? algoId = null,
         string algoClientOrderId = null,

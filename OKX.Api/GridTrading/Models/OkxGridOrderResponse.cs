@@ -16,10 +16,4 @@ public class OkxGridOrderResponse
 
     [JsonProperty("sMsg")]
     public string ErrorMessage { get; set; }
-
-    /// <summary>
-    /// Order tag. Used for Broker Id
-    /// </summary>
-    [JsonProperty("tag")]
-    internal string Tag { get; set; }
 }

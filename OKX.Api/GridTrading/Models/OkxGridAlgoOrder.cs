@@ -261,12 +261,6 @@ public class OkxGridAlgoOrder
     public decimal? AvailableEquity { get; set; }
 
     /// <summary>
-    /// Order tag. Used for Broker Id
-    /// </summary>
-    [JsonProperty("tag")]
-    internal string Tag { get; set; }
-
-    /// <summary>
     /// Profit sharing ratio
     /// Value range [0, 0.3]
     /// If it is a normal order(neither copy order nor lead order), this field returns ""
