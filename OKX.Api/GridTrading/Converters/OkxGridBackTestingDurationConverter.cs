@@ -2,7 +2,7 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-internal class OkxGridBackTestingDurationConverter(bool quotes) : BaseConverter<OkxGridBackTestingDuration>(quotes)
+public class OkxGridBackTestingDurationConverter(bool quotes) : BaseConverter<OkxGridBackTestingDuration>(quotes)
 {
     public OkxGridBackTestingDurationConverter() : this(true) { }
 

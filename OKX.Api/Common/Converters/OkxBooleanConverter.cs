@@ -1,6 +1,6 @@
 ﻿namespace OKX.Api.Common.Converters;
 
-internal class OkxBooleanConverter(bool quotes) : BaseConverter<bool>(quotes)
+public class OkxBooleanConverter(bool quotes) : BaseConverter<bool>(quotes)
 {
     public OkxBooleanConverter() : this(true) { }
 

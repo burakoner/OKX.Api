@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Trade.Converters;
 
-internal class OkxOrderTypeConverter(bool quotes) : BaseConverter<OkxOrderType>(quotes)
+public class OkxOrderTypeConverter(bool quotes) : BaseConverter<OkxOrderType>(quotes)
 {
     public OkxOrderTypeConverter() : this(true) { }
 

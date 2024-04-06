@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Funding.Converters;
 
-internal class OkxWithdrawalTypeConverter(bool quotes) : BaseConverter<OkxWithdrawalType>(quotes)
+public class OkxWithdrawalTypeConverter(bool quotes) : BaseConverter<OkxWithdrawalType>(quotes)
 {
     public OkxWithdrawalTypeConverter() : this(true) { }
 

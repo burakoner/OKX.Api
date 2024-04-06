@@ -10,15 +10,13 @@ public abstract class OkxBaseRestClient : RestApiClient
 {
     // Internal
     internal ILogger Logger { get => _logger; }
-    internal TimeSyncState TimeSyncState = new("OKX RestApi");
-
-    // Root Client
-    internal OkxRestApiClient RootClient { get; }
-    internal OkxRestApiOptions Options { get { return RootClient.Options; } }
+    internal OkxRestApiClient Root { get; }
+    internal OkxRestApiOptions Options { get { return Root.Options; } }
+    internal TimeSyncState TimeSyncState { get; } = new("OKX RestApi");
 
     internal OkxBaseRestClient(OkxRestApiClient root) : base(root.Logger, root.Options)
     {
-        RootClient = root;
+        Root = root;
         ManualParseError = true;
 
         RequestBodyFormat = RestRequestBodyFormat.Json;
@@ -64,7 +62,7 @@ public abstract class OkxBaseRestClient : RestApiClient
 
     /// <inheritdoc />
     protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync()
-        => RootClient.Public.GetServerTimeAsync();
+        => Root.Public.GetServerTimeAsync();
 
     /// <inheritdoc />
     protected override TimeSyncInfo GetTimeSyncInfo()

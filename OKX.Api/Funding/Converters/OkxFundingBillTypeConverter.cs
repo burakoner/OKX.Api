@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Funding.Converters;
 
-internal class OkxFundingBillTypeConverter(bool quotes) : BaseConverter<OkxFundingBillType>(quotes)
+public class OkxFundingBillTypeConverter(bool quotes) : BaseConverter<OkxFundingBillType>(quotes)
 {
     public OkxFundingBillTypeConverter() : this(true) { }
 

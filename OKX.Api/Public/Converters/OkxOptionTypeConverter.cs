@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Public.Converters;
 
-internal class OkxOptionTypeConverter(bool quotes) : BaseConverter<OkxOptionType>(quotes)
+public class OkxOptionTypeConverter(bool quotes) : BaseConverter<OkxOptionType>(quotes)
 {
     public OkxOptionTypeConverter() : this(true) { }
 

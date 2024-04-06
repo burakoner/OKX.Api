@@ -471,7 +471,14 @@ await ws.RecurringBuy.SubscribeToOrderUpdatesAsync((data) =>
 
 ## Release Notes
 
-* Version 2.0.0 - 22 Mar 2024
+* Version 2.0.3 - 06 Mar 2024
+  * Fixed inheritance issue https://github.com/burakoner/OKX.Api/issues/60                                                                                                                                               
+
+* Version 2.0.2 - 28 Mar 2024
+  * ApiSharp updated to 2.2.1
+  * Added Recurring Buy Section
+
+* Version 2.0.1 - 22 Mar 2024
   * Changed main structure, edited tons of models, refactored tons of codes
   * Changed IEnumerable return types to List
   * Merged pull request [https://github.com/burakoner/OKX.Api/pull/58](https://github.com/burakoner/OKX.Api/pull/58)

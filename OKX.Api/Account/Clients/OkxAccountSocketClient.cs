@@ -9,8 +9,8 @@ namespace OKX.Api.Account.Clients;
 /// </summary>
 public class OkxAccountSocketClient(OKXWebSocketApiClient root)
 {
-    // Root Client
-    internal OKXWebSocketApiClient RootClient { get; } = root;
+    // Internal
+    internal OKXWebSocketApiClient Root { get; } = root;
 
     /// <summary>
     /// Retrieve account information. Data will be pushed when triggered by events such as placing/canceling order, and will also be pushed in regular interval according to subscription granularity.
@@ -30,7 +30,7 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
         {
             Channel = "account"
         });
-        return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
             InstrumentFamily = symbol.InstrumentFamily,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
         {
             Channel = "balance_and_position"
         });
-        return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -117,7 +117,7 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
             Channel = "liquidation-warning",
             InstrumentType = instrumentType
         });
-        return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -139,6 +139,6 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
         {
             Channel = "account-greeks",
         });
-        return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 }

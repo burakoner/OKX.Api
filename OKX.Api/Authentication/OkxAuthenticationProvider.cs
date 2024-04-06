@@ -1,6 +1,6 @@
 ﻿namespace OKX.Api.Authentication;
 
-internal class OkxAuthenticationProvider : AuthenticationProvider
+public class OkxAuthenticationProvider : AuthenticationProvider
 {
     private readonly HMACSHA256 encryptor;
 

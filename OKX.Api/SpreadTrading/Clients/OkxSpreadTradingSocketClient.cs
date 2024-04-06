@@ -3,15 +3,10 @@
 /// <summary>
 /// OKX WebSocket Api Spread Trading Client
 /// </summary>
-public class OkxSpreadTradingSocketClient
+public class OkxSpreadTradingSocketClient(OKXWebSocketApiClient root)
 {
-    // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
-
-    internal OkxSpreadTradingSocketClient(OKXWebSocketApiClient root)
-    {
-        RootClient = root;
-    }
+    // Internal
+    internal OKXWebSocketApiClient Root { get; } = root;
 
     // TODO: Order channel
     // TODO: Trades channel

@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-internal class OkxRiskOffsetTypeConverter(bool quotes) : BaseConverter<OkxRiskOffsetType>(quotes)
+public class OkxRiskOffsetTypeConverter(bool quotes) : BaseConverter<OkxRiskOffsetType>(quotes)
 {
     public OkxRiskOffsetTypeConverter() : this(true) { }
 

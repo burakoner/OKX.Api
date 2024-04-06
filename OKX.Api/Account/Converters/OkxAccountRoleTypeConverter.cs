@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxAccountRoleTypeConverter(bool quotes) : BaseConverter<OkxAccountRoleType>(quotes)
+public class OkxAccountRoleTypeConverter(bool quotes) : BaseConverter<OkxAccountRoleType>(quotes)
 {
     public OkxAccountRoleTypeConverter() : this(true) { }
 

@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-internal class OkxInstrumentTypeConverter(bool quotes) : BaseConverter<OkxInstrumentType>(quotes)
+public class OkxInstrumentTypeConverter(bool quotes) : BaseConverter<OkxInstrumentType>(quotes)
 {
     public OkxInstrumentTypeConverter() : this(true) { }
 

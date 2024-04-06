@@ -1,5 +1,4 @@
-﻿using OKX.Api.Authentication;
-using OKX.Api.Common.Models;
+﻿using OKX.Api.Common.Models;
 using OKX.Api.Trade.Models;
 
 namespace OKX.Api.Common.Clients;
@@ -12,22 +11,22 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     /// <summary>
     /// Logger
     /// </summary>
-    internal ILogger Logger { get => _logger; }
+    public ILogger Logger { get => _logger; }
 
     /// <summary>
     /// Client Options
     /// </summary>
-    internal OkxWebSocketApiOptions Options { get; }
+    public OkxWebSocketApiOptions Options { get; }
 
     /// <summary>
     /// If Websocket is authendicated
     /// </summary>
-    internal bool IsAuthendicated { get; private set; }
+    public bool IsAuthendicated { get; private set; }
 
     /// <summary>
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
-    internal OkxBaseSocketClient() : this(null, new OkxWebSocketApiOptions())
+    public OkxBaseSocketClient() : this(null, new OkxWebSocketApiOptions())
     {
     }
 
@@ -35,7 +34,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     /// OKXWebSocketBaseClient Constructor
     /// </summary>
     /// <param name="options">Options</param>
-    internal OkxBaseSocketClient(OkxWebSocketApiOptions options) : this(null, options)
+    public OkxBaseSocketClient(OkxWebSocketApiOptions options) : this(null, options)
     {
     }
 
@@ -44,7 +43,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     /// </summary>
     /// <param name="logger">ILogger</param>
     /// <param name="options">Options</param>
-    internal OkxBaseSocketClient(ILogger logger, OkxWebSocketApiOptions options) : base(logger, options)
+    public OkxBaseSocketClient(ILogger logger, OkxWebSocketApiOptions options) : base(logger, options)
     {
         RateLimitPerConnectionPerSecond = 4;
         IgnoreHandlingList = ["pong"];

@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Trade.Converters;
 
-internal class OkxPositionModeConverter(bool quotes) : BaseConverter<OkxPositionMode>(quotes)
+public class OkxPositionModeConverter(bool quotes) : BaseConverter<OkxPositionMode>(quotes)
 {
     public OkxPositionModeConverter() : this(true) { }
 

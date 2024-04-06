@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxApiKeyPermissionConverter(bool quotes) : BaseConverter<OkxApiKeyPermission>(quotes)
+public class OkxApiKeyPermissionConverter(bool quotes) : BaseConverter<OkxApiKeyPermission>(quotes)
 {
     public OkxApiKeyPermissionConverter() : this(true) { }
 

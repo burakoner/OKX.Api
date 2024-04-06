@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Public.Converters;
 
-internal class OkxInsuranceTypeConverter(bool quotes) : BaseConverter<OkxInsuranceType>(quotes)
+public class OkxInsuranceTypeConverter(bool quotes) : BaseConverter<OkxInsuranceType>(quotes)
 {
     public OkxInsuranceTypeConverter() : this(true) { }
 

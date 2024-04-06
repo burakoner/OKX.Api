@@ -7,16 +7,11 @@ namespace OKX.Api.RecurringBuy.Clients;
 /// <summary>
 /// OKX WebSocket Api RecurringBuy Client
 /// </summary>
-public class OkxRecurringBuySocketClient
+public class OkxRecurringBuySocketClient(OKXWebSocketApiClient root)
 {
-    // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
-    internal OkxWebSocketApiOptions Options { get { return RootClient.Options; } }
-
-    internal OkxRecurringBuySocketClient(OKXWebSocketApiClient root)
-    {
-        RootClient = root;
-    }
+    // Internal
+    internal OKXWebSocketApiClient Root { get; } = root;
+    internal OkxWebSocketApiOptions Options { get { return Root.Options; } }
 
     /// <summary>
     /// Retrieve recurring buy orders. 
@@ -48,6 +43,6 @@ public class OkxRecurringBuySocketClient
         if(algoOrderId.HasValue)args.AlgoOrderId = algoOrderId.ToOkxString();
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, args);
 
-        return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 }

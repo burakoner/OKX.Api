@@ -7,15 +7,10 @@ namespace OKX.Api.AlgoTrading.Clients;
 /// <summary>
 /// OKX WebSocket Api Algo Trading Client
 /// </summary>
-public class OkxAlgoTradingSocketClient
+public class OkxAlgoTradingSocketClient(OKXWebSocketApiClient root)
 {
-    // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
-
-    internal OkxAlgoTradingSocketClient(OKXWebSocketApiClient root)
-    {
-        RootClient = root;
-    }
+    // Internal
+    internal OKXWebSocketApiClient Root { get; } = root;
 
     /// <summary>
     /// Retrieve algo orders (includes trigger order, oco order, conditional order). Data will not be pushed when first subscribed. Data will only be pushed when triggered by events such as placing/canceling order.
@@ -61,7 +56,7 @@ public class OkxAlgoTradingSocketClient
             InstrumentFamily = symbol.InstrumentFamily,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
 
@@ -109,7 +104,7 @@ public class OkxAlgoTradingSocketClient
             InstrumentFamily = symbol.InstrumentFamily,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
 }

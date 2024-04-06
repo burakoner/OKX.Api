@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Trade.Converters;
 
-internal class OkxDownloadLinkStateConverter(bool quotes) : BaseConverter<OkxDownloadLinkState>(quotes)
+public class OkxDownloadLinkStateConverter(bool quotes) : BaseConverter<OkxDownloadLinkState>(quotes)
 {
     public OkxDownloadLinkStateConverter() : this(true) { }
 

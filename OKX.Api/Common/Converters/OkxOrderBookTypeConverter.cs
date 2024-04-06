@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-internal class OkxOrderBookTypeConverter(bool quotes) : BaseConverter<OkxOrderBookType>(quotes)
+public class OkxOrderBookTypeConverter(bool quotes) : BaseConverter<OkxOrderBookType>(quotes)
 {
     public OkxOrderBookTypeConverter() : this(true) { }
 

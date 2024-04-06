@@ -107,7 +107,7 @@ public class OkxOrderPlaceRequest
     /// Whether to disallow the system from amending the size of the SPOT Market Order.
     /// </summary>
     [JsonProperty("banAmend", NullValueHandling = NullValueHandling.Ignore)]
-    internal bool? BanAmend { get; set; }
+    public bool? BanAmend { get; set; }
 
     /// <summary>
     /// Take-profit trigger price. If you fill in this parameter, you should fill in the take-profit order price as well.

@@ -3,17 +3,17 @@
 /// <summary>
 /// OKX Rest API Client
 /// </summary>
-public sealed class OkxRestApiClient
+public class OkxRestApiClient
 {
     /// <summary>
     /// Logger
     /// </summary>
-    internal ILogger Logger { get; }
+    public ILogger Logger { get; }
 
     /// <summary>
     /// Client Options
     /// </summary>
-    internal OkxRestApiOptions Options { get; }
+    public OkxRestApiOptions Options { get; }
 
     /// <summary>
     /// Public and Market Data Client

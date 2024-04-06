@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Trade.Converters;
 
-internal class OkxQuantityTypeConverter(bool quotes) : BaseConverter<OkxQuantityType>(quotes)
+public class OkxQuantityTypeConverter(bool quotes) : BaseConverter<OkxQuantityType>(quotes)
 {
     public OkxQuantityTypeConverter() : this(true) { }
 

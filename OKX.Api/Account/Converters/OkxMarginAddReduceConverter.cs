@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxMarginAddReduceConverter(bool quotes) : BaseConverter<OkxMarginAddReduce>(quotes)
+public class OkxMarginAddReduceConverter(bool quotes) : BaseConverter<OkxMarginAddReduce>(quotes)
 {
     public OkxMarginAddReduceConverter() : this(true) { }
 

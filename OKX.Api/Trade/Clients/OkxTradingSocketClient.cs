@@ -7,16 +7,11 @@ namespace OKX.Api.Trade.Clients;
 /// <summary>
 /// OKX WebSocket Api Trade Client
 /// </summary>
-public class OkxTradingSocketClient
+public class OkxTradingSocketClient(OKXWebSocketApiClient root)
 {
-    // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
-    internal OkxWebSocketApiOptions Options { get { return RootClient.Options; } }
-
-    internal OkxTradingSocketClient(OKXWebSocketApiClient root)
-    {
-        RootClient = root;
-    }
+    // Internal
+    internal OKXWebSocketApiClient Root { get; } = root;
+    internal OkxWebSocketApiOptions Options { get { return Root.Options; } }
 
     /// <summary>
     /// Retrieve order information. Data will not be pushed when first subscribed. Data will only be pushed when triggered by events such as placing/canceling order.
@@ -62,7 +57,7 @@ public class OkxTradingSocketClient
             InstrumentFamily = symbol.InstrumentFamily,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await RootClient.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -72,9 +67,9 @@ public class OkxTradingSocketClient
     /// <returns></returns>
     public async Task<CallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(OkxOrderPlaceRequest request)
     {
-        request.Tag = Options.BrokerId;
-        var req = new OkxSocketRequest<OkxOrderPlaceRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.Order, [request]);
-        return await RootClient.RootQueryAsync<OkxOrderPlaceResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        request.Tag = OkxConstants.BrokerId;
+        var req = new OkxSocketRequest<OkxOrderPlaceRequest>(Root.RequestId().ToString(), OkxSocketOperation.Order, [request]);
+        return await Root.RootQueryAsync<OkxOrderPlaceResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -84,9 +79,9 @@ public class OkxTradingSocketClient
     /// <returns></returns>
     public async Task<CallResult<IEnumerable<OkxOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxOrderPlaceRequest> requests)
     {
-        foreach (var order in requests) order.Tag = Options.BrokerId;
-        var req = new OkxSocketRequest<OkxOrderPlaceRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.BatchOrders, requests);
-        return await RootClient.RootQueryAsync<IEnumerable<OkxOrderPlaceResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        foreach (var order in requests) order.Tag = OkxConstants.BrokerId;
+        var req = new OkxSocketRequest<OkxOrderPlaceRequest>(Root.RequestId().ToString(), OkxSocketOperation.BatchOrders, requests);
+        return await Root.RootQueryAsync<IEnumerable<OkxOrderPlaceResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -96,8 +91,8 @@ public class OkxTradingSocketClient
     /// <returns></returns>
     public async Task<CallResult<OkxOrderCancelResponse>> CancelOrderAsync(OkxOrderCancelRequest request)
     {
-        var req = new OkxSocketRequest<OkxOrderCancelRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.CancelOrder, [request]);
-        return await RootClient.RootQueryAsync<OkxOrderCancelResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        var req = new OkxSocketRequest<OkxOrderCancelRequest>(Root.RequestId().ToString(), OkxSocketOperation.CancelOrder, [request]);
+        return await Root.RootQueryAsync<OkxOrderCancelResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -107,8 +102,8 @@ public class OkxTradingSocketClient
     /// <returns></returns>
     public async Task<CallResult<IEnumerable<OkxOrderCancelResponse>>> CancelOrdersAsync(IEnumerable<OkxOrderCancelRequest> requests)
     {
-        var req = new OkxSocketRequest<OkxOrderCancelRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, requests);
-        return await RootClient.RootQueryAsync<IEnumerable<OkxOrderCancelResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        var req = new OkxSocketRequest<OkxOrderCancelRequest>(Root.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, requests);
+        return await Root.RootQueryAsync<IEnumerable<OkxOrderCancelResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -118,8 +113,8 @@ public class OkxTradingSocketClient
     /// <returns></returns>
     public async Task<CallResult<OkxOrderAmendResponse>> AmendOrderAsync(OkxOrderAmendRequest request)
     {
-        var req = new OkxSocketRequest<OkxOrderAmendRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.AmendOrder, [request]);
-        return await RootClient.RootQueryAsync<OkxOrderAmendResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        var req = new OkxSocketRequest<OkxOrderAmendRequest>(Root.RequestId().ToString(), OkxSocketOperation.AmendOrder, [request]);
+        return await Root.RootQueryAsync<OkxOrderAmendResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -129,8 +124,8 @@ public class OkxTradingSocketClient
     /// <returns></returns>
     public async Task<CallResult<IEnumerable<OkxOrderAmendResponse>>> AmendOrdersAsync(IEnumerable<OkxOrderAmendRequest> requests)
     {
-        var req = new OkxSocketRequest<OkxOrderAmendRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, requests);
-        return await RootClient.RootQueryAsync<IEnumerable<OkxOrderAmendResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        var req = new OkxSocketRequest<OkxOrderAmendRequest>(Root.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, requests);
+        return await Root.RootQueryAsync<IEnumerable<OkxOrderAmendResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -141,8 +136,8 @@ public class OkxTradingSocketClient
     /// <returns></returns>
     public async Task<CallResult<OkxMassCancelResponse>> MassCancelAsync(OkxMassCancelRequest request)
     {
-        var req = new OkxSocketRequest<OkxMassCancelRequest>(RootClient.RequestId().ToString(), OkxSocketOperation.MassCancel, [request]);
-        return await RootClient.RootQueryAsync<OkxMassCancelResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        var req = new OkxSocketRequest<OkxMassCancelRequest>(Root.RequestId().ToString(), OkxSocketOperation.MassCancel, [request]);
+        return await Root.RootQueryAsync<OkxMassCancelResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
 }

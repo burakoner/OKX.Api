@@ -2,7 +2,7 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-internal class OkxGridAlgoOrderStatusConverter(bool quotes) : BaseConverter<OkxGridAlgoOrderStatus>(quotes)
+public class OkxGridAlgoOrderStatusConverter(bool quotes) : BaseConverter<OkxGridAlgoOrderStatus>(quotes)
 {
     public OkxGridAlgoOrderStatusConverter() : this(true) { }
 

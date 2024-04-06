@@ -3,15 +3,10 @@
 /// <summary>
 /// OKX WebSocket Api Grid Trading Client
 /// </summary>
-public class OkxGridTradingSocketClient
+public class OkxGridTradingSocketClient(OKXWebSocketApiClient root)
 {
-    // Root Client
-    internal OKXWebSocketApiClient RootClient { get; }
-
-    internal OkxGridTradingSocketClient(OKXWebSocketApiClient root)
-    {
-        RootClient = root;
-    }
+    // Internal
+    internal OKXWebSocketApiClient Root { get; } = root;
 
     // TODO: WS / Spot grid algo orders channel
     // TODO: WS / Contract grid algo orders channel

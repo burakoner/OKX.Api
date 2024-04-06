@@ -2,7 +2,7 @@
 
 namespace OKX.Api.SubAccount.Converters;
 
-internal class OkxSubAccountTypeConverter(bool quotes) : BaseConverter<OkxSubAccountType>(quotes)
+public class OkxSubAccountTypeConverter(bool quotes) : BaseConverter<OkxSubAccountType>(quotes)
 {
     public OkxSubAccountTypeConverter() : this(true) { }
 

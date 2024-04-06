@@ -2,7 +2,7 @@
 
 namespace OKX.Api.AlgoTrading.Converters;
 
-internal class OkxAlgoOrderTypeConverter(bool quotes) : BaseConverter<OkxAlgoOrderType>(quotes)
+public class OkxAlgoOrderTypeConverter(bool quotes) : BaseConverter<OkxAlgoOrderType>(quotes)
 {
     public OkxAlgoOrderTypeConverter() : this(true) { }
 

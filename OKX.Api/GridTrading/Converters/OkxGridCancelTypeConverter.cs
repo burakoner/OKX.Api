@@ -2,7 +2,7 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-internal class OkxGridCancelTypeConverter(bool quotes) : BaseConverter<OkxGridCancelType>(quotes)
+public class OkxGridCancelTypeConverter(bool quotes) : BaseConverter<OkxGridCancelType>(quotes)
 {
     public OkxGridCancelTypeConverter() : this(true) { }
 

@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Account.Converters;
 
-internal class OkxBillTypeConverter(bool quotes) : BaseConverter<OkxBillType>(quotes)
+public class OkxBillTypeConverter(bool quotes) : BaseConverter<OkxBillType>(quotes)
 {
     public OkxBillTypeConverter() : this(true) { }
 

@@ -3,7 +3,7 @@ using OKX.Api.Common.Enums;
 
 namespace OKX.Api.Common.Models;
 
-internal class OkxSocketRequest
+public class OkxSocketRequest
 {
     [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
     public string RequestId { get; set; }
@@ -34,7 +34,7 @@ internal class OkxSocketRequest
     }
 }
 
-internal class OkxSocketRequest<T>
+public class OkxSocketRequest<T>
 {
     [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
     public string RequestId { get; set; }
@@ -65,7 +65,7 @@ internal class OkxSocketRequest<T>
     }
 }
 
-internal class OkxSocketRequestArgument
+public class OkxSocketRequestArgument
 {
     [JsonProperty("channel")]
     public string Channel { get; set; }
@@ -99,7 +99,7 @@ public class OkxSocketSymbolRequest
     }
 }
 
-internal class OkxSocketAuthRequest
+public class OkxSocketAuthRequest
 {
     [JsonProperty("op"), JsonConverter(typeof(OkxSocketOperationConverter))]
     public OkxSocketOperation Operation { get; set; }
@@ -124,7 +124,7 @@ internal class OkxSocketAuthRequest
     }
 }
 
-internal class OkxSocketAuthRequestArgument
+public class OkxSocketAuthRequestArgument
 {
     [JsonProperty("apiKey", NullValueHandling = NullValueHandling.Ignore)]
     public string ApiKey { get; set; }
@@ -139,7 +139,7 @@ internal class OkxSocketAuthRequestArgument
     public string Signature { get; set; }
 }
 
-internal enum OkxSocketOperation
+public enum OkxSocketOperation
 {
     Login,
     Subscribe,
@@ -156,7 +156,7 @@ internal enum OkxSocketOperation
     MassCancel,
 }
 
-internal class OkxSocketOperationConverter : BaseConverter<OkxSocketOperation>
+public class OkxSocketOperationConverter : BaseConverter<OkxSocketOperation>
 {
     public OkxSocketOperationConverter() : this(true) { }
     public OkxSocketOperationConverter(bool quotes) : base(quotes) { }

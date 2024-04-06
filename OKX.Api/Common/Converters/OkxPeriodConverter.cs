@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-internal class OkxPeriodConverter(bool quotes) : BaseConverter<OkxPeriod>(quotes)
+public class OkxPeriodConverter(bool quotes) : BaseConverter<OkxPeriod>(quotes)
 {
     public OkxPeriodConverter() : this(true) { }
 
