@@ -1,7 +1,11 @@
-﻿using OKX.Api.AlgoTrading.Converters;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Account.Models;
+using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
 using OKX.Api.Common.Clients;
 using OKX.Api.CopyTrading.Models;
+using System.Diagnostics.Metrics;
 
 namespace OKX.Api.CopyTrading.Clients;
 
@@ -20,6 +24,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     private const string v5CopyTradingProfitSharingDetails = "api/v5/copytrading/profit-sharing-details";
     private const string v5CopyTradingTotalProfitSharing = "api/v5/copytrading/total-profit-sharing";
     private const string v5CopyTradingUnrealizedProfitSharingDetails = "api/v5/copytrading/unrealized-profit-sharing-details";
+    private const string v5CopyTradingBatchLeverageInfo = "api/v5/copytrading/batch-leverage-info";
+    private const string v5CopyTradingBatchSetLeverage = "api/v5/copytrading/batch-set-leverage";
 
     #region Copy Trading API Endpoints
     /// <summary>
@@ -187,6 +193,72 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         return ProcessListRequestAsync<OkxProfitSharingUnrealized>(GetUri(v5CopyTradingUnrealizedProfitSharingDetails), HttpMethod.Get, ct, signed: true);
+    }
+
+
+    /// <summary>
+    /// Get multiple leverages
+    /// Retrieve leverages that belong to the lead trader and you.
+    /// </summary>
+    /// <param name="instrumentIds">ingle instrument ID or multiple instrument IDs (no more than 200) separated with comma</param>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <param name="uniqueCode">Lead trader unique code</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxMultipleLeverage>> GetMultipleLeverages(
+        OkxMarginMode marginMode,
+        string uniqueCode,
+        CancellationToken ct = default,
+        params string[] instrumentIds)
+    {
+        if (string.IsNullOrEmpty(uniqueCode) || uniqueCode.Length != 16)
+            throw new ArgumentException("uniqueCode is required. If you are not a trader, please use OkxRestApiClient.Public.GetInstrumentsAsync method.");
+
+        if (instrumentIds.Length == 0)
+            throw new ArgumentException("instrumentIds is required");
+
+        if (instrumentIds.Length > 200)
+            throw new ArgumentException("Instrument ID maximum of 200 instruments can be selected.");
+
+        var parameters = new Dictionary<string, object> {
+            {"uniqueCode", uniqueCode },
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            {"instId", string.Join(",", instrumentIds) },
+        };
+
+        return ProcessOneRequestAsync<OkxMultipleLeverage>(GetUri(v5CopyTradingBatchLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Set Multiple leverages
+    /// </summary>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="leverage">Leverage</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <param name="instrumentIds">Instrument ID</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxMultipleOperation>> SetMultipleLeverageAsync(
+        OkxMarginMode marginMode,
+        decimal leverage,
+        CancellationToken ct = default,
+        params string[] instrumentIds)
+    {
+        if (leverage < 0.01m)
+            throw new ArgumentException("Invalid Leverage");
+
+        if (instrumentIds.Length == 0)
+            throw new ArgumentException("instrumentIds is required");
+
+        if (instrumentIds.Length > 200)
+            throw new ArgumentException("Instrument ID maximum of 200 instruments can be selected.");
+
+        var parameters = new Dictionary<string, object> {
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            {"lever", leverage.ToOkxString() },
+            {"instId", string.Join(",", instrumentIds)},
+        };
+
+        return ProcessOneRequestAsync<OkxMultipleOperation>(GetUri(v5CopyTradingBatchSetLeverage), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     #endregion
 
