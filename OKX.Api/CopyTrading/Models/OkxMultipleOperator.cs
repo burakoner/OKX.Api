@@ -12,13 +12,13 @@ public class OkxMultipleOperation
     /// Instrument ID setted successfully
     /// </summary>
     [JsonProperty("succInstId")]
-    public string SuccessInstrumentId{ get; set; }
+    public string SuccessInstrumentIds{ get; set; }
 
     /// <summary>
     /// Instrument ID setted unsuccessfully
     /// </summary>
     [JsonProperty("failInstId")]
-    public string FailInstrumentId { get; set; }
+    public string FailInstrumentIds { get; set; }
 
     /// <summary>
     /// Result
