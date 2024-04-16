@@ -223,7 +223,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
             {"instId", instrumentIds },
         };
 
-        return ProcessOneRequestAsync<OkxMultipleLeverage>(GetUri(v5CopyTradingBatchLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxMultipleLeverage>(GetUri(v5CopyTradingBatchLeverageInfo), HttpMethod.Get, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
