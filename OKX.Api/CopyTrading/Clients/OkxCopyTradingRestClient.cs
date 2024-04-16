@@ -218,12 +218,12 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
             throw new ArgumentException("instrumentIds is required");
 
         var parameters = new Dictionary<string, object> {
-            {"uniqueCode", uniqueCode },
             {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            {"uniqueCode", uniqueCode },
             {"instId", instrumentIds },
         };
 
-        return ProcessOneRequestAsync<OkxMultipleLeverage>(GetUri(v5CopyTradingBatchLeverageInfo), HttpMethod.Get, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxMultipleLeverage>(GetUri(v5CopyTradingBatchLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
