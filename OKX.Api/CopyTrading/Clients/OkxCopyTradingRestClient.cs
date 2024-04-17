@@ -212,7 +212,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         if (string.IsNullOrEmpty(uniqueCode) || uniqueCode.Length != 16)
-            throw new ArgumentException("uniqueCode is required. If you are not a trader, please use OkxRestApiClient.Public.GetInstrumentsAsync method.");
+            throw new ArgumentException("uniqueCode is required. If you are not a lead trader, please use OkxRestApiClient.Public.GetInstrumentsAsync method.");
 
         if (string.IsNullOrEmpty(instrumentIds))
             throw new ArgumentException("instrumentIds is required");
