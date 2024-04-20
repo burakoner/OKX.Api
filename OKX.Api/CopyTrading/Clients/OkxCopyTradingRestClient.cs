@@ -1,7 +1,11 @@
-﻿using OKX.Api.AlgoTrading.Converters;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Account.Models;
+using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
 using OKX.Api.Common.Clients;
 using OKX.Api.CopyTrading.Models;
+using System.Diagnostics.Metrics;
 
 namespace OKX.Api.CopyTrading.Clients;
 
@@ -20,6 +24,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     private const string v5CopyTradingProfitSharingDetails = "api/v5/copytrading/profit-sharing-details";
     private const string v5CopyTradingTotalProfitSharing = "api/v5/copytrading/total-profit-sharing";
     private const string v5CopyTradingUnrealizedProfitSharingDetails = "api/v5/copytrading/unrealized-profit-sharing-details";
+    private const string v5CopyTradingBatchLeverageInfo = "api/v5/copytrading/batch-leverage-info";
+    private const string v5CopyTradingBatchSetLeverage = "api/v5/copytrading/batch-set-leverage";
 
     #region Copy Trading API Endpoints
     /// <summary>
@@ -188,6 +194,146 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     {
         return ProcessListRequestAsync<OkxProfitSharingUnrealized>(GetUri(v5CopyTradingUnrealizedProfitSharingDetails), HttpMethod.Get, ct, signed: true);
     }
+
+
+    /// <summary>
+    /// Get multiple leverages
+    /// Retrieve leverages that belong to the lead trader and you.
+    /// </summary>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="uniqueCode">Lead trader unique code</param>
+    /// <param name="instrumentIds">ingle instrument ID or multiple instrument IDs (no more than 200) separated with comma</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxMultipleLeverage>> GetMultipleLeverages(
+        OkxMarginMode marginMode,
+        string uniqueCode,
+        string instrumentIds,
+        CancellationToken ct = default)
+    {
+        if (string.IsNullOrEmpty(uniqueCode) || uniqueCode.Length != 16)
+            throw new ArgumentException("uniqueCode is required. If you are not a lead trader, please use OkxRestApiClient.Public.GetInstrumentsAsync method.");
+
+        if (string.IsNullOrEmpty(instrumentIds))
+            throw new ArgumentException("instrumentIds is required");
+
+        var parameters = new Dictionary<string, object> {
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            {"uniqueCode", uniqueCode },
+            {"instId", instrumentIds },
+        };
+
+        return ProcessOneRequestAsync<OkxMultipleLeverage>(GetUri(v5CopyTradingBatchLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get multiple leverages
+    /// Retrieve leverages that belong to the lead trader and you.
+    /// </summary>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="uniqueCode">Lead trader unique code</param>
+    /// <param name="instrumentIds">ingle instrument ID or multiple instrument IDs (no more than 200) separated with comma</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxMultipleLeverage>> GetMultipleLeverages(
+        OkxMarginMode marginMode,
+        string uniqueCode,
+        IEnumerable<string> instrumentIds,
+        CancellationToken ct = default)
+    {
+        if (!instrumentIds.Any())
+            throw new ArgumentException("instrumentIds is required");
+
+        if (instrumentIds.Count() > 200)
+            throw new ArgumentException("Instrument ID maximum of 200 instruments can be selected.");
+
+        return GetMultipleLeverages(marginMode, uniqueCode, string.Join(",", instrumentIds), ct);
+    }
+
+    /// <summary>
+    /// Get multiple leverages
+    /// Retrieve leverages that belong to the lead trader and you.
+    /// </summary>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="uniqueCode">Lead trader unique code</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <param name="instrumentIds">ingle instrument ID or multiple instrument IDs (no more than 200) separated with comma</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxMultipleLeverage>> GetMultipleLeverages(
+        OkxMarginMode marginMode,
+        string uniqueCode,
+        CancellationToken ct = default,
+        params string[] instrumentIds)
+    {
+        return GetMultipleLeverages(marginMode, uniqueCode, instrumentIds, ct);
+    }
+
+    /// <summary>
+    /// Set Multiple leverages
+    /// </summary>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="leverage">Leverage</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <param name="instrumentIds">Instrument ID</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxMultipleOperation>> SetMultipleLeverageAsync(
+        OkxMarginMode marginMode,
+        decimal leverage,
+        string instrumentIds,
+        CancellationToken ct = default)
+    {
+        if (leverage < 0.01m)
+            throw new ArgumentException("Invalid Leverage");
+
+        var parameters = new Dictionary<string, object> {
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            {"lever", leverage.ToOkxString() },
+            {"instId", string.Join(",", instrumentIds)},
+        };
+
+        return ProcessOneRequestAsync<OkxMultipleOperation>(GetUri(v5CopyTradingBatchSetLeverage), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Set Multiple leverages
+    /// </summary>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="leverage">Leverage</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <param name="instrumentIds">Instrument ID</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxMultipleOperation>> SetMultipleLeverageAsync(
+        OkxMarginMode marginMode,
+        decimal leverage,
+        IEnumerable<string> instrumentIds,
+        CancellationToken ct = default)
+    {
+        if (!instrumentIds.Any())
+            throw new ArgumentException("instrumentIds is required");
+
+        if (instrumentIds.Count() > 200)
+            throw new ArgumentException("Instrument ID maximum of 200 instruments can be selected.");
+
+        return SetMultipleLeverageAsync(marginMode, leverage, string.Join(",", instrumentIds), ct);
+    }
+
+    /// <summary>
+    /// Set Multiple leverages
+    /// </summary>
+    /// <param name="marginMode">Margin Mode</param>
+    /// <param name="leverage">Leverage</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <param name="instrumentIds">Instrument ID</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxMultipleOperation>> SetMultipleLeverageAsync(
+        OkxMarginMode marginMode,
+        decimal leverage,
+        CancellationToken ct = default,
+        params string[] instrumentIds)
+    {
+        return SetMultipleLeverageAsync(marginMode, leverage, instrumentIds, ct);
+    }
+
     #endregion
 
 }
