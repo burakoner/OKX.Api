@@ -2,15 +2,27 @@
 
 namespace OKX.Api.Public.Models;
 
+/// <summary>
+/// OKX Candlestick
+/// </summary>
 [JsonConverter(typeof(ArrayConverter))]
 public class OkxCandlestick
 {
+    /// <summary>
+    /// Instrument ID
+    /// </summary>
     [JsonIgnore]
     public string InstrumentId { get; set; }
 
+    /// <summary>
+    /// Timestamp
+    /// </summary>
     [ArrayProperty(0)]
     public long Timestamp { get; set; }
 
+    /// <summary>
+    /// Time
+    /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 
@@ -44,12 +56,21 @@ public class OkxCandlestick
     [ArrayProperty(5)]
     public decimal TradingVolume { get; set; }
 
+    /// <summary>
+    /// Base volume
+    /// </summary>
     [ArrayProperty(6)]
     public decimal BaseVolume { get; set; }
 
+    /// <summary>
+    /// Quote volume
+    /// </summary>
     [ArrayProperty(7)]
     public decimal QuoteVolume { get; set; }
 
+    /// <summary>
+    /// Confirm
+    /// </summary>
     [ArrayProperty(8), JsonConverter(typeof(OkxBooleanConverter))]
     public bool Confirm { get; set; }
 }

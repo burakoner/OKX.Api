@@ -2,7 +2,7 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-public class OkxGridContractDirectionConverter(bool quotes) : BaseConverter<OkxGridContractDirection>(quotes)
+internal class OkxGridContractDirectionConverter(bool quotes) : BaseConverter<OkxGridContractDirection>(quotes)
 {
     public OkxGridContractDirectionConverter() : this(true) { }
 

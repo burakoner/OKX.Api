@@ -2,7 +2,7 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-public class OkxGridRunTypeConverter(bool quotes) : BaseConverter<OkxGridRunType>(quotes)
+internal class OkxGridRunTypeConverter(bool quotes) : BaseConverter<OkxGridRunType>(quotes)
 {
     public OkxGridRunTypeConverter() : this(true) { }
 

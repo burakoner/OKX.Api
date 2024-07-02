@@ -122,7 +122,7 @@ public class OkxPositionHistory
     public decimal? ProfitLoss { get; set; }
 
     /// <summary>
-    /// P&L ratio
+    /// P&amp;L ratio
     /// </summary>
     [JsonProperty("pnlRatio")]
     public decimal? ProfitLossRatio { get; set; }

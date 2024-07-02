@@ -325,7 +325,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
         {
             foreach (var d in data.Data.Data)
             {
-                d.InstrumentId = data.Data.Args?.InstrumentId;
+                d.InstrumentId = data.Data.Arguments?.InstrumentId;
                 if (d is not null) onData(d);
             }
         });
@@ -366,7 +366,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
         {
             foreach (var d in data.Data.Data)
             {
-                d.InstrumentId = data.Data.Args?.InstrumentId;
+                d.InstrumentId = data.Data.Arguments?.InstrumentId;
                 if (d is not null) onData(d);
             }
         });
@@ -449,7 +449,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
         {
             foreach (var d in data.Data.Data)
             {
-                d.InstrumentId = data.Data.Args?.InstrumentId;
+                d.InstrumentId = data.Data.Arguments?.InstrumentId;
                 if (d is not null) onData(d);
             }
         });
@@ -538,7 +538,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
             {
                 if (d is not null)
                 {
-                    d.InstrumentId = data.Data.Args?.InstrumentId;
+                    d.InstrumentId = data.Data.Arguments?.InstrumentId;
                     d.Action = data.Data.Action;
                     onData(d);
                 }

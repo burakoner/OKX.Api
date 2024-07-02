@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Public.Converters;
 
-public class OkxTradeRoleConverter(bool quotes) : BaseConverter<OkxTradeRole>(quotes)
+internal class OkxTradeRoleConverter(bool quotes) : BaseConverter<OkxTradeRole>(quotes)
 {
     public OkxTradeRoleConverter() : this(true) { }
 

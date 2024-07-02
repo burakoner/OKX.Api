@@ -1,15 +1,25 @@
-﻿using OKX.Api.Common.Models;
+﻿namespace OKX.Api.Trade.Models;
 
-namespace OKX.Api.Trade.Models;
-
-public class OkxOrderAmendResponse : OkxRestApiResponseModel
+/// <summary>
+/// OKX Order Amend Response
+/// </summary>
+public class OkxOrderAmendResponse : OkxRestApiErrorResponse
 {
+    /// <summary>
+    /// Order Id
+    /// </summary>
     [JsonProperty("ordId")]
     public long? OrderId { get; set; }
 
+    /// <summary>
+    /// Client Order Id
+    /// </summary>
     [JsonProperty("clOrdId")]
     public string ClientOrderId { get; set; }
 
+    /// <summary>
+    /// Request Id
+    /// </summary>
     [JsonProperty("reqId")]
     public string RequestId { get; set; }
 }

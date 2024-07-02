@@ -3,11 +3,20 @@ using OKX.Api.Common.Enums;
 
 namespace OKX.Api.BlockTrading.Models;
 
+/// <summary>
+/// OKX Block Ticker
+/// </summary>
 public class OkxBlockTicker
 {
+    /// <summary>
+    /// Instrument ID
+    /// </summary>
     [JsonProperty("instId")]
     public string InstrumentId { get; set; }
 
+    /// <summary>
+    /// Instrument Type
+    /// </summary>
     [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
 
@@ -23,9 +32,15 @@ public class OkxBlockTicker
     [JsonProperty("vol24h")]
     public decimal Volume { get; set; }
 
+    /// <summary>
+    /// Timestamp
+    /// </summary>
     [JsonProperty("ts")]
     public long Timestamp { get; set; }
 
+    /// <summary>
+    /// Time
+    /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 }

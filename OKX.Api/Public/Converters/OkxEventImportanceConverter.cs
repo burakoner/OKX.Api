@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Public.Converters;
 
-public class OkxEventImportanceConverter(bool quotes) : BaseConverter<OkxEventImportance>(quotes)
+internal class OkxEventImportanceConverter(bool quotes) : BaseConverter<OkxEventImportance>(quotes)
 {
     public OkxEventImportanceConverter() : this(true) { }
 

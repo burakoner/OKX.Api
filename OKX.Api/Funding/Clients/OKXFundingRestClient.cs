@@ -55,6 +55,12 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxFundingBalance>(GetUri(v5AssetBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Get non-tradable asset balances
+    /// </summary>
+    /// <param name="currency">Single currency or multiple currencies (no more than 20) separated with comma, e.g. BTC or BTC,ETH.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxNonTradableAssetBalance>>> GetNonTradableBalancesAsync(string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -63,6 +69,12 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxNonTradableAssetBalance>(GetUri(v5AssetNonTradableAssets), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// View account asset valuation
+    /// </summary>
+    /// <param name="currency">Asset valuation calculation unit</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAssetValuation>> GetAssetValuationAsync(string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -112,6 +124,14 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxTransferResponse>(GetUri(v5AssetTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Retrieve the transfer state data of the last 2 weeks.
+    /// </summary>
+    /// <param name="transferId">Transfer ID. Either transId or clientId is required. If both are passed, transId will be used.</param>
+    /// <param name="clientOrderId">Client-supplied ID</param>
+    /// <param name="type">Transfer type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxTransferStateResponse>> FundTransferStateAsync(
         long? transferId = null,
         string clientOrderId = null,

@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Account.Converters;
 
-public class OkxMultipleOperationStatusConverter(bool quotes) : BaseConverter<OkxMultipleOperationStatus>(quotes)
+internal class OkxMultipleOperationStatusConverter(bool quotes) : BaseConverter<OkxMultipleOperationStatus>(quotes)
 {
     public OkxMultipleOperationStatusConverter() : this(true) { }
 

@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxLightningDepositAccountConverter(bool quotes) : BaseConverter<OkxLightningDepositAccount>(quotes)
+internal class OkxLightningDepositAccountConverter(bool quotes) : BaseConverter<OkxLightningDepositAccount>(quotes)
 {
     public OkxLightningDepositAccountConverter() : this(true) { }
 

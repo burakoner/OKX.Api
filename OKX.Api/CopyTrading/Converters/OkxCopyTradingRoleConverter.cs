@@ -2,7 +2,7 @@
 
 namespace OKX.Api.CopyTrading.Converters;
 
-public class OkxCopyTradingRoleConverter(bool quotes) : BaseConverter<OkxCopyTradingRole>(quotes)
+internal class OkxCopyTradingRoleConverter(bool quotes) : BaseConverter<OkxCopyTradingRole>(quotes)
 {
     public OkxCopyTradingRoleConverter() : this(true) { }
 

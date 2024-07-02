@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Account.Converters;
 
-public class OkxDerivativesOffsetModeConverter(bool quotes) : BaseConverter<OkxDerivativesOffsetMode>(quotes)
+internal class OkxDerivativesOffsetModeConverter(bool quotes) : BaseConverter<OkxDerivativesOffsetMode>(quotes)
 {
     public OkxDerivativesOffsetModeConverter() : this(true) { }
 

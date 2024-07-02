@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>2.0.3</Version>
-		<FileVersion>2.0.3</FileVersion>
-		<PackageVersion>2.0.3</PackageVersion>
-		<AssemblyVersion>2.0.3</AssemblyVersion>
+		<Version>2.0.6</Version>
+		<FileVersion>2.0.5</FileVersion>
+		<PackageVersion>2.0.6</PackageVersion>
+		<AssemblyVersion>2.0.6</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -19,6 +19,8 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
+			Version 2.0.6 - 02 Jul 2024
+			
 			Version 2.0.3 - 06 Mar 2024
 			* Fixed inheritance issue https://github.com/burakoner/OKX.Api/issues/60                                                                                                                                               
 
@@ -192,9 +194,6 @@
 	  <Folder Include="Earn\Models\" />
 	  <Folder Include="Rubik\Converters\" />
 	  <Folder Include="Rubik\Enums\" />
-	  <Folder Include="SignalTrading\Converters\" />
-	  <Folder Include="SignalTrading\Enums\" />
-	  <Folder Include="SignalTrading\Models\" />
 	  <Folder Include="SpreadTrading\Converters\" />
 	  <Folder Include="SpreadTrading\Enums\" />
 	  <Folder Include="SpreadTrading\Models\" />

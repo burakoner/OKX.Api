@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Funding.Converters;
 
-public class OkxSavingActionSideConverter(bool quotes) : BaseConverter<OkxSavingActionSide>(quotes)
+internal class OkxSavingActionSideConverter(bool quotes) : BaseConverter<OkxSavingActionSide>(quotes)
 {
     public OkxSavingActionSideConverter() : this(true) { }
 

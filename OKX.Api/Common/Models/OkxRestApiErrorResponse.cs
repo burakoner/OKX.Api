@@ -3,7 +3,7 @@
 /// <summary>
 /// Api Response Base
 /// </summary>
-public class OkxRestApiResponseModel
+public class OkxRestApiErrorResponse
 {
     /// <summary>
     /// Error Code

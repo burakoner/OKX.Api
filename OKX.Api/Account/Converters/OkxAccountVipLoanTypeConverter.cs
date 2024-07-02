@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Account.Converters;
 
-public class OkxAccountVipLoanTypeConverter(bool quotes) : BaseConverter<OkxAccountVipLoanType>(quotes)
+internal class OkxAccountVipLoanTypeConverter(bool quotes) : BaseConverter<OkxAccountVipLoanType>(quotes)
 {
     public OkxAccountVipLoanTypeConverter() : this(true) { }
 

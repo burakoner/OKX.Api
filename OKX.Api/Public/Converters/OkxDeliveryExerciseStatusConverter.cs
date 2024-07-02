@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Public.Converters;
 
-public class OkxDeliveryExerciseStatusConverter(bool quotes) : BaseConverter<OkxDeliveryExerciseStatus>(quotes)
+internal class OkxDeliveryExerciseStatusConverter(bool quotes) : BaseConverter<OkxDeliveryExerciseStatus>(quotes)
 {
     public OkxDeliveryExerciseStatusConverter() : this(true) { }
 

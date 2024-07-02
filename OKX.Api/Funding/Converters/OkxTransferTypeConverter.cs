@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Funding.Converters;
 
-public class OkxTransferTypeConverter(bool quotes) : BaseConverter<OkxTransferType>(quotes)
+internal class OkxTransferTypeConverter(bool quotes) : BaseConverter<OkxTransferType>(quotes)
 {
     public OkxTransferTypeConverter() : this(true) { }
 

@@ -1,19 +1,25 @@
 ﻿namespace OKX.Api.GridTrading.Models;
 
-public class OkxGridOrderResponse
+/// <summary>
+/// OKX Grid Order Response
+/// </summary>
+public class OkxGridOrderResponse : OkxRestApiErrorResponse
 {
+    /// <summary>
+    /// Algo Client Order Id
+    /// </summary>
     [JsonProperty("algoClOrdId")]
     public string AlgoClientOrderId { get; set; }
 
+    /// <summary>
+    /// Algo Order Id
+    /// </summary>
     [JsonProperty("algoId")]
     public string AlgoOrderId { get; set; }
 
+    /// <summary>
+    /// Order Id
+    /// </summary>
     [JsonProperty("ordId")]
     public string OrderId { get; set; }
-
-    [JsonProperty("sCode")]
-    public string ErrorCode { get; set; }
-
-    [JsonProperty("sMsg")]
-    public string ErrorMessage { get; set; }
 }

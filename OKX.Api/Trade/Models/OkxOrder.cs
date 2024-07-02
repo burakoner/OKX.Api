@@ -284,7 +284,7 @@ public class OkxOrder
 
     /// <summary>
     /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.
-    /// Numerical integers defined by user in the range of 1<= x<= 999999999
+    /// Numerical integers defined by user in the range of 1-999999999
     /// </summary>
     [JsonProperty("stpId", NullValueHandling = NullValueHandling.Ignore)]
     public long? SelfTradePreventionId { get; set; }
@@ -298,6 +298,9 @@ public class OkxOrder
     [JsonProperty("stpMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxSelfTradePreventionModeConverter))]
     public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
 
+    /// <summary>
+    /// Attach algo order ID. When the order is triggered by an algo order, this field will be the algo order ID.
+    /// </summary>
     [JsonProperty("attachAlgoClOrdId", NullValueHandling = NullValueHandling.Ignore)]
     public long? AttachAlgoClientOrderOrderId { get; set; }
 }

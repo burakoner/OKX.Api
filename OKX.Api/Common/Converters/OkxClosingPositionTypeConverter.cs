@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxClosingPositionTypeConverter(bool quotes) : BaseConverter<OkxClosingPositionType>(quotes)
+internal class OkxClosingPositionTypeConverter(bool quotes) : BaseConverter<OkxClosingPositionType>(quotes)
 {
     public OkxClosingPositionTypeConverter() : this(true) { }
 

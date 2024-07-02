@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxOrderCategoryConverter(bool quotes) : BaseConverter<OkxOrderCategory>(quotes)
+internal class OkxOrderCategoryConverter(bool quotes) : BaseConverter<OkxOrderCategory>(quotes)
 {
     public OkxOrderCategoryConverter() : this(true) { }
 

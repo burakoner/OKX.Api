@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Account.Converters;
 
-public class OkxGreeksTypeConverter(bool quotes) : BaseConverter<OkxGreeksType>(quotes)
+internal class OkxGreeksTypeConverter(bool quotes) : BaseConverter<OkxGreeksType>(quotes)
 {
     public OkxGreeksTypeConverter() : this(true) { }
 

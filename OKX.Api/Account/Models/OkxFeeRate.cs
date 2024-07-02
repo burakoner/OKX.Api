@@ -15,13 +15,13 @@ public class OkxFeeRate
     public string Level { get; set; }
 
     /// <summary>
-    /// Taker fee rate for the USDT&USDⓈ&Crypto trading pairs and contracts. It is the fee rate of crypto-margined contracts for FUTURES and SWAP
+    /// Taker fee rate for the USDT &amp; USDⓈ &amp; Crypto trading pairs and contracts. It is the fee rate of crypto-margined contracts for FUTURES and SWAP
     /// </summary>
     [JsonProperty("taker")]
     public decimal? Taker { get; set; }
 
     /// <summary>
-    /// Maker fee rate for the USDT&USDⓈ&Crypto trading pairs and contracts. It is the fee rate of crypto-margined contracts for FUTURES and SWAP
+    /// Maker fee rate for the USDT &amp; USDⓈ &amp; Crypto trading pairs and contracts. It is the fee rate of crypto-margined contracts for FUTURES and SWAP
     /// </summary>
     [JsonProperty("maker")]
     public decimal? Maker { get; set; }

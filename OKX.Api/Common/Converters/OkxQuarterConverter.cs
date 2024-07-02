@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxQuarterConverter(bool quotes) : BaseConverter<OkxQuarter>(quotes)
+internal class OkxQuarterConverter(bool quotes) : BaseConverter<OkxQuarter>(quotes)
 {
     public OkxQuarterConverter() : this(true) { }
 

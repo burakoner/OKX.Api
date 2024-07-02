@@ -37,7 +37,7 @@ After doing either of above steps you should now be ready to actually start usin
 
 After installing it's time to actually use it. To get started we have to add the OKX.Api namespace:  `using OKX.Api;`.
 
-OKX.Api provides two clients to interact with the OKX.Api. The  `OKXRestApiClient`  provides all rest API calls. The  `OKXStreamClient` provides functions to interact with the websocket provided by the OKX.Api. Both clients are disposable and as such can be used in a  `using`statement.
+OKX.Api provides two clients to interact with the OKX.Api. The  `OKXRestApiClient`  provides all rest API calls. The  `OKXWebSocketApiClient` provides functions to interact with the websocket provided by the OKX.Api. Both clients are disposable and as such can be used in a  `using`statement.
 
 ## Rest Api Examples
 

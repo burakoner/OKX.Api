@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxLiquidationStateConverter(bool quotes) : BaseConverter<OkxLiquidationState>(quotes)
+internal class OkxLiquidationStateConverter(bool quotes) : BaseConverter<OkxLiquidationState>(quotes)
 {
     public OkxLiquidationStateConverter() : this(true) { }
 

@@ -26,9 +26,15 @@ public class OkxVipLoanBorrowRepay
     [JsonProperty("amt")]
     public decimal Amount { get; set; }
 
+    /// <summary>
+    /// Order Id
+    /// </summary>
     [JsonProperty("ordId")]
     public long? OrderId { get; set; }
 
+    /// <summary>
+    /// State
+    /// </summary>
     [JsonProperty("state"), JsonConverter(typeof(OkxAccountVipLoanStateConverter))]
     public OkxAccountVipLoanState State { get; set; }
 }

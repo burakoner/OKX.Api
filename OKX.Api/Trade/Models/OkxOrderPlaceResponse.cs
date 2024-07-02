@@ -5,7 +5,7 @@ namespace OKX.Api.Trade.Models;
 /// <summary>
 /// Place Order Response
 /// </summary>
-public class OkxOrderPlaceResponse : OkxRestApiResponseModel
+public class OkxOrderPlaceResponse : OkxRestApiErrorResponse
 {
     /// <summary>
     /// Order Id

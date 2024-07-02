@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxQuickMarginTypeConverter(bool quotes) : BaseConverter<OkxQuickMarginType>(quotes)
+internal class OkxQuickMarginTypeConverter(bool quotes) : BaseConverter<OkxQuickMarginType>(quotes)
 {
     public OkxQuickMarginTypeConverter() : this(true) { }
 

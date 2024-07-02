@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxPriceVarianceConverter(bool quotes) : BaseConverter<OkxPriceVariance>(quotes)
+internal class OkxPriceVarianceConverter(bool quotes) : BaseConverter<OkxPriceVariance>(quotes)
 {
     public OkxPriceVarianceConverter() : this(true) { }
 

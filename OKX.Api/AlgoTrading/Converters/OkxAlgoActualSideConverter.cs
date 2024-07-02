@@ -2,7 +2,7 @@
 
 namespace OKX.Api.AlgoTrading.Converters;
 
-public class OkxAlgoActualSideConverter(bool quotes) : BaseConverter<OkxAlgoActualSide>(quotes)
+internal class OkxAlgoActualSideConverter(bool quotes) : BaseConverter<OkxAlgoActualSide>(quotes)
 {
     public OkxAlgoActualSideConverter() : this(true) { }
 

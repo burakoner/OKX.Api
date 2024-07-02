@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxProfitSharingOrderTypeConverter(bool quotes) : BaseConverter<OkxProfitSharingOrderType>(quotes)
+internal class OkxProfitSharingOrderTypeConverter(bool quotes) : BaseConverter<OkxProfitSharingOrderType>(quotes)
 {
     public OkxProfitSharingOrderTypeConverter() : this(true) { }
 

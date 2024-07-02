@@ -381,6 +381,9 @@ public class OkxPosition
     public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 }
 
+/// <summary>
+/// OKX Close Algo Order
+/// </summary>
 public class OkxCloseAlgoOrder
 {
     /// <summary>

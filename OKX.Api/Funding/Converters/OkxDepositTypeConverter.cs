@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Funding.Converters;
 
-public class OkxDepositTypeConverter(bool quotes) : BaseConverter<OkxDepositType>(quotes)
+internal class OkxDepositTypeConverter(bool quotes) : BaseConverter<OkxDepositType>(quotes)
 {
     public OkxDepositTypeConverter() : this(true) { }
 

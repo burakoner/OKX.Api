@@ -1,6 +1,4 @@
-﻿using OKX.Api.Common.Clients;
-
-namespace OKX.Api.SpreadTrading.Clients;
+﻿namespace OKX.Api.SpreadTrading.Clients;
 
 /// <summary>
 /// OKX Rest Api Spread Trading Client

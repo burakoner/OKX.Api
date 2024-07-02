@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxKycLevelConverter(bool quotes) : BaseConverter<OkxKycLevel>(quotes)
+internal class OkxKycLevelConverter(bool quotes) : BaseConverter<OkxKycLevel>(quotes)
 {
     public OkxKycLevelConverter() : this(true) { }
 

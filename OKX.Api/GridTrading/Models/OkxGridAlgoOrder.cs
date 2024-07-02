@@ -52,6 +52,9 @@ public class OkxGridAlgoOrder
     [JsonProperty("uTime")]
     public long? UpdateTimestamp { get; set; }
 
+    /// <summary>
+    /// Algo order updated time
+    /// </summary>
     [JsonIgnore]
     public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 
@@ -122,13 +125,13 @@ public class OkxGridAlgoOrder
     public decimal? ArbitrageNumber { get; set; }
 
     /// <summary>
-    /// Total P&L
+    /// Total P&amp;L
     /// </summary>
     [JsonProperty("totalPnl")]
     public decimal? TotalProfitLoss { get; set; }
 
     /// <summary>
-    /// P&L ratio
+    /// P&amp;L ratio
     /// </summary>
     [JsonProperty("pnlRatio")]
     public decimal? ProfitLossRatio { get; set; }
@@ -147,7 +150,7 @@ public class OkxGridAlgoOrder
     public decimal? GridProfit { get; set; }
 
     /// <summary>
-    /// Variable P&L
+    /// Variable P&amp;L
     /// </summary>
     [JsonProperty("floatProfit")]
     public decimal? FloatProfit { get; set; }

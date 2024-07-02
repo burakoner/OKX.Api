@@ -90,7 +90,7 @@ public class OkxAccountBalanceDetail
     public decimal? Liabilities { get; set; }
 
     /// <summary>
-    /// The sum of the unrealized profit & loss of all margin and derivatives positions of the currency.
+    /// The sum of the unrealized profit &amp; loss of all margin and derivatives positions of the currency.
     /// Applicable to Single-currency margin, Multi-currency margin and Portfolio margin
     /// </summary>
     [JsonProperty("upl")]

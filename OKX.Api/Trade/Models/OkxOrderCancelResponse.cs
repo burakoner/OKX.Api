@@ -1,12 +1,19 @@
-﻿using OKX.Api.Common.Models;
+﻿namespace OKX.Api.Trade.Models;
 
-namespace OKX.Api.Trade.Models;
-
-public class OkxOrderCancelResponse : OkxRestApiResponseModel
+/// <summary>
+/// OKX Order Cancel Response
+/// </summary>
+public class OkxOrderCancelResponse : OkxRestApiErrorResponse
 {
+    /// <summary>
+    /// Order Id
+    /// </summary>
     [JsonProperty("ordId")]
     public long? OrderId { get; set; }
 
+    /// <summary>
+    /// Client Order Id
+    /// </summary>
     [JsonProperty("clOrdId")]
     public string ClientOrderId { get; set; }
 }

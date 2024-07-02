@@ -1,5 +1,4 @@
-﻿using OKX.Api.Common.Models;
-using OKX.Api.Trade.Models;
+﻿using OKX.Api.Trade.Models;
 
 namespace OKX.Api.Common.Clients;
 
@@ -309,8 +308,8 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             {
                 foreach (var arg in request.Arguments)
                 {
-                    if ((string)data["arg"]["channel"] == arg.Channel) ;
-                    return true;
+                    if ((string)data["arg"]["channel"] == arg.Channel)
+                        return true;
                 }
             }
 

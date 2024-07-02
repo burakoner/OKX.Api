@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Public.Converters;
 
-public class OkxTradeHistoryPaginationTypeConverter(bool quotes) : BaseConverter<OkxTradeHistoryPaginationType>(quotes)
+internal class OkxTradeHistoryPaginationTypeConverter(bool quotes) : BaseConverter<OkxTradeHistoryPaginationType>(quotes)
 {
     public OkxTradeHistoryPaginationTypeConverter() : this(true) { }
 

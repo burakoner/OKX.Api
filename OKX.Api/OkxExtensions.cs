@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Extensions
 /// </summary>
-public static class OkxExtensions
+internal static class OkxExtensions
 {
     /// <summary>
     /// Validate the string is a valid spot symbol.

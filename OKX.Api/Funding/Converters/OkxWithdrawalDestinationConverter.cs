@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Funding.Converters;
 
-public class OkxWithdrawalDestinationConverter(bool quotes) : BaseConverter<OkxWithdrawalDestination>(quotes)
+internal class OkxWithdrawalDestinationConverter(bool quotes) : BaseConverter<OkxWithdrawalDestination>(quotes)
 {
     public OkxWithdrawalDestinationConverter() : this(true) { }
 

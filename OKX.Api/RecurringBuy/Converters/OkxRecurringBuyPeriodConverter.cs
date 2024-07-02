@@ -2,7 +2,7 @@
 
 namespace OKX.Api.RecurringBuy.Converters;
 
-public class OkxRecurringBuyPeriodConverter(bool quotes) : BaseConverter<OkxRecurringBuyPeriod>(quotes)
+internal class OkxRecurringBuyPeriodConverter(bool quotes) : BaseConverter<OkxRecurringBuyPeriod>(quotes)
 {
     public OkxRecurringBuyPeriodConverter() : this(true) { }
 

@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxMaintenanceSystemConverter(bool quotes) : BaseConverter<OkxMaintenanceSystem>(quotes)
+internal class OkxMaintenanceSystemConverter(bool quotes) : BaseConverter<OkxMaintenanceSystem>(quotes)
 {
     public OkxMaintenanceSystemConverter() : this(true) { }
 

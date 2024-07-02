@@ -1,5 +1,8 @@
 ﻿namespace OKX.Api.Public.Models;
 
+/// <summary>
+/// OKX Time
+/// </summary>
 public class OkxTime
 {
     /// <summary>

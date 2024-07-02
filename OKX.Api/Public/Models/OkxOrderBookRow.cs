@@ -1,5 +1,8 @@
 ﻿namespace OKX.Api.Public.Models;
 
+/// <summary>
+/// OKX Order Book Row
+/// </summary>
 [JsonConverter(typeof(ArrayConverter))]
 public class OkxOrderBookRow
 {

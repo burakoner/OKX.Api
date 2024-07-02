@@ -2,7 +2,7 @@
 
 namespace OKX.Api.Common.Converters;
 
-public class OkxSelfTradePreventionModeConverter(bool quotes) : BaseConverter<OkxSelfTradePreventionMode>(quotes)
+internal class OkxSelfTradePreventionModeConverter(bool quotes) : BaseConverter<OkxSelfTradePreventionMode>(quotes)
 {
     public OkxSelfTradePreventionModeConverter() : this(true) { }
 

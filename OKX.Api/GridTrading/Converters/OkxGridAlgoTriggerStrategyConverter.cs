@@ -2,7 +2,7 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-public class OkxGridAlgoTriggerStrategyConverter(bool quotes) : BaseConverter<OkxGridAlgoTriggerStrategy>(quotes)
+internal class OkxGridAlgoTriggerStrategyConverter(bool quotes) : BaseConverter<OkxGridAlgoTriggerStrategy>(quotes)
 {
     public OkxGridAlgoTriggerStrategyConverter() : this(true) { }
 

@@ -147,7 +147,7 @@ public class OkxOrderPlaceRequest
 
     /// <summary>
     /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.
-    /// Numerical integers defined by user in the range of 1<= x<= 999999999
+    /// Numerical integers defined by user in the range of 1-999999999
     /// </summary>
     [JsonProperty("stpId", NullValueHandling = NullValueHandling.Ignore)]
     public long? SelfTradePreventionId { get; set; }

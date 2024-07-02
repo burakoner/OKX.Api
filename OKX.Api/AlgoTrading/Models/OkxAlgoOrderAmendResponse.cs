@@ -1,21 +1,25 @@
-﻿using OKX.Api.Common.Models;
+﻿namespace OKX.Api.AlgoTrading.Models;
 
-namespace OKX.Api.AlgoTrading.Models;
-
-public class OkxAlgoOrderAmendResponse : OkxRestApiResponseModel
+/// <summary>
+/// OKX Algo Order Amend Response
+/// </summary>
+public class OkxAlgoOrderAmendResponse : OkxRestApiErrorResponse
 {
+    /// <summary>
+    /// Algo Client Order ID
+    /// </summary>
     [JsonProperty("algoClOrdId")]
     public string AlgoClientOrderId { get; set; }
 
+    /// <summary>
+    /// Algo Order ID
+    /// </summary>
     [JsonProperty("algoId")]
     public long? AlgoOrderId { get; set; }
 
+    /// <summary>
+    /// Client Request ID
+    /// </summary>
     [JsonProperty("reqId")]
     public string ClientRequestId { get; set; }
-
-    [JsonProperty("sCode")]
-    public string ErrorCode { get; set; }
-
-    [JsonProperty("sMsg")]
-    public string ErrorMessage { get; set; }
 }

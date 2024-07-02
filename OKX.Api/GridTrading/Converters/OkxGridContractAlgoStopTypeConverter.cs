@@ -2,7 +2,7 @@
 
 namespace OKX.Api.GridTrading.Converters;
 
-public class OkxGridContractAlgoStopTypeConverter(bool quotes) : BaseConverter<OkxGridContractAlgoStopType>(quotes)
+internal class OkxGridContractAlgoStopTypeConverter(bool quotes) : BaseConverter<OkxGridContractAlgoStopType>(quotes)
 {
     public OkxGridContractAlgoStopTypeConverter() : this(true) { }
 
