@@ -1,6 +1,4 @@
-﻿using OKX.Api.Common.Enums;
-using OKX.Api.Common.Models;
-using OKX.Api.RecurringBuy.Models;
+﻿using OKX.Api.RecurringBuy.Models;
 
 namespace OKX.Api.RecurringBuy.Clients;
 

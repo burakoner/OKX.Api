@@ -1,7 +1,4 @@
 ﻿using OKX.Api.BlockTrading.Models;
-using OKX.Api.Common.Clients;
-using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
 
 namespace OKX.Api.BlockTrading.Clients;
 

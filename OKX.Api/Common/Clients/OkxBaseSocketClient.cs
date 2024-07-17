@@ -1,4 +1,4 @@
-﻿using OKX.Api.Trade.Models;
+﻿using OKX.Api.Trading.Models;
 
 namespace OKX.Api.Common.Clients;
 

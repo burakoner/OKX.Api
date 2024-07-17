@@ -139,7 +139,7 @@ internal class Program
         var subaccount_07 = await api.SubAccount.GetManagedSubAccountBillsAsync();
         var subaccount_08 = await api.SubAccount.TransferBetweenSubAccountsAsync("BTC", 0.5m, OkxAccount.Funding, OkxAccount.Trading, "fromSubAccountName", "toSubAccountName");
 
-        // Trade Methods (Signed)
+        // Trading Methods (Signed)
         var trade_01 = await api.Trading.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxOrderSide.Buy, OkxPositionSide.Long, OkxOrderType.MarketOrder, 0.1m);
         var trade_02 = await api.Trading.PlaceOrdersAsync([]);
         var trade_03 = await api.Trading.CancelOrderAsync("BTC-USDT");
@@ -401,12 +401,12 @@ internal class Program
             // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
-        await ws.Trading.PlaceOrderAsync(new Trade.Models.OkxOrderPlaceRequest());
-        await ws.Trading.PlaceOrdersAsync(new List<Trade.Models.OkxOrderPlaceRequest>());
-        await ws.Trading.CancelOrderAsync(new Trade.Models.OkxOrderCancelRequest());
-        await ws.Trading.CancelOrdersAsync(new List<Trade.Models.OkxOrderCancelRequest>());
-        await ws.Trading.AmendOrderAsync(new Trade.Models.OkxOrderAmendRequest());
-        await ws.Trading.AmendOrdersAsync(new List<Trade.Models.OkxOrderAmendRequest>());
+        await ws.Trading.PlaceOrderAsync(new Trading.Models.OkxOrderPlaceRequest());
+        await ws.Trading.PlaceOrdersAsync(new List<Trading.Models.OkxOrderPlaceRequest>());
+        await ws.Trading.CancelOrderAsync(new Trading.Models.OkxOrderCancelRequest());
+        await ws.Trading.CancelOrdersAsync(new List<Trading.Models.OkxOrderCancelRequest>());
+        await ws.Trading.AmendOrderAsync(new Trading.Models.OkxOrderAmendRequest());
+        await ws.Trading.AmendOrdersAsync(new List<Trading.Models.OkxOrderAmendRequest>());
         // End of Trade Updates (Private) ----------------------------------------------------------
 
         // AlgoTrading Updates (Private) -----------------------------------------------------------

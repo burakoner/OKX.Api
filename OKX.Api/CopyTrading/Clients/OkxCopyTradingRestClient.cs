@@ -1,5 +1,6 @@
-﻿using OKX.Api.AlgoTrading.Converters;
-using OKX.Api.AlgoTrading.Enums;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Account.Models;
 using OKX.Api.CopyTrading.Models;
 
 namespace OKX.Api.CopyTrading.Clients;

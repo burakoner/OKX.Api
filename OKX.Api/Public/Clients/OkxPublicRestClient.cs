@@ -1,13 +1,8 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
-using OKX.Api.Common.Clients;
-using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-using OKX.Api.Common.Models;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Public.Models;
-using System.Numerics;
 
 namespace OKX.Api.Public.Clients;
 

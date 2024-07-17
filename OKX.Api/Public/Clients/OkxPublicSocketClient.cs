@@ -1,7 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-using OKX.Api.Common.Models;
-using OKX.Api.Public.Models;
+﻿using OKX.Api.Public.Models;
 
 namespace OKX.Api.Public.Clients;
 

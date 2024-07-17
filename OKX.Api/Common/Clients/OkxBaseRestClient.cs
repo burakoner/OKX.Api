@@ -1,7 +1,4 @@
-﻿using OKX.Api.Authentication;
-using OKX.Api.Common.Models;
-
-namespace OKX.Api.Common.Clients;
+﻿namespace OKX.Api.Common.Clients;
 
 /// <summary>
 /// OKX Rest Api Base Client

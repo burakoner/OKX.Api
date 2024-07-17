@@ -1,11 +1,9 @@
 ﻿using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
-using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
+using OKX.Api.Trading.Converters;
+using OKX.Api.Trading.Enums;
 
 namespace OKX.Api.AlgoTrading.Models;
 

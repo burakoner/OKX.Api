@@ -1,7 +1,4 @@
-﻿using OKX.Api.Common.Clients;
-using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-using OKX.Api.Rubik.Models;
+﻿using OKX.Api.Rubik.Models;
 
 namespace OKX.Api.Rubik.Clients;
 
