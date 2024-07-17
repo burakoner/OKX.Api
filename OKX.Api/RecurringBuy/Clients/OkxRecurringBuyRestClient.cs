@@ -1,6 +1,4 @@
-﻿using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-using OKX.Api.RecurringBuy.Converters;
+﻿using OKX.Api.RecurringBuy.Converters;
 using OKX.Api.RecurringBuy.Enums;
 using OKX.Api.RecurringBuy.Models;
 

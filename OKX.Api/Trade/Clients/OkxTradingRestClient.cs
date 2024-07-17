@@ -1,14 +1,5 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Account.Models;
-using OKX.Api.AlgoTrading.Converters;
+﻿using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
-using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
 using OKX.Api.Trade.Models;
 
 namespace OKX.Api.Trade.Clients;
@@ -26,6 +17,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5TradeAmendOrder = "api/v5/trade/amend-order";
     private const string v5TradeAmendBatchOrders = "api/v5/trade/amend-batch-orders";
     private const string v5TradeClosePosition = "api/v5/trade/close-position";
+    private const string v5TradeOrderGet = "api/v5/trade/order";
     private const string v5TradeOrdersPending = "api/v5/trade/orders-pending";
     private const string v5TradeOrdersHistory = "api/v5/trade/orders-history";
     private const string v5TradeOrdersHistoryArchive = "api/v5/trade/orders-history-archive";
@@ -321,7 +313,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
         parameters.AddOptionalParameter("clOrdId", clientOrderId);
 
-        return ProcessOneRequestAsync<OkxOrder>(GetUri(v5TradeOrder), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxOrder>(GetUri(v5TradeOrderGet), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>

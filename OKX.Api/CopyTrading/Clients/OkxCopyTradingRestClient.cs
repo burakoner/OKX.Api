@@ -1,11 +1,6 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Account.Models;
-using OKX.Api.AlgoTrading.Converters;
+﻿using OKX.Api.AlgoTrading.Converters;
 using OKX.Api.AlgoTrading.Enums;
-using OKX.Api.Common.Clients;
 using OKX.Api.CopyTrading.Models;
-using System.Diagnostics.Metrics;
 
 namespace OKX.Api.CopyTrading.Clients;
 
@@ -24,8 +19,36 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     private const string v5CopyTradingProfitSharingDetails = "api/v5/copytrading/profit-sharing-details";
     private const string v5CopyTradingTotalProfitSharing = "api/v5/copytrading/total-profit-sharing";
     private const string v5CopyTradingUnrealizedProfitSharingDetails = "api/v5/copytrading/unrealized-profit-sharing-details";
+    // TODO: GET /api/v5/copytrading/total-unrealized-profit-sharing
+    // TODO: POST /api/v5/copytrading/apply-lead-trading
+    // TODO: POST /api/v5/copytrading/stop-lead-trading
+    // TODO: POST /api/v5/copytrading/amend-profit-sharing-ratio
+    // TODO: GET /api/v5/copytrading/config
+    // TODO: POST /api/v5/copytrading/first-copy-settings
+    // TODO: POST /api/v5/copytrading/amend-copy-settings
+    // TODO: POST /api/v5/copytrading/stop-copy-trading
+    // TODO: GET /api/v5/copytrading/copy-settings
     private const string v5CopyTradingBatchLeverageInfo = "api/v5/copytrading/batch-leverage-info";
     private const string v5CopyTradingBatchSetLeverage = "api/v5/copytrading/batch-set-leverage";
+    // TODO: GET /api/v5/copytrading/current-lead-traders
+    // TODO: GET /api/v5/copytrading/lead-traders-history
+    // TODO: GET /api/v5/copytrading/public-config
+    // TODO: GET /api/v5/copytrading/public-lead-traders
+    // TODO: GET /api/v5/copytrading/public-weekly-pnl
+    // TODO: GET /api/v5/copytrading/public-pnl
+    // TODO: GET /api/v5/copytrading/public-stats
+    // TODO: GET /api/v5/copytrading/public-preference-currency
+    // TODO: GET /api/v5/copytrading/public-current-subpositions
+    // TODO: GET /api/v5/copytrading/public-subpositions-history
+    // TODO: GET /api/v5/copytrading/public-copy-traders
+    // TODO: GET /api/v5/copytrading/lead-traders
+    // TODO: GET /api/v5/copytrading/weekly-pnl
+    // TODO: GET /api/v5/copytrading/pnl
+    // TODO: GET /api/v5/copytrading/stats
+    // TODO: GET /api/v5/copytrading/preference-currency
+    // TODO: GET /api/v5/copytrading/performance-current-subpositions
+    // TODO: GET /api/v5/copytrading/performance-subpositions-history
+    // TODO: GET /api/v5/copytrading/copy-traders
 
     #region Copy Trading API Endpoints
     /// <summary>

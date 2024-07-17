@@ -1,15 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Account.Models;
-using OKX.Api.Common.Clients;
-using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Account.Clients;
+﻿namespace OKX.Api.Account.Clients;
 
 /// <summary>
 /// OKX Trading Account Rest Api Client
@@ -17,6 +6,7 @@ namespace OKX.Api.Account.Clients;
 public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
+    private const string v5AccountInstruments = "api/v5/account/instruments"; // TODO
     private const string v5AccountBalance = "api/v5/account/balance";
     private const string v5AccountPositions = "api/v5/account/positions";
     private const string v5AccountPositionsHistory = "api/v5/account/positions-history";
@@ -49,8 +39,16 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountVipLoanOrderList = "api/v5/account/vip-loan-order-list";
     private const string v5AccountVipLoanOrderDetail = "api/v5/account/vip-loan-order-detail";
     private const string v5AccountInterestLimits = "api/v5/account/interest-limits";
-    private const string v5AccountSimulatedMargin = "api/v5/account/simulated_margin";
+    private const string v5AccountFixedLoanBorrowingLimit = "api/v5/account/fixed-loan/borrowing-limit"; // TODO
+    private const string v5AccountFixedLoanBorrowingQuote = "api/v5/account/fixed-loan/borrowing-quote"; // TODO
+    private const string v5AccountFixedLoanBorrowingOrder = "api/v5/account/fixed-loan/borrowing-order"; // TODO
+    private const string v5AccountFixedLoanAmendBorrowingOrder = "api/v5/account/fixed-loan/amend-borrowing-order"; // TODO
+    private const string v5AccountFixedLoanManualReborrow = "api/v5/account/fixed-loan/manual-reborrow"; // TODO
+    private const string v5AccountFixedLoanRepayBorrowingOrder = "api/v5/account/fixed-loan/repay-borrowing-order"; // TODO
+    private const string v5AccountFixedLoanBorrowingOrdersList = "api/v5/account/fixed-loan/borrowing-orders-list"; // TODO
+
     private const string v5AccountPositionBuilder = "api/v5/account/position-builder";
+    private const string v5AccountSetRiskOffsetAmount = "api/v5/account/set-riskOffset-amt"; // TODO
     private const string v5AccountGreeks = "api/v5/account/greeks";
     private const string v5AccountPositionTiers = "api/v5/account/position-tiers";
     private const string v5AccountSetRiskOffsetType = "api/v5/account/set-riskOffset-type";
@@ -59,8 +57,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountSetAccountLevel = "api/v5/account/set-account-level";
     private const string v5AccountMmpReset = "api/v5/account/mmp-reset";
     private const string v5AccountMmpConfig = "api/v5/account/mmp-config";
-
     #region Account API Endpoints
+
     /// <summary>
     /// Retrieve a list of assets (with non-zero balance), remaining balance, and available amount in the account.
     /// </summary>
@@ -806,23 +804,6 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("ccy", currency);
 
         return ProcessListRequestAsync<OkxInterestLimits>(GetUri(v5AccountInterestLimits), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-
-    public Task<RestCallResult<List<OkxInterestLimits>>> SimulateMarginAsync(
-    OkxInstrumentType? instrumentType = null,
-    bool importExistingPositions = true,
-    OkxDerivativesOffsetMode spotOffsetType = OkxDerivativesOffsetMode.DerivativesOnly,
-    IEnumerable<OkxSimulatedPosition> simulatedPositions = null,
-    CancellationToken ct = default)
-    {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("inclRealPos", importExistingPositions);
-        parameters.AddOptionalParameter("spotOffsetType", JsonConvert.SerializeObject(spotOffsetType, new OkxDerivativesOffsetModeConverter(false)));
-        parameters.AddOptionalParameter("simPos", simulatedPositions);
-
-        return ProcessListRequestAsync<OkxInterestLimits>(GetUri(v5AccountSimulatedMargin), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<List<OkxPositionBuilder>>> PositionBuilderAsync(

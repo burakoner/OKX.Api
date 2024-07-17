@@ -14,7 +14,6 @@ public class OkxSignalBotTradingRestClient(OkxRestApiClient root) : OkxBaseRestC
     private const string v5TradingBotSignalSignals = "api/v5/tradingBot/signal/signals";
     private const string v5TradingBotSignalOrderAlgo = "api/v5/tradingBot/signal/order-algo";
     private const string v5TradingBotSignalStopOrderAlgo = "api/v5/tradingBot/signal/stop-order-algo";
-
     private const string v5TradingBotSignalMarginBalance = "api/v5/tradingBot/signal/margin-balance";
     private const string v5TradingBotSignalAmendTPSL = "api/v5/tradingBot/signal/amendTPSL";
     private const string v5TradingBotSignalSetInstruments = "api/v5/tradingBot/signal/set-instruments";
