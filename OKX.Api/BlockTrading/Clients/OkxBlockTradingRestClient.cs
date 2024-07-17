@@ -20,10 +20,12 @@ public class OkxBlockTradingRestClient(OkxRestApiClient root) : OkxBaseRestClien
     // TODO: api/v5/rfq/maker-instrument-settings
     // TODO: api/v5/rfq/maker-instrument-settings
     // TODO: api/v5/rfq/mmp-reset
+    // TODO: api/v5/rfq/mmp-config
     // TODO: api/v5/rfq/create-quote
     // TODO: api/v5/rfq/cancel-quote
     // TODO: api/v5/rfq/cancel-batch-quotes
     // TODO: api/v5/rfq/cancel-all-quotes
+    // TODO: api/v5/rfq/cancel-all-after
     // TODO: api/v5/rfq/rfqs
     // TODO: api/v5/rfq/quotes
     // TODO: api/v5/rfq/trades

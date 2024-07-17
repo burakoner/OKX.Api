@@ -9,6 +9,8 @@ public class OkxAffiliateRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
 {
 
     #region Affiliate API Endpoints
+    // TODO: GET /api/v5/affiliate/invitee/detail
+    // TODO: GET /api/v5/users/partner/if-rebate
     #endregion
 
 }

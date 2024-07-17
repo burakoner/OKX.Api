@@ -19,7 +19,7 @@ public class OkxRestApiClient
     /// Trading Account Client
     /// </summary>
     public OkxAccountRestClient Account { get; }
-    
+
     /// <summary>
     /// Trading Client
     /// </summary>
@@ -44,12 +44,6 @@ public class OkxRestApiClient
     /// Recurring Buy Client
     /// </summary>
     public OkxRecurringBuyRestClient RecurringBuy { get; }
-    
-
-
-
-
-
 
     /// <summary>
     /// Copy Trading Client
@@ -57,15 +51,20 @@ public class OkxRestApiClient
     public OkxCopyTradingRestClient CopyTrading { get; }
 
     /// <summary>
+    /// Alias for Public Client
+    /// </summary>
+    public OkxPublicRestClient Market { get => Public; }
+
+    /// <summary>
     /// Block Trading Client
     /// </summary>
     public OkxBlockTradingRestClient BlockTrading { get; }
-
+    
     /// <summary>
     /// Spread Trading Client
     /// </summary>
     public OkxSpreadTradingRestClient SpreadTrading { get; }
-
+    
     /// <summary>
     /// Public and Market Data Client
     /// </summary>
@@ -75,47 +74,31 @@ public class OkxRestApiClient
     /// Trading Statistics Client
     /// </summary>
     public OkxRubikRestClient Rubik { get; }
-
+    
     /// <summary>
     /// Funding Account Client
     /// </summary>
     public OkxFundingRestClient Funding { get; }
-
+    
     /// <summary>
     /// SubAccount Client
     /// </summary>
     public OkxSubAccountRestClient SubAccount { get; }
 
     /// <summary>
-    /// Earn Client
+    /// Financial Products Client
     /// </summary>
-    public OkxEarnRestClient Earn { get; }
+    public OkxFinancialProductsRestClient FinancialProducts { get; }
+
+    /// <summary>
+    /// Broker Client
+    /// </summary>
+    public OkxBrokerRestClient Broker { get; }
     
-    /// <summary>
-    /// Savings Client
-    /// </summary>
-    public OkxSavingsRestClient Savings { get; }
-
-    /// <summary>
-    /// Staking Client
-    /// </summary>
-    public OkxStakingRestClient Staking { get; }
-
     /// <summary>
     /// Affiliate Client
     /// </summary>
     public OkxAffiliateRestClient Affiliate { get; }
-
-    /// <summary>
-    /// NonDisclosed Broker Client
-    /// </summary>
-    public OkxNonDisclosedBrokerRestClient NDBroker { get; }
-
-    /// <summary>
-    /// FullyDisclosed Broker Client
-    /// Savings Client
-    /// </summary>
-    public OkxFullyDisclosedBrokerRestClient FDBroker { get; }
 
     /// <summary>
     /// OKXRestApiClient Constructor
@@ -139,7 +122,7 @@ public class OkxRestApiClient
     public OkxRestApiClient(ILogger logger, OkxRestApiOptions options)
     {
         Options = options;
-        Logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX Api");
+        Logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX API");
 
         Public = new OkxPublicRestClient(this);
         Account = new OkxAccountRestClient(this);
@@ -153,13 +136,10 @@ public class OkxRestApiClient
         CopyTrading = new OkxCopyTradingRestClient(this);
         BlockTrading = new OkxBlockTradingRestClient(this);
         SpreadTrading = new OkxSpreadTradingRestClient(this);
-        Earn = new OkxEarnRestClient(this);
-        Savings = new OkxSavingsRestClient(this);
-        Staking = new OkxStakingRestClient(this);
+        FinancialProducts = new OkxFinancialProductsRestClient(this);
         Rubik = new OkxRubikRestClient(this);
+        Broker = new OkxBrokerRestClient(this);
         Affiliate = new OkxAffiliateRestClient(this);
-        NDBroker = new OkxNonDisclosedBrokerRestClient(this);
-        FDBroker = new OkxFullyDisclosedBrokerRestClient(this);
     }
 
     /// <summary>
@@ -192,12 +172,9 @@ public class OkxRestApiClient
         CopyTrading.SetApiCredentials(credentials);
         BlockTrading.SetApiCredentials(credentials);
         SpreadTrading.SetApiCredentials(credentials);
-        Earn.SetApiCredentials(credentials);
-        Savings.SetApiCredentials(credentials);
-        Staking.SetApiCredentials(credentials);
+        FinancialProducts.SetApiCredentials(credentials);
         Rubik.SetApiCredentials(credentials);
+        Broker.SetApiCredentials(credentials);
         Affiliate.SetApiCredentials(credentials);
-        NDBroker.SetApiCredentials(credentials);
-        FDBroker.SetApiCredentials(credentials);
     }
 }

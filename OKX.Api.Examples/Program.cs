@@ -102,7 +102,6 @@ internal class Program
         var account_35 = await api.Account.GetVipLoanOrdersAsync();
         var account_36 = await api.Account.GetVipLoanOrderDetailsAsync();
         var account_37 = await api.Account.GetInterestLimitsAsync();
-        var account_38 = await api.Account.SimulateMarginAsync();
         var account_39 = await api.Account.PositionBuilderAsync();
         var account_40 = await api.Account.GetGreeksAsync();
         var account_41 = await api.Account.GetPositionTiersAsync(OkxInstrumentType.Futures);

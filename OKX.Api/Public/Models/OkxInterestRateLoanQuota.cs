@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Interest Rate
 /// </summary>
-public class OkxInterestRate
+public class OkxInterestRateLoanQuota
 {
     /// <summary>
     /// Basic

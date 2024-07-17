@@ -1,6 +1,4 @@
-﻿using OKX.Api.Common.Clients;
-
-namespace OKX.Api.Broker.Clients;
+﻿namespace OKX.Api.Broker.Clients;
 
 /// <summary>
 /// OKX Rest Api Fully Disclosed Broker Client
@@ -9,6 +7,9 @@ public class OkxFullyDisclosedBrokerRestClient(OkxRestApiClient root) : OkxBaseR
 {
 
     #region Fully Disclosed Broker API Endpoints
+    // TODO: GET /api/v5/broker/fd/rebate-per-orders
+    // TODO: POST /api/v5/broker/fd/rebate-per-orders
+    // TODO: GET /api/v5/broker/fd/if-rebate
     #endregion
 
 }

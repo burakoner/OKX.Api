@@ -16,6 +16,19 @@ namespace OKX.Api.Public.Clients;
 /// </summary>
 public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
+    // Market Data Endpoints
+    private const string v5MarketTickers = "api/v5/market/tickers";
+    private const string v5MarketTicker = "api/v5/market/ticker";
+    private const string v5MarketBooks = "api/v5/market/books";
+    private const string v5MarketBooksFull = "api/v5/market/books-full";
+    private const string v5MarketCandles = "api/v5/market/candles";
+    private const string v5MarketCandlesHistory = "api/v5/market/history-candles";
+    private const string v5MarketTrades = "api/v5/market/trades";
+    private const string v5MarketTradesHistory = "api/v5/market/history-trades";
+    private const string v5MarketOptionInstrumentFamilyTrades = "api/v5/market/option/instrument-family-trades";
+    private const string v5PublicOptionTrades = "api/v5/public/option-trades";
+    private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
+
     // Public Data Endpoints
     private const string v5PublicInstruments = "api/v5/public/instruments";
     private const string v5PublicDeliveryExerciseHistory = "api/v5/public/delivery-exercise-history";
@@ -35,6 +48,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5PublicInsuranceFund = "api/v5/public/insurance-fund";
     private const string v5PublicConvertContractCoin = "api/v5/public/convert-contract-coin";
     private const string v5PublicInstrumentTickBands = "api/v5/public/instrument-tick-bands";
+    // TODO: GET /api/v5/public/premium-history
     private const string v5MarketIndexTickers = "api/v5/market/index-tickers";
     private const string v5MarketIndexCandles = "api/v5/market/index-candles";
     private const string v5MarketIndexCandlesHistory = "api/v5/market/history-index-candles";
@@ -45,21 +59,268 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5MarketIndexComponents = "api/v5/market/index-components";
     private const string v5PublicEconomicCalendar = "api/v5/public/economic-calendar";
 
-    // Market Data Endpoints
-    private const string v5MarketTickers = "api/v5/market/tickers";
-    private const string v5MarketTicker = "api/v5/market/ticker";
-    private const string v5MarketBooks = "api/v5/market/books";
-    private const string v5MarketBooksFull = "api/v5/market/books-full";
-    private const string v5MarketCandles = "api/v5/market/candles";
-    private const string v5MarketCandlesHistory = "api/v5/market/history-candles";
-    private const string v5MarketTrades = "api/v5/market/trades";
-    private const string v5MarketTradesHistory = "api/v5/market/history-trades";
-    private const string v5MarketOptionInstrumentFamilyTrades = "api/v5/market/option/instrument-family-trades";
-    private const string v5PublicOptionTrades = "api/v5/public/option-trades";
-    private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
-
     // System Endpoints
     private const string v5SystemStatus = "api/v5/system/status";
+
+    #region Market Data Methods
+    /// <summary>
+    /// Retrieve the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
+    /// </summary>
+    /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
+    /// <param name="underlying">Underlying</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTicker>>> GetTickersAsync(
+        OkxInstrumentType instrumentType,
+        string instrumentFamily = null,
+        string underlying = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
+        };
+        parameters.AddOptionalParameter("instFamily", instrumentFamily);
+        parameters.AddOptionalParameter("uly", underlying);
+
+        return ProcessListRequestAsync<OkxTicker>(GetUri(v5MarketTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxTicker>> GetTickerAsync(string instrumentId, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "instId", instrumentId },
+        };
+
+        return ProcessOneRequestAsync<OkxTicker>(GetUri(v5MarketTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve a instrument is order book.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="depth">Order book depth per side. Maximum 400, e.g. 400 bids + 400 asks. Default returns to 1 depth data</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<OkxOrderBook>> GetOrderBookAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
+    {
+        depth.ValidateIntBetween(nameof(depth), 1, 400);
+        var parameters = new Dictionary<string, object>
+        {
+            { "instId", instrumentId},
+            { "sz", depth},
+        };
+
+        var result = await ProcessListRequestAsync<OkxOrderBook>(GetUri(v5MarketBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        if (!result.Success || result.Data.Count() == 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+        if (result.Error is not null && result.Error.Code > 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, null));
+
+        var orderbook = result.Data.FirstOrDefault();
+        orderbook.InstrumentId = instrumentId;
+        return result.As(orderbook);
+    }
+
+
+    /// <summary>
+    /// Retrieve order book of the instrument.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
+    /// <param name="depth">Order book depth per side. Maximum 5000, e.g. 5000 bids + 5000 asks. Default returns to 1 depth data.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<OkxOrderBook>> GetOrderBookFullAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
+    {
+        depth.ValidateIntBetween(nameof(depth), 1, 5000);
+        var parameters = new Dictionary<string, object>
+        {
+            { "instId", instrumentId},
+            { "sz", depth},
+        };
+
+        var result = await ProcessListRequestAsync<OkxOrderBook>(GetUri(v5MarketBooksFull), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        if (!result.Success || result.Data.Count() == 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+        if (result.Error is not null && result.Error.Code > 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, null));
+
+        var orderbook = result.Data.FirstOrDefault();
+        orderbook.InstrumentId = instrumentId;
+        return result.As(orderbook);
+    }
+
+    /// <summary>
+    /// Retrieve the candlestick charts. This endpoint can retrieve the latest 1,440 data entries. Charts are returned in groups based on the requested bar.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="period">Bar size, the default is 1m</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 300; the default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<List<OkxCandlestick>>> GetCandlesticksAsync(
+        string instrumentId,
+        OkxPeriod period,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 300);
+        var parameters = new Dictionary<string, object>
+        {
+            { "instId", instrumentId },
+            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
+        };
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        var result = await ProcessListRequestAsync<OkxCandlestick>(GetUri(v5MarketCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        if (!result.Success) return result;
+
+        foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
+        return result;
+    }
+
+    /// <summary>
+    /// Retrieve history candlestick charts from recent years.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="period">Bar size, the default is 1m</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<List<OkxCandlestick>>> GetCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object>
+        {
+            { "instId", instrumentId },
+            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
+        };
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        var result = await ProcessListRequestAsync<OkxCandlestick>(GetUri(v5MarketCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        if (!result.Success) return result;
+
+        foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
+        return result;
+    }
+
+    /// <summary>
+    /// Retrieve the recent transactions of an instrument.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTrade>>> GetTradesAsync(string instrumentId, int limit = 100, CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 500);
+        var parameters = new Dictionary<string, object>
+        {
+            { "instId", instrumentId },
+        };
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxTrade>(GetUri(v5MarketTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get trades history
+    /// Retrieve the recent transactions of an instrument from the last 3 months with pagination.
+    /// Rate Limit: 10 requests per 2 seconds
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
+    /// <param name="type">Pagination Type</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTrade>>> GetTradesHistoryAsync(
+        string instrumentId,
+        OkxTradeHistoryPaginationType? type = null,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object>
+        {
+            { "instId", instrumentId },
+        };
+
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxTradeHistoryPaginationTypeConverter(false)));
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxTrade>(GetUri(v5MarketTradesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve the recent transactions of an instrument under same instFamily. The maximum is 100.
+    /// </summary>
+    /// <param name="instrumentFamily">Instrument family, e.g. BTC-USD. Applicable to OPTION</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxOptionTradeByInstrumentFamily>>> GetOptionTradesByInstrumentFamilyAsync(
+        string instrumentFamily,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "instFamily", instrumentFamily },
+        };
+
+        return ProcessListRequestAsync<OkxOptionTradeByInstrumentFamily>(GetUri(v5MarketOptionInstrumentFamilyTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// The maximum is 100.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USD-221230-4000-C, Either instId or instFamily is required. If both are passed, instId will be used.</param>
+    /// <param name="instrumentFamily">Instrument family, e.g. BTC-USD</param>
+    /// <param name="optionType">Option type, C: Call P: put</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxOptionTrade>>> GetOptionTradesAsync(
+    string instrumentId = null,
+    string instrumentFamily = null,
+    OkxOptionType? optionType = null,
+    CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("instFamily", instrumentFamily);
+        parameters.AddOptionalParameter("optType", JsonConvert.SerializeObject(optionType, new OkxOptionTypeConverter(false)));
+
+        return ProcessListRequestAsync<OkxOptionTrade>(GetUri(v5PublicOptionTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// The 24-hour trading volume is calculated on a rolling basis, using USD as the pricing unit.
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxVolume>> Get24HourVolumeAsync(CancellationToken ct = default)
+    {
+        return ProcessOneRequestAsync<OkxVolume>(GetUri(v5MarketPlatform24Volume), HttpMethod.Get, ct);
+    }
+    #endregion
 
     #region Public Data Methods
     /// <summary>
@@ -356,9 +617,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxInterestRate>> GetInterestRatesAsync(CancellationToken ct = default)
+    public Task<RestCallResult<OkxInterestRateLoanQuota>> GetInterestRatesAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxInterestRate>(GetUri(v5PublicInterestRateLoanQuota), HttpMethod.Get, ct);
+        return ProcessOneRequestAsync<OkxInterestRateLoanQuota>(GetUri(v5PublicInterestRateLoanQuota), HttpMethod.Get, ct);
     }
 
     /// <summary>
@@ -683,266 +944,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxEconomicCalendarEvent>(GetUri(v5PublicEconomicCalendar), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-    }
-    #endregion
-
-    #region Market Data Methods
-    /// <summary>
-    /// Retrieve the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
-    /// </summary>
-    /// <param name="instrumentType">Instrument Type</param>
-    /// <param name="instrumentFamily">Instrument Family</param>
-    /// <param name="underlying">Underlying</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxTicker>>> GetTickersAsync(
-        OkxInstrumentType instrumentType,
-        string instrumentFamily = null,
-        string underlying = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new Dictionary<string, object>
-        {
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-        };
-        parameters.AddOptionalParameter("instFamily", instrumentFamily);
-        parameters.AddOptionalParameter("uly", underlying);
-
-        return ProcessListRequestAsync<OkxTicker>(GetUri(v5MarketTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Retrieve the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
-    /// </summary>
-    /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxTicker>> GetTickerAsync(string instrumentId, CancellationToken ct = default)
-    {
-        var parameters = new Dictionary<string, object>
-        {
-            { "instId", instrumentId },
-        };
-
-        return ProcessOneRequestAsync<OkxTicker>(GetUri(v5MarketTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Retrieve a instrument is order book.
-    /// </summary>
-    /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="depth">Order book depth per side. Maximum 400, e.g. 400 bids + 400 asks. Default returns to 1 depth data</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<RestCallResult<OkxOrderBook>> GetOrderBookAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
-    {
-        depth.ValidateIntBetween(nameof(depth), 1, 400);
-        var parameters = new Dictionary<string, object>
-        {
-            { "instId", instrumentId},
-            { "sz", depth},
-        };
-
-        var result = await ProcessListRequestAsync<OkxOrderBook>(GetUri(v5MarketBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-        if (!result.Success || result.Data.Count() == 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-        if (result.Error is not null && result.Error.Code > 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, null));
-
-        var orderbook = result.Data.FirstOrDefault();
-        orderbook.InstrumentId = instrumentId;
-        return result.As(orderbook);
-    }
-
-
-    /// <summary>
-    /// Retrieve order book of the instrument.
-    /// </summary>
-    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
-    /// <param name="depth">Order book depth per side. Maximum 5000, e.g. 5000 bids + 5000 asks. Default returns to 1 depth data.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<RestCallResult<OkxOrderBook>> GetOrderBookFullAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
-    {
-        depth.ValidateIntBetween(nameof(depth), 1, 5000);
-        var parameters = new Dictionary<string, object>
-        {
-            { "instId", instrumentId},
-            { "sz", depth},
-        };
-
-        var result = await ProcessListRequestAsync<OkxOrderBook>(GetUri(v5MarketBooksFull), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-        if (!result.Success || result.Data.Count() == 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-        if (result.Error is not null && result.Error.Code > 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, null));
-
-        var orderbook = result.Data.FirstOrDefault();
-        orderbook.InstrumentId = instrumentId;
-        return result.As(orderbook);
-    }
-
-    /// <summary>
-    /// Retrieve the candlestick charts. This endpoint can retrieve the latest 1,440 data entries. Charts are returned in groups based on the requested bar.
-    /// </summary>
-    /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="period">Bar size, the default is 1m</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="limit">Number of results per request. The maximum is 300; the default is 100.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<RestCallResult<List<OkxCandlestick>>> GetCandlesticksAsync(
-        string instrumentId,
-        OkxPeriod period,
-        long? after = null,
-        long? before = null,
-        int limit = 100,
-        CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 300);
-        var parameters = new Dictionary<string, object>
-        {
-            { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
-        };
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
-
-        var result = await ProcessListRequestAsync<OkxCandlestick>(GetUri(v5MarketCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-        if (!result.Success) return result;
-
-        foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
-        return result;
-    }
-
-    /// <summary>
-    /// Retrieve history candlestick charts from recent years.
-    /// </summary>
-    /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="period">Bar size, the default is 1m</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<RestCallResult<List<OkxCandlestick>>> GetCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>
-        {
-            { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
-        };
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
-
-        var result = await ProcessListRequestAsync<OkxCandlestick>(GetUri(v5MarketCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-        if (!result.Success) return result;
-
-        foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
-        return result;
-    }
-
-    /// <summary>
-    /// Retrieve the recent transactions of an instrument.
-    /// </summary>
-    /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxTrade>>> GetTradesAsync(string instrumentId, int limit = 100, CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 500);
-        var parameters = new Dictionary<string, object>
-        {
-            { "instId", instrumentId },
-        };
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
-
-        return ProcessListRequestAsync<OkxTrade>(GetUri(v5MarketTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Get trades history
-    /// Retrieve the recent transactions of an instrument from the last 3 months with pagination.
-    /// Rate Limit: 10 requests per 2 seconds
-    /// </summary>
-    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
-    /// <param name="type">Pagination Type</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
-    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxTrade>>> GetTradesHistoryAsync(
-        string instrumentId,
-        OkxTradeHistoryPaginationType? type = null,
-        long? after = null,
-        long? before = null,
-        int limit = 100,
-        CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>
-        {
-            { "instId", instrumentId },
-        };
-
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxTradeHistoryPaginationTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
-
-        return ProcessListRequestAsync<OkxTrade>(GetUri(v5MarketTradesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Retrieve the recent transactions of an instrument under same instFamily. The maximum is 100.
-    /// </summary>
-    /// <param name="instrumentFamily">Instrument family, e.g. BTC-USD. Applicable to OPTION</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxOptionTradeByInstrumentFamily>>> GetOptionTradesByInstrumentFamilyAsync(
-        string instrumentFamily,
-        CancellationToken ct = default)
-    {
-        var parameters = new Dictionary<string, object>
-        {
-            { "instFamily", instrumentFamily },
-        };
-
-        return ProcessListRequestAsync<OkxOptionTradeByInstrumentFamily>(GetUri(v5MarketOptionInstrumentFamilyTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// The maximum is 100.
-    /// </summary>
-    /// <param name="instrumentId">Instrument ID, e.g. BTC-USD-221230-4000-C, Either instId or instFamily is required. If both are passed, instId will be used.</param>
-    /// <param name="instrumentFamily">Instrument family, e.g. BTC-USD</param>
-    /// <param name="optionType">Option type, C: Call P: put</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxOptionTrade>>> GetOptionTradesAsync(
-    string instrumentId = null,
-    string instrumentFamily = null,
-    OkxOptionType? optionType = null,
-    CancellationToken ct = default)
-    {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("instFamily", instrumentFamily);
-        parameters.AddOptionalParameter("optType", JsonConvert.SerializeObject(optionType, new OkxOptionTypeConverter(false)));
-
-        return ProcessListRequestAsync<OkxOptionTrade>(GetUri(v5PublicOptionTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// The 24-hour trading volume is calculated on a rolling basis, using USD as the pricing unit.
-    /// </summary>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxVolume>> Get24HourVolumeAsync(CancellationToken ct = default)
-    {
-        return ProcessOneRequestAsync<OkxVolume>(GetUri(v5MarketPlatform24Volume), HttpMethod.Get, ct);
     }
     #endregion
 
