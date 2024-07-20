@@ -48,7 +48,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Copy Trading Client
     /// </summary>
-    public OkxCopyTradingRestClient CopyTrading { get; } // TODO
+    public OkxCopyTradingRestClient CopyTrading { get; } // TODO: 29
 
     /// <summary>
     /// Alias for Public Client
@@ -58,12 +58,12 @@ public class OkxRestApiClient
     /// <summary>
     /// Block Trading Client
     /// </summary>
-    public OkxBlockTradingRestClient BlockTrading { get; } // TODO
+    public OkxBlockTradingRestClient BlockTrading { get; } // TODO: 19
     
     /// <summary>
     /// Spread Trading Client
     /// </summary>
-    public OkxSpreadTradingRestClient SpreadTrading { get; } // TODO
+    public OkxSpreadTradingRestClient SpreadTrading { get; } // TODO: 16
     
     /// <summary>
     /// Public and Market Data Client
@@ -73,32 +73,32 @@ public class OkxRestApiClient
     /// <summary>
     /// Trading Statistics Client
     /// </summary>
-    public OkxRubikRestClient Rubik { get; } // TODO 2
+    public OkxRubikRestClient Rubik { get; } // TODO: 5
     
     /// <summary>
     /// Funding Account Client
     /// </summary>
-    public OkxFundingRestClient Funding { get; } // TODO 3
+    public OkxFundingRestClient Funding { get; } // TODO: 10
     
     /// <summary>
     /// SubAccount Client
     /// </summary>
-    public OkxSubAccountRestClient SubAccount { get; }  // TODO 4
+    public OkxSubAccountRestClient SubAccount { get; }
 
     /// <summary>
     /// Financial Products Client
     /// </summary>
-    public OkxFinancialProductsRestClient FinancialProducts { get; } // TODO
+    public OkxFinancialProductsRestClient FinancialProducts { get; } // TODO: 6 + 5 + 6 + 7
 
     /// <summary>
     /// Broker Client
     /// </summary>
-    public OkxBrokerRestClient Broker { get; } // TODO
+    public OkxBrokerRestClient Broker { get; } // TODO: 3 + 27
     
     /// <summary>
     /// Affiliate Client
     /// </summary>
-    public OkxAffiliateRestClient Affiliate { get; } // TODO 0
+    public OkxAffiliateRestClient Affiliate { get; }
 
     /// <summary>
     /// OKXRestApiClient Constructor

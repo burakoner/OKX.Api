@@ -9,7 +9,7 @@ public class OkxFinancialProductsRestClient
     /// OnChain Earn Client
     /// </summary>
     public OkxOnChainEarnRestClient OnChainEarn { get; }
-
+    
     /// <summary>
     /// Eth Staking Client
     /// </summary>

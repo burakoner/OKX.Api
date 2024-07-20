@@ -1,5 +1,6 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
+using OKX.Api.Account.Models;
 using OKX.Api.SubAccount.Converters;
 using OKX.Api.SubAccount.Enums;
 using OKX.Api.SubAccount.Models;
@@ -20,12 +21,11 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     private const string v5UsersSubaccountBills = "api/v5/asset/subaccount/bills";
     private const string v5AssetSubaccountManagedSubaccountBills = "api/v5/asset/subaccount/managed-subaccount-bills";
     private const string v5UsersSubaccountTransfer = "api/v5/asset/subaccount/transfer";
-    // TODO: api/v5/users/subaccount/set-transfer-out
-    // TODO: api/v5/users/entrust-subaccount-list
-    // TODO: api/v5/account/subaccount/set-loan-allocation
-    // TODO: api/v5/account/subaccount/interest-limits
+    private const string v5UsersSubaccountSetTransferOut = "api/v5/users/subaccount/set-transfer-out";
+    private const string v5UsersEntrustSubaccountList = "api/v5/users/entrust-subaccount-list";
+    private const string v5AccountSubaccountSetLoanAllocation = "api/v5/account/subaccount/set-loan-allocation";
+    private const string v5AccountSubaccountInterestLimits = "api/v5/account/subaccount/interest-limits";
 
-    #region Sub-Account API Endpoints
     /// <summary>
     /// applies to master accounts only
     /// </summary>
@@ -241,6 +241,50 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
 
         return ProcessOneRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    #endregion
+    
+    public Task<RestCallResult<List<OkxSubAccountPermissionOfTransferOut>>> SetPermissionOfTransferOutAsync(
+        string subAccountName,
+        bool canTransferOut,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("subAcct", subAccountName);
+        parameters.AddOptionalParameter("canTransOut", canTransferOut);
 
+        return ProcessListRequestAsync<OkxSubAccountPermissionOfTransferOut>(GetUri(v5UsersSubaccountSetTransferOut), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    public Task<RestCallResult<List<OkxSubAccountName>>> GetEntrustSubAccountsAsync(string subAccountName, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("subAcct", subAccountName);
+
+        return ProcessListRequestAsync<OkxSubAccountName>(GetUri(v5UsersEntrustSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxBooleanResult>> SetLoanAllocationAsync(
+        bool enable,
+        IEnumerable<OkxSubAccountLoanAllocation> allocations = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "enable", enable },
+        };
+        parameters.AddOptionalParameter("alloc", allocations);
+
+        return ProcessOneRequestAsync<OkxBooleanResult>(GetUri(v5AccountSubaccountSetLoanAllocation), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxSubAccountInterestLimits>> GetInterestLimitsAsync(string subAccountName, string currency = null, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "subAcct", subAccountName },
+        };
+        parameters.AddOptionalParameter("ccy", currency);
+
+        return ProcessOneRequestAsync<OkxSubAccountInterestLimits>(GetUri(v5AccountSubaccountInterestLimits), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+    
 }

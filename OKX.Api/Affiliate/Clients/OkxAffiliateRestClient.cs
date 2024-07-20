@@ -1,14 +1,22 @@
-﻿namespace OKX.Api.Affiliate.Clients;
+﻿using OKX.Api.Affiliate.Models;
+
+namespace OKX.Api.Affiliate.Clients;
 
 /// <summary>
 /// OKX Rest Api Affiliate Client
 /// </summary>
 public class OkxAffiliateRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
+    // Endpoints
+    private const string v5AffiliateInviteeDetail = "api/v5/affiliate/invitee/detail";
+    
+    public Task<RestCallResult<OkxAffiliateInvitee>> GetInviteeAsync(long uid, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "uid", uid.ToOkxString() },
+        };
 
-    #region Affiliate API Endpoints
-    // TODO: GET /api/v5/affiliate/invitee/detail
-    // TODO: GET /api/v5/users/partner/if-rebate
-    #endregion
-
+        return ProcessOneRequestAsync<OkxAffiliateInvitee>(GetUri(v5AffiliateInviteeDetail), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
 }

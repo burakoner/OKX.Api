@@ -5,8 +5,7 @@
 /// </summary>
 public class OkxSpreadTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-
-    #region Spread Trading API Endpoints
+    // Endpoints
     // TODO: POST /api/v5/sprd/order
     // TODO: POST /api/v5/sprd/cancel-order
     // TODO: POST /api/v5/sprd/mass-cancel
@@ -23,6 +22,5 @@ public class OkxSpreadTradingRestClient(OkxRestApiClient root) : OkxBaseRestClie
     // TODO: GET /api/v5/market/sprd-candles
     // TODO: GET /api/v5/market/sprd-history-candles
     // TODO: POST /api/v5/sprd/cancel-all-after
-    #endregion
 
 }
