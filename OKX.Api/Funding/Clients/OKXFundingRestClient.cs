@@ -3,6 +3,8 @@ using OKX.Api.Account.Enums;
 using OKX.Api.Funding.Converters;
 using OKX.Api.Funding.Enums;
 using OKX.Api.Funding.Models;
+using OKX.Api.Trading.Converters;
+using OKX.Api.Trading.Enums;
 
 namespace OKX.Api.Funding.Clients;
 
@@ -29,7 +31,6 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AssetDepositWithdrawStatus = "api/v5/asset/deposit-withdraw-status";
     private const string v5AssetConvertDustAssets = "api/v5/asset/convert-dust-assets";
     private const string v5AssetExchangeList = "api/v5/asset/exchange-list";
-
     private const string v5AssetMonthlyStatement = "api/v5/asset/monthly-statement";
     private const string v5AssetConvertCurrencies = "api/v5/asset/convert/currencies";
     private const string v5AssetConvertCurrencyPair = "api/v5/asset/convert/currency-pair";
@@ -385,8 +386,6 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxWithdrawalHistory>(GetUri(v5AssetWithdrawalHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-
-
     public Task<RestCallResult<OkxDepositStatus>> GetDepositStatusAsync(
         string currency,
         string txId,
@@ -404,7 +403,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxDepositStatus>(GetUri(v5AssetDepositWithdrawStatus), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     public Task<RestCallResult<OkxWithdrawalStatus>> GetWithdrawalStatusAsync(
         long withdrawalId,
         CancellationToken ct = default)
@@ -416,7 +415,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxWithdrawalStatus>(GetUri(v5AssetDepositWithdrawStatus), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     public Task<RestCallResult<OkxConvertDustAssetsResponse>> ConvertDustAssetsAsync(
         IEnumerable<string> currencies,
         CancellationToken ct = default)
@@ -428,12 +427,12 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxConvertDustAssetsResponse>(GetUri(v5AssetConvertDustAssets), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
     public Task<RestCallResult<List<OkxExchangeList>>> GetExchangeListAsync(CancellationToken ct = default)
     {
         return ProcessListRequestAsync<OkxExchangeList>(GetUri(v5AssetExchangeList), HttpMethod.Get, ct, signed: false);
     }
-    
+
     public Task<RestCallResult<OkxTimestamp>> ApplyForMonthlyStatementAsync(
         string month = null,
         CancellationToken ct = default)
@@ -443,7 +442,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5AssetMonthlyStatement), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
     public Task<RestCallResult<OkxDownloadLink>> GetMonthlyStatementAsync(
         string month,
         CancellationToken ct = default)
@@ -453,15 +452,89 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5AssetMonthlyStatement), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
+    public Task<RestCallResult<List<OkxConvertCurrency>>> GetConvertCurrenciesAsync(CancellationToken ct = default)
+    {
+        return ProcessListRequestAsync<OkxConvertCurrency>(GetUri(v5AssetConvertCurrencies), HttpMethod.Get, ct, signed: true);
+    }
+
+    public Task<RestCallResult<OkxConvertCurrencyPair>> GetConvertCurrencyPairAsync(
+        string fromCurrency,
+        string toCurrency,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("fromCcy", fromCurrency);
+        parameters.AddOptionalParameter("toCcy", toCurrency);
+
+        return ProcessOneRequestAsync<OkxConvertCurrencyPair>(GetUri(v5AssetConvertCurrencyPair), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    public Task<RestCallResult<OkxConvertEstimateQuote>> EstimateQuoteAsync(
+        string baseCurrency,
+        string quoteCurrency,
+        OkxOrderSide side,
+        decimal rfqAmount,
+        string rfqCurrency,
+        string clientOrderId = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "baseCcy", baseCurrency },
+            { "quoteCcy", quoteCurrency },
+            { "side", JsonConvert.SerializeObject(side, new OkxOrderSideConverter(false)) },
+            { "rfqSz", rfqAmount.ToOkxString() },
+            { "rfqSzCcy", rfqCurrency },
+            { "tag", OkxConstants.BrokerId },
+        };
+        parameters.AddOptionalParameter("clQReqId", clientOrderId);
+
+        return ProcessOneRequestAsync<OkxConvertEstimateQuote>(GetUri(v5AssetConvertEstimateQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    public Task<RestCallResult<OkxConvertOrder>> PlaceConvertOrderAsync(
+        string quoteId,
+        string baseCurrency,
+        string quoteCurrency,
+        OkxOrderSide side,
+        decimal amount,
+        string amountCurrency,
+        string clientOrderId = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "quoteId", quoteId },
+            { "baseCcy", baseCurrency },
+            { "quoteCcy", quoteCurrency },
+            { "side", JsonConvert.SerializeObject(side, new OkxOrderSideConverter(false)) },
+            { "sz", amount.ToOkxString() },
+            { "szCcy", amountCurrency },
+            { "tag", OkxConstants.BrokerId },
+        };
+        parameters.AddOptionalParameter("clQReqId", clientOrderId);
+
+        return ProcessOneRequestAsync<OkxConvertOrder>(GetUri(v5AssetConvertTrade), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    public Task<RestCallResult<List<OkxConvertOrderHistory>>> GetConvertHistoryAsync(
+        string clientOrderId = null,
+        string tag = null,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("clTReqId", clientOrderId);
+        parameters.AddOptionalParameter("tag", tag);
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxConvertOrderHistory>(GetUri(v5AssetConvertHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
 }
-
-
-
-
-
-    // TODO: GET  /api/v5/asset/convert/currencies
-    // TODO: GET  /api/v5/asset/convert/currency-pair
-    // TODO: POST /api/v5/asset/convert/estimate-quote
-    // TODO: POST /api/v5/asset/convert/trade
-    // TODO: GET  /api/v5/asset/convert/history
