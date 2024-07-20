@@ -592,12 +592,12 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5TradeFillsArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     public Task<RestCallResult<OkxEasyConvertCurrencyList>> GetEasyConvertCurrenciesAsync(CancellationToken ct = default)
     {
         return ProcessOneRequestAsync<OkxEasyConvertCurrencyList>(GetUri(v5TradeEasyConvertCurrencyList), HttpMethod.Get, ct, signed: true);
     }
-    
+
     public Task<RestCallResult<List<OkxEasyConvertOrder>>> PlaceEasyConvertOrderAsync(IEnumerable<string> fromCcy, string toCcy, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -605,7 +605,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             {"toCcy", toCcy },
         };
 
-        return ProcessListRequestAsync<OkxEasyConvertOrder>(GetUri(v5TradeEasyConvert), HttpMethod.Post, ct, signed: true, null, parameters);
+        return ProcessListRequestAsync<OkxEasyConvertOrder>(GetUri(v5TradeEasyConvert), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<List<OkxEasyConvertOrderHistory>>> GetEasyConvertHistoryAsync(long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
@@ -616,9 +616,9 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxEasyConvertOrderHistory>(GetUri(v5TradeEasyConvertHistory), HttpMethod.Get, ct, signed: true, parameters);
+        return ProcessListRequestAsync<OkxEasyConvertOrderHistory>(GetUri(v5TradeEasyConvertHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     public Task<RestCallResult<List<OkxOneClickRepayCurrencyList>>> GetOneClickRepayCurrenciesAsync(OkxDebtType debtType, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -626,7 +626,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessListRequestAsync<OkxOneClickRepayCurrencyList>(GetUri(v5TradeOneClickRepayCurrencyList), HttpMethod.Get, ct, signed: true, parameters);
     }
-    
+
     public Task<RestCallResult<List<OkxOneClickRepayOrder>>> PlaceOneClickRepayOrderAsync(IEnumerable<string> debtCcy, string repayCcy, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -634,9 +634,9 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             {"repayCcy", repayCcy },
         };
 
-        return ProcessListRequestAsync<OkxOneClickRepayOrder>(GetUri(v5TradeOneClickRepay), HttpMethod.Post, ct, signed: true, null, parameters);
+        return ProcessListRequestAsync<OkxOneClickRepayOrder>(GetUri(v5TradeOneClickRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
     public Task<RestCallResult<List<OkxOneClickRepayOrderHistory>>> GetOneClickRepayHistoryAsync(long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
@@ -645,9 +645,9 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxOneClickRepayOrderHistory>(GetUri(v5TradeOneClickRepayHistory), HttpMethod.Get, ct, signed: true, parameters);
+        return ProcessListRequestAsync<OkxOneClickRepayOrderHistory>(GetUri(v5TradeOneClickRepayHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     public Task<RestCallResult<OkxMassCancelResponse>> MassCancelAsync(OkxInstrumentType instrumentType, string instrumentFamily, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -655,9 +655,9 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             {"instFamily", instrumentFamily },
         };
 
-        return ProcessOneRequestAsync<OkxMassCancelResponse>(GetUri(v5TradeMassCancel), HttpMethod.Post, ct, signed: true, null, parameters);
+        return ProcessOneRequestAsync<OkxMassCancelResponse>(GetUri(v5TradeMassCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
     public Task<RestCallResult<OkxCancelAllAfterResponse>> CancelAllAfterAsync(int timeout, string tag, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -665,12 +665,12 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
         parameters.AddOptionalParameter("tag", tag);
 
-        return ProcessOneRequestAsync<OkxCancelAllAfterResponse>(GetUri(v5TradeCancelAllAfter), HttpMethod.Post, ct, signed: true, null, parameters);
+        return ProcessOneRequestAsync<OkxCancelAllAfterResponse>(GetUri(v5TradeCancelAllAfter), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
     public Task<RestCallResult<OkxAccountRateLimit>> GetAccountRateLimitAsync(CancellationToken ct = default)
     {
         return ProcessOneRequestAsync<OkxAccountRateLimit>(GetUri(v5TradeAccountRateLimit), HttpMethod.Get, ct, signed: true);
     }
-    
+
 }
