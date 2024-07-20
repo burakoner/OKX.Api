@@ -11,7 +11,6 @@ namespace OKX.Api.RecurringBuy.Clients;
 /// </summary>
 public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-
     // Endpoints
     private const string v5TradingBotRecurringOrderAlgo = "api/v5/tradingBot/recurring/order-algo";
     private const string v5TradingBotRecurringAmendOrderAlgo = "api/v5/tradingBot/recurring/amend-order-algo";
