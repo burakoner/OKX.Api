@@ -116,7 +116,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRatio>>> GetMarginLendingRatioAsync(
         string currency,
-        OkxPeriod? period = null,
+        string period = null,
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
@@ -124,7 +124,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new Dictionary<string, object> {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptionalParameter("period", period);
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
         parameters.AddOptionalParameter("end", end?.ToOkxString());
 
@@ -202,7 +202,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRatio>>> GetLongShortRatioAsync(
         string currency,
-        OkxPeriod? period = null,
+        string period = null,
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
@@ -210,7 +210,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new Dictionary<string, object> {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptionalParameter("period", period);
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
         parameters.AddOptionalParameter("end", end?.ToOkxString());
 
@@ -228,7 +228,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxInterestVolume>>> GetContractSummaryAsync(
         string currency,
-        OkxPeriod? period = null,
+        string period = null,
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
@@ -236,7 +236,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new Dictionary<string, object> {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptionalParameter("period", period);
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
         parameters.AddOptionalParameter("end", end?.ToOkxString());
 
@@ -252,13 +252,13 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxInterestVolume>>> GetOptionsSummaryAsync(
         string currency,
-        OkxPeriod? period = null,
+       string period = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptionalParameter("period", period);
 
         return await ProcessListRequestAsync<OkxInterestVolume>(GetUri(v5RubikStatOptionOpenInterestVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -272,13 +272,13 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxPutCallRatio>>> GetPutCallRatioAsync(
         string currency,
-        OkxPeriod? period = null,
+        string period = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptionalParameter("period", period);
 
         return await ProcessListRequestAsync<OkxPutCallRatio>(GetUri(v5RubikStatOptionOpenInterestVolumeRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -292,13 +292,13 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxInterestVolumeExpiry>>> GetInterestVolumeExpiryAsync(
         string currency,
-        OkxPeriod? period = null,
+        string period = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptionalParameter("period", period);
 
         return await ProcessListRequestAsync<OkxInterestVolumeExpiry>(GetUri(v5RubikStatOptionOpenInterestVolumeExpiry), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -314,14 +314,14 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public async Task<RestCallResult<List<OkxInterestVolumeStrike>>> GetInterestVolumeStrikeAsync(
         string currency,
         string expiryTime,
-        OkxPeriod? period = null,
+        string period = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "ccy", currency},
             { "expTime", expiryTime},
         };
-        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptionalParameter("period", period);
 
         return await ProcessListRequestAsync<OkxInterestVolumeStrike>(GetUri(v5RubikStatOptionOpenInterestVolumeStrike), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -335,13 +335,13 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<OkxTakerFlow>> GetTakerFlowAsync(
         string currency,
-        OkxPeriod? period = null,
+        string period = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptionalParameter("period", period);
 
         return await ProcessArrayModelRequestAsync<OkxTakerFlow>(GetUri(v5RubikStatOptionTakerBlockVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
