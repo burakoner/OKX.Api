@@ -78,7 +78,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Funding Account Client
     /// </summary>
-    public OkxFundingRestClient Funding { get; } // TODO: 10
+    public OkxFundingRestClient Funding { get; }
     
     /// <summary>
     /// SubAccount Client
