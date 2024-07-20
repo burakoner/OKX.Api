@@ -1,7 +1,4 @@
-﻿using OKX.Api.Trading.Converters;
-using OKX.Api.Trading.Enums;
-
-namespace OKX.Api.Trading.Models;
+﻿namespace OKX.Api.Common.Models;
 
 /// <summary>
 /// Download Link
@@ -13,7 +10,7 @@ public class OkxDownloadLink
     /// </summary>
     [JsonProperty("fileHref")]
     public string DownloadLink { get; set; }
-    
+
     /// <summary>
     /// Download link generation time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>

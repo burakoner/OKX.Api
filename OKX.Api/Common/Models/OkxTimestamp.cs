@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Account.Models;
+﻿namespace OKX.Api.Common.Models;
 
 /// <summary>
 /// OKX Timestamp

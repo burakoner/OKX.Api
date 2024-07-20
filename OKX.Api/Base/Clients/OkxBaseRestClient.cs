@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Common.Clients;
+﻿namespace OKX.Api.Base.Clients;
 
 /// <summary>
 /// OKX Rest Api Base Client

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Trading.Enums;
+﻿namespace OKX.Api.Common.Enums;
 
 /// <summary>
 /// OKX Download Link State

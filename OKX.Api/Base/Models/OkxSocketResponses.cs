@@ -1,6 +1,6 @@
 ﻿using OKX.Api.Public.Models;
 
-namespace OKX.Api.Common.Models;
+namespace OKX.Api.Base.Models;
 
 /// <summary>
 /// OKX Socket Response

@@ -271,14 +271,14 @@ internal class Program
         // TradingStatistics Methods (Unsigned)
         var rubik_01 = await api.Rubik.GetSupportCoinAsync();
         var rubik_02 = await api.Rubik.GetTakerVolumeAsync("BTC", OkxInstrumentType.Spot);
-        var rubik_03 = await api.Rubik.GetMarginLendingRatioAsync("BTC", OkxPeriod.OneDay);
-        var rubik_04 = await api.Rubik.GetLongShortRatioAsync("BTC", OkxPeriod.OneDay);
-        var rubik_05 = await api.Rubik.GetContractSummaryAsync("BTC", OkxPeriod.OneDay);
-        var rubik_06 = await api.Rubik.GetOptionsSummaryAsync("BTC", OkxPeriod.OneDay);
-        var rubik_07 = await api.Rubik.GetPutCallRatioAsync("BTC", OkxPeriod.OneDay);
-        var rubik_08 = await api.Rubik.GetInterestVolumeExpiryAsync("BTC", OkxPeriod.OneDay);
-        var rubik_09 = await api.Rubik.GetInterestVolumeStrikeAsync("BTC", "20210623", OkxPeriod.OneDay);
-        var rubik_10 = await api.Rubik.GetTakerFlowAsync("BTC", OkxPeriod.OneDay);
+        var rubik_03 = await api.Rubik.GetMarginLendingRatioAsync("BTC", "1D");
+        var rubik_04 = await api.Rubik.GetLongShortRatioAsync("BTC", "1D");
+        var rubik_05 = await api.Rubik.GetContractSummaryAsync("BTC", "1D");
+        var rubik_06 = await api.Rubik.GetOptionsSummaryAsync("BTC", "1D");
+        var rubik_07 = await api.Rubik.GetPutCallRatioAsync("BTC", "1D");
+        var rubik_08 = await api.Rubik.GetInterestVolumeExpiryAsync("BTC", "1D");
+        var rubik_09 = await api.Rubik.GetInterestVolumeStrikeAsync("BTC", "20210623", "1D");
+        var rubik_10 = await api.Rubik.GetTakerFlowAsync("BTC", "1D");
 
         // TODO: Affiliate Methods (Signed)
         // TODO: NDBroker Methods (Signed)

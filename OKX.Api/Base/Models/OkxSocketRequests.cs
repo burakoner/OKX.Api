@@ -1,7 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-
-namespace OKX.Api.Common.Models;
+﻿namespace OKX.Api.Base.Models;
 
 /// <summary>
 /// OKX Socket Request

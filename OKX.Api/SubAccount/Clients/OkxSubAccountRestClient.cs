@@ -1,6 +1,5 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
-using OKX.Api.Account.Models;
 using OKX.Api.SubAccount.Converters;
 using OKX.Api.SubAccount.Enums;
 using OKX.Api.SubAccount.Models;

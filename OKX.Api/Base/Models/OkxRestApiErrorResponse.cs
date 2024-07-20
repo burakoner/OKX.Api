@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Common.Models;
+﻿namespace OKX.Api.Base.Models;
 
 /// <summary>
 /// Api Response Base

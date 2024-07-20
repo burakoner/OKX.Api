@@ -1,6 +1,4 @@
-﻿using OKX.Api.Trading.Enums;
-
-namespace OKX.Api.Trading.Converters;
+﻿namespace OKX.Api.Common.Converters;
 
 internal class OkxDownloadLinkStateConverter(bool quotes) : BaseConverter<OkxDownloadLinkState>(quotes)
 {

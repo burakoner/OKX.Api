@@ -26,18 +26,18 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AssetWithdrawalLightning = "api/v5/asset/withdrawal-lightning";
     private const string v5AssetWithdrawalCancel = "api/v5/asset/cancel-withdrawal";
     private const string v5AssetWithdrawalHistory = "api/v5/asset/withdrawal-history";
-    // TODO: GET /api/v5/asset/deposit-withdraw-status
-    // TODO: POST /api/v5/asset/convert-dust-assets
-    // TODO: GET /api/v5/asset/exchange-list
-    // TODO: POST /api/v5/asset/monthly-statement
-    // TODO: GET /api/v5/asset/monthly-statement
-    // TODO: GET /api/v5/asset/convert/currencies
-    // TODO: GET /api/v5/asset/convert/currency-pair
-    // TODO: POST /api/v5/asset/convert/estimate-quote
-    // TODO: POST /api/v5/asset/convert/trade
-    // TODO: GET /api/v5/asset/convert/history
+    private const string v5AssetDepositWithdrawStatus = "api/v5/asset/deposit-withdraw-status";
+    private const string v5AssetConvertDustAssets = "api/v5/asset/convert-dust-assets";
+    private const string v5AssetExchangeList = "api/v5/asset/exchange-list";
 
-    #region Funding API Endpoints
+    private const string v5AssetMonthlyStatement = "api/v5/asset/monthly-statement";
+    private const string v5AssetConvertCurrencies = "api/v5/asset/convert/currencies";
+    private const string v5AssetConvertCurrencyPair = "api/v5/asset/convert/currency-pair";
+    private const string v5AssetConvertEstimateQuote = "api/v5/asset/convert/estimate-quote";
+    private const string v5AssetConvertTrade = "api/v5/asset/convert/trade";
+    private const string v5AssetConvertHistory = "api/v5/asset/convert/history";
+
+
     /// <summary>
     /// Retrieve a list of all currencies. Not all currencies can be traded. Currencies that have not been defined in ISO 4217 may use a custom symbol.
     /// </summary>
@@ -384,6 +384,84 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessListRequestAsync<OkxWithdrawalHistory>(GetUri(v5AssetWithdrawalHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    #endregion
 
+
+
+    public Task<RestCallResult<OkxDepositStatus>> GetDepositStatusAsync(
+        string currency,
+        string txId,
+        string to,
+        string chain,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>()
+        {
+            { "ccy", currency },
+            { "txId", txId },
+            { "to", to },
+            { "chain", chain }
+        };
+
+        return ProcessOneRequestAsync<OkxDepositStatus>(GetUri(v5AssetDepositWithdrawStatus), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxWithdrawalStatus>> GetWithdrawalStatusAsync(
+        long withdrawalId,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>()
+        {
+            { "wdId", withdrawalId.ToOkxString() },
+        };
+
+        return ProcessOneRequestAsync<OkxWithdrawalStatus>(GetUri(v5AssetDepositWithdrawStatus), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxConvertDustAssetsResponse>> ConvertDustAssetsAsync(
+        IEnumerable<string> currencies,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>()
+        {
+            { "ccy", currencies },
+        };
+
+        return ProcessOneRequestAsync<OkxConvertDustAssetsResponse>(GetUri(v5AssetConvertDustAssets), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+    
+    public Task<RestCallResult<List<OkxExchangeList>>> GetExchangeListAsync(CancellationToken ct = default)
+    {
+        return ProcessListRequestAsync<OkxExchangeList>(GetUri(v5AssetExchangeList), HttpMethod.Get, ct, signed: false);
+    }
+    
+    public Task<RestCallResult<OkxTimestamp>> ApplyForMonthlyStatementAsync(
+        string month = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("month", month);
+
+        return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5AssetMonthlyStatement), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxDownloadLink>> GetMonthlyStatementAsync(
+        string month,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("month", month);
+
+        return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5AssetMonthlyStatement), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+    
 }
+
+
+
+
+
+    // TODO: GET  /api/v5/asset/convert/currencies
+    // TODO: GET  /api/v5/asset/convert/currency-pair
+    // TODO: POST /api/v5/asset/convert/estimate-quote
+    // TODO: POST /api/v5/asset/convert/trade
+    // TODO: GET  /api/v5/asset/convert/history
