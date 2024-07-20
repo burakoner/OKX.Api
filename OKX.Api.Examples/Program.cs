@@ -105,7 +105,7 @@ internal class Program
         var account_39 = await api.Account.PositionBuilderAsync();
         var account_40 = await api.Account.GetGreeksAsync();
         var account_41 = await api.Account.GetPositionTiersAsync(OkxInstrumentType.Futures);
-        var account_42 = await api.Account.SetRiskOffsetTypeAsync(OkxDerivativesOffsetMode.UsdtDerivatives);
+        var account_42 = await api.Account.SetRiskOffsetTypeAsync(OkxRiskOffsetType.UsdtDerivatives);
         var account_43 = await api.Account.ActivateOptionAsync();
         var account_44 = await api.Account.SetAutoLoanAsync(true);
         var account_45 = await api.Account.SetLevelAsync(OkxAccountLevel.Simple);

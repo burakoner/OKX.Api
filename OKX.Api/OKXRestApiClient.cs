@@ -48,7 +48,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Copy Trading Client
     /// </summary>
-    public OkxCopyTradingRestClient CopyTrading { get; }
+    public OkxCopyTradingRestClient CopyTrading { get; } // TODO
 
     /// <summary>
     /// Alias for Public Client
@@ -58,12 +58,12 @@ public class OkxRestApiClient
     /// <summary>
     /// Block Trading Client
     /// </summary>
-    public OkxBlockTradingRestClient BlockTrading { get; }
+    public OkxBlockTradingRestClient BlockTrading { get; } // TODO
     
     /// <summary>
     /// Spread Trading Client
     /// </summary>
-    public OkxSpreadTradingRestClient SpreadTrading { get; }
+    public OkxSpreadTradingRestClient SpreadTrading { get; } // TODO
     
     /// <summary>
     /// Public and Market Data Client
@@ -73,32 +73,32 @@ public class OkxRestApiClient
     /// <summary>
     /// Trading Statistics Client
     /// </summary>
-    public OkxRubikRestClient Rubik { get; }
+    public OkxRubikRestClient Rubik { get; } // TODO 2
     
     /// <summary>
     /// Funding Account Client
     /// </summary>
-    public OkxFundingRestClient Funding { get; }
+    public OkxFundingRestClient Funding { get; } // TODO 3
     
     /// <summary>
     /// SubAccount Client
     /// </summary>
-    public OkxSubAccountRestClient SubAccount { get; }
+    public OkxSubAccountRestClient SubAccount { get; }  // TODO 4
 
     /// <summary>
     /// Financial Products Client
     /// </summary>
-    public OkxFinancialProductsRestClient FinancialProducts { get; }
+    public OkxFinancialProductsRestClient FinancialProducts { get; } // TODO
 
     /// <summary>
     /// Broker Client
     /// </summary>
-    public OkxBrokerRestClient Broker { get; }
+    public OkxBrokerRestClient Broker { get; } // TODO
     
     /// <summary>
     /// Affiliate Client
     /// </summary>
-    public OkxAffiliateRestClient Affiliate { get; }
+    public OkxAffiliateRestClient Affiliate { get; } // TODO 0
 
     /// <summary>
     /// OKXRestApiClient Constructor

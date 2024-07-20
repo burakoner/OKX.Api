@@ -1,7 +1,7 @@
-﻿using OKX.Api.SignalTrading.Converters;
-using OKX.Api.SignalTrading.Enums;
+﻿using OKX.Api.SignalBotTrading.Converters;
+using OKX.Api.SignalBotTrading.Enums;
 
-namespace OKX.Api.SignalTrading.Models;
+namespace OKX.Api.SignalBotTrading.Models;
 
 /// <summary>
 /// OKX Signal Exit Paramaters

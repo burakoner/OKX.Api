@@ -39,7 +39,6 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5TradeCancelAllAfter = "api/v5/trade/cancel-all-after";
     private const string v5TradeAccountRateLimit = "api/v5/trade/account-rate-limit";
 
-    #region Trade API Endpoints
     /// <summary>
     /// You can place an order only if you have sufficient funds.
     /// For leading contracts, this endpoint supports placement, but can't close positions.
@@ -593,7 +592,6 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5TradeFillsArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    #endregion
     
     public Task<RestCallResult<OkxEasyConvertCurrencyList>> GetEasyConvertCurrenciesAsync(CancellationToken ct = default)
     {

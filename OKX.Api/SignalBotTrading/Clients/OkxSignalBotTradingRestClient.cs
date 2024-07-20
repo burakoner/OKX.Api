@@ -1,8 +1,8 @@
-﻿using OKX.Api.SignalTrading.Converters;
-using OKX.Api.SignalTrading.Enums;
-using OKX.Api.SignalTrading.Models;
+﻿using OKX.Api.SignalBotTrading.Converters;
+using OKX.Api.SignalBotTrading.Enums;
+using OKX.Api.SignalBotTrading.Models;
 
-namespace OKX.Api.SignalTrading.Clients;
+namespace OKX.Api.SignalBotTrading.Clients;
 
 /// <summary>
 /// OKX Rest Api Signal Trading Client
@@ -27,7 +27,6 @@ public class OkxSignalBotTradingRestClient(OkxRestApiClient root) : OkxBaseRestC
     private const string v5TradingBotSignalSubOrders = "api/v5/tradingBot/signal/sub-orders";
     private const string v5TradingBotSignalEventHistory = "api/v5/tradingBot/signal/event-history";
 
-    #region Signal Trading API Endpoints
     public Task<RestCallResult<OkxSignalChannelResponse>> CreateSignalChannelAsync(string name, string description = "", CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -93,7 +92,5 @@ public class OkxSignalBotTradingRestClient(OkxRestApiClient root) : OkxBaseRestC
 
         return ProcessListRequestAsync<OkxSignalAlgoResponse>(GetUri(v5TradingBotSignalStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-
-    #endregion
 
 }

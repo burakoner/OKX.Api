@@ -29,7 +29,7 @@ global using OKX.Api.GridTrading.Clients;
 global using OKX.Api.Public.Clients;
 global using OKX.Api.RecurringBuy.Clients;
 global using OKX.Api.Rubik.Clients;
-global using OKX.Api.SignalTrading.Clients;
+global using OKX.Api.SignalBotTrading.Clients;
 global using OKX.Api.SpreadTrading.Clients;
 global using OKX.Api.SubAccount.Clients;
 global using OKX.Api.Trading.Clients;

@@ -30,7 +30,6 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     private const string v5TradingBotGridMinInvestment = "api/v5/tradingBot/grid/min-investment";
     private const string v5TradingBotGridRsiBackTesting = "api/v5/tradingBot/grid/rsi-back-testing";
 
-    #region Grid Trading API Endpoints
     /// <summary>
     /// Place grid algo order
     /// </summary>
@@ -570,6 +569,5 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
 
         return ProcessOneRequestAsync<OkxGridInvestment>(GetUri(v5TradingBotGridRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters);
     }
-    #endregion
 
 }

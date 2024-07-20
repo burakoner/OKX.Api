@@ -3,6 +3,7 @@ using OKX.Api.Account.Enums;
 using OKX.Api.Account.Models;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
+using OKX.Api.Public.Models;
 using OKX.Api.Trading.Converters;
 using OKX.Api.Trading.Enums;
 
@@ -14,7 +15,7 @@ namespace OKX.Api.Account.Clients;
 public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
-    private const string v5AccountInstruments = "api/v5/account/instruments"; // TODO
+    private const string v5AccountInstruments = "api/v5/account/instruments";
     private const string v5AccountBalance = "api/v5/account/balance";
     private const string v5AccountPositions = "api/v5/account/positions";
     private const string v5AccountPositionsHistory = "api/v5/account/positions-history";
@@ -36,7 +37,6 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountSetGreeks = "api/v5/account/set-greeks";
     private const string v5AccountSetIsolatedMode = "api/v5/account/set-isolated-mode";
     private const string v5AccountMaxWithdrawal = "api/v5/account/max-withdrawal";
-
     private const string v5AccountRiskState = "api/v5/account/risk-state";
     private const string v5AccountQuickMarginBorrowRepay = "api/v5/account/quick-margin-borrow-repay";
     private const string v5AccountQuickMarginBorrowRepayHistory = "api/v5/account/quick-margin-borrow-repay-history";
@@ -47,16 +47,15 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountVipLoanOrderList = "api/v5/account/vip-loan-order-list";
     private const string v5AccountVipLoanOrderDetail = "api/v5/account/vip-loan-order-detail";
     private const string v5AccountInterestLimits = "api/v5/account/interest-limits";
-    private const string v5AccountFixedLoanBorrowingLimit = "api/v5/account/fixed-loan/borrowing-limit"; // TODO
-    private const string v5AccountFixedLoanBorrowingQuote = "api/v5/account/fixed-loan/borrowing-quote"; // TODO
-    private const string v5AccountFixedLoanBorrowingOrder = "api/v5/account/fixed-loan/borrowing-order"; // TODO
-    private const string v5AccountFixedLoanAmendBorrowingOrder = "api/v5/account/fixed-loan/amend-borrowing-order"; // TODO
-    private const string v5AccountFixedLoanManualReborrow = "api/v5/account/fixed-loan/manual-reborrow"; // TODO
-    private const string v5AccountFixedLoanRepayBorrowingOrder = "api/v5/account/fixed-loan/repay-borrowing-order"; // TODO
-    private const string v5AccountFixedLoanBorrowingOrdersList = "api/v5/account/fixed-loan/borrowing-orders-list"; // TODO
-
+    private const string v5AccountFixedLoanBorrowingLimit = "api/v5/account/fixed-loan/borrowing-limit";
+    private const string v5AccountFixedLoanBorrowingQuote = "api/v5/account/fixed-loan/borrowing-quote";
+    private const string v5AccountFixedLoanBorrowingOrder = "api/v5/account/fixed-loan/borrowing-order";
+    private const string v5AccountFixedLoanAmendBorrowingOrder = "api/v5/account/fixed-loan/amend-borrowing-order";
+    private const string v5AccountFixedLoanManualReborrow = "api/v5/account/fixed-loan/manual-reborrow";
+    private const string v5AccountFixedLoanRepayBorrowingOrder = "api/v5/account/fixed-loan/repay-borrowing-order";
+    private const string v5AccountFixedLoanBorrowingOrdersList = "api/v5/account/fixed-loan/borrowing-orders-list";
     private const string v5AccountPositionBuilder = "api/v5/account/position-builder";
-    private const string v5AccountSetRiskOffsetAmount = "api/v5/account/set-riskOffset-amt"; // TODO
+    private const string v5AccountSetRiskOffsetAmount = "api/v5/account/set-riskOffset-amt";
     private const string v5AccountGreeks = "api/v5/account/greeks";
     private const string v5AccountPositionTiers = "api/v5/account/position-tiers";
     private const string v5AccountSetRiskOffsetType = "api/v5/account/set-riskOffset-type";
@@ -65,7 +64,22 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountSetAccountLevel = "api/v5/account/set-account-level";
     private const string v5AccountMmpReset = "api/v5/account/mmp-reset";
     private const string v5AccountMmpConfig = "api/v5/account/mmp-config";
-    #region Account API Endpoints
+
+    public Task<RestCallResult<List<OkxInstrument>>> GetInstrumentsAsync(
+       OkxInstrumentType instrumentType,
+       string instrumentFamily = null,
+       string instrumentId = null,
+       string underlying = null,
+       CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("instFamily", instrumentFamily);
+        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("uly", underlying);
+
+        return ProcessListRequestAsync<OkxInstrument>(GetUri(v5AccountInstruments), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
 
     /// <summary>
     /// Retrieve a list of assets (with non-zero balance), remaining balance, and available amount in the account.
@@ -814,9 +828,132 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxInterestLimits>(GetUri(v5AccountInterestLimits), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    public Task<RestCallResult<OkxFixedLoanBorrowingLimit>> GetFixedLoanBorrowingLimitAsync(CancellationToken ct = default)
+    {
+        return ProcessOneRequestAsync<OkxFixedLoanBorrowingLimit>(GetUri(v5AccountFixedLoanBorrowingLimit), HttpMethod.Get, ct, signed: true);
+    }
+
+    public Task<RestCallResult<OkxFixedLoanBorrowingQuote>> GetFixedLoanBorrowingQuoteAsync(
+    OkxFixedLoanBorrowingType type,
+    string currency = null,
+    decimal? amount = null,
+    decimal? maximumRate = null,
+    string term = null,
+    long? orderId = null,
+    CancellationToken ct = default)
+    {
+        if (type == OkxFixedLoanBorrowingType.Borrow)
+        {
+            if (string.IsNullOrEmpty(currency)) throw new ArgumentNullException($"{nameof(currency)} is required for Normal Borrows");
+            if (amount is null) throw new ArgumentNullException($"{nameof(amount)} is required for Normal Borrows");
+            if (maximumRate is null) throw new ArgumentNullException($"{nameof(maximumRate)} is required for Normal Borrows");
+            if (string.IsNullOrEmpty(term)) throw new ArgumentNullException($"{nameof(term)} is required for Normal Borrows");
+        }
+        else if (type == OkxFixedLoanBorrowingType.Reborrow)
+        {
+            if (orderId is null) throw new ArgumentNullException($"{nameof(orderId)} is required for Reborrows");
+        }
+
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxFixedLoanBorrowingTypeConverter(false)));
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("amt", amount.ToOkxString());
+        parameters.AddOptionalParameter("maxRate", maximumRate.ToOkxString());
+        parameters.AddOptionalParameter("term", term);
+        parameters.AddOptionalParameter("ordId", orderId.ToOkxString());
+
+        return ProcessOneRequestAsync<OkxFixedLoanBorrowingQuote>(GetUri(v5AccountFixedLoanBorrowingQuote), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxFixedLoanBorrowingOrder>> PlaceFixedLoanBorrowingOrderAsync(
+    string currency,
+    decimal amount,
+    decimal maximumRate,
+    string term,
+    bool reborrow = false,
+    decimal? reborrowRate = null,
+    CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "ccy", currency },
+            { "amt", amount.ToOkxString() },
+            { "maxRate", maximumRate.ToOkxString() },
+            { "term", term },
+        };
+        parameters.AddOptionalParameter("reborrow", reborrow);
+        parameters.AddOptionalParameter("reborrowRate", reborrowRate?.ToOkxString());
+
+        return ProcessOneRequestAsync<OkxFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    public Task<RestCallResult<OkxFixedLoanBorrowingOrder>> AmendFixedLoanBorrowingOrderAsync(
+    long orderId,
+    bool reborrow = false,
+    decimal? maximumRate = null,
+    CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "ordId", orderId },
+        };
+        parameters.AddOptionalParameter("reborrow", reborrow);
+        parameters.AddOptionalParameter("renewMaxRate", maximumRate?.ToOkxString());
+
+        return ProcessOneRequestAsync<OkxFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanAmendBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxFixedLoanBorrowingOrder>> RenewFixedLoanBorrowingOrderAsync(
+    long orderId,
+    decimal? maximumRate = null,
+    CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "ordId", orderId },
+            { "maxRate", maximumRate?.ToOkxString() },
+        };
+
+        return ProcessOneRequestAsync<OkxFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanManualReborrow), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxFixedLoanBorrowingOrder>> RepayFixedLoanBorrowingOrderAsync(
+    long orderId,
+    CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "ordId", orderId },
+        };
+
+        return ProcessOneRequestAsync<OkxFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanRepayBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxFixedLoanBorrowingOrder>> GetFixedLoanBorrowingOrdersAsync(
+    long? orderId=null,
+    string currency=null,
+    OkxFixedLoanBorrowingOrderState? state=null,
+    long? after = null,
+    long? before = null,
+    int limit = 100,
+    CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "ordId", orderId },
+        };
+        parameters.AddOptionalParameter("after", currency);
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxFixedLoanBorrowingOrderStateConverter(false)));
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return ProcessOneRequestAsync<OkxFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanBorrowingOrdersList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
     public Task<RestCallResult<List<OkxPositionBuilder>>> PositionBuilderAsync(
     bool importExistingPositionsAndAssets = true,
-    OkxDerivativesOffsetMode spotOffsetType = OkxDerivativesOffsetMode.DerivativesOnly,
+    OkxRiskOffsetType spotOffsetType = OkxRiskOffsetType.DerivativesOnly,
     IEnumerable<OkxSimulatedPosition> simulatedPositions = null,
     IEnumerable<OkxSimulatedAsset> simulatedAssets = null,
     OkxGreeksType? greeksType = OkxGreeksType.BlackScholesGreeksInDollars,
@@ -824,12 +961,26 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("inclRealPosAndEq", importExistingPositionsAndAssets);
-        parameters.AddOptionalParameter("spotOffsetType", JsonConvert.SerializeObject(spotOffsetType, new OkxDerivativesOffsetModeConverter(false)));
+        parameters.AddOptionalParameter("spotOffsetType", JsonConvert.SerializeObject(spotOffsetType, new OkxRiskOffsetTypeConverter(false)));
         parameters.AddOptionalParameter("simPos", simulatedPositions);
         parameters.AddOptionalParameter("simAsset", simulatedAssets);
         parameters.AddOptionalParameter("greeksType", JsonConvert.SerializeObject(greeksType, new OkxGreeksTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxPositionBuilder>(GetUri(v5AccountPositionBuilder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxRiskOffsetAmount>> SetRiskOffsetAmountAsync(
+        string currency,
+        decimal spotRiskOffsetAmount,
+    CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "ccy", currency },
+            { "clSpotInUseAmt", spotRiskOffsetAmount.ToOkxString() }
+        };
+
+        return ProcessOneRequestAsync<OkxRiskOffsetAmount>(GetUri(v5AccountSetRiskOffsetAmount), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxGreeks>> GetGreeksAsync(
@@ -856,14 +1007,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxPositionTiers>(GetUri(v5AccountPositionTiers), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxDerivativesOffsetType>> SetRiskOffsetTypeAsync(
-    OkxDerivativesOffsetMode type,
+    public Task<RestCallResult<OkxRiskOffsetTypeModel>> SetRiskOffsetTypeAsync(
+    OkxRiskOffsetType type,
     CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxDerivativesOffsetModeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxRiskOffsetTypeConverter(false)));
 
-        return ProcessOneRequestAsync<OkxDerivativesOffsetType>(GetUri(v5AccountSetRiskOffsetType), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxRiskOffsetTypeModel>(GetUri(v5AccountSetRiskOffsetType), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxTimestamp>> ActivateOptionAsync(CancellationToken ct = default)
@@ -922,6 +1073,5 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxMmpConfigurationData>(GetUri(v5AccountMmpConfig), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    #endregion
 
 }

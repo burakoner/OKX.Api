@@ -11,6 +11,7 @@ namespace OKX.Api.Public.Clients;
 /// </summary>
 public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
+    #region Endpoints
     // Market Data Endpoints
     private const string v5MarketTickers = "api/v5/market/tickers";
     private const string v5MarketTicker = "api/v5/market/ticker";
@@ -43,7 +44,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5PublicInsuranceFund = "api/v5/public/insurance-fund";
     private const string v5PublicConvertContractCoin = "api/v5/public/convert-contract-coin";
     private const string v5PublicInstrumentTickBands = "api/v5/public/instrument-tick-bands";
-    // TODO: GET /api/v5/public/premium-history
+    private const string v5PublicPremiumHistory = "api/v5/public/premium-history";
     private const string v5MarketIndexTickers = "api/v5/market/index-tickers";
     private const string v5MarketIndexCandles = "api/v5/market/index-candles";
     private const string v5MarketIndexCandlesHistory = "api/v5/market/history-index-candles";
@@ -56,6 +57,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
     // System Endpoints
     private const string v5SystemStatus = "api/v5/system/status";
+    #endregion
 
     #region Market Data Methods
     /// <summary>
@@ -743,6 +745,25 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
         return ProcessListRequestAsync<OkxOptionTickBands>(GetUri(v5PublicInstrumentTickBands), HttpMethod.Get, ct, queryParameters: parameters);
+    }
+
+    public Task<RestCallResult<List<OkxPremiumHistory>>> GetPremiumHistoryAsync(
+        string instrumentId,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object>
+        {
+            { "instId", instrumentId },
+        };
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxPremiumHistory>(GetUri(v5PublicPremiumHistory), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>

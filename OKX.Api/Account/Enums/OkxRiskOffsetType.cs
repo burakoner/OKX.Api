@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Spot Derivatives Risk Offset Mode
 /// </summary>
-public enum OkxDerivativesOffsetMode
+public enum OkxRiskOffsetType
 {
     /// <summary>
     /// Spot-derivatives (USDT)

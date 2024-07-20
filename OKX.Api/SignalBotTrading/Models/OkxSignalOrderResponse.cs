@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.SignalTrading.Models;
+﻿namespace OKX.Api.SignalBotTrading.Models;
 
 /// <summary>
 /// OKX Signal Order Response

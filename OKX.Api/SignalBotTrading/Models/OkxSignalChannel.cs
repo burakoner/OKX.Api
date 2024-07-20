@@ -1,6 +1,6 @@
-﻿using OKX.Api.SignalTrading.Converters;
+﻿using OKX.Api.SignalBotTrading.Converters;
 
-namespace OKX.Api.SignalTrading.Models;
+namespace OKX.Api.SignalBotTrading.Models;
 
 /// <summary>
 /// OKX Signal Channel

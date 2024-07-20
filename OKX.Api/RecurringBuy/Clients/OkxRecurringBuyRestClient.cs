@@ -20,7 +20,6 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
     private const string v5TradingBotRecurringOrdersAlgoDetails = "api/v5/tradingBot/recurring/orders-algo-details";
     private const string v5TradingBotRecurringSubOrders = "api/v5/tradingBot/recurring/sub-orders";
 
-    #region Recurring Buy API Endpoints
     public Task<RestCallResult<OkxRecurringOrderResponse>> PlaceOrderAsync(
        string strategyName,
        IEnumerable<OkxRecurringItem> recurringList,
@@ -138,6 +137,5 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
 
         return ProcessListRequestAsync<OkxRecurringOrder>(GetUri(v5TradingBotRecurringSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    #endregion
 
 }

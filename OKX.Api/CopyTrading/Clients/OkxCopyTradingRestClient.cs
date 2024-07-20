@@ -51,7 +51,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     // TODO: GET /api/v5/copytrading/performance-subpositions-history
     // TODO: GET /api/v5/copytrading/copy-traders
 
-    #region Copy Trading API Endpoints
     /// <summary>
     /// The leading trader gets leading positions that are not closed.
     /// Returns reverse chronological order with openTime
@@ -357,7 +356,5 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     {
         return SetMultipleLeverageAsync(marginMode, leverage, instrumentIds, ct);
     }
-
-    #endregion
 
 }

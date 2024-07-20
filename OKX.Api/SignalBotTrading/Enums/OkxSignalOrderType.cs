@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.SignalTrading.Enums;
+﻿namespace OKX.Api.SignalBotTrading.Enums;
 
 /// <summary>
 /// Signal order type
