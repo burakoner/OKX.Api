@@ -9,13 +9,13 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     private const string v5RubikStatTradingDataSupportCoin = "api/v5/rubik/stat/trading-data/support-coin";
-    // TODO: GET /api/v5/rubik/stat/contracts/open-interest-history
+    private const string v5RubikStatContractsOpenInterestHistory = "api/v5/rubik/stat/contracts/open-interest-history";
     private const string v5RubikStatTakerVolume = "api/v5/rubik/stat/taker-volume";
-    // TODO: GET /api/v5/rubik/stat/taker-volume-contract
+    private const string v5RubikStatTakerVolumeContract = "api/v5/rubik/stat/taker-volume-contract";
     private const string v5RubikStatMarginLoanRatio = "api/v5/rubik/stat/margin/loan-ratio";
-    // TODO: GET /api/v5/rubik/stat/contracts/long-short-account-ratio-contract-top-trader
-    // TODO: GET /api/v5/rubik/stat/contracts/long-short-position-ratio-contract-top-trader
-    // TODO: GET /api/v5/rubik/stat/contracts/long-short-account-ratio-contract
+    private const string v5RubikStatContractsLongShortAccountRatioContractTopTrader = "api/v5/rubik/stat/contracts/long-short-account-ratio-contract-top-trader";
+    private const string v5RubikStatContractsLongShortPositionRatioContractTopTrader = "api/v5/rubik/stat/contracts/long-short-position-ratio-contract-top-trader";
+    private const string v5RubikStatContractsLongShortAccountRatioContract = "api/v5/rubik/stat/contracts/long-short-account-ratio-contract";
     private const string v5RubikStatContractsLongShortAccountRatio = "api/v5/rubik/stat/contracts/long-short-account-ratio";
     private const string v5RubikStatContractsOpenInterestVolume = "api/v5/rubik/stat/contracts/open-interest-volume";
     private const string v5RubikStatOptionOpenInterestVolume = "api/v5/rubik/stat/option/open-interest-volume";
@@ -24,7 +24,6 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     private const string v5RubikStatOptionOpenInterestVolumeStrike = "api/v5/rubik/stat/option/open-interest-volume-strike";
     private const string v5RubikStatOptionTakerBlockVolume = "api/v5/rubik/stat/option/taker-block-volume";
 
-    #region Rubik API Endpoints
     /// <summary>
     /// Get the currency supported by the transaction big data interface
     /// </summary>
@@ -33,6 +32,26 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public async Task<RestCallResult<OkxSupportCoins>> GetSupportCoinAsync(CancellationToken ct = default)
     {
         return await ProcessModelRequestAsync<OkxSupportCoins>(GetUri(v5RubikStatTradingDataSupportCoin), HttpMethod.Get, ct).ConfigureAwait(false);
+    }
+
+    public async Task<RestCallResult<List<OkxContractOpenInterestHistory>>> GetContractOpenInterestHistoryAsync(
+        string instrumentId,
+        string period = null,
+        long? begin = null,
+        long? end = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object> {
+            { "instId", instrumentId},
+        };
+        parameters.AddOptionalParameter("period", period);
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return await ProcessListRequestAsync<OkxContractOpenInterestHistory>(GetUri(v5RubikStatContractsOpenInterestHistory), HttpMethod.Get, ct, false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -48,7 +67,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public async Task<RestCallResult<List<OkxTakerVolume>>> GetTakerVolumeAsync(
         string currency,
         OkxInstrumentType instrumentType,
-        OkxPeriod? period = null,
+        string period = null,
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
@@ -57,11 +76,33 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "ccy", currency},
             { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
         };
-        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptionalParameter("period", period);
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
         parameters.AddOptionalParameter("end", end?.ToOkxString());
 
         return await ProcessListRequestAsync<OkxTakerVolume>(GetUri(v5RubikStatTakerVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    public async Task<RestCallResult<List<OkxContractTakerVolume>>> GetContractTakerVolumeAsync(
+        string instrumentId,
+        string period = null,
+        string unit = null,
+        long? begin = null,
+        long? end = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object> {
+            { "instId", instrumentId},
+        };
+        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptionalParameter("unit", unit);
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return await ProcessListRequestAsync<OkxContractTakerVolume>(GetUri(v5RubikStatTakerVolumeContract), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -88,6 +129,66 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("end", end?.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRatio>(GetUri(v5RubikStatMarginLoanRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    public async Task<RestCallResult<List<OkxRatio>>> GetTopTradersContractLongShortRatioAsync(
+        string instrumentId,
+        string period = null,
+        long? begin = null,
+        long? end = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object> {
+            { "instId", instrumentId},
+        };
+        parameters.AddOptionalParameter("period", period);
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return await ProcessListRequestAsync<OkxRatio>(GetUri(v5RubikStatContractsLongShortAccountRatioContractTopTrader), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+    }
+    
+    public async Task<RestCallResult<List<OkxRatio>>> GetTopTradersContractLongShortRatioByPositionAsync(
+        string instrumentId,
+        string period = null,
+        long? begin = null,
+        long? end = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object> {
+            { "instId", instrumentId},
+        };
+        parameters.AddOptionalParameter("period", period);
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return await ProcessListRequestAsync<OkxRatio>(GetUri(v5RubikStatContractsLongShortPositionRatioContractTopTrader), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
+    }
+
+    public async Task<RestCallResult<List<OkxRatio>>> GetContractLongShortRatioAsync(
+        string instrumentId,
+        string period = null,
+        long? begin = null,
+        long? end = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object> {
+            { "instId", instrumentId},
+        };
+        parameters.AddOptionalParameter("period", period);
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return await ProcessListRequestAsync<OkxRatio>(GetUri(v5RubikStatContractsLongShortAccountRatioContract), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -244,6 +345,5 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 
         return await ProcessArrayModelRequestAsync<OkxTakerFlow>(GetUri(v5RubikStatOptionTakerBlockVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
-    #endregion
 
 }

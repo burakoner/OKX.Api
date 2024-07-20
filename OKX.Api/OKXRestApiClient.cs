@@ -73,7 +73,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Trading Statistics Client
     /// </summary>
-    public OkxRubikRestClient Rubik { get; } // TODO: 5
+    public OkxRubikRestClient Rubik { get; }
     
     /// <summary>
     /// Funding Account Client
