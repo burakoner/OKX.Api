@@ -3,8 +3,8 @@ using OKX.Api.Account.Enums;
 using OKX.Api.Funding.Converters;
 using OKX.Api.Funding.Enums;
 using OKX.Api.Funding.Models;
-using OKX.Api.Trading.Converters;
-using OKX.Api.Trading.Enums;
+using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
 
 namespace OKX.Api.Funding.Clients;
 
@@ -108,7 +108,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     public Task<RestCallResult<OkxFundingTransferResponse>> FundTransferAsync(
         string currency,
         decimal amount,
-        OkxTransferType type,
+        OkxFundingTransferType type,
         OkxAccount fromAccount,
         OkxAccount toAccount,
         string subAccountName = null,
@@ -122,7 +122,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "amt",amount.ToOkxString()},
             { "from", JsonConvert.SerializeObject(fromAccount, new OkxAccountConverter(false)) },
             { "to", JsonConvert.SerializeObject(toAccount, new OkxAccountConverter(false)) },
-            { "type", JsonConvert.SerializeObject(type, new OkxTransferTypeConverter(false)) },
+            { "type", JsonConvert.SerializeObject(type, new OkxFundingTransferTypeConverter(false)) },
         };
         parameters.AddOptionalParameter("subAcct", subAccountName);
         parameters.AddOptionalParameter("loanTrans", loanTransfer);
@@ -143,13 +143,13 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     public Task<RestCallResult<OkxFundingTransferStateResponse>> FundTransferStateAsync(
         long? transferId = null,
         string clientOrderId = null,
-        OkxTransferType? type = null,
+        OkxFundingTransferType? type = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("transId", transferId?.ToOkxString());
         parameters.AddOptionalParameter("clientId", clientOrderId);
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxTransferTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxFundingTransferTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxFundingTransferStateResponse>(GetUri(v5AssetTransferState), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -244,8 +244,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string depositId = null,
         long? fromWithdrawalId = null,
         string transactionId = null,
-        OkxDepositType? type = null,
-        OkxDepositState? state = null,
+        OkxFundingDepositType? type = null,
+        OkxFundingDepositState? state = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -257,8 +257,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("depId", depositId);
         parameters.AddOptionalParameter("fromWdId", fromWithdrawalId);
         parameters.AddOptionalParameter("txId", transactionId);
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxDepositTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxDepositStateConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxFundingDepositTypeConverter(false)));
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxFundingDepositStateConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
@@ -282,7 +282,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     public Task<RestCallResult<OkxFundingWithdrawalResponse>> WithdrawAsync(
         string currency,
         decimal amount,
-        OkxWithdrawalDestination destination,
+        OkxFundingWithdrawalDestination destination,
         string toAddress,
         decimal fee,
         string chain = null,
@@ -293,7 +293,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new Dictionary<string, object> {
             { "ccy",currency},
             { "amt",amount.ToOkxString()},
-            { "dest", JsonConvert.SerializeObject(destination, new OkxWithdrawalDestinationConverter(false)) },
+            { "dest", JsonConvert.SerializeObject(destination, new OkxFundingWithdrawalDestinationConverter(false)) },
             { "toAddr",toAddress},
             { "fee",fee   .ToOkxString()},
         };
@@ -364,8 +364,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? withdrawalId = null,
         string clientOrderId = null,
         string transactionId = null,
-        OkxWithdrawalType? type = null,
-        OkxWithdrawalState? state = null,
+        OkxFundingWithdrawalType? type = null,
+        OkxFundingWithdrawalState? state = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -377,8 +377,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("wdId", withdrawalId);
         parameters.AddOptionalParameter("clientId", clientOrderId);
         parameters.AddOptionalParameter("txId", transactionId);
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxWithdrawalTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxWithdrawalStateConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxFundingWithdrawalTypeConverter(false)));
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxFundingWithdrawalStateConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());

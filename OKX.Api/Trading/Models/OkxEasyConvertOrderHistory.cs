@@ -1,9 +1,9 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
-using OKX.Api.Trading.Converters;
-using OKX.Api.Trading.Enums;
+using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
 
-namespace OKX.Api.Trading.Models;
+namespace OKX.Api.Trade.Models;
 
 /// <summary>
 /// OKX Easy Convert Order History

@@ -1,6 +1,6 @@
 ﻿using OKX.Api.Common.Models;
 
-namespace OKX.Api.Trading.Models;
+namespace OKX.Api.Trade.Models;
 
 /// <summary>
 /// Place Order Response

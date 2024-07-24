@@ -33,7 +33,7 @@ global using OKX.Api.Rubik.Clients;
 global using OKX.Api.SignalBotTrading.Clients;
 global using OKX.Api.SpreadTrading.Clients;
 global using OKX.Api.SubAccount.Clients;
-global using OKX.Api.Trading.Clients;
+global using OKX.Api.Trade.Clients;
 global using System;
 global using System.Collections.Generic;
 global using System.Diagnostics;

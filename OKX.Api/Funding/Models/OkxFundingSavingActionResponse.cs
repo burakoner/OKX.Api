@@ -29,6 +29,6 @@ public class OkxFundingSavingActionResponse
     /// <summary>
     /// Side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxSavingActionSideConverter))]
-    public OkxSavingActionSide Side { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxFundingSavingActionSideConverter))]
+    public OkxFundingSavingActionSide Side { get; set; }
 }

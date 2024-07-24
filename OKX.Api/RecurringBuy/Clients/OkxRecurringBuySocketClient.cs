@@ -22,12 +22,12 @@ public class OkxRecurringBuySocketClient(OKXWebSocketApiClient root)
     /// <param name="ct"></param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderUpdatesAsync(
-        Action<OkxRecurringOrder> onData,
+        Action<OkxRecurringBuyOrder> onData,
         OkxInstrumentType instrumentType,
         long? algoOrderId = null,
         CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxRecurringOrder>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxRecurringBuyOrder>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);

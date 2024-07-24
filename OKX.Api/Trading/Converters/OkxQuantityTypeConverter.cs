@@ -1,6 +1,6 @@
-﻿using OKX.Api.Trading.Enums;
+﻿using OKX.Api.Trade.Enums;
 
-namespace OKX.Api.Trading.Converters;
+namespace OKX.Api.Trade.Converters;
 
 internal class OkxQuantityTypeConverter(bool quotes) : BaseConverter<OkxQuantityType>(quotes)
 {

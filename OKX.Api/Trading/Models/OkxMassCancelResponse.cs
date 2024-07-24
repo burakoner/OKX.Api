@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Trading.Models;
+﻿namespace OKX.Api.Trade.Models;
 
 /// <summary>
 /// OKX Mass Cancel Response

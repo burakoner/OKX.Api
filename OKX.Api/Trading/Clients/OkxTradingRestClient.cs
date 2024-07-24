@@ -2,11 +2,11 @@
 using OKX.Api.Account.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
-using OKX.Api.Trading.Converters;
-using OKX.Api.Trading.Enums;
-using OKX.Api.Trading.Models;
+using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
+using OKX.Api.Trade.Models;
 
-namespace OKX.Api.Trading.Clients;
+namespace OKX.Api.Trade.Clients;
 
 /// <summary>
 /// OKX Rest Api Trade Client

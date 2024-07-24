@@ -1,7 +1,7 @@
 ﻿using OKX.Api.Funding.Converters;
 using OKX.Api.Funding.Enums;
-using OKX.Api.Trading.Converters;
-using OKX.Api.Trading.Enums;
+using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
 
 namespace OKX.Api.Funding.Models;
 
@@ -30,8 +30,8 @@ public class OkxFundingConvertOrderHistory
     /// fullyFilled : success
     /// rejected : failed
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxConvertOrderStateConverter))]
-    public OkxConvertOrderState State { get; set; }
+    [JsonProperty("state"), JsonConverter(typeof(OkxFundingConvertOrderStateConverter))]
+    public OkxFundingConvertOrderState State { get; set; }
     
     /// <summary>
     /// Currency pair, e.g. BTC-USDT

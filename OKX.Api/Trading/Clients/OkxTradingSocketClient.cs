@@ -1,6 +1,6 @@
-﻿using OKX.Api.Trading.Models;
+﻿using OKX.Api.Trade.Models;
 
-namespace OKX.Api.Trading.Clients;
+namespace OKX.Api.Trade.Clients;
 
 /// <summary>
 /// OKX WebSocket Api Trade Client

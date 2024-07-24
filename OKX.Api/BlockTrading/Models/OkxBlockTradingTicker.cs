@@ -1,7 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-
-namespace OKX.Api.BlockTrading.Models;
+﻿namespace OKX.Api.BlockTrading.Models;
 
 /// <summary>
 /// OKX Block Ticker

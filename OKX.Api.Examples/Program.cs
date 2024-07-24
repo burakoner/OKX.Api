@@ -118,13 +118,13 @@ internal class Program
         var funding_02 = await api.Funding.GetBalancesAsync();
         var funding_03 = await api.Funding.GetNonTradableBalancesAsync();
         var funding_04 = await api.Funding.GetAssetValuationAsync();
-        var funding_05 = await api.Funding.FundTransferAsync("BTC", 0.5m, OkxTransferType.TransferWithinAccount, OkxAccount.Funding, OkxAccount.Trading);
+        var funding_05 = await api.Funding.FundTransferAsync("BTC", 0.5m, OkxFundingTransferType.TransferWithinAccount, OkxAccount.Funding, OkxAccount.Trading);
         var funding_06 = await api.Funding.GetFundingBillDetailsAsync("BTC");
         var funding_07 = await api.Funding.GetLightningDepositsAsync("BTC", 0.001m);
         var funding_08 = await api.Funding.GetDepositAddressAsync("BTC");
         var funding_09 = await api.Funding.GetDepositAddressAsync("USDT");
         var funding_10 = await api.Funding.GetDepositHistoryAsync("USDT");
-        var funding_11 = await api.Funding.WithdrawAsync("USDT", 100.0m, OkxWithdrawalDestination.DigitalCurrencyAddress, "toAddress", 1.0m, "USDT-TRC20");
+        var funding_11 = await api.Funding.WithdrawAsync("USDT", 100.0m, OkxFundingWithdrawalDestination.DigitalCurrencyAddress, "toAddress", 1.0m, "USDT-TRC20");
         var funding_12 = await api.Funding.GetLightningWithdrawalsAsync("BTC", "invoice", "password");
         var funding_13 = await api.Funding.CancelWithdrawalAsync(1_000_001);
         var funding_14 = await api.Funding.GetWithdrawalHistoryAsync("USDT");
@@ -236,7 +236,7 @@ internal class Program
         // TODO: SignalTrading Methods (Signed)
 
         // RecurringBuy Methods (Signed)
-        var recurring_01 = await api.RecurringBuy.PlaceOrderAsync("Strategy Name", new List<OkxRecurringItem>(), OkxRecurringBuyPeriod.Monthly, 1, null, 1, "UTC", 1000.0m, "USDT", OkxTradeMode.Cross);
+        var recurring_01 = await api.RecurringBuy.PlaceOrderAsync("Strategy Name", new List<OkxRecurringBuyItem>(), OkxRecurringBuyPeriod.Monthly, 1, null, 1, "UTC", 1000.0m, "USDT", OkxTradeMode.Cross);
         var recurring_02 = await api.RecurringBuy.AmendOrderAsync(1_000_001, "Strategy Name");
         var recurring_03 = await api.RecurringBuy.StopOrderAsync(1_000_001);
         var recurring_04 = await api.RecurringBuy.GetOpenOrdersAsync();
@@ -401,12 +401,12 @@ internal class Program
             // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
-        await ws.Trading.PlaceOrderAsync(new Trading.Models.OkxOrderPlaceRequest());
-        await ws.Trading.PlaceOrdersAsync(new List<Trading.Models.OkxOrderPlaceRequest>());
-        await ws.Trading.CancelOrderAsync(new Trading.Models.OkxOrderCancelRequest());
-        await ws.Trading.CancelOrdersAsync(new List<Trading.Models.OkxOrderCancelRequest>());
-        await ws.Trading.AmendOrderAsync(new Trading.Models.OkxOrderAmendRequest());
-        await ws.Trading.AmendOrdersAsync(new List<Trading.Models.OkxOrderAmendRequest>());
+        await ws.Trading.PlaceOrderAsync(new Trade.Models.OkxOrderPlaceRequest());
+        await ws.Trading.PlaceOrdersAsync(new List<Trade.Models.OkxOrderPlaceRequest>());
+        await ws.Trading.CancelOrderAsync(new Trade.Models.OkxOrderCancelRequest());
+        await ws.Trading.CancelOrdersAsync(new List<Trade.Models.OkxOrderCancelRequest>());
+        await ws.Trading.AmendOrderAsync(new Trade.Models.OkxOrderAmendRequest());
+        await ws.Trading.AmendOrdersAsync(new List<Trade.Models.OkxOrderAmendRequest>());
         // End of Trade Updates (Private) ----------------------------------------------------------
 
         // AlgoTrading Updates (Private) -----------------------------------------------------------

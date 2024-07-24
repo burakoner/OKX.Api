@@ -110,8 +110,8 @@ public class OkxFundingWithdrawalHistory
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxWithdrawalStateConverter))]
-    public OkxWithdrawalState State { get; set; }
+    [JsonProperty("state"), JsonConverter(typeof(OkxFundingWithdrawalStateConverter))]
+    public OkxFundingWithdrawalState State { get; set; }
 
     /// <summary>
     /// Withdrawal Id

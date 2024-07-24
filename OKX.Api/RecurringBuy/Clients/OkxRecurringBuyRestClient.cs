@@ -20,9 +20,9 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
     private const string v5TradingBotRecurringOrdersAlgoDetails = "api/v5/tradingBot/recurring/orders-algo-details";
     private const string v5TradingBotRecurringSubOrders = "api/v5/tradingBot/recurring/sub-orders";
 
-    public Task<RestCallResult<OkxRecurringOrderResponse>> PlaceOrderAsync(
+    public Task<RestCallResult<OkxRecurringBuyOrderResponse>> PlaceOrderAsync(
        string strategyName,
-       IEnumerable<OkxRecurringItem> recurringList,
+       IEnumerable<OkxRecurringBuyItem> recurringList,
        OkxRecurringBuyPeriod period,
        int? recurringDay,
        int? recurringHour,
@@ -51,10 +51,10 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         parameters.AddOptionalParameter("algoClOrdId", clientOrderId);
 
         // Reequest
-        return ProcessOneRequestAsync<OkxRecurringOrderResponse>(GetUri(v5TradingBotRecurringOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri(v5TradingBotRecurringOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
-    public Task<RestCallResult<OkxRecurringOrderResponse>> AmendOrderAsync(long algoOrderId, string strategyName, CancellationToken ct = default)
+    public Task<RestCallResult<OkxRecurringBuyOrderResponse>> AmendOrderAsync(long algoOrderId, string strategyName, CancellationToken ct = default)
     {
         // Common
         var parameters = new Dictionary<string, object> {
@@ -63,10 +63,10 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         };
 
         // Reequest
-        return ProcessOneRequestAsync<OkxRecurringOrderResponse>(GetUri(v5TradingBotRecurringAmendOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri(v5TradingBotRecurringAmendOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxRecurringOrderResponse>> StopOrderAsync(long algoOrderId, CancellationToken ct = default)
+    public Task<RestCallResult<OkxRecurringBuyOrderResponse>> StopOrderAsync(long algoOrderId, CancellationToken ct = default)
     {
         // Common
         var parameters = new Dictionary<string, object> {
@@ -74,10 +74,10 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         };
 
         // Reequest
-        return ProcessOneRequestAsync<OkxRecurringOrderResponse>(GetUri(v5TradingBotRecurringStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri(v5TradingBotRecurringStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
-    public Task<RestCallResult<List<OkxRecurringOrder>>> GetOpenOrdersAsync(
+    public Task<RestCallResult<List<OkxRecurringBuyOrder>>> GetOpenOrdersAsync(
         long? algoOrderId = null,
         long? after = null,
         long? before = null,
@@ -91,10 +91,10 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxRecurringOrder>(GetUri(v5TradingBotRecurringOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxRecurringBuyOrder>(GetUri(v5TradingBotRecurringOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     
-    public Task<RestCallResult<List<OkxRecurringOrder>>> GetOrderHistoryAsync(
+    public Task<RestCallResult<List<OkxRecurringBuyOrder>>> GetOrderHistoryAsync(
         long? algoOrderId = null,
         long? after = null,
         long? before = null,
@@ -108,18 +108,18 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxRecurringOrder>(GetUri(v5TradingBotRecurringOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxRecurringBuyOrder>(GetUri(v5TradingBotRecurringOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxRecurringOrder>> GetOrderAsync(long algoOrderId, CancellationToken ct = default)
+    public Task<RestCallResult<OkxRecurringBuyOrder>> GetOrderAsync(long algoOrderId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("algoId", algoOrderId.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxRecurringOrder>(GetUri(v5TradingBotRecurringOrdersAlgoDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxRecurringBuyOrder>(GetUri(v5TradingBotRecurringOrdersAlgoDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxRecurringOrder>>> GetSubOrdersAsync(
+    public Task<RestCallResult<List<OkxRecurringBuyOrder>>> GetSubOrdersAsync(
         long algoOrderId,
         long? subOrderId = null,
         long? after = null,
@@ -135,7 +135,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxRecurringOrder>(GetUri(v5TradingBotRecurringSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxRecurringBuyOrder>(GetUri(v5TradingBotRecurringSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
 }

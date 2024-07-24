@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Trading.Enums;
+﻿namespace OKX.Api.Trade.Enums;
 
 /// <summary>
 /// OKX Order State
