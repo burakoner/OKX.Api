@@ -584,7 +584,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPositionTier>>> GetPositionTiersAsync(
         OkxInstrumentType instrumentType,
-        OkxMarginMode marginMode,
+        OkxAccountMarginMode marginMode,
         string underlying,
         string instrumentId = null,
         string instrumentFamily = null,
@@ -598,7 +598,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         var parameters = new Dictionary<string, object>
         {
             { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-            { "tdMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            { "tdMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
         };
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);

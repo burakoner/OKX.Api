@@ -276,7 +276,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<OkxClosePositionResponse>> ClosePositionAsync(
         string instrumentId,
-        OkxMarginMode marginMode,
+        OkxAccountMarginMode marginMode,
         OkxPositionSide? positionSide = null,
         string currency = null,
         bool? autoCxl = null,
@@ -286,7 +286,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new Dictionary<string, object> {
             {"tag", OkxConstants.BrokerId },
             {"instId", instrumentId },
-            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
         };
         parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)));
         parameters.AddOptionalParameter("ccy", currency);

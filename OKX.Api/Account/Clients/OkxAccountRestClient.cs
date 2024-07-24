@@ -104,7 +104,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="positionId">Position ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPosition>>> GetPositionsAsync(
+    public Task<RestCallResult<List<OkxAccountPosition>>> GetPositionsAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         string positionId = null,
@@ -115,7 +115,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("posId", positionId);
 
-        return ProcessListRequestAsync<OkxPosition>(GetUri(v5AccountPositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountPosition>(GetUri(v5AccountPositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -131,10 +131,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPositionHistory>>> GetPositionsHistoryAsync(
+    public Task<RestCallResult<List<OkxAccountPositionHistory>>> GetPositionsHistoryAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
-        OkxMarginMode? marginMode = null,
+        OkxAccountMarginMode? marginMode = null,
         OkxClosingPositionType? type = null,
         string positionId = null,
         long? after = null,
@@ -145,14 +145,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)));
+        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)));
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxClosingPositionTypeConverter(false)));
         parameters.AddOptionalParameter("posId", positionId);
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPositionHistory>(GetUri(v5AccountPositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountPositionHistory>(GetUri(v5AccountPositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -161,12 +161,12 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPositionBalance>>> GetPositionRiskAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxAccountPositionBalance>>> GetPositionRiskAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
-        return ProcessListRequestAsync<OkxPositionBalance>(GetUri(v5AccountPositionRisk), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountPositionBalance>(GetUri(v5AccountPositionRisk), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -185,13 +185,13 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxBill>>> GetBillHistoryAsync(
+    public Task<RestCallResult<List<OkxAccountBill>>> GetBillHistoryAsync(
         OkxInstrumentType? instrumentType = null,
         string currency = null,
-        OkxMarginMode? marginMode = null,
+        OkxAccountMarginMode? marginMode = null,
         OkxContractType? contractType = null,
-        OkxBillType? billType = null,
-        OkxBillSubType? billSubType = null,
+        OkxAccountBillType? billType = null,
+        OkxAccountBillSubType? billSubType = null,
         long? after = null,
         long? before = null,
         long? begin = null,
@@ -203,17 +203,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)));
+        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)));
         parameters.AddOptionalParameter("ctType", JsonConvert.SerializeObject(contractType, new OkxContractTypeConverter(false)));
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(billType, new OkxBillTypeConverter(false)));
-        parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new OkxBillSubTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(billType, new OkxAccountBillTypeConverter(false)));
+        parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new OkxAccountBillSubTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
         parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxBill>(GetUri(v5AccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountBill>(GetUri(v5AccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -232,13 +232,13 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxBill>>> GetBillArchiveAsync(
+    public Task<RestCallResult<List<OkxAccountBill>>> GetBillArchiveAsync(
         OkxInstrumentType? instrumentType = null,
         string currency = null,
-        OkxMarginMode? marginMode = null,
+        OkxAccountMarginMode? marginMode = null,
         OkxContractType? contractType = null,
-        OkxBillType? billType = null,
-        OkxBillSubType? billSubType = null,
+        OkxAccountBillType? billType = null,
+        OkxAccountBillSubType? billSubType = null,
         long? after = null,
         long? before = null,
         long? begin = null,
@@ -250,17 +250,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)));
+        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)));
         parameters.AddOptionalParameter("ctType", JsonConvert.SerializeObject(contractType, new OkxContractTypeConverter(false)));
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(billType, new OkxBillTypeConverter(false)));
-        parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new OkxBillSubTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(billType, new OkxAccountBillTypeConverter(false)));
+        parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new OkxAccountBillSubTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
         parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxBill>(GetUri(v5AccountBillsArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountBill>(GetUri(v5AccountBillsArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -311,11 +311,11 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="positionSide">Position Side</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxLeverage>>> SetLeverageAsync(
+    public Task<RestCallResult<List<OkxAccountLeverage>>> SetLeverageAsync(
         decimal leverage,
         string currency = null,
         string instrumentId = null,
-        OkxMarginMode? marginMode = null,
+        OkxAccountMarginMode? marginMode = null,
         OkxPositionSide? positionSide = null,
         CancellationToken ct = default)
     {
@@ -330,13 +330,13 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         var parameters = new Dictionary<string, object> {
             {"lever", leverage.ToOkxString() },
-            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
         };
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)));
 
-        return ProcessListRequestAsync<OkxLeverage>(GetUri(v5AccountSetLeverage), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountLeverage>(GetUri(v5AccountSetLeverage), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -350,7 +350,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="unSpotOffset">Spot-Derivatives risk offset</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxMaximumAmount>>> GetMaximumAmountAsync(
+    public Task<RestCallResult<List<OkxAccountMaximumAmount>>> GetMaximumAmountAsync(
         string instrumentId,
         OkxTradeMode tradeMode,
         string currency = null,
@@ -368,7 +368,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("leverage", leverage?.ToOkxString());
         parameters.AddOptionalParameter("unSpotOffset", unSpotOffset);
 
-        return ProcessListRequestAsync<OkxMaximumAmount>(GetUri(v5AccountMaxSize), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountMaximumAmount>(GetUri(v5AccountMaxSize), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -383,7 +383,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="quickMgnType">Quick Margin type. Only applicable to Quick Margin Mode of isolated margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxMaximumAvailableAmount>>> GetMaximumAvailableAmountAsync(
+    public Task<RestCallResult<List<OkxAccountMaximumAvailableAmount>>> GetMaximumAvailableAmountAsync(
         string instrumentId,
         OkxTradeMode tradeMode,
         string currency = null,
@@ -403,7 +403,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("unSpotOffset", unSpotOffset);
         parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new OkxQuickMarginTypeConverter(false)));
 
-        return ProcessListRequestAsync<OkxMaximumAvailableAmount>(GetUri(v5AccountMaxAvailSize), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountMaximumAvailableAmount>(GetUri(v5AccountMaxAvailSize), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -417,10 +417,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="auto">Automatic loan transfer out, true or false, the default is false. Only applicable to MARGIN（Manual transfers）</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxMarginBalance>>> SetMarginAmountAsync(
+    public Task<RestCallResult<List<OkxAccountMarginBalance>>> SetMarginAmountAsync(
         string instrumentId,
         OkxPositionSide positionSide,
-        OkxMarginAddReduce marginAddReduce,
+        OkxAccountMarginAddReduce marginAddReduce,
         decimal amount,
         string currency = null,
         bool? auto = null,
@@ -429,13 +429,13 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new Dictionary<string, object> {
             { "instId", instrumentId },
             { "posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)) },
-            { "type", JsonConvert.SerializeObject(marginAddReduce, new OkxMarginAddReduceConverter(false)) },
+            { "type", JsonConvert.SerializeObject(marginAddReduce, new OkxAccountMarginAddReduceConverter(false)) },
             { "amt", amount.ToOkxString() },
         };
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("auto", auto);
 
-        return ProcessListRequestAsync<OkxMarginBalance>(GetUri(v5AccountPositionMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountMarginBalance>(GetUri(v5AccountPositionMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -445,17 +445,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="marginMode">Margin Mode</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxLeverage>>> GetLeverageAsync(
+    public Task<RestCallResult<List<OkxAccountLeverage>>> GetLeverageAsync(
         string instrumentIds,
-        OkxMarginMode marginMode,
+        OkxAccountMarginMode marginMode,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             {"instId", instrumentIds },
-            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
         };
 
-        return ProcessListRequestAsync<OkxLeverage>(GetUri(v5AccountLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountLeverage>(GetUri(v5AccountLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -469,9 +469,9 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="positionSide">posSide</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxLeverageEstimatedInformation>>> GetLeverageEstimatedInformationAsync(
+    public Task<RestCallResult<List<OkxAccountLeverageEstimatedInformation>>> GetLeverageEstimatedInformationAsync(
         OkxInstrumentType instrumentType,
-        OkxMarginMode marginMode,
+        OkxAccountMarginMode marginMode,
         decimal leverage,
         string instrumentId = null,
         string currency = null,
@@ -480,14 +480,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     {
         var parameters = new Dictionary<string, object> {
             {"instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
             {"lever", leverage.ToOkxString() },
         };
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)));
 
-        return ProcessListRequestAsync<OkxLeverageEstimatedInformation>(GetUri(v5AccountAdjustLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountLeverageEstimatedInformation>(GetUri(v5AccountAdjustLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -498,19 +498,19 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="marginCurrency">Margin Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxMaximumLoanAmount>>> GetMaximumLoanAmountAsync(
+    public Task<RestCallResult<List<OkxAccountMaximumLoanAmount>>> GetMaximumLoanAmountAsync(
         string instrumentId,
-        OkxMarginMode marginMode,
+        OkxAccountMarginMode marginMode,
         string marginCurrency = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             {"instId", instrumentId },
-            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)) },
+            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
         };
         parameters.AddOptionalParameter("mgnCcy", marginCurrency);
 
-        return ProcessListRequestAsync<OkxMaximumLoanAmount>(GetUri(v5AccountMaxLoan), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountMaximumLoanAmount>(GetUri(v5AccountMaxLoan), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -522,7 +522,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="instrumentFamily">Instrument family</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFeeRate>> GetFeeRatesAsync(
+    public Task<RestCallResult<OkxAccountFeeRate>> GetFeeRatesAsync(
         OkxInstrumentType instrumentType,
         string instrumentId = null,
         string underlying = null,
@@ -536,7 +536,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
-        return ProcessOneRequestAsync<OkxFeeRate>(GetUri(v5AccountTradeFee), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountFeeRate>(GetUri(v5AccountTradeFee), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -551,11 +551,11 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxInterestAccrued>>> GetInterestAccruedAsync(
-        OkxLoanType? type = null,
+    public Task<RestCallResult<List<OkxAccountInterestAccrued>>> GetInterestAccruedAsync(
+        OkxAccountLoanType? type = null,
         string currency = null,
         string instrumentId = null,
-        OkxMarginMode? marginMode = null,
+        OkxAccountMarginMode? marginMode = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -563,15 +563,15 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxLoanTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxAccountLoanTypeConverter(false)));
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxMarginModeConverter(false)));
+        parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxInterestAccrued>(GetUri(v5AccountInterestAccrued), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountInterestAccrued>(GetUri(v5AccountInterestAccrued), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -580,14 +580,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxInterestRate>>> GetInterestRateAsync(
+    public Task<RestCallResult<List<OkxAccountInterestRate>>> GetInterestRateAsync(
         string currency = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
 
-        return ProcessListRequestAsync<OkxInterestRate>(GetUri(v5AccountInterestRate), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountInterestRate>(GetUri(v5AccountInterestRate), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -596,13 +596,13 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="greeksType">Display type of Greeks.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountGreeksType>> SetGreeksAsync(OkxGreeksType greeksType, CancellationToken ct = default)
+    public Task<RestCallResult<Models.OkxAccountGreeksType>> SetGreeksAsync(Enums.OkxAccountGreeksType greeksType, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            { "greeksType", JsonConvert.SerializeObject(greeksType, new OkxGreeksTypeConverter(false)) },
+            { "greeksType", JsonConvert.SerializeObject(greeksType, new OkxAccountGreeksTypeConverter(false)) },
         };
 
-        return ProcessOneRequestAsync<OkxAccountGreeksType>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<Models.OkxAccountGreeksType>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -613,15 +613,15 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public Task<RestCallResult<OkxIsolatedMarginModeSettings>> SetIsolatedMarginModeAsync(OkxInstrumentType instrumentType, OkxIsolatedMarginMode marginMode, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountIsolatedMarginModeSettings>> SetIsolatedMarginModeAsync(OkxInstrumentType instrumentType, OkxAccountIsolatedMarginMode marginMode, CancellationToken ct = default)
     {
         if (!instrumentType.IsIn(OkxInstrumentType.Margin, OkxInstrumentType.Contracts)) throw new ArgumentException("Only Margin and Contracts allowed", nameof(instrumentType));
         var parameters = new Dictionary<string, object> {
-            { "isoMode", JsonConvert.SerializeObject(marginMode, new OkxIsolatedMarginModeConverter(false)) },
+            { "isoMode", JsonConvert.SerializeObject(marginMode, new OkxAccountIsolatedMarginModeConverter(false)) },
             { "type", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
         };
 
-        return ProcessOneRequestAsync<OkxIsolatedMarginModeSettings>(GetUri(v5AccountSetIsolatedMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountIsolatedMarginModeSettings>(GetUri(v5AccountSetIsolatedMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -630,14 +630,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxWithdrawalAmount>>> GetMaximumWithdrawalsAsync(
+    public Task<RestCallResult<List<OkxAccountWithdrawalAmount>>> GetMaximumWithdrawalsAsync(
         string currency = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
 
-        return ProcessListRequestAsync<OkxWithdrawalAmount>(GetUri(v5AccountMaxWithdrawal), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountWithdrawalAmount>(GetUri(v5AccountMaxWithdrawal), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     public Task<RestCallResult<OkxAccountRiskState>> GetRiskStateAsync(CancellationToken ct = default)
@@ -645,7 +645,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountRiskState>(GetUri(v5AccountRiskState), HttpMethod.Get, ct, signed: true);
     }
 
-    public Task<RestCallResult<OkxMarginBorrowRepay>> QuickMarginBorrowAsync(string instrumentId, string currency, decimal amount, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountMarginBorrowRepay>> QuickMarginBorrowAsync(string instrumentId, string currency, decimal amount, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -655,10 +655,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "amt", amount.ToOkxString() }
         };
 
-        return ProcessOneRequestAsync<OkxMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxMarginBorrowRepay>> QuickMarginRepayAsync(string instrumentId, string currency, decimal amount, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountMarginBorrowRepay>> QuickMarginRepayAsync(string instrumentId, string currency, decimal amount, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -668,10 +668,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "amt", amount.ToOkxString() }
         };
 
-        return ProcessOneRequestAsync<OkxMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxMarginBorrowRepayHistory>>> GetQuickMarginBorrowRepayHistoryAsync(
+    public Task<RestCallResult<List<OkxAccountMarginBorrowRepayHistory>>> GetQuickMarginBorrowRepayHistoryAsync(
     string instrumentId = null,
     string currency = null,
     string side = null,
@@ -693,10 +693,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("end", end?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxMarginBorrowRepayHistory>(GetUri(v5AccountQuickMarginBorrowRepayHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountMarginBorrowRepayHistory>(GetUri(v5AccountQuickMarginBorrowRepayHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxVipLoanBorrowRepay>> VipLoanBorrowAsync(string currency, decimal amount, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountVipLoanBorrowRepay>> VipLoanBorrowAsync(string currency, decimal amount, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -705,10 +705,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "amt", amount.ToOkxString() }
         };
 
-        return ProcessOneRequestAsync<OkxVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxVipLoanBorrowRepay>> VipLoanRepayAsync(string currency, decimal amount, long orderId, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountVipLoanBorrowRepay>> VipLoanRepayAsync(string currency, decimal amount, long orderId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -718,10 +718,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "amt", amount.ToOkxString() }
         };
 
-        return ProcessOneRequestAsync<OkxVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxVipLoanBorrowRepayHistory>>> GetVipLoanBorrowRepayHistoryAsync(
+    public Task<RestCallResult<List<OkxAccountVipLoanBorrowRepayHistory>>> GetVipLoanBorrowRepayHistoryAsync(
     string currency = null,
     long? after = null,
     long? before = null,
@@ -735,29 +735,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxVipLoanBorrowRepayHistory>(GetUri(v5AccountBorrowRepayHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountVipLoanBorrowRepayHistory>(GetUri(v5AccountBorrowRepayHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxVipInterestAccruedData>>> GetVipInterestAccruedDataAsync(
-    string currency = null,
-    long? orderId = null,
-    long? after = null,
-    long? before = null,
-    int limit = 100,
-    CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
-
-        return ProcessListRequestAsync<OkxVipInterestAccruedData>(GetUri(v5AccountVipInterestAccrued), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    public Task<RestCallResult<List<OkxVipInterestDeductedData>>> GetVipInterestDeductedDataAsync(
+    public Task<RestCallResult<List<OkxAccountVipInterestAccruedData>>> GetVipInterestAccruedDataAsync(
     string currency = null,
     long? orderId = null,
     long? after = null,
@@ -773,10 +754,29 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxVipInterestDeductedData>(GetUri(v5AccountVipInterestDeducted), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountVipInterestAccruedData>(GetUri(v5AccountVipInterestAccrued), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxVipLoanOrder>>> GetVipLoanOrdersAsync(
+    public Task<RestCallResult<List<OkxAccountVipInterestDeductedData>>> GetVipInterestDeductedDataAsync(
+    string currency = null,
+    long? orderId = null,
+    long? after = null,
+    long? before = null,
+    int limit = 100,
+    CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxAccountVipInterestDeductedData>(GetUri(v5AccountVipInterestDeducted), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    public Task<RestCallResult<List<OkxAccountVipLoanOrder>>> GetVipLoanOrdersAsync(
     long? orderId = null,
     OkxAccountVipLoanState? state = null,
     string currency = null,
@@ -794,10 +794,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxVipLoanOrder>(GetUri(v5AccountVipLoanOrderList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountVipLoanOrder>(GetUri(v5AccountVipLoanOrderList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxVipLoanOrderDetails>>> GetVipLoanOrderDetailsAsync(
+    public Task<RestCallResult<List<OkxAccountVipLoanOrderDetails>>> GetVipLoanOrderDetailsAsync(
     long? orderId = null,
     string currency = null,
     long? after = null,
@@ -813,28 +813,28 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxVipLoanOrderDetails>(GetUri(v5AccountVipLoanOrderDetail), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountVipLoanOrderDetails>(GetUri(v5AccountVipLoanOrderDetail), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxInterestLimits>>> GetInterestLimitsAsync(
-    OkxLoanType? type = null,
+    public Task<RestCallResult<List<OkxAccountInterestLimits>>> GetInterestLimitsAsync(
+    OkxAccountLoanType? type = null,
     string currency = null,
     CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxLoanTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxAccountLoanTypeConverter(false)));
         parameters.AddOptionalParameter("ccy", currency);
 
-        return ProcessListRequestAsync<OkxInterestLimits>(GetUri(v5AccountInterestLimits), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountInterestLimits>(GetUri(v5AccountInterestLimits), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxFixedLoanBorrowingLimit>> GetFixedLoanBorrowingLimitAsync(CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountFixedLoanBorrowingLimit>> GetFixedLoanBorrowingLimitAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxFixedLoanBorrowingLimit>(GetUri(v5AccountFixedLoanBorrowingLimit), HttpMethod.Get, ct, signed: true);
+        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingLimit>(GetUri(v5AccountFixedLoanBorrowingLimit), HttpMethod.Get, ct, signed: true);
     }
 
-    public Task<RestCallResult<OkxFixedLoanBorrowingQuote>> GetFixedLoanBorrowingQuoteAsync(
-    OkxFixedLoanBorrowingType type,
+    public Task<RestCallResult<OkxAccountFixedLoanBorrowingQuote>> GetFixedLoanBorrowingQuoteAsync(
+    OkxAccountFixedLoanBorrowingType type,
     string currency = null,
     decimal? amount = null,
     decimal? maximumRate = null,
@@ -842,30 +842,30 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     long? orderId = null,
     CancellationToken ct = default)
     {
-        if (type == OkxFixedLoanBorrowingType.Borrow)
+        if (type == OkxAccountFixedLoanBorrowingType.Borrow)
         {
             if (string.IsNullOrEmpty(currency)) throw new ArgumentNullException($"{nameof(currency)} is required for Normal Borrows");
             if (amount is null) throw new ArgumentNullException($"{nameof(amount)} is required for Normal Borrows");
             if (maximumRate is null) throw new ArgumentNullException($"{nameof(maximumRate)} is required for Normal Borrows");
             if (string.IsNullOrEmpty(term)) throw new ArgumentNullException($"{nameof(term)} is required for Normal Borrows");
         }
-        else if (type == OkxFixedLoanBorrowingType.Reborrow)
+        else if (type == OkxAccountFixedLoanBorrowingType.Reborrow)
         {
             if (orderId is null) throw new ArgumentNullException($"{nameof(orderId)} is required for Reborrows");
         }
 
         var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxFixedLoanBorrowingTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxAccountFixedLoanBorrowingTypeConverter(false)));
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("amt", amount.ToOkxString());
         parameters.AddOptionalParameter("maxRate", maximumRate.ToOkxString());
         parameters.AddOptionalParameter("term", term);
         parameters.AddOptionalParameter("ordId", orderId.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxFixedLoanBorrowingQuote>(GetUri(v5AccountFixedLoanBorrowingQuote), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingQuote>(GetUri(v5AccountFixedLoanBorrowingQuote), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     
-    public Task<RestCallResult<OkxFixedLoanBorrowingOrder>> PlaceFixedLoanBorrowingOrderAsync(
+    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> PlaceFixedLoanBorrowingOrderAsync(
     string currency,
     decimal amount,
     decimal maximumRate,
@@ -884,10 +884,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("reborrow", reborrow);
         parameters.AddOptionalParameter("reborrowRate", reborrowRate?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxFixedLoanBorrowingOrder>> AmendFixedLoanBorrowingOrderAsync(
+    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> AmendFixedLoanBorrowingOrderAsync(
     long orderId,
     bool reborrow = false,
     decimal? maximumRate = null,
@@ -900,10 +900,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("reborrow", reborrow);
         parameters.AddOptionalParameter("renewMaxRate", maximumRate?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanAmendBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanAmendBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
-    public Task<RestCallResult<OkxFixedLoanBorrowingOrder>> RenewFixedLoanBorrowingOrderAsync(
+    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> RenewFixedLoanBorrowingOrderAsync(
     long orderId,
     decimal? maximumRate = null,
     CancellationToken ct = default)
@@ -914,10 +914,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "maxRate", maximumRate?.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanManualReborrow), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanManualReborrow), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
-    public Task<RestCallResult<OkxFixedLoanBorrowingOrder>> RepayFixedLoanBorrowingOrderAsync(
+    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> RepayFixedLoanBorrowingOrderAsync(
     long orderId,
     CancellationToken ct = default)
     {
@@ -926,13 +926,13 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "ordId", orderId },
         };
 
-        return ProcessOneRequestAsync<OkxFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanRepayBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanRepayBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
-    public Task<RestCallResult<OkxFixedLoanBorrowingOrder>> GetFixedLoanBorrowingOrdersAsync(
+    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> GetFixedLoanBorrowingOrdersAsync(
     long? orderId=null,
     string currency=null,
-    OkxFixedLoanBorrowingOrderState? state=null,
+    OkxAccountFixedLoanBorrowingOrderState? state=null,
     long? after = null,
     long? before = null,
     int limit = 100,
@@ -943,33 +943,33 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "ordId", orderId },
         };
         parameters.AddOptionalParameter("after", currency);
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxFixedLoanBorrowingOrderStateConverter(false)));
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxAccountFixedLoanBorrowingOrderStateConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanBorrowingOrdersList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanBorrowingOrdersList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxPositionBuilder>>> PositionBuilderAsync(
+    public Task<RestCallResult<List<OkxAccountPositionBuilder>>> PositionBuilderAsync(
     bool importExistingPositionsAndAssets = true,
-    OkxRiskOffsetType spotOffsetType = OkxRiskOffsetType.DerivativesOnly,
-    IEnumerable<OkxSimulatedPosition> simulatedPositions = null,
-    IEnumerable<OkxSimulatedAsset> simulatedAssets = null,
-    OkxGreeksType? greeksType = OkxGreeksType.BlackScholesGreeksInDollars,
+    Enums.OkxAccountRiskOffsetType spotOffsetType = Enums.OkxAccountRiskOffsetType.DerivativesOnly,
+    IEnumerable<OkxAccountSimulatedPosition> simulatedPositions = null,
+    IEnumerable<OkxAccountSimulatedAsset> simulatedAssets = null,
+    Enums.OkxAccountGreeksType? greeksType = Enums.OkxAccountGreeksType.BlackScholesGreeksInDollars,
     CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("inclRealPosAndEq", importExistingPositionsAndAssets);
-        parameters.AddOptionalParameter("spotOffsetType", JsonConvert.SerializeObject(spotOffsetType, new OkxRiskOffsetTypeConverter(false)));
+        parameters.AddOptionalParameter("spotOffsetType", JsonConvert.SerializeObject(spotOffsetType, new OkxAccountRiskOffsetTypeConverter(false)));
         parameters.AddOptionalParameter("simPos", simulatedPositions);
         parameters.AddOptionalParameter("simAsset", simulatedAssets);
-        parameters.AddOptionalParameter("greeksType", JsonConvert.SerializeObject(greeksType, new OkxGreeksTypeConverter(false)));
+        parameters.AddOptionalParameter("greeksType", JsonConvert.SerializeObject(greeksType, new OkxAccountGreeksTypeConverter(false)));
 
-        return ProcessListRequestAsync<OkxPositionBuilder>(GetUri(v5AccountPositionBuilder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountPositionBuilder>(GetUri(v5AccountPositionBuilder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
-    public Task<RestCallResult<OkxRiskOffsetAmount>> SetRiskOffsetAmountAsync(
+    public Task<RestCallResult<OkxAccountRiskOffsetAmount>> SetRiskOffsetAmountAsync(
         string currency,
         decimal spotRiskOffsetAmount,
     CancellationToken ct = default)
@@ -980,20 +980,20 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "clSpotInUseAmt", spotRiskOffsetAmount.ToOkxString() }
         };
 
-        return ProcessOneRequestAsync<OkxRiskOffsetAmount>(GetUri(v5AccountSetRiskOffsetAmount), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountRiskOffsetAmount>(GetUri(v5AccountSetRiskOffsetAmount), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxGreeks>> GetGreeksAsync(
+    public Task<RestCallResult<OkxAccountGreeks>> GetGreeksAsync(
     string currency = null,
     CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
 
-        return ProcessOneRequestAsync<OkxGreeks>(GetUri(v5AccountGreeks), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountGreeks>(GetUri(v5AccountGreeks), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxPositionTiers>> GetPositionTiersAsync(
+    public Task<RestCallResult<OkxAccountPositionTiers>> GetPositionTiersAsync(
     OkxInstrumentType instrumentType,
     string underlying = null,
     string instrumentFamily = null,
@@ -1004,17 +1004,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
-        return ProcessOneRequestAsync<OkxPositionTiers>(GetUri(v5AccountPositionTiers), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountPositionTiers>(GetUri(v5AccountPositionTiers), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxRiskOffsetTypeModel>> SetRiskOffsetTypeAsync(
-    OkxRiskOffsetType type,
+    public Task<RestCallResult<Models.OkxAccountRiskOffsetTypeModel>> SetRiskOffsetTypeAsync(
+    Enums.OkxAccountRiskOffsetType type,
     CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxRiskOffsetTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxAccountRiskOffsetTypeConverter(false)));
 
-        return ProcessOneRequestAsync<OkxRiskOffsetTypeModel>(GetUri(v5AccountSetRiskOffsetType), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<Models.OkxAccountRiskOffsetTypeModel>(GetUri(v5AccountSetRiskOffsetType), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxTimestamp>> ActivateOptionAsync(CancellationToken ct = default)
@@ -1022,14 +1022,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5AccountActivateOption), HttpMethod.Post, ct, signed: true);
     }
 
-    public Task<RestCallResult<OkxAutoLoan>> SetAutoLoanAsync(bool autoLoan, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountAutoLoan>> SetAutoLoanAsync(bool autoLoan, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "autoLoan", autoLoan }
         };
 
-        return ProcessOneRequestAsync<OkxAutoLoan>(GetUri(v5AccountSetAutoLoan), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountAutoLoan>(GetUri(v5AccountSetAutoLoan), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxAccountLevelData>> SetLevelAsync(OkxAccountLevel accountLevel, CancellationToken ct = default)
@@ -1051,7 +1051,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxBooleanResult>(GetUri(v5AccountMmpReset), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxMmpConfiguration>> SetMmpConfigurationAsync(string instrumentFamily, int timeInterval, int frozenInterval, int quantityLimit, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountMmpConfiguration>> SetMmpConfigurationAsync(string instrumentFamily, int timeInterval, int frozenInterval, int quantityLimit, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -1061,17 +1061,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "qtyLimit", quantityLimit.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxMmpConfiguration>(GetUri(v5AccountMmpConfig), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountMmpConfiguration>(GetUri(v5AccountMmpConfig), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxMmpConfigurationData>> GetMmpConfigurationAsync(string instrumentFamily, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountMmpConfigurationData>> GetMmpConfigurationAsync(string instrumentFamily, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "instFamily", instrumentFamily },
         };
 
-        return ProcessOneRequestAsync<OkxMmpConfigurationData>(GetUri(v5AccountMmpConfig), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountMmpConfigurationData>(GetUri(v5AccountMmpConfig), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
 }

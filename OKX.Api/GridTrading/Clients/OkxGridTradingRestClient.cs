@@ -429,13 +429,13 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <returns></returns>
     public Task<RestCallResult<OkxGridComputedMarginBalance>> ComputeMarginBalanceAsync(
         long algoOrderId,
-        OkxMarginAddReduce type,
+        OkxAccountMarginAddReduce type,
         decimal quantity,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "algoId", algoOrderId.ToOkxString() },
-            { "type", JsonConvert.SerializeObject(type, new OkxMarginAddReduceConverter(false)) },
+            { "type", JsonConvert.SerializeObject(type, new OkxAccountMarginAddReduceConverter(false)) },
             { "amt", quantity.ToOkxString() },
         };
 
@@ -453,14 +453,14 @@ public class OkxGridTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <returns></returns>
     public Task<RestCallResult<OkxGridOrderResponse>> AdjustMarginBalanceAsync(
         long algoOrderId,
-        OkxMarginAddReduce type,
+        OkxAccountMarginAddReduce type,
         decimal? quantity = null,
         decimal? percent = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "algoId", algoOrderId.ToOkxString() },
-            { "type", JsonConvert.SerializeObject(type, new OkxMarginAddReduceConverter(false)) },
+            { "type", JsonConvert.SerializeObject(type, new OkxAccountMarginAddReduceConverter(false)) },
         };
         parameters.AddOptionalParameter("amt", quantity?.ToOkxString());
         parameters.AddOptionalParameter("percent", percent?.ToOkxString());

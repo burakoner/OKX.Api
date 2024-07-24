@@ -43,7 +43,7 @@ public class OkxBlockTradingRestClient(OkxRestApiClient root) : OkxBaseRestClien
     /// <param name="underlying">Underlying</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxBlockTicker>>> GetBlockTickersAsync(
+    public Task<RestCallResult<List<OkxBlockTradingTicker>>> GetBlockTickersAsync(
         OkxInstrumentType instrumentType,
         string instrumentFamily = null,
         string underlying = null,
@@ -56,7 +56,7 @@ public class OkxBlockTradingRestClient(OkxRestApiClient root) : OkxBaseRestClien
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
-        return ProcessListRequestAsync<OkxBlockTicker>(GetUri(v5MarketBlockTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockTradingTicker>(GetUri(v5MarketBlockTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -67,14 +67,14 @@ public class OkxBlockTradingRestClient(OkxRestApiClient root) : OkxBaseRestClien
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxBlockTicker>> GetBlockTickerAsync(string instrumentId, CancellationToken ct = default)
+    public Task<RestCallResult<OkxBlockTradingTicker>> GetBlockTickerAsync(string instrumentId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
         };
 
-        return ProcessOneRequestAsync<OkxBlockTicker>(GetUri(v5MarketBlockTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxBlockTradingTicker>(GetUri(v5MarketBlockTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -85,14 +85,14 @@ public class OkxBlockTradingRestClient(OkxRestApiClient root) : OkxBaseRestClien
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxBlockTrade>>> GetBlockTradesAsync(string instrumentId, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxBlockTradingTrade>>> GetBlockTradesAsync(string instrumentId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
         };
 
-        return ProcessListRequestAsync<OkxBlockTrade>(GetUri(v5MarketBlockTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockTradingTrade>(GetUri(v5MarketBlockTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
     #endregion
 

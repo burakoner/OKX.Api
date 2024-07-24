@@ -1,11 +1,9 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
+using OKX.Api.CopyTrading.Converters;
+using OKX.Api.CopyTrading.Enums;
 using OKX.Api.Trading.Converters;
 using OKX.Api.Trading.Enums;
-using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-using OKX.Api.CopyTrading.Enums;
-using OKX.Api.CopyTrading.Converters;
 
 namespace OKX.Api.Account.Models;
 
@@ -49,8 +47,8 @@ public class OkxAccountConfiguration
     /// <summary>
     /// Current display type of Greeks
     /// </summary>
-    [JsonProperty("greeksType"), JsonConverter(typeof(OkxGreeksTypeConverter))]
-    public OkxGreeksType GreeksType { get; set; }
+    [JsonProperty("greeksType"), JsonConverter(typeof(OkxAccountGreeksTypeConverter))]
+    public Enums.OkxAccountGreeksType GreeksType { get; set; }
 
     /// <summary>
     /// The user level of the current real trading volume on the platform, e.g lv1
@@ -67,21 +65,21 @@ public class OkxAccountConfiguration
     /// <summary>
     /// Contract isolated margin trading settings
     /// </summary>
-    [JsonProperty("ctIsoMode"), JsonConverter(typeof(OkxIsolatedMarginModeConverter))]
-    public OkxIsolatedMarginMode ContractIsolatedMarginTradingMode { get; set; }
+    [JsonProperty("ctIsoMode"), JsonConverter(typeof(OkxAccountIsolatedMarginModeConverter))]
+    public OkxAccountIsolatedMarginMode ContractIsolatedMarginTradingMode { get; set; }
 
     /// <summary>
     /// Margin isolated margin trading settings
     /// </summary>
-    [JsonProperty("mgnIsoMode"), JsonConverter(typeof(OkxIsolatedMarginModeConverter))]
-    public OkxIsolatedMarginMode MarginIsolatedMarginTradingMode { get; set; }
+    [JsonProperty("mgnIsoMode"), JsonConverter(typeof(OkxAccountIsolatedMarginModeConverter))]
+    public OkxAccountIsolatedMarginMode MarginIsolatedMarginTradingMode { get; set; }
 
     /// <summary>
     /// Risk offset type
     /// Only applicable to Portfolio margin
     /// </summary>
-    [JsonProperty("spotOffsetType"), JsonConverter(typeof(OkxRiskOffsetTypeConverter))]
-    public OkxRiskOffsetType? RiskOffsetType { get; set; }
+    [JsonProperty("spotOffsetType"), JsonConverter(typeof(OkxAccountRiskOffsetTypeConverter))]
+    public OkxAccountRiskOffsetType? RiskOffsetType { get; set; }
 
     /// <summary>
     /// Role type.
@@ -138,6 +136,6 @@ public class OkxAccountConfiguration
     /// <summary>
     /// The permission of the urrent request API Key. read_only：Read only；trade ：Trade; withdraw: Withdraw
     /// </summary>
-    [JsonProperty("perm"), JsonConverter(typeof(OkxApiKeyPermissionConverter))]
-    public OkxApiKeyPermission ApiKeyPermission { get; set; }
+    [JsonProperty("perm"), JsonConverter(typeof(OkxAccountApiKeyPermissionConverter))]
+    public OkxAccountApiKeyPermission ApiKeyPermission { get; set; }
 }

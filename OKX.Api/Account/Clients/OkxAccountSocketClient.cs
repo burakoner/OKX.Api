@@ -40,7 +40,7 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxPosition> onData, OkxInstrumentType instrumentType, string instrumentFamily = null, string instrumentId = null, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxAccountPosition> onData, OkxInstrumentType instrumentType, string instrumentFamily = null, string instrumentId = null, CancellationToken ct = default)
         => await SubscribeToPositionUpdatesAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct).ConfigureAwait(false);
 
     /// <summary>
@@ -50,9 +50,9 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
     /// <param name="symbols">Symbols to subscribe</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxPosition> onData, IEnumerable<OkxSocketSymbolRequest> symbols, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxAccountPosition> onData, IEnumerable<OkxSocketSymbolRequest> symbols, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPosition>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountPosition>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);
@@ -76,9 +76,9 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToBalanceAndPositionUpdatesAsync(Action<OkxPositionBalance> onData, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToBalanceAndPositionUpdatesAsync(Action<OkxAccountPositionBalance> onData, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPositionBalance>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountPositionBalance>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);
@@ -102,9 +102,9 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionRiskUpdatesAsync(OkxInstrumentType instrumentType, Action<OkxPosition> onData, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionRiskUpdatesAsync(OkxInstrumentType instrumentType, Action<OkxAccountPosition> onData, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPosition>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountPosition>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);
@@ -125,9 +125,9 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAccountGreeksUpdatesAsync(Action<OkxGreeks> onData, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAccountGreeksUpdatesAsync(Action<OkxAccountGreeks> onData, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxGreeks>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountGreeks>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);

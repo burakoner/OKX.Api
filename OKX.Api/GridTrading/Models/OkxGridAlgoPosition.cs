@@ -99,8 +99,8 @@ public class OkxGridAlgoPosition
     /// <summary>
     /// Margin mode
     /// </summary>
-    [JsonProperty("mgnMode"), JsonConverter(typeof(OkxMarginModeConverter))]
-    public OkxMarginMode? MarginMode { get; set; }
+    [JsonProperty("mgnMode"), JsonConverter(typeof(OkxAccountMarginModeConverter))]
+    public OkxAccountMarginMode? MarginMode { get; set; }
 
     /// <summary>
     /// Margin ratio
