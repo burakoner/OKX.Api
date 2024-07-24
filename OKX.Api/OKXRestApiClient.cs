@@ -48,7 +48,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Copy Trading Client
     /// </summary>
-    public OkxCopyTradingRestClient CopyTrading { get; } // TODO: 29
+    public OkxCopyTradingRestClient CopyTrading { get; }
 
     /// <summary>
     /// Alias for Public Client
