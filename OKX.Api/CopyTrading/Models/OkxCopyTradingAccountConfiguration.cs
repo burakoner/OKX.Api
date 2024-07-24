@@ -6,7 +6,7 @@ namespace OKX.Api.CopyTrading.Models;
 /// <summary>
 /// OkxCopyTradingConfiguration
 /// </summary>
-public class OkxCopyTradingConfiguration
+public class OkxCopyTradingAccountConfiguration
 {
     /// <summary>
     /// Nickname
@@ -30,13 +30,13 @@ public class OkxCopyTradingConfiguration
     /// Details
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxCopyTradingConfigurationDetails> Details { get; set; } = [];
+    public List<OkxCopyTradingAccountConfigurationDetails> Details { get; set; } = [];
 }
 
 /// <summary>
 /// OkxCopyTradingConfigurationDetails
 /// </summary>
-public class OkxCopyTradingConfigurationDetails
+public class OkxCopyTradingAccountConfigurationDetails
 {
     /// <summary>
     /// Current number of copy traders

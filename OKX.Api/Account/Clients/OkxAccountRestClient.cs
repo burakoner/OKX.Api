@@ -1040,7 +1040,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountLevelData>(GetUri(v5AccountSetAccountLevel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxBooleanResult>> ResetMmpAsync(string instrumentFamily, CancellationToken ct = default)
+    public Task<RestCallResult<OkxBooleanResponse>> ResetMmpAsync(string instrumentFamily, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -1048,7 +1048,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "instFamily", instrumentFamily }
         };
 
-        return ProcessOneRequestAsync<OkxBooleanResult>(GetUri(v5AccountMmpReset), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5AccountMmpReset), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     public Task<RestCallResult<OkxAccountMmpConfiguration>> SetMmpConfigurationAsync(string instrumentFamily, int timeInterval, int frozenInterval, int quantityLimit, CancellationToken ct = default)

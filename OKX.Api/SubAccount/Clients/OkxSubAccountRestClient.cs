@@ -261,7 +261,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         return ProcessListRequestAsync<OkxSubAccountName>(GetUri(v5UsersEntrustSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     
-    public Task<RestCallResult<OkxBooleanResult>> SetLoanAllocationAsync(
+    public Task<RestCallResult<OkxBooleanResponse>> SetLoanAllocationAsync(
         bool enable,
         IEnumerable<OkxSubAccountLoanAllocation> allocations = null,
         CancellationToken ct = default)
@@ -272,7 +272,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         };
         parameters.AddOptionalParameter("alloc", allocations);
 
-        return ProcessOneRequestAsync<OkxBooleanResult>(GetUri(v5AccountSubaccountSetLoanAllocation), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5AccountSubaccountSetLoanAllocation), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
     public Task<RestCallResult<OkxSubAccountInterestLimits>> GetInterestLimitsAsync(string subAccountName, string currency = null, CancellationToken ct = default)

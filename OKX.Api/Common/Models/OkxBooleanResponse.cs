@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Common.Models;
 
 /// <summary>
-/// Okx Boolean Result
+/// Okx Boolean Response
 /// </summary>
-public class OkxBooleanResult
+public class OkxBooleanResponse
 {
     /// <summary>
     /// Result

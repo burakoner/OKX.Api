@@ -1,6 +1,8 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
 using OKX.Api.Account.Models;
+using OKX.Api.CopyTrading.Converters;
+using OKX.Api.CopyTrading.Enums;
 using OKX.Api.CopyTrading.Models;
 
 namespace OKX.Api.CopyTrading.Clients;
@@ -20,9 +22,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     private const string v5CopyTradingProfitSharingDetails = "api/v5/copytrading/profit-sharing-details";
     private const string v5CopyTradingTotalProfitSharing = "api/v5/copytrading/total-profit-sharing";
     private const string v5CopyTradingUnrealizedProfitSharingDetails = "api/v5/copytrading/unrealized-profit-sharing-details";
-
-
-    // TODO
     private const string v5CopyTradingTotalUnrealizedProfitSharing = "api/v5/copytrading/total-unrealized-profit-sharing";
     private const string v5CopyTradingApplyLeadTrading = "api/v5/copytrading/apply-lead-trading";
     private const string v5CopyTradingStopLeadTrading = "api/v5/copytrading/stop-lead-trading";
@@ -32,11 +31,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     private const string v5CopyTradingAmendCopySettings = "api/v5/copytrading/amend-copy-settings";
     private const string v5CopyTradingStopCopyTrading = "api/v5/copytrading/stop-copy-trading";
     private const string v5CopyTradingCopySettings = "api/v5/copytrading/copy-settings";
-
-
-
-
-
     private const string v5CopyTradingBatchLeverageInfo = "api/v5/copytrading/batch-leverage-info";
     private const string v5CopyTradingBatchSetLeverage = "api/v5/copytrading/batch-set-leverage";
 
@@ -242,7 +236,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessOneRequestAsync<OkxCopyTradingProfitSharingTotalUnrealized>(GetUri(v5CopyTradingTotalUnrealizedProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxBooleanResult>> ApplyForLeadTradingAsync(
+    public Task<RestCallResult<OkxBooleanResponse>> ApplyForLeadTradingAsync(
         IEnumerable<string> instrumentIds,
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
@@ -253,20 +247,20 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         };
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
-        return ProcessOneRequestAsync<OkxBooleanResult>(GetUri(v5CopyTradingApplyLeadTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingApplyLeadTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
-    public Task<RestCallResult<OkxBooleanResult>> StopLeadTradingAsync(
+    public Task<RestCallResult<OkxBooleanResponse>> StopLeadTradingAsync(
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
-        return ProcessOneRequestAsync<OkxBooleanResult>(GetUri(v5CopyTradingStopLeadTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingStopLeadTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxBooleanResult>> AmendProfitSharingRatioAsync(
+    public Task<RestCallResult<OkxBooleanResponse>> AmendProfitSharingRatioAsync(
         decimal profitSharingRatio,
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
@@ -277,14 +271,115 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         };
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
-        return ProcessOneRequestAsync<OkxBooleanResult>(GetUri(v5CopyTradingAmendProfitSharingRatio), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingAmendProfitSharingRatio), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
-    public Task<RestCallResult<OkxCopyTradingConfiguration>> GetConfigurationAsync(CancellationToken ct = default)
+    public Task<RestCallResult<OkxCopyTradingAccountConfiguration>> GetAccountConfigurationAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxCopyTradingConfiguration>(GetUri(v5CopyTradingConfig), HttpMethod.Get, ct, signed: true);
+        return ProcessOneRequestAsync<OkxCopyTradingAccountConfiguration>(GetUri(v5CopyTradingConfig), HttpMethod.Get, ct, signed: true);
     }
     
+    public Task<RestCallResult<OkxBooleanResponse>> FirstCopySettingsAsync(
+        string uniqueCode,
+        OkxCopyTradingMarginMode copyMarginMode,
+        OkxCopyTradingInstrumentIdType copyInstrumentIdType,
+        decimal copyTotalAmount,
+        OkxCopyTradingPositionCloseType positionCloseType,
+        OkxInstrumentType? instrumentType = null,
+        IEnumerable<string> instrumentIds = null,
+        OkxCopyTradingCopyMode? copyMode = null,
+        decimal? copyAmount = null,
+        decimal? copyRatio = null,
+        decimal? takeProfitRatio = null,
+        decimal? stopLossRatio = null,
+        decimal? stopLossTotalAmount = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "uniqueCode", uniqueCode },
+            { "copyMgnMode", JsonConvert.SerializeObject(copyMarginMode, new OkxCopyTradingMarginModeConverter(false)) },
+            { "copyInstIdType", JsonConvert.SerializeObject(copyMarginMode, new OkxCopyTradingInstrumentIdTypeConverter(false)) },
+            { "copyTotalAmt", copyTotalAmount.ToOkxString() },
+            { "subPosCloseType", JsonConvert.SerializeObject(positionCloseType, new OkxCopyTradingPositionCloseTypeConverter(false)) },
+        };
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        if(instrumentIds is not null)parameters.AddOptionalParameter("instId", string.Join(",", instrumentIds));
+        parameters.AddOptionalParameter("copyMode", JsonConvert.SerializeObject(copyMode, new OkxCopyTradingCopyModeConverter(false)));
+        parameters.AddOptionalParameter("copyAmt", copyAmount?.ToOkxString());
+        parameters.AddOptionalParameter("copyRatio", copyRatio?.ToOkxString());
+        parameters.AddOptionalParameter("tpRatio", takeProfitRatio?.ToOkxString());
+        parameters.AddOptionalParameter("slRatio", stopLossRatio?.ToOkxString());
+        parameters.AddOptionalParameter("slTotalAmt", stopLossTotalAmount?.ToOkxString());
+
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingFirstCopySettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxBooleanResponse>> AmendCopySettingsAsync(
+        string uniqueCode,
+        OkxCopyTradingMarginMode copyMarginMode,
+        OkxCopyTradingInstrumentIdType copyInstrumentIdType,
+        decimal copyTotalAmount,
+        OkxCopyTradingPositionCloseType positionCloseType,
+        OkxInstrumentType? instrumentType = null,
+        IEnumerable<string> instrumentIds = null,
+        OkxCopyTradingCopyMode? copyMode = null,
+        decimal? copyAmount = null,
+        decimal? copyRatio = null,
+        decimal? takeProfitRatio = null,
+        decimal? stopLossRatio = null,
+        decimal? stopLossTotalAmount = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "uniqueCode", uniqueCode },
+            { "copyMgnMode", JsonConvert.SerializeObject(copyMarginMode, new OkxCopyTradingMarginModeConverter(false)) },
+            { "copyInstIdType", JsonConvert.SerializeObject(copyMarginMode, new OkxCopyTradingInstrumentIdTypeConverter(false)) },
+            { "copyTotalAmt", copyTotalAmount.ToOkxString() },
+            { "subPosCloseType", JsonConvert.SerializeObject(positionCloseType, new OkxCopyTradingPositionCloseTypeConverter(false)) },
+        };
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        if(instrumentIds is not null)parameters.AddOptionalParameter("instId", string.Join(",", instrumentIds));
+        parameters.AddOptionalParameter("copyMode", JsonConvert.SerializeObject(copyMode, new OkxCopyTradingCopyModeConverter(false)));
+        parameters.AddOptionalParameter("copyAmt", copyAmount?.ToOkxString());
+        parameters.AddOptionalParameter("copyRatio", copyRatio?.ToOkxString());
+        parameters.AddOptionalParameter("tpRatio", takeProfitRatio?.ToOkxString());
+        parameters.AddOptionalParameter("slRatio", stopLossRatio?.ToOkxString());
+        parameters.AddOptionalParameter("slTotalAmt", stopLossTotalAmount?.ToOkxString());
+
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingAmendCopySettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxBooleanResponse>> StopCopyingAsync(
+        string uniqueCode,
+        OkxCopyTradingPositionCloseType positionCloseType,
+        OkxInstrumentType? instrumentType = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "uniqueCode", uniqueCode },
+            { "subPosCloseType", JsonConvert.SerializeObject(positionCloseType, new OkxCopyTradingPositionCloseTypeConverter(false)) },
+        };
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingStopCopyTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxCopyTradingCopySettings>> GetCopySettingsAsync(
+        string uniqueCode,
+        OkxInstrumentType? instrumentType = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "uniqueCode", uniqueCode },
+        };
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+
+        return ProcessOneRequestAsync<OkxCopyTradingCopySettings>(GetUri(v5CopyTradingCopySettings), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
     
 
 
@@ -292,10 +387,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
 
 
 
-
-
-
-
+    
 
 
 
@@ -391,7 +483,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     public Task<RestCallResult<OkxCopyTradingMultipleOperation>> SetMultipleLeverageAsync(
         OkxAccountMarginMode marginMode,
         decimal leverage,
-        string instrumentIds,
+        IEnumerable<string> instrumentIds,
         CancellationToken ct = default)
     {
         if (leverage < 0.01m)
@@ -404,29 +496,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         };
 
         return ProcessOneRequestAsync<OkxCopyTradingMultipleOperation>(GetUri(v5CopyTradingBatchSetLeverage), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-    }
-
-    /// <summary>
-    /// Set Multiple leverages
-    /// </summary>
-    /// <param name="marginMode">Margin Mode</param>
-    /// <param name="leverage">Leverage</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <param name="instrumentIds">Instrument ID</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingMultipleOperation>> SetMultipleLeverageAsync(
-        OkxAccountMarginMode marginMode,
-        decimal leverage,
-        IEnumerable<string> instrumentIds,
-        CancellationToken ct = default)
-    {
-        if (!instrumentIds.Any())
-            throw new ArgumentException("instrumentIds is required");
-
-        if (instrumentIds.Count() > 200)
-            throw new ArgumentException("Instrument ID maximum of 200 instruments can be selected.");
-
-        return SetMultipleLeverageAsync(marginMode, leverage, string.Join(",", instrumentIds), ct);
     }
 
     /// <summary>
