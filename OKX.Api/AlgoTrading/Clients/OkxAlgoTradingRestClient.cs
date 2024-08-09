@@ -127,7 +127,6 @@ public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     {
         // Common
         var parameters = new Dictionary<string, object> {
-            {"tag", OkxConstants.BrokerId },
             {"instId", instrumentId },
             {"tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
             {"side", JsonConvert.SerializeObject(orderSide, new OkxOrderSideConverter(false)) },
@@ -174,6 +173,9 @@ public class OkxAlgoTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
 
         // TWAP Order
         parameters.AddOptionalParameter("timeInterval", timeInterval?.ToOkxString());
+
+        // Broker Id
+        parameters.AddOptionalParameter("tag", Options.BrokerId);
 
         // Reequest
         return ProcessOneRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);

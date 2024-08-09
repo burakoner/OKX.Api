@@ -1,6 +1,4 @@
-﻿using OKX.Api.Authentication;
-
-namespace OKX.Api;
+﻿namespace OKX.Api;
 
 /// <summary>
 /// OKX Rest API Options
@@ -43,6 +41,11 @@ public class OkxRestApiOptions : RestApiClientOptions
     /// Flag for signing public requests with API credentials
     /// </summary>
     public bool SignPublicRequests { get; set; } = false;
+
+    /// <summary>
+    /// Broker ID
+    /// </summary>
+    public string BrokerId { get; set; } = OkxConstants.BrokerId;
 
     /// <summary>
     /// Constructor

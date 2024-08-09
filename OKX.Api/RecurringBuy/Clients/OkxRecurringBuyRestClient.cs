@@ -43,12 +43,12 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
             {"amt", amount.ToOkxString() },
             {"investmentCcy", currency },
             {"tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
-            {"tag", OkxConstants.BrokerId },
         };
         parameters.AddOptionalParameter("recurringDay", recurringDay?.ToOkxString());
         parameters.AddOptionalParameter("recurringHour", recurringHour?.ToOkxString());
         parameters.AddOptionalParameter("recurringTime", recurringTime.ToOkxString());
         parameters.AddOptionalParameter("algoClOrdId", clientOrderId);
+        parameters.AddOptionalParameter("tag", Options.BrokerId);
 
         // Reequest
         return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri(v5TradingBotRecurringOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);

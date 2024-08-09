@@ -103,7 +103,6 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            {"tag", OkxConstants.BrokerId },
             {"instId", instrumentId },
             {"tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
             {"side", JsonConvert.SerializeObject(orderSide, new OkxOrderSideConverter(false)) },
@@ -133,6 +132,8 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("stpId", selfTradePreventionId?.ToOkxString());
         parameters.AddOptionalParameter("stpMode", JsonConvert.SerializeObject(selfTradePreventionMode, new OkxSelfTradePreventionModeConverter(false)));
 
+        parameters.AddOptionalParameter("tag", Options.BrokerId);
+
         return ProcessOneRequestAsync<OkxOrderPlaceResponse>(GetUri(v5TradeOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
@@ -144,7 +145,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<List<OkxOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxOrderPlaceRequest> orders, CancellationToken ct = default)
     {
-        foreach (var order in orders) order.Tag = OkxConstants.BrokerId;
+        foreach (var order in orders) order.Tag = Options.BrokerId;
         var parameters = new Dictionary<string, object>
         {
             { Options.RequestBodyParameterKey, orders },
@@ -284,7 +285,6 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            {"tag", OkxConstants.BrokerId },
             {"instId", instrumentId },
             {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
         };
@@ -292,6 +292,7 @@ public class OkxTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("autoCxl", autoCxl);
         parameters.AddOptionalParameter("clOrdId", clientOrderId);
+        parameters.AddOptionalParameter("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxClosePositionResponse>(GetUri(v5TradeClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

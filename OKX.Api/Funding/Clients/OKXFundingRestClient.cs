@@ -486,9 +486,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "side", JsonConvert.SerializeObject(side, new OkxOrderSideConverter(false)) },
             { "rfqSz", rfqAmount.ToOkxString() },
             { "rfqSzCcy", rfqCurrency },
-            { "tag", OkxConstants.BrokerId },
         };
         parameters.AddOptionalParameter("clQReqId", clientOrderId);
+        parameters.AddOptionalParameter("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxFundingConvertEstimateQuote>(GetUri(v5AssetConvertEstimateQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -511,9 +511,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "side", JsonConvert.SerializeObject(side, new OkxOrderSideConverter(false)) },
             { "sz", amount.ToOkxString() },
             { "szCcy", amountCurrency },
-            { "tag", OkxConstants.BrokerId },
         };
         parameters.AddOptionalParameter("clQReqId", clientOrderId);
+        parameters.AddOptionalParameter("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxFundingConvertOrder>(GetUri(v5AssetConvertTrade), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

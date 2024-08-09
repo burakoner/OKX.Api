@@ -28,17 +28,17 @@ public class OkxRestApiClient
     /// <summary>
     /// Algo Trading Client
     /// </summary>
-    public OkxAlgoTradingRestClient AlgoTrading { get; }
+    public OkxAlgoTradingRestClient Algo { get; }
 
     /// <summary>
     /// Grid Trading Client
     /// </summary>
-    public OkxGridTradingRestClient GridTrading { get; }
+    public OkxGridRestClient Grid { get; }
 
     /// <summary>
     /// Signal Trading Client
     /// </summary>
-    public OkxSignalBotTradingRestClient SignalBotTrading { get; }
+    public OkxSignalBotRestClient SignalBot { get; }
 
     /// <summary>
     /// Recurring Buy Client
@@ -58,12 +58,12 @@ public class OkxRestApiClient
     /// <summary>
     /// Block Trading Client
     /// </summary>
-    public OkxBlockTradingRestClient BlockTrading { get; } // TODO: 19
+    public OkxBlockRestClient Block { get; }
     
     /// <summary>
     /// Spread Trading Client
     /// </summary>
-    public OkxSpreadTradingRestClient SpreadTrading { get; } // TODO: 16
+    public OkxSpreadTradingRestClient Spread { get; } // TODO: 16
     
     /// <summary>
     /// Public and Market Data Client
@@ -88,7 +88,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Financial Products Client
     /// </summary>
-    public OkxFinancialProductsRestClient FinancialProducts { get; } // TODO: 6 + 5 + 6 + 7
+    public OkxFinancialRestClient Financial { get; } // TODO: 6 + 5 + 6 + 7
 
     /// <summary>
     /// Broker Client
@@ -129,14 +129,14 @@ public class OkxRestApiClient
         Funding = new OkxFundingRestClient(this);
         SubAccount = new OkxSubAccountRestClient(this);
         Trading = new OkxTradingRestClient(this);
-        AlgoTrading = new OkxAlgoTradingRestClient(this);
-        GridTrading = new OkxGridTradingRestClient(this);
-        SignalBotTrading = new OkxSignalBotTradingRestClient(this);
+        Algo = new OkxAlgoTradingRestClient(this);
+        Grid = new OkxGridRestClient(this);
+        SignalBot = new OkxSignalBotRestClient(this);
         RecurringBuy = new OkxRecurringBuyRestClient(this);
         CopyTrading = new OkxCopyTradingRestClient(this);
-        BlockTrading = new OkxBlockTradingRestClient(this);
-        SpreadTrading = new OkxSpreadTradingRestClient(this);
-        FinancialProducts = new OkxFinancialProductsRestClient(this);
+        Block = new OkxBlockRestClient(this);
+        Spread = new OkxSpreadTradingRestClient(this);
+        Financial = new OkxFinancialRestClient(this);
         Rubik = new OkxRubikRestClient(this);
         Broker = new OkxBrokerRestClient(this);
         Affiliate = new OkxAffiliateRestClient(this);
@@ -164,15 +164,15 @@ public class OkxRestApiClient
         Funding.SetApiCredentials(credentials);
         SubAccount.SetApiCredentials(credentials);
         Trading.SetApiCredentials(credentials);
-        AlgoTrading.SetApiCredentials(credentials);
-        GridTrading.SetApiCredentials(credentials);
-        SignalBotTrading.SetApiCredentials(credentials);
+        Algo.SetApiCredentials(credentials);
+        Grid.SetApiCredentials(credentials);
+        SignalBot.SetApiCredentials(credentials);
         RecurringBuy.SetApiCredentials(credentials);
-        GridTrading.SetApiCredentials(credentials);
+        Grid.SetApiCredentials(credentials);
         CopyTrading.SetApiCredentials(credentials);
-        BlockTrading.SetApiCredentials(credentials);
-        SpreadTrading.SetApiCredentials(credentials);
-        FinancialProducts.SetApiCredentials(credentials);
+        Block.SetApiCredentials(credentials);
+        Spread.SetApiCredentials(credentials);
+        Financial.SetApiCredentials(credentials);
         Rubik.SetApiCredentials(credentials);
         Broker.SetApiCredentials(credentials);
         Affiliate.SetApiCredentials(credentials);

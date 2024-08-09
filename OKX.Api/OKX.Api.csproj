@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>2.2.5</Version>
-		<FileVersion>2.2.5</FileVersion>
-		<PackageVersion>2.2.5</PackageVersion>
-		<AssemblyVersion>2.2.5</AssemblyVersion>
+		<Version>2.3.0</Version>
+		<FileVersion>2.3.0</FileVersion>
+		<PackageVersion>2.3.0</PackageVersion>
+		<AssemblyVersion>2.3.0</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -19,6 +19,8 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReleaseNotes>
+			Version 2.3.0 - 09 Aug 2024
+			
 			Version 2.2.5 - 24 Jul 2024
 			
 			Version 2.2.0 - 21 Jul 2024
@@ -190,14 +192,12 @@
 	  <Folder Include="Affiliate\Converters\" />
 	  <Folder Include="Affiliate\Enums\" />
 	  <Folder Include="Common\Clients\" />
-	  <Folder Include="FinancialProducts\Enums\" />
-	  <Folder Include="FinancialProducts\Models\" />
-	  <Folder Include="FinancialProducts\Converters\" />
-	  <Folder Include="SpreadTrading\Converters\" />
-	  <Folder Include="SpreadTrading\Enums\" />
-	  <Folder Include="SpreadTrading\Models\" />
-	  <Folder Include="BlockTrading\Converters\" />
-	  <Folder Include="BlockTrading\Enums\" />
+	  <Folder Include="Financial\Enums\" />
+	  <Folder Include="Financial\Models\" />
+	  <Folder Include="Financial\Converters\" />
+	  <Folder Include="Spread\Converters\" />
+	  <Folder Include="Spread\Enums\" />
+	  <Folder Include="Spread\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>

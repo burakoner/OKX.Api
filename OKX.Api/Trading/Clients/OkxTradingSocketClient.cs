@@ -65,7 +65,7 @@ public class OkxTradingSocketClient(OKXWebSocketApiClient root)
     /// <returns></returns>
     public async Task<CallResult<OkxOrderPlaceResponse>> PlaceOrderAsync(OkxOrderPlaceRequest request)
     {
-        request.Tag = OkxConstants.BrokerId;
+        request.Tag = Options.BrokerId;
         var req = new OkxSocketRequest<OkxOrderPlaceRequest>(Root.RequestId().ToString(), OkxSocketOperation.Order, [request]);
         return await Root.RootQueryAsync<OkxOrderPlaceResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
@@ -77,7 +77,7 @@ public class OkxTradingSocketClient(OKXWebSocketApiClient root)
     /// <returns></returns>
     public async Task<CallResult<IEnumerable<OkxOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxOrderPlaceRequest> requests)
     {
-        foreach (var order in requests) order.Tag = OkxConstants.BrokerId;
+        foreach (var order in requests) order.Tag = Options.BrokerId;
         var req = new OkxSocketRequest<OkxOrderPlaceRequest>(Root.RequestId().ToString(), OkxSocketOperation.BatchOrders, requests);
         return await Root.RootQueryAsync<IEnumerable<OkxOrderPlaceResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
