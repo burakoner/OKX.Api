@@ -1,6 +1,6 @@
 ﻿global using ApiSharp.WebSocket;
 global using OKX.Api.Account.Enums;
-global using OKX.Api.AlgoTrading.Enums;
+global using OKX.Api.Algo.Enums;
 global using OKX.Api.Common.Enums;
 global using OKX.Api.Funding.Enums;
 global using OKX.Api.Grid.Enums;

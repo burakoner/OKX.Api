@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.AlgoTrading.Enums;
+﻿namespace OKX.Api.Algo.Enums;
 
 /// <summary>
 /// OKX Algo Order Type

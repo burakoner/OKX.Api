@@ -1,11 +1,11 @@
-﻿using OKX.Api.AlgoTrading.Models;
+﻿using OKX.Api.Algo.Models;
 
-namespace OKX.Api.AlgoTrading.Clients;
+namespace OKX.Api.Algo.Clients;
 
 /// <summary>
 /// OKX WebSocket Api Algo Trading Client
 /// </summary>
-public class OkxAlgoTradingSocketClient(OKXWebSocketApiClient root)
+public class OkxAlgoSocketClient(OKXWebSocketApiClient root)
 {
     // Internal
     internal OKXWebSocketApiClient Root { get; } = root;

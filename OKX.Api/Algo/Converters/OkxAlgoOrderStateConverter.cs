@@ -1,6 +1,6 @@
-﻿using OKX.Api.AlgoTrading.Enums;
+﻿using OKX.Api.Algo.Enums;
 
-namespace OKX.Api.AlgoTrading.Converters;
+namespace OKX.Api.Algo.Converters;
 
 internal class OkxAlgoOrderStateConverter(bool quotes) : BaseConverter<OkxAlgoOrderState>(quotes)
 {

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.AlgoTrading.Models;
+﻿namespace OKX.Api.Algo.Models;
 
 /// <summary>
 /// OKX Algo Order Amend Response
