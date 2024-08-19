@@ -116,13 +116,12 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "sz", depth},
         };
 
-        var result = await ProcessListRequestAsync<OkxOrderBook>(GetUri(v5MarketBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-        if (!result.Success || result.Data.Count() == 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+        var result = await ProcessOneRequestAsync<OkxOrderBook>(GetUri(v5MarketBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        if (!result.Success || result.Data == null) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
         if (result.Error is not null && result.Error.Code > 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, null));
 
-        var orderbook = result.Data.FirstOrDefault();
-        orderbook.InstrumentId = instrumentId;
-        return result.As(orderbook);
+        result.Data.InstrumentId = instrumentId;
+        return result.As(result.Data);
     }
 
 

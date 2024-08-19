@@ -19,16 +19,16 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5SpreadOrdersPending = "api/v5/sprd/orders-pending";
     private const string v5SpreadOrdersHistory = "api/v5/sprd/orders-history";
     private const string v5SpreadOrdersHistoryArchive = "api/v5/sprd/orders-history-archive";
-
     private const string v5SpreadTrades = "api/v5/sprd/trades";
     private const string v5SpreadSpreads = "api/v5/sprd/spreads";
     private const string v5SpreadBooks = "api/v5/sprd/books";
+
     private const string v5SpreadPublicTrades = "api/v5/sprd/public-trades";
     private const string v5SpreadCancelAllAfter = "api/v5/sprd/cancel-all-after";
     private const string v5MarketSpreadTicker = "api/v5/market/sprd-ticker";
     private const string v5MarketSpreadCandles = "api/v5/market/sprd-candles";
     private const string v5MarketSpreadHistoryCandles = "api/v5/market/sprd-history-candles";
-    
+
     public Task<RestCallResult<OkxSpreadOrderPlaceResponse>> PlaceOrderAsync(
         string spreadId,
         OkxOrderSide side,
@@ -195,7 +195,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
         return ProcessListRequestAsync<OkxSpreadTrade>(GetUri(v5SpreadTrades), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     public Task<RestCallResult<List<OkxSpreadInstrument>>> GetSpreadsAsync(
         string baseCurrency = null,
         string instrumentId = null,
@@ -209,13 +209,18 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("sprdId", spreadId);
         parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxSpreadInstrumentStateConverter(false)));
 
-        return ProcessListRequestAsync<OkxSpreadInstrument>(GetUri(v5SpreadSpreads), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSpreadInstrument>(GetUri(v5SpreadSpreads), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
+    public Task<RestCallResult<OkxSpreadOrderBook>> GetOrderBookAsync(string spreadId, int depth = 5, CancellationToken ct = default)
+    {
+        depth.ValidateIntBetween(nameof(depth), 1, 400);
+        var parameters = new Dictionary<string, object>
+        {
+            { "sprdId", spreadId},
+            { "sz", depth},
+        };
 
-
-
-
-
-
+        return ProcessOneRequestAsync<OkxSpreadOrderBook>(GetUri(v5SpreadBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
 }
