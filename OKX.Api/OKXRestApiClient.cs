@@ -63,7 +63,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Spread Trading Client
     /// </summary>
-    public OkxSpreadTradingRestClient Spread { get; } // TODO: 16
+    public OkxSpreadRestClient Spread { get; } // TODO: 16
     
     /// <summary>
     /// Public and Market Data Client
@@ -135,7 +135,7 @@ public class OkxRestApiClient
         RecurringBuy = new OkxRecurringBuyRestClient(this);
         CopyTrading = new OkxCopyTradingRestClient(this);
         Block = new OkxBlockRestClient(this);
-        Spread = new OkxSpreadTradingRestClient(this);
+        Spread = new OkxSpreadRestClient(this);
         Financial = new OkxFinancialRestClient(this);
         Rubik = new OkxRubikRestClient(this);
         Broker = new OkxBrokerRestClient(this);
