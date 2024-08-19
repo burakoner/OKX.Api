@@ -105,7 +105,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Financial Products Client
     /// </summary>
-    public OkxFinancialRestClient Financial { get; } // TODO: 6
+    public OkxFinancialRestClient Financial { get; }
 
     /// <summary>
     /// Broker Client

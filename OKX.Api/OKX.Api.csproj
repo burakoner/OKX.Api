@@ -8,10 +8,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>2.4.6</Version>
-		<FileVersion>2.4.6</FileVersion>
-		<PackageVersion>2.4.6</PackageVersion>
-		<AssemblyVersion>2.4.6</AssemblyVersion>
+		<Version>2.4.7</Version>
+		<FileVersion>2.4.7</FileVersion>
+		<PackageVersion>2.4.7</PackageVersion>
+		<AssemblyVersion>2.4.7</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -197,9 +197,6 @@
 	  <Folder Include="Broker\NonDisclosed\Enums\" />
 	  <Folder Include="Broker\NonDisclosed\Models\" />
 	  <Folder Include="Common\Clients\" />
-	  <Folder Include="Financial\FlexibleSimpleEarn\Converters\" />
-	  <Folder Include="Financial\FlexibleSimpleEarn\Enums\" />
-	  <Folder Include="Financial\FlexibleSimpleEarn\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>
