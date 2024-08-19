@@ -3,6 +3,7 @@ using OKX.Api.Spread.Enums;
 using OKX.Api.Spread.Models;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
+using OKX.Api.Trade.Models;
 
 namespace OKX.Api.Spread.Clients;
 
@@ -22,7 +23,6 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5SpreadTrades = "api/v5/sprd/trades";
     private const string v5SpreadSpreads = "api/v5/sprd/spreads";
     private const string v5SpreadBooks = "api/v5/sprd/books";
-
     private const string v5SpreadPublicTrades = "api/v5/sprd/public-trades";
     private const string v5SpreadCancelAllAfter = "api/v5/sprd/cancel-all-after";
     private const string v5MarketSpreadTicker = "api/v5/market/sprd-ticker";
@@ -223,4 +223,70 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
         return ProcessOneRequestAsync<OkxSpreadOrderBook>(GetUri(v5SpreadBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
+
+    public Task<RestCallResult<OkxSpreadTicker>> GetTickerAsync(string spreadId, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "sprdId", spreadId},
+        };
+
+        return ProcessOneRequestAsync<OkxSpreadTicker>(GetUri(v5MarketSpreadTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    public Task<RestCallResult<List<OkxSpreadPublicTrade>>> GetTradesAsync(string spreadId, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            { "sprdId", spreadId},
+        };
+
+        return ProcessListRequestAsync<OkxSpreadPublicTrade>(GetUri(v5SpreadPublicTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+    public Task<RestCallResult<List<OkxSpreadCandlestick>>> GetCandlesticksAsync(
+        string spreadId,
+        OkxPeriod period,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 300);
+        var parameters = new Dictionary<string, object>
+        {
+            { "sprdId", spreadId },
+            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
+        };
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxSpreadCandlestick>(GetUri(v5MarketSpreadCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    public Task<RestCallResult<List<OkxSpreadCandlestick>>> GetCandlesticksHistoryAsync(string spreadId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new Dictionary<string, object>
+        {
+            { "sprdId", spreadId },
+            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
+        };
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxSpreadCandlestick>(GetUri(v5MarketSpreadHistoryCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+    
+    public Task<RestCallResult<OkxSpreadCancelAllAfter>> CancelAllAfterAsync(int timeout, string tag, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            {"timeOut", timeout.ToOkxString() },
+        };
+        parameters.AddOptionalParameter("tag", tag);
+
+        return ProcessOneRequestAsync<OkxSpreadCancelAllAfter>(GetUri(v5SpreadCancelAllAfter), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
 }

@@ -1,34 +1,28 @@
-﻿namespace OKX.Api.Public.Models;
+﻿namespace OKX.Api.Spread.Models;
 
 /// <summary>
-/// OKX Ticker
+/// OKX Spread Ticker
 /// </summary>
-public class OkxTicker
+public class OkxSpreadTicker
 {
     /// <summary>
-    /// Instrument Type
+    /// Spread ID
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
-    public OkxInstrumentType InstrumentType { get; set; }
-
-    /// <summary>
-    /// Instrument Id
-    /// </summary>
-    [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
-
+    [JsonProperty("sprdId")]
+    public string SpreadId { get; set; }
+    
     /// <summary>
     /// Last Price
     /// </summary>
     [JsonProperty("last")]
     public decimal LastPrice { get; set; }
-
+    
     /// <summary>
     /// Last Size
     /// </summary>
     [JsonProperty("lastSz")]
     public decimal LastSize { get; set; }
-
+    
     /// <summary>
     /// Ask Price
     /// </summary>
@@ -40,7 +34,7 @@ public class OkxTicker
     /// </summary>
     [JsonProperty("askSz")]
     public decimal? AskSize { get; set; }
-
+    
     /// <summary>
     /// Bid Price
     /// </summary>
@@ -52,7 +46,7 @@ public class OkxTicker
     /// </summary>
     [JsonProperty("bidSz")]
     public decimal? BidSize { get; set; }
-
+    
     /// <summary>
     /// Open Price
     /// </summary>
@@ -70,30 +64,12 @@ public class OkxTicker
     /// </summary>
     [JsonProperty("low24h")]
     public decimal Low { get; set; }
-
+    
     /// <summary>
-    /// Base Volume
-    /// </summary>
-    [JsonProperty("volCcy24h")]
-    public decimal VolumeCurrency { get; set; }
-
-    /// <summary>
-    /// Quote Volume
+    /// Volume
     /// </summary>
     [JsonProperty("vol24h")]
     public decimal Volume { get; set; }
-
-    /// <summary>
-    /// Open Price UTC 0
-    /// </summary>
-    [JsonProperty("sodUtc0")]
-    public decimal OpenPriceUtc0 { get; set; }
-
-    /// <summary>
-    /// Open Price UTC 8
-    /// </summary>
-    [JsonProperty("sodUtc8")]
-    public decimal OpenPriceUtc8 { get; set; }
 
     /// <summary>
     /// Timestamp

@@ -63,7 +63,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Spread Trading Client
     /// </summary>
-    public OkxSpreadRestClient Spread { get; } // TODO: 16
+    public OkxSpreadRestClient Spread { get; }
     
     /// <summary>
     /// Public and Market Data Client
