@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Financial.Clients;
+﻿namespace OKX.Api.Financial.FlexibleSimpleEarn.Clients;
 
 /// <summary>
 /// OKX Rest Api Savings Client

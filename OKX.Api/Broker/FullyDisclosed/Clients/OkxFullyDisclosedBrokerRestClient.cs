@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Broker.Clients;
+﻿namespace OKX.Api.Broker.FullyDisclosed.Clients;
 
 /// <summary>
 /// OKX Rest Api Fully Disclosed Broker Client

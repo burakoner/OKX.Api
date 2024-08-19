@@ -1,4 +1,9 @@
-﻿namespace OKX.Api.Financial.Clients;
+﻿using OKX.Api.Financial.EthStaking.Clients;
+using OKX.Api.Financial.FixedSimpleEarn.Clients;
+using OKX.Api.Financial.FlexibleSimpleEarn.Clients;
+using OKX.Api.Financial.OnChainEarn.Clients;
+
+namespace OKX.Api.Financial.Clients;
 
 /// <summary>
 /// OKX Rest Api Financial Products Client
@@ -6,32 +11,32 @@
 public class OkxFinancialRestClient
 {
     /// <summary>
-    /// OnChain Earn Client
-    /// </summary>
-    public OkxOnChainEarnRestClient OnChainEarn { get; }
-    
-    /// <summary>
     /// Eth Staking Client
     /// </summary>
     public OkxEthStakingRestClient EthStaking { get; }
 
     /// <summary>
-    /// Flexible Simple Earn Client
+    /// OnChain Earn Client
     /// </summary>
-    public OkxFlexibleSimpleEarnRestClient FlexibleSimpleEarn { get; }
+    public OkxOnChainEarnRestClient OnChainEarn { get; }
 
     /// <summary>
     /// Fixed Simple Earn Client
     /// </summary>
     public OkxFixedSimpleEarnRestClient FixedSimpleEarn { get; }
 
+    /// <summary>
+    /// Flexible Simple Earn Client
+    /// </summary>
+    public OkxFlexibleSimpleEarnRestClient FlexibleSimpleEarn { get; }
+
 
     internal OkxFinancialRestClient(OkxRestApiClient root)
     {
-        OnChainEarn = new OkxOnChainEarnRestClient(root);
         EthStaking = new OkxEthStakingRestClient(root);
-        FlexibleSimpleEarn = new OkxFlexibleSimpleEarnRestClient(root);
+        OnChainEarn = new OkxOnChainEarnRestClient(root);
         FixedSimpleEarn = new OkxFixedSimpleEarnRestClient(root);
+        FlexibleSimpleEarn = new OkxFlexibleSimpleEarnRestClient(root);
     }
 
     /// <summary>
@@ -40,9 +45,9 @@ public class OkxFinancialRestClient
     /// <param name="credentials">OkxApiCredentials Object</param>
     public void SetApiCredentials(OkxApiCredentials credentials)
     {
-        OnChainEarn.SetApiCredentials(credentials);
         EthStaking.SetApiCredentials(credentials);
-        FlexibleSimpleEarn.SetApiCredentials(credentials);
+        OnChainEarn.SetApiCredentials(credentials);
         FixedSimpleEarn.SetApiCredentials(credentials);
+        FlexibleSimpleEarn.SetApiCredentials(credentials);
     }
 }
