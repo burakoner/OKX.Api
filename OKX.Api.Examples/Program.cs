@@ -256,12 +256,12 @@ internal class Program
         var copy_09 = await api.CopyTrading.GetUnrealizedProfitSharingDetailsAsync();
 
         // BlockTrading Methods (Unsigned)
-        var block_01 = await api.Block.GetBlockTickersAsync(OkxInstrumentType.Spot);
-        var block_02 = await api.Block.GetBlockTickersAsync(OkxInstrumentType.Futures);
-        var block_03 = await api.Block.GetBlockTickersAsync(OkxInstrumentType.Option);
-        var block_04 = await api.Block.GetBlockTickersAsync(OkxInstrumentType.Swap);
-        var block_05 = await api.Block.GetBlockTickerAsync("BTC-USDT");
-        var block_06 = await api.Block.GetBlockTradesAsync("BTC-USDT");
+        var block_01 = await api.Block.GetTickersAsync(OkxInstrumentType.Spot);
+        var block_02 = await api.Block.GetTickersAsync(OkxInstrumentType.Futures);
+        var block_03 = await api.Block.GetTickersAsync(OkxInstrumentType.Option);
+        var block_04 = await api.Block.GetTickersAsync(OkxInstrumentType.Swap);
+        var block_05 = await api.Block.GetTickerAsync("BTC-USDT");
+        var block_06 = await api.Block.GetTradesAsync("BTC-USDT");
 
         // TODO: SpreadTrading Methods (Signed)
         // TODO: Earn Methods (Signed)
