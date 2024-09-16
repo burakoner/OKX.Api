@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Account.Models;
 
 /// <summary>
-/// OkxMaximumAmount
+/// OkxAccountMaximumOrderQuantity
 /// </summary>
-public class OkxAccountMaximumAmount
+public class OkxAccountMaximumOrderQuantity
 {
     /// <summary>
     /// Instrument ID

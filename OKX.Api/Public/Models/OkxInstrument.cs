@@ -9,23 +9,47 @@ namespace OKX.Api.Public.Models;
 public class OkxInstrument
 {
     /// <summary>
+    /// Instrument type
+    /// </summary>
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    public OkxInstrumentType InstrumentType { get; set; }
+
+    /// <summary>
+    /// Instrument ID, e.g. BTC-USD-SWAP
+    /// </summary>
+    [JsonProperty("instId")]
+    public string InstrumentId { get; set; }
+
+    /// <summary>
+    /// Underlying, e.g. BTC-USD. Only applicable to FUTURES/SWAP/OPTION
+    /// </summary>
+    [JsonProperty("uly")]
+    public string Underlying { get; set; }
+
+    /// <summary>
+    /// Instrument family
+    /// </summary>
+    [JsonProperty("instFamily")]
+    public string InstrumentFamily { get; set; }
+
+    /// <summary>
     /// Base currency
     /// </summary>
     [JsonProperty("baseCcy")]
     public string BaseCurrency { get; set; }
-    
+
     /// <summary>
-    /// Contract multiplier
+    /// Quote currency
     /// </summary>
-    [JsonProperty("ctMult")]
-    public decimal? ContractMultiplier { get; set; }
-    
+    [JsonProperty("quoteCcy")]
+    public string QuoteCurrency { get; set; }
+
     /// <summary>
-    /// Contract type
+    /// Settlement currency
     /// </summary>
-    [JsonProperty("ctType"), JsonConverter(typeof(OkxContractTypeConverter))]
-    public OkxContractType? ContractType { get; set; }
-    
+    [JsonProperty("settleCcy")]
+    public string SettlementCurrency { get; set; }
+
     /// <summary>
     /// Contract value
     /// </summary>
@@ -33,47 +57,30 @@ public class OkxInstrument
     public decimal? ContractValue { get; set; }
 
     /// <summary>
+    /// Contract multiplier
+    /// </summary>
+    [JsonProperty("ctMult")]
+    public decimal? ContractMultiplier { get; set; }
+
+    /// <summary>
     /// Contract value currency
     /// </summary>
     [JsonProperty("ctValCcy")]
     public string ContractValueCurrency { get; set; }
-    
-    /// <summary>
-    /// Expiry timestamp
-    /// </summary>
-    [JsonProperty("expTime")]
-    public long? ExpiryTimestamp { get; set; }
 
     /// <summary>
-    /// Expiry time
+    /// Option type
     /// </summary>
-    [JsonIgnore]
-    public DateTime? ExpiryTime { get { return ExpiryTimestamp?.ConvertFromMilliseconds(); } }
-    
+    [JsonProperty("optType"), JsonConverter(typeof(OkxOptionTypeConverter))]
+    public OkxOptionType? OptionType { get; set; }
+
     /// <summary>
-    /// Instrument family
+    /// Strike price
     /// </summary>
-    [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; }
-    
-    /// <summary>
-    /// Instrument ID, e.g. BTC-USD-SWAP
-    /// </summary>
-    [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
-    
-    /// <summary>
-    /// Instrument type
-    /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
-    public OkxInstrumentType InstrumentType { get; set; }
-    
-    /// <summary>
-    /// Maximal leverage
-    /// </summary>
-    [JsonProperty("lever")]
-    public decimal? MaximumLeverage { get; set; }
-    
+    [JsonProperty("stk")]
+    public decimal? StrikePrice { get; set; }
+
+
     /// <summary>
     /// Listing timestamp
     /// </summary>
@@ -85,18 +92,60 @@ public class OkxInstrument
     /// </summary>
     [JsonIgnore]
     public DateTime? ListingTime { get { return ListingTimestamp?.ConvertFromMilliseconds(); } }
-    
+
+    /// <summary>
+    /// Expiry timestamp
+    /// </summary>
+    [JsonProperty("expTime")]
+    public long? ExpiryTimestamp { get; set; }
+
+    /// <summary>
+    /// Expiry time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? ExpiryTime { get { return ExpiryTimestamp?.ConvertFromMilliseconds(); } }
+
+    /// <summary>
+    /// Maximal leverage
+    /// </summary>
+    [JsonProperty("lever")]
+    public decimal? MaximumLeverage { get; set; }
+
+    /// <summary>
+    /// Tick size
+    /// </summary>
+    [JsonProperty("tickSz")]
+    public decimal TickSize { get; set; }
+
     /// <summary>
     /// Lot size
     /// </summary>
     [JsonProperty("lotSz")]
     public decimal LotSize { get; set; }
-    
+
     /// <summary>
-    /// Maximum iceberg order size
+    /// Minimal order size
     /// </summary>
-    [JsonProperty("maxIcebergSz")]
-    public decimal? MaximumIcebergOrderSize { get; set; }
+    [JsonProperty("minSz")]
+    public decimal MinimumOrderSize { get; set; }
+
+    /// <summary>
+    /// Contract type
+    /// </summary>
+    [JsonProperty("ctType"), JsonConverter(typeof(OkxContractTypeConverter))]
+    public OkxContractType? ContractType { get; set; }
+
+    /// <summary>
+    /// State
+    /// </summary>
+    [JsonProperty("state"), JsonConverter(typeof(OkxInstrumentStateConverter))]
+    public OkxInstrumentState State { get; set; }
+
+    /// <summary>
+    /// Trading rule types
+    /// </summary>
+    [JsonProperty("ruleType"), JsonConverter(typeof(OkxInstrumentRuleTypeConverter))]
+    public OkxInstrumentRuleType? RuleType { get; set; }
 
     /// <summary>
     /// Maximal limit order size
@@ -105,16 +154,16 @@ public class OkxInstrument
     public decimal? MaximumLimitOrderSize { get; set; }
 
     /// <summary>
-    /// Maximal limit order size in USD
-    /// </summary>
-    [JsonProperty("maxLmtAmt")]
-    public decimal? MaximumLimitOrderSizeInUsd { get; set; }
-
-    /// <summary>
     /// Maximum market order size
     /// </summary>
     [JsonProperty("maxMktSz")]
     public decimal? MaximumMarketOrderSize { get; set; }
+
+    /// <summary>
+    /// Maximal limit order size in USD
+    /// </summary>
+    [JsonProperty("maxLmtAmt")]
+    public decimal? MaximumLimitOrderSizeInUsd { get; set; }
 
     /// <summary>
     /// Maximum market order size in USD
@@ -123,70 +172,28 @@ public class OkxInstrument
     public decimal? MaximumMarketOrderSizeInUsd { get; set; }
 
     /// <summary>
-    /// Maximum stop order size
+    /// Maximum TWAP order size
     /// </summary>
-    [JsonProperty("maxStopSz")]
-    public decimal? MaximumStopMarketSize { get; set; }
-    
+    [JsonProperty("maxTwapSz")]
+    public decimal? MaximumTwapOrderSize { get; set; }
+
+    /// <summary>
+    /// Maximum iceberg order size
+    /// </summary>
+    [JsonProperty("maxIcebergSz")]
+    public decimal? MaximumIcebergOrderSize { get; set; }
+
     /// <summary>
     /// Maximum trigger order size
     /// </summary>
     [JsonProperty("maxTriggerSz")]
     public decimal? MaximumTriggerOrderSize { get; set; }
-    
-    /// <summary>
-    /// Maximum TWAP order size
-    /// </summary>
-    [JsonProperty("maxTwapSz")]
-    public decimal? MaximumTwapOrderSize { get; set; }
-    
-    /// <summary>
-    /// Minimal order size
-    /// </summary>
-    [JsonProperty("minSz")]
-    public decimal MinimumOrderSize { get; set; }
-    
-    /// <summary>
-    /// Option type
-    /// </summary>
-    [JsonProperty("optType"), JsonConverter(typeof(OkxOptionTypeConverter))]
-    public OkxOptionType? OptionType { get; set; }
 
     /// <summary>
-    /// Quote currency
+    /// Maximum stop order size
     /// </summary>
-    [JsonProperty("quoteCcy")]
-    public string QuoteCurrency { get; set; }
-    
-    /// <summary>
-    /// Settlement currency
-    /// </summary>
-    [JsonProperty("settleCcy")]
-    public string SettlementCurrency { get; set; }
-    
-    /// <summary>
-    /// State
-    /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxInstrumentStateConverter))]
-    public OkxInstrumentState State { get; set; }
-    
-    /// <summary>
-    /// Strike price
-    /// </summary>
-    [JsonProperty("stk")]
-    public decimal? StrikePrice { get; set; }
-    
-    /// <summary>
-    /// Tick size
-    /// </summary>
-    [JsonProperty("tickSz")]
-    public decimal TickSize { get; set; }
-
-    /// <summary>
-    /// Underlying, e.g. BTC-USD. Only applicable to FUTURES/SWAP/OPTION
-    /// </summary>
-    [JsonProperty("uly")]
-    public string Underlying { get; set; }
+    [JsonProperty("maxStopSz")]
+    public decimal? MaximumStopMarketSize { get; set; }
 
     /// <summary>
     /// Alias

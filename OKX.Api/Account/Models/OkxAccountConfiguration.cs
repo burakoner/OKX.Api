@@ -4,6 +4,10 @@ using OKX.Api.CopyTrading.Converters;
 using OKX.Api.CopyTrading.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
+using System.Data.Common;
+using System.Data;
+using System.Diagnostics;
+using System.Net;
 
 namespace OKX.Api.Account.Models;
 
@@ -32,6 +36,16 @@ public class OkxAccountConfiguration
     [JsonProperty("acctLv"), JsonConverter(typeof(OkxAccountLevelConverter))]
     public OkxAccountLevel AccountLevel { get; set; }
 
+    /// <summary>
+    /// Account self-trade prevention mode
+    /// cancel_maker
+    /// cancel_taker
+    /// cancel_both
+    /// Users can log in to the webpage through the master account to modify this configuration
+    /// </summary>
+    [JsonProperty("acctStpMode"), JsonConverter(typeof(OkxSelfTradePreventionModeConverter))]
+    public OkxSelfTradePreventionMode  SelfTradePreventionMode { get; set; }
+    
     /// <summary>
     /// Position mode
     /// </summary>
@@ -138,4 +152,21 @@ public class OkxAccountConfiguration
     /// </summary>
     [JsonProperty("perm"), JsonConverter(typeof(OkxAccountApiKeyPermissionConverter))]
     public OkxAccountApiKeyPermission ApiKeyPermission { get; set; }
+    
+    /// <summary>
+    /// Discount rule type for current account
+    /// 0: Original discount rate rules, the default value
+    /// 1: New discount rules
+    /// After new discount rate rules are effective completely, this parameter will be removed from the endpoint. Advice you to prepare in advance.
+    /// </summary>
+    [JsonProperty("discountType"), JsonConverter(typeof(OkxAccountDiscountTypeConverter))]
+    public OkxAccountDiscountType DiscountType { get; set; }
+    
+    /// <summary>
+    /// The margin ratio level of liquidation alert
+    /// 3 means that you will get hourly liquidation alerts on app and channel "Position risk warning" when your margin level drops to or below 300%
+    /// 0 means that there is not alert
+    /// </summary>
+    [JsonProperty("liquidationGear")]
+    public int LiquidationGear { get; set; }
 }

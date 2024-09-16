@@ -14,4 +14,9 @@ public enum OkxDownloadLinkState
     /// Finished
     /// </summary>
     Finished,
+
+    /// <summary>
+    /// Failed
+    /// </summary>
+    Failed,
 }

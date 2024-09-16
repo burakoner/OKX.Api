@@ -31,25 +31,25 @@ public class OkxAccountInterestAccrued
     /// Margin mode
     /// </summary>
     [JsonProperty("mgnMode"), JsonConverter(typeof(OkxAccountMarginModeConverter))]
-    public OkxAccountMarginMode MarginMode { get; set; }
+    public OkxAccountMarginMode? MarginMode { get; set; }
 
     /// <summary>
     /// Interest
     /// </summary>
     [JsonProperty("interest")]
-    public decimal? Interest { get; set; }
+    public decimal Interest { get; set; }
 
     /// <summary>
     /// Interest rate (in hour)
     /// </summary>
     [JsonProperty("interestRate")]
-    public decimal? InterestRate { get; set; }
+    public decimal InterestRate { get; set; }
 
     /// <summary>
     /// Liability
     /// </summary>
     [JsonProperty("liab")]
-    public decimal? Liabilities { get; set; }
+    public decimal Liability { get; set; }
 
     /// <summary>
     /// Timestamp for interest accured, Unix timestamp format in milliseconds, e.g. 1597026383085

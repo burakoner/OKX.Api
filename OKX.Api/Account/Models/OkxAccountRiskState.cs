@@ -6,18 +6,6 @@
 public class OkxAccountRiskState
 {
     /// <summary>
-    /// Timestamp
-    /// </summary>
-    [JsonProperty("ts")]
-    public long Timestamp { get; set; }
-
-    /// <summary>
-    /// Time
-    /// </summary>
-    [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
-
-    /// <summary>
     /// At Risk
     /// </summary>
     [JsonProperty("atRisk")]
@@ -28,4 +16,16 @@ public class OkxAccountRiskState
 
     //[JsonProperty("atRiskMgn")]
     //public object[] AtRiskMargin { get; set; }
+
+    /// <summary>
+    /// Timestamp
+    /// </summary>
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// Time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
 }

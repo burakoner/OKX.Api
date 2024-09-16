@@ -19,4 +19,9 @@ public enum OkxTradeMode
     /// Isolated
     /// </summary>
     Isolated,
+
+    /// <summary>
+    /// Spot Isolated
+    /// </summary>
+    SpotIsolated
 }

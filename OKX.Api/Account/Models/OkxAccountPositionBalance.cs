@@ -57,13 +57,13 @@ public class OkxAccountPositionRiskBalanceData
     /// Equity of the currency
     /// </summary>
     [JsonProperty("eq")]
-    public decimal? Equity { get; set; }
+    public decimal Equity { get; set; }
 
     /// <summary>
     /// Discount equity of the currency in USD.
     /// </summary>
     [JsonProperty("disEq")]
-    public decimal? DiscountEquity { get; set; }
+    public decimal DiscountEquity { get; set; }
 }
 
 /// <summary>
@@ -99,17 +99,19 @@ public class OkxAccountPositionRiskPositionData
     /// Quantity of positions contract. In the mode of autonomous transfer from position to position, after the deposit is transferred, a position with pos of 0 will be generated
     /// </summary>
     [JsonProperty("pos")]
-    public decimal? Quantity { get; set; }
+    public decimal Quantity { get; set; }
 
     /// <summary>
     /// Base currency balance, only applicable to MARGIN（Manual transfers and Quick Margin Mode）
     /// </summary>
+    [Obsolete]
     [JsonProperty("baseBal")]
     public decimal? BaseBalance { get; set; }
 
     /// <summary>
     /// Quote currency balance, only applicable to MARGIN（Manual transfers and Quick Margin Mode）
     /// </summary>
+    [Obsolete]
     [JsonProperty("quoteBal")]
     public decimal? QuoteBalance { get; set; }
 
@@ -135,11 +137,11 @@ public class OkxAccountPositionRiskPositionData
     /// Notional value of positions in coin
     /// </summary>
     [JsonProperty("notionalCcy")]
-    public decimal? NotionalCcy { get; set; }
+    public decimal NotionalCcy { get; set; }
 
     /// <summary>
     /// Notional value of positions in USD
     /// </summary>
     [JsonProperty("notionalUsd")]
-    public decimal? NotionalUsd { get; set; }
+    public decimal NotionalUsd { get; set; }
 }

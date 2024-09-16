@@ -93,5 +93,20 @@ public enum OkxAccountBillType
     /// <summary>
     /// SpreadTrading
     /// </summary>
-    SpreadTrading
+    SpreadTrading,
+
+    /// <summary>
+    /// Structured products
+    /// </summary>
+    StructuredProducts,
+
+    /// <summary>
+    /// Copy trader profit sharing expenses
+    /// </summary>
+    CopyTraderProfitSharingExpenses,
+
+    /// <summary>
+    /// Copy trader profit sharing refund
+    /// </summary>
+    CopyTraderProfitSharingRefund,
 }

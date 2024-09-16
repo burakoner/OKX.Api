@@ -1,4 +1,8 @@
-﻿using OKX.Api.Account.Converters;
+﻿/*
+ * SYNCED @ 2024/09/17 01:00:00
+ * 
+ */
+using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
 using OKX.Api.Account.Models;
 using OKX.Api.Public.Converters;
@@ -22,6 +26,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountPositionRisk = "api/v5/account/account-position-risk";
     private const string v5AccountBills = "api/v5/account/bills";
     private const string v5AccountBillsArchive = "api/v5/account/bills-archive";
+    private const string v5AccountBillsHistoryArchive = "api/v5/account/bills-history-archive";
     private const string v5AccountConfig = "api/v5/account/config";
     private const string v5AccountSetPositionMode = "api/v5/account/set-position-mode";
     private const string v5AccountSetLeverage = "api/v5/account/set-leverage";
@@ -65,6 +70,15 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountMmpReset = "api/v5/account/mmp-reset";
     private const string v5AccountMmpConfig = "api/v5/account/mmp-config";
 
+    /// <summary>
+    /// Retrieve available instruments info of current account.
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="instrumentFamily">Instrument family</param>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="underlying">Underlying</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxInstrument>>> GetInstrumentsAsync(
        OkxInstrumentType instrumentType,
        string instrumentFamily = null,
@@ -173,6 +187,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// Retrieve the bills of the account. The bill refers to all transaction records that result in changing the balance of an account. Pagination is supported, and the response is sorted with the most recent first. This endpoint can retrieve data from the last 7 days.
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
     /// <param name="currency">Currency</param>
     /// <param name="marginMode">Margin Mode</param>
     /// <param name="contractType">Contract Type</param>
@@ -187,6 +202,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountBill>>> GetBillHistoryAsync(
         OkxInstrumentType? instrumentType = null,
+        string instrumentId = null,
         string currency = null,
         OkxAccountMarginMode? marginMode = null,
         OkxContractType? contractType = null,
@@ -202,6 +218,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)));
         parameters.AddOptionalParameter("ctType", JsonConvert.SerializeObject(contractType, new OkxContractTypeConverter(false)));
@@ -220,6 +237,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// Retrieve the account’s bills. The bill refers to all transaction records that result in changing the balance of an account. Pagination is supported, and the response is sorted with most recent first. This endpoint can retrieve data from the last 3 months.
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
     /// <param name="currency">Currency</param>
     /// <param name="marginMode">Margin Mode</param>
     /// <param name="contractType">Contract Type</param>
@@ -234,6 +252,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountBill>>> GetBillArchiveAsync(
         OkxInstrumentType? instrumentType = null,
+        string instrumentId = null,
         string currency = null,
         OkxAccountMarginMode? marginMode = null,
         OkxContractType? contractType = null,
@@ -249,6 +268,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)));
         parameters.AddOptionalParameter("ctType", JsonConvert.SerializeObject(contractType, new OkxContractTypeConverter(false)));
@@ -261,6 +281,30 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxAccountBill>(GetUri(v5AccountBillsArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Apply for bill data since 1 February, 2021 except for the current quarter.
+    /// </summary>
+    /// <param name="year">4 digits year</param>
+    /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxDownloadApplication>> ApplyBillDataAsync(string year, string quarter, CancellationToken ct = default)
+    {
+        return ProcessOneRequestAsync<OkxDownloadApplication>(GetUri(v5AccountBillsHistoryArchive), HttpMethod.Post, ct, true);
+    }
+
+    /// <summary>
+    /// Apply for bill data since 1 February, 2021 except for the current quarter.
+    /// </summary>
+    /// <param name="year">4 digits year</param>
+    /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxDownloadLink>> GetBillDataAsync(string year, string quarter, CancellationToken ct = default)
+    {
+        return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5AccountBillsHistoryArchive), HttpMethod.Get, ct, true);
     }
 
     /// <summary>
@@ -340,7 +384,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
     /// <summary>
-    /// Get maximum buy/sell amount or open amount
+    /// The maximum quantity to buy or sell. It corresponds to the "sz" from placement.
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="tradeMode">Trade Mode</param>
@@ -350,7 +394,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="unSpotOffset">Spot-Derivatives risk offset</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxAccountMaximumAmount>>> GetMaximumAmountAsync(
+    public Task<RestCallResult<List<OkxAccountMaximumOrderQuantity>>> GetMaximumOrderQuantityAsync(
         string instrumentId,
         OkxTradeMode tradeMode,
         string currency = null,
@@ -368,7 +412,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("leverage", leverage?.ToOkxString());
         parameters.AddOptionalParameter("unSpotOffset", unSpotOffset);
 
-        return ProcessListRequestAsync<OkxAccountMaximumAmount>(GetUri(v5AccountMaxSize), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountMaximumOrderQuantity>(GetUri(v5AccountMaxSize), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -411,29 +455,26 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="positionSide">Position Side</param>
-    /// <param name="marginAddReduce">Type</param>
+    /// <param name="type">Type</param>
     /// <param name="amount">Amount</param>
     /// <param name="currency">Currency, only applicable to MARGIN（Manual transfers and Quick Margin Mode</param>
-    /// <param name="auto">Automatic loan transfer out, true or false, the default is false. Only applicable to MARGIN（Manual transfers）</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountMarginBalance>>> SetMarginAmountAsync(
         string instrumentId,
         OkxPositionSide positionSide,
-        OkxAccountMarginAddReduce marginAddReduce,
+        OkxAccountMarginAddReduce type,
         decimal amount,
         string currency = null,
-        bool? auto = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "instId", instrumentId },
             { "posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)) },
-            { "type", JsonConvert.SerializeObject(marginAddReduce, new OkxAccountMarginAddReduceConverter(false)) },
+            { "type", JsonConvert.SerializeObject(type, new OkxAccountMarginAddReduceConverter(false)) },
             { "amt", amount.ToOkxString() },
         };
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("auto", auto);
 
         return ProcessListRequestAsync<OkxAccountMarginBalance>(GetUri(v5AccountPositionMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -517,6 +558,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// Get Fee Rates
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="ruleType">Trading rule types</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="underlying">Underlying</param>
     /// <param name="instrumentFamily">Instrument family</param>
@@ -524,6 +566,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<OkxAccountFeeRate>> GetFeeRatesAsync(
         OkxInstrumentType instrumentType,
+        OkxInstrumentRuleType ruleType,
         string instrumentId = null,
         string underlying = null,
         string instrumentFamily = null,
@@ -531,6 +574,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     {
         var parameters = new Dictionary<string, object> {
             {"instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
+            {"ruleType", JsonConvert.SerializeObject(ruleType, new OkxInstrumentRuleTypeConverter(false)) },
         };
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("uly", underlying);
@@ -640,11 +684,27 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountWithdrawalAmount>(GetUri(v5AccountMaxWithdrawal), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Get account risk state
+    /// Only applicable to Portfolio margin account
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountRiskState>> GetRiskStateAsync(CancellationToken ct = default)
     {
         return ProcessOneRequestAsync<OkxAccountRiskState>(GetUri(v5AccountRiskState), HttpMethod.Get, ct, signed: true);
     }
 
+    /// <summary>
+    /// Manual borrow and repay in Quick Margin Mode
+    /// Please note that this endpoint will be deprecated soon.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
+    /// <param name="currency">Loan currency, e.g. BTC</param>
+    /// <param name="amount">Borrow Amount</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    [Obsolete]
     public Task<RestCallResult<OkxAccountMarginBorrowRepay>> QuickMarginBorrowAsync(string instrumentId, string currency, decimal amount, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -657,7 +717,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxAccountMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-
+    
+    /// <summary>
+    /// Manual borrow and repay in Quick Margin Mode
+    /// Please note that this endpoint will be deprecated soon.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
+    /// <param name="currency">Loan currency, e.g. BTC</param>
+    /// <param name="amount">Repay Amount</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    [Obsolete]
     public Task<RestCallResult<OkxAccountMarginBorrowRepay>> QuickMarginRepayAsync(string instrumentId, string currency, decimal amount, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -671,6 +741,21 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Get borrow and repay history in Quick Margin Mode
+    /// Get record in the past 3 months.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
+    /// <param name="currency">Loan currency, e.g. BTC</param>
+    /// <param name="side">borrow repay</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested refId</param>
+    /// <param name="before">Pagination of data to return records newer than the requested refId</param>
+    /// <param name="begin">Filter with a begin timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="end">Filter with an end timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    [Obsolete]
     public Task<RestCallResult<List<OkxAccountMarginBorrowRepayHistory>>> GetQuickMarginBorrowRepayHistoryAsync(
     string instrumentId = null,
     string currency = null,
@@ -696,6 +781,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountMarginBorrowRepayHistory>(GetUri(v5AccountQuickMarginBorrowRepayHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// VIP loans borrow and repay
+    /// Maximum number of borrowing orders for a single currency is 20
+    /// </summary>
+    /// <param name="currency">Loan currency, e.g. BTC</param>
+    /// <param name="amount">Borrow Amount</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountVipLoanBorrowRepay>> VipLoanBorrowAsync(string currency, decimal amount, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -707,7 +800,16 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxAccountVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-
+    
+    /// <summary>
+    /// VIP loans borrow and repay
+    /// Maximum number of borrowing orders for a single currency is 20
+    /// </summary>
+    /// <param name="currency">Loan currency, e.g. BTC</param>
+    /// <param name="amount">Repay Amount</param>
+    /// <param name="orderId">Order ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountVipLoanBorrowRepay>> VipLoanRepayAsync(string currency, decimal amount, long orderId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -721,6 +823,15 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Get borrow and repay history for VIP loans
+    /// </summary>
+    /// <param name="currency">Loan currency, e.g. BTC</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested timestamp, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountVipLoanBorrowRepayHistory>>> GetVipLoanBorrowRepayHistoryAsync(
     string currency = null,
     long? after = null,
@@ -738,6 +849,16 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountVipLoanBorrowRepayHistory>(GetUri(v5AccountBorrowRepayHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Get VIP interest accrued data
+    /// </summary>
+    /// <param name="currency">Loan currency, e.g. BTC. Only applicable toMARGIN</param>
+    /// <param name="orderId">Order ID of borrowing</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested timestamp, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountVipInterestAccruedData>>> GetVipInterestAccruedDataAsync(
     string currency = null,
     long? orderId = null,
@@ -757,6 +878,16 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountVipInterestAccruedData>(GetUri(v5AccountVipInterestAccrued), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Get VIP interest deducted data
+    /// </summary>
+    /// <param name="currency">Loan currency, e.g. BTC. Only applicable toMARGIN</param>
+    /// <param name="orderId">Order ID of borrowing</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested timestamp, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountVipInterestDeductedData>>> GetVipInterestDeductedDataAsync(
     string currency = null,
     long? orderId = null,
@@ -776,6 +907,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountVipInterestDeductedData>(GetUri(v5AccountVipInterestDeducted), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Get VIP loan order list
+    /// </summary>
+    /// <param name="orderId">Order ID of borrowing</param>
+    /// <param name="state">State 1:Borrowing 2:Borrowed 3:Repaying 4:Repaid 5:Borrow failed</param>
+    /// <param name="currency">Loan currency, e.g. BTC</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ordId</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ordId</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountVipLoanOrder>>> GetVipLoanOrdersAsync(
     long? orderId = null,
     OkxAccountVipLoanState? state = null,
@@ -796,7 +938,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessListRequestAsync<OkxAccountVipLoanOrder>(GetUri(v5AccountVipLoanOrderList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-
+    
+    /// <summary>
+    /// Get VIP loan order detail
+    /// </summary>
+    /// <param name="orderId">Order ID of borrowing</param>
+    /// <param name="currency">Loan currency, e.g. BTC</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ordId</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ordId</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountVipLoanOrderDetails>>> GetVipLoanOrderDetailsAsync(
     long? orderId = null,
     string currency = null,
@@ -816,6 +968,13 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountVipLoanOrderDetails>(GetUri(v5AccountVipLoanOrderDetail), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Get borrow interest and limit
+    /// </summary>
+    /// <param name="type">Loan type</param>
+    /// <param name="currency">Loan currency, e.g. BTC</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountInterestLimits>>> GetInterestLimitsAsync(
     OkxAccountLoanType? type = null,
     string currency = null,
@@ -828,11 +987,28 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountInterestLimits>(GetUri(v5AccountInterestLimits), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Get fixed loan borrow limit
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountFixedLoanBorrowingLimit>> GetFixedLoanBorrowingLimitAsync(CancellationToken ct = default)
     {
         return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingLimit>(GetUri(v5AccountFixedLoanBorrowingLimit), HttpMethod.Get, ct, signed: true);
     }
 
+    /// <summary>
+    /// Get fixed loan borrow quote
+    /// </summary>
+    /// <param name="type">Type</param>
+    /// <param name="currency">Borrowing currency, e.g. BTC. if type=normal, the parameter is required.</param>
+    /// <param name="amount">Borrowing amount. if type=normal, the parameter is required.</param>
+    /// <param name="maximumRate">Maximum acceptable borrow rate, in decimal. e.g. 0.01 represents 1%. if type=normal, the parameter is required.</param>
+    /// <param name="term">Fixed term for borrowing order. 30D：30 Days. if type=normal, the parameter is required.</param>
+    /// <param name="orderId">Order ID. if type=reborrow, the parameter is required.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public Task<RestCallResult<OkxAccountFixedLoanBorrowingQuote>> GetFixedLoanBorrowingQuoteAsync(
     OkxAccountFixedLoanBorrowingType type,
     string currency = null,
@@ -842,7 +1018,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     long? orderId = null,
     CancellationToken ct = default)
     {
-        if (type == OkxAccountFixedLoanBorrowingType.Borrow)
+        if (type == OkxAccountFixedLoanBorrowingType.Normal)
         {
             if (string.IsNullOrEmpty(currency)) throw new ArgumentNullException($"{nameof(currency)} is required for Normal Borrows");
             if (amount is null) throw new ArgumentNullException($"{nameof(amount)} is required for Normal Borrows");
@@ -864,7 +1040,20 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingQuote>(GetUri(v5AccountFixedLoanBorrowingQuote), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
+    /// <summary>
+    /// Place fixed loan borrowing order
+    /// For new borrowing orders, they belong to the IOC (immediately close and cancel the remaining) type. For renewal orders, they belong to the FOK (Fill-or-kill) type.
+    /// Order book may refer to Get lending volume (public).
+    /// </summary>
+    /// <param name="currency">Borrowing currency, e.g. BTC</param>
+    /// <param name="amount">Borrowing amount</param>
+    /// <param name="maximumRate">Maximum acceptable borrow rate, in decimal. e.g. 0.01 represents 1%.</param>
+    /// <param name="term">Fixed term for borrowing order. 30D：30 Days</param>
+    /// <param name="reborrow">Whether or not auto-renew when the term is due</param>
+    /// <param name="reborrowRate">Auto-renew borrowing rate, in decimal. e.g. 0.01 represents 1%. If reborrow is true, the parameter is required.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> PlaceFixedLoanBorrowingOrderAsync(
     string currency,
     decimal amount,
@@ -887,9 +1076,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Amend fixed loan borrowing order
+    /// </summary>
+    /// <param name="orderId">Borrowing order ID, e.g. BTC</param>
+    /// <param name="reborrow">Whether or not reborrowing when the term is due. Default is false.</param>
+    /// <param name="maximumRate">Maximum acceptable auto-renew borrow rate for borrowing order, in decimal. e.g. 0.01 represents 1%. If reborrow is true, the parameter is required.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> AmendFixedLoanBorrowingOrderAsync(
     long orderId,
-    bool reborrow = false,
+    bool? reborrow = null,
     decimal? maximumRate = null,
     CancellationToken ct = default)
     {
@@ -902,7 +1099,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanAmendBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
+    /// <summary>
+    /// Manual renew fixed loan borrowing order
+    /// </summary>
+    /// <param name="orderId">Borrowing order ID</param>
+    /// <param name="maximumRate">Maximum acceptable auto-renew borrow rate for borrowing order, in decimal. e.g. 0.01 represents 1%.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> RenewFixedLoanBorrowingOrderAsync(
     long orderId,
     decimal? maximumRate = null,
@@ -916,7 +1120,13 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanManualReborrow), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
+    /// <summary>
+    /// Repay fixed loan borrowing order
+    /// </summary>
+    /// <param name="orderId">Borrowing order ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> RepayFixedLoanBorrowingOrderAsync(
     long orderId,
     CancellationToken ct = default)
@@ -928,11 +1138,22 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanRepayBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
-    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> GetFixedLoanBorrowingOrdersAsync(
-    long? orderId=null,
-    string currency=null,
-    OkxAccountFixedLoanBorrowingOrderState? state=null,
+
+    /// <summary>
+    /// Get fixed loan borrow order list
+    /// </summary>
+    /// <param name="orderId">Borrowing order ID</param>
+    /// <param name="currency">Borrowing currency, e.g. BTC</param>
+    /// <param name="state">State</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ordId</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ordId</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrderDetails>> GetFixedLoanBorrowingOrdersAsync(
+    long? orderId = null,
+    string currency = null,
+    OkxAccountFixedLoanBorrowingOrderState? state = null,
     long? after = null,
     long? before = null,
     int limit = 100,
@@ -948,12 +1169,23 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanBorrowingOrdersList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrderDetails>(GetUri(v5AccountFixedLoanBorrowingOrdersList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Calculates portfolio margin information for virtual position/assets or current position of the user.
+    /// You can add up to 200 virtual positions and 200 virtual assets in one request.
+    /// </summary>
+    /// <param name="importExistingPositionsAndAssets">Whether import existing positions and assets. The default is true</param>
+    /// <param name="spotOffsetType">Spot-derivatives risk offset mode</param>
+    /// <param name="simulatedPositions">List of simulated positions</param>
+    /// <param name="simulatedAssets">List of simulated assets</param>
+    /// <param name="greeksType">Greeks type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountPositionBuilder>>> PositionBuilderAsync(
     bool importExistingPositionsAndAssets = true,
-    Enums.OkxAccountRiskOffsetType spotOffsetType = Enums.OkxAccountRiskOffsetType.DerivativesOnly,
+    OkxAccountRiskOffsetType spotOffsetType = OkxAccountRiskOffsetType.DerivativesOnly,
     IEnumerable<OkxAccountSimulatedPosition> simulatedPositions = null,
     IEnumerable<OkxAccountSimulatedAsset> simulatedAssets = null,
     Enums.OkxAccountGreeksType? greeksType = Enums.OkxAccountGreeksType.BlackScholesGreeksInDollars,
@@ -968,7 +1200,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessListRequestAsync<OkxAccountPositionBuilder>(GetUri(v5AccountPositionBuilder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
+    /// <summary>
+    /// Set risk offset amount. This does not represent the actual spot risk offset amount. Only applicable to Portfolio Margin Mode.
+    /// </summary>
+    /// <param name="currency">Currency</param>
+    /// <param name="spotRiskOffsetAmount">Spot risk offset amount defined by users</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountRiskOffsetAmount>> SetRiskOffsetAmountAsync(
         string currency,
         decimal spotRiskOffsetAmount,
@@ -983,16 +1222,30 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountRiskOffsetAmount>(GetUri(v5AccountSetRiskOffsetAmount), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxAccountGreeks>> GetGreeksAsync(
+    /// <summary>
+    /// Retrieve a greeks list of all assets in the account.
+    /// </summary>
+    /// <param name="currency">Single currency, e.g. BTC.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountGreeks>>> GetGreeksAsync(
     string currency = null,
     CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
 
-        return ProcessOneRequestAsync<OkxAccountGreeks>(GetUri(v5AccountGreeks), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountGreeks>(GetUri(v5AccountGreeks), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Retrieve cross position limitation of SWAP/FUTURES/OPTION under Portfolio margin mode.
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="underlying">Single underlying or multiple underlyings (no more than 3) separated with comma. Either uly or instFamily is required. If both are passed, instFamily will be used.</param>
+    /// <param name="instrumentFamily">Single instrument family or instrument families (no more than 5) separated with comma. Either uly or instFamily is required. If both are passed, instFamily will be used.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountPositionTiers>> GetPositionTiersAsync(
     OkxInstrumentType instrumentType,
     string underlying = null,
@@ -1007,21 +1260,39 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountPositionTiers>(GetUri(v5AccountPositionTiers), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<Models.OkxAccountRiskOffsetTypeModel>> SetRiskOffsetTypeAsync(
+    /// <summary>
+    /// Configure the risk offset type in portfolio margin mode.
+    /// </summary>
+    /// <param name="type">Risk offset type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxAccountRiskOffsetTypeModel>> SetRiskOffsetTypeAsync(
     Enums.OkxAccountRiskOffsetType type,
     CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxAccountRiskOffsetTypeConverter(false)));
 
-        return ProcessOneRequestAsync<Models.OkxAccountRiskOffsetTypeModel>(GetUri(v5AccountSetRiskOffsetType), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountRiskOffsetTypeModel>(GetUri(v5AccountSetRiskOffsetType), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Activate option
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxTimestamp>> ActivateOptionAsync(CancellationToken ct = default)
     {
         return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5AccountActivateOption), HttpMethod.Post, ct, signed: true);
     }
 
+    /// <summary>
+    /// Set auto loan
+    /// Only applicable to Multi-currency margin and Portfolio margin
+    /// </summary>
+    /// <param name="autoLoan">Whether to automatically make loans. Valid values are true, false. The default is true</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountAutoLoan>> SetAutoLoanAsync(bool autoLoan, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -1032,6 +1303,13 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountAutoLoan>(GetUri(v5AccountSetAutoLoan), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Set account mode
+    /// You need to set on the Web/App for the first set of every account mode.
+    /// </summary>
+    /// <param name="accountLevel">Account mode</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxAccountLevelData>> SetLevelAsync(OkxAccountLevel accountLevel, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -1040,6 +1318,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountLevelData>(GetUri(v5AccountSetAccountLevel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Reset MMP Status
+    /// You can unfreeze by this endpoint once MMP is triggered.
+    /// Only applicable to Option in Portfolio Margin mode, and MMP privilege is required.
+    /// </summary>
+    /// <param name="instrumentFamily">Instrument family</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxBooleanResponse>> ResetMmpAsync(string instrumentFamily, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -1051,7 +1337,24 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5AccountMmpReset), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxAccountMmpConfiguration>> SetMmpConfigurationAsync(string instrumentFamily, int timeInterval, int frozenInterval, int quantityLimit, CancellationToken ct = default)
+    /// <summary>
+    /// Set MMP
+    /// This endpoint is used to set MMP configure
+    /// Only applicable to Option in Portfolio Margin mode, and MMP privilege is required.
+    /// 
+    /// What is MMP?
+    /// Market Maker Protection (MMP) is an automated mechanism for market makers to pull their quotes when their executions exceed a certain threshold(`qtyLimit`) within a certain time frame(`timeInterval`). Once mmp is triggered, any pre-existing mmp pending orders(`mmp` and `mmp_and_post_only` orders) will be automatically canceled, and new orders tagged as MMP will be rejected for a specific duration(`frozenInterval`), or until manual reset by makers.
+    /// 
+    /// How to enable MMP?
+    /// Please send an email to institutional@okx.com or contact your business development (BD) manager to apply for MMP. The initial threshold will be upon your request.
+    /// </summary>
+    /// <param name="instrumentFamily">Instrument family</param>
+    /// <param name="timeInterval">Time window (ms). MMP interval where monitoring is done. "0" means disable MMP</param>
+    /// <param name="frozenInterval">Frozen period (ms). "0" means the trade will remain frozen until you request "Reset MMP Status" to unfrozen</param>
+    /// <param name="quantityLimit">Trade qty limit in number of contracts. Must be > 0</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxAccountMmpConfiguration>> SetMmpAsync(string instrumentFamily, int timeInterval, int frozenInterval, int quantityLimit, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -1064,7 +1367,15 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountMmpConfiguration>(GetUri(v5AccountMmpConfig), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxAccountMmpConfigurationData>> GetMmpConfigurationAsync(string instrumentFamily, CancellationToken ct = default)
+    /// <summary>
+    /// GET MMP Config
+    /// This endpoint is used to get MMP configure information
+    /// Only applicable to Option in Portfolio Margin mode, and MMP privilege is required.
+    /// </summary>
+    /// <param name="instrumentFamily">Instrument Family</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxAccountMmpConfigurationData>> GetMmpAsync(string instrumentFamily, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {

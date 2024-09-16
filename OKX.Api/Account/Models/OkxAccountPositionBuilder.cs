@@ -57,13 +57,13 @@ public class OkxAccountPositionBuilder
     /// Asset info
     /// </summary>
     [JsonProperty("assets")]
-    public List<OkxAccountPositionBuilderAsset> Assets { get; set; }
+    public List<OkxAccountPositionBuilderAsset> Assets { get; set; } = [];
 
     /// <summary>
     /// Risk unit data
     /// </summary>
     [JsonProperty("riskUnitData")]
-    public List<OkxAccountPositionBuilderRiskUnit> RiskUnitData { get; set; }
+    public List<OkxAccountPositionBuilderRiskUnit> RiskUnitData { get; set; } = [];
 }
 
 /// <summary>
@@ -219,7 +219,7 @@ public class OkxAccountPositionBuilderRiskUnit
     /// Portfolios
     /// </summary>
     [JsonProperty("portfolios")]
-    public List<OkxAccountPositionBuilderRiskUnitPortfolio> Portfolios { get; set; }
+    public List<OkxAccountPositionBuilderRiskUnitPortfolio> Portfolios { get; set; } = [];
 }
 
 /// <summary>
@@ -228,16 +228,16 @@ public class OkxAccountPositionBuilderRiskUnit
 public class OkxAccountPositionBuilderRiskUnitMR1Scenarios
 {
     /// <summary>
-    /// Volatility same
-    /// </summary>
-    [JsonProperty("volSame")]
-    public Dictionary<decimal, decimal> VolatilitySame { get; set; }
-
-    /// <summary>
     /// Volatility shock down
     /// </summary>
     [JsonProperty("volShockDown")]
     public Dictionary<decimal, decimal> VolatilityShockDown { get; set; }
+
+    /// <summary>
+    /// Volatility same
+    /// </summary>
+    [JsonProperty("volSame")]
+    public Dictionary<decimal, decimal> VolatilitySame { get; set; }
 
     /// <summary>
     /// Volatility shock up

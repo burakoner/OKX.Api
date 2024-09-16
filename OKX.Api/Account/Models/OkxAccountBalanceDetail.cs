@@ -126,6 +126,20 @@ public class OkxAccountBalanceDetail
     public decimal? MarginRatio { get; set; }
 
     /// <summary>
+    /// Cross initial margin requirement at the currency level
+    /// Applicable to Spot and futures mode and when there is cross position
+    /// </summary>
+    [JsonProperty("imr")]
+    public decimal? IMR { get; set; }
+
+    /// <summary>
+    /// Cross maintenance margin requirement at the currency level
+    /// Applicable to Spot and futures mode and when there is cross position
+    /// </summary>
+    [JsonProperty("mmr")]
+    public decimal? MMR { get; set; }
+
+    /// <summary>
     /// Accrued interest of the currency
     /// Applicable to Multi-currency margin and Portfolio margin
     /// </summary>
@@ -188,8 +202,71 @@ public class OkxAccountBalanceDetail
     public decimal? SpotInUseAmount { get; set; }
 
     /// <summary>
+    /// User-defined spot risk offset amount
+    /// Applicable to Portfolio margin
+    /// </summary>
+    [JsonProperty("clSpotInUseAmt")]
+    public decimal? UserDefinedSpotRiskOffsetAmount { get; set; }
+
+    /// <summary>
+    /// Max possible spot risk offset amount
+    /// Applicable to Portfolio margin
+    /// </summary>
+    [JsonProperty("maxSpotInUse")]
+    public decimal? MaxPossibleSpotRiskOffsetAmount { get; set; }
+
+    /// <summary>
     /// SPOT isolated balance. only applicable to copy trading
     /// </summary>
     [JsonProperty("spotIsoBal")]
     public decimal? SpotIsolatedBalance { get; set; }
+
+    /// <summary>
+    /// Smark sync equity
+    /// The default is "0", only applicable to copy trader
+    /// </summary>
+    [JsonProperty("smtSyncEq")]
+    public decimal SmarkSyncEquity { get; set; }
+
+    /// <summary>
+    /// 	Spot balance. The unit is currency, e.g. BTC.
+    /// </summary>
+    [JsonProperty("spotBal")]
+    public decimal SpotBalance { get; set; }
+
+    ///// <summary>
+    ///// Spot average cost price. The unit is USD.
+    ///// </summary>
+    //[JsonProperty("openAvgPx")]
+    //public decimal SpotAverageCostPrice { get; set; }
+
+    ///// <summary>
+    ///// Spot accumulated cost price. The unit is USD. 
+    ///// </summary>
+    //[JsonProperty("accAvgPx")]
+    //public decimal SpotAccumulatedCostPrice { get; set; }
+
+    /// <summary>
+    /// Spot unrealized profit and loss. The unit is USD.
+    /// </summary>
+    [JsonProperty("spotUpl")]
+    public decimal SpotUpl{ get; set; }
+
+    /// <summary>
+    /// Spot unrealized profit and loss ratio. 
+    /// </summary>
+    [JsonProperty("spotUplRatio")]
+    public decimal SpotUplRatio{ get; set; }
+
+    /// <summary>
+    /// Spot accumulated profit and loss. The unit is USD. 
+    /// </summary>
+    [JsonProperty("totalPnl")]
+    public decimal TotalPnl{ get; set; }
+
+    /// <summary>
+    /// Spot accumulated profit and loss ratio.
+    /// </summary>
+    [JsonProperty("totalPnlRatio")]
+    public decimal TotalPnlRatio { get; set; }
 }

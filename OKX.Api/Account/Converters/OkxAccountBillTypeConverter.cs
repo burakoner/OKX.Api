@@ -26,5 +26,8 @@ internal class OkxAccountBillTypeConverter(bool quotes) : BaseConverter<OkxAccou
         new(OkxAccountBillType.ProfitSharing, "18"),
         new(OkxAccountBillType.Repay, "22"),
         new(OkxAccountBillType.SpreadTrading, "24"),
+        new(OkxAccountBillType.StructuredProducts, "26"),
+        new(OkxAccountBillType.CopyTraderProfitSharingExpenses, "250"),
+        new(OkxAccountBillType.CopyTraderProfitSharingRefund, "251"),
     ];
 }

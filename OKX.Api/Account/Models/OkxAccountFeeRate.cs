@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Account.Models;
+﻿using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
+
+namespace OKX.Api.Account.Models;
 
 /// <summary>
 /// OkxFeeRate
@@ -15,13 +18,13 @@ public class OkxAccountFeeRate
     /// Taker fee rate for the USDT &amp; USDⓈ &amp; Crypto trading pairs and contracts. It is the fee rate of crypto-margined contracts for FUTURES and SWAP
     /// </summary>
     [JsonProperty("taker")]
-    public decimal? Taker { get; set; }
+    public decimal Taker { get; set; }
 
     /// <summary>
     /// Maker fee rate for the USDT &amp; USDⓈ &amp; Crypto trading pairs and contracts. It is the fee rate of crypto-margined contracts for FUTURES and SWAP
     /// </summary>
     [JsonProperty("maker")]
-    public decimal? Maker { get; set; }
+    public decimal Maker { get; set; }
 
     /// <summary>
     /// Taker fee rate of USDT-margined contracts, only applicable to FUTURES/SWAP
@@ -64,6 +67,12 @@ public class OkxAccountFeeRate
     /// </summary>
     [JsonProperty("makerUSDC")]
     public decimal? MakerUsdcPairsAndContracts { get; set; }
+    
+    /// <summary>
+    /// Trading rule types
+    /// </summary>
+    [JsonProperty("ruleType"), JsonConverter(typeof(OkxInstrumentRuleTypeConverter))]
+    public OkxInstrumentRuleType RuleType{ get; set; }
 
     /// <summary>
     /// Data return time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -100,11 +109,11 @@ public class OkxAccountFiatFeeRate
     /// Taker fee rate
     /// </summary>
     [JsonProperty("taker")]
-    public decimal? Taker { get; set; }
+    public decimal Taker { get; set; }
     ///             
     /// <summary>
     /// Maker fee rate
     /// </summary>
     [JsonProperty("maker")]
-    public decimal? Maker { get; set; }
+    public decimal Maker { get; set; }
 }

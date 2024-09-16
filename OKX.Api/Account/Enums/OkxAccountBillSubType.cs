@@ -111,6 +111,11 @@ public enum OkxAccountBillSubType
     Clawback,
 
     /// <summary>
+    /// Liquidation fees
+    /// </summary>
+    LiquidationFees,
+
+    /// <summary>
     /// Liquidation Transfer In
     /// </summary>
     LiquidationTransferIn,
@@ -296,6 +301,16 @@ public enum OkxAccountBillSubType
     AutoRepay,
 
     /// <summary>
+    /// Transfer in when using USDT to buy OPTION
+    /// </summary>
+    TransferInWhenUsingUsdtToBuyOption,
+
+    /// <summary>
+    /// Transfer out when using USDT to buy OPTION
+    /// </summary>
+    TransferOutWhenUsingUsdtToBuyOption,
+
+    /// <summary>
     /// Repayment Transfer In
     /// </summary>
     RepaymentTransferIn,
@@ -304,6 +319,16 @@ public enum OkxAccountBillSubType
     /// Repayment Transfer Out
     /// </summary>
     RepaymentTransferOut,
+
+    /// <summary>
+    /// Easy convert in
+    /// </summary>
+    EasyConvertIn,
+
+    /// <summary>
+    /// Easy convert out
+    /// </summary>
+    EasyConvertOut,
 
     /// <summary>
     /// Profit Sharing Expenses
@@ -359,4 +384,67 @@ public enum OkxAccountBillSubType
     /// SPOT profit sharing refund
     /// </summary>
     SpotProfitSharingRefund,
+
+
+
+
+    /// <summary>
+    /// Copy trade automatic transfer in
+    /// </summary>
+    CopyTradeAutomaticTransferIn,
+
+    /// <summary>
+    /// Copy trade manual transfer in
+    /// </summary>
+    CopyTradeManualTransferIn,
+
+    /// <summary>
+    /// Copy trade automatic transfer out
+    /// </summary>
+    CopyTradeAutomaticTransferOut,
+
+    /// <summary>
+    /// Copy trade manual transfer out
+    /// </summary>
+    CopyTradeManualTransferOut,
+
+    /// <summary>
+    /// Crypto dust auto-transfer out
+    /// </summary>
+    CryptoDustAutoTransferOut,
+
+    /// <summary>
+    /// Fixed loan interest deduction
+    /// </summary>
+    FixedLoanInterestDeduction,
+
+    /// <summary>
+    /// Fixed loan interest refund
+    /// </summary>
+    FixedLoanInterestRefund,
+
+    /// <summary>
+    /// Fixed loan overdue penalty
+    /// </summary>
+    FixedLoanOverduePenalty,
+
+    /// <summary>
+    /// From structured order placements
+    /// </summary>
+    FromStructuredOrderPlacements,
+
+    /// <summary>
+    /// To structured order placements
+    /// </summary>
+    ToStructuredOrderPlacements,
+
+    /// <summary>
+    /// From structured settlements
+    /// </summary>
+    FromStructuredSettlements,
+
+    /// <summary>
+    /// To structured settlements
+    /// </summary>
+    ToStructuredSettlements
 }

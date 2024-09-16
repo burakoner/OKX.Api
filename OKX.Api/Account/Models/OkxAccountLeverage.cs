@@ -11,10 +11,10 @@ namespace OKX.Api.Account.Models;
 public class OkxAccountLeverage
 {
     /// <summary>
-    /// Leverage
+    /// Instrument ID
     /// </summary>
-    [JsonProperty("lever")]
-    public decimal Leverage { get; set; }
+    [JsonProperty("instId")]
+    public string InstrumentId { get; set; }
 
     /// <summary>
     /// Margin mode
@@ -23,14 +23,14 @@ public class OkxAccountLeverage
     public OkxAccountMarginMode MarginMode { get; set; }
 
     /// <summary>
-    /// Instrument ID
-    /// </summary>
-    [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
-
-    /// <summary>
     /// Position side
     /// </summary>
     [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
     public OkxPositionSide PositionSide { get; set; }
+
+    /// <summary>
+    /// Leverage
+    /// </summary>
+    [JsonProperty("lever")]
+    public decimal Leverage { get; set; }
 }

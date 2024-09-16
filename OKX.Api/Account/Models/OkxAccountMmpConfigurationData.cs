@@ -12,6 +12,18 @@ public class OkxAccountMmpConfigurationData
     public string InstrumentFamily { get; set; }
 
     /// <summary>
+    /// MMP Frozen
+    /// </summary>
+    [JsonProperty("mmpFrozen")]
+    public bool MmpFrozen { get; set; }
+
+    /// <summary>
+    /// MMP Frozen Until
+    /// </summary>
+    [JsonProperty("mmpFrozenUntil")]
+    public string MmpFrozenUntil { get; set; }
+
+    /// <summary>
     /// Time Interval
     /// </summary>
     [JsonProperty("timeInterval")]
@@ -28,16 +40,4 @@ public class OkxAccountMmpConfigurationData
     /// </summary>
     [JsonProperty("qtyLimit")]
     public int QuantityLimit { get; set; }
-
-    /// <summary>
-    /// MMP Frozen
-    /// </summary>
-    [JsonProperty("mmpFrozen")]
-    public bool MmpFrozen { get; set; }
-
-    /// <summary>
-    /// MMP Frozen Until
-    /// </summary>
-    [JsonProperty("mmpFrozenUntil")]
-    public string MmpFrozenUntil { get; set; }
 }

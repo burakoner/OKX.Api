@@ -8,10 +8,10 @@ public enum OkxAccountRiskOffsetType
     /// <summary>
     /// Spot-derivatives (USDT)
     /// </summary>
-    UsdtDerivatives,
+    UsdtDerivativesUsdt,
 
     /// <summary>
-    /// Spot-derivatives (crypto)
+    /// Spot-derivatives (Crypto)
     /// </summary>
     CryptoDerivatives,
     
@@ -19,4 +19,9 @@ public enum OkxAccountRiskOffsetType
     /// Derivatives-only
     /// </summary>
     DerivativesOnly,
+
+    /// <summary>
+    /// Spot-derivatives (USDC)
+    /// </summary>
+    UsdtDerivativesUsdc,
 }

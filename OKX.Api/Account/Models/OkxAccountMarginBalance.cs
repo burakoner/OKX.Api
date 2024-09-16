@@ -33,7 +33,7 @@ public class OkxAccountMarginBalance
     /// reduce: reduce margin, transfer collaterals out (Quick Margin Mode)
     /// </summary>
     [JsonProperty("type"), JsonConverter(typeof(OkxAccountMarginAddReduceConverter))]
-    public OkxAccountMarginAddReduce MarginAddReduce { get; set; }
+    public OkxAccountMarginAddReduce Type { get; set; }
 
     /// <summary>
     /// Real leverage after the margin adjustment

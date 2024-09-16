@@ -18,5 +18,6 @@ public enum OkxAccountIsolatedMarginMode
     /// <summary>
     /// QuickMarginMode
     /// </summary>
+    [Obsolete]
     QuickMarginMode,
 }

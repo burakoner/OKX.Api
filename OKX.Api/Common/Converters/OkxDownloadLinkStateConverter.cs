@@ -8,5 +8,6 @@ internal class OkxDownloadLinkStateConverter(bool quotes) : BaseConverter<OkxDow
     [
         new(OkxDownloadLinkState.Ongoing, "ongoing"),
         new(OkxDownloadLinkState.Finished, "finished"),
+        new(OkxDownloadLinkState.Failed, "failed"),
     ];
 }

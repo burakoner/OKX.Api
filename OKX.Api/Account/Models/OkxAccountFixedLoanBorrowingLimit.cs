@@ -6,35 +6,41 @@
 public class OkxAccountFixedLoanBorrowingLimit
 {
     /// <summary>
-    /// (Current account) Available amount to repay, unit in USD
+    /// (Master account and sub-accounts) Total borrow limit, unit in USD
     /// </summary>
-    [JsonProperty("availRepay")]
-    public decimal AvailableRepay { get; set; }
+    [JsonProperty("totalBorrowLmt")]
+    public decimal TotalBorrowLimit { get; set; }
+    
+    /// <summary>
+    /// (Master account and sub-accounts) Total available amount to borrow, unit in USD
+    /// </summary>
+    [JsonProperty("totalAvailBorrow")]
+    public decimal TotalAvailableAmountToBorrow { get; set; }
     
     /// <summary>
     /// (Current account) Borrowed amount, unit in USD
     /// </summary>
     [JsonProperty("borrowed")]
     public decimal BorrowedAmount { get; set; }
-
-    /// <summary>
-    /// (Master account and sub-accounts) Total available amount to borrow, unit in USD
-    /// </summary>
-    [JsonProperty("totalAvailBorrow")]
-    public decimal TotalAvailableAmountToBorrow { get; set; }
-
-    /// <summary>
-    /// (Master account and sub-accounts) Total borrow limit, unit in USD
-    /// </summary>
-    [JsonProperty("totalBorrowLmt")]
-    public decimal TotalBorrowLimit { get; set; }
-
+    
     /// <summary>
     /// (Current account) Used amount, unit in USD
     /// </summary>
     [JsonProperty("used")]
     public decimal UsedAmount { get; set; }
-
+    
+    /// <summary>
+    /// (Current account) Available amount to repay, unit in USD
+    /// </summary>
+    [JsonProperty("availRepay")]
+    public decimal AvailableRepay { get; set; }
+    
+    /// <summary>
+    /// Borrow limit info in details
+    /// </summary>
+    [JsonProperty("details")]
+    public List<OkxAccountFixedLoanBorrowLimitDetails> Details { get; set; }
+    
     /// <summary>
     /// Data return time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
@@ -46,12 +52,6 @@ public class OkxAccountFixedLoanBorrowingLimit
     /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
-    
-    /// <summary>
-    /// Borrow limit info in details
-    /// </summary>
-    [JsonProperty("details")]
-    public List<OkxAccountFixedLoanBorrowLimitDetails> Details { get; set; }
 }
 
 /// <summary>

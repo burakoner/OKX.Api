@@ -43,36 +43,42 @@ public class OkxAccountPosition
     /// <summary>
     /// Base currency balance, only applicable to MARGIN（Manual transfers and Quick Margin Mode）
     /// </summary>
+    [Obsolete]
     [JsonProperty("baseBal")]
     public decimal? BaseCurrencyBalance { get; set; }
 
     /// <summary>
     /// Quote currency balance, only applicable to MARGIN（Manual transfers and Quick Margin Mode）
     /// </summary>
+    [Obsolete]
     [JsonProperty("quoteBal")]
     public decimal? QuoteCurrencyBalance { get; set; }
 
     /// <summary>
     /// Base currency amount already borrowed, only applicable to MARGIN(Quick Margin Mode）
     /// </summary>
+    [Obsolete]
     [JsonProperty("baseBorrowed")]
     public decimal? BaseBorrowed { get; set; }
 
     /// <summary>
     /// Base Interest, undeducted interest that has been incurred, only applicable to MARGIN(Quick Margin Mode）
     /// </summary>
+    [Obsolete]
     [JsonProperty("baseInterest")]
     public decimal? BaseInterest { get; set; }
 
     /// <summary>
     /// Quote currency amount already borrowed, only applicable to MARGIN(Quick Margin Mode）
     /// </summary>
+    [Obsolete]
     [JsonProperty("quoteBorrowed")]
     public decimal? QuoteBorrowed { get; set; }
 
     /// <summary>
     /// Quote Interest, undeducted interest that has been incurred, only applicable to MARGIN(Quick Margin Mode）
     /// </summary>
+    [Obsolete]
     [JsonProperty("quoteInterest")]
     public decimal? QuoteInterest { get; set; }
 
@@ -199,6 +205,12 @@ public class OkxAccountPosition
     public decimal? OptionValue { get; set; }
 
     /// <summary>
+    /// The amount of close orders of isolated margin liability.
+    /// </summary>
+    [JsonProperty("pendingCloseOrdLiabVal")]
+    public decimal? PendingCloseOrdersLiabilityValue { get; set; }
+
+    /// <summary>
     /// Notional value of positions in USD
     /// </summary>
     [JsonProperty("notionalUsd")]
@@ -304,6 +316,20 @@ public class OkxAccountPosition
     public string SpotInUseCurrency { get; set; }
 
     /// <summary>
+    /// User-defined spot risk offset amount
+    /// Applicable to Portfolio margin
+    /// </summary>
+    [JsonProperty("clSpotInUseAmt")]
+    public string ClientSpotInUseAmount { get; set; }
+
+    /// <summary>
+    /// Max possible spot risk offset amount
+    /// Applicable to Portfolio margin
+    /// </summary>
+    [JsonProperty("maxSpotInUseAmt")]
+    public string MaximumSpotInUseAmount { get; set; }
+
+    /// <summary>
     /// External business id, e.g. experience coupon id
     /// </summary>
     [JsonProperty("bizRefId")]
@@ -386,7 +412,7 @@ public class OkxAccountCloseAlgoOrder
     /// Algo ID
     /// </summary>
     [JsonProperty("algoId")]
-    public long? AlgoId { get; set; }
+    public long AlgoId { get; set; }
 
     /// <summary>
     /// Stop-loss trigger price.

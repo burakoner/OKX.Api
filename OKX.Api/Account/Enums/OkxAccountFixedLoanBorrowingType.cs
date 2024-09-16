@@ -8,7 +8,7 @@ public enum OkxAccountFixedLoanBorrowingType
     /// <summary>
     /// normal: new order
     /// </summary>
-    Borrow,
+    Normal,
 
     /// <summary>
     /// reborrow: renew existing order

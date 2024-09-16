@@ -81,7 +81,7 @@ public class OkxAccountInterestLimitRecord
     /// Surplus Limit
     /// </summary>
     [JsonProperty("surplusLmt")]
-    public decimal surplusLimit { get; set; }
+    public decimal SurplusLimit { get; set; }
 
     /// <summary>
     /// Surplus Limit Details
@@ -93,7 +93,7 @@ public class OkxAccountInterestLimitRecord
     /// Used Limit
     /// </summary>
     [JsonProperty("usedLmt")]
-    public decimal UsedLmt { get; set; }
+    public decimal UsedLimit { get; set; }
 
     /// <summary>
     /// Market Loan Interest

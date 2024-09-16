@@ -8,7 +8,7 @@ internal class OkxAccountFixedLoanBorrowingTypeConverter(bool quotes) : BaseConv
 
     protected override List<KeyValuePair<OkxAccountFixedLoanBorrowingType, string>> Mapping =>
     [
-        new(OkxAccountFixedLoanBorrowingType.Borrow, "normal"),
+        new(OkxAccountFixedLoanBorrowingType.Normal, "normal"),
         new(OkxAccountFixedLoanBorrowingType.Reborrow, "reborrow"),
     ];
 }

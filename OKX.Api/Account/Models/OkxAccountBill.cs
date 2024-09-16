@@ -14,7 +14,7 @@ public class OkxAccountBill
     /// Instrument type
     /// </summary>
     [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
-    public OkxInstrumentType? InstrumentType { get; set; }
+    public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
     /// Bill ID

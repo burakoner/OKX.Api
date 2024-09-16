@@ -8,8 +8,9 @@ internal class OkxAccountRiskOffsetTypeConverter(bool quotes) : BaseConverter<Ok
 
     protected override List<KeyValuePair<OkxAccountRiskOffsetType, string>> Mapping =>
     [
-        new(OkxAccountRiskOffsetType.UsdtDerivatives, "1"),
+        new(OkxAccountRiskOffsetType.UsdtDerivativesUsdt, "1"),
         new(OkxAccountRiskOffsetType.CryptoDerivatives, "2"),
         new(OkxAccountRiskOffsetType.DerivativesOnly, "3"),
+        new(OkxAccountRiskOffsetType.UsdtDerivativesUsdc, "4"),
     ];
 }

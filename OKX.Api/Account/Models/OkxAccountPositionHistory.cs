@@ -62,13 +62,13 @@ public class OkxAccountPositionHistory
     /// Average price of opening position
     /// </summary>
     [JsonProperty("openAvgPx")]
-    public decimal? OpenAveragePrice { get; set; }
+    public decimal OpenAveragePrice { get; set; }
 
     /// <summary>
     /// Average price of closing position
     /// </summary>
     [JsonProperty("closeAvgPx")]
-    public decimal? CloseAveragePrice { get; set; }
+    public decimal CloseAveragePrice { get; set; }
 
     /// <summary>
     /// Position ID
@@ -80,63 +80,63 @@ public class OkxAccountPositionHistory
     /// Max quantity of position
     /// </summary>
     [JsonProperty("openMaxPos")]
-    public decimal? OpenMaxPos { get; set; }
+    public decimal OpenMaxPos { get; set; }
 
     /// <summary>
     /// Position's cumulative closed volume
     /// </summary>
     [JsonProperty("closeTotalPos")]
-    public decimal? CloseTotalPos { get; set; }
+    public decimal CloseTotalPos { get; set; }
 
     /// <summary>
     /// Realized profit and loss
     /// </summary>
     [JsonProperty("realizedPnl")]
-    public decimal? RealizedProfitLoss { get; set; }
+    public decimal RealizedProfitLoss { get; set; }
 
     /// <summary>
     /// Accumulated fee
     /// Negative number represents the user transaction fee charged by the platform.Positive number represents rebate.
     /// </summary>
     [JsonProperty("fee")]
-    public decimal? Fee { get; set; }
+    public decimal Fee { get; set; }
 
     /// <summary>
     /// Accumulated funding fee
     /// </summary>
     [JsonProperty("fundingFee")]
-    public decimal? FundingFee { get; set; }
+    public decimal FundingFee { get; set; }
 
     /// <summary>
     /// Accumulated liquidation penalty. It is negative when there is a value.
     /// </summary>
     [JsonProperty("liqPenalty")]
-    public decimal? LiquidationPenalty { get; set; }
+    public decimal LiquidationPenalty { get; set; }
 
     /// <summary>
     /// Profit and loss
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal? ProfitLoss { get; set; }
+    public decimal ProfitLoss { get; set; }
 
     /// <summary>
     /// P&amp;L ratio
     /// </summary>
     [JsonProperty("pnlRatio")]
-    public decimal? ProfitLossRatio { get; set; }
+    public decimal ProfitLossRatio { get; set; }
 
     /// <summary>
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public decimal? Leverage { get; set; }
+    public decimal Leverage { get; set; }
 
     /// <summary>
     /// Direction: long short
     /// Only applicable to MARGIN/FUTURES/SWAP/OPTION
     /// </summary>
-    [JsonProperty("direction"), JsonConverter(typeof(OkxPositionSideConverter))]
-    public OkxPositionSide Direction { get; set; }
+    [JsonProperty("direction"), JsonConverter(typeof(OkxPositionDirectionConverter))]
+    public OkxPositionDirection Direction { get; set; }
 
     /// <summary>
     /// trigger mark price

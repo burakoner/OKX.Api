@@ -11,5 +11,6 @@ internal class OkxTradeModeConverter(bool quotes) : BaseConverter<OkxTradeMode>(
         new(OkxTradeMode.Cash, "cash"),
         new(OkxTradeMode.Cross, "cross"),
         new(OkxTradeMode.Isolated, "isolated"),
+        new(OkxTradeMode.SpotIsolated, "spot_isolated"),
     ];
 }

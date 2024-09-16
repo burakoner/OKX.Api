@@ -86,6 +86,13 @@ public class OkxAccountBalance
     public decimal? NotionalUsd { get; set; }
 
     /// <summary>
+    /// Cross-margin info of unrealized profit and loss at the account level in USD
+    /// Applicable to Multi-currency margin/Portfolio margin
+    /// </summary>
+    [JsonProperty("upl")]
+    public decimal? UnrealizedProfitAndLoss { get; set; }
+
+    /// <summary>
     /// Detailed asset information in all currencies
     /// </summary>
     [JsonProperty("details")]
