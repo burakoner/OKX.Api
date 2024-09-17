@@ -1,4 +1,6 @@
-﻿using OKX.Api.Public.Converters;
+﻿using OKX.Api.Account.Converters;
+using OKX.Api.Account.Enums;
+using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
@@ -56,6 +58,12 @@ public class OkxTransaction
     public long? BillId { get; set; }
 
     /// <summary>
+    /// Transaction type
+    /// </summary>
+    [JsonProperty("subType"), JsonConverter(typeof(OkxAccountBillSubTypeConverter))]
+    public OkxAccountBillSubType TransactionType { get; set; }
+
+    /// <summary>
     /// The price at which the last fill occurred.
     /// </summary>
     [JsonProperty("fillPx")]
@@ -81,6 +89,34 @@ public class OkxTransaction
     /// </summary>
     [JsonProperty("fillPnl")]
     public decimal? LastFilledProfitAndLoss { get; set; }
+    
+    /// <summary>
+    /// Options price when filled, in the unit of USD
+    /// Only applicable to options; return "" for other instrument types
+    /// </summary>
+    [JsonProperty("fillPxUsd")]
+    public decimal? LastFilledPriceUsd { get; set; }
+
+    /// <summary>
+    /// Mark volatility when filled
+    /// Only applicable to options; return "" for other instrument types
+    /// </summary>
+    [JsonProperty("fillPxVol")]
+    public decimal? LastFilledPriceVolatility { get; set; }
+
+    /// <summary>
+    /// Forward price when filled
+    /// Only applicable to options; return "" for other instrument types
+    /// </summary>
+    [JsonProperty("fillFwdPx")]
+    public decimal? LastFilledForwardPrice{ get; set; }
+
+    /// <summary>
+    /// Mark price when filled
+    /// Applicable to FUTURES, SWAP, OPTION
+    /// </summary>
+    [JsonProperty("fillMarkPx")]
+    public decimal? LastFilledMarkPrice{ get; set; }
 
     /// <summary>
     /// Specifies whether the order was a buy or sell.

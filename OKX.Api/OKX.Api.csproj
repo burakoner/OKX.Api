@@ -8,151 +8,18 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>2.5.0</Version>
-		<FileVersion>2.5.0</FileVersion>
-		<PackageVersion>2.5.0</PackageVersion>
-		<AssemblyVersion>2.5.0</AssemblyVersion>
+		<Version>2.5.1</Version>
+		<FileVersion>2.5.1</FileVersion>
+		<PackageVersion>2.5.1</PackageVersion>
+		<AssemblyVersion>2.5.1</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageReleaseNotes>
-			Version 2.5.0 - 17 Sep 2024
-			
-			Version 2.4.8 - 19 Aug 2024
-			
-			Version 2.3.1 - 09 Aug 2024
-			
-			Version 2.2.5 - 24 Jul 2024
-			
-			Version 2.2.0 - 21 Jul 2024
-			
-			Version 2.0.3 - 06 Mar 2024
-			* Fixed inheritance issue https://github.com/burakoner/OKX.Api/issues/60                                                                                                                                               
-
-			Version 2.0.2 - 28 Mar 2024
-			* ApiSharp updated to 2.2.1
-			* Added Recurring Buy Section
-			
-			Version 2.0.1 - 22 Mar 2024
-			* Changed main structure, edited tons of models, refactored tons of codes
-			* Changed IEnumerable return types to List
-			* Merged pull request https://github.com/burakoner/OKX.Api/pull/58
-			* Updated dependencies
-			* Updated README file. Please refer to code snippets for samples
-			
-			Version 1.7.2 - 19 Mar 2024
-			* Merged MarketData and PublicData clients
-			
-			Version 1.7.0 - 29 Feb 2024
-			* Added WebSocket order management methods
-			* Removed deprecated fields from request models
-			* Released https://github.com/burakoner/OKX.Api/issues/12
-
-			Version 1.6.0 - 05 Feb 2024
-			* ApiSharp updated to 2.1.0
-			* Added feature https://github.com/burakoner/OKX.Api/issues/56
-			* Imported pull request https://github.com/burakoner/OKX.Api/pull/55
-
-			Version 1.5.6 - 03 Jan 2024
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/53
-
-			Version 1.5.5 - 10 Dec 2023
-			* Updated ApiSharp to 2.0.5
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/52
-			* Refactored OKXRestApiTradingAccountClient and related models
-
-			Version 1.5.1 - 15 Nov 2023
-			* Updated ApiSharp to 2.0.1
-
-			Version 1.5.0 - 13 Nov 2023
-			* Fixed DemoTradingService usage
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/39
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/48
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/49
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/50
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/51
-
-			Version 1.4.0 - 16 Sep 2023
-			* Added Business WebSocket endpoint and moved related methods
-			* Fixed websocket endpoint division (public, private, business) related issues
-			* Some models changed (OkxPositionHistory)
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/37
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/40
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/43
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/46
-
-			Version 1.3.1 - 06 Aug 2023
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/20
-			* Merged pull request https://github.com/burakoner/OKX.Api/pull/36
-
-			Version 1.3.0 - 06 Aug 2023
-			* ApiSharp version updated to 1.5.0
-			* Both Rest and Websocket Api client hierarchies synced with OKX Api Documentation
-			* OKXStreamClient renamed to OKXWebSocketApiClient and methods moved to seperate clients according to OKX Api Documentation
-			* Some method and parameter names changed
-			* Timestamp conversion algorithm changed. You can now reach both timestamp and time properties
-			* Added Copy Trading Section
-			* Added OrderBookTrading.AlgoTrading.AmendAlgoOrderAsync (api/v5/trade/amend-algos)
-			* Added OrderBookTrading.AlgoTrading.GetAlgoOrderDetailsAsync (api/v5/trade/order-algo)
-			* Moved some MarketData methods to PublicData section: GetIndexCandlesticksAsync, GetMarkPriceCandlesticksAsync, GetIndexTickersAsync, GetOracleAsync, GetIndexComponentsAsync
-			* Moved some MarketData methods to BlockTrading section: GetBlockTickersAsync, GetBlockTickerAsync, GetBlockTradesAsync
-			* Removed some Funding methods: GetSavingBalancesAsync, SavingPurchaseRedemptionAsync
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/20
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/29
-			* Fixed issue https://github.com/burakoner/OKX.Api/issues/34
-
-			Version 1.2.4 - 05 Aug 2023
-			* Multiple subscription to index candle instrument name issue solved
-			as described at https://github.com/burakoner/OKX.Api/issues/30 and solved at https://github.com/burakoner/OKX.Api/pull/31
-
-			Version 1.2.3 - 03 Aug 2023
-			* ApiSharp version updated to 1.4.1
-
-			Version 1.2.2 - 28 Jul 2023
-			* Merged pull request https://github.com/burakoner/OKX.Api/pull/28
-
-			Version 1.2.1 - 28 Jul 2023
-			* Synced with OKX Api 2023-07-26 version
-			* Added some other missing documentation symbols
-			* Merged pull request https://github.com/burakoner/OKX.Api/pull/25
-			* Merged pull request https://github.com/burakoner/OKX.Api/pull/26
-			* Merged pull request https://github.com/burakoner/OKX.Api/pull/27
-
-			Version 1.2.0 - 27 Jul 2023
-			* Added documentation symbols
-			* Synced with OKX Api 2023-06-28 version
-			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/21
-			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/21
-			* Merged pull request https://github.com/burakoner/OKX.Api/pull/23
-			* Merged pull request https://github.com/burakoner/OKX.Api/pull/24
-
-			Version 1.1.7 - 26 Jun 2023
-			* It's possible to subscribe multiple symbols at once on WebSocket
-			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/16
-
-			Version 1.1.6 - 26 Jun 2023
-			* Updated All Methods and Models, synced with OKX Api 2023-06-20 version
-			* OKXStreamClient has some parameter and parameter order changes
-			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/18
-			* Fixed some typos
-
-			Version 1.1.5 - 25 Jun 2023
-			* Added Grid Trading section endpoints
-			* ApiSharp updated to v1.3.6
-			* Fixed issue at https://github.com/burakoner/OKX.Api/issues/11
-
-			Version 1.1.0 - 07 May 2023
-			* Updated All Methods and Models, synced with OKX Api 2023-04-27 version
-
-			Version 1.0.6 - 06 May 2023
-			* Updated WithdrawAsync Method (https://github.com/burakoner/OKEx.Net/issues/97)
-			* Updated GetInstrumentsAsync Method (https://github.com/burakoner/OKX.Api/issues/7)
-		</PackageReleaseNotes>
 		<PackageIcon>OKX.png</PackageIcon>
-		<PackageIconUrl />
+		<PackageReleaseNotes>Please refer to changelog at Github https://github.com/burakoner/OKX.Api/blob/master/CHANGELOG.md</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/burakoner/OKX.Api</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/burakoner/OKX.Api</RepositoryUrl>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>

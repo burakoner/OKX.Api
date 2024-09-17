@@ -8,7 +8,7 @@ internal class OkxDebtTypeConverter(bool quotes) : BaseConverter<OkxDebtType>(qu
 
     protected override List<KeyValuePair<OkxDebtType, string>> Mapping =>
     [
-        new(OkxDebtType.Isolated, "isolated"),
         new(OkxDebtType.Cross, "cross"),
+        new(OkxDebtType.Isolated, "isolated"),
     ];
 }

@@ -23,6 +23,24 @@ public class OkxOrderPlaceRequest
     public OkxTradeMode TradeMode { get; set; }
 
     /// <summary>
+    /// Currency
+    /// </summary>
+    [JsonProperty("ccy", NullValueHandling = NullValueHandling.Ignore)]
+    public string Currency { get; set; }
+
+    /// <summary>
+    /// Client Order ID
+    /// </summary>
+    [JsonProperty("clOrdId", NullValueHandling = NullValueHandling.Ignore)]
+    public string ClientOrderId { get; set; }
+
+    /// <summary>
+    /// Order tag. Used for Broker Id
+    /// </summary>
+    [JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
+    internal string Tag { get; set; }
+
+    /// <summary>
     /// Order Side
     /// </summary>
     [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
@@ -70,24 +88,6 @@ public class OkxOrderPlaceRequest
     public string PriceVolatility { get; set; }
 
     /// <summary>
-    /// Currency
-    /// </summary>
-    [JsonProperty("ccy", NullValueHandling = NullValueHandling.Ignore)]
-    public string Currency { get; set; }
-
-    /// <summary>
-    /// Client Order ID
-    /// </summary>
-    [JsonProperty("clOrdId", NullValueHandling = NullValueHandling.Ignore)]
-    public string ClientOrderId { get; set; }
-
-    /// <summary>
-    /// Order tag. Used for Broker Id
-    /// </summary>
-    [JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
-    internal string Tag { get; set; }
-
-    /// <summary>
     /// Whether to reduce position only or not, true false, the default is false.
     /// </summary>
     [JsonProperty("reduceOnly", NullValueHandling = NullValueHandling.Ignore)]
@@ -99,47 +99,12 @@ public class OkxOrderPlaceRequest
     [JsonProperty("tgtCcy", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxQuantityTypeConverter))]
     public OkxQuantityType? QuantityType { get; set; }
 
+
     /// <summary>
     /// Whether to disallow the system from amending the size of the SPOT Market Order.
     /// </summary>
     [JsonProperty("banAmend", NullValueHandling = NullValueHandling.Ignore)]
     public bool? BanAmend { get; set; }
-
-    /// <summary>
-    /// Take-profit trigger price. If you fill in this parameter, you should fill in the take-profit order price as well.
-    /// </summary>
-    [JsonProperty("tpTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TakeProfitTriggerPrice { get; set; }
-
-    /// <summary>
-    /// Take-profit order price
-    /// </summary>
-    [JsonProperty("tpOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TakeProfitOrderPrice { get; set; }
-
-    /// <summary>
-    /// Stop-loss trigger price. If you fill in this parameter, you should fill in the stop-loss order price.
-    /// </summary>
-    [JsonProperty("slTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string StoplossTriggerPrice { get; set; }
-
-    /// <summary>
-    /// Stop-loss order price. If you fill in this parameter, you should fill in the stop-loss trigger price. If the price is -1, stop-loss will be executed at the market price.
-    /// </summary>
-    [JsonProperty("slOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string StoplossOrderPrice { get; set; }
-
-    /// <summary>
-    /// Take-profit trigger price type. The Default is last
-    /// </summary>
-    [JsonProperty("tpTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
-    public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; }
-
-    /// <summary>
-    /// Stop-loss trigger price type. The Default is last
-    /// </summary>
-    [JsonProperty("slTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
-    public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
 
     /// <summary>
     /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.
@@ -156,4 +121,11 @@ public class OkxOrderPlaceRequest
     /// </summary>
     [JsonProperty("stpMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxSelfTradePreventionModeConverter))]
     public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
+
+    /// <summary>
+    /// TP/SL information attached when placing order
+    /// </summary>
+    [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
+    public IEnumerable<OkxOrderPlaceAttachedAlgoRequest> AttachedAlgoOrders { get; set; }
+
 }

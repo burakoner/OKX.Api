@@ -9,6 +9,12 @@ namespace OKX.Api.Trade.Models;
 public class OkxOneClickRepayOrder
 {
     /// <summary>
+    /// Current status of one-click repay
+    /// </summary>
+    [JsonProperty("status"), JsonConverter(typeof(OkxOneClickRepayOrderStatusConverter))]
+    public OkxOneClickRepayOrderStatus Status { get; set; }
+
+    /// <summary>
     /// Debt currency type
     /// </summary>
     [JsonProperty("debtCcy")]
@@ -33,20 +39,14 @@ public class OkxOneClickRepayOrder
     public decimal FilledRepayAmount { get; set; }
     
     /// <summary>
-    /// Current status of one-click repay
-    /// </summary>
-    [JsonProperty("status"), JsonConverter(typeof(OkxOneClickRepayOrderStatusConverter))]
-    public OkxOneClickRepayOrderStatus Status { get; set; }
-
-    /// <summary>
     /// Trade time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("uTime")]
-    public long Timestamp { get; set; }
+    public long UpdateTimestamp { get; set; }
 
     /// <summary>
     /// Trade time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime UpdateTime { get { return UpdateTimestamp.ConvertFromMilliseconds(); } }
 }

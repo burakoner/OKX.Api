@@ -6,6 +6,18 @@
 public class OkxOrderAmendRequest
 {
     /// <summary>
+    /// Instrument Id
+    /// </summary>
+    [JsonProperty("instId")]
+    public string InstrumentId { get; set; }
+    
+    /// <summary>
+    /// Cancel on fail
+    /// </summary>
+    [JsonProperty("cxlOnFail", NullValueHandling = NullValueHandling.Ignore)]
+    public bool? CancelOnFail { get; set; }
+
+    /// <summary>
     /// Order Id
     /// </summary>
     [JsonProperty("ordId", NullValueHandling = NullValueHandling.Ignore)]
@@ -24,18 +36,6 @@ public class OkxOrderAmendRequest
     public string RequestId { get; set; }
 
     /// <summary>
-    /// Instrument Type
-    /// </summary>
-    [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
-
-    /// <summary>
-    /// Cancel on fail
-    /// </summary>
-    [JsonProperty("cxlOnFail", NullValueHandling = NullValueHandling.Ignore)]
-    public bool? CancelOnFail { get; set; }
-
-    /// <summary>
     /// New quantity.
     /// </summary>
     [JsonProperty("newSz", NullValueHandling = NullValueHandling.Ignore)]
@@ -48,39 +48,24 @@ public class OkxOrderAmendRequest
     public decimal? NewPrice { get; set; }
 
     /// <summary>
-    /// Take-profit trigger price.
+    /// Modify options orders using USD prices
+    /// Only applicable to options.
+    /// When modifying options orders, users can only fill in one of the following: newPx, newPxUsd, or newPxVol.
     /// </summary>
-    [JsonProperty("newTpTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TakeProfitTriggerPrice { get; set; }
+    [JsonProperty("newPxUsd", NullValueHandling = NullValueHandling.Ignore)]
+    public decimal? NewPriceUsd { get; set; }
 
     /// <summary>
-    /// Take-profit order price
+    /// Modify options orders based on implied volatility, where 1 represents 100%
+    /// Only applicable to options.
+    /// When modifying options orders, users can only fill in one of the following: newPx, newPxUsd, or newPxVol.
     /// </summary>
-    [JsonProperty("newTpOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TakeProfitOrderPrice { get; set; }
+    [JsonProperty("newPxVol", NullValueHandling = NullValueHandling.Ignore)]
+    public decimal? NewPriceVolatility { get; set; }
 
     /// <summary>
-    /// Stop-loss trigger price.
+    /// TP/SL information attached when placing order
     /// </summary>
-    [JsonProperty("newSlTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string StoplossTriggerPrice { get; set; }
-
-    /// <summary>
-    /// Stop-loss order price.
-    /// </summary>
-    [JsonProperty("newSlOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string StoplossOrderPrice { get; set; }
-
-    /// <summary>
-    /// Take-profit trigger price type.
-    /// </summary>
-    [JsonProperty("newTpTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
-    public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; }
-
-    /// <summary>
-    /// Stop-loss trigger price type.
-    /// </summary>
-    [JsonProperty("newSlTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
-    public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
-
+    [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
+    public IEnumerable<OkxOrderAmendAttachedAlgoRequest> AttachedAlgoOrders { get; set; }
 }

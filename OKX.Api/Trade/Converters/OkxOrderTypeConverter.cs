@@ -16,5 +16,6 @@ internal class OkxOrderTypeConverter(bool quotes) : BaseConverter<OkxOrderType>(
         new(OkxOrderType.OptimalLimitOrder, "optimal_limit_ioc"),
         new(OkxOrderType.MarketMakerProtection, "mmp"),
         new(OkxOrderType.MarektMakerProtectionAndPostOnly, "mmp_and_post_only"),
+        new(OkxOrderType.SimpleOptionsFillOrKill, "op_fok"),
     ];
 }

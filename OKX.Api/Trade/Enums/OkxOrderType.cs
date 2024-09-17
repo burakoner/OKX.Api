@@ -43,5 +43,10 @@ public enum OkxOrderType
     /// <summary>
     /// Marekt Maker Protection and Post-only order(only applicable to Option in Portfolio Margin mode)
     /// </summary>
-    MarektMakerProtectionAndPostOnly
+    MarektMakerProtectionAndPostOnly,
+
+    /// <summary>
+    /// Simple options (fok)
+    /// </summary>
+    SimpleOptionsFillOrKill,
 }

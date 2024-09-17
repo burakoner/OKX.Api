@@ -38,7 +38,7 @@ public class OkxOrder
     /// Order ID
     /// </summary>
     [JsonProperty("ordId")]
-    public long? OrderId { get; set; }
+    public long OrderId { get; set; }
 
     /// <summary>
     /// Client Order ID as assigned by the client
@@ -51,6 +51,27 @@ public class OkxOrder
     /// </summary>
     [JsonProperty("px")]
     public decimal? Price { get; set; }
+
+    /// <summary>
+    /// Options price in USDOnly applicable to options; return "" for other instrument types
+    /// </summary>
+    [JsonProperty("pxUsd")]
+    public decimal? PriceUsd { get; set; }
+
+    /// <summary>
+    /// Implied volatility of the options orderOnly applicable to options; return "" for other instrument types
+    /// </summary>
+    [JsonProperty("pxVol")]
+    public decimal? PriceVolatility { get; set; }
+
+    /// <summary>
+    /// Price type of options
+    /// px: Place an order based on price, in the unit of coin (the unit for the request parameter px is BTC or ETH)
+    /// pxVol: Place an order based on pxVol
+    /// pxUsd: Place an order based on pxUsd, in the unit of USD (the unit for the request parameter px is USD)
+    /// </summary>
+    [JsonProperty("pxType"), JsonConverter(typeof(OkxOptionsPriceTypeConverter))]
+    public OkxOptionsPriceType OptionsPriceType { get; set; }
 
     /// <summary>
     /// Quantity to buy or sell
@@ -137,10 +158,31 @@ public class OkxOrder
     public OkxOrderState OrderState { get; set; }
 
     /// <summary>
+    /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.
+    /// Numerical integers defined by user in the range of 1-999999999
+    /// </summary>
+    [Obsolete]
+    [JsonProperty("stpId")]
+    public long? SelfTradePreventionId { get; set; }
+
+    /// <summary>
+    /// Self trade prevention mode
+    /// Return "" if self trade prevention is not applicable
+    /// </summary>
+    [JsonProperty("stpMode"), JsonConverter(typeof(OkxSelfTradePreventionModeConverter))]
+    public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
+
+    /// <summary>
     /// Leverage, from 0.01 to 125.
     /// </summary>
     [JsonProperty("lever")]
     public decimal? Leverage { get; set; }
+
+    /// <summary>
+    /// Client-supplied Algo ID when placing order attaching TP/SL.
+    /// </summary>
+    [JsonProperty("attachAlgoClOrdId")]
+    public long? AttachedAlgoClientOrderId { get; set; }
 
     /// <summary>
     /// Take-profit trigger price.
@@ -177,6 +219,18 @@ public class OkxOrder
     /// </summary>
     [JsonProperty("slOrdPx")]
     public decimal? StopLossOrderPrice { get; set; }
+
+    /// <summary>
+    /// TP/SL information attached when placing order
+    /// </summary>
+    [JsonProperty("attachAlgoOrds")]
+    public List<OkxOrderAttachedAlgoOrder> AttachedAlgoOrders{ get; set; }
+
+    /// <summary>
+    /// Linked SL order detail, only applicable to the order that is placed by one-cancels-the-other (OCO) order that contains the TP limit order.
+    /// </summary>
+    [JsonProperty("linkedAlgoOrd")]
+    public OkxOrderLinkedAlgoOrder LinkedAlgoOrder { get; set; }
 
     /// <summary>
     /// Fee currency
@@ -222,6 +276,12 @@ public class OkxOrder
     /// </summary>
     [JsonProperty("reduceOnly")]
     public bool? ReduceOnly { get; set; }
+    
+    /// <summary>
+    /// Whether it is TP limit order. true or false
+    /// </summary>
+    [JsonProperty("isTpLimit")]
+    public bool? IsTakeProfitLimit { get; set; }
 
     /// <summary>
     /// Code of the cancellation source.
@@ -268,7 +328,6 @@ public class OkxOrder
     /// <summary>
     /// Creation time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
-
     [JsonProperty("cTime")]
     public long CreateTimestamp { get; set; }
 
@@ -277,26 +336,105 @@ public class OkxOrder
     /// </summary>
     [JsonIgnore]
     public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
-
-    /// <summary>
-    /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.
-    /// Numerical integers defined by user in the range of 1-999999999
-    /// </summary>
-    [JsonProperty("stpId", NullValueHandling = NullValueHandling.Ignore)]
-    public long? SelfTradePreventionId { get; set; }
-
-    /// <summary>
-    /// Self trade prevention mode
-    /// Default to cancel maker
-    /// cancel_maker,cancel_taker, cancel_both
-    /// Cancel both does not support FOK.
-    /// </summary>
-    [JsonProperty("stpMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxSelfTradePreventionModeConverter))]
-    public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
-
-    /// <summary>
-    /// Attach algo order ID. When the order is triggered by an algo order, this field will be the algo order ID.
-    /// </summary>
-    [JsonProperty("attachAlgoClOrdId", NullValueHandling = NullValueHandling.Ignore)]
-    public long? AttachAlgoClientOrderOrderId { get; set; }
 }
+
+/// <summary>
+/// OKX Order Linked Algo Order
+/// </summary>
+public class OkxOrderLinkedAlgoOrder
+{
+    /// <summary>
+    /// Instrument type
+    /// </summary>
+    [JsonProperty("algoId")]
+    public long AlgoId { get; set; }
+}
+
+/// <summary>
+/// OKX Order Attached Algo Order
+/// </summary>
+public class OkxOrderAttachedAlgoOrder
+{
+    /// <summary>
+    /// The order ID of attached TP/SL order. It can be used to identity the TP/SL order when amending. It will not be posted to algoId when placing TP/SL order after the general order is filled completely.
+    /// </summary>
+    [JsonProperty("attachAlgoId")]
+    public long AttachedAlgoId { get; set; }
+
+    /// <summary>
+    /// Client-supplied Algo ID when placing order attaching TP/SL
+    /// A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.
+    /// It will be posted to algoClOrdId when placing TP/SL order once the general order is filled completely.
+    /// </summary>
+    [JsonProperty("attachAlgoClOrdId")]
+    public string AttachedAlgoClientOrderId { get; set; }
+
+    /// <summary>
+    /// TP order kind
+    /// </summary>
+    [JsonProperty("tpOrdKind")]
+    public string TakeProfitOrderKind { get; set; }
+    
+    /// <summary>
+    /// Take-profit trigger price.
+    /// </summary>
+    [JsonProperty("tpTriggerPx")]
+    public string TakeProfitTriggerPrice { get; set; }
+    
+    /// <summary>
+    /// Take-profit trigger price type.
+    /// </summary>
+    [JsonProperty("tpTriggerPxType"), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
+    public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; }
+
+    /// <summary>
+    /// Take-profit order price.
+    /// </summary>
+    [JsonProperty("tpOrdPx")]
+    public string TakeProfitOrderPrice { get; set; }
+
+    /// <summary>
+    /// Stop-loss trigger price.
+    /// </summary>
+    [JsonProperty("slTriggerPx")]
+    public string StopLossTriggerPrice { get; set; }
+
+    /// <summary>
+    /// Stop-loss trigger price type.
+    /// </summary>
+    [JsonProperty("slTriggerPxType"), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
+    public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
+    
+    /// <summary>
+    /// Stop-loss order price.
+    /// </summary>
+    [JsonProperty("slOrdPx")]
+    public string StopLossOrderPrice { get; set; }
+
+    /// <summary>
+    /// Size. Only applicable to TP order of split TPs
+    /// </summary>
+    [JsonProperty("sz")]
+    public string Size { get; set; }
+
+    /// <summary>
+    /// Whether to enable Cost-price SL. Only applicable to SL order of split TPs.
+    /// </summary>
+    [JsonProperty("amendPxOnTriggerType")]
+    public string AmendPriceOnTriggerType { get; set; }
+    
+    /// <summary>
+    /// The error code when failing to place TP/SL order, e.g. 51020
+    /// The default is ""
+    /// </summary>
+    [JsonProperty("failCode")]
+    public string FailCode { get; set; }
+    
+    /// <summary>
+    /// The error reason when failing to place TP/SL order.
+    /// The default is ""
+    /// </summary>
+    [JsonProperty("failReason")]
+    public string FailReason { get; set; }
+}
+

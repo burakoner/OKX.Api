@@ -9,17 +9,11 @@ namespace OKX.Api.Trade.Models;
 public class OkxEasyConvertOrder
 {
     /// <summary>
-    /// Filled amount of small payment currency convert from
+    /// Current status of easy convert
     /// </summary>
-    [JsonProperty("fillFromSz")]
-    public decimal FromFilledAmount { get; set; }
-
-    /// <summary>
-    /// Filled amount of mainstream currency convert to
-    /// </summary>
-    [JsonProperty("fillToSz")]
-    public decimal ToFilledAmount { get; set; }
-
+    [JsonProperty("status"), JsonConverter(typeof(OkxEasyConvertOrderStatusConverter))]
+    public OkxEasyConvertOrderStatus Status { get; set; }
+    
     /// <summary>
     /// Type of small payment currency convert from
     /// </summary>
@@ -33,20 +27,26 @@ public class OkxEasyConvertOrder
     public decimal ToCurrency { get; set; }
 
     /// <summary>
-    /// Current status of easy convert
+    /// Filled amount of small payment currency convert from
     /// </summary>
-    [JsonProperty("status"), JsonConverter(typeof(OkxEasyConvertOrderStatusConverter))]
-    public OkxEasyConvertOrderStatus Status { get; set; }
+    [JsonProperty("fillFromSz")]
+    public decimal FromFilledAmount { get; set; }
+
+    /// <summary>
+    /// Filled amount of mainstream currency convert to
+    /// </summary>
+    [JsonProperty("fillToSz")]
+    public decimal ToFilledAmount { get; set; }
 
     /// <summary>
     /// Trade time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("uTime")]
-    public long Timestamp { get; set; }
+    public long UpdateTimestamp { get; set; }
 
     /// <summary>
     /// Trade time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime UpdateTime { get { return UpdateTimestamp.ConvertFromMilliseconds(); } }
 }

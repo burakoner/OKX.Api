@@ -32,7 +32,7 @@ public class OkxAccountRateLimit
     /// Applicable for users with trading fee level >= VIP 5 and return "" for others
     /// </summary>
     [JsonProperty("nextAccRateLimit")]
-    public int? NextAccRateLimit { get; set; }
+    public int? NextAccountRateLimit { get; set; }
 
     /// <summary>
     /// Data update time

@@ -6,12 +6,12 @@
 public enum OkxDebtType
 {
     /// <summary>
-    /// Isolated
-    /// </summary>
-    Isolated,
-
-    /// <summary>
     /// Cross
     /// </summary>
     Cross,
+
+    /// <summary>
+    /// Isolated
+    /// </summary>
+    Isolated,
 }

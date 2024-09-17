@@ -19,4 +19,11 @@ public class OkxClosePositionResponse
     /// </summary>
     [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
     public OkxPositionSide PositionSide { get; set; }
+
+    /// <summary>
+    /// Client-supplied ID
+    /// A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.
+    /// </summary>
+    [JsonProperty("clOrdId")]
+    public string ClientOrderId { get; set; }
 }
