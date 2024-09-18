@@ -521,23 +521,23 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// </summary>
     /// <param name="algoOrderType">Algo order type</param>
     /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
-    /// <param name="contractGridDirection">Contract grid type. Required in the case of contract_grid</param>
-    /// <param name="backTestingDuration">Back testing duration. The default is 7D for Spot grid,180D for Moon grid. Only 7D is available for Contract grid</param>
+    /// <param name="direction">Contract grid type. Required in the case of contract_grid</param>
+    /// <param name="duration">Back testing duration. The default is 7D for Spot grid,180D for Moon grid. Only 7D is available for Contract grid</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxGridAiParameter>> GetAIParameterAsync(
         OkxGridAlgoOrderType algoOrderType,
         string instrumentId,
-        OkxGridContractDirection? contractGridDirection = null,
-        OkxGridBackTestingDuration? backTestingDuration = null,
+        OkxGridContractDirection? direction = null,
+        OkxGridBackTestingDuration? duration = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "algoOrdType", JsonConvert.SerializeObject(algoOrderType, new OkxGridAlgoOrderTypeConverter(false)) },
             { "instId", instrumentId },
         };
-        parameters.AddOptionalParameter("direction", JsonConvert.SerializeObject(contractGridDirection, new OkxGridContractDirectionConverter(false)));
-        parameters.AddOptionalParameter("duration", JsonConvert.SerializeObject(backTestingDuration, new OkxGridBackTestingDurationConverter(false)));
+        parameters.AddOptionalParameter("direction", JsonConvert.SerializeObject(direction, new OkxGridContractDirectionConverter(false)));
+        parameters.AddOptionalParameter("duration", JsonConvert.SerializeObject(duration, new OkxGridBackTestingDurationConverter(false)));
 
         return ProcessOneRequestAsync<OkxGridAiParameter>(GetUri(v5TradingBotGridAiParam), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }

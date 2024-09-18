@@ -25,6 +25,12 @@ public class OkxGridAiParameter
     /// </summary>
     [JsonProperty("duration"), JsonConverter(typeof(OkxGridBackTestingDurationConverter))]
     public OkxGridBackTestingDuration Duration { get; set; }
+    
+    /// <summary>
+    /// Quantity
+    /// </summary>
+    [JsonProperty("gridNum")]
+    public decimal? Quantity { get; set; }
 
     /// <summary>
     /// Maximum price
@@ -37,12 +43,6 @@ public class OkxGridAiParameter
     /// </summary>
     [JsonProperty("minPx")]
     public decimal? MinimumPrice { get; set; }
-
-    /// <summary>
-    /// Quantity
-    /// </summary>
-    [JsonProperty("gridNum")]
-    public decimal? Quantity { get; set; }
 
     /// <summary>
     /// Maximum profit rate per grid
@@ -84,7 +84,7 @@ public class OkxGridAiParameter
     /// Direction
     /// </summary>
     [JsonProperty("direction"), JsonConverter(typeof(OkxGridContractDirectionConverter))]
-    public OkxGridContractDirection Direction { get; set; }
+    public OkxGridContractDirection? Direction { get; set; }
 
     /// <summary>
     /// Leverage
