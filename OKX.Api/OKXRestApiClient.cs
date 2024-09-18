@@ -48,7 +48,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Recurring Buy Client
     /// </summary>
-    public OkxRecurringBuyRestClient RecurringBuy { get; }
+    public OkxRecurringBuyRestClient RecurringBuy { get; } // OK
 
     /// <summary>
     /// Copy Trading Client

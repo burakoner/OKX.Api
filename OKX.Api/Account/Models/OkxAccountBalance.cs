@@ -96,5 +96,5 @@ public class OkxAccountBalance
     /// Detailed asset information in all currencies
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxAccountBalanceDetail> Details { get; set; }
+    public List<OkxAccountBalanceDetail> Details { get; set; }=[];
 }

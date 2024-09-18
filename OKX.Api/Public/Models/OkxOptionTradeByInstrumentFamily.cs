@@ -15,14 +15,14 @@ public class OkxOptionTradeByInstrumentFamily
     public decimal Volume24H { get; set; }
 
     /// <summary>
-    /// The list trade data
-    /// </summary>
-    [JsonProperty("tradeInfo")]
-    public List<OkxOptionTradeInfo> TradeInfo { get; set; }
-
-    /// <summary>
     /// Option type, C: Call P: Put
     /// </summary>
     [JsonProperty("optType"), JsonConverter(typeof(OkxOptionTypeConverter))]
     public OkxOptionType OptionType { get; set; }
+
+    /// <summary>
+    /// The list trade data
+    /// </summary>
+    [JsonProperty("tradeInfo")]
+    public List<OkxOptionTradeInfo> TradeInfo { get; set; }=[];
 }

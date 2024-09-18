@@ -3,14 +3,13 @@
 /// <summary>
 /// OKX Order Book
 /// </summary>
-public class OkxOrderBook
+public class OkxOrderBookStream
 {
     /// <summary>
-    /// Instrument ID
+    /// Instrument Id
     /// </summary>
-    [JsonIgnore]
     public string InstrumentId { get; set; }
-    
+
     /// <summary>
     /// Asks
     /// </summary>
@@ -34,4 +33,28 @@ public class OkxOrderBook
     /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+
+    /// <summary>
+    /// Action
+    /// </summary>
+    [JsonProperty("action")]
+    public string Action { get; set; }
+
+    /// <summary>
+    /// Checksum
+    /// </summary>
+    [JsonProperty("checksum")]
+    public long? Checksum { get; set; }
+
+    /// <summary>
+    /// Previous Sequence Id
+    /// </summary>
+    [JsonProperty("prevSeqId")]
+    public long? PreviousSequenceId { get; set; }
+
+    /// <summary>
+    /// Sequence Id
+    /// </summary>
+    [JsonProperty("seqId")]
+    public long? SequenceId { get; set; }
 }

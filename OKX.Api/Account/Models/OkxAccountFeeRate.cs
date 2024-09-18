@@ -90,7 +90,7 @@ public class OkxAccountFeeRate
     /// Details of fiat fee rate
     /// </summary>
     [JsonProperty("fiat")]
-    public List<OkxAccountFiatFeeRate> FiatFeeRates { get; set; }
+    public List<OkxAccountFiatFeeRate> FiatFeeRates { get; set; }=[];
 }
 
 

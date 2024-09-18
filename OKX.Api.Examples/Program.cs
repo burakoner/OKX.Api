@@ -56,9 +56,9 @@ internal class Program
         var market_39 = await api.Public.GetOrderBookAsync("BTC-USDT", 40);
         var market_40 = await api.Public.GetOrderBookFullAsync("BTC-USDT", 5000);
         var market_41 = await api.Public.GetCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);
-        var market_42 = await api.Public.GetCandlesticksHistoryAsync("BTC-USDT", OkxPeriod.OneHour);
+        var market_42 = await api.Public.GetCandlestickHistoryAsync("BTC-USDT", OkxPeriod.OneHour);
         var market_43 = await api.Public.GetTradesAsync("BTC-USDT");
-        var market_44 = await api.Public.GetTradesHistoryAsync("BTC-USDT");
+        var market_44 = await api.Public.GetTradeHistoryAsync("BTC-USDT");
         var market_45 = await api.Public.GetOptionTradesByInstrumentFamilyAsync("BTC-USDT");
         var market_46 = await api.Public.GetOptionTradesAsync("BTC-USDT");
         var market_47 = await api.Public.Get24HourVolumeAsync();

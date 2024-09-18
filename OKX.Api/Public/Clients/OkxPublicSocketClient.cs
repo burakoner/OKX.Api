@@ -511,7 +511,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
     /// <param name="orderBookType">Order Book Type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderBookAsync(Action<OkxOrderBook> onData, string instrumentId, OkxOrderBookType orderBookType, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderBookAsync(Action<OkxOrderBookStream> onData, string instrumentId, OkxOrderBookType orderBookType, CancellationToken ct = default)
         => await SubscribeToOrderBookAsync(onData, [instrumentId], orderBookType, ct).ConfigureAwait(false);
 
     /// <summary>
@@ -527,7 +527,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
     /// <param name="orderBookType">Order Book Type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderBookAsync(Action<OkxOrderBook> onData, IEnumerable<string> instrumentIds, OkxOrderBookType orderBookType, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderBookAsync(Action<OkxOrderBookStream> onData, IEnumerable<string> instrumentIds, OkxOrderBookType orderBookType, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxOrderBookUpdate>>(data =>
         {

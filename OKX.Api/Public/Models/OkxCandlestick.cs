@@ -11,7 +11,7 @@ public class OkxCandlestick
     /// </summary>
     [JsonIgnore]
     public string InstrumentId { get; set; }
-
+    
     /// <summary>
     /// Timestamp
     /// </summary>
@@ -52,19 +52,19 @@ public class OkxCandlestick
     /// Trading volume
     /// </summary>
     [ArrayProperty(5)]
-    public decimal TradingVolume { get; set; }
+    public decimal BaseVolume { get; set; }
 
     /// <summary>
     /// Base volume
     /// </summary>
     [ArrayProperty(6)]
-    public decimal BaseVolume { get; set; }
+    public decimal QuoteVolume { get; set; }
 
     /// <summary>
     /// Quote volume
     /// </summary>
     [ArrayProperty(7)]
-    public decimal QuoteVolume { get; set; }
+    public decimal TradingVolume { get; set; }
 
     /// <summary>
     /// Confirm

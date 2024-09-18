@@ -71,7 +71,7 @@ public class OkxOrderBookUpdate
     /// Data
     /// </summary>
     [JsonProperty("data")]
-    public List<OkxOrderBook> Data { get; set; } = default!;
+    public List<OkxOrderBookStream> Data { get; set; } = default!;
 }
 
 /// <summary>
