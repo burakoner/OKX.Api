@@ -1,6 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-using OKX.Api.Grid.Converters;
+﻿using OKX.Api.Grid.Converters;
 using OKX.Api.Grid.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
@@ -54,7 +52,7 @@ public class OkxGridAlgoSubOrder
     /// Sub order ID
     /// </summary>
     [JsonProperty("ordId")]
-    public long? SubOrderId { get; set; }
+    public long SubOrderId { get; set; }
 
     /// <summary>
     /// Created time of sub order
