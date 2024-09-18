@@ -6,23 +6,17 @@
 public class OkxIndexComponents
 {
     /// <summary>
-    /// Components
-    /// </summary>
-    [JsonProperty("components")]
-    public List<OkxIndexComponent> Components { get; set; }
-
-    /// <summary>
     /// Index
     /// </summary>
     [JsonProperty("index")]
     public string Index { get; set; }
-
+    
     /// <summary>
     /// Last Price
     /// </summary>
     [JsonProperty("last")]
     public decimal LastPrice { get; set; }
-
+    
     /// <summary>
     /// Timestamp
     /// </summary>
@@ -34,6 +28,12 @@ public class OkxIndexComponents
     /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+
+    /// <summary>
+    /// Components
+    /// </summary>
+    [JsonProperty("components")]
+    public List<OkxIndexComponent> Components { get; set; }
 }
 
 /// <summary>

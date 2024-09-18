@@ -795,6 +795,15 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         return ProcessListRequestAsync<OkxOptionTickBands>(GetUri(v5PublicInstrumentTickBands), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// It will return premium data in the past 6 months.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g.</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts(not included)</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts(not included)</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxPremiumHistory>>> GetPremiumHistoryAsync(
         string instrumentId,
         long? after = null,
@@ -961,7 +970,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxExchangeRate>>> GetExchangeRatesAsync(CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxExchangeRate>>> GetExchangeRateAsync(CancellationToken ct = default)
     {
         return ProcessListRequestAsync<OkxExchangeRate>(GetUri(v5MarketExchangeRate), HttpMethod.Get, ct);
     }

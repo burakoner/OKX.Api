@@ -48,7 +48,7 @@ internal class Program
         var public_31 = await api.Public.GetMarkPriceCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);
         var public_32 = await api.Public.GetMarkPriceCandlesticksHistoryAsync("BTC-USDT", OkxPeriod.OneHour);
         var public_33 = await api.Public.GetOracleAsync();
-        var public_34 = await api.Public.GetExchangeRatesAsync();
+        var public_34 = await api.Public.GetExchangeRateAsync();
         var public_35 = await api.Public.GetIndexComponentsAsync("BTC-USDT");
         var public_36 = await api.Public.GetEconomicCalendarDataAsync("BTC-USDT");
         var market_37 = await api.Public.GetTickersAsync(OkxInstrumentType.Spot);

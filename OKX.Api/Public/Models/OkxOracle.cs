@@ -12,6 +12,12 @@ public class OkxOracle
     public List<string> Messages { get; set; }
 
     /// <summary>
+    /// Prices
+    /// </summary>
+    [JsonProperty("prices")]
+    public Dictionary<string, decimal> Prices { get; set; } = [];
+
+    /// <summary>
     /// Signatures
     /// </summary>
     [JsonProperty("signatures")]
@@ -28,10 +34,4 @@ public class OkxOracle
     /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
-
-    /// <summary>
-    /// Prices
-    /// </summary>
-    [JsonProperty("prices")]
-    public Dictionary<string, decimal> Prices { get; set; } = new Dictionary<string, decimal>();
 }

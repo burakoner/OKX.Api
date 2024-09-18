@@ -1,4 +1,5 @@
 ﻿using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Public.Models;
 
@@ -17,13 +18,13 @@ public class OkxEconomicCalendarEvent
     /// Date
     /// </summary>
     [JsonProperty("date")]
-    public long DateStamp { get; set; }
+    public long Datestamp { get; set; }
 
     /// <summary>
     /// Date
     /// </summary>
     [JsonIgnore]
-    public DateTime Date { get { return DateStamp.ConvertFromMilliseconds(); } }
+    public DateTime Date { get { return Datestamp.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Region
@@ -47,13 +48,13 @@ public class OkxEconomicCalendarEvent
     /// Reference Date
     /// </summary>
     [JsonProperty("refDate")]
-    public long RefDateStamp { get; set; }
+    public long ReferenceDatestamp { get; set; }
 
     /// <summary>
     /// Reference Date
     /// </summary>
     [JsonIgnore]
-    public DateTime RefDate { get { return RefDateStamp.ConvertFromMilliseconds(); } }
+    public DateTime ReferenceDate { get { return ReferenceDatestamp.ConvertFromMilliseconds(); } }
 
     /// <summary>
     /// Actual
@@ -83,7 +84,7 @@ public class OkxEconomicCalendarEvent
     /// Importance
     /// </summary>
     [JsonProperty("importance"), JsonConverter(typeof(OkxEventImportanceConverter))]
-    public string Importance { get; set; }
+    public OkxEventImportance Importance { get; set; }
 
     /// <summary>
     /// Update Time
