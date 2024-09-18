@@ -69,10 +69,18 @@ public class OkxGridPlaceOrderRequest
     internal string Tag { get; set; }
 
     /// <summary>
+    /// Profit sharing ratio, it only supports these values
+    /// 0,0.1,0.2,0.3
+    /// 0.1 represents 10%
+    /// </summary>
+    [JsonProperty("profitSharingRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public decimal? ProfitSharingRatio { get; set; }
+
+    /// <summary>
     /// Trigger Parameters
     /// </summary>
     [JsonProperty("triggerParams", NullValueHandling = NullValueHandling.Ignore)]
-    public List<OkxGridPlaceTriggerParameters> TriggerParameters { get; set; }
+    public List<OkxGridTriggerParameters> TriggerParameters { get; set; }
 
     /// <summary>
     /// Quote Size
@@ -109,85 +117,16 @@ public class OkxGridPlaceOrderRequest
     /// </summary>
     [JsonProperty("basePos", NullValueHandling = NullValueHandling.Ignore)]
     public bool? BasePosition { get; set; }
-}
-
-/// <summary>
-/// OKX Grid Place Trigger Parameters
-/// </summary>
-public class OkxGridPlaceTriggerParameters
-{
-    /// <summary>
-    /// Trigger Action
-    /// </summary>
-    [JsonProperty("triggerAction"), JsonConverter(typeof(OkxGridAlgoTriggerActionConverter))]
-    public OkxGridAlgoTriggerAction TriggerAction { get; set; }
 
     /// <summary>
-    /// Trigger Strategy
+    /// Take profit ratio, 0.1 represents 10%
     /// </summary>
-    [JsonProperty("triggerStrategy"), JsonConverter(typeof(OkxGridAlgoTriggerStrategyConverter))]
-    public OkxGridAlgoTriggerStrategy TriggerStrategy { get; set; }
+    [JsonProperty("takeProfitRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public decimal? TakeProfitRatio { get; set; }
 
     /// <summary>
-    /// Delay Seconds
+    /// Stop loss ratio, 0.1 represents 10%
     /// </summary>
-    [JsonProperty("delaySeconds", NullValueHandling = NullValueHandling.Ignore)]
-    public string DelaySeconds { get; set; }
-
-    /// <summary>
-    /// Time Frame
-    /// </summary>
-    [JsonProperty("timeframe", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxGridAlgoTimeFrameConverter))]
-    public OkxGridAlgoTimeFrame? TimeFrame { get; set; }
-
-    /// <summary>
-    /// Threshold
-    /// </summary>
-    [JsonProperty("thold", NullValueHandling = NullValueHandling.Ignore)]
-    public string Threshold { get; set; }
-
-    /// <summary>
-    /// Trigger Condition
-    /// </summary>
-    [JsonProperty("triggerCond", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxGridAlgoTriggerConditionConverter))]
-    public OkxGridAlgoTriggerCondition? TriggerCondition { get; set; }
-
-    /// <summary>
-    /// Time Period
-    /// </summary>
-    [JsonProperty("timePeriod", NullValueHandling = NullValueHandling.Ignore)]
-    public string TimePeriod { get; set; }
-
-    /// <summary>
-    /// Trigger Price
-    /// </summary>
-    [JsonProperty("triggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TriggerPrice { get; set; }
-
-    /// <summary>
-    /// Spot Algo Stop Type
-    /// </summary>
-    [JsonIgnore]
-    public OkxGridSpotAlgoStopType? SpotAlgoStopType { get; set; }
-
-    /// <summary>
-    /// Contract Algo Stop Type
-    /// </summary>
-    [JsonIgnore]
-    public OkxGridContractAlgoStopType? ContractAlgoStopType { get; set; }
-
-    /// <summary>
-    /// Algo Stop Type
-    /// </summary>
-    [JsonProperty("stopType", NullValueHandling = NullValueHandling.Ignore)]
-    public string AlgoStopType
-    {
-        get
-        {
-            if (SpotAlgoStopType is not null) return JsonConvert.SerializeObject(SpotAlgoStopType, new OkxGridSpotAlgoStopTypeConverter(false));
-            if (ContractAlgoStopType is not null) return JsonConvert.SerializeObject(ContractAlgoStopType, new OkxGridContractAlgoStopTypeConverter(false));
-            return null;
-        }
-    }
-
+    [JsonProperty("stopLossRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public decimal? StopLossRatio { get; set; }
 }

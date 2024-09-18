@@ -68,6 +68,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="takeProfitTriggerPrice">TP tigger price. Applicable to Spot grid/Contract grid</param>
     /// <param name="stopLossTriggerPrice">SL tigger price. Applicable to Spot grid/Contract grid</param>
     /// <param name="algoClientOrderId">Client-supplied Algo ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="profitSharingRatio">Profit sharing ratio, it only supports these values. 0.1 represents 10%</param>
     /// <param name="triggerParameters">Trigger Parameters. Applicable to Spot grid/Contract grid</param>
     /// <param name="quoteSize">Invest amount for quote currency. Either quoteSz or baseSz is required</param>
     /// <param name="baseSize">Invest amount for base currency. Either quoteSz or baseSz is required</param>
@@ -87,13 +88,20 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? takeProfitTriggerPrice = null,
         decimal? stopLossTriggerPrice = null,
         string algoClientOrderId = null,
-        IEnumerable<OkxGridPlaceTriggerParameters> triggerParameters = null,
+        decimal? profitSharingRatio = null,
+        IEnumerable<OkxGridTriggerParameters> triggerParameters = null,
+
+        // Spot Grid Order
         decimal? quoteSize = null,
         decimal? baseSize = null,
+
+        // Contract Grid Order
         decimal? size = null,
         OkxGridContractDirection? contractGridDirection = null,
         decimal? leverage = null,
         bool? basePosition = null,
+        decimal? takeProfitRatio = null,
+        decimal? stopLossRatio = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -107,13 +115,22 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("slTriggerPx", stopLossTriggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("algoClOrdId", algoClientOrderId);
+        parameters.AddOptionalParameter("profitSharingRatio", profitSharingRatio?.ToOkxString());
         parameters.AddOptionalParameter("triggerParams", JsonConvert.SerializeObject(triggerParameters));
+
+        // Spot Grid Order
         parameters.AddOptionalParameter("quoteSz", quoteSize?.ToOkxString());
         parameters.AddOptionalParameter("baseSz", baseSize?.ToOkxString());
+
+        // Contract Grid Order
         parameters.AddOptionalParameter("sz", size?.ToOkxString());
         parameters.AddOptionalParameter("direction", JsonConvert.SerializeObject(contractGridDirection, new OkxGridContractDirectionConverter(false)));
         parameters.AddOptionalParameter("lever", leverage?.ToOkxString());
         parameters.AddOptionalParameter("basePos", basePosition);
+        parameters.AddOptionalParameter("tpRatio", takeProfitRatio?.ToOkxString());
+        parameters.AddOptionalParameter("slRatio", stopLossRatio?.ToOkxString());
+
+        // Broker ID
         parameters.AddOptionalParameter("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxGridOrderResponse>(GetUri(v5TradingBotGridOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);

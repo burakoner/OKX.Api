@@ -177,7 +177,7 @@ internal class Program
             QuoteSize = 25,
             TriggerParameters =
             [
-                new OkxGridPlaceTriggerParameters
+                new OkxGridTriggerParameters
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Stop,
                     TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
@@ -197,7 +197,7 @@ internal class Program
             leverage: 2,
             triggerParameters:
             [
-                new OkxGridPlaceTriggerParameters
+                new OkxGridTriggerParameters
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Start,
                     TriggerStrategy =  OkxGridAlgoTriggerStrategy.Rsi,
@@ -206,7 +206,7 @@ internal class Program
                     TriggerCondition = OkxGridAlgoTriggerCondition.Cross,
                     TimePeriod = "14"
                 },
-                new OkxGridPlaceTriggerParameters
+                new OkxGridTriggerParameters
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Stop,
                     TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
