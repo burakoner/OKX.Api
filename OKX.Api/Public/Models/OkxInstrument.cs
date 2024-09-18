@@ -25,12 +25,19 @@ public class OkxInstrument
     /// </summary>
     [JsonProperty("uly")]
     public string Underlying { get; set; }
-
+    
     /// <summary>
     /// Instrument family
     /// </summary>
     [JsonProperty("instFamily")]
     public string InstrumentFamily { get; set; }
+
+    /// <summary>
+    /// Currency category. Note: this parameter is already deprecated
+    /// </summary>
+    [Obsolete]
+    [JsonProperty("category")]
+    public string Category { get; set; }
 
     /// <summary>
     /// Base currency
@@ -145,7 +152,7 @@ public class OkxInstrument
     /// Trading rule types
     /// </summary>
     [JsonProperty("ruleType"), JsonConverter(typeof(OkxInstrumentRuleTypeConverter))]
-    public OkxInstrumentRuleType? RuleType { get; set; }
+    public OkxInstrumentRuleType RuleType { get; set; }
 
     /// <summary>
     /// Maximal limit order size

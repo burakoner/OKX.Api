@@ -3,7 +3,6 @@ using OKX.Api.Account.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Public.Models;
-using System.Diagnostics;
 
 namespace OKX.Api.Public.Clients;
 

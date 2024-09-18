@@ -24,13 +24,19 @@ public class OkxOpenInterest
     /// Open Interest Cont
     /// </summary>
     [JsonProperty("oi")]
-    public decimal? OpenInterestCont { get; set; }
-
+    public long OpenInterestCount { get; set; }
+    
     /// <summary>
     /// Open Interest Coin
     /// </summary>
     [JsonProperty("oiCcy")]
-    public decimal? OpenInterestCoin { get; set; }
+    public decimal OpenInterestCoin { get; set; }
+
+    /// <summary>
+    /// Open Interest Coin
+    /// </summary>
+    [JsonProperty("oiUsd")]
+    public decimal OpenInterestUsd { get; set; }
 
     /// <summary>
     /// Timestamp

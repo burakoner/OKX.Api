@@ -24,13 +24,13 @@ public class OkxDeliveryExerciseHistory
     /// Details
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxPublicDeliveryExerciseHistoryDetail> Details { get; set; }
+    public List<OkxPublicDeliveryExerciseHistoryData> Details { get; set; }
 }
 
 /// <summary>
 /// OKX Delivery Exercise History Detail
 /// </summary>
-public class OkxPublicDeliveryExerciseHistoryDetail
+public class OkxPublicDeliveryExerciseHistoryData
 {
     /// <summary>
     /// Instrument ID
