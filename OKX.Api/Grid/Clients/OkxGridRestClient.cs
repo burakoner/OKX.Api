@@ -235,7 +235,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="price">Close position price. If mktClose is false, the parameter is required.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridPlaceOrderResponse>> ClosePositionAsync(
+    public Task<RestCallResult<OkxGridOrderCloseResponse>> ClosePositionAsync(
         long algoOrderId,
         bool marketClose,
         decimal? size = null,
@@ -249,7 +249,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("sz", size?.ToOkxString());
         parameters.AddOptionalParameter("px", price?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri(v5TradingBotGridClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrderCloseResponse>(GetUri(v5TradingBotGridClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
