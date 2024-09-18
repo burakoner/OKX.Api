@@ -1,7 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-
-namespace OKX.Api.Public.Models;
+﻿namespace OKX.Api.Public.Models;
 
 /// <summary>
 /// OKX Mark Price
@@ -24,7 +21,7 @@ public class OkxMarkPrice
     /// Mark Price
     /// </summary>
     [JsonProperty("markPx")]
-    public decimal? MarkPrice { get; set; }
+    public decimal MarkPrice { get; set; }
 
     /// <summary>
     /// Timestamp

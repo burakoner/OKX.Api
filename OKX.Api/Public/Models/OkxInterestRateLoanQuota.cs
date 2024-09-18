@@ -15,13 +15,13 @@ public class OkxInterestRateLoanQuota
     /// VIP
     /// </summary>
     [JsonProperty("vip")]
-    public List<OkxPublicInterestRateVip> Vip { get; set; }
+    public List<OkxPublicInterestRateVip> VIP { get; set; }
 
     /// <summary>
     /// Regular
     /// </summary>
     [JsonProperty("regular")]
-    public List<OkxPublicInterestRateRegular> regular { get; set; }
+    public List<OkxPublicInterestRateRegular> Regular { get; set; }
 
 }
 
@@ -40,13 +40,13 @@ public class OkxPublicInterestRateBasic
     /// Quota
     /// </summary>
     [JsonProperty("quota")]
-    public decimal? Quota { get; set; }
+    public decimal Quota { get; set; }
 
     /// <summary>
     /// Rate
     /// </summary>
     [JsonProperty("rate")]
-    public decimal? Rate { get; set; }
+    public decimal Rate { get; set; }
 }
 
 /// <summary>
@@ -55,22 +55,23 @@ public class OkxPublicInterestRateBasic
 public class OkxPublicInterestRateVip
 {
     /// <summary>
-    /// Interest Rate Discount
+    /// Level
     /// </summary>
-    [JsonProperty("irDiscount")]
-    public decimal? InterestRateDiscount { get; set; }
+    [JsonProperty("level")]
+    public string Level { get; set; }
 
     /// <summary>
     /// Loan Quota Coefficient
     /// </summary>
     [JsonProperty("loanQuotaCoef")]
-    public decimal? LoanQuotaCoefficient { get; set; }
-
+    public decimal LoanQuotaCoefficient { get; set; }
+    
     /// <summary>
-    /// Level
+    /// Interest Rate Discount
     /// </summary>
-    [JsonProperty("level")]
-    public string Level { get; set; }
+    [Obsolete]
+    [JsonProperty("irDiscount")]
+    public decimal? InterestRateDiscount { get; set; }
 }
 
 /// <summary>
@@ -79,20 +80,21 @@ public class OkxPublicInterestRateVip
 public class OkxPublicInterestRateRegular
 {
     /// <summary>
-    /// Interest Rate Discount
+    /// Level
     /// </summary>
-    [JsonProperty("irDiscount")]
-    public decimal? InterestRateDiscount { get; set; }
+    [JsonProperty("level")]
+    public string Level { get; set; }
 
     /// <summary>
     /// Loan Quota Coefficient
     /// </summary>
     [JsonProperty("loanQuotaCoef")]
-    public decimal? LoanQuotaCoefficient { get; set; }
-
+    public decimal LoanQuotaCoefficient { get; set; }
+    
     /// <summary>
-    /// Level
+    /// Interest Rate Discount
     /// </summary>
-    [JsonProperty("level")]
-    public string Level { get; set; }
+    [Obsolete]
+    [JsonProperty("irDiscount")]
+    public decimal? InterestRateDiscount { get; set; }
 }

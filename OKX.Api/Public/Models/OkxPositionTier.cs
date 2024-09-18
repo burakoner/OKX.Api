@@ -45,13 +45,13 @@ public class OkxPositionTier
     /// Maintenance Margin Requirement
     /// </summary>
     [JsonProperty("mmr")]
-    public decimal? MaintenanceMarginRequirement { get; set; }
+    public decimal? MMR { get; set; }
 
     /// <summary>
     /// Initial Margin Requirement
     /// </summary>
     [JsonProperty("imr")]
-    public decimal? InitialMarginRequirement { get; set; }
+    public decimal? IMR { get; set; }
 
     /// <summary>
     /// Maximum Leverage
