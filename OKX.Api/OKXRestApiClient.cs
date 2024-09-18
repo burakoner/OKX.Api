@@ -5,40 +5,45 @@
 /// </summary>
 public class OkxRestApiClient
 {
+    #region Encapsulations
     /// <summary>
     /// Logger
     /// </summary>
-    public ILogger Logger { get; }
+    public ILogger Logger => this._logger;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Client Options
     /// </summary>
-    public OkxRestApiOptions Options { get; }
+    public OkxRestApiOptions Options => this._options;
+    private readonly OkxRestApiOptions _options;
+    #endregion
 
+    #region Clients
     /// <summary>
     /// Trading Account Client
     /// </summary>
-    public OkxAccountRestClient Account { get; }
+    public OkxAccountRestClient Account { get; } // OK
 
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradeRestClient Trading { get; }
+    public OkxTradeRestClient Trading { get; } // OK
 
     /// <summary>
     /// Algo Trading Client
     /// </summary>
-    public OkxAlgoRestClient Algo { get; }
+    public OkxAlgoRestClient Algo { get; } // OK
 
     /// <summary>
     /// Grid Trading Client
     /// </summary>
-    public OkxGridRestClient Grid { get; }
+    public OkxGridRestClient Grid { get; } // OK
 
     /// <summary>
     /// Signal Trading Client
     /// </summary>
-    public OkxSignalBotRestClient SignalBot { get; }
+    public OkxSignalBotRestClient SignalBot { get; } // TODO: 12
 
     /// <summary>
     /// Recurring Buy Client
@@ -59,27 +64,27 @@ public class OkxRestApiClient
     /// Block Trading Client
     /// </summary>
     public OkxBlockRestClient Block { get; }
-    
+
     /// <summary>
     /// Spread Trading Client
     /// </summary>
     public OkxSpreadRestClient Spread { get; }
-    
+
     /// <summary>
     /// Public and Market Data Client
     /// </summary>
     public OkxPublicRestClient Public { get; }
-    
+
     /// <summary>
     /// Trading Statistics Client
     /// </summary>
     public OkxRubikRestClient Rubik { get; }
-    
+
     /// <summary>
     /// Funding Account Client
     /// </summary>
     public OkxFundingRestClient Funding { get; }
-    
+
     /// <summary>
     /// SubAccount Client
     /// </summary>
@@ -94,12 +99,14 @@ public class OkxRestApiClient
     /// Broker Client
     /// </summary>
     public OkxBrokerRestClient Broker { get; } // TODO: 3 + 27
-    
+
     /// <summary>
     /// Affiliate Client
     /// </summary>
     public OkxAffiliateRestClient Affiliate { get; }
+    #endregion
 
+    #region Constructors
     /// <summary>
     /// OKXRestApiClient Constructor
     /// </summary>
@@ -121,9 +128,11 @@ public class OkxRestApiClient
     /// <param name="options">Options</param>
     public OkxRestApiClient(ILogger logger, OkxRestApiOptions options)
     {
-        Options = options;
-        Logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX API");
+        // Private Fields
+        _logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX.Api");
+        _options = options;
 
+        // Initialize Clients
         Public = new OkxPublicRestClient(this);
         Account = new OkxAccountRestClient(this);
         Funding = new OkxFundingRestClient(this);
@@ -141,7 +150,9 @@ public class OkxRestApiClient
         Broker = new OkxBrokerRestClient(this);
         Affiliate = new OkxAffiliateRestClient(this);
     }
+    #endregion
 
+    #region Public Methods
     /// <summary>
     /// Sets API Credentials
     /// </summary>
@@ -177,4 +188,5 @@ public class OkxRestApiClient
         Broker.SetApiCredentials(credentials);
         Affiliate.SetApiCredentials(credentials);
     }
+    #endregion
 }

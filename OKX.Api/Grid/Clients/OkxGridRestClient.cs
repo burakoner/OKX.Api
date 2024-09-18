@@ -1,6 +1,4 @@
-﻿/*
- * SYNCED @ 2024/09/18
- */
+﻿// SYNCED @ 2024/09/18
 
 using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
@@ -443,7 +441,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridWithdrawIncome>> SpotGridWithdrawIncomeAsync(
+    public Task<RestCallResult<OkxGridWithdrawIncome>> WithdrawIncomeAsync(
         long algoOrderId,
         CancellationToken ct = default)
     {

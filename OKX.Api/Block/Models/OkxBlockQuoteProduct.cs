@@ -58,8 +58,8 @@ public class OkxBlockQuoteProductData
     /// <summary>
     /// Price bands in unit of ticks, measured against mark price.
     /// Setting makerPxBand to 1 tick means:
-    /// If Bid price > Mark + 1 tick, it will be stopped
-    /// If Ask price < Mark - 1 tick, It will be stopped
+    /// If Bid price &gt; Mark + 1 tick, it will be stopped
+    /// If Ask price &lt; Mark - 1 tick, It will be stopped
     /// </summary>
     [JsonProperty("makerPxBand")]
     public decimal? MakerPriceBand { get; set; }

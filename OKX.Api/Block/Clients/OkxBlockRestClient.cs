@@ -1,4 +1,4 @@
-﻿/* Sync: 09 Aug 2024 */
+﻿// SYNCED @ 2024/08/09
 
 using OKX.Api.Block.Converters;
 using OKX.Api.Block.Enums;

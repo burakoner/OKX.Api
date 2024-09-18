@@ -226,7 +226,7 @@ internal class Program
         var grid_11 = await api.Grid.GetOrderAsync(OkxGridAlgoOrderType.SpotGrid, 448965992920907776);
         var grid_12 = await api.Grid.GetSubOrdersAsync(OkxGridAlgoOrderType.SpotGrid, 448965992920907776, OkxGridAlgoSubOrderType.Live);
         var grid_13 = await api.Grid.GetPositionsAsync(OkxGridAlgoOrderType.ContractGrid, 448965992920907776);
-        var grid_14 = await api.Grid.GetWithdrawIncomeAsync(448965992920907776);
+        var grid_14 = await api.Grid.WithdrawIncomeAsync(448965992920907776);
         var grid_15 = await api.Grid.ComputeMarginBalanceAsync(448965992920907776, OkxAccountMarginAddReduce.Add, 10.0m);
         var grid_16 = await api.Grid.AdjustMarginBalanceAsync(448965992920907776, OkxAccountMarginAddReduce.Add, 10.0m);
         var grid_17 = await api.Grid.GetAIParameterAsync(OkxGridAlgoOrderType.SpotGrid, "BTC-USDT");

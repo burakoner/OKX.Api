@@ -1,6 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-
-namespace OKX.Api.Public.Models;
+﻿namespace OKX.Api.Public.Models;
 
 /// <summary>
 /// OKX Candlestick
@@ -24,7 +22,7 @@ public class OkxCandlestick
     /// Time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Open price

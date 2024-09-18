@@ -21,7 +21,7 @@ public class OkxBlockLegQuote
     /// Margin mode: cross isolated
     /// Non-Margin mode: cash.
     /// If not provided, tdMode will inherit default values set by the system shown below:
-    /// Spot and futures mode & SPOT: cash
+    /// Spot and futures mode &amp; SPOT: cash
     /// Buy options in Spot and futures mode and Multi-currency Margin: isolated
     /// Other cases: cross
     /// </summary>

@@ -1,6 +1,4 @@
-﻿/*
- * SYNCED @ 2024/09/18
- */
+﻿// SYNCED @ 2024/09/18
 
 using OKX.Api.Algo.Converters;
 using OKX.Api.Algo.Enums;
@@ -70,7 +68,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="sizeLimit">Size Limit</param>
     /// <param name="priceLimit">Price Limit</param>
     /// 
-    /// <param name="timeInterval">Time Interval</param>
+    /// <param name="timeInterval">Time Interval
     /// Currently the system supports fully closing the position only so the only accepted value is 1.
     /// This is only applicable to FUTURES or SWAP instruments.
     /// This is only applicable if posSide is net.
