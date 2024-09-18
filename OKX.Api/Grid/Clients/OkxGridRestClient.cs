@@ -94,7 +94,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? stopLossTriggerPrice = null,
         string algoClientOrderId = null,
         decimal? profitSharingRatio = null,
-        IEnumerable<OkxGridTriggerParameters> triggerParameters = null,
+        IEnumerable<OkxGridTriggerParametersRequest> triggerParameters = null,
 
         // Spot Grid Order
         decimal? quoteSize = null,
@@ -299,7 +299,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxGridAlgoOrder>>> GetOpenOrdersAsync(
+    public Task<RestCallResult<List<OkxGridOrder>>> GetOpenOrdersAsync(
         OkxGridAlgoOrderType algoOrderType,
         long? algoOrderId = null,
         string instrumentId = null,
@@ -319,7 +319,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxGridAlgoOrder>(GetUri(v5TradingBotGridOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxGridOrder>(GetUri(v5TradingBotGridOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -334,7 +334,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="limit">Number of results per request. The maximum is 100; The default is 100</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxGridAlgoOrder>>> GetOrdersHistoryAsync(
+    public Task<RestCallResult<List<OkxGridOrder>>> GetOrdersHistoryAsync(
         OkxGridAlgoOrderType algoOrderType,
         long? algoOrderId = null,
         string instrumentId = null,
@@ -354,7 +354,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxGridAlgoOrder>(GetUri(v5TradingBotGridOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxGridOrder>(GetUri(v5TradingBotGridOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -364,7 +364,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridAlgoOrder>> GetOrderAsync(
+    public Task<RestCallResult<OkxGridOrder>> GetOrderAsync(
         OkxGridAlgoOrderType algoOrderType,
         long algoOrderId,
         CancellationToken ct = default)
@@ -374,7 +374,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "algoId", algoOrderId}
         };
 
-        return ProcessOneRequestAsync<OkxGridAlgoOrder>(GetUri(v5TradingBotGridOrdersAlgoDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrder>(GetUri(v5TradingBotGridOrdersAlgoDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>

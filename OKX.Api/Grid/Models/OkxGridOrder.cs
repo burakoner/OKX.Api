@@ -6,7 +6,7 @@ namespace OKX.Api.Grid.Models;
 /// <summary>
 /// OKX Grid Algo Order
 /// </summary>
-public class OkxGridAlgoOrder
+public class OkxGridOrder
 {
     /// <summary>
     /// Algo ID
@@ -72,7 +72,7 @@ public class OkxGridAlgoOrder
     /// Rebate transfer info
     /// </summary>
     [JsonProperty("rebateTrans")]
-    public List<OkxGridRebateTransfer> RebateTransfers { get; set; }
+    public List<OkxGridOrderRebateTransfer> RebateTransfers { get; set; }
 
     /// <summary>
     /// Trigger Parameters
@@ -166,14 +166,6 @@ public class OkxGridAlgoOrder
     /// </summary>
     [JsonProperty("stopType")]
     public string AlgoStopType { get; set; }
-
-    /*
-    [JsonIgnore]
-    public OkxGridSpotAlgoStopType? SpotAlgoStopType { get; set; }
-
-    [JsonIgnore]
-    public OkxGridContractAlgoStopType? ContractAlgoStopType { get; set; }
-    */
 
     /// <summary>
     /// Quote currency investment amount
@@ -274,22 +266,28 @@ public class OkxGridAlgoOrder
     /// </summary>
     [JsonProperty("copyType"), JsonConverter(typeof(OkxProfitSharingOrderTypeConverter))]
     public OkxProfitSharingOrderType ProfitSharingOrderType { get; set; }
-}
-
-/// <summary>
-/// Rebate transfer info
-/// </summary>
-public class OkxGridRebateTransfer
-{
+    
     /// <summary>
-    /// Rebate amount
+    /// Take profit ratio, 0.1 represents 10%
     /// </summary>
-    [JsonProperty("rebate")]
-    public decimal Rebate { get; set; }
-
+    [JsonProperty("tpRatio")]
+    public decimal? TakeProfitRatio { get; set; }
+    
     /// <summary>
-    /// Rebate currency
+    /// Stop loss ratio, 0.1 represents 10%
     /// </summary>
-    [JsonProperty("rebateCcy")]
-    public string RebateCurrency { get; set; }
+    [JsonProperty("slRatio")]
+    public decimal? StopLossRatio { get; set; }
+    
+    /// <summary>
+    /// Accumulated fee. Only applicable to contract grid, or it will be ""
+    /// </summary>
+    [JsonProperty("fee")]
+    public decimal? Fee { get; set; }
+    
+    /// <summary>
+    /// Accumulated funding fee. Only applicable to contract grid, or it will be ""
+    /// </summary>
+    [JsonProperty("fundingFee")]
+    public decimal? FundingFee { get; set; }
 }

@@ -18,5 +18,6 @@ public enum OkxGridAlgoOrderType
     /// <summary>
     /// MoonGrid
     /// </summary>
+    [Obsolete]
     MoonGrid,
 }

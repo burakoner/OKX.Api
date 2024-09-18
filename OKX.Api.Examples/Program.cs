@@ -158,7 +158,7 @@ internal class Program
 
         // AlgoTrading Methods (Signed)
         var algo_01 = await api.Algo.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxTradeOrderSide.Sell, OkxAlgoOrderType.Conditional);
-        var algo_02 = await api.Algo.CancelOrderAsync([]);
+        var algo_02 = await api.Algo.CancelOrdersAsync([]);
         var algo_03 = await api.Algo.AmendOrderAsync("BTC-USDT");
         var algo_04 = await api.Algo.CancelAdvanceAsync([]);
         var algo_05 = await api.Algo.GetOrderAsync(algoOrderId: 1_000_001);
@@ -177,7 +177,7 @@ internal class Program
             QuoteSize = 25,
             TriggerParameters =
             [
-                new OkxGridTriggerParameters
+                new()
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Stop,
                     TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
@@ -197,7 +197,7 @@ internal class Program
             leverage: 2,
             triggerParameters:
             [
-                new OkxGridTriggerParameters
+                new ()
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Start,
                     TriggerStrategy =  OkxGridAlgoTriggerStrategy.Rsi,
@@ -206,7 +206,7 @@ internal class Program
                     TriggerCondition = OkxGridAlgoTriggerCondition.Cross,
                     TimePeriod = "14"
                 },
-                new OkxGridTriggerParameters
+                new ()
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Stop,
                     TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
