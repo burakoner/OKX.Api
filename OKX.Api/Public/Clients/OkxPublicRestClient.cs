@@ -208,7 +208,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         return result;
     }
 
-        /// <summary>
+    /// <summary>
     /// Retrieve history candlestick charts from recent years.
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
@@ -561,7 +561,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxDiscountInfo>>> GetDiscountInfoAsync(string currency=null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxDiscountInfo>>> GetDiscountInfoAsync(string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -849,11 +849,11 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public  Task<RestCallResult<List<OkxIndexCandlestick>>> GetIndexCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxIndexCandlestick>>> GetIndexCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return  GetIndexCandlesticksAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
+        return GetIndexCandlesticksAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
     }
-    
+
     /// <summary>
     /// Retrieve the candlestick charts of the index. This endpoint can retrieve the latest 1,440 data entries. Charts are returned in groups based on the requested bar.
     /// </summary>
@@ -893,13 +893,28 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxIndexCandlestick>>> GetIndexCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxIndexCandlestick>>> GetIndexCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    {
+        return GetIndexCandlesticksHistoryAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
+    }
+
+    /// <summary>
+    /// Retrieve the candlestick charts of the index from recent years.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="period">Bar size, the default is 1m</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<List<OkxIndexCandlestick>>> GetIndexCandlesticksHistoryAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
+            { "bar", period },
         };
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
@@ -922,13 +937,28 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxMarkCandlestick>>> GetMarkPriceCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxMarkCandlestick>>> GetMarkPriceCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    {
+        return GetMarkPriceCandlesticksAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
+    }
+
+    /// <summary>
+    /// Retrieve the candlestick charts of mark price. This endpoint can retrieve the latest 1,440 data entries. Charts are returned in groups based on the requested bar.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="period">Bar size, the default is 1m</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<List<OkxMarkCandlestick>>> GetMarkPriceCandlesticksAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
+            { "bar", period },
         };
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
@@ -951,13 +981,28 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxMarkCandlestick>>> GetMarkPriceCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxMarkCandlestick>>> GetMarkPriceCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    {
+        return GetMarkPriceCandlesticksHistoryAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
+    }
+
+    /// <summary>
+    /// Retrieve the candlestick charts of mark price from recent years.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="period">Bar size, the default is 1m</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<List<OkxMarkCandlestick>>> GetMarkPriceCandlesticksHistoryAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
-            { "bar", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)) },
+            { "bar", period },
         };
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());

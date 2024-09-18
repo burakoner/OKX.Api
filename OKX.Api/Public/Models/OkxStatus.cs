@@ -1,7 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-
-namespace OKX.Api.Public.Models;
+﻿namespace OKX.Api.Public.Models;
 
 /// <summary>
 /// System Status
@@ -66,7 +63,7 @@ public class OkxStatus
     /// Service type, 0：WebSocket ; 1：Spot/Margin ; 2：Futures ; 3：Perpetual ; 4：Options ; 5：Trading service
     /// </summary>
     [JsonProperty("serviceType"), JsonConverter(typeof(OkxMaintenanceServiceConverter))]
-    public OkxMaintenanceService Product { get; set; }
+    public OkxMaintenanceService Service { get; set; }
 
     /// <summary>
     /// Service type, 0：WebSocket ; 1：Spot/Margin ; 2：Futures ; 3：Perpetual ; 4：Options ; 5：Trading service
