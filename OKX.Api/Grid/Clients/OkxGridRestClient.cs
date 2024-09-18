@@ -259,7 +259,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="orderId">Close position order ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridPlaceOrderResponse>> CancelClosePositionAsync(
+    public Task<RestCallResult<OkxGridOrderCloseResponse>> CancelClosePositionAsync(
         long algoOrderId,
         long orderId,
         CancellationToken ct = default)
@@ -268,7 +268,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "algoId", algoOrderId.ToOkxString() },
             { "ordId", orderId.ToOkxString() },
         };
-        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri(v5TradingBotGridCancelCloseOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrderCloseResponse>(GetUri(v5TradingBotGridCancelCloseOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -277,14 +277,14 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridPlaceOrderResponse>> TriggerOrderAsync(
+    public Task<RestCallResult<OkxGridOrderTriggerResponse>> TriggerOrderAsync(
         long algoOrderId,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "algoId", algoOrderId.ToOkxString() },
         };
-        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri(v5TradingBotGridOrderInstantTrigger), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrderTriggerResponse>(GetUri(v5TradingBotGridOrderInstantTrigger), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
