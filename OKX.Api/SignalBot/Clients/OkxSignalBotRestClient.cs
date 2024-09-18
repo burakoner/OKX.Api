@@ -55,13 +55,13 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         return ProcessListRequestAsync<OkxSignalBotChannel>(GetUri(v5TradingBotSignalSignals), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxSignalBotOrderResponse>> CreateSignalOrderAsync(
+    public Task<RestCallResult<OkxSignalBotOrderResponse>> CreateSignalBotAsync(
         long signalChannelId,
         decimal leverage,
         decimal amount,
         OkxSignalBotOrderType orderType,
         bool includeAll = false,
-        string instrumentIds = "",
+        IEnumerable<string> instrumentIds = null,
         decimal? ratio = null,
         OkxSignalBotEntryParamaters entryParamaters = null,
         OkxSignalBotExitParamaters exitParamaters = null,

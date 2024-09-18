@@ -58,7 +58,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Alias for Public Client
     /// </summary>
-    public OkxPublicRestClient Market { get => Public; }
+    public OkxPublicRestClient Market { get => Public; } // OK
 
     /// <summary>
     /// Block Trading Client
@@ -73,7 +73,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Public and Market Data Client
     /// </summary>
-    public OkxPublicRestClient Public { get; }
+    public OkxPublicRestClient Public { get; } // OK
 
     /// <summary>
     /// Trading Statistics Client

@@ -294,7 +294,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         {
             { "uniqueCode", uniqueCode },
             { "copyMgnMode", JsonConvert.SerializeObject(copyMarginMode, new OkxCopyTradingMarginModeConverter(false)) },
-            { "copyInstIdType", JsonConvert.SerializeObject(copyMarginMode, new OkxCopyTradingInstrumentIdTypeConverter(false)) },
+            { "copyInstIdType", JsonConvert.SerializeObject(copyInstrumentIdType, new OkxCopyTradingInstrumentIdTypeConverter(false)) },
             { "copyTotalAmt", copyTotalAmount.ToOkxString() },
             { "subPosCloseType", JsonConvert.SerializeObject(positionCloseType, new OkxCopyTradingPositionCloseTypeConverter(false)) },
         };

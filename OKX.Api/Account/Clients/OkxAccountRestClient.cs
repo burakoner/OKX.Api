@@ -288,9 +288,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxDownloadApplication>> ApplyBillDataAsync(string year, string quarter, CancellationToken ct = default)
+    public Task<RestCallResult<OkxDownloadApplication>> ApplyBillDataAsync(int year, string quarter, CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxDownloadApplication>(GetUri(v5AccountBillsHistoryArchive), HttpMethod.Post, ct, true);
+        var parameters = new Dictionary<string, object> {
+            { "year", year.ToOkxString() },
+            { "quarter", quarter },
+        };
+
+        return ProcessOneRequestAsync<OkxDownloadApplication>(GetUri(v5AccountBillsHistoryArchive), HttpMethod.Post, ct, true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -300,9 +305,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxDownloadLink>> GetBillDataAsync(string year, string quarter, CancellationToken ct = default)
+    public Task<RestCallResult<OkxDownloadLink>> GetBillDataAsync(int year, string quarter, CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5AccountBillsHistoryArchive), HttpMethod.Get, ct, true);
+        var parameters = new Dictionary<string, object> {
+            { "year", year.ToOkxString() },
+            { "quarter", quarter },
+        };
+
+        return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5AccountBillsHistoryArchive), HttpMethod.Get, ct, true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -715,7 +725,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxAccountMarginBorrowRepay>(GetUri(v5AccountQuickMarginBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
     /// <summary>
     /// Manual borrow and repay in Quick Margin Mode
     /// Please note that this endpoint will be deprecated soon.
@@ -798,7 +808,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessOneRequestAsync<OkxAccountVipLoanBorrowRepay>(GetUri(v5AccountBorrowRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
     /// <summary>
     /// VIP loans borrow and repay
     /// Maximum number of borrowing orders for a single currency is 20
@@ -936,7 +946,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
         return ProcessListRequestAsync<OkxAccountVipLoanOrder>(GetUri(v5AccountVipLoanOrderList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     /// <summary>
     /// Get VIP loan order detail
     /// </summary>

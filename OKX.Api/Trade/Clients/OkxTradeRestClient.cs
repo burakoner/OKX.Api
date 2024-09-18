@@ -779,7 +779,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="attachedAlgoOrders">TP/SL information attached when placing order</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxTradeOrderCheck>> PlaceOrderCheckAsync(
+    public Task<RestCallResult<OkxTradeOrderCheck>> CheckOrderAsync(
         string instrumentId,
         OkxTradeMode tradeMode,
         OkxTradeOrderSide orderSide,
@@ -807,6 +807,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 
         parameters.AddOptionalParameter("attachAlgoOrds", attachedAlgoOrders);
 
-        return ProcessOneRequestAsync<OkxTradeOrderCheck>(GetUri(v5TradeOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxTradeOrderCheck>(GetUri(v5TradeOrderPrecheck), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 }
