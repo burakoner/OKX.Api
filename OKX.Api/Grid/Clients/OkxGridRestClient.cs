@@ -419,7 +419,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridAlgoPosition>> GetPositionsAsync(
+    public Task<RestCallResult<List<OkxGridAlgoPosition>>> GetPositionsAsync(
         OkxGridAlgoOrderType algoOrderType,
         long algoOrderId,
         CancellationToken ct = default)
@@ -429,7 +429,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "algoId", algoOrderId.ToOkxString() }
         };
 
-        return ProcessOneRequestAsync<OkxGridAlgoPosition>(GetUri(v5TradingBotGridPositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxGridAlgoPosition>(GetUri(v5TradingBotGridPositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>

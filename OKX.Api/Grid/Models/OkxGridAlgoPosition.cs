@@ -1,7 +1,5 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
-using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 
@@ -112,25 +110,25 @@ public class OkxGridAlgoPosition
     /// Initial margin requirement
     /// </summary>
     [JsonProperty("imr")]
-    public decimal? InitialMarginRequirement { get; set; }
+    public decimal? IMR { get; set; }
 
     /// <summary>
     /// Maintenance margin requirement
     /// </summary>
     [JsonProperty("mmr")]
-    public decimal? MaintenanceMarginRequirement { get; set; }
+    public decimal? MMR { get; set; }
 
     /// <summary>
     /// Unrealized profit and loss
     /// </summary>
     [JsonProperty("upl")]
-    public decimal? UnrealizedProfitAndLoss { get; set; }
+    public decimal? UPL { get; set; }
 
     /// <summary>
     /// Unrealized profit and loss ratio
     /// </summary>
     [JsonProperty("uplRatio")]
-    public decimal? UnrealizedProfitAndLossRatio { get; set; }
+    public decimal? UplRatio { get; set; }
 
     /// <summary>
     /// Last price
@@ -148,7 +146,7 @@ public class OkxGridAlgoPosition
     /// Auto increase line
     /// </summary>
     [JsonProperty("adl")]
-    public decimal? AutoDecreaseLine { get; set; }
+    public decimal? ADL { get; set; }
 
     /// <summary>
     /// Mark price
