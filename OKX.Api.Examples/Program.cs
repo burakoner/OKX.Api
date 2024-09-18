@@ -463,7 +463,7 @@ internal class Program
         var fixed_07 = await api.Financial.FixedSimpleEarn.GetSubOrdersAsync();
 
         // Affiliate Methods (Signed)
-        var affiliate_01 = await api.Affiliate.GetInviteeAsync(1_000_000L)
+        var affiliate_01 = await api.Affiliate.GetInviteeAsync(1_000_000L);
 
         // TODO: NDBroker Methods (Signed)
         // TODO: FDBroker Methods (Signed)
