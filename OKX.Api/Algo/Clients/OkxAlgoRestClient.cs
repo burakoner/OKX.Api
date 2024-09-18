@@ -106,7 +106,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? triggerPrice = null,
         decimal? orderPrice = null,
         OkxAlgoPriceType? triggerPriceType = null,
-        IEnumerable<OkxAlgoAttachedAlgoRequest> attachedAlgoOrders = null,
+        IEnumerable<OkxAlgoAttachedAlgoPlaceRequest> attachedAlgoOrders = null,
 
         // Trailing Stop Order
         decimal? callbackRatio = null,
@@ -176,16 +176,26 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <summary>
     /// Cancel unfilled algo orders(trigger order, oco order, conditional order). A maximum of 10 orders can be canceled at a time. Request parameters should be passed in the form of an array.
     /// </summary>
-    /// <param name="orders">Orders</param>
+    /// <param name="algoOrderId">Algo ID</param>
+    /// <param name="instrumentId">	Instrument ID, e.g. BTC-USDT</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxAlgoOrderResponse>>> CancelOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxAlgoOrderCancelResponse>>> CancelOrderAsync(long algoOrderId, string instrumentId, CancellationToken ct = default)
+        => CancelOrdersAsync([new() { AlgoOrderId = algoOrderId.ToOkxString(), InstrumentId = instrumentId }], ct);
+    
+    /// <summary>
+    /// Cancel unfilled algo orders(trigger order, oco order, conditional order). A maximum of 10 orders can be canceled at a time. Request parameters should be passed in the form of an array.
+    /// </summary>
+    /// <param name="orders">Orders to Cancel</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAlgoOrderCancelResponse>>> CancelOrdersAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { Options.RequestBodyParameterKey, orders },
         };
 
-        return ProcessListRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxAlgoOrderCancelResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -204,6 +214,10 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="newStopLossTriggerPriceType">Stop-loss trigger price type</param>
     /// <param name="newStopLossTriggerPrice">Stop-loss trigger price. Either the stop-loss trigger price or order price is 0, it means that the stop-loss is deleted</param>
     /// <param name="newStopLossOrderPrice">Stop-loss order price. If the price is -1, stop-loss will be executed at the market price.</param>
+    /// <param name="newTriggerPrice">New trigger price after amendment</param>
+    /// <param name="newOrderPrice">New order price after amendment. If the price is -1, the order will be executed at the market price.</param>
+    /// <param name="newTriggerPriceType">New trigger price type after amendment</param>
+    /// <param name="attachedAlgoOrders">Attached SL/TP orders info. Applicable to Spot and futures mode/Multi-currency margin/Portfolio margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxAlgoOrderAmendResponse>> AmendOrderAsync(
@@ -227,6 +241,12 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? newStopLossTriggerPrice = null,
         decimal? newStopLossOrderPrice = null,
 
+        // Trigger Order
+        decimal? newTriggerPrice = null,
+        decimal? newOrderPrice = null,
+        OkxAlgoPriceType? newTriggerPriceType = null,
+        IEnumerable<OkxAlgoAttachedAlgoAmendRequest> attachedAlgoOrders = null,
+
         // Cancellation Token
         CancellationToken ct = default)
     {
@@ -249,6 +269,12 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("newSlTriggerPxType", JsonConvert.SerializeObject(newStopLossTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("newSlTriggerPx", newStopLossTriggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("newSlOrdPx", newStopLossOrderPrice?.ToOkxString());
+        
+        // Trigger Order
+        parameters.AddOptionalParameter("newTriggerPx", newTriggerPrice?.ToOkxString());
+        parameters.AddOptionalParameter("newOrdPx", newOrderPrice?.ToOkxString());
+        parameters.AddOptionalParameter("newTriggerPxType", JsonConvert.SerializeObject(newTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("attachAlgoOrds", attachedAlgoOrders);
 
         // Reequest
         return ProcessOneRequestAsync<OkxAlgoOrderAmendResponse>(GetUri(v5TradeAmendAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);

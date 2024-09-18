@@ -6,7 +6,7 @@ namespace OKX.Api.Algo.Models;
 /// <summary>
 /// OKX Order Algo Request
 /// </summary>
-public class OkxAlgoAttachedAlgoRequest
+public class OkxAlgoAttachedAlgoPlaceRequest
 {
     /// <summary>
     /// Client-supplied Algo ID when placing order attaching TP/SL

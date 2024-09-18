@@ -9,7 +9,7 @@ public class OkxAlgoOrderRequest
     /// Algo Client Order ID
     /// </summary>
     [JsonProperty("algoId")]
-    public long AlgoOrderId { get; set; }
+    public string AlgoOrderId { get; set; }
 
     /// <summary>
     /// Instrument ID

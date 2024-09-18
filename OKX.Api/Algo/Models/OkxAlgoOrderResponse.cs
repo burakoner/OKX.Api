@@ -9,7 +9,7 @@ public class OkxAlgoOrderResponse : OkxRestApiErrorBase
     /// Algo Order ID
     /// </summary>
     [JsonProperty("algoId")]
-    public long? AlgoOrderId { get; set; }
+    public string AlgoOrderId { get; set; }
 
     /// <summary>
     /// Client Order ID as assigned by the client
