@@ -558,15 +558,13 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <summary>
     /// Retrieve discount rate level and interest-free quota.
     /// </summary>
-    /// <param name="discountLevel">Discount level</param>
+    /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxDiscountInfo>>> GetDiscountInfoAsync(int? discountLevel = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxDiscountInfo>>> GetDiscountInfoAsync(string currency=null, CancellationToken ct = default)
     {
-        discountLevel?.ValidateIntBetween(nameof(discountLevel), 1, 100);
-
         var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("discountLv", discountLevel?.ToOkxString());
+        parameters.AddOptionalParameter("ccy", currency);
 
         return ProcessListRequestAsync<OkxDiscountInfo>(GetUri(v5PublicDiscountRateInterestFreeQuota), HttpMethod.Get, ct, queryParameters: parameters);
     }
@@ -578,8 +576,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public async Task<RestCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
     {
-        var result = await ProcessListRequestAsync<OkxTime>(GetUri(v5PublicTime), HttpMethod.Get, ct);
-        return result.As(result.Data?.FirstOrDefault()?.Time ?? default);
+        var result = await ProcessOneRequestAsync<OkxTime>(GetUri(v5PublicTime), HttpMethod.Get, ct);
+        return result.As(result.Data?.Time ?? default);
     }
 
     /// <summary>

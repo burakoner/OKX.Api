@@ -1,7 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-
-namespace OKX.Api.Public.Models;
+﻿namespace OKX.Api.Public.Models;
 
 /// <summary>
 /// OKX Estimated Price
@@ -27,8 +24,15 @@ public class OkxEstimatedPrice
     public decimal EstimatedPrice { get; set; }
 
     /// <summary>
-    /// Time
+    /// Data return time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
-    [JsonProperty("ts"), JsonConverter(typeof(DateTimeConverter))]
-    public DateTime Time { get; set; }
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// Data return time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
+
 }
