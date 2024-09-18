@@ -4,9 +4,9 @@ using OKX.Api.RecurringBuy.Enums;
 namespace OKX.Api.RecurringBuy.Models;
 
 /// <summary>
-/// Recurring Buy Order
+/// Recurring Buy Order Details
 /// </summary>
-public class OkxRecurringBuyOrder
+public class OkxRecurringBuyOrderDetails
 {
     /// <summary>
     /// Order Id
@@ -72,7 +72,7 @@ public class OkxRecurringBuyOrder
     /// Recurring list
     /// </summary>
     [JsonProperty("recurringList")]
-    public List<OkxRecurringBuyOrderList> RecurringList { get; set; }
+    public List<OkxRecurringBuyOrderDetailsList> RecurringList { get; set; }
 
     /// <summary>
     /// Period

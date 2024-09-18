@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.RecurringBuy.Models;
 
 /// <summary>
-/// Recurring Buy Item Details
+/// Recurring Buy Order Details List
 /// </summary>
-public class OkxRecurringBuyItemDetails
+public class OkxRecurringBuyOrderDetailsList
 {
     /// <summary>
     /// Recurring currency, e.g. BTC
@@ -18,10 +18,10 @@ public class OkxRecurringBuyItemDetails
     public decimal Ratio { get; set; }
 
     /// <summary>
-    /// Average price of recurring buy, quote currency is investmentCcy
+    /// Accumulated quantity in unit of recurring buy currency
     /// </summary>
-    [JsonProperty("avgPx")]
-    public decimal AveragePrice { get; set; }
+    [JsonProperty("totalAmt")]
+    public decimal TotalAmount { get; set; }
 
     /// <summary>
     /// Profit in unit of investmentCcy
@@ -30,14 +30,14 @@ public class OkxRecurringBuyItemDetails
     public decimal Profit { get; set; }
 
     /// <summary>
+    /// Average price of recurring buy, quote currency is investmentCcy
+    /// </summary>
+    [JsonProperty("avgPx")]
+    public decimal AveragePrice { get; set; }
+
+    /// <summary>
     /// Current market price, quote currency is investmentCcy
     /// </summary>
     [JsonProperty("px")]
     public decimal Price { get; set; }
-
-    /// <summary>
-    /// Accumulated quantity in unit of recurring buy currency
-    /// </summary>
-    [JsonProperty("totalAmt")]
-    public decimal TotalAmount { get; set; }
 }
