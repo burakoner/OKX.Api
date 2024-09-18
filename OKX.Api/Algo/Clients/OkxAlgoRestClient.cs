@@ -179,13 +179,13 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAlgoOrderResponse>> CancelOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxAlgoOrderResponse>>> CancelOrderAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { Options.RequestBodyParameterKey, orders },
         };
 
-        return ProcessOneRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
