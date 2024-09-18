@@ -180,7 +180,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="instrumentId">	Instrument ID, e.g. BTC-USDT</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxAlgoOrderCancelResponse>>> CancelOrderAsync(long algoOrderId, string instrumentId, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxAlgoCancelOrderResponse>>> CancelOrderAsync(long algoOrderId, string instrumentId, CancellationToken ct = default)
         => CancelOrdersAsync([new() { AlgoOrderId = algoOrderId.ToOkxString(), InstrumentId = instrumentId }], ct);
     
     /// <summary>
@@ -189,13 +189,13 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="orders">Orders to Cancel</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxAlgoOrderCancelResponse>>> CancelOrdersAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxAlgoCancelOrderResponse>>> CancelOrdersAsync(IEnumerable<OkxAlgoCancelOrderRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { Options.RequestBodyParameterKey, orders },
         };
 
-        return ProcessListRequestAsync<OkxAlgoOrderCancelResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxAlgoCancelOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -220,7 +220,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="attachedAlgoOrders">Attached SL/TP orders info. Applicable to Spot and futures mode/Multi-currency margin/Portfolio margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAlgoOrderAmendResponse>> AmendOrderAsync(
+    public Task<RestCallResult<OkxAlgoAmendOrderResponse>> AmendOrderAsync(
 
         // Common
         string instrumentId,
@@ -277,7 +277,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("attachAlgoOrds", attachedAlgoOrders);
 
         // Reequest
-        return ProcessOneRequestAsync<OkxAlgoOrderAmendResponse>(GetUri(v5TradeAmendAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAlgoAmendOrderResponse>(GetUri(v5TradeAmendAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -286,13 +286,13 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAlgoOrderResponse>> CancelAdvanceAsync(IEnumerable<OkxAlgoOrderRequest> orders, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxAlgoCancelOrderResponse>>> CancelAdvanceAsync(IEnumerable<OkxAlgoCancelOrderRequest> orders, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { Options.RequestBodyParameterKey, orders },
         };
 
-        return ProcessOneRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeCancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxAlgoCancelOrderResponse>(GetUri(v5TradeCancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Order Cancel Response
 /// </summary>
-public class OkxAlgoOrderCancelResponse : OkxRestApiErrorBase
+public class OkxAlgoCancelOrderResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Algo Order ID

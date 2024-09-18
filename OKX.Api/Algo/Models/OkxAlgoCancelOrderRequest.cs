@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Order Request
 /// </summary>
-public class OkxAlgoOrderRequest
+public class OkxAlgoCancelOrderRequest
 {
     /// <summary>
     /// Algo Client Order ID
