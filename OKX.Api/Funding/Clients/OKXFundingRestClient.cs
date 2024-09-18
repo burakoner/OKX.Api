@@ -473,7 +473,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     public Task<RestCallResult<OkxFundingConvertEstimateQuote>> EstimateQuoteAsync(
         string baseCurrency,
         string quoteCurrency,
-        OkxOrderSide side,
+        OkxTradeOrderSide side,
         decimal rfqAmount,
         string rfqCurrency,
         string clientOrderId = null,
@@ -483,7 +483,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         {
             { "baseCcy", baseCurrency },
             { "quoteCcy", quoteCurrency },
-            { "side", JsonConvert.SerializeObject(side, new OkxOrderSideConverter(false)) },
+            { "side", JsonConvert.SerializeObject(side, new OkxTradeOrderSideConverter(false)) },
             { "rfqSz", rfqAmount.ToOkxString() },
             { "rfqSzCcy", rfqCurrency },
         };
@@ -497,7 +497,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string quoteId,
         string baseCurrency,
         string quoteCurrency,
-        OkxOrderSide side,
+        OkxTradeOrderSide side,
         decimal amount,
         string amountCurrency,
         string clientOrderId = null,
@@ -508,7 +508,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "quoteId", quoteId },
             { "baseCcy", baseCurrency },
             { "quoteCcy", quoteCurrency },
-            { "side", JsonConvert.SerializeObject(side, new OkxOrderSideConverter(false)) },
+            { "side", JsonConvert.SerializeObject(side, new OkxTradeOrderSideConverter(false)) },
             { "sz", amount.ToOkxString() },
             { "szCcy", amountCurrency },
         };

@@ -139,10 +139,10 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         {
             var id = (string)data["id"]!;
             var op = (string)data["op"]!;
-            var placeOrderRequest = op == "order" && request is OkxSocketRequest<OkxOrderPlaceRequest> socRequest01 && socRequest01.RequestId == id;
-            var amendOrderRequest = op == "amend-order" && request is OkxSocketRequest<OkxOrderAmendRequest> socRequest02 && socRequest02.RequestId == id;
-            var cancelOrderRequest = op == "cancel-order" && request is OkxSocketRequest<OkxOrderCancelRequest> socRequest03 && socRequest03.RequestId == id;
-            var massCancelOrderRequest = op == "mass-cancel" && request is OkxSocketRequest<OkxMassCancelRequest> socRequest04 && socRequest04.RequestId == id;
+            var placeOrderRequest = op == "order" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest01 && socRequest01.RequestId == id;
+            var amendOrderRequest = op == "amend-order" && request is OkxSocketRequest<OkxTradeOrderAmendRequest> socRequest02 && socRequest02.RequestId == id;
+            var cancelOrderRequest = op == "cancel-order" && request is OkxSocketRequest<OkxTradeOrderCancelRequest> socRequest03 && socRequest03.RequestId == id;
+            var massCancelOrderRequest = op == "mass-cancel" && request is OkxSocketRequest<OkxTradeMassCancelRequest> socRequest04 && socRequest04.RequestId == id;
             if (placeOrderRequest || amendOrderRequest || cancelOrderRequest || massCancelOrderRequest)
             {
                 var desResult = Deserialize<List<T>>(data["data"]);
@@ -156,9 +156,9 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
                 return true;
             }
 
-            var placeBatchOrdersRequest = op == "batch-orders" && request is OkxSocketRequest<OkxOrderPlaceRequest> socRequest05 && socRequest05.RequestId == id;
-            var amendBatchOrdersRequest = op == "batch-amend-orders" && request is OkxSocketRequest<OkxOrderPlaceRequest> socRequest06 && socRequest06.RequestId == id;
-            var cancelBatchOrdersRequest = op == "batch-cancel-orders" && request is OkxSocketRequest<OkxOrderPlaceRequest> socRequest07 && socRequest07.RequestId == id;
+            var placeBatchOrdersRequest = op == "batch-orders" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest05 && socRequest05.RequestId == id;
+            var amendBatchOrdersRequest = op == "batch-amend-orders" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest06 && socRequest06.RequestId == id;
+            var cancelBatchOrdersRequest = op == "batch-cancel-orders" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest07 && socRequest07.RequestId == id;
             if (placeBatchOrdersRequest || amendBatchOrdersRequest || cancelBatchOrdersRequest)
             {
                 var desResult = Deserialize<T>(data["data"]);

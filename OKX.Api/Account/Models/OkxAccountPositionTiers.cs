@@ -29,6 +29,6 @@ public class OkxAccountPositionTiers
     /// <summary>
     /// Position Type
     /// </summary>
-    [JsonProperty("posType"), JsonConverter(typeof(OkxPositionTypeConverter))]
-    public OkxPositionType PositionType { get; set; }
+    [JsonProperty("posType"), JsonConverter(typeof(OkxTradePositionTypeConverter))]
+    public OkxTradePositionType PositionType { get; set; }
 }

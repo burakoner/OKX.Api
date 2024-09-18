@@ -23,7 +23,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradingRestClient Trading { get; }
+    public OkxTradeRestClient Trading { get; }
 
     /// <summary>
     /// Algo Trading Client
@@ -128,7 +128,7 @@ public class OkxRestApiClient
         Account = new OkxAccountRestClient(this);
         Funding = new OkxFundingRestClient(this);
         SubAccount = new OkxSubAccountRestClient(this);
-        Trading = new OkxTradingRestClient(this);
+        Trading = new OkxTradeRestClient(this);
         Algo = new OkxAlgoRestClient(this);
         Grid = new OkxGridRestClient(this);
         SignalBot = new OkxSignalBotRestClient(this);

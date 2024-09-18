@@ -40,7 +40,7 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradingSocketClient Trading { get; }
+    public OkxTradeSocketClient Trading { get; }
 
     /// <summary>
     /// Algo Trading Client
@@ -97,7 +97,7 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
         this.Public = new OkxPublicSocketClient(this);
         this.Account = new OkxAccountSocketClient(this);
         this.Funding = new OkxFundingSocketClient(this);
-        this.Trading = new OkxTradingSocketClient(this);
+        this.Trading = new OkxTradeSocketClient(this);
         this.Algo = new OkxAlgoSocketClient(this);
         this.Grid = new OkxGridSocketClient(this);
         this.RecurringBuy = new OkxRecurringBuySocketClient(this);

@@ -25,8 +25,8 @@ public class OkxAccountLeverage
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
-    public OkxPositionSide PositionSide { get; set; }
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
     /// Leverage

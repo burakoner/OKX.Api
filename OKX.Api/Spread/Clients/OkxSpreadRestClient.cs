@@ -31,7 +31,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
     public Task<RestCallResult<OkxSpreadOrderPlaceResponse>> PlaceOrderAsync(
         string spreadId,
-        OkxOrderSide side,
+        OkxTradeOrderSide side,
         OkxSpreadOrderType type,
         decimal size,
         decimal? price = null,
@@ -40,7 +40,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     {
         var parameters = new Dictionary<string, object> {
             {"sprdId", spreadId },
-            {"side", JsonConvert.SerializeObject(side, new OkxOrderSideConverter(false)) },
+            {"side", JsonConvert.SerializeObject(side, new OkxTradeOrderSideConverter(false)) },
             {"ordType", JsonConvert.SerializeObject(type, new OkxSpreadOrderTypeConverter(false)) },
             {"sz", size.ToOkxString() },
         };
@@ -102,8 +102,8 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
     public Task<RestCallResult<List<OkxSpreadOrder>>> GetOpenOrdersAsync(
         string spreadId = null,
-        OkxOrderType? type = null,
-        OkxOrderState? state = null,
+        OkxTradeOrderType? type = null,
+        OkxTradeOrderState? state = null,
         long? beginId = null,
         long? endId = null,
         int limit = 100,
@@ -112,8 +112,8 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("sprdId", spreadId);
-        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxOrderTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxOrderStateConverter(false)));
+        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxTradeOrderStateConverter(false)));
         parameters.AddOptionalParameter("beginId", beginId?.ToOkxString());
         parameters.AddOptionalParameter("endId", endId?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
@@ -123,8 +123,8 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
     public Task<RestCallResult<List<OkxSpreadOrder>>> GetOrderHistoryAsync(
         string spreadId = null,
-        OkxOrderType? type = null,
-        OkxOrderState? state = null,
+        OkxTradeOrderType? type = null,
+        OkxTradeOrderState? state = null,
         long? beginId = null,
         long? endId = null,
         long? begin = null,
@@ -135,8 +135,8 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("sprdId", spreadId);
-        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxOrderTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxOrderStateConverter(false)));
+        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxTradeOrderStateConverter(false)));
         parameters.AddOptionalParameter("beginId", beginId?.ToOkxString());
         parameters.AddOptionalParameter("endId", endId?.ToOkxString());
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());
@@ -148,8 +148,8 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
     public Task<RestCallResult<List<OkxSpreadOrder>>> GetOrderArchiveAsync(
         string spreadId = null,
-        OkxOrderType? type = null,
-        OkxOrderState? state = null,
+        OkxTradeOrderType? type = null,
+        OkxTradeOrderState? state = null,
         long? beginId = null,
         long? endId = null,
         long? begin = null,
@@ -160,8 +160,8 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("sprdId", spreadId);
-        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxOrderTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxOrderStateConverter(false)));
+        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxTradeOrderStateConverter(false)));
         parameters.AddOptionalParameter("beginId", beginId?.ToOkxString());
         parameters.AddOptionalParameter("endId", endId?.ToOkxString());
         parameters.AddOptionalParameter("begin", begin?.ToOkxString());

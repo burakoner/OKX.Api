@@ -147,7 +147,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 
     public Task<RestCallResult<OkxBlockRfq>> CreateQuoteAsync(
         string rfqId,
-        OkxOrderSide quoteSide,
+        OkxTradeOrderSide quoteSide,
         IEnumerable<OkxBlockLegQuote> legs,
         string clientQuoteId = null,
         bool anonymous = false,
@@ -157,7 +157,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new Dictionary<string, object>
         {
             { "rfqId", rfqId },
-            { "quoteSide", JsonConvert.SerializeObject(quoteSide, new OkxOrderSideConverter(false)) },
+            { "quoteSide", JsonConvert.SerializeObject(quoteSide, new OkxTradeOrderSideConverter(false)) },
             { "legs", legs },
             { "anonymous", anonymous },
         };

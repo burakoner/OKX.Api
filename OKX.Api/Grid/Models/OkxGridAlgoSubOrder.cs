@@ -95,8 +95,8 @@ public class OkxGridAlgoSubOrder
     /// <summary>
     /// Order type
     /// </summary>
-    [JsonProperty("ordType"), JsonConverter(typeof(OkxOrderTypeConverter))]
-    public OkxOrderType OrderType { get; set; }
+    [JsonProperty("ordType"), JsonConverter(typeof(OkxTradeOrderTypeConverter))]
+    public OkxTradeOrderType OrderType { get; set; }
 
     /// <summary>
     /// Quantity
@@ -113,8 +113,8 @@ public class OkxGridAlgoSubOrder
     /// <summary>
     /// Order side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
-    public OkxOrderSide OrderSide { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide OrderSide { get; set; }
 
     /// <summary>
     /// Price
@@ -161,8 +161,8 @@ public class OkxGridAlgoSubOrder
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
-    public OkxPositionSide PositionSide { get; set; }
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
     /// Profit and loss

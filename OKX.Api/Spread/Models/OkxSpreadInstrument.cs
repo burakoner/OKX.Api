@@ -121,6 +121,6 @@ public class OkxSpreadInstrumentLeg
     /// <summary>
     /// The direction of the leg of the spread. Valid Values include buy and sell.
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
-    public OkxOrderSide OrderSide { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide OrderSide { get; set; }
 }

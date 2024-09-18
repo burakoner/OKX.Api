@@ -57,8 +57,8 @@ public class OkxFundingConvertOrder
     /// <summary>
     /// Trade side based on baseCcy
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
-    public OkxOrderSide Side { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide Side { get; set; }
 
     /// <summary>
     /// Filled price based on quote currency

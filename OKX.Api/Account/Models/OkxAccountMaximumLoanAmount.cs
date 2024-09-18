@@ -43,6 +43,6 @@ public class OkxAccountMaximumLoanAmount
     /// <summary>
     /// Order side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
-    public OkxOrderSide OrderSide { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide OrderSide { get; set; }
 }

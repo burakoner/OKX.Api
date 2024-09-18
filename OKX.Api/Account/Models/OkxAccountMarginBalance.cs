@@ -19,8 +19,8 @@ public class OkxAccountMarginBalance
     /// <summary>
     /// Position side, long short
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
-    public OkxPositionSide PositionSide { get; set; }
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
     /// Amount to be increase or decrease

@@ -323,10 +323,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="positionMode"></param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountPositionMode>> SetPositionModeAsync(OkxPositionMode positionMode, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountPositionMode>> SetPositionModeAsync(OkxTradePositionMode positionMode, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            {"posMode", JsonConvert.SerializeObject(positionMode, new OkxPositionModeConverter(false)) },
+            {"posMode", JsonConvert.SerializeObject(positionMode, new OkxTradePositionModeConverter(false)) },
         };
 
         return ProcessOneRequestAsync<OkxAccountPositionMode>(GetUri(v5AccountSetPositionMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -360,7 +360,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string currency = null,
         string instrumentId = null,
         OkxAccountMarginMode? marginMode = null,
-        OkxPositionSide? positionSide = null,
+        OkxTradePositionSide? positionSide = null,
         CancellationToken ct = default)
     {
         if (leverage < 0.01m)
@@ -378,7 +378,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)));
+        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxTradePositionSideConverter(false)));
 
         return ProcessListRequestAsync<OkxAccountLeverage>(GetUri(v5AccountSetLeverage), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -462,7 +462,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountMarginBalance>>> SetMarginAmountAsync(
         string instrumentId,
-        OkxPositionSide positionSide,
+        OkxTradePositionSide positionSide,
         OkxAccountMarginAddReduce type,
         decimal amount,
         string currency = null,
@@ -470,7 +470,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     {
         var parameters = new Dictionary<string, object> {
             { "instId", instrumentId },
-            { "posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)) },
+            { "posSide", JsonConvert.SerializeObject(positionSide, new OkxTradePositionSideConverter(false)) },
             { "type", JsonConvert.SerializeObject(type, new OkxAccountMarginAddReduceConverter(false)) },
             { "amt", amount.ToOkxString() },
         };
@@ -516,7 +516,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         decimal leverage,
         string instrumentId = null,
         string currency = null,
-        OkxPositionSide? positionSide = null,
+        OkxTradePositionSide? positionSide = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -526,7 +526,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)));
+        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxTradePositionSideConverter(false)));
 
         return ProcessListRequestAsync<OkxAccountLeverageEstimatedInformation>(GetUri(v5AccountAdjustLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

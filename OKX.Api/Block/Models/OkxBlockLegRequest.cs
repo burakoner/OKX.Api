@@ -44,8 +44,8 @@ public class OkxBlockLegRequest
     /// <summary>
     /// The direction of each leg. Valid values can be buy or sell.
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
-    public OkxOrderSide Side { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide Side { get; set; }
 
     /// <summary>
     /// Position side.
@@ -53,8 +53,8 @@ public class OkxBlockLegRequest
     /// If not specified, users in long/short mode always open new positions.
     /// Only applicable to FUTURES/SWAP.
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
-    public OkxPositionSide? PositionSide { get; set; }
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    public OkxTradePositionSide? PositionSide { get; set; }
     
     /// <summary>
     /// Defines the unit of the “sz” attribute.

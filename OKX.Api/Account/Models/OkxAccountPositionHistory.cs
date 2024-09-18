@@ -135,8 +135,8 @@ public class OkxAccountPositionHistory
     /// Direction: long short
     /// Only applicable to MARGIN/FUTURES/SWAP/OPTION
     /// </summary>
-    [JsonProperty("direction"), JsonConverter(typeof(OkxPositionDirectionConverter))]
-    public OkxPositionDirection Direction { get; set; }
+    [JsonProperty("direction"), JsonConverter(typeof(OkxTradePositionDirectionConverter))]
+    public OkxTradePositionDirection Direction { get; set; }
 
     /// <summary>
     /// trigger mark price

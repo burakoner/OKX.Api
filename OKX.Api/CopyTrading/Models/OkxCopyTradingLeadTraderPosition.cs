@@ -25,8 +25,8 @@ public class OkxCopyTradingLeadTraderPosition
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
-    public OkxPositionSide Side { get; set; }
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    public OkxTradePositionSide Side { get; set; }
 
     /// <summary>
     /// Margin mode. cross isolated

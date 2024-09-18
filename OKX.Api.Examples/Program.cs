@@ -72,12 +72,12 @@ internal class Program
         var account_05 = await api.Account.GetBillHistoryAsync();
         var account_06 = await api.Account.GetBillArchiveAsync();
         var account_07 = await api.Account.GetConfigurationAsync();
-        var account_08 = await api.Account.SetPositionModeAsync(OkxPositionMode.LongShortMode);
+        var account_08 = await api.Account.SetPositionModeAsync(OkxTradePositionMode.LongShortMode);
         var account_09 = await api.Account.GetLeverageAsync("BTC-USD-211008", OkxAccountMarginMode.Isolated);
-        var account_10 = await api.Account.SetLeverageAsync(30, null, "BTC-USD-211008", OkxAccountMarginMode.Isolated, OkxPositionSide.Long);
+        var account_10 = await api.Account.SetLeverageAsync(30, null, "BTC-USD-211008", OkxAccountMarginMode.Isolated, OkxTradePositionSide.Long);
         var account_11 = await api.Account.GetMaximumOrderQuantityAsync("BTC-USDT", OkxTradeMode.Isolated);
         var account_12 = await api.Account.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
-        var account_13 = await api.Account.SetMarginAmountAsync("BTC-USDT", OkxPositionSide.Long, OkxAccountMarginAddReduce.Add, 100.0m);
+        var account_13 = await api.Account.SetMarginAmountAsync("BTC-USDT", OkxTradePositionSide.Long, OkxAccountMarginAddReduce.Add, 100.0m);
         var account_14 = await api.Account.GetLeverageEstimatedInformationAsync(OkxInstrumentType.Futures, OkxAccountMarginMode.Cross, 10);
         var account_15 = await api.Account.GetMaximumLoanAmountAsync("BTC-USDT", OkxAccountMarginMode.Cross);
         var account_16 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Spot, OkxInstrumentRuleType.Normal);
@@ -140,7 +140,7 @@ internal class Program
         var subaccount_08 = await api.SubAccount.TransferBetweenSubAccountsAsync("BTC", 0.5m, OkxAccount.Funding, OkxAccount.Trading, "fromSubAccountName", "toSubAccountName");
 
         // Trading Methods (Signed)
-        var trade_01 = await api.Trading.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxOrderSide.Buy, OkxPositionSide.Long, OkxOrderType.MarketOrder, 0.1m);
+        var trade_01 = await api.Trading.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradePositionSide.Long, OkxTradeOrderType.MarketOrder, 0.1m);
         var trade_02 = await api.Trading.PlaceOrdersAsync([]);
         var trade_03 = await api.Trading.CancelOrderAsync("BTC-USDT");
         var trade_04 = await api.Trading.CancelOrdersAsync([]);
@@ -157,7 +157,7 @@ internal class Program
         var trade_15 = await api.Trading.GetTradesArchiveAsync(2023, OkxQuarter.Quarter1);
 
         // AlgoTrading Methods (Signed)
-        var algo_01 = await api.Algo.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxOrderSide.Sell, OkxAlgoOrderType.Conditional);
+        var algo_01 = await api.Algo.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxTradeOrderSide.Sell, OkxAlgoOrderType.Conditional);
         var algo_02 = await api.Algo.CancelOrderAsync([]);
         var algo_03 = await api.Algo.AmendOrderAsync("BTC-USDT");
         var algo_04 = await api.Algo.CancelAdvanceAsync([]);
@@ -401,12 +401,12 @@ internal class Program
             // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
-        await ws.Trading.PlaceOrderAsync(new Trade.Models.OkxOrderPlaceRequest());
-        await ws.Trading.PlaceOrdersAsync(new List<Trade.Models.OkxOrderPlaceRequest>());
-        await ws.Trading.CancelOrderAsync(new Trade.Models.OkxOrderCancelRequest());
-        await ws.Trading.CancelOrdersAsync(new List<Trade.Models.OkxOrderCancelRequest>());
-        await ws.Trading.AmendOrderAsync(new Trade.Models.OkxOrderAmendRequest());
-        await ws.Trading.AmendOrdersAsync(new List<Trade.Models.OkxOrderAmendRequest>());
+        await ws.Trading.PlaceOrderAsync(new Trade.Models.OkxTradeOrderPlaceRequest());
+        await ws.Trading.PlaceOrdersAsync(new List<Trade.Models.OkxTradeOrderPlaceRequest>());
+        await ws.Trading.CancelOrderAsync(new Trade.Models.OkxTradeOrderCancelRequest());
+        await ws.Trading.CancelOrdersAsync(new List<Trade.Models.OkxTradeOrderCancelRequest>());
+        await ws.Trading.AmendOrderAsync(new Trade.Models.OkxTradeOrderAmendRequest());
+        await ws.Trading.AmendOrdersAsync(new List<Trade.Models.OkxTradeOrderAmendRequest>());
         // End of Trade Updates (Private) ----------------------------------------------------------
 
         // AlgoTrading Updates (Private) -----------------------------------------------------------

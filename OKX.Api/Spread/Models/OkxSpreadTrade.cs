@@ -51,8 +51,8 @@ public class OkxSpreadTrade
     /// <summary>
     /// Order side, buy sell
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
-    public OkxOrderSide OrderSide { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide OrderSide { get; set; }
 
     /// <summary>
     /// Trade state.
@@ -124,8 +124,8 @@ public class OkxSpreadTradeLeg
     /// <summary>
     /// The direction of the leg. Valid value can be buy or sell.
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
-    public OkxOrderSide OrderSide { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide OrderSide { get; set; }
     
     /// <summary>
     /// Fee. Negative number represents the user transaction fee charged by the platform. Positive number represents rebate.

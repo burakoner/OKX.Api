@@ -86,12 +86,12 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         // Common
         string instrumentId,
         OkxTradeMode tradeMode,
-        OkxOrderSide orderSide,
+        OkxTradeOrderSide orderSide,
         OkxAlgoOrderType algoOrderType,
         string currency = null,
-        OkxPositionSide? positionSide = null,
+        OkxTradePositionSide? positionSide = null,
         decimal? size = null,
-        OkxQuantityType? quantityType = null,
+        OkxTradeQuantityType? quantityType = null,
         string clientOrderId = null,
         decimal? closeFraction = null,
 
@@ -131,13 +131,13 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new Dictionary<string, object> {
             {"instId", instrumentId },
             {"tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
-            {"side", JsonConvert.SerializeObject(orderSide, new OkxOrderSideConverter(false)) },
+            {"side", JsonConvert.SerializeObject(orderSide, new OkxTradeOrderSideConverter(false)) },
             {"ordType", JsonConvert.SerializeObject(algoOrderType, new OkxAlgoOrderTypeConverter(false)) },
         };
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxPositionSideConverter(false)));
+        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxTradePositionSideConverter(false)));
         parameters.AddOptionalParameter("sz", size?.ToOkxString());
-        parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new OkxQuantityTypeConverter(false)));
+        parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new OkxTradeQuantityTypeConverter(false)));
         parameters.AddOptionalParameter("algoClOrdId", clientOrderId);
         parameters.AddOptionalParameter("closeFraction", closeFraction?.ToOkxString());
 

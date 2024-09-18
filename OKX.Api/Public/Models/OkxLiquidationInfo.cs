@@ -49,14 +49,14 @@ public class OkxPublicLiquidationInfoDetail
     /// <summary>
     /// Order Side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxOrderSideConverter))]
-    public OkxOrderSide OrderSide { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide OrderSide { get; set; }
 
     /// <summary>
     /// Position Side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxPositionSideConverter))]
-    public OkxPositionSide PositionSide { get; set; }
+    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
     /// Bankruptcy Price

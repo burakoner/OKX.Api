@@ -95,8 +95,8 @@ public class OkxBlockQuote
     /// <summary>
     /// Top level direction of Quote. Its value can be buy or sell.
     /// </summary>
-    [JsonProperty("quoteSide"), JsonConverter(typeof(OkxOrderSideConverter))]
-    public OkxOrderSide QuoteSide { get; set; }
+    [JsonProperty("quoteSide"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide QuoteSide { get; set; }
 
     /// <summary>
     /// The legs of the Quote.
