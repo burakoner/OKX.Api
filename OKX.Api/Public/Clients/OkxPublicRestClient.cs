@@ -749,6 +749,11 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// 2: Convert contract to currency
     /// The defautl is 1</param>
     /// <param name="unit">The unit of currency. coin usds: usdt or usdc, only applicable to USDⓈ-margined contracts from FUTURES/SWAP</param>
+    /// <param name="operationType">Order type
+    /// open: round down sz when opening positions
+    /// close: round sz to the nearest when closing positions
+    /// The default is close
+    /// Applicable to FUTURES SWAP</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxUnitConvert>> GetUnitConvertAsync(
@@ -757,6 +762,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         decimal? price = null,
         OkxConvertType? type = null,
         OkxConvertUnit? unit = null,
+        OkxConvertOperation? operationType = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -765,6 +771,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("sz", size.ToOkxString());
         parameters.AddOptionalParameter("px", price?.ToOkxString());
         parameters.AddOptionalParameter("unit", JsonConvert.SerializeObject(unit, new OkxConvertUnitConverter(false)));
+        parameters.AddOptionalParameter("opType", JsonConvert.SerializeObject(operationType, new OkxConvertOperationConverter(false)));
 
         return ProcessOneRequestAsync<OkxUnitConvert>(GetUri(v5PublicConvertContractCoin), HttpMethod.Get, ct, queryParameters: parameters);
     }

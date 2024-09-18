@@ -15,11 +15,12 @@ public class OkxVipInterestRate
     /// Rate
     /// </summary>
     [JsonProperty("rate")]
-    public decimal? Rate { get; set; }
+    public decimal Rate { get; set; }
 
     /// <summary>
     /// Quota
     /// </summary>
+    [Obsolete]
     [JsonProperty("quota")]
     public decimal? Quota { get; set; }
 
@@ -45,5 +46,5 @@ public class OkxVipInterestRateLevel
     /// Loan Quota
     /// </summary>
     [JsonProperty("loanQuota")]
-    public decimal? LoanQuota { get; set; }
+    public decimal LoanQuota { get; set; }
 }
