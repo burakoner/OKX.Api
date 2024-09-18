@@ -1,5 +1,5 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
+﻿using OKX.Api.Public.Converters;
+using OKX.Api.Public.Enums;
 
 namespace OKX.Api.Public.Models;
 
@@ -43,4 +43,12 @@ public class OkxFundingRateHistory
     /// </summary>
     [JsonIgnore]
     public DateTime FundingTime { get { return FundingTimestamp.ConvertFromMilliseconds(); } }
+    
+    /// <summary>
+    /// Funding rate mechanism
+    /// current_period
+    /// next_period
+    /// </summary>
+    [JsonProperty("method"), JsonConverter(typeof(OkxFundingRateMethodConverter))]
+    public OkxFundingRateMethod Method { get; set; }
 }

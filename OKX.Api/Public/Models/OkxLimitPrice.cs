@@ -1,7 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-
-namespace OKX.Api.Public.Models;
+﻿namespace OKX.Api.Public.Models;
 
 /// <summary>
 /// OKX Limit Price
@@ -43,4 +40,13 @@ public class OkxLimitPrice
     /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+
+    /// <summary>
+    /// Whether price limit is effective
+    /// true: the price limit is effective
+    /// false: the price limit is not effective
+    /// </summary>
+    [JsonProperty("enabled")]
+    public bool Enabled { get; set; }
+
 }
