@@ -302,10 +302,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="algoClientOrderId">Client-supplied Algo ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAlgoOrder>> GetOrderAsync(
-        long? algoOrderId = null,
-        string algoClientOrderId = null,
-        CancellationToken ct = default)
+    public Task<RestCallResult<OkxAlgoOrder>> GetOrderAsync(long? algoOrderId = null, string algoClientOrderId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("algoId", algoOrderId?.ToOkxString());

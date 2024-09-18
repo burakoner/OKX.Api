@@ -34,6 +34,7 @@ public class OkxAlgoOrder
     /// <summary>
     /// Order ID
     /// </summary>
+    [Obsolete]
     [JsonProperty("ordId")]
     public long? OrderId { get; set; }
 
@@ -209,7 +210,7 @@ public class OkxAlgoOrder
     /// Only applicable to iceberg order or twap order
     /// </summary>
     [JsonProperty("pxSpread")]
-    public decimal? PriceRatio { get; set; }
+    public decimal? PriceSpread { get; set; }
 
     /// <summary>
     /// Average amount
@@ -289,6 +290,26 @@ public class OkxAlgoOrder
     public string AlgoClientOrderId { get; set; }
 
     /// <summary>
+    /// Whether to enable Cost-price SL. Only applicable to SL order of split TPs.
+    /// 0: disable, the default value
+    /// 1: Enable
+    /// </summary>
+    [JsonProperty("amendPxOnTriggerType")]
+    public bool AmendPriceOnTriggerType { get; set; }
+
+    /// <summary>
+    /// Attached SL/TP orders info. Applicable to Spot and futures mode/Multi-currency margin/Portfolio margin
+    /// </summary>
+    [JsonProperty("attachAlgoOrds")]
+    public List<OkxAlgoAttachedAlgoOrder> AttachedAlgoOrders { get; set; }
+
+    /// <summary>
+    /// Linked TP order detail, only applicable to SL order that comes from the one-cancels-the-other (OCO) order that contains the TP limit order.
+    /// </summary>
+    [JsonProperty("linkedOrd")]
+    public OkxAlgoLinkedOrder LinkedOrder { get; set; }
+
+    /// <summary>
     /// Creation time Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("cTime")]
@@ -299,5 +320,17 @@ public class OkxAlgoOrder
     /// </summary>
     [JsonIgnore]
     public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+
+    /// <summary>
+    /// Creation time Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// </summary>
+    [JsonProperty("uTime")]
+    public long? UpdateTimestamp { get; set; }
+
+    /// <summary>
+    /// Order updated time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
 
 }
