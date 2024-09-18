@@ -231,7 +231,7 @@ internal class Program
         var grid_16 = await api.Grid.AdjustMarginBalanceAsync(448965992920907776, OkxAccountMarginAddReduce.Add, 10.0m);
         var grid_17 = await api.Grid.GetAIParameterAsync(OkxGridAlgoOrderType.SpotGrid, "BTC-USDT");
         var grid_18 = await api.Grid.ComputeMinimumInvestmentAsync("ETH-USDT", OkxGridAlgoOrderType.SpotGrid, 5000, 3000, 50, OkxGridRunType.Arithmetic);
-        var grid_19 = await api.Grid.RsiBackTestingAsync("BTC-USDT", OkxGridAlgoTimeFrame.ThreeMinutes, 30, 14);
+        var grid_19 = await api.Grid.RsiBacktestAsync("BTC-USDT", OkxGridAlgoTimeFrame.ThreeMinutes, 30, 14);
 
         // TODO: SignalTrading Methods (Signed)
 

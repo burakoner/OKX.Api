@@ -1,4 +1,8 @@
-﻿using OKX.Api.Account.Converters;
+﻿/*
+ * SYNCED @ 2024/09/18
+ */
+
+using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
 using OKX.Api.Grid.Converters;
 using OKX.Api.Grid.Enums;
@@ -603,7 +607,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="duration">	Back testing duration.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridInvestment>> RsiBackTestingAsync(
+    public Task<RestCallResult<OkxGridRsiBacktest>> RsiBacktestAsync(
         string instrumentId,
         OkxGridAlgoTimeFrame timeframe,
         decimal threshold,
@@ -621,7 +625,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("triggerCond", JsonConvert.SerializeObject(triggerCondition, new OkxGridAlgoTriggerConditionConverter(false)));
         parameters.AddOptionalParameter("duration", duration);
 
-        return ProcessOneRequestAsync<OkxGridInvestment>(GetUri(v5TradingBotGridRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridRsiBacktest>(GetUri(v5TradingBotGridRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters);
     }
 
 }
