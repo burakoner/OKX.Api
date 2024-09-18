@@ -26,6 +26,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     private const string v5TradingBotGridWithdrawIncome = "api/v5/tradingBot/grid/withdraw-income";
     private const string v5TradingBotGridComputeMarginBalance = "api/v5/tradingBot/grid/compute-margin-balance";
     private const string v5TradingBotGridMarginBalance = "api/v5/tradingBot/grid/margin-balance";
+    private const string v5TradingBotGridAdjustInvestment = "api/v5/tradingBot/grid/adjust-investment";
     private const string v5TradingBotGridAiParam = "api/v5/tradingBot/grid/ai-param";
     private const string v5TradingBotGridMinInvestment = "api/v5/tradingBot/grid/min-investment";
     private const string v5TradingBotGridRsiBackTesting = "api/v5/tradingBot/grid/rsi-back-testing";
@@ -438,7 +439,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridWithdrawIncome>> GetWithdrawIncomeAsync(
+    public Task<RestCallResult<OkxGridWithdrawIncome>> SpotGridWithdrawIncomeAsync(
         long algoOrderId,
         CancellationToken ct = default)
     {
@@ -481,7 +482,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="percent">Adjust margin balance percentage</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridPlaceOrderResponse>> AdjustMarginBalanceAsync(
+    public Task<RestCallResult<OkxGridMarginOrderResponse>> AdjustMarginBalanceAsync(
         long algoOrderId,
         OkxAccountMarginAddReduce type,
         decimal? quantity = null,
@@ -495,7 +496,24 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("amt", quantity?.ToOkxString());
         parameters.AddOptionalParameter("percent", percent?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri(v5TradingBotGridMarginBalance), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridMarginOrderResponse>(GetUri(v5TradingBotGridMarginBalance), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// It is used to add investment and only applicable to contract gird.
+    /// </summary>
+    /// <param name="algoOrderId">Algo ID</param>
+    /// <param name="amount">The amount is going to be added</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxGridInvestmentAddResponse>> AddInvestmentAsync(long algoOrderId, decimal amount, CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            { "algoId", algoOrderId.ToOkxString() },
+            { "amt", amount.ToOkxString() },
+        };
+
+        return ProcessOneRequestAsync<OkxGridInvestmentAddResponse>(GetUri(v5TradingBotGridAdjustInvestment), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
