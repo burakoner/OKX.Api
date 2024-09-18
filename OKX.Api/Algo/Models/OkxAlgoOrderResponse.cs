@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Order Response
 /// </summary>
-public class OkxAlgoOrderResponse : OkxRestApiErrorResponse
+public class OkxAlgoOrderResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Algo Order ID
@@ -14,6 +14,7 @@ public class OkxAlgoOrderResponse : OkxRestApiErrorResponse
     /// <summary>
     /// Client Order ID as assigned by the client
     /// </summary>
+    [Obsolete]
     [JsonProperty("clOrdId")]
     public string ClientOrderId { get; set; }
 

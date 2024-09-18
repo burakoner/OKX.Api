@@ -75,13 +75,13 @@ internal class Program
         var account_08 = await api.Account.SetPositionModeAsync(OkxPositionMode.LongShortMode);
         var account_09 = await api.Account.GetLeverageAsync("BTC-USD-211008", OkxAccountMarginMode.Isolated);
         var account_10 = await api.Account.SetLeverageAsync(30, null, "BTC-USD-211008", OkxAccountMarginMode.Isolated, OkxPositionSide.Long);
-        var account_11 = await api.Account.GetMaximumAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
+        var account_11 = await api.Account.GetMaximumOrderQuantityAsync("BTC-USDT", OkxTradeMode.Isolated);
         var account_12 = await api.Account.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
         var account_13 = await api.Account.SetMarginAmountAsync("BTC-USDT", OkxPositionSide.Long, OkxAccountMarginAddReduce.Add, 100.0m);
         var account_14 = await api.Account.GetLeverageEstimatedInformationAsync(OkxInstrumentType.Futures, OkxAccountMarginMode.Cross, 10);
         var account_15 = await api.Account.GetMaximumLoanAmountAsync("BTC-USDT", OkxAccountMarginMode.Cross);
-        var account_16 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Spot);
-        var account_17 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Futures);
+        var account_16 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Spot, OkxInstrumentRuleType.Normal);
+        var account_17 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Futures, OkxInstrumentRuleType.Normal);
         var account_18 = await api.Account.GetInterestAccruedAsync();
         var account_19 = await api.Account.GetInterestRateAsync();
         var account_20 = await api.Account.SetGreeksAsync(OkxAccountGreeksType.GreeksInCoins);
@@ -110,8 +110,8 @@ internal class Program
         var account_44 = await api.Account.SetAutoLoanAsync(true);
         var account_45 = await api.Account.SetLevelAsync(OkxAccountLevel.Simple);
         var account_46 = await api.Account.ResetMmpAsync("BTC-USDT");
-        var account_47 = await api.Account.SetMmpConfigurationAsync("BTC-USDT", 5000, 5000, 1);
-        var account_48 = await api.Account.GetMmpConfigurationAsync("BTC-USDT");
+        var account_47 = await api.Account.SetMmpAsync("BTC-USDT", 5000, 5000, 1);
+        var account_48 = await api.Account.GetMmpAsync("BTC-USDT");
 
         // FundingAccount Methods (Signed)
         var funding_01 = await api.Funding.GetCurrenciesAsync();

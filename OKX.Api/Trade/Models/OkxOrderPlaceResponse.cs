@@ -3,7 +3,7 @@
 /// <summary>
 /// Place Order Response
 /// </summary>
-public class OkxOrderPlaceResponse : OkxRestApiErrorResponse
+public class OkxOrderPlaceResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Order Id

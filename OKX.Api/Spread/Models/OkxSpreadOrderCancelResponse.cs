@@ -3,7 +3,7 @@
 /// <summary>
 /// Cancel Order Response
 /// </summary>
-public class OkxSpreadOrderCancelResponse : OkxRestApiErrorResponse
+public class OkxSpreadOrderCancelResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Order Id

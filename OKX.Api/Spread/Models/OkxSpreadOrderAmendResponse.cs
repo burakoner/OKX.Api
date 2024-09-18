@@ -3,7 +3,7 @@
 /// <summary>
 /// Amend Order Response
 /// </summary>
-public class OkxSpreadOrderAmendResponse : OkxRestApiErrorResponse
+public class OkxSpreadOrderAmendResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Order Id

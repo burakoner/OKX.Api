@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Common.Enums;
+﻿namespace OKX.Api.Algo.Enums;
 
 /// <summary>
 /// OKX Algo Price Type

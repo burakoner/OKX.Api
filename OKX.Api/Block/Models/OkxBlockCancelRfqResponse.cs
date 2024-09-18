@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Trading Cancel RFQ Response
 /// </summary>
-public class OkxBlockCancelRfqResponse : OkxRestApiErrorResponse
+public class OkxBlockCancelRfqResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// RFQ ID

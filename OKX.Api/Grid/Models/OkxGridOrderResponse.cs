@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Order Response
 /// </summary>
-public class OkxGridOrderResponse : OkxRestApiErrorResponse
+public class OkxGridOrderResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Algo Client Order Id

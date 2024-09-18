@@ -38,31 +38,31 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="tpTriggerPrice">Take Profit Trigger Price</param>
     /// <param name="tpTriggerPriceType">Take-profit trigger price type</param>
     /// <param name="tpOrderPrice">Take Profit Order Price</param>
+    /// <param name="tpOrderKind">Take Profit Order Kind</param>
     /// <param name="slTriggerPrice">Stop Loss Trigger Price</param>
     /// <param name="slTriggerPriceType">Stop-loss trigger price. If you fill in this parameter, you should fill in the stop-loss order price.</param>
     /// <param name="slOrderPrice">Stop Loss Order Price</param>
-    /// <param name="cxlOnClosePosition">Whether the TP/SL order placed by the user is associated with the corresponding position of the instrument. If it is associated, the TP/SL order will be cancelled when the position is fully closed; if it is not, the TP/SL order will not be affected when the position is fully closed.
+    /// <param name="cancelOnClosePosition">Whether the TP/SL order placed by the user is associated with the corresponding position of the instrument. If it is associated, the TP/SL order will be cancelled when the position is fully closed; if it is not, the TP/SL order will not be affected when the position is fully closed.
     /// Valid values:
     /// true: Place a TP/SL order associated with the position
     /// false: Place a TP/SL order that is not associated with the position
     /// The default value is false. If true is passed in, users must pass reduceOnly = true as well, indicating that when placing a TP/SL order associated with a position, it must be a reduceOnly order.
     /// Only applicable to Single-currency margin and Multi-currency margin.</param>
     /// <param name="reduceOnly">Reduce Only</param>
-    /// <param name="quickMarginType">	Quick Margin type. Only applicable to Quick Margin Mode of isolated margin
     /// manual, auto_borrow, auto_repay
     /// The default value is manual</param>
     /// 
     /// <param name="triggerPrice">Trigger Price</param>
     /// <param name="orderPrice">Order Price</param>
     /// <param name="triggerPriceType">Trigger Price Type</param>
+    /// <param name="attachedAlgoOrders">Attached SL/TP orders info. Applicable to Spot and futures mode/Multi-currency margin/Portfolio margin</param>
     /// 
     /// <param name="callbackRatio">Callback price ratio , e.g. 0.01</param>
     /// <param name="callbackSpread">Callback price variance</param>
     /// <param name="activePrice">Active price</param>
     /// 
-    /// 
     /// <param name="priceVariance">Price Variance</param>
-    /// <param name="priceRatio">Price Ratio</param>
+    /// <param name="priceSpread">Price Spread</param>
     /// <param name="sizeLimit">Size Limit</param>
     /// <param name="priceLimit">Price Limit</param>
     /// 
@@ -95,31 +95,29 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? tpTriggerPrice = null,
         OkxAlgoPriceType? tpTriggerPriceType = null,
         decimal? tpOrderPrice = null,
+        OkxAlgoOrderKind? tpOrderKind = null,
         decimal? slTriggerPrice = null,
         OkxAlgoPriceType? slTriggerPriceType = null,
         decimal? slOrderPrice = null,
-        bool? cxlOnClosePosition = null,
+        bool? cancelOnClosePosition = null,
         bool? reduceOnly = null,
-        OkxQuickMarginType? quickMarginType = null,
 
         // Trigger Order
         decimal? triggerPrice = null,
         decimal? orderPrice = null,
         OkxAlgoPriceType? triggerPriceType = null,
+        IEnumerable<OkxAlgoAttachedAlgoRequest> attachedAlgoOrders = null,
 
         // Trailing Stop Order
         decimal? callbackRatio = null,
         decimal? callbackSpread = null,
         decimal? activePrice = null,
 
-        // Iceberg Order
         // TWAP Order
         OkxPriceVariance? priceVariance = null,
-        decimal? priceRatio = null,
+        decimal? priceSpread = null,
         decimal? sizeLimit = null,
         decimal? priceLimit = null,
-
-        // TWAP Order
         long? timeInterval = null,
 
         // Cancellation Token
@@ -143,35 +141,29 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("tpTriggerPx", tpTriggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(tpTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("tpOrdPx", tpOrderPrice?.ToOkxString());
+        parameters.AddOptionalParameter("tpOrdKind", JsonConvert.SerializeObject(tpOrderKind, new OkxAlgoOrderKindConverter(false)));
         parameters.AddOptionalParameter("slTriggerPx", slTriggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(slTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("slOrdPx", slOrderPrice?.ToOkxString());
-        parameters.AddOptionalParameter("cxlOnClosePos", cxlOnClosePosition);
+        parameters.AddOptionalParameter("cxlOnClosePos", cancelOnClosePosition);
         parameters.AddOptionalParameter("reduceOnly", reduceOnly);
-
-        // Take Profit / Stop Loss
-        // Trigger Order
-        // Trailing Stop Order
-        parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMarginType, new OkxQuickMarginTypeConverter(false)));
 
         // Trigger Order
         parameters.AddOptionalParameter("triggerPx", triggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("orderPx", orderPrice?.ToOkxString());
         parameters.AddOptionalParameter("triggerPxType", JsonConvert.SerializeObject(triggerPriceType, new OkxAlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("attachAlgoOrds", attachedAlgoOrders);
 
         // Trailing Stop Order
         parameters.AddOptionalParameter("callbackRatio", callbackRatio?.ToOkxString());
         parameters.AddOptionalParameter("callbackSpread", callbackSpread?.ToOkxString());
         parameters.AddOptionalParameter("activePx", activePrice?.ToOkxString());
 
-        // Iceberg Order
         // TWAP Order
         parameters.AddOptionalParameter("pxVar", JsonConvert.SerializeObject(priceVariance, new OkxPriceVarianceConverter(false)));
-        parameters.AddOptionalParameter("pxSpread", priceRatio?.ToOkxString());
+        parameters.AddOptionalParameter("pxSpread", priceSpread?.ToOkxString());
         parameters.AddOptionalParameter("szLimit", sizeLimit?.ToOkxString());
         parameters.AddOptionalParameter("pxLimit", priceLimit?.ToOkxString());
-
-        // TWAP Order
         parameters.AddOptionalParameter("timeInterval", timeInterval?.ToOkxString());
 
         // Broker Id

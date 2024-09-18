@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Trading Cancel Quote Response
 /// </summary>
-public class OkxBlockCancelQuoteResponse : OkxRestApiErrorResponse
+public class OkxBlockCancelQuoteResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Quote ID

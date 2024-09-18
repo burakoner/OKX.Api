@@ -4,6 +4,8 @@
 
 using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
+using OKX.Api.Algo.Converters;
+using OKX.Api.Algo.Enums;
 using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.Trade.Converters;
