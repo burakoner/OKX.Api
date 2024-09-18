@@ -215,7 +215,7 @@ internal class Program
                 }
             ]
         );
-        var grid_03 = await api.Grid.AmendOrderAsync(new OkxGridAmendOrderRequest());
+        var grid_03 = await api.Grid.AmendOrderAsync(new OkxGridOrderAmendRequest());
         var grid_04 = await api.Grid.AmendOrderAsync(448965992920907776, "BTC-USDT-SWAP", 1200);
         var grid_05 = await api.Grid.StopOrderAsync(448965992920907776, "BTC-USDT", OkxGridAlgoOrderType.SpotGrid, OkxGridSpotAlgoStopType.SellBaseCurrency);
         var grid_06 = await api.Grid.ClosePositionAsync(448965992920907776, true);

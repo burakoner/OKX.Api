@@ -6,7 +6,7 @@ namespace OKX.Api.Grid.Models;
 /// <summary>
 /// OKX Grid Amend Order Request
 /// </summary>
-public class OkxGridAmendOrderRequest
+public class OkxGridOrderAmendRequest
 {
     /// <summary>
     /// Algo order ID
@@ -33,16 +33,28 @@ public class OkxGridAmendOrderRequest
     public decimal? StopLossTriggerPrice { get; set; }
 
     /// <summary>
+    /// Take profit ratio, 0.1 represents 10%
+    /// </summary>
+    [JsonProperty("takeProfitRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public decimal? TakeProfitRatio { get; set; }
+
+    /// <summary>
+    /// Stop loss ratio, 0.1 represents 10%
+    /// </summary>
+    [JsonProperty("stopLossRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public decimal? StopLossRatio { get; set; }
+    
+    /// <summary>
     /// Trigger parameters
     /// </summary>
     [JsonProperty("triggerParams", NullValueHandling = NullValueHandling.Ignore)]
-    public List<OkxGridAmendTriggerParameters> TriggerParameters { get; set; }
+    public List<OkxGridOrderAmendRequestTriggerParameters> TriggerParameters { get; set; }
 }
 
 /// <summary>
 /// OKX Grid Amend Trigger Parameters
 /// </summary>
-public class OkxGridAmendTriggerParameters
+public class OkxGridOrderAmendRequestTriggerParameters
 {
     /// <summary>
     /// Trigger action

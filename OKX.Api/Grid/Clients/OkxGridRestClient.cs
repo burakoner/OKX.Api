@@ -36,7 +36,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="request">Request Object</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> PlaceOrderAsync(OkxGridPlaceOrderRequest request, CancellationToken ct = default)
+    public Task<RestCallResult<OkxGridPlaceOrderResponse>> PlaceOrderAsync(OkxGridPlaceOrderRequest request, CancellationToken ct = default)
         => PlaceOrderAsync(
         request.InstrumentId,
         request.AlgoOrderType,
@@ -47,6 +47,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         request.TakeProfitTriggerPrice,
         request.StopLossTriggerPrice,
         request.AlgoClientOrderId,
+        request.ProfitSharingRatio,
         request.TriggerParameters,
         request.QuoteSize,
         request.BaseSize,
@@ -54,6 +55,8 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         request.ContractGridDirection,
         request.Leverage,
         request.BasePosition,
+        request.TakeProfitRatio,
+        request.StopLossRatio,
         ct);
 
     /// <summary>
@@ -76,9 +79,11 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="contractGridDirection">Contract grid type</param>
     /// <param name="leverage">Leverage</param>
     /// <param name="basePosition">Whether or not open a position when the strategy activates. Default is false. Neutral contract grid should omit the parameter</param>
+    /// <param name="takeProfitRatio">Take profit ratio, 0.1 represents 10%</param>
+    /// <param name="stopLossRatio">Stop loss ratio, 0.1 represents 10%</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> PlaceOrderAsync(
+    public Task<RestCallResult<OkxGridPlaceOrderResponse>> PlaceOrderAsync(
         string instrumentId,
         OkxGridAlgoOrderType algoOrderType,
         decimal maximumPrice,
@@ -133,7 +138,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         // Broker ID
         parameters.AddOptionalParameter("tag", Options.BrokerId);
 
-        return ProcessOneRequestAsync<OkxGridOrderResponse>(GetUri(v5TradingBotGridOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri(v5TradingBotGridOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -143,12 +148,14 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="request">Request Object</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> AmendOrderAsync(OkxGridAmendOrderRequest request, CancellationToken ct = default)
+    public Task<RestCallResult<OkxGridOrderAmendResponse>> AmendOrderAsync(OkxGridOrderAmendRequest request, CancellationToken ct = default)
         => AmendOrderAsync(
         request.AlgoOrderId,
         request.InstrumentId,
         request.StopLossTriggerPrice,
         request.TakeProfitTriggerPrice,
+        request.TakeProfitRatio,
+        request.StopLossRatio,
         request.TriggerParameters,
         ct);
 
@@ -160,15 +167,19 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
     /// <param name="stopLossTriggerPrice">SL tigger price. Applicable to Spot grid/Contract grid</param>
     /// <param name="takeProfitTriggerPrice">TP tigger price. Applicable to Spot grid/Contract grid</param>
+    /// <param name="takeProfitRatio">Take profit ratio, 0.1 represents 10%, only applicable to contract grid. if it is set "" means take-profit ratio is canceled.</param>
+    /// <param name="stopLossRatio">Stop loss ratio, 0.1 represents 10%, only applicable to contract grid`. if it is set "" means stop-loss ratio is canceled.</param>
     /// <param name="triggerParameters">Trigger Parameters. Applicable to Spot grid/Contract grid</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> AmendOrderAsync(
+    public Task<RestCallResult<OkxGridOrderAmendResponse>> AmendOrderAsync(
         long algoOrderId,
         string instrumentId,
         decimal? stopLossTriggerPrice = null,
         decimal? takeProfitTriggerPrice = null,
-        IEnumerable<OkxGridAmendTriggerParameters> triggerParameters = null,
+        decimal? takeProfitRatio = null,
+        decimal? stopLossRatio = null,
+        IEnumerable<OkxGridOrderAmendRequestTriggerParameters> triggerParameters = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -177,9 +188,11 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddOptionalParameter("slTriggerPx", stopLossTriggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
+        parameters.AddOptionalParameter("tpRatio", takeProfitRatio?.ToOkxString());
+        parameters.AddOptionalParameter("slRatio", stopLossRatio?.ToOkxString());
         parameters.AddOptionalParameter("triggerParams", JsonConvert.SerializeObject(triggerParameters));
 
-        return ProcessOneRequestAsync<OkxGridOrderResponse>(GetUri(v5TradingBotGridAmendOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrderAmendResponse>(GetUri(v5TradingBotGridAmendOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -192,7 +205,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="contractAlgoStopType">Contract Grid Algo Stop Type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> StopOrderAsync(
+    public Task<RestCallResult<OkxGridOrderStopResponse>> StopOrderAsync(
         long algoOrderId,
         string instrumentId,
         OkxGridAlgoOrderType algoOrderType,
@@ -210,7 +223,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         else if (contractAlgoStopType.HasValue)
             parameters.AddOptionalParameter("stopType", JsonConvert.SerializeObject(contractAlgoStopType, new OkxGridContractAlgoStopTypeConverter(false)));
 
-        return ProcessOneRequestAsync<OkxGridOrderResponse>(GetUri(v5TradingBotGridStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrderStopResponse>(GetUri(v5TradingBotGridStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -222,7 +235,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="price">Close position price. If mktClose is false, the parameter is required.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> ClosePositionAsync(
+    public Task<RestCallResult<OkxGridPlaceOrderResponse>> ClosePositionAsync(
         long algoOrderId,
         bool marketClose,
         decimal? size = null,
@@ -236,7 +249,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("sz", size?.ToOkxString());
         parameters.AddOptionalParameter("px", price?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxGridOrderResponse>(GetUri(v5TradingBotGridClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri(v5TradingBotGridClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -246,7 +259,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="orderId">Close position order ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> CancelClosePositionAsync(
+    public Task<RestCallResult<OkxGridPlaceOrderResponse>> CancelClosePositionAsync(
         long algoOrderId,
         long orderId,
         CancellationToken ct = default)
@@ -255,7 +268,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "algoId", algoOrderId.ToOkxString() },
             { "ordId", orderId.ToOkxString() },
         };
-        return ProcessOneRequestAsync<OkxGridOrderResponse>(GetUri(v5TradingBotGridCancelCloseOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri(v5TradingBotGridCancelCloseOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -264,14 +277,14 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> TriggerOrderAsync(
+    public Task<RestCallResult<OkxGridPlaceOrderResponse>> TriggerOrderAsync(
         long algoOrderId,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "algoId", algoOrderId.ToOkxString() },
         };
-        return ProcessOneRequestAsync<OkxGridOrderResponse>(GetUri(v5TradingBotGridOrderInstantTrigger), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri(v5TradingBotGridOrderInstantTrigger), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -468,7 +481,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="percent">Adjust margin balance percentage</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridOrderResponse>> AdjustMarginBalanceAsync(
+    public Task<RestCallResult<OkxGridPlaceOrderResponse>> AdjustMarginBalanceAsync(
         long algoOrderId,
         OkxAccountMarginAddReduce type,
         decimal? quantity = null,
@@ -482,7 +495,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalParameter("amt", quantity?.ToOkxString());
         parameters.AddOptionalParameter("percent", percent?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxGridOrderResponse>(GetUri(v5TradingBotGridMarginBalance), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri(v5TradingBotGridMarginBalance), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
