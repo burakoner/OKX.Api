@@ -6,8 +6,8 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
 
     public OkxAuthenticationProvider(OkxApiCredentials credentials) : base(credentials)
     {
-        if (credentials is null || credentials.Secret is null)
-            throw new ArgumentException("No valid API credentials provided. Key/Secret needed.");
+        if (credentials is null || credentials.Secret is null || credentials.PassPhrase is null)
+            throw new ArgumentException("No valid API credentials provided. Key, Secret and PassPhrase needed.");
 
         encryptor = new HMACSHA256(Encoding.ASCII.GetBytes(credentials.Secret.GetString()));
     }

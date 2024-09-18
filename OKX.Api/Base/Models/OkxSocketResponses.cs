@@ -10,13 +10,7 @@ public class OkxSocketResponse
     /// <summary>
     /// Success
     /// </summary>
-    public bool Success
-    {
-        get
-        {
-            return string.IsNullOrEmpty(ErrorCode) || ErrorCode.Trim() == "0";
-        }
-    }
+    public bool Success => string.IsNullOrEmpty(ErrorCode) || ErrorCode.Trim() == "0";
 
     /// <summary>
     /// Event

@@ -15,5 +15,5 @@ public class OkxRecurringBuyItem
     /// Proportion of recurring currency assets, e.g. "0.2" representing 20%
     /// </summary>
     [JsonProperty("ratio")]
-    public decimal Ratio { get; set; }
+    public string Ratio { get; set; }
 }
