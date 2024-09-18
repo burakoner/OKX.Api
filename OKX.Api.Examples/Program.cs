@@ -180,7 +180,7 @@ internal class Program
                 new()
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Stop,
-                    TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
+                    TriggerStrategy =  OkxGridTriggerStrategy.Price,
                     TriggerPrice = "1000"
                 }
             ]
@@ -200,7 +200,7 @@ internal class Program
                 new ()
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Start,
-                    TriggerStrategy =  OkxGridAlgoTriggerStrategy.Rsi,
+                    TriggerStrategy =  OkxGridTriggerStrategy.Rsi,
                     TimeFrame = OkxGridAlgoTimeFrame.ThirtyMinutes,
                     Threshold = "10",
                     TriggerCondition = OkxGridAlgoTriggerCondition.Cross,
@@ -209,7 +209,7 @@ internal class Program
                 new ()
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Stop,
-                    TriggerStrategy =  OkxGridAlgoTriggerStrategy.Price,
+                    TriggerStrategy =  OkxGridTriggerStrategy.Price,
                     TriggerPrice = "1000",
                     ContractAlgoStopType = OkxGridContractAlgoStopType.KeepPositions,
                 }

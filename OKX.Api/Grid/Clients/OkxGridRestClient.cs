@@ -551,9 +551,11 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="minimumPrice">	Lower price of price range</param>
     /// <param name="gridNumber">Grid quantity</param>
     /// <param name="gridRunType">Grid type</param>
-    /// <param name="contractGridDirection">Contract grid type. Only applicable to contract grid</param>
+    /// <param name="direction">Contract grid type. Only applicable to contract grid</param>
     /// <param name="leverage">Leverage. Only applicable to contract grid</param>
     /// <param name="basePosition">	Whether or not open a position when the strategy activates. Default is false. Neutral contract grid should omit the parameter. Only applicable to contract grid</param>
+    /// <param name="investmentType">Investment type</param>
+    /// <param name="triggerStrategy">Trigger stragety</param>
     /// <param name="investmentData">Invest Data</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -564,9 +566,11 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal minimumPrice,
         decimal gridNumber,
         OkxGridRunType? gridRunType,
-        OkxGridContractDirection? contractGridDirection = null,
+        OkxGridContractDirection? direction = null,
         decimal? leverage = null,
         bool? basePosition = null,
+        OkxGridInvestmentType? investmentType = null,
+        OkxGridTriggerStrategy? triggerStrategy = null,
         IEnumerable<OkxGridInvestmentData> investmentData = null,
         CancellationToken ct = default)
     {
@@ -578,9 +582,11 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "gridNum", gridNumber.ToOkxString() },
             { "runType", JsonConvert.SerializeObject(gridRunType, new OkxGridRunTypeConverter(false)) },
         };
-        parameters.AddOptionalParameter("direction", JsonConvert.SerializeObject(contractGridDirection, new OkxGridContractDirectionConverter(false)));
+        parameters.AddOptionalParameter("direction", JsonConvert.SerializeObject(direction, new OkxGridContractDirectionConverter(false)));
         parameters.AddOptionalParameter("lever", leverage?.ToOkxString());
         parameters.AddOptionalParameter("basePos", basePosition);
+        parameters.AddOptionalParameter("investmentType", JsonConvert.SerializeObject(investmentType, new OkxGridInvestmentTypeConverter(false)));
+        parameters.AddOptionalParameter("triggerStrategy", JsonConvert.SerializeObject(triggerStrategy, new OkxGridTriggerStrategyConverter(false)));
         parameters.AddOptionalParameter("investmentData", JsonConvert.SerializeObject(investmentData));
 
         return ProcessOneRequestAsync<OkxGridInvestment>(GetUri(v5TradingBotGridMinInvestment), HttpMethod.Post, ct, signed: false, bodyParameters: parameters);

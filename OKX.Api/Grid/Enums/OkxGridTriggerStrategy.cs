@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Algo Trigger Strategy
 /// </summary>
-public enum OkxGridAlgoTriggerStrategy
+public enum OkxGridTriggerStrategy
 {
     /// <summary>
     /// Instant

@@ -17,8 +17,8 @@ public class OkxGridTriggerParametersRequest
     /// <summary>
     /// Trigger Strategy
     /// </summary>
-    [JsonProperty("triggerStrategy"), JsonConverter(typeof(OkxGridAlgoTriggerStrategyConverter))]
-    public OkxGridAlgoTriggerStrategy TriggerStrategy { get; set; }
+    [JsonProperty("triggerStrategy"), JsonConverter(typeof(OkxGridTriggerStrategyConverter))]
+    public OkxGridTriggerStrategy TriggerStrategy { get; set; }
 
     /// <summary>
     /// Delay Seconds
