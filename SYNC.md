@@ -7,7 +7,7 @@ RecurringBuy @ 2024/09/18
 CopyTrading  @ 2024/09/19
 Public       @ 2024/09/18
 Block        @ 2024/08/09
-Spread
+Spread       @ 2024/09/19
 Rubik
 Funding
 SubAccount

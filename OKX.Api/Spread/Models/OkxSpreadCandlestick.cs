@@ -6,12 +6,6 @@
 [JsonConverter(typeof(ArrayConverter))]
 public class OkxSpreadCandlestick
 {
-    // ///<summary>
-    // ///Instrument ID
-    // ///</summary>
-    //[JsonIgnore]
-    //public string InstrumentId { get; set; }
-
     /// <summary>
     /// Timestamp
     /// </summary>

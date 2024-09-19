@@ -23,22 +23,22 @@ public class OkxRestApiClient
     /// <summary>
     /// Trading Account Client
     /// </summary>
-    public OkxAccountRestClient Account { get; } // OK
+    public OkxAccountRestClient Account { get; }
 
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradeRestClient Trading { get; } // OK
+    public OkxTradeRestClient Trading { get; }
 
     /// <summary>
     /// Algo Trading Client
     /// </summary>
-    public OkxAlgoRestClient Algo { get; } // OK
+    public OkxAlgoRestClient Algo { get; }
 
     /// <summary>
     /// Grid Trading Client
     /// </summary>
-    public OkxGridRestClient Grid { get; } // OK
+    public OkxGridRestClient Grid { get; }
 
     /// <summary>
     /// Signal Trading Client
@@ -48,7 +48,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Recurring Buy Client
     /// </summary>
-    public OkxRecurringBuyRestClient RecurringBuy { get; } // OK
+    public OkxRecurringBuyRestClient RecurringBuy { get; }
 
     /// <summary>
     /// Copy Trading Client
@@ -58,7 +58,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Alias for Public Client
     /// </summary>
-    public OkxPublicRestClient Market { get => Public; } // OK
+    public OkxPublicRestClient Market { get => Public; }
 
     /// <summary>
     /// Block Trading Client
@@ -73,7 +73,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Public and Market Data Client
     /// </summary>
-    public OkxPublicRestClient Public { get; } // OK
+    public OkxPublicRestClient Public { get; }
 
     /// <summary>
     /// Trading Statistics Client
