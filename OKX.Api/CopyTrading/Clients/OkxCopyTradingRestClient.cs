@@ -8,6 +8,7 @@ using OKX.Api.CopyTrading.Enums;
 using OKX.Api.CopyTrading.Models;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
+using System.Diagnostics.Metrics;
 
 namespace OKX.Api.CopyTrading.Clients;
 
@@ -245,18 +246,21 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// The leading trader gets all profits shared details since joining the platform.
     /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
     /// <param name="after">Pagination of data to return records earlier than the requested profitSharingId</param>
     /// <param name="before">Pagination of data to return records newer than the requested profitSharingId</param>
     /// <param name="limit">Number of results per request. Maximum is 100. Default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxCopyTradingProfitSharingDetails>>> GetProfitSharingDetailsAsync(
+        OkxInstrumentType? instrumentType = null,
         long? after = null,
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
@@ -267,26 +271,42 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// The leading trader gets the total amount of profit shared since joining the platform.
     /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingProfitSharingTotal>>> GetProfitSharingTotalAsync(
+    public Task<RestCallResult<List<OkxCopyTradingProfitSharingTotal>>> GetTotalProfitSharingAsync(
+        OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxCopyTradingProfitSharingTotal>(GetUri(v5CopyTradingTotalProfitSharing), HttpMethod.Get, ct, signed: true);
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+
+        return ProcessListRequestAsync<OkxCopyTradingProfitSharingTotal>(GetUri(v5CopyTradingTotalProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters:parameters);
     }
 
     /// <summary>
     /// The leading trader gets the profit sharing details that are expected to be shared in the next settlement cycle.
     /// The unrealized profit sharing details will update once there copy position is closed.
     /// </summary>
-    /// <param name="ct"></param>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxCopyTradingProfitSharingUnrealized>>> GetUnrealizedProfitSharingDetailsAsync(
+        OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxCopyTradingProfitSharingUnrealized>(GetUri(v5CopyTradingUnrealizedProfitSharingDetails), HttpMethod.Get, ct, signed: true);
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+
+        return ProcessListRequestAsync<OkxCopyTradingProfitSharingUnrealized>(GetUri(v5CopyTradingUnrealizedProfitSharingDetails), HttpMethod.Get, ct, signed: true, queryParameters:parameters);
     }
 
+    /// <summary>
+    /// The leading trader gets the total unrealized amount of profit shared.
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingProfitSharingTotalUnrealized>> GetTotalUnrealizedProfitSharingAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -294,6 +314,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
 
         return ProcessOneRequestAsync<OkxCopyTradingProfitSharingTotalUnrealized>(GetUri(v5CopyTradingTotalUnrealizedProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
+
+    //--------------------------------
 
     public Task<RestCallResult<OkxBooleanResponse>> ApplyForLeadTradingAsync(
         IEnumerable<string> instrumentIds,

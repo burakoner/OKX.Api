@@ -28,6 +28,18 @@ public class OkxCopyTradingProfitSharingDetails
     /// </summary>
     [JsonProperty("profitSharingId")]
     public long ProfitSharingId { get; set; }
+    
+    /// <summary>
+    /// Instrument type
+    /// </summary>
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    public OkxInstrumentType InstrumentType { get; set; }
+
+    /// <summary>
+    /// Portrait link
+    /// </summary>
+    [JsonProperty("portLink")]
+    public string PortraitLink { get; set; }
 
     /// <summary>
     /// Profit sharing time.

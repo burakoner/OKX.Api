@@ -6,12 +6,6 @@
 public class OkxCopyTradingProfitSharingTotalUnrealized
 {
     /// <summary>
-    /// Total unrealized profit sharing amount
-    /// </summary>
-    [JsonProperty("totalUnrealizedProfitSharingAmt")]
-    public decimal TotalUnrealizedProfitSharingAmt { get; set; }
-
-    /// <summary>
     /// The settlement time for the total unrealized profit sharing amount. Unix timestamp format in milliseconds, e.g.1597026383085
     /// </summary>
     [JsonProperty("profitSharingTs")]
@@ -22,4 +16,10 @@ public class OkxCopyTradingProfitSharingTotalUnrealized
     /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    
+    /// <summary>
+    /// Total unrealized profit sharing amount
+    /// </summary>
+    [JsonProperty("totalUnrealizedProfitSharingAmt")]
+    public decimal TotalUnrealizedProfitSharingAmt { get; set; }
 }

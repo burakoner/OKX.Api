@@ -16,4 +16,10 @@ public class OkxCopyTradingProfitSharingTotal
     /// </summary>
     [JsonProperty("totalProfitSharingAmt")]
     public decimal TotalProfitSharingAmount { get; set; }
+    
+    /// <summary>
+    /// Instrument type
+    /// </summary>
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    public OkxInstrumentType InstrumentType { get; set; }
 }

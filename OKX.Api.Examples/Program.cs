@@ -292,7 +292,7 @@ internal class Program
         var copy_05 = await api.CopyTrading.GetLeadingInstrumentsAsync();
         var copy_06 = await api.CopyTrading.SetLeadingInstrumentsAsync(["BTC-USDT", "ETH-USDT"]);
         var copy_07 = await api.CopyTrading.GetProfitSharingDetailsAsync();
-        var copy_08 = await api.CopyTrading.GetProfitSharingTotalAsync();
+        var copy_08 = await api.CopyTrading.GetTotalProfitSharingAsync();
         var copy_09 = await api.CopyTrading.GetUnrealizedProfitSharingDetailsAsync();
         var copy_10 = await api.CopyTrading.GetTotalUnrealizedProfitSharingAsync();
         var copy_11 = await api.CopyTrading.ApplyForLeadTradingAsync([]);
