@@ -280,7 +280,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
-        return ProcessListRequestAsync<OkxCopyTradingProfitSharingTotal>(GetUri(v5CopyTradingTotalProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters:parameters);
+        return ProcessListRequestAsync<OkxCopyTradingProfitSharingTotal>(GetUri(v5CopyTradingTotalProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -297,7 +297,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
-        return ProcessListRequestAsync<OkxCopyTradingProfitSharingUnrealized>(GetUri(v5CopyTradingUnrealizedProfitSharingDetails), HttpMethod.Get, ct, signed: true, queryParameters:parameters);
+        return ProcessListRequestAsync<OkxCopyTradingProfitSharingUnrealized>(GetUri(v5CopyTradingUnrealizedProfitSharingDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -507,7 +507,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        if(instrumentType.IsNotIn(OkxInstrumentType.Swap))
+        if (instrumentType.IsNotIn(OkxInstrumentType.Swap))
             throw new ArgumentException("Instrument type must be Swap", nameof(instrumentType));
 
         var parameters = new Dictionary<string, object>
@@ -563,9 +563,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
             throw new ArgumentException("instrumentIds is required");
 
         var parameters = new Dictionary<string, object> {
-            {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
-            {"uniqueCode", uniqueCode },
-            {"instId", instrumentIds },
+            { "mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
+            { "uniqueCode", uniqueCode },
+            { "instId", instrumentIds },
         };
 
         return ProcessOneRequestAsync<OkxCopyTradingMultipleLeverage>(GetUri(v5CopyTradingBatchLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
@@ -656,6 +656,12 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return SetMultipleLeverageAsync(marginMode, leverage, instrumentIds, ct);
     }
 
+    /// <summary>
+    /// Retrieve my lead traders.
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxCopyTradingLeadTrader>>> GetMyLeadTradersAsync(
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
@@ -666,7 +672,16 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessListRequestAsync<OkxCopyTradingLeadTrader>(GetUri(v5CopyTradingCurrentLeadTraders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxCopyTradingLeadTrader>>> GetMyLeadTradersHistoryAsync(
+    /// <summary>
+    /// Retrieve my history lead traders.
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested copyRelId.</param>
+    /// <param name="before">Pagination of data to return records newer than the requested copyRelId.</param>
+    /// <param name="limit">Number of results per request. Maximum is 100. Default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxCopyTradingLeadTraderHistory>>> GetMyLeadTradersHistoryAsync(
         OkxInstrumentType? instrumentType = null,
         long? after = null,
         long? before = null,
@@ -674,13 +689,14 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTrader>(GetUri(v5CopyTradingLeadTradersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTraderHistory>(GetUri(v5CopyTradingLeadTradersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     public Task<RestCallResult<OkxCopyTradingPublicConfiguration>> GetPublicConfigurationAsync(

@@ -4,9 +4,9 @@ using OKX.Api.CopyTrading.Enums;
 namespace OKX.Api.CopyTrading.Models;
 
 /// <summary>
-/// OKX Copy Trading Lead Trader
+/// OKX Copy Trading Lead Trader History
 /// </summary>
-public class OkxCopyTradingLeadTrader
+public class OkxCopyTradingLeadTraderHistory
 {
     /// <summary>
     /// Portrait link
@@ -19,12 +19,18 @@ public class OkxCopyTradingLeadTrader
     /// </summary>
     [JsonProperty("nickName")]
     public string NickName { get; set; }
+    
+    /// <summary>
+    /// Lead trader unique code
+    /// </summary>
+    [JsonProperty("uniqueCode")]
+    public string UniqueCode { get; set; }
 
     /// <summary>
-    /// Margin for copy trading
+    /// Number of times to copy order
     /// </summary>
-    [JsonProperty("margin")]
-    public decimal Margin { get; set; }
+    [JsonProperty("copyNum")]
+    public string CopyNumber { get; set; }
 
     /// <summary>
     /// Copy total amount
@@ -39,17 +45,29 @@ public class OkxCopyTradingLeadTrader
     public decimal CopyTotalPnl { get; set; }
 
     /// <summary>
-    /// Lead trader unique code
+    /// Copy amount per order in USDT
     /// </summary>
-    [JsonProperty("uniqueCode")]
-    public string UniqueCode { get; set; }
+    [JsonProperty("copyAmt")]
+    public decimal CopyAmount { get; set; }
+    
+    /// <summary>
+    /// Copy mode
+    /// </summary>
+    [JsonProperty("copyMode"), JsonConverter(typeof(OkxCopyTradingCopyModeConverter))]
+    public OkxCopyTradingCopyMode CopyMode { get; set; }
+    
+    /// <summary>
+    /// Copy ratio per order
+    /// </summary>
+    [JsonProperty("copyRatio")]
+    public decimal CopyRatio { get; set; }
 
     /// <summary>
     /// margin currency
     /// </summary>
     [JsonProperty("ccy")]
     public string Currency { get; set; }
-
+    
     /// <summary>
     /// Profit sharing ratio. 0.1 represents 10%
     /// </summary>
@@ -69,17 +87,29 @@ public class OkxCopyTradingLeadTrader
     public DateTime BeginTime { get { return BeginTimestamp.ConvertFromMilliseconds(); } }
         
     /// <summary>
-    /// Unrealized profit &amp; loss
+    /// Stop copying time. Unix timestamp format in milliseconds, e.g.1597026383085
     /// </summary>
-    [JsonProperty("upl")]
-    public decimal UnrealizedProfitLoss { get; set; }
+    [JsonProperty("endCopyTime")]
+    public long? EndTimestamp { get; set; }
 
     /// <summary>
-    /// Today pnl
+    /// Begin copying time.
     /// </summary>
-    [JsonProperty("todayPnl")]
-    public decimal TodayProfitLoss { get; set; }
-
+    [JsonIgnore]
+    public DateTime? EndTime { get { return EndTimestamp?.ConvertFromMilliseconds(); } }
+    
+    /// <summary>
+    /// Copy relation ID
+    /// </summary>
+    [JsonProperty("copyRelId")]
+    public long CopyRelationId { get; set; }
+    
+    /// <summary>
+    /// Current copy state
+    /// </summary>
+    [JsonProperty("copyState"), JsonConverter(typeof(OkxCopyTradingStateConverter))]
+    public OkxCopyTradingState CopyState { get; set; }
+    
     /// <summary>
     /// Lead mode public private
     /// </summary>

@@ -3,7 +3,7 @@ using OKX.Api.Account.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 
-namespace OKX.Api.Account.Models;
+namespace OKX.Api.CopyTrading.Models;
 
 /// <summary>
 /// OkxMultipleLeverage
@@ -26,19 +26,19 @@ public class OkxCopyTradingMultipleLeverage
     /// Lead trader leverages
     /// </summary>
     [JsonProperty("leadTraderLevers")]
-    public List<LeverageData> LeadTraderLeverages { get; set; }
+    public List<OkxCopyTradingLeverageData> LeadTraderLeverages { get; set; }
 
     /// <summary>
     /// My leverages
     /// </summary>
     [JsonProperty("myLevers")]
-    public List<LeverageData> MyLeverages { get; set; }
+    public List<OkxCopyTradingLeverageData> MyLeverages { get; set; }
 }
 
 /// <summary>
 /// LeverageData
 /// </summary>
-public class LeverageData()
+public class OkxCopyTradingLeverageData()
 {
     /// <summary>
     /// Leverage
