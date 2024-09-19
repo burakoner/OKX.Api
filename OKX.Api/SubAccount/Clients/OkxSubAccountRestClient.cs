@@ -222,7 +222,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     }
 
     /// <summary>
-    /// applies to master accounts only
+    /// Applies to master accounts only
     /// </summary>
     /// <param name="currency">Currency</param>
     /// <param name="amount">Amount</param>
@@ -230,8 +230,8 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <param name="toAccount">6:Funding Account 18:Unified Account</param>
     /// <param name="fromSubAccountName">Sub-account name of the account that transfers funds out.</param>
     /// <param name="toSubAccountName">Sub-account name of the account that transfers funds in.</param>
-    /// <param name="loanTrans">Whether or not borrowed coins can be transferred out under Multi-currency margin and Portfolio margin. the default is false</param>
-    /// <param name="omitPosRisk">Ignore position risk. Default is false. Applicable to Portfolio margin</param>
+    /// <param name="loanTransfer">Whether or not borrowed coins can be transferred out under Multi-currency margin and Portfolio margin. the default is false</param>
+    /// <param name="omitPositionRisk">Ignore position risk. Default is false. Applicable to Portfolio margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxSubAccountTransfer>> TransferBetweenSubAccountsAsync(
@@ -241,8 +241,8 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         OkxAccount toAccount,
         string fromSubAccountName,
         string toSubAccountName,
-        bool? loanTrans = null,
-        bool? omitPosRisk = null,
+        bool? loanTransfer = null,
+        bool? omitPositionRisk = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -254,12 +254,21 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
             {"fromSubAccount", fromSubAccountName },
             {"toSubAccount", toSubAccountName },
         };
-        parameters.AddOptionalParameter("loanTrans", loanTrans);
-        parameters.AddOptionalParameter("omitPosRisk", omitPosRisk);
+        parameters.AddOptionalParameter("loanTrans", loanTransfer);
+        parameters.AddOptionalParameter("omitPosRisk", omitPositionRisk);
 
         return ProcessOneRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
+    /// <summary>
+    /// Set permission of transfer out for sub-account (only applicable to master account API key). Sub-account can transfer out to master account by default.
+    /// </summary>
+    /// <param name="subAccountName">Name of the sub-account. Single sub-account or multiple sub-account (no more than 20) separated with comma.</param>
+    /// <param name="canTransferOut">Whether the sub-account has the right to transfer out. The default is true.
+    /// false: cannot transfer out
+    /// true: can transfer out</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxSubAccountPermissionOfTransferOut>>> SetPermissionOfTransferOutAsync(
         string subAccountName,
         bool canTransferOut,
@@ -272,7 +281,13 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         return ProcessListRequestAsync<OkxSubAccountPermissionOfTransferOut>(GetUri(v5UsersSubaccountSetTransferOut), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxSubAccountName>>> GetEntrustSubAccountsAsync(string subAccountName, CancellationToken ct = default)
+    /// <summary>
+    /// The trading team uses this interface to view the list of sub-accounts currently under escrow
+    /// </summary>
+    /// <param name="subAccountName">Sub-account name</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxSubAccountName>>> GetCustodySubAccountsAsync(string subAccountName, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("subAcct", subAccountName);
@@ -280,6 +295,13 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         return ProcessListRequestAsync<OkxSubAccountName>(GetUri(v5UsersEntrustSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     
+    /// <summary>
+    /// Set the VIP loan allocation of sub-accounts. Only Applicable to master account API keys with Trade access.
+    /// </summary>
+    /// <param name="enable">true or false</param>
+    /// <param name="allocations">If enable = false, this will not be validated</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxBooleanResponse>> SetLoanAllocationAsync(
         bool enable,
         IEnumerable<OkxSubAccountLoanAllocation> allocations = null,
@@ -294,6 +316,13 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5AccountSubaccountSetLoanAllocation), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
+    /// <summary>
+    /// Only applicable to master account API keys. Only return VIP loan information
+    /// </summary>
+    /// <param name="subAccountName">Name of the sub-account. Can only put 1 sub account.</param>
+    /// <param name="currency">Loan currency, e.g. BTC</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxSubAccountInterestLimits>> GetInterestLimitsAsync(string subAccountName, string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
