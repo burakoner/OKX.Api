@@ -21,11 +21,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AssetTransfer = "api/v5/asset/transfer";
     private const string v5AssetTransferState = "api/v5/asset/transfer-state";
     private const string v5AssetBills = "api/v5/asset/bills";
-    private const string v5AssetDepositLightning = "api/v5/asset/deposit-lightning";
     private const string v5AssetDepositAddress = "api/v5/asset/deposit-address";
     private const string v5AssetDepositHistory = "api/v5/asset/deposit-history";
     private const string v5AssetWithdrawal = "api/v5/asset/withdrawal";
-    private const string v5AssetWithdrawalLightning = "api/v5/asset/withdrawal-lightning";
     private const string v5AssetWithdrawalCancel = "api/v5/asset/cancel-withdrawal";
     private const string v5AssetWithdrawalHistory = "api/v5/asset/withdrawal-history";
     private const string v5AssetDepositWithdrawStatus = "api/v5/asset/deposit-withdraw-status";
@@ -106,9 +104,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxFundingTransferResponse>> FundTransferAsync(
+        OkxFundingTransferType type,
         string currency,
         decimal amount,
-        OkxFundingTransferType type,
         OkxAccount fromAccount,
         OkxAccount toAccount,
         string subAccountName = null,
@@ -118,11 +116,11 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
+            { "type", JsonConvert.SerializeObject(type, new OkxFundingTransferTypeConverter(false)) },
             { "ccy",currency},
             { "amt",amount.ToOkxString()},
             { "from", JsonConvert.SerializeObject(fromAccount, new OkxAccountConverter(false)) },
             { "to", JsonConvert.SerializeObject(toAccount, new OkxAccountConverter(false)) },
-            { "type", JsonConvert.SerializeObject(type, new OkxFundingTransferTypeConverter(false)) },
         };
         parameters.AddOptionalParameter("subAcct", subAccountName);
         parameters.AddOptionalParameter("loanTrans", loanTransfer);
@@ -177,37 +175,13 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("clientId", clientOrderId);
         parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxFundingBillTypeConverter(false)));
+        parameters.AddOptionalParameter("clientId", clientOrderId);
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingBill>(GetUri(v5AssetBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Users can create up to 10,000 different invoices within 24 hours.
-    /// </summary>
-    /// <param name="currency">Currency</param>
-    /// <param name="amount">deposit amount between 0.000001 - 0.1</param>
-    /// <param name="account">Receiving account</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingLightningDeposit>>> GetLightningDepositsAsync(
-        string currency,
-        decimal amount,
-        OkxLightningDepositAccount? account = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new Dictionary<string, object>
-        {
-            { "ccy", currency },
-            { "amt", amount.ToOkxString() },
-        };
-        parameters.AddOptionalParameter("to", JsonConvert.SerializeObject(account, new OkxLightningDepositAccountConverter(false)));
-
-        return ProcessListRequestAsync<OkxFundingLightningDeposit>(GetUri(v5AssetDepositLightning), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -276,6 +250,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="fee">Transaction fee</param>
     /// <param name="chain">Chain name. There are multiple chains under some currencies, such as USDT has USDT-ERC20, USDT-TRC20, and USDT-Omni. If this parameter is not filled in because it is not available, it will default to the main chain.</param>
     /// <param name="areaCode">Area code for the phone number. If toAddr is a phone number, this parameter is required.</param>
+    /// <param name="receiverInfo">Recipient information. For the specific entity users to do on-chain withdrawal/lightning withdrawal, this information is required.</param>
     /// <param name="clientOrderId">Client-supplied ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -287,6 +262,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         decimal fee,
         string chain = null,
         string areaCode = null,
+        OkxFundingWithdrawalReceiver receiverInfo = null,
         string clientOrderId = null,
         CancellationToken ct = default)
     {
@@ -299,6 +275,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
         parameters.AddOptionalParameter("chain", chain);
         parameters.AddOptionalParameter("areaCode", areaCode);
+        parameters.AddOptionalParameter("rcvrInfo", receiverInfo);
         parameters.AddOptionalParameter("clientId", clientOrderId);
 
         return ProcessOneRequestAsync<OkxFundingWithdrawalResponse>(GetUri(v5AssetWithdrawal), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);

@@ -12,7 +12,7 @@ public class OkxFundingBill
     /// Bill ID
     /// </summary>
     [JsonProperty("billId")]
-    public long? BillId { get; set; }
+    public long BillId { get; set; }
 
     /// <summary>
     /// Currency
@@ -25,18 +25,18 @@ public class OkxFundingBill
     /// </summary>
     [JsonProperty("clientId")]
     public string ClientOrderId { get; set; }
+    
+    /// <summary>
+    /// Balance Change
+    /// </summary>
+    [JsonProperty("balChg")]
+    public decimal BalanceChange { get; set; }
 
     /// <summary>
     /// Balance
     /// </summary>
     [JsonProperty("bal")]
-    public decimal? Balance { get; set; }
-
-    /// <summary>
-    /// Balance Change
-    /// </summary>
-    [JsonProperty("balChg")]
-    public decimal? BalanceChange { get; set; }
+    public decimal Balance { get; set; }
 
     /// <summary>
     /// Type

@@ -12,12 +12,6 @@ public class OkxFundingBalance
     public string Currency { get; set; }
 
     /// <summary>
-    /// Available
-    /// </summary>
-    [JsonProperty("availBal")]
-    public decimal Available { get; set; }
-
-    /// <summary>
     /// Balance
     /// </summary>
     [JsonProperty("bal")]
@@ -28,4 +22,10 @@ public class OkxFundingBalance
     /// </summary>
     [JsonProperty("frozenBal")]
     public decimal Frozen { get; set; }
+
+    /// <summary>
+    /// Available
+    /// </summary>
+    [JsonProperty("availBal")]
+    public decimal Available { get; set; }
 }

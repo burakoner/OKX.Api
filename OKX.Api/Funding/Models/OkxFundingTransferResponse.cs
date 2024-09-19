@@ -9,17 +9,11 @@ namespace OKX.Api.Funding.Models;
 public class OkxFundingTransferResponse
 {
     /// <summary>
-    /// Currency
-    /// </summary>
-    [JsonProperty("ccy")]
-    public string Currency { get; set; }
-
-    /// <summary>
     /// Transfer Id
     /// </summary>
     [JsonProperty("transId")]
     public long TransferId { get; set; }
-
+    
     /// <summary>
     /// Client Order Id
     /// </summary>
@@ -27,16 +21,22 @@ public class OkxFundingTransferResponse
     public string ClientOrderId { get; set; }
 
     /// <summary>
-    /// Amount
+    /// Currency
     /// </summary>
-    [JsonProperty("amt")]
-    public decimal Amount { get; set; }
+    [JsonProperty("ccy")]
+    public string Currency { get; set; }
 
     /// <summary>
     /// Remitting Account
     /// </summary>
     [JsonProperty("from"), JsonConverter(typeof(OkxAccountConverter))]
     public OkxAccount RemittingAccount { get; set; }
+    
+    /// <summary>
+    /// Amount
+    /// </summary>
+    [JsonProperty("amt")]
+    public decimal Amount { get; set; }
 
     /// <summary>
     /// Beneficiary Account
