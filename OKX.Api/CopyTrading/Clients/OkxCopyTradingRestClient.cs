@@ -6,6 +6,8 @@ using OKX.Api.Algo.Enums;
 using OKX.Api.CopyTrading.Converters;
 using OKX.Api.CopyTrading.Enums;
 using OKX.Api.CopyTrading.Models;
+using OKX.Api.Trade.Converters;
+using OKX.Api.Trade.Enums;
 
 namespace OKX.Api.CopyTrading.Clients;
 
@@ -62,7 +64,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
     /// <param name="uniqueCode">Unique code, only applicable to copy trading. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="subPositionType">Data type.</param>
+    /// <param name="positionType">Data type.</param>
     /// <param name="after">Pagination of data to return records earlier than the requested subPosId.</param>
     /// <param name="before">Pagination of data to return records newer than the requested subPosId.</param>
     /// <param name="limit">Number of results per request. Maximum is 500. Default is 500.</param>
@@ -72,7 +74,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
         string uniqueCode = null,
-        OkxCopyTradingSubPositionType? subPositionType = null,
+        OkxCopyTradingPositionType? positionType = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -82,7 +84,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(subPositionType, new OkxCopyTradingSubPositionTypeConverter(false)));
+        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
@@ -96,7 +98,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// </summary>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
-    /// <param name="subPositionType">Data type.</param>
+    /// <param name="positionType">Data type.</param>
     /// <param name="after">Pagination of data to return records earlier than the requested subPosId.</param>
     /// <param name="before">Pagination of data to return records newer than the requested subPosId.</param>
     /// <param name="limit">Number of results per request. Maximum is 100. Default is 100.</param>
@@ -105,7 +107,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     public Task<RestCallResult<List<OkxCopyTradingLeadingPositionHistory>>> GetLeadingPositionsHistoryAsync(
         OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
-        OkxCopyTradingSubPositionType? subPositionType = null,
+        OkxCopyTradingPositionType? positionType = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -115,7 +117,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(subPositionType, new OkxCopyTradingSubPositionTypeConverter(false)));
+        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
@@ -134,7 +136,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="stopLossTriggerPrice">Stop-loss order price. If the price is -1, stop-loss will be executed at the market price, the default is -1. Only applicable to SPOT lead trader</param>
     /// <param name="stopLossTriggerPriceType">Stop-loss trigger price type. Default is last</param>
     /// <param name="stopLossOrderPrice">Stop-loss trigger price. Stop-loss order price will be the market price after triggering.</param>
-    /// <param name="subPositionType">Data type.</param>
+    /// <param name="positionType">Data type.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingPositionId>> PlaceLeadingStopOrderAsync(
@@ -149,7 +151,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxAlgoPriceType? stopLossTriggerPriceType = null,
         decimal? stopLossOrderPrice = null,
 
-        OkxCopyTradingSubPositionType? subPositionType = null,
+        OkxCopyTradingPositionType? positionType = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -163,7 +165,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalParameter("slOrdPx", stopLossOrderPrice?.ToOkxString());
         parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(takeProfitTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(stopLossTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(subPositionType, new OkxCopyTradingSubPositionTypeConverter(false)));
+        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -173,16 +175,31 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// It is required to pass subPosId which can get from Get existing leading positions.
     /// </summary>
     /// <param name="positionId">Leading position ID</param>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="positionType">Data type.</param>
+    /// <param name="orderType">Order type</param>
+    /// <param name="price">Order price. Only applicable to limit order and SPOT lead trader. If the price is 0, the pending order will be canceled. It is modifying order if you set px after placing limit order.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingPositionId>> CloseLeadingPositionAsync(
         long positionId,
+        OkxInstrumentType? instrumentType = null,
+        OkxCopyTradingPositionType? positionType = null,
+        OkxTradeOrderType? orderType = null,
+        decimal? price = null,
         CancellationToken ct = default)
     {
+        if(orderType.IsNotIn(OkxTradeOrderType.MarketOrder, OkxTradeOrderType.LimitOrder))
+            throw new ArgumentException("Order type must be MarketOrder or LimitOrder", nameof(orderType));
+
         var parameters = new Dictionary<string, object>
         {
             { "subPosId", positionId },
         };
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
+        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OkxTradeOrderTypeConverter(false)));
+        parameters.AddOptionalParameter("px", price?.ToOkxString());
 
         return ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
