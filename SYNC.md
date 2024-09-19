@@ -12,5 +12,5 @@ Rubik        @ 2024/09/19
 Funding      @ 2024/09/19
 SubAccount   @ 2024/09/19
 Financial    @ 2024/09/19
-Affiliate
+Affiliate    @ 2024/09/19
 Broker
