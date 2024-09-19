@@ -17,6 +17,14 @@ public class OkxOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient
     private const string v5FinanceStakingDefiOrdersActive = "api/v5/finance/staking-defi/orders-active";
     private const string v5FinanceStakingDefiOrdersHistory = "api/v5/finance/staking-defi/orders-history";
 
+    /// <summary>
+    /// Get Orders
+    /// </summary>
+    /// <param name="currency">Investment currency, e.g. BTC</param>
+    /// <param name="productId">Product ID</param>
+    /// <param name="protocolType">Protocol type. defi: on-chain earn</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialOnChainEarnOffer>>> GetOffersAsync(
         string currency = null,
         string productId = null,
@@ -31,7 +39,15 @@ public class OkxOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessListRequestAsync<OkxFinancialOnChainEarnOffer>(GetUri(v5FinanceStakingDefiOffers), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxFinancialOnChainEarnPurchase>> PurchaseAsync(
+    /// <summary>
+    /// Purchase
+    /// </summary>
+    /// <param name="productId">Product ID</param>
+    /// <param name="investData">Investment data</param>
+    /// <param name="term">Investment term. Investment term must be specified for fixed-term product</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxFinancialOnChainEarnOrderId>> PurchaseAsync(
         string productId,
         IEnumerable<OkxFinancialOnChainEarnInvestData> investData,
         string term = null,
@@ -44,10 +60,18 @@ public class OkxOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalParameter("term", term);
         parameters.AddOptionalParameter("tag", Options.BrokerId);
 
-        return ProcessOneRequestAsync<OkxFinancialOnChainEarnPurchase>(GetUri(v5FinanceStakingDefiPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxFinancialOnChainEarnRedeem>> RedeemAsync(
+    /// <summary>
+    /// Redeem
+    /// </summary>
+    /// <param name="orderId">Order ID</param>
+    /// <param name="protocolType">Protocol type. defi: on-chain earn</param>
+    /// <param name="allowEarlyRedeem">Whether allows early redemption. Default is false</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxFinancialOnChainEarnOrderId>> RedeemAsync(
         string orderId,
         string protocolType,
         bool allowEarlyRedeem = false,
@@ -58,14 +82,21 @@ public class OkxOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient
             {"protocolType", protocolType },
             {"allowEarlyRedeem", allowEarlyRedeem },
         };
+        parameters.AddOptionalParameter("tag", Options.BrokerId);
 
-        return ProcessOneRequestAsync<OkxFinancialOnChainEarnRedeem>(GetUri(v5FinanceStakingDefiRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    public Task<RestCallResult<OkxFinancialOnChainEarnCancel>> CancelAsync(
+    /// <summary>
+    /// Cancel purchases/redemptions
+    /// </summary>
+    /// <param name="orderId">Order ID</param>
+    /// <param name="protocolType">Protocol type. defi: on-chain earn</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxFinancialOnChainEarnOrderId>> CancelAsync(
         string orderId,
         string protocolType,
-        bool allowEarlyRedeem = false,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -73,9 +104,18 @@ public class OkxOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient
             {"protocolType", protocolType },
         };
 
-        return ProcessOneRequestAsync<OkxFinancialOnChainEarnCancel>(GetUri(v5FinanceStakingDefiCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// GET / Active orders
+    /// </summary>
+    /// <param name="currency">Investment currency, e.g. BTC</param>
+    /// <param name="productId">Product ID</param>
+    /// <param name="protocolType">Protocol type. defi: on-chain earn</param>
+    /// <param name="state">Order state</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialOnChainEarnOrder>>> GetOpenOrdersAsync(
         string currency = null,
         string productId = null,
@@ -92,6 +132,17 @@ public class OkxOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessListRequestAsync<OkxFinancialOnChainEarnOrder>(GetUri(v5FinanceStakingDefiOrdersActive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// GET / Order history
+    /// </summary>
+    /// <param name="currency">Investment currency, e.g. BTC</param>
+    /// <param name="productId">Product ID</param>
+    /// <param name="protocolType">Protocol type. defi: on-chain earn</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ID. The value passed is the corresponding ordId</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ID. The value passed is the corresponding ordId</param>
+    /// <param name="limit">Number of results per request. The default is 100. The maximum is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialOnChainEarnOrder>>> GetHistoryAsync(
         string currency = null,
         string productId = null,
