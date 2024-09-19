@@ -1,5 +1,7 @@
 ﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
+using OKX.Api.CopyTrading.Converters;
+using OKX.Api.CopyTrading.Enums;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
 
@@ -92,11 +94,59 @@ public class OkxCopyTradingLeadingPositionHistory
     /// Profit and loss
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal ProfitLoss { get; set; }
+    public decimal PNL { get; set; }
 
     /// <summary>
     /// P&amp;L ratio
     /// </summary>
     [JsonProperty("pnlRatio")]
-    public decimal ProfitLossRatio { get; set; }
+    public decimal PnlRatio { get; set; }
+
+    /// <summary>
+    /// Instrument type
+    /// </summary>
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    public OkxInstrumentType InstrumentType { get; set; }
+
+    /// <summary>
+    /// Margin
+    /// </summary>
+    [JsonProperty("margin")]
+    public decimal? Margin { get; set; }
+
+    /// <summary>
+    /// Margin currency
+    /// </summary>
+    [JsonProperty("ccy")]
+    public string Currency { get; set; }
+
+    /// <summary>
+    /// Latest mark price, only applicable to contract
+    /// </summary>
+    [JsonProperty("markPx")]
+    public decimal? MarkPrice { get; set; }
+
+    /// <summary>
+    /// Lead trader unique code
+    /// </summary>
+    [JsonProperty("uniqueCode")]
+    public string UniqueCode { get; set; }
+
+    /// <summary>
+    /// Profit sharing amount, only applicable to copy trading
+    /// </summary>
+    [JsonProperty("profitSharingAmt")]
+    public decimal? ProfitSharingAmount { get; set; }
+
+    /// <summary>
+    /// Quantity of positions that is already closed
+    /// </summary>
+    [JsonProperty("closeSubPos")]
+    public int ClosedPositionCount { get; set; }
+
+    /// <summary>
+    /// The type of closing position
+    /// </summary>
+    [JsonProperty("type"), JsonConverter(typeof(OkxCopyTradingTypeOfClosingPositionConverter))]
+    public OkxCopyTradingTypeOfClosingPosition? TypeOfClosingPosition { get; set; }
 }

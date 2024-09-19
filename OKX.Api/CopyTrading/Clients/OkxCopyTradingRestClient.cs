@@ -94,14 +94,18 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// The leading trader retrieves the completed leading position of the last 3 months.
     /// Returns reverse chronological order with closeTime.
     /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
     /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
+    /// <param name="subPositionType">Data type.</param>
     /// <param name="after">Pagination of data to return records earlier than the requested subPosId.</param>
     /// <param name="before">Pagination of data to return records newer than the requested subPosId.</param>
     /// <param name="limit">Number of results per request. Maximum is 100. Default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxCopyTradingLeadingPositionHistory>>> GetLeadingPositionsHistoryAsync(
+        OkxInstrumentType? instrumentType = null,
         string instrumentId = null,
+        OkxCopyTradingSubPositionType? subPositionType = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -109,7 +113,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(subPositionType, new OkxCopyTradingSubPositionTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
@@ -120,50 +126,65 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// The leading trader sets TP/SL for the current leading position that are not closed.
     /// </summary>
-    /// <param name="leadingPositionId">Leading position ID</param>
+    /// <param name="positionId">Leading position ID</param>
+    /// <param name="instrumentType">Instrument type</param>
     /// <param name="takeProfitTriggerPrice">Take-profit trigger price. Take-profit order price will be the market price after triggering. At least one of tpTriggerPx and slTriggerPx must be filled</param>
     /// <param name="takeProfitTriggerPriceType">Take-profit trigger price type. Default is last</param>
-    /// <param name="stopLossTriggerPrice">Stop-loss trigger price. Stop-loss order price will be the market price after triggering.</param>
+    /// <param name="takeProfitOrderPrice">Take-profit order price. If the price is -1, take-profit will be executed at the market price, the default is -1. Only applicable to SPOT lead trader</param>
+    /// <param name="stopLossTriggerPrice">Stop-loss order price. If the price is -1, stop-loss will be executed at the market price, the default is -1. Only applicable to SPOT lead trader</param>
     /// <param name="stopLossTriggerPriceType">Stop-loss trigger price type. Default is last</param>
+    /// <param name="stopLossOrderPrice">Stop-loss trigger price. Stop-loss order price will be the market price after triggering.</param>
+    /// <param name="subPositionType">Data type.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingLeadingPositionId>> PlaceLeadingStopOrderAsync(
-        long leadingPositionId,
+    public Task<RestCallResult<OkxCopyTradingPositionId>> PlaceLeadingStopOrderAsync(
+        long positionId,
+        OkxInstrumentType? instrumentType = null,
+
         decimal? takeProfitTriggerPrice = null,
         OkxAlgoPriceType? takeProfitTriggerPriceType = null,
+        decimal? takeProfitOrderPrice = null,
+
         decimal? stopLossTriggerPrice = null,
         OkxAlgoPriceType? stopLossTriggerPriceType = null,
+        decimal? stopLossOrderPrice = null,
+
+        OkxCopyTradingSubPositionType? subPositionType = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
-            { "subPosId", leadingPositionId },
+            { "subPosId", positionId },
         };
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptionalParameter("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
         parameters.AddOptionalParameter("slTriggerPx", stopLossTriggerPrice?.ToOkxString());
+        parameters.AddOptionalParameter("tpOrdPx", takeProfitOrderPrice?.ToOkxString());
+        parameters.AddOptionalParameter("slOrdPx", stopLossOrderPrice?.ToOkxString());
         parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(takeProfitTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
         parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(stopLossTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
+        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(subPositionType, new OkxCopyTradingSubPositionTypeConverter(false)));
 
-        return ProcessOneRequestAsync<OkxCopyTradingLeadingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
     /// The leading trader can only close a leading position once a time.
     /// It is required to pass subPosId which can get from Get existing leading positions.
     /// </summary>
-    /// <param name="leadingPositionId">Leading position ID</param>
+    /// <param name="positionId">Leading position ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingLeadingPositionId>> CloseLeadingPositionAsync(
-        long leadingPositionId,
+    public Task<RestCallResult<OkxCopyTradingPositionId>> CloseLeadingPositionAsync(
+        long positionId,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
-            { "subPosId", leadingPositionId },
+            { "subPosId", positionId },
         };
 
-        return ProcessOneRequestAsync<OkxCopyTradingLeadingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>

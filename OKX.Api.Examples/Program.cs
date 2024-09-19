@@ -287,8 +287,8 @@ internal class Program
         // Order Book Trading -> Copy Trading Methods (Signed)
         var copy_01 = await api.CopyTrading.GetLeadingPositionsAsync();
         var copy_02 = await api.CopyTrading.GetLeadingPositionsHistoryAsync();
-        var copy_03 = await api.CopyTrading.PlaceLeadingStopOrderAsync(leadingPositionId: 1_000_001);
-        var copy_04 = await api.CopyTrading.CloseLeadingPositionAsync(leadingPositionId: 1_000_001);
+        var copy_03 = await api.CopyTrading.PlaceLeadingStopOrderAsync(positionId: 1_000_001);
+        var copy_04 = await api.CopyTrading.CloseLeadingPositionAsync(positionId: 1_000_001);
         var copy_05 = await api.CopyTrading.GetLeadingInstrumentsAsync();
         var copy_06 = await api.CopyTrading.SetLeadingInstrumentsAsync(["BTC-USDT", "ETH-USDT"]);
         var copy_07 = await api.CopyTrading.GetProfitSharingDetailsAsync();

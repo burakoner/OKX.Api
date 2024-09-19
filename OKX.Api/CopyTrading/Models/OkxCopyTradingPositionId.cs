@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxLeadingPositionId
 /// </summary>
-public class OkxCopyTradingLeadingPositionId
+public class OkxCopyTradingPositionId
 {
     /// <summary>
     /// Leading position ID
