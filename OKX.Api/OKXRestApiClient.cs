@@ -104,6 +104,17 @@ public class OkxRestApiClient
     /// Affiliate Client
     /// </summary>
     public OkxAffiliateRestClient Affiliate { get; }
+
+    /// <summary>
+    /// Status Client
+    /// </summary>
+    public OkxStatusRestClient Status { get; }
+
+    /// <summary>
+    /// Announcement Client
+    /// </summary>
+    public OkxAnnouncementRestClient Announcement { get; } // TODO: 
+
     #endregion
 
     #region Constructors
@@ -149,6 +160,8 @@ public class OkxRestApiClient
         Rubik = new OkxRubikRestClient(this);
         Broker = new OkxBrokerRestClient(this);
         Affiliate = new OkxAffiliateRestClient(this);
+        Status = new OkxStatusRestClient(this);
+        Announcement = new OkxAnnouncementRestClient(this);
     }
     #endregion
 
@@ -187,6 +200,8 @@ public class OkxRestApiClient
         Rubik.SetApiCredentials(credentials);
         Broker.SetApiCredentials(credentials);
         Affiliate.SetApiCredentials(credentials);
+        Status.SetApiCredentials(credentials);
+        Announcement.SetApiCredentials(credentials);
     }
     #endregion
 }

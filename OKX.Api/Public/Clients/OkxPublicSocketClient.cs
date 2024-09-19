@@ -1,4 +1,5 @@
 ﻿using OKX.Api.Public.Models;
+using OKX.Api.Status.Models;
 
 namespace OKX.Api.Public.Clients;
 

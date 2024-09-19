@@ -2,7 +2,6 @@
 Trading      @ 2024/09/17
 Algo         @ 2024/09/18
 Grid         @ 2024/09/18
-SignalBot 
 RecurringBuy @ 2024/09/18
 CopyTrading  @ 2024/09/19
 Public       @ 2024/09/18
@@ -13,4 +12,5 @@ Funding      @ 2024/09/19
 SubAccount   @ 2024/09/19
 Financial    @ 2024/09/19
 Affiliate    @ 2024/09/19
+SignalBot 
 Broker

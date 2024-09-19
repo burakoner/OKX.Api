@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Public.Models;
+﻿using OKX.Api.Status.Converters;
+using OKX.Api.Status.Enums;
+
+namespace OKX.Api.Status.Models;
 
 /// <summary>
 /// System Status
@@ -22,13 +25,13 @@ public class OkxStatus
     /// </summary>
     [JsonProperty("begin")]
     public long? BeginTimestamp { get; set; }
-    
+
     /// <summary>
     /// Begin time of system maintenance
     /// </summary>
     [JsonIgnore]
     public DateTime? BeginTime { get { return BeginTimestamp?.ConvertFromMilliseconds(); } }
-    
+
     /// <summary>
     /// End time of system maintenance, Unix timestamp format in milliseconds, e.g. 1617788463867
     /// </summary>

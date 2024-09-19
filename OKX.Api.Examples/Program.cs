@@ -79,7 +79,7 @@ internal class Program
         var public_42 = await api.Public.GetEconomicCalendarDataAsync("BTC-USDT");
 
         // Status Methods (Unsigned)
-        var system_01 = await api.Public.GetSystemUpgradeStatusAsync();
+        var system_01 = await api.Status.GetSystemUpgradeStatusAsync();
 
         // Trading Account Methods (Signed)
         var account_01 = await api.Account.GetInstrumentsAsync(OkxInstrumentType.Spot);

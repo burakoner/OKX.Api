@@ -7,7 +7,7 @@ using OKX.Api.Public.Models;
 namespace OKX.Api.Public.Clients;
 
 /// <summary>
-/// OKX Rest Api Public Data &amp; Market Data &amp; System Client
+/// OKX Rest Api Public Data &amp; Market Data Client
 /// </summary>
 public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
@@ -1077,26 +1077,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxEconomicCalendarEvent>(GetUri(v5PublicEconomicCalendar), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-    }
-    #endregion
-
-    #region System Methods
-    /// <summary>
-    /// Get event status of system upgrade.
-    /// Planned system maintenance that may result in short interruption (lasting less than 5 seconds) or websocket disconnection (users can immediately reconnect) will not be announced. 
-    /// The maintenance will only be performed during times of low market volatility.
-    /// </summary>
-    /// <param name="state">System maintenance status</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxStatus>>> GetSystemUpgradeStatusAsync(
-        OkxMaintenanceState? state = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxMaintenanceStateConverter(false)));
-
-        return ProcessListRequestAsync<OkxStatus>(GetUri(v5SystemStatus), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
     #endregion
 
