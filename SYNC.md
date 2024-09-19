@@ -4,7 +4,7 @@ Algo         @ 2024/09/18
 Grid         @ 2024/09/18
 SignalBot 
 RecurringBuy @ 2024/09/18
-CopyTrading  
+CopyTrading  @ 2024/09/19
 Public       @ 2024/09/18
 Block        @ 2024/08/09
 Spread
