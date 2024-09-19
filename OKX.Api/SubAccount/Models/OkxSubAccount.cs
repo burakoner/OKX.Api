@@ -52,6 +52,18 @@ public class OkxSubAccount
     public bool GoogleAuth { get; set; }
 
     /// <summary>
+    /// Frozen functions
+    /// trading
+    /// convert
+    /// transfer
+    /// withdrawal
+    /// deposit
+    /// flexible_loan
+    /// </summary>
+    [JsonProperty("frozenFunc")]
+    public List<string> FrozenFunctions { get; set; }=[];
+
+    /// <summary>
     /// Whether the sub-account has the right to transfer out.
     /// true: can transfer out
     /// false: cannot transfer out

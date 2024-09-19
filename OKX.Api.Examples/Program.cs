@@ -392,15 +392,13 @@ internal class Program
         var funding_02 = await api.Funding.GetBalancesAsync();
         var funding_03 = await api.Funding.GetNonTradableBalancesAsync();
         var funding_04 = await api.Funding.GetAssetValuationAsync();
-        var funding_05 = await api.Funding.FundTransferAsync("BTC", 0.5m, OkxFundingTransferType.TransferWithinAccount, OkxAccount.Funding, OkxAccount.Trading);
+        var funding_05 = await api.Funding.FundTransferAsync(OkxFundingTransferType.TransferWithinAccount, "BTC", 0.5m, OkxAccount.Funding, OkxAccount.Trading);
         var funding_06 = await api.Funding.FundTransferStateAsync();
         var funding_07 = await api.Funding.GetFundingBillDetailsAsync("BTC");
-        var funding_08 = await api.Funding.GetLightningDepositsAsync("BTC", 0.001m);
         var funding_09 = await api.Funding.GetDepositAddressAsync("BTC");
         var funding_10 = await api.Funding.GetDepositAddressAsync("USDT");
         var funding_12 = await api.Funding.GetDepositHistoryAsync("USDT");
         var funding_13 = await api.Funding.WithdrawAsync("USDT", 100.0m, OkxFundingWithdrawalDestination.DigitalCurrencyAddress, "toAddress", 1.0m, "USDT-TRC20");
-        var funding_14 = await api.Funding.GetLightningWithdrawalsAsync("BTC", "invoice", "password");
         var funding_15 = await api.Funding.CancelWithdrawalAsync(1_000_001);
         var funding_16 = await api.Funding.GetWithdrawalHistoryAsync("USDT");
         var funding_17 = await api.Funding.GetDepositStatusAsync("", "", "", "");
@@ -526,12 +524,12 @@ internal class Program
             // ... Your logic here
         }, "BTC-USDT", OkxPeriod.FiveMinutes);
 
-        var pairs = new List<string> { 
-            "BTC-USDT", "LTC-USDT", "ETH-USDT", "XRP-USDT", "BCH-USDT", 
-            "EOS-USDT", "OKB-USDT", "ETC-USDT", "TRX-USDT", "BSV-USDT", 
-            "DASH-USDT", "NEO-USDT", "QTUM-USDT", "XLM-USDT", "ADA-USDT", 
-            "AE-USDT", "BLOC-USDT", "EGT-USDT", "IOTA-USDT", "SC-USDT", 
-            "WXT-USDT", "ZEC-USDT", 
+        var pairs = new List<string> {
+            "BTC-USDT", "LTC-USDT", "ETH-USDT", "XRP-USDT", "BCH-USDT",
+            "EOS-USDT", "OKB-USDT", "ETC-USDT", "TRX-USDT", "BSV-USDT",
+            "DASH-USDT", "NEO-USDT", "QTUM-USDT", "XLM-USDT", "ADA-USDT",
+            "AE-USDT", "BLOC-USDT", "EGT-USDT", "IOTA-USDT", "SC-USDT",
+            "WXT-USDT", "ZEC-USDT",
         };
         foreach (var pair in pairs)
         {

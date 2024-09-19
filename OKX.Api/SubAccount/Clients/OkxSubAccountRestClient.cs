@@ -108,7 +108,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
 
         return ProcessOneRequestAsync<OkxSubAccountTradingBalance>(GetUri(v5UsersSubaccountTradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-
+    
     /// <summary>
     /// Get sub-account funding balance
     /// Query detailed balance info of Funding Account of a sub-account via the master account (applies to master accounts only)
@@ -133,9 +133,9 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     }
 
     public Task<RestCallResult<List<OkxSubAccountMaximumWithdrawal>>> GetSubAccountMaximumWithdrawalsAsync(
-    string subAccountName,
-    string currency = null,
-    CancellationToken ct = default)
+        string subAccountName,
+        string currency = null,
+        CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
@@ -180,14 +180,14 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     }
 
     public Task<RestCallResult<List<OkxManagedSubAccountBill>>> GetManagedSubAccountBillsAsync(
-    string currency = null,
-    OkxSubAccountTransferType? type = null,
-    string subAccountName = null,
-    long? subAccountId = null,
-    long? after = null,
-    long? before = null,
-    int limit = 100,
-    CancellationToken ct = default)
+        string currency = null,
+        OkxSubAccountTransferType? type = null,
+        string subAccountName = null,
+        long? subAccountId = null,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();

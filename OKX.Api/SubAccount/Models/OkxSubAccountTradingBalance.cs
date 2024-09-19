@@ -45,13 +45,20 @@ public class OkxSubAccountTradingBalance
     /// Initial Margin Requirement
     /// </summary>
     [JsonProperty("imr")]
-    public decimal? InitialMarginRequirement { get; set; }
+    public decimal? IMR { get; set; }
 
     /// <summary>
     /// Maintenance Margin Requirement
     /// </summary>
     [JsonProperty("mmr")]
-    public decimal? MaintenanceMarginRequirement { get; set; }
+    public decimal? MMR { get; set; }
+
+    /// <summary>
+    /// Potential borrowing IMR of the account in USD
+    /// Only applicable to Multi-currency margin/Portfolio margin. It is "" for other margin modes.
+    /// </summary>
+    [JsonProperty("borrowFroz")]
+    public decimal? BorrowFrozen { get; set; }
 
     /// <summary>
     /// Margin Ratio
@@ -69,13 +76,13 @@ public class OkxSubAccountTradingBalance
     /// Details
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxSubAccountTradingBalanceDetail> Details { get; set; }
+    public List<OkxSubAccountTradingBalanceDetails> Details { get; set; }
 }
 
 /// <summary>
 /// OKX Sub Account Trading Balance Detail
 /// </summary>
-public class OkxSubAccountTradingBalanceDetail
+public class OkxSubAccountTradingBalanceDetails
 {
     /// <summary>
     /// Currency
@@ -147,31 +154,31 @@ public class OkxSubAccountTradingBalanceDetail
     /// Liabilities
     /// </summary>
     [JsonProperty("liab")]
-    public decimal? Liabilities { get; set; }
+    public decimal? Liability { get; set; }
 
     /// <summary>
     /// Unrealized Profit and Loss
     /// </summary>
     [JsonProperty("upl")]
-    public decimal? UnrealizedProfitAndLoss { get; set; }
+    public decimal? UPL { get; set; }
 
     /// <summary>
     /// Unrealized Profit and Loss Liabilities
     /// </summary>
     [JsonProperty("uplLiab")]
-    public decimal? UnrealizedProfitAndLossLiabilities { get; set; }
+    public decimal? UplLiability { get; set; }
 
     /// <summary>
     /// Cross Liabilities
     /// </summary>
     [JsonProperty("crossLiab")]
-    public decimal? CrossLiabilities { get; set; }
+    public decimal? CrossLiability { get; set; }
 
     /// <summary>
     /// Isolated Liabilities
     /// </summary>
     [JsonProperty("isoLiab")]
-    public decimal? IsolatedLiabilities { get; set; }
+    public decimal? IsolatedLiability { get; set; }
 
     /// <summary>
     /// Margin Ratio
@@ -179,6 +186,20 @@ public class OkxSubAccountTradingBalanceDetail
     [JsonProperty("mgnRatio")]
     public decimal? MarginRatio { get; set; }
 
+    /// <summary>
+    /// Cross initial margin requirement at the currency level
+    /// Applicable to Spot and futures mode and when there is cross position
+    /// </summary>
+    [JsonProperty("imr")]
+    public decimal? IMR { get; set; }
+
+    /// <summary>
+    /// Cross maintenance margin requirement at the currency level
+    /// Applicable to Spot and futures mode and when there is cross position
+    /// </summary>
+    [JsonProperty("mmr")]
+    public decimal? MMR { get; set; }
+    
     /// <summary>
     /// Interest
     /// </summary>
@@ -204,8 +225,70 @@ public class OkxSubAccountTradingBalanceDetail
     public decimal? UsdEquity { get; set; }
 
     /// <summary>
+    /// Potential borrowing IMR of currency in USD
+    /// Only applicable to Multi-currency margin/Portfolio margin. It is "" for other margin modes.
+    /// </summary>
+    [JsonProperty("borrowFroz")]
+    public decimal? BorrowFrozen { get; set; }
+
+    /// <summary>
     /// Leverage
     /// </summary>
     [JsonProperty("notionalLever")]
     public decimal? Leverage { get; set; }
+
+    /// <summary>
+    /// SPOT isolated balance. only applicable to copy trading
+    /// </summary>
+    [JsonProperty("spotIsoBal")]
+    public decimal? SpotIsolatedBalance { get; set; }
+
+    /// <summary>
+    /// Smark sync equity
+    /// The default is "0", only applicable to copy trader
+    /// </summary>
+    [JsonProperty("smtSyncEq")]
+    public decimal? SmarkSyncEquity { get; set; }
+
+    /// <summary>
+    /// Spot balance. The unit is currency, e.g. BTC
+    /// </summary>
+    [JsonProperty("spotBal")]
+    public decimal? SpotBalance { get; set; }
+
+    /// <summary>
+    /// Spot average cost price. The unit is USD.
+    /// </summary>
+    [JsonProperty("openAvgPx")]
+    public decimal? SpotAverageCostPrice { get; set; }
+
+    /// <summary>
+    /// Spot accumulated cost price. The unit is USD
+    /// </summary>
+    [JsonProperty("accAvgPx")]
+    public decimal? SpotAccumulatedCostPrice { get; set; }
+
+    /// <summary>
+    /// Spot unrealized profit and loss. The unit is USD.
+    /// </summary>
+    [JsonProperty("spotUpl")]
+    public decimal? SpotUpl { get; set; }
+
+    /// <summary>
+    /// Spot unrealized profit and loss ratio.
+    /// </summary>
+    [JsonProperty("spotUplRatio")]
+    public decimal? SpotUplRatio { get; set; }
+
+    /// <summary>
+    /// Spot accumulated profit and loss. The unit is USD.
+    /// </summary>
+    [JsonProperty("totalPnl")]
+    public decimal? TotalPnl { get; set; }
+
+    /// <summary>
+    /// Spot accumulated profit and loss ratio.
+    /// </summary>
+    [JsonProperty("totalPnlRatio")]
+    public decimal? TotalPnlRatio { get; set; }
 }

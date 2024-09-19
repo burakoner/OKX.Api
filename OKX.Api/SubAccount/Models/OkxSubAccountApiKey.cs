@@ -10,18 +10,18 @@ public class OkxSubAccountApiKey
     /// </summary>
     [JsonProperty("subAcct")]
     public string SubAccountName { get; set; }
+    
+    /// <summary>
+    /// API Key
+    /// </summary>
+    [JsonProperty("apiKey")]
+    public string ApiKey { get; set; }
 
     /// <summary>
     /// Label
     /// </summary>
     [JsonProperty("label")]
     public string Label { get; set; }
-
-    /// <summary>
-    /// API Key
-    /// </summary>
-    [JsonProperty("apiKey")]
-    public string ApiKey { get; set; }
 
     /// <summary>
     /// Permissions
