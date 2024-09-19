@@ -9,16 +9,16 @@ namespace OKX.Api.Financial.EthStaking.Models;
 public class OkxFinancialEthStakingHistory
 {
     /// <summary>
-    /// Purchase/Redeem amount
-    /// </summary>
-    [JsonProperty("amt")]
-    public decimal Amount { get; set; }
-
-    /// <summary>
     /// Type
     /// </summary>
     [JsonProperty("type"), JsonConverter(typeof(OkxFinancialEthStakingTypeConverter))]
     public OkxFinancialEthStakingType Type { get; set; }
+
+    /// <summary>
+    /// Purchase/Redeem amount
+    /// </summary>
+    [JsonProperty("amt")]
+    public decimal Amount { get; set; }
 
     /// <summary>
     /// Status
