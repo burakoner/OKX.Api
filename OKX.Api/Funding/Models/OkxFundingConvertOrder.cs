@@ -26,7 +26,7 @@ public class OkxFundingConvertOrder
     /// Client Order ID as assigned by the client
     /// </summary>
     [JsonProperty("clTReqId")]
-    public string ClientOrderId { get; set; }
+    public string ClientRequestId { get; set; }
 
     /// <summary>
     /// Trade state

@@ -22,5 +22,7 @@ internal class OkxFundingWithdrawalStateConverter(bool quotes) : BaseConverter<O
         new(OkxFundingWithdrawalState.WaitingManualReview08, "8"),
         new(OkxFundingWithdrawalState.WaitingManualReview09, "9"),
         new(OkxFundingWithdrawalState.WaitingManualReview12, "12"),
+        new(OkxFundingWithdrawalState.PendingTransactionValidation, "15"),
+        new(OkxFundingWithdrawalState.WithdrawalMayTakeUpTo24Hours, "16"),
     ];
 }

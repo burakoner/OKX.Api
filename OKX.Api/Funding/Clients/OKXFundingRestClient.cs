@@ -282,30 +282,6 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
     /// <summary>
-    /// The maximum withdrawal amount is 0.1 BTC per request, and 1 BTC in 24 hours. The minimum withdrawal amount is approximately 0.000001 BTC. Sub-account does not support withdrawal.
-    /// </summary>
-    /// <param name="currency">Token symbol. Currently only BTC is supported.</param>
-    /// <param name="invoice">Invoice text</param>
-    /// <param name="memo">Lightning withdrawal memo</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxFundingLightningWithdrawal>> GetLightningWithdrawalsAsync(
-        string currency,
-        string invoice,
-        string memo = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new Dictionary<string, object>
-        {
-            { "ccy", currency },
-            { "invoice", invoice },
-        };
-        parameters.AddOptionalParameter("memo", memo);
-
-        return ProcessOneRequestAsync<OkxFundingLightningWithdrawal>(GetUri(v5AssetWithdrawalLightning), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
     /// Cancel withdrawal
     /// You can cancel normal withdrawal requests, but you cannot cancel withdrawal requests on Lightning.
     /// Rate Limit: 6 requests per second
@@ -363,6 +339,15 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxFundingWithdrawalHistory>(GetUri(v5AssetWithdrawalHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Retrieve deposit's detailed status and estimated complete time.
+    /// </summary>
+    /// <param name="currency">Currency type, e.g. USDT. Required when retrieving deposit status with txId</param>
+    /// <param name="txId">Hash record of the deposit, use to retrieve deposit status. Required to input one and only one of wdId and txId</param>
+    /// <param name="to">To address, the destination address in deposit. Required when retrieving deposit status with txId</param>
+    /// <param name="chain">Currency chain infomation, e.g. USDT-ERC20. Required when retrieving deposit status with txId</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxFundingDepositStatus>> GetDepositStatusAsync(
         string currency,
         string txId,
@@ -381,6 +366,12 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxFundingDepositStatus>(GetUri(v5AssetDepositWithdrawStatus), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Retrieve withdrawal's detailed status and estimated complete time.
+    /// </summary>
+    /// <param name="withdrawalId">Withdrawl ID, use to retrieve withdrawal status. Required to input one and only one of wdId and txId</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxFundingWithdrawalStatus>> GetWithdrawalStatusAsync(
         long withdrawalId,
         CancellationToken ct = default)
@@ -393,6 +384,12 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxFundingWithdrawalStatus>(GetUri(v5AssetDepositWithdrawStatus), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Convert small assets in funding account to OKB. Only 5 convert is allowed within 24 hours.
+    /// </summary>
+    /// <param name="currencies">Small assets needed to be converted, e.g. ["BTC","USDT"]</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxFundingConvertDustAssetsResponse>> ConvertDustAssetsAsync(
         IEnumerable<string> currencies,
         CancellationToken ct = default)
@@ -405,11 +402,22 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxFundingConvertDustAssetsResponse>(GetUri(v5AssetConvertDustAssets), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Authentication is not required for this public endpoint.
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingExchangeList>>> GetExchangeListAsync(CancellationToken ct = default)
     {
         return ProcessListRequestAsync<OkxFundingExchangeList>(GetUri(v5AssetExchangeList), HttpMethod.Get, ct, signed: false);
     }
 
+    /// <summary>
+    /// Apply for monthly statement in the past year.
+    /// </summary>
+    /// <param name="month">Month,last month by default. Valid value is Jan, Feb, Mar, Apr,May, Jun, Jul,Aug, Sep,Oct,Nov,Dec</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxTimestamp>> ApplyForMonthlyStatementAsync(
         string month = null,
         CancellationToken ct = default)
@@ -420,6 +428,12 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5AssetMonthlyStatement), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Retrieve monthly statement in the past year.
+    /// </summary>
+    /// <param name="month">Month,last month by default. Valid value is Jan, Feb, Mar, Apr,May, Jun, Jul,Aug, Sep,Oct,Nov,Dec</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxDownloadLink>> GetMonthlyStatementAsync(
         string month,
         CancellationToken ct = default)
@@ -430,11 +444,23 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5AssetMonthlyStatement), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Get convert currencies
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingConvertCurrency>>> GetConvertCurrenciesAsync(CancellationToken ct = default)
     {
         return ProcessListRequestAsync<OkxFundingConvertCurrency>(GetUri(v5AssetConvertCurrencies), HttpMethod.Get, ct, signed: true);
     }
 
+    /// <summary>
+    /// Get convert currency pair
+    /// </summary>
+    /// <param name="fromCurrency">Currency to convert from, e.g. USDT</param>
+    /// <param name="toCurrency">Currency to convert to, e.g. BTC</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxFundingConvertCurrencyPair>> GetConvertCurrencyPairAsync(
         string fromCurrency,
         string toCurrency,
@@ -447,6 +473,17 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxFundingConvertCurrencyPair>(GetUri(v5AssetConvertCurrencyPair), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Estimate quote
+    /// </summary>
+    /// <param name="baseCurrency">Base currency, e.g. BTC in BTC-USDT</param>
+    /// <param name="quoteCurrency">Quote currency, e.g. USDT in BTC-USDT</param>
+    /// <param name="side">Trade side based on baseCcy</param>
+    /// <param name="rfqAmount">RFQ amount</param>
+    /// <param name="rfqCurrency">RFQ currency</param>
+    /// <param name="clientOrderId">Client Order ID as assigned by the client. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxFundingConvertEstimateQuote>> EstimateQuoteAsync(
         string baseCurrency,
         string quoteCurrency,
@@ -470,6 +507,18 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxFundingConvertEstimateQuote>(GetUri(v5AssetConvertEstimateQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// You should make estimate quote before convert trade.
+    /// </summary>
+    /// <param name="quoteId">	Quote ID</param>
+    /// <param name="baseCurrency">Base currency, e.g. BTC in BTC-USDT</param>
+    /// <param name="quoteCurrency">Quote currency, e.g. USDT in BTC-USDT</param>
+    /// <param name="side">Trade side based on baseCcy</param>
+    /// <param name="amount">Quote amount. The quote amount should no more then RFQ amount</param>
+    /// <param name="amountCurrency">Quote currency</param>
+    /// <param name="clientOrderId">Client Order ID as assigned by the client. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxFundingConvertOrder>> PlaceConvertOrderAsync(
         string quoteId,
         string baseCurrency,
@@ -495,21 +544,31 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxFundingConvertOrder>(GetUri(v5AssetConvertTrade), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Get convert history
+    /// </summary>
+    /// <param name="clientOrderId">Client Order ID as assigned by the client. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="tag">Order tag. Applicable to broker user. If the convert trading used tag, this parameter is also required.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingConvertOrderHistory>>> GetConvertHistoryAsync(
         string clientOrderId = null,
-        string tag = null,
         long? after = null,
         long? before = null,
         int limit = 100,
+        string tag = null,
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("clTReqId", clientOrderId);
-        parameters.AddOptionalParameter("tag", tag);
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptionalParameter("tag", tag);
 
         return ProcessListRequestAsync<OkxFundingConvertOrderHistory>(GetUri(v5AssetConvertHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

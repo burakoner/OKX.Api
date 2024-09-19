@@ -10,9 +10,6 @@ namespace OKX.Api.Funding.Models;
 /// </summary>
 public class OkxFundingConvertOrderHistory
 {
-    // [JsonProperty("quoteId")]
-    // public string QuoteId { get; set; }
-
     /// <summary>
     /// Trade ID
     /// </summary>
@@ -23,7 +20,7 @@ public class OkxFundingConvertOrderHistory
     /// Client Order ID as assigned by the client
     /// </summary>
     [JsonProperty("clTReqId")]
-    public string ClientOrderId { get; set; }
+    public string ClientRequestId { get; set; }
     
     /// <summary>
     /// Trade state

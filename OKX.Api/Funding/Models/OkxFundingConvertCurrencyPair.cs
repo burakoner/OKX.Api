@@ -18,12 +18,6 @@ public class OkxFundingConvertCurrencyPair
     public string BaseCurrency { get; set; }
     
     /// <summary>
-    /// Quote currency, e.g. USDT in BTC-USDT
-    /// </summary>
-    [JsonProperty("quoteCcy")]
-    public string QuoteCurrency { get; set; }
-    
-    /// <summary>
     /// Maximum amount of base currency
     /// </summary>
     [JsonProperty("baseCcyMax")]
@@ -35,6 +29,12 @@ public class OkxFundingConvertCurrencyPair
     [JsonProperty("baseCcyMin")]
     public decimal BaseCurrencyMinimumAmount { get; set; }
 
+    /// <summary>
+    /// Quote currency, e.g. USDT in BTC-USDT
+    /// </summary>
+    [JsonProperty("quoteCcy")]
+    public string QuoteCurrency { get; set; }
+    
     /// <summary>
     /// Maximum amount of quote currency
     /// </summary>

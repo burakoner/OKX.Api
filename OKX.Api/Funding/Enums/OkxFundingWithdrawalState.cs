@@ -74,4 +74,14 @@ public enum OkxFundingWithdrawalState
     /// WaitingManualReview12
     /// </summary>
     WaitingManualReview12,
+
+    /// <summary>
+    /// PendingTransactionValidation
+    /// </summary>
+    PendingTransactionValidation,
+
+    /// <summary>
+    /// WithdrawalMayTakeUpTo24Hours
+    /// </summary>
+    WithdrawalMayTakeUpTo24Hours
 }

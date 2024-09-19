@@ -9,54 +9,6 @@ namespace OKX.Api.Funding.Models;
 public class OkxFundingConvertEstimateQuote
 {
     /// <summary>
-    /// Base currency, e.g. BTC in BTC-USDT
-    /// </summary>
-    [JsonProperty("baseCcy")]
-    public string BaseCurrency { get; set; }
-    
-    /// <summary>
-    /// Convert amount of base currency
-    /// </summary>
-    [JsonProperty("baseSz")]
-    public decimal BaseAmount { get; set; }
-    
-    /// <summary>
-    /// Client Order ID as assigned by the client
-    /// </summary>
-    [JsonProperty("clQReqId")]
-    public string ClientOrderId { get; set; }
-    
-    /// <summary>
-    /// Convert price based on quote currency
-    /// </summary>
-    [JsonProperty("cnvtPx")]
-    public decimal ConvertPrice { get; set; }
-    
-    /// <summary>
-    /// Original RFQ amount
-    /// </summary>
-    [JsonProperty("origRfqSz")]
-    public decimal OriginalRfqAmount { get; set; }
-    
-    /// <summary>
-    /// Quote currency, e.g. USDT in BTC-USDT
-    /// </summary>
-    [JsonProperty("quoteCcy")]
-    public string QuoteCurrency { get; set; }
-
-    /// <summary>
-    /// Quote ID
-    /// </summary>
-    [JsonProperty("quoteId")]
-    public string QuoteId { get; set; }
-    
-    /// <summary>
-    /// Convert amount of quote currency
-    /// </summary>
-    [JsonProperty("quoteSz")]
-    public decimal QuoteAmount { get; set; }
-    
-    /// <summary>
     /// Quotation generation time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("quoteTime")]
@@ -67,6 +19,48 @@ public class OkxFundingConvertEstimateQuote
     /// </summary>
     [JsonIgnore]
     public DateTime QuoteTime { get { return QuoteTimestamp.ConvertFromMilliseconds(); } }
+    
+    /// <summary>
+    /// Validity period of quotation in milliseconds
+    /// </summary>
+    [JsonProperty("ttlMs")]
+    public long TtlMilliseconds { get; set; }
+    
+    /// <summary>
+    /// Client Order ID as assigned by the client
+    /// </summary>
+    [JsonProperty("clQReqId")]
+    public string ClientRequestId { get; set; }
+    
+    /// <summary>
+    /// Quote ID
+    /// </summary>
+    [JsonProperty("quoteId")]
+    public string QuoteId { get; set; }
+    
+    /// <summary>
+    /// Base currency, e.g. BTC in BTC-USDT
+    /// </summary>
+    [JsonProperty("baseCcy")]
+    public string BaseCurrency { get; set; }
+    
+    /// <summary>
+    /// Quote currency, e.g. USDT in BTC-USDT
+    /// </summary>
+    [JsonProperty("quoteCcy")]
+    public string QuoteCurrency { get; set; }
+    
+    /// <summary>
+    /// Trade side based on baseCcy
+    /// </summary>
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide Side { get; set; }
+    
+    /// <summary>
+    /// Original RFQ amount
+    /// </summary>
+    [JsonProperty("origRfqSz")]
+    public decimal OriginalRfqAmount { get; set; }
     
     /// <summary>
     /// Real RFQ amount
@@ -81,14 +75,20 @@ public class OkxFundingConvertEstimateQuote
     public decimal RfqAmountCurrency { get; set; }
     
     /// <summary>
-    /// Trade side based on baseCcy
+    /// Convert price based on quote currency
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
-    public OkxTradeOrderSide Side { get; set; }
+    [JsonProperty("cnvtPx")]
+    public decimal ConvertPrice { get; set; }
     
     /// <summary>
-    /// Validity period of quotation in milliseconds
+    /// Convert amount of base currency
     /// </summary>
-    [JsonProperty("ttlMs")]
-    public long TtlMilliseconds { get; set; }
+    [JsonProperty("baseSz")]
+    public decimal BaseAmount { get; set; }
+    
+    /// <summary>
+    /// Convert amount of quote currency
+    /// </summary>
+    [JsonProperty("quoteSz")]
+    public decimal QuoteAmount { get; set; }
 }
