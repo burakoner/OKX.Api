@@ -9,7 +9,7 @@ Public       @ 2024/09/18
 Block        @ 2024/08/09
 Spread       @ 2024/09/19
 Rubik        @ 2024/09/19
-Funding
+Funding      @ 2024/09/19
 SubAccount
 Financial
 Broker
