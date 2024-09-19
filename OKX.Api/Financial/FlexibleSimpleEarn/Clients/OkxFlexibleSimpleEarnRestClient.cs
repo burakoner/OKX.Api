@@ -1,4 +1,6 @@
-﻿using OKX.Api.Financial.FlexibleSimpleEarn.Models;
+﻿using ApiSharp.Throttling.Abstractions;
+using Newtonsoft.Json.Linq;
+using OKX.Api.Financial.FlexibleSimpleEarn.Models;
 
 namespace OKX.Api.Financial.FlexibleSimpleEarn.Clients;
 
@@ -15,6 +17,12 @@ public class OkxFlexibleSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRes
     private const string v5FinanceSavingsLendingRateSummary = "api/v5/finance/savings/lending-rate-summary";
     private const string v5FinanceSavingsLendingRateHistory = "api/v5/finance/savings/lending-rate-history";
 
+    /// <summary>
+    /// GET / Saving balance
+    /// </summary>
+    /// <param name="currency">Currency, e.g. BTC</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsBalance>>> GetBalancesAsync(string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -23,6 +31,14 @@ public class OkxFlexibleSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRes
         return ProcessListRequestAsync<OkxFlexibleSimpleEarnSavingsBalance>(GetUri(v5FinanceSavingsBalance), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Only the assets in the funding account can be used for saving.
+    /// </summary>
+    /// <param name="currency">Currency, e.g. BTC</param>
+    /// <param name="amount">Purchase/redemption amount</param>
+    /// <param name="rate">Annual purchase rate</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsOrder>> PurchaseAsync(string currency, decimal amount, decimal rate, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -35,6 +51,14 @@ public class OkxFlexibleSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRes
         return ProcessOneRequestAsync<OkxFlexibleSimpleEarnSavingsOrder>(GetUri(v5FinanceSavingsPurchaseRedempt), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+        /// <summary>
+    /// Only the assets in the funding account can be used for saving.
+    /// </summary>
+    /// <param name="currency">Currency, e.g. BTC</param>
+    /// <param name="amount">Purchase/redemption amount</param>
+    /// <param name="rate">Annual purchase rate</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsOrder>> RedeemAsync(string currency, decimal amount, decimal rate, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -47,6 +71,13 @@ public class OkxFlexibleSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRes
         return ProcessOneRequestAsync<OkxFlexibleSimpleEarnSavingsOrder>(GetUri(v5FinanceSavingsPurchaseRedempt), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Set lending rate
+    /// </summary>
+    /// <param name="currency">Currency, e.g. BTC</param>
+    /// <param name="rate">Annual lending rate. The rate value range is between 1% and 365%</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsRate>> SetLendingRateAsync(string currency, decimal rate, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -57,6 +88,15 @@ public class OkxFlexibleSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRes
         return ProcessOneRequestAsync<OkxFlexibleSimpleEarnSavingsRate>(GetUri(v5FinanceSavingsSetLendingRate), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Return data in the past month.
+    /// </summary>
+    /// <param name="currency">Currency, e.g. BTC</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsLendingHistory>>> GetLendingHistoryAsync(
         string currency = null,
         long? after = null,
@@ -73,6 +113,12 @@ public class OkxFlexibleSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRes
         return ProcessListRequestAsync<OkxFlexibleSimpleEarnSavingsLendingHistory>(GetUri(v5FinanceSavingsLendingHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     
+    /// <summary>
+    /// Authentication is not required for this public endpoint.
+    /// </summary>
+    /// <param name="currency">Currency, e.g. BTC</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsBorrowSummary>> GetPublicBorrowSummaryAsync(string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -81,6 +127,16 @@ public class OkxFlexibleSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRes
         return ProcessOneRequestAsync<OkxFlexibleSimpleEarnSavingsBorrowSummary>(GetUri(v5FinanceSavingsLendingRateSummary), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Authentication is not required for this public endpoint.
+    /// Only returned records after December 14, 2021.
+    /// </summary>
+    /// <param name="currency">Currency, e.g. BTC</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100. If ccy is not specified, all data under the same ts will be returned, not limited by limit</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsBorrowHistory>>> GetPublicBorrowHistoryAsync(
         string currency = null,
         long? after = null,
