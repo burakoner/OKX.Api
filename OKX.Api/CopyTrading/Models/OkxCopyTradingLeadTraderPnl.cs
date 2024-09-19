@@ -6,6 +6,18 @@
 public class OkxCopyTradingLeadTraderPnl
 {
     /// <summary>
+    /// Pnl
+    /// </summary>
+    [JsonProperty("pnl")]
+    public decimal Pnl { get; set; }
+    
+    /// <summary>
+    /// Pnl ratio
+    /// </summary>
+    [JsonProperty("pnlRatio")]
+    public decimal PnlRatio { get; set; }
+    
+    /// <summary>
     /// Begin timestamp
     /// </summary>
     [JsonProperty("beginTs")]
@@ -16,16 +28,4 @@ public class OkxCopyTradingLeadTraderPnl
     /// </summary>
     [JsonIgnore]
     public DateTime BeginTime { get { return BeginTimestamp.ConvertFromMilliseconds(); } }
-    
-    /// <summary>
-    /// Pnl ratio
-    /// </summary>
-    [JsonProperty("pnlRatio")]
-    public decimal PnlRatio { get; set; }
-
-    /// <summary>
-    /// Pnl
-    /// </summary>
-    [JsonProperty("pnl")]
-    public decimal Pnl { get; set; }
 }

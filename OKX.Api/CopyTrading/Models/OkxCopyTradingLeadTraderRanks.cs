@@ -120,7 +120,7 @@ public class OkxCopyTradingLeadTraderRank
     /// Pnl ratios
     /// </summary>
     [JsonProperty("pnlRatios")]
-    public List<OkxCopyTradingLeadTraderPnlRatio> pnlRatios { get; set; }
+    public List<OkxCopyTradingLeadTraderPnlRatio> PnlRatios { get; set; }
 }
 
 /// <summary>

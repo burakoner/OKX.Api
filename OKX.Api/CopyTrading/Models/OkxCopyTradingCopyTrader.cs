@@ -9,7 +9,7 @@ public class OkxCopyTradingCopyTrader
     /// Total copy trader profit and loss
     /// </summary>
     [JsonProperty("copyTotalPnl")]
-    public decimal copyTotalPnl { get; set; }
+    public decimal CopyTotalPnl { get; set; }
 
     /// <summary>
     /// The currency name of profit and loss
