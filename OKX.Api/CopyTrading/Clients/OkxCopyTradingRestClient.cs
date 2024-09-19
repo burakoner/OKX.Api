@@ -189,7 +189,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         decimal? price = null,
         CancellationToken ct = default)
     {
-        if(orderType.IsNotIn(OkxTradeOrderType.MarketOrder, OkxTradeOrderType.LimitOrder))
+        if (orderType.IsNotIn(OkxTradeOrderType.MarketOrder, OkxTradeOrderType.LimitOrder))
             throw new ArgumentException("Order type must be MarketOrder or LimitOrder", nameof(orderType));
 
         var parameters = new Dictionary<string, object>
@@ -207,12 +207,17 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// The leading trader gets contracts that are supported to lead by the platform.
     /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxCopyTradingLeadingInstrument>>> GetLeadingInstrumentsAsync(
+        OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxCopyTradingLeadingInstrument>(GetUri(v5CopyTradingInstruments), HttpMethod.Get, ct, signed: true);
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+
+        return ProcessListRequestAsync<OkxCopyTradingLeadingInstrument>(GetUri(v5CopyTradingInstruments), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -220,16 +225,19 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// All non-leading contracts can't have position or pending orders for the current request when setting non-leading contracts as leading contracts.
     /// </summary>
     /// <param name="instrumentIds">Instrument ID, e.g. BTC-USDT-SWAP. If there are multiple instruments, separate them with commas. Maximum of 31 instruments can be selected.</param>
+    /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxCopyTradingLeadingInstrument>>> SetLeadingInstrumentsAsync(
         IEnumerable<string> instrumentIds,
+        OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "instId", string.Join(",", instrumentIds) },
         };
+        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadingInstrument>(GetUri(v5CopyTradingSetInstruments), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
