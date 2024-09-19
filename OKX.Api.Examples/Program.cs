@@ -420,7 +420,7 @@ internal class Program
         var subaccount_04 = await api.SubAccount.GetSubAccountFundingBalancesAsync("subAccountName");
         var subaccount_05 = await api.SubAccount.GetSubAccountMaximumWithdrawalsAsync("subAccountName");
         var subaccount_06 = await api.SubAccount.GetSubAccountBillsAsync();
-        var subaccount_07 = await api.SubAccount.GetManagedSubAccountBillsAsync();
+        var subaccount_07 = await api.SubAccount.GetSubAccountManagedBillsAsync();
         var subaccount_08 = await api.SubAccount.TransferBetweenSubAccountsAsync("BTC", 0.5m, OkxAccount.Funding, OkxAccount.Trading, "fromSubAccountName", "toSubAccountName");
         var subaccount_09 = await api.SubAccount.SetPermissionOfTransferOutAsync("", true);
         var subaccount_10 = await api.SubAccount.GetEntrustSubAccountsAsync("");

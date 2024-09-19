@@ -15,25 +15,25 @@ public class OkxSubAccountMaximumWithdrawal
     /// Max withdrawal (excluding borrowed assets under Multi-currency margin)
     /// </summary>
     [JsonProperty("maxWd")]
-    public decimal? MaximumWithdrawal { get; set; }
+    public decimal MaximumWithdrawal { get; set; }
     
     /// <summary>
     /// Max withdrawal (including borrowed assets under Multi-currency margin)
     /// </summary>
     [JsonProperty("maxWdEx")]
-    public decimal? MaximumWithdrawalExtended { get; set; }
+    public decimal MaximumWithdrawalExtended { get; set; }
 
     /// <summary>
     /// Max withdrawal under Spot-Derivatives risk offset mode (excluding borrowed assets under Portfolio margin)
     /// Applicable to Portfolio margin
     /// </summary>
     [JsonProperty("spotOffsetMaxWd")]
-    public decimal? SpotOffsetMaximumWithdrawal { get; set; }
+    public decimal SpotOffsetMaximumWithdrawal { get; set; }
 
     /// <summary>
     /// Max withdrawal under Spot-Derivatives risk offset mode (including borrowed assets under Portfolio margin)
     /// Applicable to Portfolio margin
     /// </summary>
     [JsonProperty("spotOffsetMaxWdEx")]
-    public decimal? SpotOffsetMaximumWithdrawalExtended { get; set; }
+    public decimal SpotOffsetMaximumWithdrawalExtended { get; set; }
 }

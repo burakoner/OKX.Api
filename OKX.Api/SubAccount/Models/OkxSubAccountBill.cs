@@ -54,7 +54,7 @@ public class OkxSubAccountBill
 /// <summary>
 /// OKX Managed Sub Account Bill
 /// </summary>
-public class OkxManagedSubAccountBill : OkxSubAccountBill
+public class OkxSubAccountManagedBill : OkxSubAccountBill
 {
     /// <summary>
     /// Sub Account Id

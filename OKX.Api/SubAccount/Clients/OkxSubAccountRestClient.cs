@@ -132,6 +132,13 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         return ProcessOneRequestAsync<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Retrieve the maximum withdrawal information of a sub-account via the master account (applies to master accounts only). If no currency is specified, the transferable amount of all owned currencies will be returned.
+    /// </summary>
+    /// <param name="subAccountName">Sub Account Name</param>
+    /// <param name="currency">Single currency or multiple currencies (no more than 20) separated with comma, e.g. BTC or BTC,ETH.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<List<OkxSubAccountMaximumWithdrawal>>> GetSubAccountMaximumWithdrawalsAsync(
         string subAccountName,
         string currency = null,
@@ -179,7 +186,19 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         return ProcessListRequestAsync<OkxSubAccountBill>(GetUri(v5UsersSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    public Task<RestCallResult<List<OkxManagedSubAccountBill>>> GetManagedSubAccountBillsAsync(
+    /// <summary>
+    /// Only applicable to the trading team's master account to getting transfer records of managed sub accounts entrusted to oneself.
+    /// </summary>
+    /// <param name="currency">Currency</param>
+    /// <param name="type">0: Transfers from master account to sub-account ;1 : Transfers from sub-account to master account.</param>
+    /// <param name="subAccountName">Sub-account name</param>
+    /// <param name="subAccountId">Sub-account UID</param>
+    /// <param name="after">Query the data prior to the requested bill ID creation time (exclude), Unix timestamp in millisecond format, e.g. 1597026383085</param>
+    /// <param name="before">Query the data after the requested bill ID creation time (exclude), Unix timestamp in millisecond format, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxSubAccountManagedBill>>> GetSubAccountManagedBillsAsync(
         string currency = null,
         OkxSubAccountTransferType? type = null,
         string subAccountName = null,
@@ -199,7 +218,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxManagedSubAccountBill>(GetUri(v5AssetSubaccountManagedSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSubAccountManagedBill>(GetUri(v5AssetSubaccountManagedSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
