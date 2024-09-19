@@ -928,6 +928,25 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessListRequestAsync<OkxCopyTradingCopyTrader>(GetUri(v5CopyTradingPublicCopyTraders), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Private endpoint. Retrieve lead trader ranks.
+    /// For requests from the ND sub-account, under the same ND broker, this private endpoint can return ND lead trader information that the related public endpoint can't return.
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="sortType">Sort type</param>
+    /// <param name="state">Lead trader state</param>
+    /// <param name="minLeadDays">Minimum lead days</param>
+    /// <param name="minAssets">Minimum assets in USDT</param>
+    /// <param name="maxAssets">Maximum assets in USDT</param>
+    /// <param name="minAum">Minimum assets in USDT under management.</param>
+    /// <param name="maxAum">Maximum assets in USDT under management.</param>
+    /// <param name="dataVersion">Data version. It is 14 numbers. e.g. 20231010182400. Generally, it is used for pagination
+    /// A new version will be generated every 10 minutes. Only last 5 versions are stored
+    /// The default is latest version. If it is not exist, error will not be throwed and the latest version will be used.</param>
+    /// <param name="page">Page for pagination</param>
+    /// <param name="limit">Number of results per request. The maximum is 20; the default is 10</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingLeadTradersRanks>> GetMyLeadTradersRanksAsync(
         OkxInstrumentType? instrumentType = null,
         string sortType = null,
@@ -958,6 +977,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
 
         return ProcessOneRequestAsync<OkxCopyTradingLeadTradersRanks>(GetUri(v5CopyTradingLeadTraders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
+
+    //------------
 
     public Task<RestCallResult<List<OkxCopyTradingLeadTraderPnl>>> GetMyLeadTraderWeeklyPnlAsync(
         string uniqueCode,
