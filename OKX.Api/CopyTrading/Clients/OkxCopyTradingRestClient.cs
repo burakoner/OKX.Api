@@ -8,7 +8,6 @@ using OKX.Api.CopyTrading.Enums;
 using OKX.Api.CopyTrading.Models;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
-using System.Diagnostics.Metrics;
 
 namespace OKX.Api.CopyTrading.Clients;
 
@@ -315,8 +314,16 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessOneRequestAsync<OkxCopyTradingProfitSharingTotalUnrealized>(GetUri(v5CopyTradingTotalUnrealizedProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    //--------------------------------
-
+    /// <summary>
+    /// Only ND broker sub-account whitelisted can apply for lead trader by this endpoint. It will be passed immediately.
+    /// Please reach out to BD for help if you want to be whitelisted.
+    /// For other accounts, e.g. ND main accounts and general main and sub-accounts, still need to apply on the web manually
+    /// </summary>
+    /// <param name="instrumentIds">The lead instrument set at the first time.
+    /// e.g. BTC-USDT-SWAP. If there are multiple instruments, separate them with commas.</param>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxBooleanResponse>> ApplyForLeadTradingAsync(
         IEnumerable<string> instrumentIds,
         OkxInstrumentType? instrumentType = null,
@@ -331,6 +338,12 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingApplyLeadTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// It is used to stop lead trading for ND broker sub-account.
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxBooleanResponse>> StopLeadTradingAsync(
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
@@ -341,6 +354,13 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingStopLeadTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// It is used to amend profit sharing ratio.
+    /// </summary>
+    /// <param name="profitSharingRatio">Profit sharing ratio. 0.1 represents 10%</param>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxBooleanResponse>> AmendProfitSharingRatioAsync(
         decimal profitSharingRatio,
         OkxInstrumentType? instrumentType = null,
@@ -355,11 +375,34 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingAmendProfitSharingRatio), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Retrieve current account configuration related to copy/lead trading.
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingAccountConfiguration>> GetAccountConfigurationAsync(CancellationToken ct = default)
     {
         return ProcessOneRequestAsync<OkxCopyTradingAccountConfiguration>(GetUri(v5CopyTradingConfig), HttpMethod.Get, ct, signed: true);
     }
 
+    /// <summary>
+    /// The first copy settings for the certain lead trader. You need to first copy settings after stopping copying.
+    /// </summary>
+    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="copyMarginMode">Copy margin mode</param>
+    /// <param name="copyInstrumentIdType">Copy contract type setted</param>
+    /// <param name="copyTotalAmount">Maximum total amount in USDT. The maximum total amount you'll invest at any given time across all orders in this copy trade. You won’t copy new orders if you exceed this amount</param>
+    /// <param name="positionCloseType">Action type for open positions</param>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="instrumentIds">Instrument ID.</param>
+    /// <param name="copyMode">Copy mode</param>
+    /// <param name="copyAmount">Copy amount per order in USDT.</param>
+    /// <param name="copyRatio">Copy ratio per order.</param>
+    /// <param name="takeProfitRatio">Take profit per order. 0.1 represents 10%</param>
+    /// <param name="stopLossRatio">Stop loss per order. 0.1 represents 10%</param>
+    /// <param name="stopLossTotalAmount">Total stop loss in USDT for trader. If your net loss (total profit - total loss) reaches this amount, you'll stop copying this trader</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxBooleanResponse>> FirstCopySettingsAsync(
         string uniqueCode,
         OkxCopyTradingMarginMode copyMarginMode,
@@ -396,6 +439,24 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingFirstCopySettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// You need to use this endpoint to amend copy settings
+    /// </summary>
+    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="copyMarginMode">Copy margin mode</param>
+    /// <param name="copyInstrumentIdType">Copy contract type setted</param>
+    /// <param name="copyTotalAmount">Maximum total amount in USDT. The maximum total amount you'll invest at any given time across all orders in this copy trade. You won’t copy new orders if you exceed this amount</param>
+    /// <param name="positionCloseType">Action type for open positions</param>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="instrumentIds">Instrument ID.</param>
+    /// <param name="copyMode">Copy mode</param>
+    /// <param name="copyAmount">Copy amount per order in USDT.</param>
+    /// <param name="copyRatio">Copy ratio per order.</param>
+    /// <param name="takeProfitRatio">Take profit per order. 0.1 represents 10%</param>
+    /// <param name="stopLossRatio">Stop loss per order. 0.1 represents 10%</param>
+    /// <param name="stopLossTotalAmount">Total stop loss in USDT for trader. If your net loss (total profit - total loss) reaches this amount, you'll stop copying this trader</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxBooleanResponse>> AmendCopySettingsAsync(
         string uniqueCode,
         OkxCopyTradingMarginMode copyMarginMode,
@@ -416,7 +477,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         {
             { "uniqueCode", uniqueCode },
             { "copyMgnMode", JsonConvert.SerializeObject(copyMarginMode, new OkxCopyTradingMarginModeConverter(false)) },
-            { "copyInstIdType", JsonConvert.SerializeObject(copyMarginMode, new OkxCopyTradingInstrumentIdTypeConverter(false)) },
+            { "copyInstIdType", JsonConvert.SerializeObject(copyInstrumentIdType, new OkxCopyTradingInstrumentIdTypeConverter(false)) },
             { "copyTotalAmt", copyTotalAmount.ToOkxString() },
             { "subPosCloseType", JsonConvert.SerializeObject(positionCloseType, new OkxCopyTradingPositionCloseTypeConverter(false)) },
         };
@@ -432,12 +493,23 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingAmendCopySettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// You need to use this endpoint to stop copy trading
+    /// </summary>
+    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="positionCloseType">Action type for open positions, it is required</param>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxBooleanResponse>> StopCopyingAsync(
         string uniqueCode,
         OkxCopyTradingPositionCloseType positionCloseType,
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
+        if(instrumentType.IsNotIn(OkxInstrumentType.Swap))
+            throw new ArgumentException("Instrument type must be Swap", nameof(instrumentType));
+
         var parameters = new Dictionary<string, object>
         {
             { "uniqueCode", uniqueCode },
@@ -448,6 +520,13 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingStopCopyTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
+    /// <summary>
+    /// Retrieve the copy settings about certain lead trader.
+    /// </summary>
+    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingCopySettings>> GetCopySettingsAsync(
         string uniqueCode,
         OkxInstrumentType? instrumentType = null,
