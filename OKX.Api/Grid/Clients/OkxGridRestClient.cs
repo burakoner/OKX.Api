@@ -1,6 +1,4 @@
-﻿// SYNCED @ 2024/09/18
-
-using OKX.Api.Account.Converters;
+﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
 using OKX.Api.Grid.Converters;
 using OKX.Api.Grid.Enums;

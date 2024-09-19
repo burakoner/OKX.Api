@@ -87,4 +87,64 @@ public class OkxCopyTradingLeadingPosition
     /// </summary>
     [JsonProperty("algoId")]
     public long? AlgoOrderId { get; set; }
+
+    /// <summary>
+    /// Instrument type
+    /// </summary>
+    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    public OkxInstrumentType InstrumentType { get; set; }
+    
+    /// <summary>
+    /// Take-profit order price, it is -1 for market price
+    /// </summary>
+    [JsonProperty("tpOrdPx")]
+    public decimal? TakeProfitOrderPrice { get; set; }
+
+    /// <summary>
+    /// Stop-loss order price, it is -1 for market price
+    /// </summary>
+    [JsonProperty("slOrdPx")]
+    public decimal? StopLossOrderPrice { get; set; }
+
+    /// <summary>
+    /// Margin
+    /// </summary>
+    [JsonProperty("margin")]
+    public decimal? Margin { get; set; }
+
+    /// <summary>
+    /// Unrealized profit and loss
+    /// </summary>
+    [JsonProperty("upl")]
+    public decimal? UPL { get; set; }
+
+    /// <summary>
+    /// Unrealized profit and loss ratio
+    /// </summary>
+    [JsonProperty("uplRatio")]
+    public decimal? UplRatio { get; set; }
+
+    /// <summary>
+    /// Latest mark price, only applicable to contract
+    /// </summary>
+    [JsonProperty("markPx")]
+    public decimal? MarkPrice { get; set; }
+
+    /// <summary>
+    /// Lead trader unique code
+    /// </summary>
+    [JsonProperty("uniqueCode")]
+    public string UniqueCode { get; set; }
+
+    /// <summary>
+    /// Margin currency
+    /// </summary>
+    [JsonProperty("ccy")]
+    public string Currency { get; set; }
+
+    /// <summary>
+    /// Quantity of positions that can be closed
+    /// </summary>
+    [JsonProperty("availSubPos")]
+    public int AvailableSubPositions { get; set; }
 }

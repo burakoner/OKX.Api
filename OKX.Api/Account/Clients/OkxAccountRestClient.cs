@@ -1,6 +1,4 @@
-﻿// SYNCED @ 2024/09/17
-
-using OKX.Api.Account.Converters;
+﻿using OKX.Api.Account.Converters;
 using OKX.Api.Account.Enums;
 using OKX.Api.Account.Models;
 using OKX.Api.Public.Converters;

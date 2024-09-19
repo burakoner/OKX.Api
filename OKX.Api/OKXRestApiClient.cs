@@ -98,7 +98,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Broker Client
     /// </summary>
-    public OkxBrokerRestClient Broker { get; } // TODO: 3 + 27
+    public OkxBrokerRestClient Broker { get; } // TODO
 
     /// <summary>
     /// Affiliate Client
