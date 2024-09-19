@@ -356,7 +356,7 @@ internal class Program
         var spread_01 = await api.Spread.PlaceOrderAsync("", OkxTradeOrderSide.Buy, OkxSpreadOrderType.LimitOrder, 1.0m);
         var spread_02 = await api.Spread.CancelOrderAsync();
         var spread_03 = await api.Spread.CancelOrdersAsync("");
-        var spread_04 = await api.Spread.AmendOrderAsync("");
+        var spread_04 = await api.Spread.AmendOrderAsync();
         var spread_05 = await api.Spread.GetOrderAsync();
         var spread_06 = await api.Spread.GetOpenOrdersAsync();
         var spread_07 = await api.Spread.GetOrderHistoryAsync();
@@ -526,7 +526,13 @@ internal class Program
             // ... Your logic here
         }, "BTC-USDT", OkxPeriod.FiveMinutes);
 
-        var pairs = new List<string> { "BTC-USDT", "LTC-USDT", "ETH-USDT", "XRP-USDT", "BCH-USDT", "EOS-USDT", "OKB-USDT", "ETC-USDT", "TRX-USDT", "BSV-USDT", "DASH-USDT", "NEO-USDT", "QTUM-USDT", "XLM-USDT", "ADA-USDT", "AE-USDT", "BLOC-USDT", "EGT-USDT", "IOTA-USDT", "SC-USDT", "WXT-USDT", "ZEC-USDT", };
+        var pairs = new List<string> { 
+            "BTC-USDT", "LTC-USDT", "ETH-USDT", "XRP-USDT", "BCH-USDT", 
+            "EOS-USDT", "OKB-USDT", "ETC-USDT", "TRX-USDT", "BSV-USDT", 
+            "DASH-USDT", "NEO-USDT", "QTUM-USDT", "XLM-USDT", "ADA-USDT", 
+            "AE-USDT", "BLOC-USDT", "EGT-USDT", "IOTA-USDT", "SC-USDT", 
+            "WXT-USDT", "ZEC-USDT", 
+        };
         foreach (var pair in pairs)
         {
             await ws.Public.SubscribeToTickersAsync((data) =>

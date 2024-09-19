@@ -7,12 +7,6 @@
 public class OkxRubikTakerVolume
 {
     /// <summary>
-    /// Currency
-    /// </summary>
-    [JsonIgnore]
-    public string Currency { get; set; }
-
-    /// <summary>
     /// Timestamp
     /// </summary>
     [ArrayProperty(0)]

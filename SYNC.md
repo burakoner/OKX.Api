@@ -8,7 +8,7 @@ CopyTrading  @ 2024/09/19
 Public       @ 2024/09/18
 Block        @ 2024/08/09
 Spread       @ 2024/09/19
-Rubik
+Rubik        @ 2024/09/19
 Funding
 SubAccount
 Financial
