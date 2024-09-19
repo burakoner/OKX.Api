@@ -286,11 +286,11 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxDownloadApplication>> ApplyBillDataAsync(int year, string quarter, CancellationToken ct = default)
+    public Task<RestCallResult<OkxDownloadApplication>> ApplyBillDataAsync(int year, OkxQuarter quarter, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            { "year", year.ToOkxString() },
-            { "quarter", quarter },
+            {"year", year.ToOkxString() },
+            {"quarter", JsonConvert.SerializeObject(quarter, new OkxQuarterConverter(false)) },
         };
 
         return ProcessOneRequestAsync<OkxDownloadApplication>(GetUri(v5AccountBillsHistoryArchive), HttpMethod.Post, ct, true, bodyParameters: parameters);
@@ -303,11 +303,11 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxDownloadLink>> GetBillDataAsync(int year, string quarter, CancellationToken ct = default)
+    public Task<RestCallResult<OkxDownloadLink>> GetBillDataAsync(int year, OkxQuarter quarter, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
-            { "year", year.ToOkxString() },
-            { "quarter", quarter },
+            {"year", year.ToOkxString() },
+            {"quarter", JsonConvert.SerializeObject(quarter, new OkxQuarterConverter(false)) },
         };
 
         return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5AccountBillsHistoryArchive), HttpMethod.Get, ct, true, queryParameters: parameters);
