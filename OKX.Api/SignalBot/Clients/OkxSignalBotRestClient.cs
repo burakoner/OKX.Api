@@ -450,4 +450,30 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
 
         return ProcessListRequestAsync<OkxSignalBotSuborder>(GetUri(v5TradingBotSignalSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
+
+    /// <summary>
+    /// GET / Signal bot event history
+    /// </summary>
+    /// <param name="algoId">Algo ID</param>
+    /// <param name="after">Pagination of data to return records eventCtime earlier than the requested timestamp, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records eventCtime newer than the requested timestamp, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxSignalBotSuborder>>> GetEventHistoryAsync(
+        long algoId,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            { "algoId", algoId.ToOkxString() },
+        };
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxSignalBotSuborder>(GetUri(v5TradingBotSignalEventHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
 }

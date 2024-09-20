@@ -1,6 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Public.Converters;
+﻿using OKX.Api.Public.Converters;
 using OKX.Api.Public.Enums;
 using OKX.Api.SignalBot.Converters;
 using OKX.Api.SignalBot.Enums;
