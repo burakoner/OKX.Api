@@ -113,7 +113,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Announcement Client
     /// </summary>
-    public OkxAnnouncementRestClient Announcement { get; } // TODO: 
+    public OkxAnnouncementRestClient Announcement { get; }
 
     #endregion
 

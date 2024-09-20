@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Algo Response
 /// </summary>
-public class OkxSignalBotAlgoResponse : OkxRestApiErrorBase
+public class OkxSignalBotAlgoIdResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Algo ID
