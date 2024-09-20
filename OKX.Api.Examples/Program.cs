@@ -253,8 +253,8 @@ internal class Program
         var grid_20 = await api.Grid.RsiBacktestAsync("BTC-USDT", OkxGridAlgoTimeFrame.ThreeMinutes, 30, 14);
 
         // Order Book Trading -> Signal Bot Trading Methods (Signed)
-        var signal_01 = await api.SignalBot.CreateSignalChannelAsync("long short", "this is the first version");
-        var signal_02 = await api.SignalBot.GetSignalChannelsAsync(OkxSignalBotSourceType.FreeSignal);
+        var signal_01 = await api.SignalBot.CreateChannelAsync("long short", "this is the first version");
+        var signal_02 = await api.SignalBot.GetChannelsAsync(OkxSignalBotSourceType.FreeSignal);
         var signal_03 = await api.SignalBot.CreateSignalBotAsync(
             signalChannelId: 627921182788161536,
             instrumentIds: [

@@ -43,7 +43,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Signal Trading Client
     /// </summary>
-    public OkxSignalBotRestClient SignalBot { get; } // TODO
+    public OkxSignalBotRestClient SignalBot { get; }
 
     /// <summary>
     /// Recurring Buy Client

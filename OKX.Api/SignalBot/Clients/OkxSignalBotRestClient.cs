@@ -59,7 +59,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxSignalBotChannelInformation>>> GetChannelAsync(
+    public Task<RestCallResult<List<OkxSignalBotChannelInformation>>> GetChannelsAsync(
         OkxSignalBotSourceType signalSourceType,
         long? signalChannelId = null,
         long? after = null,
