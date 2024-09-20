@@ -81,6 +81,11 @@ internal class Program
         // Status Methods (Unsigned)
         var system_01 = await api.Status.GetSystemUpgradeStatusAsync();
 
+        // Announcement Methods
+        var announcement_01 = await api.Announcement.GetAnnouncementTypesAsync(); // (Unsigned)
+        var announcement_02 = await api.Announcement.GetAnnouncementsAsync(); // (Signed)
+
+
         // Trading Account Methods (Signed)
         var account_01 = await api.Account.GetInstrumentsAsync(OkxInstrumentType.Spot);
         var account_02 = await api.Account.GetBalancesAsync();

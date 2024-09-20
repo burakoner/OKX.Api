@@ -563,9 +563,9 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSystemUpgradeStatusAsync(Action<OkxStatus> onData, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSystemUpgradeStatusAsync(Action<OkxAnnouncements> onData, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxStatus>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAnnouncements>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);

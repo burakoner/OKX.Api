@@ -12,5 +12,6 @@ Funding      @ 2024/09/19
 SubAccount   @ 2024/09/19
 Financial    @ 2024/09/19
 Affiliate    @ 2024/09/19
-SignalBot 
-Broker
+Announcement @ 
+SignalBot    @ 
+Broker       @ 

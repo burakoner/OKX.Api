@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Maintenance System
 /// </summary>
-public enum OkxMaintenanceSystem
+public enum OkxStatusMaintenanceSystem
 {
     /// <summary>
     /// Classic

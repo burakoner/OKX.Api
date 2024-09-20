@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Maintenance State
 /// </summary>
-public enum OkxMaintenanceState
+public enum OkxStatusMaintenanceState
 {
     /// <summary>
     /// Scheduled
