@@ -15,7 +15,7 @@ public class OkxBlockQuoteProduct
     /// Receive all instruments or not under specific instType setting.
     /// Valid value can be boolean (True/False). By default, the value will be false.
     /// </summary>
-    [JsonProperty("includeALL")]
+    [JsonProperty("includeAll")]
     public bool IncludeAll { get; set; }
 
     /// <summary>
@@ -31,17 +31,11 @@ public class OkxBlockQuoteProduct
 public class OkxBlockQuoteProductData
 {
     /// <summary>
-    /// Underlying
-    /// </summary>
-    [JsonProperty("uly")]
-    public string Underlying { get; set; }
-
-    /// <summary>
     /// Instrument family. Required for FUTURES, OPTION and SWAP only.
     /// </summary>
     [JsonProperty("instFamily")]
     public string InstrumentFamily { get; set; }
-
+    
     /// <summary>
     /// Instrument ID. Required for SPOT only.
     /// </summary>

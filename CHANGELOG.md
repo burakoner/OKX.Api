@@ -1,6 +1,7 @@
 ## Change Log & Release Notes
 
 * Version 2.6.6 - 20 Sep 2024
+  * Commit: https://github.com/burakoner/OKX.Api/commit/fba165764750442a260515826a8b18ac8827bd23
   * Commit: https://github.com/burakoner/OKX.Api/commit/76537063f3b658ff060ef7af24ded151ec076478
   * Commit: https://github.com/burakoner/OKX.Api/commit/bde519c0d80099277691852f1b31d0a76303147a
   * Commit: https://github.com/burakoner/OKX.Api/commit/aebfef39fa2decd9a8f58521b258cf39d69cfdcf

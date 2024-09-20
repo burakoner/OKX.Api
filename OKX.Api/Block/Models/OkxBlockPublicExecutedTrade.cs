@@ -6,11 +6,11 @@
 public class OkxBlockPublicExecutedTrade
 {
     /// <summary>
-    /// Block trade ID.
+    /// Option strategy, e.g. CALL_CALENDAR_SPREAD
     /// </summary>
-    [JsonProperty("blockTdId")]
-    public long BlockTradeId { get; set; }
-
+    [JsonProperty("strategy")]
+    public string Strategy { get; set; }
+    
     /// <summary>
     /// The time the trade was executed. Unix timestamp in milliseconds.
     /// </summary>
@@ -22,6 +22,12 @@ public class OkxBlockPublicExecutedTrade
     /// </summary>
     [JsonIgnore]
     public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+
+    /// <summary>
+    /// Block trade ID.
+    /// </summary>
+    [JsonProperty("blockTdId")]
+    public long BlockTradeId { get; set; }
 
     /// <summary>
     /// Legs of trade
