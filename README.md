@@ -105,7 +105,12 @@ var public_41 = await api.Public.GetIndexComponentsAsync("BTC-USDT");
 var public_42 = await api.Public.GetEconomicCalendarDataAsync("BTC-USDT");
 
 // Status Methods (Unsigned)
-var system_01 = await api.Public.GetSystemUpgradeStatusAsync();
+var system_01 = await api.Status.GetSystemUpgradeStatusAsync();
+
+// Announcement Methods
+var announcement_01 = await api.Announcement.GetAnnouncementTypesAsync(); // (Unsigned)
+var announcement_02 = await api.Announcement.GetAnnouncementsAsync(); // (Signed)
+
 
 // Trading Account Methods (Signed)
 var account_01 = await api.Account.GetInstrumentsAsync(OkxInstrumentType.Spot);
@@ -274,8 +279,8 @@ var grid_19 = await api.Grid.ComputeMinimumInvestmentAsync("ETH-USDT", OkxGridAl
 var grid_20 = await api.Grid.RsiBacktestAsync("BTC-USDT", OkxGridAlgoTimeFrame.ThreeMinutes, 30, 14);
 
 // Order Book Trading -> Signal Bot Trading Methods (Signed)
-var signal_01 = await api.SignalBot.CreateSignalChannelAsync("long short", "this is the first version");
-var signal_02 = await api.SignalBot.GetSignalChannelsAsync(OkxSignalBotSourceType.FreeSignal);
+var signal_01 = await api.SignalBot.CreateChannelAsync("long short", "this is the first version");
+var signal_02 = await api.SignalBot.GetChannelsAsync(OkxSignalBotSourceType.FreeSignal);
 var signal_03 = await api.SignalBot.CreateSignalBotAsync(
     signalChannelId: 627921182788161536,
     instrumentIds: [
@@ -299,7 +304,7 @@ var signal_03 = await api.SignalBot.CreateSignalBotAsync(
         TakeProfitPercentage = "",
         StopLossPercentage = ""
     });
-var signal_04 = await api.SignalBot.CancelSignalOrdersAsync(627921182788161536);
+var signal_04 = await api.SignalBot.CancelSignalBotsAsync([627921182788161536]);
 
 // Order Book Trading -> Recurring Buy Methods (Signed)
 var recurring_01 = await api.RecurringBuy.PlaceOrderAsync("Strategy Name", new List<OkxRecurringBuyItem>(), OkxRecurringBuyPeriod.Monthly, 1, null, 1, "UTC", 1000.0m, "USDT", OkxTradeMode.Cross);
@@ -313,12 +318,12 @@ var recurring_07 = await api.RecurringBuy.GetSubOrdersAsync(algoOrderId: 1_000_0
 // Order Book Trading -> Copy Trading Methods (Signed)
 var copy_01 = await api.CopyTrading.GetLeadingPositionsAsync();
 var copy_02 = await api.CopyTrading.GetLeadingPositionsHistoryAsync();
-var copy_03 = await api.CopyTrading.PlaceLeadingStopOrderAsync(leadingPositionId: 1_000_001);
-var copy_04 = await api.CopyTrading.CloseLeadingPositionAsync(leadingPositionId: 1_000_001);
+var copy_03 = await api.CopyTrading.PlaceLeadingStopOrderAsync(positionId: 1_000_001);
+var copy_04 = await api.CopyTrading.CloseLeadingPositionAsync(positionId: 1_000_001);
 var copy_05 = await api.CopyTrading.GetLeadingInstrumentsAsync();
 var copy_06 = await api.CopyTrading.SetLeadingInstrumentsAsync(["BTC-USDT", "ETH-USDT"]);
 var copy_07 = await api.CopyTrading.GetProfitSharingDetailsAsync();
-var copy_08 = await api.CopyTrading.GetProfitSharingTotalAsync();
+var copy_08 = await api.CopyTrading.GetTotalProfitSharingAsync();
 var copy_09 = await api.CopyTrading.GetUnrealizedProfitSharingDetailsAsync();
 var copy_10 = await api.CopyTrading.GetTotalUnrealizedProfitSharingAsync();
 var copy_11 = await api.CopyTrading.ApplyForLeadTradingAsync([]);
@@ -394,7 +399,7 @@ var spread_12 = await api.Spread.GetTickerAsync("");
 var spread_13 = await api.Spread.GetTradesAsync();
 var spread_14 = await api.Spread.GetCandlesticksAsync("", OkxPeriod.OneDay);
 var spread_15 = await api.Spread.GetCandlesticksHistoryAsync("", OkxPeriod.OneDay);
-var spread_16 = await api.Spread.CancelAllAfterAsync(30, "");
+var spread_16 = await api.Spread.CancelAllAfterAsync(30);
 
 // Trading Statistics Methods (Unsigned)
 var rubik_01 = await api.Rubik.GetSupportCoinAsync();
@@ -418,19 +423,17 @@ var funding_01 = await api.Funding.GetCurrenciesAsync();
 var funding_02 = await api.Funding.GetBalancesAsync();
 var funding_03 = await api.Funding.GetNonTradableBalancesAsync();
 var funding_04 = await api.Funding.GetAssetValuationAsync();
-var funding_05 = await api.Funding.FundTransferAsync("BTC", 0.5m, OkxFundingTransferType.TransferWithinAccount, OkxAccount.Funding, OkxAccount.Trading);
+var funding_05 = await api.Funding.FundTransferAsync(OkxFundingTransferType.TransferWithinAccount, "BTC", 0.5m, OkxAccount.Funding, OkxAccount.Trading);
 var funding_06 = await api.Funding.FundTransferStateAsync();
 var funding_07 = await api.Funding.GetFundingBillDetailsAsync("BTC");
-var funding_08 = await api.Funding.GetLightningDepositsAsync("BTC", 0.001m);
 var funding_09 = await api.Funding.GetDepositAddressAsync("BTC");
 var funding_10 = await api.Funding.GetDepositAddressAsync("USDT");
 var funding_12 = await api.Funding.GetDepositHistoryAsync("USDT");
 var funding_13 = await api.Funding.WithdrawAsync("USDT", 100.0m, OkxFundingWithdrawalDestination.DigitalCurrencyAddress, "toAddress", 1.0m, "USDT-TRC20");
-var funding_14 = await api.Funding.GetLightningWithdrawalsAsync("BTC", "invoice", "password");
 var funding_15 = await api.Funding.CancelWithdrawalAsync(1_000_001);
 var funding_16 = await api.Funding.GetWithdrawalHistoryAsync("USDT");
 var funding_17 = await api.Funding.GetDepositStatusAsync("", "", "", "");
-var funding_18 = await api.Funding.GetWithdrawalStatusAsync(1_000_000l);
+var funding_18 = await api.Funding.GetWithdrawalStatusAsync(1_000_000L);
 var funding_19 = await api.Funding.ConvertDustAssetsAsync([]);
 var funding_20 = await api.Funding.GetExchangeListAsync();
 var funding_21 = await api.Funding.ApplyForMonthlyStatementAsync();
@@ -448,10 +451,10 @@ var subaccount_03 = await api.SubAccount.GetSubAccountTradingBalancesAsync("subA
 var subaccount_04 = await api.SubAccount.GetSubAccountFundingBalancesAsync("subAccountName");
 var subaccount_05 = await api.SubAccount.GetSubAccountMaximumWithdrawalsAsync("subAccountName");
 var subaccount_06 = await api.SubAccount.GetSubAccountBillsAsync();
-var subaccount_07 = await api.SubAccount.GetManagedSubAccountBillsAsync();
+var subaccount_07 = await api.SubAccount.GetSubAccountManagedBillsAsync();
 var subaccount_08 = await api.SubAccount.TransferBetweenSubAccountsAsync("BTC", 0.5m, OkxAccount.Funding, OkxAccount.Trading, "fromSubAccountName", "toSubAccountName");
 var subaccount_09 = await api.SubAccount.SetPermissionOfTransferOutAsync("", true);
-var subaccount_10 = await api.SubAccount.GetEntrustSubAccountsAsync("");
+var subaccount_10 = await api.SubAccount.GetCustodySubAccountsAsync("");
 var subaccount_11 = await api.SubAccount.SetLoanAllocationAsync(false, []);
 var subaccount_12 = await api.SubAccount.GetInterestLimitsAsync("");
 

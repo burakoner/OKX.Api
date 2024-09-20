@@ -178,7 +178,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     }
 
     /// <summary>
-    /// Retrieve the completed order data for the last 21 days, and the incomplete orders (filledSz =0 & state = canceled) that have been canceled are only reserved for 2 hours. Results are returned in counter chronological order of orders creation.
+    /// Retrieve the completed order data for the last 21 days, and the incomplete orders (filledSz =0 &amp; state = canceled) that have been canceled are only reserved for 2 hours. Results are returned in counter chronological order of orders creation.
     /// </summary>
     /// <param name="spreadId">spread ID, e.g.</param>
     /// <param name="type">Order type</param>
@@ -481,7 +481,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// Setting timeOut to 0 disables Cancel All After.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSpreadCancelAllAfter>> CancelAllAfterAsync(int timeout, string tag, CancellationToken ct = default)
+    public Task<RestCallResult<OkxSpreadCancelAllAfter>> CancelAllAfterAsync(int timeout, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             {"timeOut", timeout.ToOkxString() },

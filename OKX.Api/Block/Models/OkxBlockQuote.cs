@@ -74,9 +74,15 @@ public class OkxBlockQuote
     [JsonProperty("clRfqId")]
     public string ClientRfqId { get; set; }
 
+    /// <summary>
+    /// Quote Id
+    /// </summary>
     [JsonProperty("quoteId")]
     public string QuoteId { get; set; }
 
+    /// <summary>
+    /// Client Quote Id
+    /// </summary>
     [JsonProperty("clQuoteId")]
     public string ClientQuoteId { get; set; }
 

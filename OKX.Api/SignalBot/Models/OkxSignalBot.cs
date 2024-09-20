@@ -96,13 +96,13 @@ public class OkxSignalBot
     public decimal? TotalEquity { get; set; }
     
     /// <summary>
-    /// Float P&L
+    /// Float P&amp;L
     /// </summary>
     [JsonProperty("floatPnl")]
     public decimal? FloatPnl { get; set; }
     
     /// <summary>
-    /// Realized P&L
+    /// Realized P&amp;L
     /// </summary>
     [JsonProperty("realizedPnl")]
     public decimal? RealizedPnl { get; set; }

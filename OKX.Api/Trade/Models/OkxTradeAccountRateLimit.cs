@@ -37,7 +37,7 @@ public class OkxTradeAccountRateLimit
     /// <summary>
     /// Data update time
     /// For users with trading fee level >= VIP 5, the data will be generated at 08:00 am (UTC)
-    /// For users with trading fee level < VIP 5, return the current timestamp
+    /// For users with trading fee level &lt; VIP 5, return the current timestamp
     /// </summary>
     [JsonProperty("ts")]
     public long Timestamp { get; set; }
@@ -45,7 +45,7 @@ public class OkxTradeAccountRateLimit
     /// <summary>
     /// Data update time
     /// For users with trading fee level >= VIP 5, the data will be generated at 08:00 am (UTC)
-    /// For users with trading fee level < VIP 5, return the current timestamp
+    /// For users with trading fee level &lt; VIP 5, return the current timestamp
     /// </summary>
     [JsonIgnore]
     public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }

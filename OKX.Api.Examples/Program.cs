@@ -373,7 +373,7 @@ internal class Program
         var spread_13 = await api.Spread.GetTradesAsync();
         var spread_14 = await api.Spread.GetCandlesticksAsync("", OkxPeriod.OneDay);
         var spread_15 = await api.Spread.GetCandlesticksHistoryAsync("", OkxPeriod.OneDay);
-        var spread_16 = await api.Spread.CancelAllAfterAsync(30, "");
+        var spread_16 = await api.Spread.CancelAllAfterAsync(30);
 
         // Trading Statistics Methods (Unsigned)
         var rubik_01 = await api.Rubik.GetSupportCoinAsync();

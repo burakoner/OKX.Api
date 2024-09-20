@@ -36,7 +36,9 @@ public class OkxDiscountInfo
     [JsonProperty("minDiscountRate")]
     public decimal MinimumDiscountRate { get; set; }
 
-    
+    /// <summary>
+    /// Details
+    /// </summary>
     [JsonProperty("discountInfo")]
     public List<OkxPublicDiscountInfoDetails> Details { get; set; }
 }
