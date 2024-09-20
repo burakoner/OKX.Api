@@ -5,6 +5,7 @@ using OKX.Api.SignalBot.Enums;
 using OKX.Api.SignalBot.Models;
 using OKX.Api.Trade.Converters;
 using OKX.Api.Trade.Enums;
+using System.Drawing;
 
 namespace OKX.Api.SignalBot.Clients;
 
@@ -358,7 +359,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public Task<RestCallResult<OkxSignalBotSuborderResponse>> PlaceSuborderAsync(
+    public Task<RestCallResult<object>> PlaceSuborderAsync(
         long algoId,
         string instrumentId,
         OkxTradeOrderSide side,
@@ -368,7 +369,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         bool? reduceOnly = null,
         CancellationToken ct = default)
     {
-        if(type.IsNotIn(OkxTradeOrderType.MarketOrder,OkxTradeOrderType.LimitOrder))
+        if (type.IsNotIn(OkxTradeOrderType.MarketOrder, OkxTradeOrderType.LimitOrder))
             throw new ArgumentException("Only market and limit orders are supported for suborders", nameof(type));
 
         var parameters = new Dictionary<string, object> {
@@ -380,7 +381,73 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
         parameters.AddOptionalParameter("px", price?.ToOkxString());
         parameters.AddOptionalParameter("reduceOnly", reduceOnly);
+        parameters.AddOptionalParameter("tag", Options.BrokerId);
 
-        return ProcessOneRequestAsync<OkxSignalBotSuborderResponse>(GetUri(v5TradingBotSignalClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<object>(GetUri(v5TradingBotSignalSubOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Cancel an incomplete order.
+    /// </summary>
+    /// <param name="algoId">Algo ID</param>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
+    /// <param name="signalOrderId">Order ID</param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxSignalBotSignalOrderId>> CancelSuborderAsync(
+        long algoId,
+        string instrumentId,
+        long signalOrderId,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            { "algoId", algoId.ToOkxString() },
+            { "signalOrdId", signalOrderId.ToOkxString() },
+            { "instId", instrumentId },
+        };
+
+        return ProcessOneRequestAsync<OkxSignalBotSignalOrderId>(GetUri(v5TradingBotSignalCancelSubOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// GET / Signal bot sub orders
+    /// </summary>
+    /// <param name="algoId">Algo ID</param>
+    /// <param name="state">Sub order state</param>
+    /// <param name="type">Sub order type</param>
+    /// <param name="signalOrderId">Sub order ID</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ordId</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ordId.</param>
+    /// <param name="begin">Return records of ctime after than the requested timestamp (include), Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="end">Return records of ctime before than the requested timestamp (include), Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxSignalBotSuborder>>> GetSubordersAsync(
+        long algoId,
+        OkxSignalBotSuborderState? state = null,
+        OkxSignalBotSuborderType? type = null,
+        long? signalOrderId = null,
+        long? after = null,
+        long? before = null,
+        long? begin = null,
+        long? end = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        var parameters = new Dictionary<string, object> {
+            { "algoId", algoId.ToOkxString() },
+            { "algoOrdType", "contract" },
+        };
+        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxSignalBotSuborderStateConverter(false)));
+        parameters.AddOptionalParameter("signalOrdId", signalOrderId);
+        parameters.AddOptionalParameter("after", after?.ToOkxString());
+        parameters.AddOptionalParameter("before", before?.ToOkxString());
+        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
+        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxSignalBotSuborderTypeConverter(false)));
+
+        return ProcessListRequestAsync<OkxSignalBotSuborder>(GetUri(v5TradingBotSignalSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 }

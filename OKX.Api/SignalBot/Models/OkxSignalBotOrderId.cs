@@ -9,7 +9,7 @@ public class OkxSignalBotOrderId : OkxRestApiErrorBase
     /// Algo ID
     /// </summary>
     [JsonProperty("algoId")]
-    public long AlgoId { get; set; }
+    public long? AlgoId { get; set; }
 
     /// <summary>
     /// Client-supplied Algo ID
