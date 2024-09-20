@@ -278,7 +278,7 @@ internal class Program
                 TakeProfitPercentage = "",
                 StopLossPercentage = ""
             });
-        var signal_04 = await api.SignalBot.CancelSignalOrdersAsync(627921182788161536);
+        var signal_04 = await api.SignalBot.CancelSignalBotsAsync([627921182788161536]);
 
         // Order Book Trading -> Recurring Buy Methods (Signed)
         var recurring_01 = await api.RecurringBuy.PlaceOrderAsync("Strategy Name", new List<OkxRecurringBuyItem>(), OkxRecurringBuyPeriod.Monthly, 1, null, 1, "UTC", 1000.0m, "USDT", OkxTradeMode.Cross);
@@ -407,7 +407,7 @@ internal class Program
         var funding_15 = await api.Funding.CancelWithdrawalAsync(1_000_001);
         var funding_16 = await api.Funding.GetWithdrawalHistoryAsync("USDT");
         var funding_17 = await api.Funding.GetDepositStatusAsync("", "", "", "");
-        var funding_18 = await api.Funding.GetWithdrawalStatusAsync(1_000_000l);
+        var funding_18 = await api.Funding.GetWithdrawalStatusAsync(1_000_000L);
         var funding_19 = await api.Funding.ConvertDustAssetsAsync([]);
         var funding_20 = await api.Funding.GetExchangeListAsync();
         var funding_21 = await api.Funding.ApplyForMonthlyStatementAsync();
