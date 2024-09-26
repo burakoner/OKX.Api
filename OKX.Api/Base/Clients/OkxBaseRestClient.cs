@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Base Client
 /// </summary>
-internal abstract class OkxBaseRestClient : RestApiClient
+public abstract class OkxBaseRestClient : RestApiClient
 {
     internal ILogger Logger { get => _logger; }
     internal OkxRestApiClient Root { get; }
@@ -23,7 +23,9 @@ internal abstract class OkxBaseRestClient : RestApiClient
     }
 
     #region Override Methods
+    /// <inheritdoc />
     protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials) => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
+    /// <inheritdoc />
     protected override Error ParseErrorResponse(JToken error)
     {
         if (!error.HasValues)
@@ -37,6 +39,7 @@ internal abstract class OkxBaseRestClient : RestApiClient
 
         return new ServerError((int)error["code"], (string)error["msg"]);
     }
+    /// <inheritdoc />
     protected override Task<ServerError> TryParseErrorAsync(JToken error)
     {
         if (!error.HasValues)
@@ -49,8 +52,11 @@ internal abstract class OkxBaseRestClient : RestApiClient
 
         return Task.FromResult<ServerError>(null);
     }
+    /// <inheritdoc />
     protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync() => Root.Public.GetServerTimeAsync();
+    /// <inheritdoc />
     protected override TimeSyncInfo GetTimeSyncInfo() => new(Logger, Options.AutoTimestamp, Options.AutoTimestampInterval, TimeSyncState);
+    /// <inheritdoc />
     protected override TimeSpan GetTimeOffset() => TimeSyncState.TimeOffset;
     #endregion
 
