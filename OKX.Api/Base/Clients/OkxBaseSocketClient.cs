@@ -5,7 +5,7 @@ namespace OKX.Api.Base.Clients;
 /// <summary>
 /// OKX WebSocket Api Base Client
 /// </summary>
-public abstract class OkxBaseSocketClient : WebSocketApiClient
+internal abstract class OkxBaseSocketClient : WebSocketApiClient
 {
     /// <summary>
     /// Logger

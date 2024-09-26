@@ -1,21 +1,4 @@
-﻿using OKX.Api.Account.Clients;
-using OKX.Api.Affiliate.Clients;
-using OKX.Api.Algo.Clients;
-using OKX.Api.Block.Clients;
-using OKX.Api.Broker.Clients;
-using OKX.Api.CopyTrading.Clients;
-using OKX.Api.Financial.Clients;
-using OKX.Api.Funding.Clients;
-using OKX.Api.Grid.Clients;
-using OKX.Api.Public.Clients;
-using OKX.Api.RecurringBuy.Clients;
-using OKX.Api.Rubik.Clients;
-using OKX.Api.SignalBot.Clients;
-using OKX.Api.Spread.Clients;
-using OKX.Api.SubAccount.Clients;
-using OKX.Api.Trade.Clients;
-
-namespace OKX.Api;
+﻿namespace OKX.Api;
 
 /// <summary>
 /// OKX WebSocket Client
@@ -116,7 +99,7 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
         else if (endpoint == OkxSocketEndpoint.Private) url = env.WebSocketPrivateAddress;
         else if (endpoint == OkxSocketEndpoint.Business) url = env.WebSocketBusinessAddress;
 
-        return SubscribeAsync<T>(url, request, identifier, authenticated, dataHandler, ct);
+        return SubscribeAsync(url, request, identifier, authenticated, dataHandler, ct);
     }
 
     internal Task<CallResult<T>> RootQueryAsync<T>(OkxSocketEndpoint endpoint, object request, bool authenticated)

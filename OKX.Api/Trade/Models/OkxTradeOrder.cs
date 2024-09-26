@@ -349,7 +349,7 @@ public class OkxTradeOrderLinkedAlgoOrder
     /// Instrument type
     /// </summary>
     [JsonProperty("algoId")]
-    public long AlgoId { get; set; }
+    public string AlgoId { get; set; }
 }
 
 /// <summary>

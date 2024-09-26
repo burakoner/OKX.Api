@@ -51,12 +51,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="../CHANGELOG.md" Pack="true" PackagePath="\" />
 		<None Include="../README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Announcement\Converters\" />
-	  <Folder Include="Announcement\Enums\" />
 	  <Folder Include="Broker\FullyDisclosed\Converters\" />
 	  <Folder Include="Broker\FullyDisclosed\Enums\" />
 	  <Folder Include="Broker\FullyDisclosed\Models\" />

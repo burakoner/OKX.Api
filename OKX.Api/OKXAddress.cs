@@ -53,8 +53,8 @@ public class OkxAddress
     public static OkxAddress Demo = new()
     {
         RestApiAddress = "https://www.okx.com",
-        WebSocketPublicAddress = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999",
-        WebSocketPrivateAddress = "wss://wspap.okx.com:8443/ws/v5/private?brokerId=9999",
-        WebSocketBusinessAddress = "wss://wspap.okx.com:8443/ws/v5/business?brokerId=9999",
+        WebSocketPublicAddress = "wss://wspap.okx.com:8443/ws/v5/public",
+        WebSocketPrivateAddress = "wss://wspap.okx.com:8443/ws/v5/private",
+        WebSocketBusinessAddress = "wss://wspap.okx.com:8443/ws/v5/business",
     };
 }

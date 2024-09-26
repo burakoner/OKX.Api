@@ -3,9 +3,8 @@
 /// <summary>
 /// OKX Rest Api Base Client
 /// </summary>
-public abstract class OkxBaseRestClient : RestApiClient
+internal abstract class OkxBaseRestClient : RestApiClient
 {
-    // Internal
     internal ILogger Logger { get => _logger; }
     internal OkxRestApiClient Root { get; }
     internal OkxRestApiOptions Options { get { return Root.Options; } }
@@ -24,11 +23,7 @@ public abstract class OkxBaseRestClient : RestApiClient
     }
 
     #region Override Methods
-    /// <inheritdoc />
-    protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-        => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
-
-    /// <inheritdoc />
+    protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials) => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
     protected override Error ParseErrorResponse(JToken error)
     {
         if (!error.HasValues)
@@ -42,8 +37,6 @@ public abstract class OkxBaseRestClient : RestApiClient
 
         return new ServerError((int)error["code"], (string)error["msg"]);
     }
-
-    /// <inheritdoc />
     protected override Task<ServerError> TryParseErrorAsync(JToken error)
     {
         if (!error.HasValues)
@@ -56,18 +49,9 @@ public abstract class OkxBaseRestClient : RestApiClient
 
         return Task.FromResult<ServerError>(null);
     }
-
-    /// <inheritdoc />
-    protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync()
-        => Root.Public.GetServerTimeAsync();
-
-    /// <inheritdoc />
-    protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(Logger, Options.AutoTimestamp, Options.AutoTimestampInterval, TimeSyncState);
-
-    /// <inheritdoc />
-    protected override TimeSpan GetTimeOffset()
-        => TimeSyncState.TimeOffset;
+    protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync() => Root.Public.GetServerTimeAsync();
+    protected override TimeSyncInfo GetTimeSyncInfo() => new(Logger, Options.AutoTimestamp, Options.AutoTimestampInterval, TimeSyncState);
+    protected override TimeSpan GetTimeOffset() => TimeSyncState.TimeOffset;
     #endregion
 
     #region Internal Methods
@@ -79,39 +63,10 @@ public abstract class OkxBaseRestClient : RestApiClient
 
         return new Uri($"{Options.BaseAddress.TrimEnd('/')}/{endpoint}");
     }
+    internal void SetApiCredentials(OkxApiCredentials credentials) => base.SetApiCredentials(credentials);
+    internal void SetApiCredentials(string apiKey, string apiSecret, string passPhrase) => SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
 
-    /// <summary>
-    /// Sets the API Credentials
-    /// </summary>
-    /// <param name="credentials">API Credentials Object</param>
-    internal void SetApiCredentials(OkxApiCredentials credentials)
-    {
-        base.SetApiCredentials(credentials);
-    }
-
-    /// <summary>
-    /// Sets the API Credentials
-    /// </summary>
-    /// <param name="apiKey">The api key</param>
-    /// <param name="apiSecret">The api secret</param>
-    /// <param name="passPhrase">The passphrase you specified when creating the API key</param>
-    internal void SetApiCredentials(string apiKey, string apiSecret, string passPhrase)
-    {
-        SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
-    }
-
-    internal async Task<RestCallResult<T>> SendRawRequestAsync<T>(
-        Uri uri,
-        HttpMethod method,
-        CancellationToken cancellationToken,
-        bool signed = false,
-        Dictionary<string, object> queryParameters = null,
-        Dictionary<string, object> bodyParameters = null,
-        Dictionary<string, string> headerParameters = null,
-        ArraySerialization? arraySerialization = null,
-        JsonSerializer deserializer = null,
-        bool ignoreRatelimit = false,
-        int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<T>> SendRawRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions
         var culture = Thread.CurrentThread.CurrentCulture;
@@ -129,19 +84,7 @@ public abstract class OkxBaseRestClient : RestApiClient
         // Return
         return result;
     }
-
-    internal async Task<RestCallResult<List<T>>> ProcessListRequestAsync<T>(
-        Uri uri,
-        HttpMethod method,
-        CancellationToken cancellationToken,
-        bool signed = false,
-        Dictionary<string, object> queryParameters = null,
-        Dictionary<string, object> bodyParameters = null,
-        Dictionary<string, string> headerParameters = null,
-        ArraySerialization? arraySerialization = null,
-        JsonSerializer deserializer = null,
-        bool ignoreRatelimit = false,
-        int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<List<T>>> ProcessListRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions
         var culture = Thread.CurrentThread.CurrentCulture;
@@ -156,24 +99,14 @@ public abstract class OkxBaseRestClient : RestApiClient
         Thread.CurrentThread.CurrentCulture = culture;
         Thread.CurrentThread.CurrentUICulture = cultureUI;
 
-        // Return
+        // Return Error
         if (!result.Success) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
         if (result.Data is null) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
+
+        // Return Success
         return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
-
-    internal async Task<RestCallResult<T>> ProcessOneRequestAsync<T>(
-        Uri uri,
-        HttpMethod method,
-        CancellationToken cancellationToken,
-        bool signed = false,
-        Dictionary<string, object> queryParameters = null,
-        Dictionary<string, object> bodyParameters = null,
-        Dictionary<string, string> headerParameters = null,
-        ArraySerialization? arraySerialization = null,
-        JsonSerializer deserializer = null,
-        bool ignoreRatelimit = false,
-        int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<T>> ProcessOneRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions
         var culture = Thread.CurrentThread.CurrentCulture;
@@ -188,24 +121,16 @@ public abstract class OkxBaseRestClient : RestApiClient
         Thread.CurrentThread.CurrentCulture = culture;
         Thread.CurrentThread.CurrentUICulture = cultureUI;
 
-        // Return
+        // Return Error
         if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (result.Data is OkxRestApiErrorBase data && data.ErrorCode is not null && data.ErrorCode.Trim() != "" && data.ErrorCode.Trim() != "0" && !string.IsNullOrEmpty(data.ErrorMessage))
+            return new RestCallResult<T>(result.Request, result.Response, result.Raw, new ServerError(int.Parse(data.ErrorCode), data.ErrorMessage));
+
+        // Return Success
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data.FirstOrDefault(), result.Raw, result.Error);
     }
-
-    internal async Task<RestCallResult<T>> ProcessArrayModelRequestAsync<T>(
-        Uri uri,
-        HttpMethod method,
-        CancellationToken cancellationToken,
-        bool signed = false,
-        Dictionary<string, object> queryParameters = null,
-        Dictionary<string, object> bodyParameters = null,
-        Dictionary<string, string> headerParameters = null,
-        ArraySerialization? arraySerialization = null,
-        JsonSerializer deserializer = null,
-        bool ignoreRatelimit = false,
-        int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<T>> ProcessArrayModelRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions
         var culture = Thread.CurrentThread.CurrentCulture;
@@ -220,24 +145,14 @@ public abstract class OkxBaseRestClient : RestApiClient
         Thread.CurrentThread.CurrentCulture = culture;
         Thread.CurrentThread.CurrentUICulture = cultureUI;
 
-        // Return
+        // Return Error
         if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+
+        // Return Success
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
-
-    internal async Task<RestCallResult<T>> ProcessModelRequestAsync<T>(
-        Uri uri,
-        HttpMethod method,
-        CancellationToken cancellationToken,
-        bool signed = false,
-        Dictionary<string, object> queryParameters = null,
-        Dictionary<string, object> bodyParameters = null,
-        Dictionary<string, string> headerParameters = null,
-        ArraySerialization? arraySerialization = null,
-        JsonSerializer deserializer = null,
-        bool ignoreRatelimit = false,
-        int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<T>> ProcessModelRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions
         var culture = Thread.CurrentThread.CurrentCulture;
@@ -252,12 +167,13 @@ public abstract class OkxBaseRestClient : RestApiClient
         Thread.CurrentThread.CurrentCulture = culture;
         Thread.CurrentThread.CurrentUICulture = cultureUI;
 
-        // Return
+        // Return Error
         if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
         if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+
+        // Return Success
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
-
     #endregion
 
 }

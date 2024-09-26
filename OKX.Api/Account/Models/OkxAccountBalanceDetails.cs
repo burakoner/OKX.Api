@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Account.Models;
 
 /// <summary>
-/// OkxAccountBalanceDetail
+/// OkxAccountBalanceDetails
 /// </summary>
-public class OkxAccountBalanceDetail
+public class OkxAccountBalanceDetails
 {
     /// <summary>
     /// Currency
@@ -212,7 +212,7 @@ public class OkxAccountBalanceDetail
     /// Max possible spot risk offset amount
     /// Applicable to Portfolio margin
     /// </summary>
-    [JsonProperty("maxSpotInUse")]
+    [JsonProperty("maxSpotInUseAmt")]
     public decimal? MaxPossibleSpotRiskOffsetAmount { get; set; }
 
     /// <summary>
@@ -232,7 +232,7 @@ public class OkxAccountBalanceDetail
     /// 	Spot balance. The unit is currency, e.g. BTC.
     /// </summary>
     [JsonProperty("spotBal")]
-    public decimal SpotBalance { get; set; }
+    public decimal? SpotBalance { get; set; }
 
     ///// <summary>
     ///// Spot average cost price. The unit is USD.
@@ -250,23 +250,23 @@ public class OkxAccountBalanceDetail
     /// Spot unrealized profit and loss. The unit is USD.
     /// </summary>
     [JsonProperty("spotUpl")]
-    public decimal SpotUpl{ get; set; }
+    public decimal? SpotUpl{ get; set; }
 
     /// <summary>
     /// Spot unrealized profit and loss ratio. 
     /// </summary>
     [JsonProperty("spotUplRatio")]
-    public decimal SpotUplRatio{ get; set; }
+    public decimal? SpotUplRatio{ get; set; }
 
     /// <summary>
     /// Spot accumulated profit and loss. The unit is USD. 
     /// </summary>
     [JsonProperty("totalPnl")]
-    public decimal TotalPnl{ get; set; }
+    public decimal? TotalPnl{ get; set; }
 
     /// <summary>
     /// Spot accumulated profit and loss ratio.
     /// </summary>
     [JsonProperty("totalPnlRatio")]
-    public decimal TotalPnlRatio { get; set; }
+    public decimal? TotalPnlRatio { get; set; }
 }
