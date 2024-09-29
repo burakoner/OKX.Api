@@ -15,7 +15,7 @@ public class OkxTradeOrderCancelResponse : OkxRestApiErrorBase
     /// Client Order Id
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Timestamp when the order request processing is finished by our system, Unix timestamp format in milliseconds, e.g. 1597026383085

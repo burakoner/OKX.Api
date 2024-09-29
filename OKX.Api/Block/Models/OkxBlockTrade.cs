@@ -27,7 +27,7 @@ public class OkxBlockTrade
     /// Client-supplied RFQ ID. This attribute is treated as client sensitive information. It will not be exposed to the Maker, only return empty string.
     /// </summary>
     [JsonProperty("clRfqId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Quote ID.
@@ -39,7 +39,7 @@ public class OkxBlockTrade
     /// Client-supplied Quote ID. This attribute is treated as client sensitive information. It will not be exposed to the Taker, only return empty string.
     /// </summary>
     [JsonProperty("clQuoteId")]
-    public string ClientQuoteId { get; set; }
+    public string ClientQuoteId { get; set; } = "";
 
     /// <summary>
     /// Block trade ID.
@@ -51,13 +51,13 @@ public class OkxBlockTrade
     /// A unique identifier of the taker. Empty if the anonymous parameter of the RFQ is set to be true.
     /// </summary>
     [JsonProperty("tTraderCode")]
-    public string TakerTraderCode { get; set; }
+    public string TakerTraderCode { get; set; } = "";
 
     /// <summary>
     /// A unique identifier of the maker. Empty if the anonymous parameter of the Quote is set to be true.
     /// </summary>
     [JsonProperty("mTraderCode")]
-    public string MakerTraderCode { get; set; }
+    public string MakerTraderCode { get; set; } = "";
 
     /// <summary>
     /// Legs of trade

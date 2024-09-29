@@ -21,11 +21,11 @@ public class OkxSignalBotEntryParamaters
     /// Amount per order. Only applicable to entryType in 2/3
     /// </summary>
     [JsonProperty("amt")]
-    public string Amount { get; set; }
+    public string Amount { get; set; } = "";
 
     /// <summary>
     /// Amount ratio per order. Only applicable to entryType in 4/5
     /// </summary>
     [JsonProperty("ratio")]
-    public string Ratio { get; set; }
+    public string Ratio { get; set; } = "";
 }

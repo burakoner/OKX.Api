@@ -9,7 +9,7 @@ public class OkxAccountFixedLoanBorrowingOrderDetails
     /// Borrowing currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Borrowing order ID
@@ -21,7 +21,7 @@ public class OkxAccountFixedLoanBorrowingOrderDetails
     /// Fixed term for borrowing order. 30D: 30 days
     /// </summary>
     [JsonProperty("term")]
-    public string Term { get; set; }
+    public string Term { get; set; } = "";
 
     /// <summary>
     /// State
@@ -36,7 +36,7 @@ public class OkxAccountFixedLoanBorrowingOrderDetails
     /// -1: Other reason
     /// </summary>
     [JsonProperty("failedReason")]
-    public string FailedReason { get; set; }
+    public string FailedReason { get; set; } = "";
 
     /// <summary>
     /// Settle reason
@@ -45,7 +45,7 @@ public class OkxAccountFixedLoanBorrowingOrderDetails
     /// 3: Early repayment
     /// </summary>
     [JsonProperty("settleReason")]
-    public string SettleReason { get; set; }
+    public string SettleReason { get; set; } = "";
 
     /// <summary>
     /// Borrowing annual rate of current order

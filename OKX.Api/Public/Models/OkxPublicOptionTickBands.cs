@@ -15,7 +15,7 @@ public class OkxPublicOptionTickBands
     /// Instrument family
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; }
+    public string InstrumentFamily { get; set; } = "";
 
     /// <summary>
     /// Tick size band

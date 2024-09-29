@@ -27,7 +27,7 @@ public class OkxFundingAssetValuation
     /// Details
     /// </summary>
     [JsonProperty("details")]
-    public OkxFundingAssetValuationDetails Details { get; set; }
+    public OkxFundingAssetValuationDetails? Details { get; set; }
 }
 
 /// <summary>

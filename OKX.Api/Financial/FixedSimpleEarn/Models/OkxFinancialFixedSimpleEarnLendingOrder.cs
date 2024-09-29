@@ -21,7 +21,7 @@ public class OkxFinancialFixedSimpleEarnLendingOrder
     /// Lending currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Lending amount
@@ -39,7 +39,7 @@ public class OkxFinancialFixedSimpleEarnLendingOrder
     /// Fixed term for lending order, e.g. 30D
     /// </summary>
     [JsonProperty("term")]
-    public string Term { get; set; }
+    public string Term { get; set; } = "";
 
     /// <summary>
     /// Whether or not auto-renewal when the term is due

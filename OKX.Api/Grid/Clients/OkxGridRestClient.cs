@@ -87,9 +87,9 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxGridRunType? gridRunType = null,
         decimal? takeProfitTriggerPrice = null,
         decimal? stopLossTriggerPrice = null,
-        string algoClientOrderId = null,
+        string? algoClientOrderId = null,
         decimal? profitSharingRatio = null,
-        IEnumerable<OkxGridTriggerParametersRequest> triggerParameters = null,
+        IEnumerable<OkxGridTriggerParametersRequest>? triggerParameters = null,
 
         // Spot Grid Order
         decimal? quoteSize = null,
@@ -174,7 +174,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? takeProfitTriggerPrice = null,
         decimal? takeProfitRatio = null,
         decimal? stopLossRatio = null,
-        IEnumerable<OkxGridOrderAmendRequestTriggerParameters> triggerParameters = null,
+        IEnumerable<OkxGridOrderAmendRequestTriggerParameters>? triggerParameters = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -297,7 +297,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<List<OkxGridOrder>>> GetOpenOrdersAsync(
         OkxGridAlgoOrderType algoOrderType,
         long? algoOrderId = null,
-        string instrumentId = null,
+        string? instrumentId = null,
         OkxInstrumentType? instrumentType = null,
         long? after = null,
         long? before = null,
@@ -332,7 +332,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<List<OkxGridOrder>>> GetOrdersHistoryAsync(
         OkxGridAlgoOrderType algoOrderType,
         long? algoOrderId = null,
-        string instrumentId = null,
+        string? instrumentId = null,
         OkxInstrumentType? instrumentType = null,
         long? after = null,
         long? before = null,
@@ -388,7 +388,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxGridAlgoOrderType algoOrderType,
         long algoOrderId,
         OkxGridAlgoSubOrderType type,
-        string groupId = null,
+        string? groupId = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -565,7 +565,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         bool? basePosition = null,
         OkxGridInvestmentType? investmentType = null,
         OkxGridTriggerStrategy? triggerStrategy = null,
-        IEnumerable<OkxGridInvestmentData> investmentData = null,
+        IEnumerable<OkxGridInvestmentData>? investmentData = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {

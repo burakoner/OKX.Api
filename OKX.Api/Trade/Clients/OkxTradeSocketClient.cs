@@ -21,8 +21,8 @@ public class OkxTradeSocketClient(OKXWebSocketApiClient root)
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderUpdatesAsync(
         Action<OkxTradeOrder> onData,
         OkxInstrumentType instrumentType,
-        string instrumentFamily = null,
-        string instrumentId = null,
+        string? instrumentFamily = null,
+        string? instrumentId = null,
         CancellationToken ct = default)
         => await SubscribeToOrderUpdatesAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct).ConfigureAwait(false);
 

@@ -76,11 +76,11 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxTradeMode tradeMode,
         OkxTradeOrderSide orderSide,
         OkxAlgoOrderType algoOrderType,
-        string currency = null,
+        string? currency = null,
         OkxTradePositionSide? positionSide = null,
         decimal? size = null,
         OkxTradeQuantityType? quantityType = null,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         decimal? closeFraction = null,
 
         // Take Profit / Stop Loss
@@ -98,7 +98,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? triggerPrice = null,
         decimal? orderPrice = null,
         OkxAlgoPriceType? triggerPriceType = null,
-        IEnumerable<OkxAlgoAttachedAlgoPlaceRequest> attachedAlgoOrders = null,
+        IEnumerable<OkxAlgoAttachedAlgoPlaceRequest>? attachedAlgoOrders = null,
 
         // Trailing Stop Order
         decimal? callbackRatio = null,
@@ -217,10 +217,10 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         // Common
         string instrumentId,
         long? algoOrderId = null,
-        string algoClientOrderId = null,
+        string? algoClientOrderId = null,
         bool? cancelOnFail = null,
 
-        string clientRequestId = null,
+        string? clientRequestId = null,
         decimal? newSize = null,
 
         // Take Profit
@@ -237,7 +237,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? newTriggerPrice = null,
         decimal? newOrderPrice = null,
         OkxAlgoPriceType? newTriggerPriceType = null,
-        IEnumerable<OkxAlgoAttachedAlgoAmendRequest> attachedAlgoOrders = null,
+        IEnumerable<OkxAlgoAttachedAlgoAmendRequest>? attachedAlgoOrders = null,
 
         // Cancellation Token
         CancellationToken ct = default)
@@ -294,7 +294,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="algoClientOrderId">Client-supplied Algo ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAlgoOrder>> GetOrderAsync(long? algoOrderId = null, string algoClientOrderId = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAlgoOrder>> GetOrderAsync(long? algoOrderId = null, string? algoClientOrderId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("algoId", algoOrderId?.ToOkxString());
@@ -319,9 +319,9 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<List<OkxAlgoOrder>>> GetOpenOrdersAsync(
         OkxAlgoOrderType algoOrderType,
         long? algoId = null,
-        string algoClientOrderId = null,
+        string? algoClientOrderId = null,
         OkxInstrumentType? instrumentType = null,
-        string instrumentId = null,
+        string? instrumentId = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -361,7 +361,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxAlgoOrderState? algoOrderState = null,
         long? algoId = null,
         OkxInstrumentType? instrumentType = null,
-        string instrumentId = null,
+        string? instrumentId = null,
         long? after = null,
         long? before = null,
         int limit = 100,

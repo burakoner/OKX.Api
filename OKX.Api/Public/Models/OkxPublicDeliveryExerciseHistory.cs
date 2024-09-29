@@ -33,7 +33,7 @@ public class OkxPublicDeliveryExerciseHistoryData
     /// Instrument ID
     /// </summary>
     [JsonProperty("insId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Price

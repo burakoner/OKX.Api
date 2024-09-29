@@ -22,7 +22,7 @@ public class OkxRubikInterestVolumeStrike
     /// Strike
     /// </summary>
     [ArrayProperty(1)]
-    public string Strike { get; set; }
+    public string Strike { get; set; } = "";
 
     /// <summary>
     /// Call Open Interest

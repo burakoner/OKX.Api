@@ -75,7 +75,7 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
     /// </summary>
     /// <param name="logger">Logger</param>
     /// <param name="options">Options</param>
-    public OKXWebSocketApiClient(ILogger logger, OkxWebSocketApiOptions options) : base(logger, options)
+    public OKXWebSocketApiClient(ILogger? logger, OkxWebSocketApiOptions options) : base(logger, options)
     {
         this.Public = new OkxPublicSocketClient(this);
         this.Account = new OkxAccountSocketClient(this);
@@ -91,7 +91,7 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
 
     internal int RequestId() => base.NextId();
 
-    internal Task<CallResult<WebSocketUpdateSubscription>> RootSubscribeAsync<T>(OkxSocketEndpoint endpoint, object request, string identifier, bool authenticated, Action<WebSocketDataEvent<T>> dataHandler, CancellationToken ct)
+    internal Task<CallResult<WebSocketUpdateSubscription>> RootSubscribeAsync<T>(OkxSocketEndpoint endpoint, object request, string? identifier, bool authenticated, Action<WebSocketDataEvent<T>> dataHandler, CancellationToken ct)
     {
         var url = ClientOptions.BaseAddress;
         var env = ((OkxWebSocketApiOptions)ClientOptions).DemoTradingService ? OkxAddress.Demo : OkxAddress.Default;

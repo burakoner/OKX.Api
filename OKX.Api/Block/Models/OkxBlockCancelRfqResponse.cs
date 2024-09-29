@@ -15,5 +15,5 @@ public class OkxBlockCancelRfqResponse : OkxRestApiErrorBase
     /// Client-supplied RFQ ID.
     /// </summary>
     [JsonProperty("clRfqId")]
-    public string ClientRfqId { get; set; }
+    public string ClientRfqId { get; set; } = "";
 }

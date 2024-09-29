@@ -9,7 +9,7 @@ public class OkxTradeOrderPlaceRequest
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Trade Mode
@@ -21,19 +21,19 @@ public class OkxTradeOrderPlaceRequest
     /// Currency
     /// </summary>
     [JsonProperty("ccy", NullValueHandling = NullValueHandling.Ignore)]
-    public string Currency { get; set; }
+    public string? Currency { get; set; }
 
     /// <summary>
     /// Client Order ID
     /// </summary>
     [JsonProperty("clOrdId", NullValueHandling = NullValueHandling.Ignore)]
-    public string ClientOrderId { get; set; }
+    public string? ClientOrderId { get; set; }
 
     /// <summary>
     /// Order tag. Used for Broker Id
     /// </summary>
     [JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
-    internal string Tag { get; set; }
+    internal string? Tag { get; set; }
 
     /// <summary>
     /// Order Side
@@ -57,14 +57,14 @@ public class OkxTradeOrderPlaceRequest
     /// Size
     /// </summary>
     [JsonProperty("sz")]
-    public string Size { get; set; }
+    public string Size { get; set; } = "";
 
     /// <summary>
     /// Order price. Only applicable to limit,post_only,fok,ioc,mmp,mmp_and_post_only order.
     /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in
     /// </summary>
     [JsonProperty("px", NullValueHandling = NullValueHandling.Ignore)]
-    public string Price { get; set; }
+    public string? Price { get; set; }
 
     /// <summary>
     /// Place options orders in USD
@@ -72,7 +72,7 @@ public class OkxTradeOrderPlaceRequest
     /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in
     /// </summary>
     [JsonProperty("pxUsd", NullValueHandling = NullValueHandling.Ignore)]
-    public string PriceUsd { get; set; }
+    public string? PriceUsd { get; set; }
 
     /// <summary>
     /// Place options orders based on implied volatility, where 1 represents 100%
@@ -80,7 +80,7 @@ public class OkxTradeOrderPlaceRequest
     /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in
     /// </summary>
     [JsonProperty("pxVol", NullValueHandling = NullValueHandling.Ignore)]
-    public string PriceVolatility { get; set; }
+    public string? PriceVolatility { get; set; }
 
     /// <summary>
     /// Whether to reduce position only or not, true false, the default is false.
@@ -121,6 +121,6 @@ public class OkxTradeOrderPlaceRequest
     /// TP/SL information attached when placing order
     /// </summary>
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
-    public IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest> AttachedAlgoOrders { get; set; }
+    public IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? AttachedAlgoOrders { get; set; }
 
 }

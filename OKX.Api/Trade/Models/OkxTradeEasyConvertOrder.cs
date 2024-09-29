@@ -15,7 +15,7 @@ public class OkxTradeEasyConvertOrder
     /// Type of small payment currency convert from
     /// </summary>
     [JsonProperty("fromCcy")]
-    public string FromCurrency { get; set; }
+    public string FromCurrency { get; set; } = "";
 
     /// <summary>
     /// Type of mainstream currency convert to

@@ -9,13 +9,13 @@ public class OkxGridAlgoSubOrder
     /// Algo order ID
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoOrderId { get; set; }
+    public string AlgoOrderId { get; set; } = "";
 
     /// <summary>
     /// Algo client order ID
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; }
+    public string AlgoClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Instrument type
@@ -27,7 +27,7 @@ public class OkxGridAlgoSubOrder
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Algo order type
@@ -39,7 +39,7 @@ public class OkxGridAlgoSubOrder
     /// Group ID
     /// </summary>
     [JsonProperty("groupId")]
-    public string GroupId { get; set; }
+    public string GroupId { get; set; } = "";
 
     /// <summary>
     /// Sub order ID
@@ -81,7 +81,7 @@ public class OkxGridAlgoSubOrder
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Order type
@@ -123,7 +123,7 @@ public class OkxGridAlgoSubOrder
     /// Fee currency
     /// </summary>
     [JsonProperty("feeCcy")]
-    public string FeeCurrency { get; set; }
+    public string FeeCurrency { get; set; } = "";
 
     /// <summary>
     /// Rebate
@@ -135,7 +135,7 @@ public class OkxGridAlgoSubOrder
     /// Rebate currency
     /// </summary>
     [JsonProperty("rebateCcy")]
-    public string RebateCurrency { get; set; }
+    public string RebateCurrency { get; set; } = "";
 
     /// <summary>
     /// Average price

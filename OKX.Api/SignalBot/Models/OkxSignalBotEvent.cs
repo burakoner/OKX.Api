@@ -69,5 +69,5 @@ public class OkxSignalBotTriggeredOrderData
     /// 	Sub order client-supplied id
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 }

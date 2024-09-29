@@ -15,7 +15,7 @@ public class OkxSignalBotSuborder
     /// Client-supplied Algo ID
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; }
+    public string AlgoClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Instrument type
@@ -27,14 +27,14 @@ public class OkxSignalBotSuborder
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
     
     /// <summary>
     /// Algo order type
     /// contract: Contract signal
     /// </summary>
     [JsonProperty("algoOrdType")]
-    public string AlgoOrderType { get; set; }
+    public string AlgoOrderType { get; set; } = "";
     
     /// <summary>
     /// Sub order ID
@@ -78,7 +78,7 @@ public class OkxSignalBotSuborder
     /// Margin currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
     
     /// <summary>
     /// Sub order type
@@ -120,7 +120,7 @@ public class OkxSignalBotSuborder
     /// Fee currency
     /// </summary>
     [JsonProperty("feeCcy")]
-    public string FeeCurrency { get; set; }
+    public string FeeCurrency { get; set; } = "";
 
     /// <summary>
     /// Sub order average filled price

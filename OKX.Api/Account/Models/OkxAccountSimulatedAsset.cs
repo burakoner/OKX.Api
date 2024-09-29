@@ -9,11 +9,11 @@ public class OkxAccountSimulatedAsset
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Amount
     /// </summary>
     [JsonProperty("amt")]
-    public string Amount { get; set; }
+    public string Amount { get; set; } = "";
 }

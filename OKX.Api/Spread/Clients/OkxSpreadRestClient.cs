@@ -39,7 +39,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         OkxSpreadOrderType type,
         decimal size,
         decimal? price = null,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -62,7 +62,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="clientOrderId">Client Order ID as assigned by the client</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSpreadOrderCancelResponse>> CancelOrderAsync(long? orderId = null, string clientOrderId = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxSpreadOrderCancelResponse>> CancelOrderAsync(long? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
@@ -103,8 +103,8 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<OkxSpreadOrderAmendResponse>> AmendOrderAsync(
         long? orderId = null,
-        string clientOrderId = null,
-        string requestId = null,
+        string? clientOrderId = null,
+        string? requestId = null,
         decimal? newQuantity = null,
         decimal? newPrice = null,
         CancellationToken ct = default)
@@ -128,7 +128,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<OkxSpreadOrder>> GetOrderAsync(
         long? orderId = null,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -150,7 +150,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSpreadOrder>>> GetOpenOrdersAsync(
-        string spreadId = null,
+        string? spreadId = null,
         OkxTradeOrderType? type = null,
         OkxTradeOrderState? state = null,
         long? beginId = null,
@@ -184,7 +184,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSpreadOrder>>> GetOrderHistoryAsync(
-        string spreadId = null,
+        string? spreadId = null,
         OkxTradeOrderType? type = null,
         OkxTradeOrderState? state = null,
         long? beginId = null,
@@ -222,7 +222,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSpreadOrder>>> GetOrderArchiveAsync(
-        string spreadId = null,
+        string? spreadId = null,
         OkxTradeOrderType? type = null,
         OkxTradeOrderState? state = null,
         long? beginId = null,
@@ -260,7 +260,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSpreadTrade>>> GetTradesAsync(
-        string spreadId = null,
+        string? spreadId = null,
         long? tradeId = null,
         long? orderId = null,
         long? beginId = null,
@@ -294,9 +294,9 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSpreadInstrument>>> GetSpreadsAsync(
-        string baseCurrency = null,
-        string instrumentId = null,
-        string spreadId = null,
+        string? baseCurrency = null,
+        string? instrumentId = null,
+        string? spreadId = null,
         OkxSpreadInstrumentState? state = null,
         CancellationToken ct = default)
     {

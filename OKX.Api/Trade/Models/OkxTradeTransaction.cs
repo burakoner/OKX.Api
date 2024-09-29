@@ -15,7 +15,7 @@ public class OkxTradeTransaction
     /// Unique identifier of the instrument involved in the transaction.
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Unique identifier of the last trade associated with this transaction.
@@ -42,7 +42,7 @@ public class OkxTradeTransaction
     /// </remarks>
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Unique identifier of the bill associated with this transaction.
@@ -136,7 +136,7 @@ public class OkxTradeTransaction
     /// The currency in which the transaction fee is paid.
     /// </summary>
     [JsonProperty("feeCcy")]
-    public string FeeCurrency { get; set; }
+    public string FeeCurrency { get; set; } = "";
 
     /// <summary>
     /// The transaction fee.

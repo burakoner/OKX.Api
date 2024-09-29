@@ -116,7 +116,7 @@ public class OkxTradeOrderCheck
     /// only applicable cross and in auto borrow
     /// </summary>
     [JsonProperty("liabChgCcy")]
-    public string LiabilityChangeCurrency  { get; set; }
+    public string LiabilityChangeCurrency  { get; set; } = "";
 
     /// <summary>
     /// Unit type of positive asset, only applicable to margin isolated position
@@ -126,5 +126,5 @@ public class OkxTradeOrderCheck
     /// 4: it is both quota currency before and after placing order
     /// </summary>
     [JsonProperty("type")]
-    public string Type  { get; set; }
+    public string Type  { get; set; } = "";
 }

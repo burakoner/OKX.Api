@@ -89,10 +89,10 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         decimal amount,
         OkxSignalBotOrderType orderType,
         bool includeAll = false,
-        IEnumerable<string> instrumentIds = null,
+        IEnumerable<string>? instrumentIds = null,
         decimal? ratio = null,
-        OkxSignalBotEntryParamaters entryParamaters = null,
-        OkxSignalBotExitParamaters exitParamaters = null,
+        OkxSignalBotEntryParamaters? entryParamaters = null,
+        OkxSignalBotExitParamaters? exitParamaters = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -300,7 +300,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSignalBotPositionHistory>>> GetPositionHistoryAsync(
         long algoId,
-        string instrumentId = null,
+        string? instrumentId = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -326,7 +326,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSignalBotAlgoId>>> ClosePositionAsync(
         long algoId,
-        string instrumentId = null,
+        string? instrumentId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {

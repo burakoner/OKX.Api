@@ -9,7 +9,7 @@ public class OkxPublicIndexComponents
     /// Index
     /// </summary>
     [JsonProperty("index")]
-    public string Index { get; set; }
+    public string Index { get; set; } = "";
     
     /// <summary>
     /// Last Price
@@ -45,13 +45,13 @@ public class OkxPublicIndexComponent
     /// Exchange
     /// </summary>
     [JsonProperty("exch")]
-    public string Exchange { get; set; }
+    public string Exchange { get; set; } = "";
 
     /// <summary>
     /// Symbol
     /// </summary>
     [JsonProperty("symbol")]
-    public string Symbol { get; set; }
+    public string Symbol { get; set; } = "";
 
     /// <summary>
     /// Price

@@ -9,7 +9,7 @@ public class OkxPublicTrade
     /// Instrument Id
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Trade Id

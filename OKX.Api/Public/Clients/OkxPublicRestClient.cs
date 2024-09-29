@@ -64,8 +64,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicTicker>>> GetTickersAsync(
         OkxInstrumentType instrumentType,
-        string instrumentFamily = null,
-        string underlying = null,
+        string? instrumentFamily = null,
+        string? underlying = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -332,8 +332,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicOptionTrade>>> GetOptionTradesAsync(
-    string instrumentId = null,
-    string instrumentFamily = null,
+    string? instrumentId = null,
+    string? instrumentFamily = null,
     OkxOptionType? optionType = null,
     CancellationToken ct = default)
     {
@@ -369,9 +369,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicInstrument>>> GetInstrumentsAsync(
         OkxInstrumentType instrumentType,
-        string underlying = null,
-        string instrumentId = null,
-        string instrumentFamily = null,
+        string? underlying = null,
+        string? instrumentId = null,
+        string? instrumentFamily = null,
         bool signed = false,
         CancellationToken ct = default)
     {
@@ -399,8 +399,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicDeliveryExerciseHistory>>> GetDeliveryExerciseHistoryAsync(
         OkxInstrumentType instrumentType,
-        string underlying = null,
-        string instrumentFamily = null,
+        string? underlying = null,
+        string? instrumentFamily = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -434,9 +434,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicOpenInterest>>> GetOpenInterestsAsync(
         OkxInstrumentType instrumentType,
-        string underlying = null,
-        string instrumentId = null,
-        string instrumentFamily = null,
+        string? underlying = null,
+        string? instrumentId = null,
+        string? instrumentFamily = null,
         CancellationToken ct = default)
     {
         if (instrumentType.IsNotIn(OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
@@ -520,8 +520,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicOptionSummary>>> GetOptionMarketDataAsync(
-        string underlying = null,
-        string instrumentFamily = null,
+        string? underlying = null,
+        string? instrumentFamily = null,
         DateTime? expiryDate = null,
         CancellationToken ct = default)
     {
@@ -555,7 +555,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPublicDiscountInfo>>> GetDiscountInfoAsync(string currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicDiscountInfo>>> GetDiscountInfoAsync(string? currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -586,9 +586,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicMarkPrice>>> GetMarkPricesAsync(
         OkxInstrumentType instrumentType,
-        string underlying = null,
-        string instrumentId = null,
-        string instrumentFamily = null,
+        string? underlying = null,
+        string? instrumentId = null,
+        string? instrumentFamily = null,
         CancellationToken ct = default)
     {
         if (instrumentType.IsNotIn(OkxInstrumentType.Margin, OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
@@ -621,10 +621,10 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         OkxInstrumentType instrumentType,
         OkxAccountMarginMode marginMode,
         string underlying,
-        string instrumentId = null,
-        string instrumentFamily = null,
-        string currency = null,
-        string tier = null,
+        string? instrumentId = null,
+        string? instrumentFamily = null,
+        string? currency = null,
+        string? tier = null,
         CancellationToken ct = default)
     {
         if (instrumentType.IsNotIn(OkxInstrumentType.Margin, OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
@@ -824,7 +824,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPublicIndexTicker>>> GetIndexTickersAsync(string quoteCurrency = null, string instrumentId = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicIndexTicker>>> GetIndexTickersAsync(string? quoteCurrency = null, string? instrumentId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("quoteCcy", quoteCurrency);
@@ -1056,7 +1056,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicEconomicCalendarEvent>>> GetEconomicCalendarDataAsync(
-        string region = null,
+        string? region = null,
         OkxPublicEventImportance? importance = null,
         long? after = null,
         long? before = null, int limit = 100,

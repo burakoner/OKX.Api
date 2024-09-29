@@ -9,19 +9,19 @@ public class OkxCopyTradingAccountConfiguration
     /// User unique code
     /// </summary>
     [JsonProperty("uniqueCode")]
-    public string UniqueCode { get; set; }
+    public string UniqueCode { get; set; } = "";
 
     /// <summary>
     /// Nickname
     /// </summary>
     [JsonProperty("nickName")]
-    public string NickName { get; set; }
+    public string NickName { get; set; } = "";
 
     /// <summary>
     /// Portrait link
     /// </summary>
     [JsonProperty("portLink")]
-    public string PortraitLink { get; set; }
+    public string PortraitLink { get; set; } = "";
 
     /// <summary>
     /// Details

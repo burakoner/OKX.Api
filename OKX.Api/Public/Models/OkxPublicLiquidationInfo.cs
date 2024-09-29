@@ -9,7 +9,7 @@ public class OkxPublicLiquidationInfo
     /// Instrument Id
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Instrument Type
@@ -27,7 +27,7 @@ public class OkxPublicLiquidationInfo
     /// Underlying
     /// </summary>
     [JsonProperty("uly")]
-    public string Underlying { get; set; }
+    public string Underlying { get; set; } = "";
 
     /// <summary>
     /// Details
@@ -75,7 +75,7 @@ public class OkxPublicLiquidationInfoDetail
     /// Liquidation Price
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Timestamp

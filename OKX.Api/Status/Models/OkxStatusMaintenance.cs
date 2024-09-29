@@ -9,7 +9,7 @@ public class OkxStatusMaintenance
     /// The title of system maintenance instructions
     /// </summary>
     [JsonProperty("title")]
-    public string Title { get; set; }
+    public string Title { get; set; } = "";
 
     /// <summary>
     /// System maintenance status
@@ -57,7 +57,7 @@ public class OkxStatusMaintenance
     /// Hyperlink for system maintenance details, if there is no return value, the default value will be empty. e.g. “”
     /// </summary>
     [JsonProperty("href")]
-    public string Link { get; set; }
+    public string Link { get; set; } = "";
 
     /// <summary>
     /// Service type, 0：WebSocket ; 1：Spot/Margin ; 2：Futures ; 3：Perpetual ; 4：Options ; 5：Trading service
@@ -75,17 +75,17 @@ public class OkxStatusMaintenance
     /// Rescheduled description，e.g. Rescheduled from 2021-01-26T16:30:00.000Z to 2021-01-28T16:30:00.000Z
     /// </summary>
     [JsonProperty("scheDesc")]
-    public string RescheduledDescription { get; set; }
+    public string RescheduledDescription { get; set; } = "";
 
     /// <summary>
     /// Maintenance type
     /// </summary>
     [JsonProperty("maintType")]
-    public string MaintenanceType { get; set; }
+    public string MaintenanceType { get; set; } = "";
 
     /// <summary>
     /// Environment
     /// </summary>
     [JsonProperty("env")]
-    public string Environment { get; set; }
+    public string Environment { get; set; } = "";
 }

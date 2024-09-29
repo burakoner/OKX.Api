@@ -9,7 +9,7 @@ public class OkxSubAccountLoanAllocation
     /// Sub Account Name
     /// </summary>
     [JsonProperty("subAcct")]
-    public string SubAccountName { get; set; }
+    public string SubAccountName { get; set; } = "";
 
     /// <summary>
     /// VIP Loan allocation. The unit is percent(%).
@@ -17,5 +17,5 @@ public class OkxSubAccountLoanAllocation
     /// "0" to remove loan allocation for the sub-account
     /// </summary>
     [JsonProperty("loanAlloc")]
-    public string LoanAllocation { get; set; }
+    public string LoanAllocation { get; set; } = "";
 }

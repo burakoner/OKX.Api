@@ -33,5 +33,5 @@ public class OkxTradeEasyConvertCurrencyFromData
     /// Type of small payment currency convert from, e.g. BTC
     /// </summary>
     [JsonProperty("fromCcy")]
-    public string FromCurrency { get; set; }
+    public string FromCurrency { get; set; } = "";
 }

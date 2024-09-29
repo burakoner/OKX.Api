@@ -14,19 +14,19 @@ public class OkxSocketResponse
     /// Event
     /// </summary>
     [JsonProperty("event")]
-    public string Event { get; set; }
+    public string Event { get; set; } = "";
 
     /// <summary>
     /// Error Code
     /// </summary>
     [JsonProperty("code")]
-    public string ErrorCode { get; set; }
+    public string ErrorCode { get; set; } = "";
 
     /// <summary>
     /// Error Message
     /// </summary>
     [JsonProperty("msg")]
-    public string ErrorMessage { get; set; }
+    public string ErrorMessage { get; set; } = "";
 }
 
 /// <summary>
@@ -39,7 +39,7 @@ public class OkxSocketUpdateResponse<T> : OkxSocketResponse
     /// Arguments
     /// </summary>
     [JsonProperty("arg")]
-    public OkxSocketUpdateArguments Arguments { get; set; }
+    public OkxSocketUpdateArguments? Arguments { get; set; }
 
     /// <summary>
     /// Data
@@ -57,13 +57,13 @@ public class OkxOrderBookUpdate
     /// Action
     /// </summary>
     [JsonProperty("action")]
-    public string Action { get; set; }
+    public string Action { get; set; } = "";
 
     /// <summary>
     /// Arguments
     /// </summary>
     [JsonProperty("arg")]
-    public OkxSocketUpdateArguments Arguments { get; set; }
+    public OkxSocketUpdateArguments? Arguments { get; set; }
 
     /// <summary>
     /// Data
@@ -81,11 +81,11 @@ public class OkxSocketUpdateArguments
     /// Channel
     /// </summary>
     [JsonProperty("channel")]
-    public string Channel { get; set; }
+    public string Channel { get; set; } = "";
 
     /// <summary>
     /// Instrument Id
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 }

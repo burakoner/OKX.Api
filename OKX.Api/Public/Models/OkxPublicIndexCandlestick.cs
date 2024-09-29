@@ -10,7 +10,7 @@ public class OkxPublicIndexCandlestick
     /// Instrument Id
     /// </summary>
     [JsonIgnore]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Timestamp

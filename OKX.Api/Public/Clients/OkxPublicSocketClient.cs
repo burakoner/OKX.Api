@@ -194,7 +194,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToEstimatedPriceAsync(Action<OkxPublicEstimatedPrice> onData, OkxInstrumentType instrumentType, string instrumentFamily = null, string instrumentId = null, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToEstimatedPriceAsync(Action<OkxPublicEstimatedPrice> onData, OkxInstrumentType instrumentType, string? instrumentFamily = null, string? instrumentId = null, CancellationToken ct = default)
         => await SubscribeToEstimatedPriceAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct).ConfigureAwait(false);
 
     /// <summary>

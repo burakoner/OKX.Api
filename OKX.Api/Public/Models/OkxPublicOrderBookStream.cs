@@ -38,7 +38,7 @@ public class OkxPublicOrderBookStream
     /// Action
     /// </summary>
     [JsonProperty("action")]
-    public string Action { get; set; }
+    public string Action { get; set; } = "";
 
     /// <summary>
     /// Checksum

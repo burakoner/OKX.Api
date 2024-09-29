@@ -40,7 +40,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     /// </summary>
     /// <param name="logger">ILogger</param>
     /// <param name="options">Options</param>
-    public OkxBaseSocketClient(ILogger logger, OkxWebSocketApiOptions options) : base(logger, options)
+    public OkxBaseSocketClient(ILogger? logger, OkxWebSocketApiOptions options) : base(logger, options)
     {
         RateLimitPerConnectionPerSecond = 4;
         IgnoreHandlingList = ["pong"];
@@ -94,7 +94,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         var result = new CallResult<bool>(new ServerError("No response from server"));
         await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(10), data =>
         {
-            if ((string)data["event"] != "login")
+            if ((string)data!["event"]! != "login")
                 return false;
 
             var authResponse = Deserialize<OkxSocketResponse>(data);
@@ -107,7 +107,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             if (!authResponse.Data.Success)
             {
                 Logger.Log(LogLevel.Warning, "Authorization failed: " + authResponse.Error.Message);
-                result = new CallResult<bool>(new ServerError(authResponse.Error.Code.Value, authResponse.Error.Message));
+                result = new CallResult<bool>(new ServerError(authResponse.Error.Code!.Value, authResponse.Error.Message));
                 return true;
             }
 
@@ -122,7 +122,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     }
 
     /// <inheritdoc />
-    protected override bool HandleQueryResponse<T>(WebSocketConnection connection, object request, JToken data, out CallResult<T> callResult)
+    protected override bool HandleQueryResponse<T>(WebSocketConnection connection, object request, JToken data, out CallResult<T>? callResult)
     {
         callResult = null;
 
@@ -197,7 +197,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     }
 
     /// <inheritdoc />
-    protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object> callResult)
+    protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object>? callResult)
     {
         callResult = null;
 
@@ -208,22 +208,22 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
 
         // Check for Error
         // 30040: {0} Channel : {1} doesn't exist
-        if (data.HasValues && data["event"] is not null && (string)data["event"] == "error" &&
+        if (data.HasValues && data["event"] is not null && (string)data["event"]! == "error" &&
             data["msg"] is not null && data["code"] is not null)
         {
             Logger.Log(LogLevel.Warning, "Subscription failed: " + (string)data["msg"]!);
-            callResult = new CallResult<object>(new ServerError(data["code"].ToIntegerSafe(), (string)data["msg"]));
+            callResult = new CallResult<object>(new ServerError(data["code"]!.ToIntegerSafe(), (string)data["msg"]!));
             return true;
         }
 
         // Check for Success
-        if (data.HasValues && data["event"] is not null && (string)data["event"]! == "subscribe" && data["arg"]["channel"] is not null)
+        if (data.HasValues && data["event"] is not null && (string)data["event"]! == "subscribe" && data["arg"]!["channel"] is not null)
         {
             if (request is OkxSocketRequest socRequest && socRequest.Arguments is not null)
             {
                 foreach (var arg in socRequest.Arguments)
                 {
-                    if (arg.Channel == (string)data["arg"]["channel"]!)
+                    if (arg.Channel == (string)data["arg"]!["channel"]!)
                     {
                         Logger.Log(LogLevel.Debug, "Subscription completed");
                         callResult = new CallResult<object>(true);
@@ -255,11 +255,12 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
                 return false;
 
             // Check for Channel
-            if (hRequest.Operation != OkxSocketOperation.Subscribe || message["arg"] is null || message["arg"]["channel"] is null)
+            if (hRequest.Operation != OkxSocketOperation.Subscribe || message["arg"] is null || message["arg"]!["channel"] is null)
                 return false;
 
             // Compare Request and Response Arguments
-            var resArg = JsonConvert.DeserializeObject<OkxSocketRequestArgument>(message["arg"].ToString());
+            var resArg = JsonConvert.DeserializeObject<OkxSocketRequestArgument>(message["arg"]!.ToString());
+            if(resArg is null) return false;
 
             // Check Data
             var data = message["data"];
@@ -302,11 +303,11 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             if (data.Type != JTokenType.Object)
                 return false;
 
-            if ((string)data["event"] == "unsubscribe")
+            if ((string)data["event"]! == "unsubscribe")
             {
                 foreach (var arg in request.Arguments)
                 {
-                    if ((string)data["arg"]["channel"] == arg.Channel)
+                    if ((string)data["arg"]!["channel"]! == arg.Channel)
                         return true;
                 }
             }

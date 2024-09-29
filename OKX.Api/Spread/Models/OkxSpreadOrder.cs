@@ -9,7 +9,7 @@ public class OkxSpreadOrder
     /// spread ID
     /// </summary>
     [JsonProperty("sprdId")]
-    public string SpreadId { get; set; }
+    public string SpreadId { get; set; } = "";
     
     /// <summary>
     /// Order ID
@@ -21,7 +21,7 @@ public class OkxSpreadOrder
     /// Client Order ID as assigned by the client
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Price

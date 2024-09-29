@@ -9,13 +9,13 @@ public class OkxFundingWithdrawalResponse
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Chain
     /// </summary>
     [JsonProperty("chain")]
-    public string Chain { get; set; }
+    public string Chain { get; set; } = "";
 
     /// <summary>
     /// Amount
@@ -33,5 +33,5 @@ public class OkxFundingWithdrawalResponse
     /// Client Order Id
     /// </summary>
     [JsonProperty("clientId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 }

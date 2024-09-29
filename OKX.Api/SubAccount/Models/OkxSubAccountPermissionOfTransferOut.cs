@@ -9,7 +9,7 @@ public class OkxSubAccountPermissionOfTransferOut
     /// Name of the sub-account
     /// </summary>
     [JsonProperty("subAcct")]
-    public string SubAccountName { get; set; }
+    public string SubAccountName { get; set; } = "";
 
     /// <summary>
     /// Whether the sub-account has the right to transfer out.
@@ -17,5 +17,5 @@ public class OkxSubAccountPermissionOfTransferOut
     /// true: can transfer out
     /// </summary>
     [JsonProperty("canTransOut")]
-    public string CanTransferOut { get; set; }
+    public string CanTransferOut { get; set; } = "";
 }

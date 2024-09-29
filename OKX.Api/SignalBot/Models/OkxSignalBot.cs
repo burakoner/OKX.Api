@@ -15,7 +15,7 @@ public class OkxSignalBot
     /// Client-supplied Algo ID
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; }
+    public string AlgoClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Instrument type
@@ -57,7 +57,7 @@ public class OkxSignalBot
     /// Algo order type. contract: Contract signal
     /// </summary>
     [JsonProperty("algoOrdType")]
-    public string AlgoOrderType { get; set; }
+    public string AlgoOrderType { get; set; } = "";
 
     /// <summary>
     /// Algo order state
@@ -72,7 +72,7 @@ public class OkxSignalBot
     /// Algo order stop reason
     /// </summary>
     [JsonProperty("cancelType")]
-    public string CancelType { get; set; }
+    public string CancelType { get; set; } = "";
     
     /// <summary>
     /// Total P&amp;L
@@ -149,25 +149,25 @@ public class OkxSignalBot
     /// Entry setting parameters
     /// </summary>
     [JsonProperty("entrySettingParam")]
-    public OkxSignalBotEntryParamaters EntryParamaters { get; set; }
+    public OkxSignalBotEntryParamaters? EntryParamaters { get; set; }
 
     /// <summary>
     /// Exit setting parameters
     /// </summary>
     [JsonProperty("exitSettingParam")]
-    public OkxSignalBotExitParamaters ExitParamaters { get; set; }
+    public OkxSignalBotExitParamaters? ExitParamaters { get; set; }
     
     /// <summary>
     /// Signal channel Id
     /// </summary>
     [JsonProperty("signalChanId")]
-    public string SignalChannelId { get; set; }
+    public string SignalChannelId { get; set; } = "";
     
     /// <summary>
     /// Signal channel name
     /// </summary>
     [JsonProperty("signalChanName")]
-    public string SignalChannelName { get; set; }
+    public string SignalChannelName { get; set; } = "";
     
     /// <summary>
     /// Signal source type

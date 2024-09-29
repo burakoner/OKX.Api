@@ -9,11 +9,11 @@ public class OkxFinancialOnChainEarnInvestData
     /// Currency type, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Investment amount
     /// </summary>
     [JsonProperty("amt")]
-    public string Amount { get; set; }
+    public string Amount { get; set; } = "";
 }

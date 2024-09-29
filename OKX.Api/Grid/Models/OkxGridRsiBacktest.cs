@@ -9,5 +9,5 @@ public class OkxGridRsiBacktest
     /// Trigger number
     /// </summary>
     [JsonProperty("triggerNum")]
-    public string TriggerNumber { get; set; }
+    public string TriggerNumber { get; set; } = "";
 }

@@ -9,7 +9,7 @@ public class OkxCopyTradingLeadTradersRanks
     /// Data version
     /// </summary>
     [JsonProperty("dataVer")]
-    public string DataVersion { get; set; }
+    public string DataVersion { get; set; } = "";
 
     /// <summary>
     /// Total number of pages
@@ -63,25 +63,25 @@ public class OkxCopyTradingLeadTraderRank
     /// Portrait link
     /// </summary>
     [JsonProperty("portLink")]
-    public string PortraitLink { get; set; }
+    public string PortraitLink { get; set; } = "";
 
     /// <summary>
     /// Nick name
     /// </summary>
     [JsonProperty("nickName")]
-    public string NickName { get; set; }
+    public string NickName { get; set; } = "";
 
     /// <summary>
     /// Margin currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Lead trader unique code
     /// </summary>
     [JsonProperty("uniqueCode")]
-    public string UniqueCode { get; set; }
+    public string UniqueCode { get; set; } = "";
 
     /// <summary>
     /// Win ratio, 0.1 represents 10%
@@ -117,7 +117,7 @@ public class OkxCopyTradingLeadTraderRank
     /// Pnl ratios
     /// </summary>
     [JsonProperty("pnlRatios")]
-    public List<OkxCopyTradingLeadTraderPnlRatio> PnlRatios { get; set; }
+    public List<OkxCopyTradingLeadTraderPnlRatio> PnlRatios { get; set; } = [];
 }
 
 /// <summary>

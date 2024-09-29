@@ -9,13 +9,13 @@ public class OkxFundingConvertOrderHistory
     /// Trade ID
     /// </summary>
     [JsonProperty("tradeId")]
-    public string TradeId { get; set; }
+    public string TradeId { get; set; } = "";
     
     /// <summary>
     /// Client Order ID as assigned by the client
     /// </summary>
     [JsonProperty("clTReqId")]
-    public string ClientRequestId { get; set; }
+    public string ClientRequestId { get; set; } = "";
     
     /// <summary>
     /// Trade state
@@ -29,19 +29,19 @@ public class OkxFundingConvertOrderHistory
     /// Currency pair, e.g. BTC-USDT
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
     
     /// <summary>
     /// Base currency, e.g. BTC in BTC-USDT
     /// </summary>
     [JsonProperty("baseCcy")]
-    public string BaseCurrency { get; set; }
+    public string BaseCurrency { get; set; } = "";
 
     /// <summary>
     /// Quote currency, e.g. USDT in BTC-USDT
     /// </summary>
     [JsonProperty("quoteCcy")]
-    public string QuoteCurrency { get; set; }
+    public string QuoteCurrency { get; set; } = "";
     
     /// <summary>
     /// Trade side based on baseCcy

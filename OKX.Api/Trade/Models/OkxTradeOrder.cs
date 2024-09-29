@@ -15,7 +15,7 @@ public class OkxTradeOrder
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Order quantity unit setting for size
@@ -27,7 +27,7 @@ public class OkxTradeOrder
     /// Margin currency. Only applicable to cross MARGIN orders in
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Order ID
@@ -39,7 +39,7 @@ public class OkxTradeOrder
     /// Client Order ID as assigned by the client
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Price
@@ -217,13 +217,13 @@ public class OkxTradeOrder
     /// Linked SL order detail, only applicable to the order that is placed by one-cancels-the-other (OCO) order that contains the TP limit order.
     /// </summary>
     [JsonProperty("linkedAlgoOrd")]
-    public OkxTradeOrderLinkedAlgoOrder LinkedAlgoOrder { get; set; }
+    public OkxTradeOrderLinkedAlgoOrder? LinkedAlgoOrder { get; set; }
 
     /// <summary>
     /// Fee currency
     /// </summary>
     [JsonProperty("feeCcy")]
-    public string FeeCurrency { get; set; }
+    public string FeeCurrency { get; set; } = "";
 
     /// <summary>
     /// Fee and rebate
@@ -237,14 +237,14 @@ public class OkxTradeOrder
     /// Rebate currency
     /// </summary>
     [JsonProperty("rebateCcy")]
-    public string RebateCurrency { get; set; }
+    public string RebateCurrency { get; set; } = "";
 
     /// <summary>
     /// Order source
     /// 13:The generated limit order after the strategy order is triggered
     /// </summary>
     [JsonProperty("source")]
-    public string Source { get; set; }
+    public string Source { get; set; } = "";
 
     /// <summary>
     /// Rebate amount, only applicable to spot and margin, the reward of placing orders from the platform (rebate) given to user who has reached the specified trading level. If there is no rebate, this field is "".
@@ -274,13 +274,13 @@ public class OkxTradeOrder
     /// Code of the cancellation source.
     /// </summary>
     [JsonProperty("cancelSource")]
-    public string CancelSource { get; set; }
+    public string CancelSource { get; set; } = "";
 
     /// <summary>
     /// Reason for the cancellation.
     /// </summary>
     [JsonProperty("cancelSourceReason")]
-    public string CancelSourceReason { get; set; }
+    public string CancelSourceReason { get; set; } = "";
 
     /// <summary>
     /// Quick Margin type, Only applicable to Quick Margin Mode of isolated margin
@@ -292,7 +292,7 @@ public class OkxTradeOrder
     /// Client-supplied Algo ID. There will be a value when algo order attaching algoClOrdId is triggered, or it will be "".
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; }
+    public string AlgoClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Algo ID. There will be a value when algo order is triggered, or it will be "".
@@ -334,7 +334,7 @@ public class OkxTradeOrderLinkedAlgoOrder
     /// Instrument type
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoId { get; set; }
+    public string AlgoId { get; set; } = "";
 }
 
 /// <summary>
@@ -354,19 +354,19 @@ public class OkxTradeOrderAttachedAlgoOrder
     /// It will be posted to algoClOrdId when placing TP/SL order once the general order is filled completely.
     /// </summary>
     [JsonProperty("attachAlgoClOrdId")]
-    public string AttachedAlgoClientOrderId { get; set; }
+    public string AttachedAlgoClientOrderId { get; set; } = "";
 
     /// <summary>
     /// TP order kind
     /// </summary>
     [JsonProperty("tpOrdKind")]
-    public string TakeProfitOrderKind { get; set; }
+    public string TakeProfitOrderKind { get; set; } = "";
     
     /// <summary>
     /// Take-profit trigger price.
     /// </summary>
     [JsonProperty("tpTriggerPx")]
-    public string TakeProfitTriggerPrice { get; set; }
+    public string TakeProfitTriggerPrice { get; set; } = "";
     
     /// <summary>
     /// Take-profit trigger price type.
@@ -378,13 +378,13 @@ public class OkxTradeOrderAttachedAlgoOrder
     /// Take-profit order price.
     /// </summary>
     [JsonProperty("tpOrdPx")]
-    public string TakeProfitOrderPrice { get; set; }
+    public string TakeProfitOrderPrice { get; set; } = "";
 
     /// <summary>
     /// Stop-loss trigger price.
     /// </summary>
     [JsonProperty("slTriggerPx")]
-    public string StopLossTriggerPrice { get; set; }
+    public string StopLossTriggerPrice { get; set; } = "";
 
     /// <summary>
     /// Stop-loss trigger price type.
@@ -396,32 +396,32 @@ public class OkxTradeOrderAttachedAlgoOrder
     /// Stop-loss order price.
     /// </summary>
     [JsonProperty("slOrdPx")]
-    public string StopLossOrderPrice { get; set; }
+    public string StopLossOrderPrice { get; set; } = "";
 
     /// <summary>
     /// Size. Only applicable to TP order of split TPs
     /// </summary>
     [JsonProperty("sz")]
-    public string Size { get; set; }
+    public string Size { get; set; } = "";
 
     /// <summary>
     /// Whether to enable Cost-price SL. Only applicable to SL order of split TPs.
     /// </summary>
     [JsonProperty("amendPxOnTriggerType")]
-    public string AmendPriceOnTriggerType { get; set; }
+    public string AmendPriceOnTriggerType { get; set; } = "";
     
     /// <summary>
     /// The error code when failing to place TP/SL order, e.g. 51020
     /// The default is ""
     /// </summary>
     [JsonProperty("failCode")]
-    public string FailCode { get; set; }
+    public string FailCode { get; set; } = "";
     
     /// <summary>
     /// The error reason when failing to place TP/SL order.
     /// The default is ""
     /// </summary>
     [JsonProperty("failReason")]
-    public string FailReason { get; set; }
+    public string FailReason { get; set; } = "";
 }
 

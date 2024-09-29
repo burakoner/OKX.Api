@@ -53,7 +53,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<OkxBlockRfq>> CreateRfqAsync(
         IEnumerable<string> counterparties,
         IEnumerable<OkxBlockLegResponse> legs,
-        string clientRfqId = null,
+        string? clientRfqId = null,
         bool anonymous = false,
         bool allowPartialExecution = false,
         CancellationToken ct = default)
@@ -79,8 +79,8 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxBlockCancelRfqResponse>> CancelRfqAsync(
-        string rfqId = null,
-        string clientRfqId = null,
+        string? rfqId = null,
+        string? clientRfqId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -100,8 +100,8 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBlockCancelRfqResponse>>> CancelRfqsAsync(
-        IEnumerable<string> rfqIds = null,
-        IEnumerable<string> clientRfqIds = null,
+        IEnumerable<string>? rfqIds = null,
+        IEnumerable<string>? clientRfqIds = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -134,7 +134,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<List<OkxBlockTrade>>> ExecuteQuoteAsync(
         string rfqId,
         string quoteId,
-        IEnumerable<OkxBlockLegSize> legs = null,
+        IEnumerable<OkxBlockLegSize>? legs = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -231,7 +231,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string rfqId,
         OkxTradeOrderSide quoteSide,
         IEnumerable<OkxBlockLegQuote> legs,
-        string clientQuoteId = null,
+        string? clientQuoteId = null,
         bool anonymous = false,
         int? expiresIn = null,
         CancellationToken ct = default)
@@ -259,9 +259,9 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxBlockCancelQuoteResponse>> CancelQuoteAsync(
-        string quoteId = null,
-        string clientQuoteId = null,
-        string rfqId = null,
+        string? quoteId = null,
+        string? clientQuoteId = null,
+        string? rfqId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -280,8 +280,8 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBlockCancelQuoteResponse>>> CancelQuotesAsync(
-        IEnumerable<string> quoteIds = null,
-        IEnumerable<string> clientQuoteIds = null,
+        IEnumerable<string>? quoteIds = null,
+        IEnumerable<string>? clientQuoteIds = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -331,11 +331,11 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBlockRfq>>> GetRfqsAsync(
-        string rfqId = null,
-        string clientRfqId = null,
+        string? rfqId = null,
+        string? clientRfqId = null,
         OkxBlockState? state = null,
-        string beginId = null,
-        string endId = null,
+        string? beginId = null,
+        string? endId = null,
         int limit = 100,
         CancellationToken ct = default)
     {
@@ -366,13 +366,13 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBlockQuote>>> GetQuotesAsync(
-        string rfqId = null,
-        string clientRfqId = null,
-        string quoteId = null,
-        string clientQuoteId = null,
+        string? rfqId = null,
+        string? clientRfqId = null,
+        string? quoteId = null,
+        string? clientQuoteId = null,
         OkxBlockState? state = null,
-        string beginId = null,
-        string endId = null,
+        string? beginId = null,
+        string? endId = null,
         int limit = 100,
         CancellationToken ct = default)
     {
@@ -411,14 +411,14 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBlockTrade>>> GetTradesAsync(
-        string rfqId = null,
-        string clientRfqId = null,
-        string quoteId = null,
-        string clientQuoteId = null,
-        string blockTradeId = null,
+        string? rfqId = null,
+        string? clientRfqId = null,
+        string? quoteId = null,
+        string? clientQuoteId = null,
+        string? blockTradeId = null,
         OkxBlockState? state = null,
-        string beginId = null,
-        string endId = null,
+        string? beginId = null,
+        string? endId = null,
         long? beginTimestamp = null,
         long? endTimestamp = null,
         int limit = 100,
@@ -451,8 +451,8 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBlockPublicExecutedTrade>>> GetPublicExecutedTradesAsync(
-        string beginId = null,
-        string endId = null,
+        string? beginId = null,
+        string? endId = null,
         int limit = 100,
         CancellationToken ct = default)
     {
@@ -475,7 +475,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="underlying">Underlying</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxBlockTicker>>> GetTickersAsync(OkxInstrumentType instrumentType, string instrumentFamily = null, string underlying = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxBlockTicker>>> GetTickersAsync(OkxInstrumentType instrumentType, string? instrumentFamily = null, string? underlying = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {

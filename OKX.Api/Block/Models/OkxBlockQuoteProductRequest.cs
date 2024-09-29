@@ -34,14 +34,14 @@ public class OkxBlockQuoteProductRequestData
     /// Instrument ID. Required for SPOT only.
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Max trade quantity for the product(s).
     /// For FUTURES, OPTION and SWAP, the max quantity of the RFQ/Quote is in unit of contracts. For SPOT, this parameter is in base currency.
     /// </summary>
     [JsonProperty("maxBlockSz")]
-    public string MaximumBlockSize { get; set; }
+    public string MaximumBlockSize { get; set; } = "";
 
     /// <summary>
     /// Price bands in unit of ticks, measured against mark price.
@@ -50,5 +50,5 @@ public class OkxBlockQuoteProductRequestData
     /// If Ask price &lt; Mark - 1 tick, It will be stopped
     /// </summary>
     [JsonProperty("makerPxBand")]
-    public string MakerPriceBand { get; set; }
+    public string MakerPriceBand { get; set; } = "";
 }

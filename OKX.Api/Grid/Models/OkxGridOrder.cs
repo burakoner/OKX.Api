@@ -9,13 +9,13 @@ public class OkxGridOrder
     /// Algo ID
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoOrderId { get; set; }
+    public string AlgoOrderId { get; set; } = "";
 
     /// <summary>
     /// Client-supplied Algo ID
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; }
+    public string AlgoClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Instrument type
@@ -27,7 +27,7 @@ public class OkxGridOrder
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Algo order created time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -162,7 +162,7 @@ public class OkxGridOrder
     /// Contract grid 1: Market Close All positions 2: Keep positions
     /// </summary>
     [JsonProperty("stopType")]
-    public string AlgoStopType { get; set; }
+    public string AlgoStopType { get; set; } = "";
 
     /// <summary>
     /// Quote currency investment amount
@@ -226,7 +226,7 @@ public class OkxGridOrder
     /// Only applicable to contract grid
     /// </summary>
     [JsonProperty("uly")]
-    public string Underlying { get; set; }
+    public string Underlying { get; set; } = "";
 
     /// <summary>
     /// Instrument family
@@ -234,7 +234,7 @@ public class OkxGridOrder
     /// Only applicable to contract grid
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; }
+    public string InstrumentFamily { get; set; } = "";
 
     /// <summary>
     /// Margin used by pending orders

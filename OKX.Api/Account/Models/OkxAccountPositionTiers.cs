@@ -9,13 +9,13 @@ public class OkxAccountPositionTiers
     /// Underlying
     /// </summary>
     [JsonProperty("uly")]
-    public string Underlying { get; set; }
+    public string Underlying { get; set; } = "";
 
     /// <summary>
     /// Instrument Family
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; }
+    public string InstrumentFamily { get; set; } = "";
 
     /// <summary>
     /// Maximum Positions

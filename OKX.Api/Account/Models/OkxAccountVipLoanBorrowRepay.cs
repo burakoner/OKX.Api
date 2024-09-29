@@ -9,13 +9,13 @@ public class OkxAccountVipLoanBorrowRepay
     /// Loan currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// borrow repay
     /// </summary>
     [JsonProperty("side")]
-    public string Side { get; set; }
+    public string Side { get; set; } = "";
 
     /// <summary>
     /// borrow/repay amount

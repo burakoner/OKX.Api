@@ -12,7 +12,7 @@ public class OkxAccountVipLoanBorrowRepayHistory
     /// 3: Loan reversed, lack of balance for interest
     /// </summary>
     [JsonProperty("type")]
-    public string Type { get; set; }
+    public string Type { get; set; } = "";
 
     /// <summary>
     /// Borrow/Repay amount

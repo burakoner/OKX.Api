@@ -15,19 +15,19 @@ public class OkxSignalBotChannelInformation
     /// Signal channel name
     /// </summary>
     [JsonProperty("signalChanName")]
-    public string SignalChannelName { get; set; }
+    public string SignalChannelName { get; set; } = "";
 
     /// <summary>
     /// Signal channel description
     /// </summary>
     [JsonProperty("signalChanDesc")]
-    public string SignalChannelDescription { get; set; }
+    public string SignalChannelDescription { get; set; } = "";
     
     /// <summary>
     /// User identify when placing orders via signal
     /// </summary>
     [JsonProperty("signalChanToken")]
-    public string SignalChannelToken { get; set; }
+    public string SignalChannelToken { get; set; } = "";
 
     /// <summary>
     /// Signal source type

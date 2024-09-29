@@ -9,13 +9,13 @@ public class OkxCopyTradingMultipleOperation
     /// Instrument ID setted successfully
     /// </summary>
     [JsonProperty("succInstId")]
-    public string SuccessInstrumentIds{ get; set; }
+    public string SuccessInstrumentIds{ get; set; } = "";
 
     /// <summary>
     /// Instrument ID setted unsuccessfully
     /// </summary>
     [JsonProperty("failInstId")]
-    public string FailInstrumentIds { get; set; }
+    public string FailInstrumentIds { get; set; } = "";
 
     /// <summary>
     /// Result

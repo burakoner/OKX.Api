@@ -9,7 +9,7 @@ public class OkxSpreadTicker
     /// Spread ID
     /// </summary>
     [JsonProperty("sprdId")]
-    public string SpreadId { get; set; }
+    public string SpreadId { get; set; } = "";
     
     /// <summary>
     /// Last Price

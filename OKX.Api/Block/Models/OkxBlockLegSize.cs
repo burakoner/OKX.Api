@@ -9,11 +9,11 @@ public class OkxBlockLegSize
     /// The Instrument ID of each leg. Example : "BTC-USDT-SWAP"
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// The size of each leg
     /// </summary>
     [JsonProperty("sz")]
-    public string Size { get; set; }
+    public string Size { get; set; } = "";
 }

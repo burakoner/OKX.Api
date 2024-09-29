@@ -9,7 +9,7 @@ public class OkxPublicPremiumHistory
     /// Instrument ID, e.g. BTC-USDT-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Premium between the mid price of perps market and the index price

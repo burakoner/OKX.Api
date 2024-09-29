@@ -9,19 +9,19 @@ public class OkxFundingNonTradableAssetBalance
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Name
     /// </summary>
     [JsonProperty("name")]
-    public string Name { get; set; }
+    public string Name { get; set; } = "";
 
     /// <summary>
     /// Logo Link
     /// </summary>
     [JsonProperty("logoLink")]
-    public string LogoLink { get; set; }
+    public string LogoLink { get; set; } = "";
 
     /// <summary>
     /// Available
@@ -39,7 +39,7 @@ public class OkxFundingNonTradableAssetBalance
     /// Chain
     /// </summary>
     [JsonProperty("chain")]
-    public string Chain { get; set; }
+    public string Chain { get; set; } = "";
 
     /// <summary>
     /// Minimum Withdrawal Amount
@@ -63,7 +63,7 @@ public class OkxFundingNonTradableAssetBalance
     /// Contract Address
     /// </summary>
     [JsonProperty("ctAddr")]
-    public string ContractAddress { get; set; }
+    public string ContractAddress { get; set; } = "";
 
     /// <summary>
     /// Withdraw Tick Size

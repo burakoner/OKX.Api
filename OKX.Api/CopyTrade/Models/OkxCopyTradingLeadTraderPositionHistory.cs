@@ -9,7 +9,7 @@ public class OkxCopyTradingLeadTraderPositionHistory
     /// Instrument ID, e.g. BTC-USDT-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Lead position ID
@@ -105,11 +105,11 @@ public class OkxCopyTradingLeadTraderPositionHistory
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Lead trader unique code
     /// </summary>
     [JsonProperty("uniqueCode")]
-    public string UniqueCode { get; set; }
+    public string UniqueCode { get; set; } = "";
 }

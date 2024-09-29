@@ -15,5 +15,5 @@ public class OkxBlockCancelQuoteResponse : OkxRestApiErrorBase
     /// Client-supplied Quote ID.
     /// </summary>
     [JsonProperty("clQuoteId")]
-    public string ClientQuoteId { get; set; }
+    public string ClientQuoteId { get; set; } = "";
 }

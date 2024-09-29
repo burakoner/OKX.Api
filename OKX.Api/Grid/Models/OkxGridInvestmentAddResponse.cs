@@ -9,5 +9,5 @@ public class OkxGridInvestmentAddResponse
     /// Algo Order Id
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoOrderId { get; set; }
+    public string AlgoOrderId { get; set; } = "";
 }

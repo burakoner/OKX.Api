@@ -21,7 +21,7 @@ public class OkxRecurringBuySubOrder
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
     
     /// <summary>
     /// Algo order type. recurring: recurring buy
@@ -108,7 +108,7 @@ public class OkxRecurringBuySubOrder
     /// Sub order fee currency
     /// </summary>
     [JsonProperty("feeCcy")]
-    public string FeeCurrency { get; set; }
+    public string FeeCurrency { get; set; } = "";
     
     /// <summary>
     /// Sub order average filled price

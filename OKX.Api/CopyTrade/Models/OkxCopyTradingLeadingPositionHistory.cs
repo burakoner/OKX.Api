@@ -9,7 +9,7 @@ public class OkxCopyTradingLeadingPositionHistory
     /// Instrument ID, e.g. BTC-USDT-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Leading position ID
@@ -111,7 +111,7 @@ public class OkxCopyTradingLeadingPositionHistory
     /// Margin currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Latest mark price, only applicable to contract
@@ -123,7 +123,7 @@ public class OkxCopyTradingLeadingPositionHistory
     /// Lead trader unique code
     /// </summary>
     [JsonProperty("uniqueCode")]
-    public string UniqueCode { get; set; }
+    public string UniqueCode { get; set; } = "";
 
     /// <summary>
     /// Profit sharing amount, only applicable to copy trading

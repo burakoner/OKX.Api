@@ -9,13 +9,13 @@ public class OkxGridAlgoPosition
     /// Algo order ID
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoOrderId { get; set; }
+    public string AlgoOrderId { get; set; } = "";
 
     /// <summary>
     /// Algo client order ID
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; }
+    public string AlgoClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Instrument type
@@ -27,7 +27,7 @@ public class OkxGridAlgoPosition
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Created time of position

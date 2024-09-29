@@ -76,7 +76,7 @@ public class OkxCopyTradingCopySettings
     /// Margin currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Current copy state
@@ -94,7 +94,7 @@ public class OkxCopyTradingCopyInstrumentSettings
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Whether copying this instId

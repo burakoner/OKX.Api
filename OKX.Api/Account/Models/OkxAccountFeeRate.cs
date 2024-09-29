@@ -9,7 +9,7 @@ public class OkxAccountFeeRate
     /// Fee rate Level
     /// </summary>
     [JsonProperty("level")]
-    public string Level { get; set; }
+    public string Level { get; set; } = "";
 
     /// <summary>
     /// Taker fee rate for the USDT &amp; USDⓈ &amp; Crypto trading pairs and contracts. It is the fee rate of crypto-margined contracts for FUTURES and SWAP
@@ -100,7 +100,7 @@ public class OkxAccountFiatFeeRate
     /// Fiat currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string FiatCurrency { get; set; }
+    public string FiatCurrency { get; set; } = "";
     ///             
     /// <summary>
     /// Taker fee rate

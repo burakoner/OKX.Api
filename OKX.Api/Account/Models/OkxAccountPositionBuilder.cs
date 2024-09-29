@@ -75,7 +75,7 @@ public class OkxAccountPositionBuilderAsset
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Available balance
@@ -111,13 +111,13 @@ public class OkxAccountPositionBuilderRiskUnit
     /// Risk unit
     /// </summary>
     [JsonProperty("riskUnit")]
-    public string RiskUnit { get; set; }
+    public string RiskUnit { get; set; } = "";
 
     /// <summary>
     /// Index USD
     /// </summary>
     [JsonProperty("indexUsd")]
-    public string IndexUsd { get; set; }
+    public string IndexUsd { get; set; } = "";
 
     /// <summary>
     /// MMR
@@ -177,19 +177,19 @@ public class OkxAccountPositionBuilderRiskUnit
     /// MR1 scenarios
     /// </summary>
     [JsonProperty("mr1Scenarios")]
-    public OkxAccountPositionBuilderRiskUnitMR1Scenarios MR1Scenarios { get; set; }
+    public OkxAccountPositionBuilderRiskUnitMR1Scenarios? MR1Scenarios { get; set; }
 
     /// <summary>
     /// MR1 final result
     /// </summary>
     [JsonProperty("mr1FinalResult")]
-    public OkxAccountPositionBuilderRiskUnitMR1FinalResult MR1FinalResult { get; set; }
+    public OkxAccountPositionBuilderRiskUnitMR1FinalResult? MR1FinalResult { get; set; }
 
     /// <summary>
     /// MR6 final result
     /// </summary>
     [JsonProperty("mr6FinalResult")]
-    public OkxAccountPositionBuilderRiskUnitMR6FinalResult MR6FinalResult { get; set; }
+    public OkxAccountPositionBuilderRiskUnitMR6FinalResult? MR6FinalResult { get; set; }
 
     /// <summary>
     /// Delta
@@ -231,19 +231,19 @@ public class OkxAccountPositionBuilderRiskUnitMR1Scenarios
     /// Volatility shock down
     /// </summary>
     [JsonProperty("volShockDown")]
-    public Dictionary<decimal, decimal> VolatilityShockDown { get; set; }
+    public Dictionary<decimal, decimal> VolatilityShockDown { get; set; } = [];
 
     /// <summary>
     /// Volatility same
     /// </summary>
     [JsonProperty("volSame")]
-    public Dictionary<decimal, decimal> VolatilitySame { get; set; }
+    public Dictionary<decimal, decimal> VolatilitySame { get; set; } = [];
 
     /// <summary>
     /// Volatility shock up
     /// </summary>
     [JsonProperty("volShockUp")]
-    public Dictionary<decimal, decimal> VolatilityShockUp { get; set; }
+    public Dictionary<decimal, decimal> VolatilityShockUp { get; set; } = [];
 }
 
 /// <summary>
@@ -267,7 +267,7 @@ public class OkxAccountPositionBuilderRiskUnitMR1FinalResult
     /// Volatility shock
     /// </summary>
     [JsonProperty("volShock")]
-    public string VolatilityShock { get; set; }
+    public string VolatilityShock { get; set; } = "";
 }
 
 /// <summary>
@@ -297,7 +297,7 @@ public class OkxAccountPositionBuilderRiskUnitPortfolio
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Instrument Type

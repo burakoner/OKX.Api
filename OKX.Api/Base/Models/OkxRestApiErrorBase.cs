@@ -9,11 +9,11 @@ public abstract class OkxRestApiErrorBase
     /// Error Code
     /// </summary>
     [JsonProperty("sCode")]
-    public string ErrorCode { get; set; }
+    public string? ErrorCode { get; set; }
 
     /// <summary>
     /// Error Message
     /// </summary>
     [JsonProperty("sMsg")]
-    public string ErrorMessage { get; set; }
+    public string? ErrorMessage { get; set; }
 }

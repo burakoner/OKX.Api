@@ -10,14 +10,14 @@ public class OkxFundingWithdrawalStatus
     /// When retrieving deposit status, wdId returns blank "".
     /// </summary>
     [JsonProperty("wdId")]
-    public string WithdrawalId { get; set; }
+    public string WithdrawalId { get; set; } = "";
 
     /// <summary>
     /// The detailed stage and status of the deposit/withdrawal
     /// The message in front of the colon is the stage; the message after the colon is the ongoing status.
     /// </summary>
     [JsonProperty("state")]
-    public string State { get; set; }
+    public string State { get; set; } = "";
 
     /// <summary>
     /// Estimated complete time
@@ -25,5 +25,5 @@ public class OkxFundingWithdrawalStatus
     /// estCompleteTime is only an approximate estimated time, for reference only.
     /// </summary>
     [JsonProperty("estCompleteTime")]
-    public string EstimatedCompleteTime { get; set; }
+    public string EstimatedCompleteTime { get; set; } = "";
 }

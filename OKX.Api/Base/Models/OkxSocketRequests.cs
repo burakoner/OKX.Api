@@ -9,7 +9,7 @@ public class OkxSocketRequest
     /// Request Id
     /// </summary>
     [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-    public string RequestId { get; set; }
+    public string? RequestId { get; set; }
 
     /// <summary>
     /// Operation
@@ -69,7 +69,7 @@ public class OkxSocketRequest<T>
     /// Request Id
     /// </summary>
     [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-    public string RequestId { get; set; }
+    public string? RequestId { get; set; }
 
     /// <summary>
     /// Operation
@@ -128,19 +128,19 @@ public class OkxSocketRequestArgument
     /// Channel
     /// </summary>
     [JsonProperty("channel")]
-    public string Channel { get; set; }
+    public string? Channel { get; set; }
 
     /// <summary>
     /// Instrument Family
     /// </summary>
     [JsonProperty("instFamily", NullValueHandling = NullValueHandling.Ignore)]
-    public string InstrumentFamily { get; set; }
+    public string? InstrumentFamily { get; set; }
 
     /// <summary>
     /// Instrument Id
     /// </summary>
     [JsonProperty("instId", NullValueHandling = NullValueHandling.Ignore)]
-    public string InstrumentId { get; set; }
+    public string? InstrumentId { get; set; }
 
     /// <summary>
     /// Instrument Type
@@ -152,7 +152,7 @@ public class OkxSocketRequestArgument
     /// Algo Order Id
     /// </summary>
     [JsonProperty("algoId", NullValueHandling = NullValueHandling.Ignore)]
-    public string AlgoOrderId { get; set; }
+    public string? AlgoOrderId { get; set; }
 }
 
 /// <summary>
@@ -168,12 +168,12 @@ public class OkxSocketSymbolRequest
     /// <summary>
     /// Instrument Family
     /// </summary>
-    public string InstrumentFamily { get; set; }
+    public string? InstrumentFamily { get; set; }
 
     /// <summary>
     /// Instrument Id
     /// </summary>
-    public string InstrumentId { get; set; }
+    public string? InstrumentId { get; set; }
 
     /// <summary>
     /// Constructor
@@ -186,7 +186,7 @@ public class OkxSocketSymbolRequest
     /// <param name="type"></param>
     /// <param name="family"></param>
     /// <param name="id"></param>
-    public OkxSocketSymbolRequest(OkxInstrumentType type, string family, string id)
+    public OkxSocketSymbolRequest(OkxInstrumentType type, string? family, string? id)
     {
         InstrumentType = type;
         InstrumentFamily = family;
@@ -250,25 +250,25 @@ public class OkxSocketAuthRequestArgument
     /// API Key
     /// </summary>
     [JsonProperty("apiKey", NullValueHandling = NullValueHandling.Ignore)]
-    public string ApiKey { get; set; }
+    public string? ApiKey { get; set; }
 
     /// <summary>
     /// Passphrase
     /// </summary>
     [JsonProperty("passphrase", NullValueHandling = NullValueHandling.Ignore)]
-    public string Passphrase { get; set; }
+    public string? Passphrase { get; set; }
 
     /// <summary>
     /// Timestamp
     /// </summary>
     [JsonProperty("timestamp", NullValueHandling = NullValueHandling.Ignore)]
-    public string Timestamp { get; set; }
+    public string? Timestamp { get; set; }
 
     /// <summary>
     /// Signature
     /// </summary>
     [JsonProperty("sign", NullValueHandling = NullValueHandling.Ignore)]
-    public string Signature { get; set; }
+    public string? Signature { get; set; }
 }
 
 /// <summary>

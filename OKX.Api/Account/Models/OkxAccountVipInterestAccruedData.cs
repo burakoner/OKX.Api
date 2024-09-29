@@ -15,7 +15,7 @@ public class OkxAccountVipInterestAccruedData
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Interest

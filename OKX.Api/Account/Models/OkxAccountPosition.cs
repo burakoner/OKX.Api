@@ -39,7 +39,7 @@ public class OkxAccountPosition
     /// Position currency, only applicable to MARGIN positions.
     /// </summary>
     [JsonProperty("posCcy")]
-    public string PositionCurrency { get; set; }
+    public string PositionCurrency { get; set; } = "";
 
     /// <summary>
     /// Position that can be closed
@@ -88,7 +88,7 @@ public class OkxAccountPosition
     /// Instrument ID, e.g. BTC-USD-180216
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Leverage, not applicable to OPTION
@@ -137,7 +137,7 @@ public class OkxAccountPosition
     /// Liabilities currency, only applicable to MARGIN.
     /// </summary>
     [JsonProperty("liabCcy")]
-    public string LiabilitiesCurrency { get; set; }
+    public string LiabilitiesCurrency { get; set; } = "";
 
     /// <summary>
     /// Interest. Undeducted interest that has been incurred.
@@ -180,7 +180,7 @@ public class OkxAccountPosition
     /// Currency used for margin
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Latest traded price
@@ -266,33 +266,33 @@ public class OkxAccountPosition
     /// Applicable to Portfolio margin
     /// </summary>
     [JsonProperty("spotInUseCcy")]
-    public string SpotInUseCurrency { get; set; }
+    public string SpotInUseCurrency { get; set; } = "";
 
     /// <summary>
     /// User-defined spot risk offset amount
     /// Applicable to Portfolio margin
     /// </summary>
     [JsonProperty("clSpotInUseAmt")]
-    public string ClientSpotInUseAmount { get; set; }
+    public decimal? ClientSpotInUseAmount { get; set; }
 
     /// <summary>
     /// Max possible spot risk offset amount
     /// Applicable to Portfolio margin
     /// </summary>
     [JsonProperty("maxSpotInUseAmt")]
-    public string MaximumSpotInUseAmount { get; set; }
+    public decimal? MaximumSpotInUseAmount { get; set; }
 
     /// <summary>
     /// External business id, e.g. experience coupon id
     /// </summary>
     [JsonProperty("bizRefId")]
-    public string ExternalBusinessId { get; set; }
+    public string ExternalBusinessId { get; set; } = "";
 
     /// <summary>
     /// External business type
     /// </summary>
     [JsonProperty("bizRefType")]
-    public string ExternalBusinessType { get; set; }
+    public string ExternalBusinessType { get; set; } = "";
 
     /// <summary>
     /// Realized profit and loss

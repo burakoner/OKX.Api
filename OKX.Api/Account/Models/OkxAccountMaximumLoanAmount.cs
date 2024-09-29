@@ -9,7 +9,7 @@ public class OkxAccountMaximumLoanAmount
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Margin mode
@@ -21,7 +21,7 @@ public class OkxAccountMaximumLoanAmount
     /// Margin currency
     /// </summary>
     [JsonProperty("mgnCcy")]
-    public string MarginCurrency { get; set; }
+    public string MarginCurrency { get; set; } = "";
 
     /// <summary>
     /// Max loan
@@ -33,7 +33,7 @@ public class OkxAccountMaximumLoanAmount
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Order side

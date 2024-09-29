@@ -31,7 +31,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSubAccount>>> GetSubAccountsAsync(
         bool? enable = null,
-        string subAccountName = null,
+        string? subAccountName = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -62,18 +62,18 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     public Task<RestCallResult<OkxSubAccountApiKey>> ResetSubAccountApiKeyAsync(
         string subAccountName,
         string apiKey,
-        string apiLabel = null,
+        string? apiLabel = null,
         bool? readPermission = null,
         bool? tradePermission = null,
-        string ipAddresses = null,
+        string? ipAddresses = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "subAcct", subAccountName },
             { "apiKey", apiKey},
-            { "label", apiLabel },
         };
+        parameters.AddOptionalParameter("label", apiLabel);
         parameters.AddOptionalParameter("ip", ipAddresses);
 
         var permissions = new List<string>();
@@ -113,7 +113,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <returns></returns>
     public Task<RestCallResult<OkxSubAccountFundingBalance>> GetSubAccountFundingBalancesAsync(
         string subAccountName,
-        string currency = null,
+        string? currency = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -135,7 +135,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSubAccountMaximumWithdrawal>>> GetSubAccountMaximumWithdrawalsAsync(
         string subAccountName,
-        string currency = null,
+        string? currency = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -160,8 +160,8 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSubAccountBill>>> GetSubAccountBillsAsync(
-        string subAccountName = null,
-        string currency = null,
+        string? subAccountName = null,
+        string? currency = null,
         OkxSubAccountTransferType? type = null,
         long? after = null,
         long? before = null,
@@ -193,9 +193,9 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSubAccountManagedBill>>> GetSubAccountManagedBillsAsync(
-        string currency = null,
+        string? currency = null,
         OkxSubAccountTransferType? type = null,
-        string subAccountName = null,
+        string? subAccountName = null,
         long? subAccountId = null,
         long? after = null,
         long? before = null,
@@ -298,7 +298,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <returns></returns>
     public Task<RestCallResult<OkxBooleanResponse>> SetLoanAllocationAsync(
         bool enable,
-        IEnumerable<OkxSubAccountLoanAllocation> allocations = null,
+        IEnumerable<OkxSubAccountLoanAllocation>? allocations = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -317,7 +317,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <param name="currency">Loan currency, e.g. BTC</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSubAccountInterestLimits>> GetInterestLimitsAsync(string subAccountName, string currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxSubAccountInterestLimits>> GetInterestLimitsAsync(string subAccountName, string? currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {

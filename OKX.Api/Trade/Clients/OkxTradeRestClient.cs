@@ -82,8 +82,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxTradeOrderType orderType,
         decimal size,
         decimal? price = null,
-        string currency = null,
-        string clientOrderId = null,
+        string? currency = null,
+        string? clientOrderId = null,
         bool? reduceOnly = null,
         OkxTradeQuantityType? quantityType = null,
 
@@ -98,7 +98,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? slTriggerPx = null,
         decimal? slOrdPx = null,
 
-        string attachAlgoClientOrderOrderId = null,
+        string? attachAlgoClientOrderOrderId = null,
 
         long? selfTradePreventionId = null,
         OkxSelfTradePreventionMode? selfTradePreventionMode = null,
@@ -106,7 +106,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? priceUsd = null,
         decimal? priceVolatility = null,
 
-        IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest> attachedAlgoOrders = null,
+        IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? attachedAlgoOrders = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -174,7 +174,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="clientOrderId">Client Order ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxTradeOrderCancelResponse>> CancelOrderAsync(string instrumentId, long? orderId = null, string clientOrderId = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxTradeOrderCancelResponse>> CancelOrderAsync(string instrumentId, long? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             {"instId", instrumentId },
@@ -222,14 +222,14 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<OkxTradeOrderAmendResponse>> AmendOrderAsync(
         string instrumentId,
         long? orderId = null,
-        string clientOrderId = null,
-        string requestId = null,
+        string? clientOrderId = null,
+        string? requestId = null,
         bool? cancelOnFail = null,
         decimal? newQuantity = null,
         decimal? newPrice = null,
         decimal? newPriceUsd = null,
         decimal? newPriceVolatility = null,
-        IEnumerable<OkxTradeOrderAmendAttachedAlgoRequest> attachedAlgoOrders = null,
+        IEnumerable<OkxTradeOrderAmendAttachedAlgoRequest>? attachedAlgoOrders = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -279,9 +279,9 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string instrumentId,
         OkxAccountMarginMode marginMode,
         OkxTradePositionSide? positionSide = null,
-        string currency = null,
+        string? currency = null,
         bool? autoCxl = null,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -308,7 +308,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<OkxTradeOrder>> GetOrderAsync(
         string instrumentId,
         long? orderId = null,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -336,9 +336,9 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeOrder>>> GetOpenOrdersAsync(
         OkxInstrumentType? instrumentType = null,
-        string instrumentId = null,
-        string instrumentFamily = null,
-        string underlying = null,
+        string? instrumentId = null,
+        string? instrumentFamily = null,
+        string? underlying = null,
         OkxTradeOrderType? orderType = null,
         OkxTradeOrderState? state = null,
         long? after = null,
@@ -380,9 +380,9 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeOrder>>> GetOrderHistoryAsync(
         OkxInstrumentType instrumentType,
-        string instrumentId = null,
-        string instrumentFamily = null,
-        string underlying = null,
+        string? instrumentId = null,
+        string? instrumentFamily = null,
+        string? underlying = null,
         OkxTradeOrderType? orderType = null,
         OkxTradeOrderState? state = null,
         OkxOrderCategory? category = null,
@@ -432,9 +432,9 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeOrder>>> GetOrderArchiveAsync(
         OkxInstrumentType instrumentType,
-        string instrumentId = null,
-        string instrumentFamily = null,
-        string underlying = null,
+        string? instrumentId = null,
+        string? instrumentFamily = null,
+        string? underlying = null,
         OkxTradeOrderType? orderType = null,
         OkxTradeOrderState? state = null,
         OkxOrderCategory? category = null,
@@ -483,9 +483,9 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeTransaction>>> GetTradesAsync(
         OkxInstrumentType? instrumentType = null,
-        string instrumentId = null,
-        string instrumentFamily = null,
-        string underlying = null,
+        string? instrumentId = null,
+        string? instrumentFamily = null,
+        string? underlying = null,
         long? orderId = null,
         OkxAccountBillSubType? transactionType = null,
         long? after = null,
@@ -530,9 +530,9 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns>RestCallResult containing enumerable OkxTransaction list</returns>
     public Task<RestCallResult<List<OkxTradeTransaction>>> GetTradesHistoryAsync(
         OkxInstrumentType instrumentType,
-        string instrumentId = null,
-        string instrumentFamily = null,
-        string underlying = null,
+        string? instrumentId = null,
+        string? instrumentFamily = null,
+        string? underlying = null,
         long? orderId = null,
         OkxAccountBillSubType? transactionType = null,
         long? after = null,
@@ -777,7 +777,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? price = null,
         bool? reduceOnly = null,
         OkxTradeQuantityType? quantityType = null,
-        IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest> attachedAlgoOrders = null,
+        IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? attachedAlgoOrders = null,
 
         CancellationToken ct = default)
     {

@@ -9,7 +9,7 @@ public class OkxCopyTradingProfitSharingTotal
     /// The currency of profit sharing.
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Total profit sharing amount.

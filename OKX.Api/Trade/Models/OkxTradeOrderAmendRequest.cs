@@ -9,7 +9,7 @@ public class OkxTradeOrderAmendRequest
     /// Instrument Id
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
     
     /// <summary>
     /// Cancel on fail
@@ -27,19 +27,19 @@ public class OkxTradeOrderAmendRequest
     /// Client Order Id
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; }
+    public string? ClientOrderId { get; set; }
 
     /// <summary>
     /// Request Id
     /// </summary>
     [JsonProperty("reqId")]
-    public string RequestId { get; set; }
+    public string? RequestId { get; set; }
 
     /// <summary>
     /// New quantity.
     /// </summary>
     [JsonProperty("newSz", NullValueHandling = NullValueHandling.Ignore)]
-    public string NewQuantity { get; set; }
+    public string? NewQuantity { get; set; }
 
     /// <summary>
     /// New price.
@@ -67,5 +67,5 @@ public class OkxTradeOrderAmendRequest
     /// TP/SL information attached when placing order
     /// </summary>
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
-    public IEnumerable<OkxTradeOrderAmendAttachedAlgoRequest> AttachedAlgoOrders { get; set; }
+    public IEnumerable<OkxTradeOrderAmendAttachedAlgoRequest>? AttachedAlgoOrders { get; set; }
 }

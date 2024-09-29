@@ -9,13 +9,13 @@ public class OkxFundingWithdrawalHistory
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Chain
     /// </summary>
     [JsonProperty("chain")]
-    public string Chain { get; set; }
+    public string Chain { get; set; } = "";
 
     /// <summary>
     /// Non Tradable Asset
@@ -45,43 +45,43 @@ public class OkxFundingWithdrawalHistory
     /// From
     /// </summary>
     [JsonProperty("from")]
-    public string From { get; set; }
+    public string From { get; set; } = "";
 
     /// <summary>
     /// Area Code From
     /// </summary>
     [JsonProperty("areaCodeFrom")]
-    public string AreaCodeFrom { get; set; }
+    public string AreaCodeFrom { get; set; } = "";
 
     /// <summary>
     /// To
     /// </summary>
     [JsonProperty("to")]
-    public string To { get; set; }
+    public string To { get; set; } = "";
 
     /// <summary>
     /// Area Code To
     /// </summary>
     [JsonProperty("areaCodeTo")]
-    public string AreaCodeTo { get; set; }
+    public string AreaCodeTo { get; set; } = "";
 
     /// <summary>
     /// Tag
     /// </summary>
     [JsonProperty("tag")]
-    public string Tag { get; set; }
+    public string Tag { get; set; } = "";
 
     /// <summary>
     /// Payment Id
     /// </summary>
     [JsonProperty("pmtId")]
-    public string PaymentId { get; set; }
+    public string PaymentId { get; set; } = "";
 
     /// <summary>
     /// Memo
     /// </summary>
     [JsonProperty("memo")]
-    public string Memo { get; set; }
+    public string Memo { get; set; } = "";
 
     //[JsonProperty("addrEx")]
     //public addrEx addrEx { get; set; }
@@ -90,7 +90,7 @@ public class OkxFundingWithdrawalHistory
     /// Transaction Id
     /// </summary>
     [JsonProperty("txId")]
-    public string TransactionId { get; set; }
+    public string TransactionId { get; set; } = "";
 
     /// <summary>
     /// Fee
@@ -102,7 +102,7 @@ public class OkxFundingWithdrawalHistory
     /// Fee Currency
     /// </summary>
     [JsonProperty("feeCcy")]
-    public string FeeCurrency { get; set; }
+    public string FeeCurrency { get; set; } = "";
 
     /// <summary>
     /// State
@@ -120,5 +120,5 @@ public class OkxFundingWithdrawalHistory
     /// Client Order Id
     /// </summary>
     [JsonProperty("clientId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 }

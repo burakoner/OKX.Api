@@ -45,7 +45,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingBalance>>> GetBalancesAsync(string currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFundingBalance>>> GetBalancesAsync(string? currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -59,7 +59,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="currency">Single currency or multiple currencies (no more than 20) separated with comma, e.g. BTC or BTC,ETH.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingNonTradableAssetBalance>>> GetNonTradableBalancesAsync(string currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFundingNonTradableAssetBalance>>> GetNonTradableBalancesAsync(string? currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -73,7 +73,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="currency">Asset valuation calculation unit</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFundingAssetValuation>> GetAssetValuationAsync(string currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxFundingAssetValuation>> GetAssetValuationAsync(string? currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -101,10 +101,10 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         decimal amount,
         OkxAccount fromAccount,
         OkxAccount toAccount,
-        string subAccountName = null,
+        string? subAccountName = null,
         bool? loanTransfer = null,
         bool? omitPositionRisk = null,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -132,7 +132,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<OkxFundingTransferStateResponse>> FundTransferStateAsync(
         long? transferId = null,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         OkxFundingTransferType? type = null,
         CancellationToken ct = default)
     {
@@ -156,9 +156,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingBill>>> GetFundingBillDetailsAsync(
-        string currency = null,
+        string? currency = null,
         OkxFundingBillType? type = null,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -182,11 +182,10 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingDepositAddress>>> GetDepositAddressAsync(string currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFundingDepositAddress>>> GetDepositAddressAsync(string? currency = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
-            { "ccy", currency },
-        };
+        var parameters = new Dictionary<string, object>();
+        parameters.AddOptionalParameter("ccy", currency);
 
         return ProcessListRequestAsync<OkxFundingDepositAddress>(GetUri(v5AssetDepositAddress), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -206,10 +205,10 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingDepositHistory>>> GetDepositHistoryAsync(
-        string currency = null,
-        string depositId = null,
+        string? currency = null,
+        string? depositId = null,
         long? fromWithdrawalId = null,
-        string transactionId = null,
+        string? transactionId = null,
         OkxFundingDepositType? type = null,
         OkxFundingDepositState? state = null,
         long? after = null,
@@ -252,10 +251,10 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         OkxFundingWithdrawalDestination destination,
         string toAddress,
         decimal fee,
-        string chain = null,
-        string areaCode = null,
-        OkxFundingWithdrawalReceiver receiverInfo = null,
-        string clientOrderId = null,
+        string? chain = null,
+        string? areaCode = null,
+        OkxFundingWithdrawalReceiver? receiverInfo = null,
+        string? clientOrderId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -305,10 +304,10 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingWithdrawalHistory>>> GetWithdrawalHistoryAsync(
-        string currency = null,
+        string? currency = null,
         long? withdrawalId = null,
-        string clientOrderId = null,
-        string transactionId = null,
+        string? clientOrderId = null,
+        string? transactionId = null,
         OkxFundingWithdrawalType? type = null,
         OkxFundingWithdrawalState? state = null,
         long? after = null,
@@ -411,7 +410,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxTimestamp>> ApplyForMonthlyStatementAsync(
-        string month = null,
+        string? month = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -482,7 +481,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         OkxTradeOrderSide side,
         decimal rfqAmount,
         string rfqCurrency,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -518,7 +517,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         OkxTradeOrderSide side,
         decimal amount,
         string amountCurrency,
-        string clientOrderId = null,
+        string? clientOrderId = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
@@ -547,11 +546,11 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingConvertOrderHistory>>> GetConvertHistoryAsync(
-        string clientOrderId = null,
+        string? clientOrderId = null,
         long? after = null,
         long? before = null,
         int limit = 100,
-        string tag = null,
+        string? tag = null,
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);

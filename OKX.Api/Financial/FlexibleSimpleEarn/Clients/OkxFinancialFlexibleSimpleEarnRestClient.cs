@@ -19,7 +19,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="currency">Currency, e.g. BTC</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsBalance>>> GetBalancesAsync(string currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsBalance>>> GetBalancesAsync(string? currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -94,7 +94,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsLendingHistory>>> GetLendingHistoryAsync(
-        string currency = null,
+        string? currency = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -115,7 +115,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="currency">Currency, e.g. BTC</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsBorrowSummary>> GetPublicBorrowSummaryAsync(string currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsBorrowSummary>> GetPublicBorrowSummaryAsync(string? currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -134,7 +134,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsBorrowHistory>>> GetPublicBorrowHistoryAsync(
-        string currency = null,
+        string? currency = null,
         long? after = null,
         long? before = null,
         int limit = 100,

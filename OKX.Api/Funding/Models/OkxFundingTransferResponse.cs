@@ -15,13 +15,13 @@ public class OkxFundingTransferResponse
     /// Client Order Id
     /// </summary>
     [JsonProperty("clientId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Remitting Account

@@ -10,7 +10,7 @@ public class OkxAlgoAttachedAlgoAmendRequest
     /// If you fill in this parameter, you should fill in the take-profit order price as well.
     /// </summary>
     [JsonProperty("newTpTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string NewTakeProfitTriggerPrice { get; set; }
+    public string? NewTakeProfitTriggerPrice { get; set; }
 
     /// <summary>
     /// Take-profit trigger price type
@@ -24,14 +24,14 @@ public class OkxAlgoAttachedAlgoAmendRequest
     /// If the price is -1, take-profit will be executed at the market price.
     /// </summary>
     [JsonProperty("newTpOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string NewTakeProfitOrderPrice { get; set; }
+    public string? NewTakeProfitOrderPrice { get; set; }
 
     /// <summary>
     /// Stop-loss trigger price
     /// If you fill in this parameter, you should fill in the stop-loss order price.
     /// </summary>
     [JsonProperty("newSlTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string NewStopLossTriggerPrice { get; set; }
+    public string? NewStopLossTriggerPrice { get; set; }
     
     /// <summary>
     /// Stop-loss trigger price type
@@ -45,5 +45,5 @@ public class OkxAlgoAttachedAlgoAmendRequest
     /// If the price is -1, stop-loss will be executed at the market price.
     /// </summary>
     [JsonProperty("newSlOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string NewStopLossOrderPrice { get; set; }
+    public string? NewStopLossOrderPrice { get; set; }
 }

@@ -22,9 +22,9 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialOnChainEarnOffer>>> GetOffersAsync(
-        string currency = null,
-        string productId = null,
-        string protocolType = null,
+        string? currency = null,
+        string? productId = null,
+        string? protocolType = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -46,7 +46,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
     public Task<RestCallResult<OkxFinancialOnChainEarnOrderId>> PurchaseAsync(
         string productId,
         IEnumerable<OkxFinancialOnChainEarnInvestData> investData,
-        string term = null,
+        string? term = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -113,9 +113,9 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialOnChainEarnOrder>>> GetOpenOrdersAsync(
-        string currency = null,
-        string productId = null,
-        string protocolType = null,
+        string? currency = null,
+        string? productId = null,
+        string? protocolType = null,
         OkxFinancialOnChainEarnOrderState? state = null,
         CancellationToken ct = default)
     {
@@ -140,9 +140,9 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialOnChainEarnOrder>>> GetHistoryAsync(
-        string currency = null,
-        string productId = null,
-        string protocolType = null,
+        string? currency = null,
+        string? productId = null,
+        string? protocolType = null,
         long? after = null,
         long? before = null,
         int limit = 100,

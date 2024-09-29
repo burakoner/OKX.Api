@@ -61,7 +61,7 @@ internal static class OkxExtensions
     #endregion
 
     #region ToStr
-    public static string ToStr(this object @this, bool nullToEmpty = true)
+    public static string? ToStr(this object? @this, bool nullToEmpty = true)
     {
         bool isNull = @this is null;
         bool isDBNull = @this is not null && @this.GetType() == typeof(DBNull);
@@ -73,7 +73,7 @@ internal static class OkxExtensions
     #endregion
 
     #region ToOkxString
-    public static string ToOkxString(this object @this)
+    public static string ToOkxString(this object? @this)
     {
         bool isNull = @this is null;
         bool isDBNull = @this is not null && @this.GetType() == typeof(DBNull);
@@ -87,7 +87,7 @@ internal static class OkxExtensions
         if (@this is int s04) return s04.ToString(OkxConstants.OkxCultureInfo);
         if (@this is long s05) return s05.ToString(OkxConstants.OkxCultureInfo);
 
-        return @this?.ToString();
+        return @this!.ToString();
     }
     #endregion
 

@@ -16,7 +16,7 @@ public class OkxPublicInsuranceFund
     /// Applicable to FUTURES/SWAP/OPTION
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; }
+    public string InstrumentFamily { get; set; } = "";
     
     /// <summary>
     /// Instrument type
@@ -52,7 +52,7 @@ public class OkxPublicInsuranceFundDetails
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Type
@@ -98,7 +98,7 @@ public class OkxPublicInsuranceFundDetails
     /// Only applicable when type is adl
     /// </summary>
     [JsonProperty("adlType")]
-    public string AdlType { get; set; }
+    public string AdlType { get; set; } = "";
 
     /// <summary>
     /// Timestamp

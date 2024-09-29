@@ -16,11 +16,11 @@ public class OkxRestApiResponse<T>
     /// Error Message
     /// </summary>
     [JsonProperty("msg", NullValueHandling = NullValueHandling.Ignore)]
-    public string ErrorMessage { get; set; }
+    public string? ErrorMessage { get; set; }
 
     /// <summary>
     /// Data
     /// </summary>
     [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-    public T Data { get; set; }
+    public T? Data { get; set; }
 }

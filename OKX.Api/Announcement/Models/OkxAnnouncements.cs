@@ -27,13 +27,13 @@ public class OkxAnnouncement
     /// Announcement type
     /// </summary>
     [JsonProperty("annType")]
-    public string AnnouncementType { get; set; }
+    public string AnnouncementType { get; set; } = "";
 
     /// <summary>
     /// Announcement title
     /// </summary>
     [JsonProperty("title")]
-    public string Title { get; set; }
+    public string Title { get; set; } = "";
 
     /// <summary>
     /// System maintenance status
@@ -57,5 +57,5 @@ public class OkxAnnouncement
     /// Announcement url
     /// </summary>
     [JsonProperty("url")]
-    public string Url { get; set; }
+    public string Url { get; set; } = "";
 }

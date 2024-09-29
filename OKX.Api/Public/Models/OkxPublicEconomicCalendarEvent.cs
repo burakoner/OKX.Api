@@ -27,19 +27,19 @@ public class OkxPublicEconomicCalendarEvent
     /// Region
     /// </summary>
     [JsonProperty("region")]
-    public string Region { get; set; }
+    public string Region { get; set; } = "";
 
     /// <summary>
     /// Category
     /// </summary>
     [JsonProperty("category")]
-    public string Category { get; set; }
+    public string Category { get; set; } = "";
 
     /// <summary>
     /// Event Name
     /// </summary>
     [JsonProperty("event")]
-    public string EventName { get; set; }
+    public string EventName { get; set; } = "";
 
     /// <summary>
     /// Reference Date
@@ -57,19 +57,19 @@ public class OkxPublicEconomicCalendarEvent
     /// Actual
     /// </summary>
     [JsonProperty("actual")]
-    public string Actual { get; set; }
+    public string Actual { get; set; } = "";
 
     /// <summary>
     /// Previous
     /// </summary>
     [JsonProperty("previous")]
-    public string Previous { get; set; }
+    public string Previous { get; set; } = "";
 
     /// <summary>
     /// Forecast
     /// </summary>
     [JsonProperty("forecast")]
-    public string Forecast { get; set; }
+    public string Forecast { get; set; } = "";
 
     /// <summary>
     /// Has exact time
@@ -99,17 +99,17 @@ public class OkxPublicEconomicCalendarEvent
     /// Previous Initial
     /// </summary>
     [JsonProperty("prevInitial")]
-    public string PreviousInitial { get; set; }
+    public string PreviousInitial { get; set; } = "";
 
     /// <summary>
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Unit
     /// </summary>
     [JsonProperty("unit")]
-    public string Unit { get; set; }
+    public string Unit { get; set; } = "";
 }

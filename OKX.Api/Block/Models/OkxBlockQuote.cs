@@ -41,7 +41,7 @@ public class OkxBlockQuote
     /// Reasons of state. Valid values can be mmp_canceled.
     /// </summary>
     [JsonProperty("reason")]
-    public string Reason { get; set; }
+    public string Reason { get; set; } = "";
 
     /// <summary>
     /// The timestamp the RFQ expires. Unix timestamp format in milliseconds.
@@ -61,37 +61,31 @@ public class OkxBlockQuote
     /// RFQ Id
     /// </summary>
     [JsonProperty("rfqId")]
-    public string RfqId { get; set; }
+    public string RfqId { get; set; } = "";
 
     /// <summary>
     /// Client-supplied RFQ ID. This attribute is treated as client sensitive information. It will not be exposed to the Maker, only return empty string.
     /// </summary>
     [JsonProperty("clRfqId")]
-    public string ClientRfqId { get; set; }
+    public string ClientRfqId { get; set; } = "";
 
     /// <summary>
     /// Quote Id
     /// </summary>
     [JsonProperty("quoteId")]
-    public string QuoteId { get; set; }
+    public string QuoteId { get; set; } = "";
 
     /// <summary>
     /// Client Quote Id
     /// </summary>
     [JsonProperty("clQuoteId")]
-    public string ClientQuoteId { get; set; }
-
-    //<summary>
-    //Quote tag. The block trade associated with the Quote will have the same tag.
-    //</summary>
-    //[JsonProperty("tag")]
-    //public string BrokerId { get; set; }
+    public string ClientQuoteId { get; set; } = "";
 
     /// <summary>
     /// A unique identifier of maker. Empty If the anonymous parameter of the Quote is set to be true.
     /// </summary>
     [JsonProperty("traderCode")]
-    public string TraderCode { get; set; }
+    public string TraderCode { get; set; } = "";
 
     /// <summary>
     /// Top level direction of Quote. Its value can be buy or sell.

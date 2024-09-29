@@ -9,5 +9,5 @@ public class OkxSubAccountName
     /// Sub Account Name
     /// </summary>
     [JsonProperty("subAcct")]
-    public string SubAccountName { get; set; }
+    public string SubAccountName { get; set; } = "";
 }

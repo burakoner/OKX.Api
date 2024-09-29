@@ -15,5 +15,5 @@ public class OkxGridOrderRebateTransfer
     /// Rebate currency
     /// </summary>
     [JsonProperty("rebateCcy")]
-    public string RebateCurrency { get; set; }
+    public string RebateCurrency { get; set; } = "";
 }

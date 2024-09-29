@@ -9,7 +9,7 @@ public class OkxBlockPublicExecutedTrade
     /// Option strategy, e.g. CALL_CALENDAR_SPREAD
     /// </summary>
     [JsonProperty("strategy")]
-    public string Strategy { get; set; }
+    public string Strategy { get; set; } = "";
 
     /// <summary>
     /// The time the trade was executed. Unix timestamp in milliseconds.

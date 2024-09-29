@@ -137,7 +137,7 @@ public class OkxRestApiClient
     /// </summary>
     /// <param name="logger">Logger</param>
     /// <param name="options">Options</param>
-    public OkxRestApiClient(ILogger logger, OkxRestApiOptions options)
+    public OkxRestApiClient(ILogger? logger, OkxRestApiOptions options)
     {
         // Private Fields
         _logger = logger ?? BaseClient.LoggerFactory.CreateLogger("OKX.Api");

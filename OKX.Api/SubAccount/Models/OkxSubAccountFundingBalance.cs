@@ -9,7 +9,7 @@ public class OkxSubAccountFundingBalance
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Balance

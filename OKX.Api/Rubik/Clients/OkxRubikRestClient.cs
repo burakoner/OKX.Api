@@ -46,7 +46,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikContractOpenInterestHistory>>> GetContractOpenInterestHistoryAsync(
         string instrumentId,
-        string period = null,
+        string? period = null,
         long? begin = null,
         long? end = null,
         int limit = 100,
@@ -79,7 +79,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public async Task<RestCallResult<List<OkxRubikTakerVolume>>> GetTakerVolumeAsync(
         string currency,
         OkxInstrumentType instrumentType,
-        string period = null,
+        string? period = null,
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
@@ -110,8 +110,8 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikContractTakerVolume>>> GetContractTakerVolumeAsync(
         string instrumentId,
-        string period = null,
-        string unit = null,
+        string? period = null,
+        string? unit = null,
         long? begin = null,
         long? end = null,
         int limit = 100,
@@ -143,7 +143,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikRatio>>> GetMarginLendingRatioAsync(
         string currency,
-        string period = null,
+        string? period = null,
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
@@ -172,7 +172,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikRatio>>> GetTopTradersContractLongShortRatioAsync(
         string instrumentId,
-        string period = null,
+        string? period = null,
         long? begin = null,
         long? end = null,
         int limit = 100,
@@ -204,7 +204,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikRatio>>> GetTopTradersContractLongShortRatioByPositionAsync(
         string instrumentId,
-        string period = null,
+        string? period = null,
         long? begin = null,
         long? end = null,
         int limit = 100,
@@ -236,7 +236,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikRatio>>> GetContractLongShortRatioAsync(
         string instrumentId,
-        string period = null,
+        string? period = null,
         long? begin = null,
         long? end = null,
         int limit = 100,
@@ -268,7 +268,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikRatio>>> GetLongShortRatioAsync(
         string currency,
-        string period = null,
+        string? period = null,
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
@@ -294,7 +294,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikInterestVolume>>> GetContractSummaryAsync(
         string currency,
-        string period = null,
+        string? period = null,
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
@@ -318,7 +318,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikInterestVolume>>> GetOptionsSummaryAsync(
         string currency,
-        string period = null,
+        string? period = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -338,7 +338,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikPutCallRatio>>> GetPutCallRatioAsync(
         string currency,
-        string period = null,
+        string? period = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -358,7 +358,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxRubikInterestVolumeExpiry>>> GetInterestVolumeExpiryAsync(
         string currency,
-        string period = null,
+        string? period = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -380,7 +380,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public async Task<RestCallResult<List<OkxRubikInterestVolumeStrike>>> GetInterestVolumeStrikeAsync(
         string currency,
         string expiryTime,
-        string period = null,
+        string? period = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
@@ -401,7 +401,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public async Task<RestCallResult<OkxRubikTakerFlow>> GetTakerFlowAsync(
         string currency,
-        string period = null,
+        string? period = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {

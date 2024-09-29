@@ -18,7 +18,7 @@ public class OkxAnnouncementRestClient(OkxRestApiClient root) : OkxBaseRestClien
     /// <param name="page">Page for pagination. The default is 1</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAnnouncements>> GetAnnouncementsAsync(string announcementType = null, int? page = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAnnouncements>> GetAnnouncementsAsync(string? announcementType = null, int? page = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("annType", announcementType);

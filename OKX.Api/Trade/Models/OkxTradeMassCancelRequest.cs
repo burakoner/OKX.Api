@@ -15,5 +15,5 @@ public class OkxTradeMassCancelRequest
     /// Instrument Family
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; }
+    public string InstrumentFamily { get; set; } = "";
 }

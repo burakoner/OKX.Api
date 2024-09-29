@@ -9,31 +9,31 @@ public class OkxSubAccountApiKey
     /// Sub Account Name
     /// </summary>
     [JsonProperty("subAcct")]
-    public string SubAccountName { get; set; }
+    public string SubAccountName { get; set; } = "";
     
     /// <summary>
     /// API Key
     /// </summary>
     [JsonProperty("apiKey")]
-    public string ApiKey { get; set; }
+    public string ApiKey { get; set; } = "";
 
     /// <summary>
     /// Label
     /// </summary>
     [JsonProperty("label")]
-    public string Label { get; set; }
+    public string Label { get; set; } = "";
 
     /// <summary>
     /// Permissions
     /// </summary>
     [JsonProperty("perm")]
-    public string Permissions { get; set; }
+    public string Permissions { get; set; } = "";
 
     /// <summary>
     /// IP Addresses
     /// </summary>
     [JsonProperty("ip")]
-    public string IpAddresses { get; set; }
+    public string IpAddresses { get; set; } = "";
 
     /// <summary>
     /// Timestamp

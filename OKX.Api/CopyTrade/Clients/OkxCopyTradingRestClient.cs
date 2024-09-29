@@ -61,8 +61,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <returns></returns>
     public Task<RestCallResult<List<OkxCopyTradingLeadingPosition>>> GetLeadingPositionsAsync(
         OkxInstrumentType? instrumentType = null,
-        string instrumentId = null,
-        string uniqueCode = null,
+        string? instrumentId = null,
+        string? uniqueCode = null,
         OkxCopyTradingPositionType? positionType = null,
         long? after = null,
         long? before = null,
@@ -95,7 +95,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <returns></returns>
     public Task<RestCallResult<List<OkxCopyTradingLeadingPositionHistory>>> GetLeadingPositionsHistoryAsync(
         OkxInstrumentType? instrumentType = null,
-        string instrumentId = null,
+        string? instrumentId = null,
         OkxCopyTradingPositionType? positionType = null,
         long? after = null,
         long? before = null,
@@ -399,7 +399,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         decimal copyTotalAmount,
         OkxCopyTradingPositionCloseType positionCloseType,
         OkxInstrumentType? instrumentType = null,
-        IEnumerable<string> instrumentIds = null,
+        IEnumerable<string>? instrumentIds = null,
         OkxCopyTradingMode? copyMode = null,
         decimal? copyAmount = null,
         decimal? copyRatio = null,
@@ -453,7 +453,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         decimal copyTotalAmount,
         OkxCopyTradingPositionCloseType positionCloseType,
         OkxInstrumentType? instrumentType = null,
-        IEnumerable<string> instrumentIds = null,
+        IEnumerable<string>? instrumentIds = null,
         OkxCopyTradingMode? copyMode = null,
         decimal? copyAmount = null,
         decimal? copyRatio = null,
@@ -724,14 +724,14 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <returns>Cancellation Token</returns>
     public Task<RestCallResult<List<OkxCopyTradingLeadTradersRanks>>> GetLeadTradersRanksAsync(
         OkxInstrumentType? instrumentType = null,
-        string sortType = null,
-        string state = null,
-        string minLeadDays = null,
+        string? sortType = null,
+        string? state = null,
+        string? minLeadDays = null,
         decimal? minAssets = null,
         decimal? maxAssets = null,
         decimal? minAum = null,
         decimal? maxAum = null,
-        string dataVersion = null,
+        string? dataVersion = null,
         int? page = null,
         int limit = 10,
         CancellationToken ct = default)
@@ -938,14 +938,14 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingLeadTradersRanks>> GetMyLeadTradersRanksAsync(
         OkxInstrumentType? instrumentType = null,
-        string sortType = null,
-        string state = null,
-        string minLeadDays = null,
+        string? sortType = null,
+        string? state = null,
+        string? minLeadDays = null,
         decimal? minAssets = null,
         decimal? maxAssets = null,
         decimal? minAum = null,
         decimal? maxAum = null,
-        string dataVersion = null,
+        string? dataVersion = null,
         int? page = null,
         int limit = 10,
         CancellationToken ct = default)

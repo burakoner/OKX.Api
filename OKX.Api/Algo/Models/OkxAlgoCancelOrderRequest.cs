@@ -9,11 +9,11 @@ public class OkxAlgoCancelOrderRequest
     /// Algo Client Order ID
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoOrderId { get; set; }
+    public string? AlgoOrderId { get; set; }
 
     /// <summary>
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string? InstrumentId { get; set; }
 }

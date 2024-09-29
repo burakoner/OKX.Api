@@ -63,7 +63,7 @@ public class OkxAccountInterestLimitRecord
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Rate
@@ -87,7 +87,7 @@ public class OkxAccountInterestLimitRecord
     /// Surplus Limit Details
     /// </summary>
     [JsonProperty("surplusLmtDetails")]
-    public OkxAccountInterestLimitRecordSurplusLimitDetails SurplusLimitDetails { get; set; }
+    public OkxAccountInterestLimitRecordSurplusLimitDetails? SurplusLimitDetails { get; set; }
 
     /// <summary>
     /// Used Limit

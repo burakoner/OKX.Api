@@ -15,7 +15,7 @@ public class OkxGridOrderAmendRequest
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Take profit trigger price
@@ -69,7 +69,7 @@ public class OkxGridOrderAmendRequestTriggerParameters
     /// Trigger price
     /// </summary>
     [JsonProperty("triggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TriggerPrice { get; set; }
+    public string TriggerPrice { get; set; } = "";
 
     /// <summary>
     /// Spot algo stop type
@@ -93,7 +93,7 @@ public class OkxGridOrderAmendRequestTriggerParameters
         {
             if (SpotAlgoStopType is not null) return JsonConvert.SerializeObject(SpotAlgoStopType, new OkxGridSpotAlgoStopTypeConverter(false));
             if (ContractAlgoStopType is not null) return JsonConvert.SerializeObject(ContractAlgoStopType, new OkxGridContractAlgoStopTypeConverter(false));
-            return null;
+            return "";
         }
     }
 

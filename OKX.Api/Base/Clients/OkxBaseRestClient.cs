@@ -46,9 +46,9 @@ public abstract class OkxBaseRestClient : RestApiClient
             return Task.FromResult<ServerError>(null);
 
         if (error["msg"] is not null
-            && !string.IsNullOrWhiteSpace((string)error["msg"])
+            && !string.IsNullOrWhiteSpace((string)error["msg"]!)
             && error["code"] is not null)
-            return Task.FromResult(new ServerError((int)error["code"], (string)error["msg"]));
+            return Task.FromResult(new ServerError((int)error["code"]!, (string)error["msg"]!));
 
         return Task.FromResult<ServerError>(null);
     }
@@ -72,7 +72,7 @@ public abstract class OkxBaseRestClient : RestApiClient
     internal void SetApiCredentials(OkxApiCredentials credentials) => base.SetApiCredentials(credentials);
     internal void SetApiCredentials(string apiKey, string apiSecret, string passPhrase) => SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
 
-    internal async Task<RestCallResult<T>> SendRawRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<T>> SendRawRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object>? queryParameters = null, Dictionary<string, object>? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions
         var culture = Thread.CurrentThread.CurrentCulture;
@@ -90,7 +90,7 @@ public abstract class OkxBaseRestClient : RestApiClient
         // Return
         return result;
     }
-    internal async Task<RestCallResult<List<T>>> ProcessListRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<List<T>>> ProcessListRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object>? queryParameters = null, Dictionary<string, object>? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions
         var culture = Thread.CurrentThread.CurrentCulture;
@@ -112,7 +112,7 @@ public abstract class OkxBaseRestClient : RestApiClient
         // Return Success
         return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
-    internal async Task<RestCallResult<T>> ProcessOneRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<T>> ProcessOneRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object>? queryParameters = null, Dictionary<string, object>? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions
         var culture = Thread.CurrentThread.CurrentCulture;
@@ -136,7 +136,7 @@ public abstract class OkxBaseRestClient : RestApiClient
         // Return Success
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data.FirstOrDefault(), result.Raw, result.Error);
     }
-    internal async Task<RestCallResult<T>> ProcessArrayModelRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<T>> ProcessArrayModelRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object>? queryParameters = null, Dictionary<string, object>? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions
         var culture = Thread.CurrentThread.CurrentCulture;
@@ -158,7 +158,7 @@ public abstract class OkxBaseRestClient : RestApiClient
         // Return Success
         return new RestCallResult<T>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
-    internal async Task<RestCallResult<T>> ProcessModelRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object> queryParameters = null, Dictionary<string, object> bodyParameters = null, Dictionary<string, string> headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    internal async Task<RestCallResult<T>> ProcessModelRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object>? queryParameters = null, Dictionary<string, object>? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions
         var culture = Thread.CurrentThread.CurrentCulture;

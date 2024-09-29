@@ -18,7 +18,7 @@ public class OkxSocketPingPong
     /// <summary>
     /// Pong Message
     /// </summary>
-    public string PongMessage { get; set; }
+    public string? PongMessage { get; set; }
 
     /// <summary>
     /// Latency

@@ -27,25 +27,25 @@ public class OkxFundingConvertEstimateQuote
     /// Client Order ID as assigned by the client
     /// </summary>
     [JsonProperty("clQReqId")]
-    public string ClientRequestId { get; set; }
+    public string ClientRequestId { get; set; } = "";
     
     /// <summary>
     /// Quote ID
     /// </summary>
     [JsonProperty("quoteId")]
-    public string QuoteId { get; set; }
+    public string QuoteId { get; set; } = "";
     
     /// <summary>
     /// Base currency, e.g. BTC in BTC-USDT
     /// </summary>
     [JsonProperty("baseCcy")]
-    public string BaseCurrency { get; set; }
+    public string BaseCurrency { get; set; } = "";
     
     /// <summary>
     /// Quote currency, e.g. USDT in BTC-USDT
     /// </summary>
     [JsonProperty("quoteCcy")]
-    public string QuoteCurrency { get; set; }
+    public string QuoteCurrency { get; set; } = "";
     
     /// <summary>
     /// Trade side based on baseCcy

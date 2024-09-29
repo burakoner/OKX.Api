@@ -38,7 +38,7 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxAccountPosition> onData, OkxInstrumentType instrumentType, string instrumentFamily = null, string instrumentId = null, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxAccountPosition> onData, OkxInstrumentType instrumentType, string? instrumentFamily = null, string? instrumentId = null, CancellationToken ct = default)
         => await SubscribeToPositionUpdatesAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct).ConfigureAwait(false);
 
     /// <summary>

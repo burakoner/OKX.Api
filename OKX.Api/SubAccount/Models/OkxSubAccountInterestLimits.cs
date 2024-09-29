@@ -9,7 +9,7 @@ public class OkxSubAccountInterestLimits
     /// Name of sub account
     /// </summary>
     [JsonProperty("subAcct")]
-    public string SubAccountName { get; set; }
+    public string SubAccountName { get; set; } = "";
 
     /// <summary>
     /// Current debt in USDT
@@ -72,7 +72,7 @@ public class OkxSubAccountInterestLimitsRecord
     /// Loan currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Current daily rate
@@ -100,7 +100,7 @@ public class OkxSubAccountInterestLimitsRecord
     /// Only applicable to VIP loans
     /// </summary>
     [JsonProperty("surplusLmtDetails")]
-    public OkxSubAccountInterestSurplusLimitDetails SurplusLimitDetails { get; set; }
+    public OkxSubAccountInterestSurplusLimitDetails? SurplusLimitDetails { get; set; }
 
     /// <summary>
     /// Borrowed amount of master account and sub-accounts

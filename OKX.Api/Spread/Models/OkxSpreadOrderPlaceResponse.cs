@@ -15,5 +15,5 @@ public class OkxSpreadOrderPlaceResponse : OkxRestApiErrorBase
     /// Client Order Id
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 }

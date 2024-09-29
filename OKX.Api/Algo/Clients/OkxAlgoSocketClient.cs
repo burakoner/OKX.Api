@@ -20,8 +20,8 @@ public class OkxAlgoSocketClient(OKXWebSocketApiClient root)
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAlgoOrderUpdatesAsync(
         Action<OkxAlgoOrder> onData,
         OkxInstrumentType instrumentType,
-        string instrumentFamily = null,
-        string instrumentId = null,
+        string? instrumentFamily = null,
+        string? instrumentId = null,
         CancellationToken ct = default)
         => await SubscribeToAlgoOrderUpdatesAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct).ConfigureAwait(false);
 
@@ -68,8 +68,8 @@ public class OkxAlgoSocketClient(OKXWebSocketApiClient root)
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAdvanceAlgoOrderUpdatesAsync(
         Action<OkxAlgoOrder> onData,
         OkxInstrumentType instrumentType,
-        string instrumentFamily = null,
-        string instrumentId = null,
+        string? instrumentFamily = null,
+        string? instrumentId = null,
         CancellationToken ct = default)
         => await SubscribeToAdvanceAlgoOrderUpdatesAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct).ConfigureAwait(false);
 

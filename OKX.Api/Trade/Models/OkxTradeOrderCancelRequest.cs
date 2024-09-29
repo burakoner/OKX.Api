@@ -9,7 +9,7 @@ public class OkxTradeOrderCancelRequest
     /// Instrument Id
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string? InstrumentId { get; set; }
 
     /// <summary>
     /// Order Id
@@ -21,5 +21,5 @@ public class OkxTradeOrderCancelRequest
     /// Client Order Id
     /// </summary>
     [JsonProperty("clOrdId", NullValueHandling = NullValueHandling.Ignore)]
-    public string ClientOrderId { get; set; }
+    public string? ClientOrderId { get; set; }
 }

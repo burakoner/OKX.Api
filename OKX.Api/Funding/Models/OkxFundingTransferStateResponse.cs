@@ -15,13 +15,13 @@ public class OkxFundingTransferStateResponse
     /// Client Order Id
     /// </summary>
     [JsonProperty("clientId")]
-    public string ClientOrderId { get; set; }
+    public string ClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Amount
@@ -51,7 +51,7 @@ public class OkxFundingTransferStateResponse
     /// Sub Account
     /// </summary>
     [JsonProperty("subAcct")]
-    public string SubAccount { get; set; }
+    public string SubAccount { get; set; } = "";
 
     /// <summary>
     /// State

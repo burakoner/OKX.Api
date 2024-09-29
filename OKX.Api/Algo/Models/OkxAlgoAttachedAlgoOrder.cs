@@ -11,14 +11,14 @@ public class OkxAlgoAttachedAlgoOrder
     /// It will be posted to algoClOrdId when placing TP/SL order once the general order is filled completely.
     /// </summary>
     [JsonProperty("attachAlgoClOrdId", NullValueHandling = NullValueHandling.Ignore)]
-    public string AttachedAlgoClientOrderId { get; set; }
+    public string? AttachedAlgoClientOrderId { get; set; }
 
     /// <summary>
     /// Take-profit trigger price
     /// For condition TP order, if you fill in this parameter, you should fill in the take-profit order price as well.
     /// </summary>
     [JsonProperty("tpTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TakeProfitTriggerPrice { get; set; }
+    public string? TakeProfitTriggerPrice { get; set; }
     
     /// <summary>
     /// Take-profit trigger price type
@@ -34,14 +34,14 @@ public class OkxAlgoAttachedAlgoOrder
     /// If the price is -1, take-profit will be executed at the market price.
     /// </summary>
     [JsonProperty("tpOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TakeProfitOrderPrice { get; set; }
+    public string? TakeProfitOrderPrice { get; set; }
     
     /// <summary>
     /// Stop-loss trigger price
     /// If you fill in this parameter, you should fill in the stop-loss order price.
     /// </summary>
     [JsonProperty("slTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string StopLossTriggerPrice { get; set; }
+    public string? StopLossTriggerPrice { get; set; }
     
     /// <summary>
     /// Stop-loss trigger price type
@@ -55,5 +55,5 @@ public class OkxAlgoAttachedAlgoOrder
     /// If the price is -1, stop-loss will be executed at the market price.
     /// </summary>
     [JsonProperty("slOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string StopLossOrderPrice { get; set; }
+    public string? StopLossOrderPrice { get; set; }
 }

@@ -9,7 +9,7 @@ public class OkxAccountMmpConfigurationData
     /// Instrument Family
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; }
+    public string InstrumentFamily { get; set; } = "";
 
     /// <summary>
     /// MMP Frozen
@@ -21,7 +21,7 @@ public class OkxAccountMmpConfigurationData
     /// MMP Frozen Until
     /// </summary>
     [JsonProperty("mmpFrozenUntil")]
-    public string MmpFrozenUntil { get; set; }
+    public string MmpFrozenUntil { get; set; } = "";
 
     /// <summary>
     /// Time Interval

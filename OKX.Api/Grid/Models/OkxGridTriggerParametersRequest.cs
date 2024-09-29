@@ -21,7 +21,7 @@ public class OkxGridTriggerParametersRequest
     /// Delay Seconds
     /// </summary>
     [JsonProperty("delaySeconds", NullValueHandling = NullValueHandling.Ignore)]
-    public string DelaySeconds { get; set; }
+    public string? DelaySeconds { get; set; }
 
     /// <summary>
     /// Time Frame
@@ -33,7 +33,7 @@ public class OkxGridTriggerParametersRequest
     /// Threshold
     /// </summary>
     [JsonProperty("thold", NullValueHandling = NullValueHandling.Ignore)]
-    public string Threshold { get; set; }
+    public string? Threshold { get; set; }
 
     /// <summary>
     /// Trigger Condition
@@ -45,13 +45,13 @@ public class OkxGridTriggerParametersRequest
     /// Time Period
     /// </summary>
     [JsonProperty("timePeriod", NullValueHandling = NullValueHandling.Ignore)]
-    public string TimePeriod { get; set; }
+    public string? TimePeriod { get; set; }
 
     /// <summary>
     /// Trigger Price
     /// </summary>
     [JsonProperty("triggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TriggerPrice { get; set; }
+    public string? TriggerPrice { get; set; }
 
     /// <summary>
     /// Spot Algo Stop Type
@@ -75,7 +75,7 @@ public class OkxGridTriggerParametersRequest
         {
             if (SpotAlgoStopType is not null) return JsonConvert.SerializeObject(SpotAlgoStopType, new OkxGridSpotAlgoStopTypeConverter(false));
             if (ContractAlgoStopType is not null) return JsonConvert.SerializeObject(ContractAlgoStopType, new OkxGridContractAlgoStopTypeConverter(false));
-            return null;
+            return "";
         }
     }
 

@@ -9,7 +9,7 @@ public class OkxGridPlaceOrderRequest
     /// Instrument Id
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Algo Order Type
@@ -57,13 +57,13 @@ public class OkxGridPlaceOrderRequest
     /// Algo Client Order Id
     /// </summary>
     [JsonProperty("algoClOrdId", NullValueHandling = NullValueHandling.Ignore)]
-    public string AlgoClientOrderId { get; set; }
+    public string AlgoClientOrderId { get; set; } = "";
 
     /// <summary>
     /// Order tag. Used for Broker Id
     /// </summary>
     [JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
-    internal string Tag { get; set; }
+    internal string Tag { get; set; } = "";
 
     /// <summary>
     /// Profit sharing ratio, it only supports these values

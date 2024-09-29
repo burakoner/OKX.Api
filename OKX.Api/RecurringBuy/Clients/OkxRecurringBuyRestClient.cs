@@ -52,7 +52,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
        decimal amount,
        string investmentCurrency,
        OkxTradeMode tradeMode,
-       string clientOrderId = null,
+       string? clientOrderId = null,
        CancellationToken ct = default)
     {
         // Common

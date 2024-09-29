@@ -9,7 +9,7 @@ public class OkxFinancialFixedSimpleEarnLendingVolume
     /// Currency type, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; }
+    public string Currency { get; set; } = "";
 
     /// <summary>
     /// Fixed term for lending order

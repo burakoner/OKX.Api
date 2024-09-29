@@ -21,7 +21,7 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
     /// <param name="term">Fixed term for lending order. 30D: 30 days</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFinancialFixedSimpleEarnLendingOffer>>> GetLendingOffersAsync(string currency = null, string term = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFinancialFixedSimpleEarnLendingOffer>>> GetLendingOffersAsync(string? currency = null, string? term = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -37,7 +37,7 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
     /// <param name="term">Fixed term for lending order. 30D: 30 days</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFinancialFixedSimpleEarnLendingApyHistory>>> GetLendingApyHistoryAsync(string currency = null, string term = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFinancialFixedSimpleEarnLendingApyHistory>>> GetLendingApyHistoryAsync(string? currency = null, string? term = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -53,7 +53,7 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
     /// <param name="term">Fixed term for lending order. 30D: 30 days</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFinancialFixedSimpleEarnLendingVolume>> GetPendingLendingVolumeAsync(string currency = null, string term = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxFinancialFixedSimpleEarnLendingVolume>> GetPendingLendingVolumeAsync(string? currency = null, string? term = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
@@ -130,7 +130,7 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialFixedSimpleEarnLendingOrder>>> GetOrdersAsync(
         long? orderId = null,
-        string currency = null,
+        string? currency = null,
         OkxFinancialFixedSimpleEarnLendingOrderState? state = null,
         long? after = null,
         long? before = null,

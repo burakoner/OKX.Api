@@ -11,14 +11,14 @@ public class OkxTradeOrderPlaceAttachedAlgoRequest
     /// It will be posted to algoClOrdId when placing TP/SL order once the general order is filled completely.
     /// </summary>
     [JsonProperty("attachAlgoClOrdId", NullValueHandling = NullValueHandling.Ignore)]
-    public string AttachedAlgoClientOrderId { get; set; }
+    public string? AttachedAlgoClientOrderId { get; set; }
 
     /// <summary>
     /// Take-profit trigger price
     /// For condition TP order, if you fill in this parameter, you should fill in the take-profit order price as well.
     /// </summary>
     [JsonProperty("tpTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TakeProfitTriggerPrice { get; set; }
+    public string? TakeProfitTriggerPrice { get; set; }
 
     /// <summary>
     /// Take-profit order price
@@ -28,7 +28,7 @@ public class OkxTradeOrderPlaceAttachedAlgoRequest
     /// If the price is -1, take-profit will be executed at the market price.
     /// </summary>
     [JsonProperty("tpOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string TakeProfitOrderPrice { get; set; }
+    public string? TakeProfitOrderPrice { get; set; }
 
     /// <summary>
     /// TP order kind
@@ -44,7 +44,7 @@ public class OkxTradeOrderPlaceAttachedAlgoRequest
     /// If you fill in this parameter, you should fill in the stop-loss order price.
     /// </summary>
     [JsonProperty("slTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string StopLossTriggerPrice { get; set; }
+    public string? StopLossTriggerPrice { get; set; }
 
     /// <summary>
     /// Stop-loss order price
@@ -52,7 +52,7 @@ public class OkxTradeOrderPlaceAttachedAlgoRequest
     /// If the price is -1, stop-loss will be executed at the market price.
     /// </summary>
     [JsonProperty("slOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    public string StopLossOrderPrice { get; set; }
+    public string? StopLossOrderPrice { get; set; }
 
     /// <summary>
     /// Take-profit trigger price type
@@ -70,7 +70,7 @@ public class OkxTradeOrderPlaceAttachedAlgoRequest
     /// Size. Only applicable to TP order of split TPs, and it is required for TP order of split TPs
     /// </summary>
     [JsonProperty("sz", NullValueHandling = NullValueHandling.Ignore)]
-    public string Size { get; set; }
+    public string? Size { get; set; }
 
     /// <summary>
     /// Whether to enable Cost-price SL. Only applicable to SL order of split TPs. Whether slTriggerPx will move to avgPx when the first TP order is triggered
