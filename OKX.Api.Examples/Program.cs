@@ -1,4 +1,4 @@
-﻿using OKX.Api.CopyTrading.Enums;
+﻿using OKX.Api.CopyTrade.Enums;
 using OKX.Api.Financial.EthStaking.Enums;
 using OKX.Api.RecurringBuy.Enums;
 using OKX.Api.RecurringBuy.Models;

@@ -23,7 +23,7 @@ global using OKX.Api.Broker;
 global using OKX.Api.Broker.FullyDisclosed;
 global using OKX.Api.Broker.NonDisclosed;
 global using OKX.Api.Common;
-global using OKX.Api.CopyTrading;
+global using OKX.Api.CopyTrade;
 global using OKX.Api.Financial;
 global using OKX.Api.Financial.EthStaking;
 global using OKX.Api.Financial.FixedSimpleEarn;
