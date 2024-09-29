@@ -329,7 +329,7 @@ public class OkxAccountPosition
     /// Close position algo orders attached to the position. This array will have values only after you request "Place algo order" with closeFraction=1.
     /// </summary>
     [JsonProperty("closeOrderAlgo")]
-    public List<OkxAccountCloseAlgoOrder> CloseAlgoOrders { get; set; }
+    public List<OkxAccountCloseAlgoOrder> CloseAlgoOrders { get; set; } = [];
 
     /// <summary>
     /// Creation time, Unix timestamp format in milliseconds, e.g. 1597026383085

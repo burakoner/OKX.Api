@@ -51,7 +51,7 @@ public class OkxAccountInterestLimits
     /// Records
     /// </summary>
     [JsonProperty("records")]
-    public List<OkxAccountInterestLimitRecord> Records { get; set; }
+    public List<OkxAccountInterestLimitRecord> Records { get; set; } = [];
 }
 
 /// <summary>

@@ -9,7 +9,7 @@ public class OkxPublicOracle
     /// Messages
     /// </summary>
     [JsonProperty("messages")]
-    public List<string> Messages { get; set; }
+    public List<string> Messages { get; set; } = [];
 
     /// <summary>
     /// Prices
@@ -21,7 +21,7 @@ public class OkxPublicOracle
     /// Signatures
     /// </summary>
     [JsonProperty("signatures")]
-    public List<string> Signatures { get; set; }
+    public List<string> Signatures { get; set; } = [];
 
     /// <summary>
     /// Timestamp

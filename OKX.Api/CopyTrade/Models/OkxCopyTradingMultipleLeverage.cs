@@ -21,13 +21,13 @@ public class OkxCopyTradingMultipleLeverage
     /// Lead trader leverages
     /// </summary>
     [JsonProperty("leadTraderLevers")]
-    public List<OkxCopyTradingLeverageData> LeadTraderLeverages { get; set; }
+    public List<OkxCopyTradingLeverageData> LeadTraderLeverages { get; set; } = [];
 
     /// <summary>
     /// My leverages
     /// </summary>
     [JsonProperty("myLevers")]
-    public List<OkxCopyTradingLeverageData> MyLeverages { get; set; }
+    public List<OkxCopyTradingLeverageData> MyLeverages { get; set; } = [];
 }
 
 /// <summary>

@@ -21,7 +21,7 @@ public class OkxPublicOptionTickBands
     /// Tick size band
     /// </summary>
     [JsonProperty("tickBand")]
-    public List<OkxPublicOptionTickBand> TickBands { get; set; }
+    public List<OkxPublicOptionTickBand> TickBands { get; set; } = [];
 
 }
 

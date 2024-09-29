@@ -21,7 +21,7 @@ public class OkxPublicDeliveryExerciseHistory
     /// Details
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxPublicDeliveryExerciseHistoryData> Details { get; set; }
+    public List<OkxPublicDeliveryExerciseHistoryData> Details { get; set; } = [];
 }
 
 /// <summary>

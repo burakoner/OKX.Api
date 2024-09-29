@@ -69,7 +69,7 @@ public class OkxRecurringBuyOrder
     /// Recurring list
     /// </summary>
     [JsonProperty("recurringList")]
-    public List<OkxRecurringBuyOrderList> RecurringList { get; set; }
+    public List<OkxRecurringBuyOrderList> RecurringList { get; set; } = [];
 
     /// <summary>
     /// Period

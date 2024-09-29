@@ -28,13 +28,13 @@ public class OkxAccountPositionBalance
     /// Detailed asset information in all currencies
     /// </summary>
     [JsonProperty("balData")]
-    public List<OkxAccountPositionRiskBalanceData> BalanceData { get; set; }
+    public List<OkxAccountPositionRiskBalanceData> BalanceData { get; set; } = [];
 
     /// <summary>
     /// Detailed position information in all currencies
     /// </summary>
     [JsonProperty("posData")]
-    public List<OkxAccountPositionRiskPositionData> PositionData { get; set; }
+    public List<OkxAccountPositionRiskPositionData> PositionData { get; set; } = [];
 }
 
 /// <summary>

@@ -27,7 +27,7 @@ public class OkxSignalBot
     /// Instrument IDs
     /// </summary>
     [JsonProperty("instIds")]
-    public List<string> InstrumentIds { get; set; }
+    public List<string> InstrumentIds { get; set; } = [];
     
     /// <summary>
     /// Algo order created time, Unix timestamp format in milliseconds, e.g. 1597026383085

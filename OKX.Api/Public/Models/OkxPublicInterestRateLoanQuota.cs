@@ -9,19 +9,19 @@ public class OkxPublicInterestRateLoanQuota
     /// Basic
     /// </summary>
     [JsonProperty("basic")]
-    public List<OkxPublicInterestRateBasic> Basic { get; set; }
+    public List<OkxPublicInterestRateBasic> Basic { get; set; } = [];
 
     /// <summary>
     /// VIP
     /// </summary>
     [JsonProperty("vip")]
-    public List<OkxPublicInterestRateVip> VIP { get; set; }
+    public List<OkxPublicInterestRateVip> VIP { get; set; } = [];
 
     /// <summary>
     /// Regular
     /// </summary>
     [JsonProperty("regular")]
-    public List<OkxPublicInterestRateRegular> Regular { get; set; }
+    public List<OkxPublicInterestRateRegular> Regular { get; set; } = [];
 
 }
 

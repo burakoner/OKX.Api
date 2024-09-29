@@ -28,7 +28,7 @@ public class OkxPublicInsuranceFund
     /// Details
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxPublicInsuranceFundDetails> Details { get; set; }
+    public List<OkxPublicInsuranceFundDetails> Details { get; set; } = [];
 }
 
 /// <summary>

@@ -21,5 +21,5 @@ public class OkxPublicVipInterestRate
     /// Level List
     /// </summary>
     [JsonProperty("levelList")]
-    public List<OkxPublicVipInterestRateLevel> LevelList { get; set; }
+    public List<OkxPublicVipInterestRateLevel> LevelList { get; set; } = [];
 }

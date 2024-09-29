@@ -10,7 +10,7 @@ public class OkxBlockPublicExecutedTrade
     /// </summary>
     [JsonProperty("strategy")]
     public string Strategy { get; set; }
-    
+
     /// <summary>
     /// The time the trade was executed. Unix timestamp in milliseconds.
     /// </summary>

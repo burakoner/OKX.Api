@@ -21,5 +21,5 @@ public class OkxPublicOptionTradeByInstrumentFamily
     /// The list trade data
     /// </summary>
     [JsonProperty("tradeInfo")]
-    public List<OkxPublicOptionTradeInfo> TradeInfo { get; set; }=[];
+    public List<OkxPublicOptionTradeInfo> TradeInfo { get; set; } = [];
 }

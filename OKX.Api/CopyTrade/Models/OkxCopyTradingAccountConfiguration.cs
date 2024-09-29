@@ -40,20 +40,20 @@ public class OkxCopyTradingAccountConfigurationDetails
     /// </summary>
     [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
     public OkxInstrumentType InstrumentType { get; set; }
-    
+
     /// <summary>
     /// Role type
     /// </summary>
     [JsonProperty("roleType"), JsonConverter(typeof(OkxCopyTradingRoleConverter))]
     public OkxCopyTradingRole RoleType { get; set; }
-    
+
     /// <summary>
     /// Profit sharing ratio.
     /// Only applicable to lead trader, or it will be "". 0.1 represents 10%
     /// </summary>
     [JsonProperty("profitSharingRatio")]
     public decimal ProfitSharingRatio { get; set; }
-    
+
     /// <summary>
     /// Maximum number of copy traders
     /// </summary>

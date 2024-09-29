@@ -21,7 +21,7 @@ public class OkxPublicDiscountInfo
     /// Details
     /// </summary>
     [JsonProperty("discountInfo")]
-    public List<OkxPublicDiscountInfoData> Info { get; set; }
+    public List<OkxPublicDiscountInfoData> Info { get; set; } = [];
     
     /// <summary>
     /// 	Minimum discount rate when it exceeds the maximum amount of the last tier.
@@ -33,7 +33,7 @@ public class OkxPublicDiscountInfo
     /// Details
     /// </summary>
     [JsonProperty("discountInfo")]
-    public List<OkxPublicDiscountInfoDetails> Details { get; set; }
+    public List<OkxPublicDiscountInfoDetails> Details { get; set; } = [];
 }
 
 /// <summary>

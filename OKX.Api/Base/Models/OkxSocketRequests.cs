@@ -21,7 +21,7 @@ public class OkxSocketRequest
     /// Arguments
     /// </summary>
     [JsonProperty("args")]
-    public List<OkxSocketRequestArgument> Arguments { get; set; }
+    public List<OkxSocketRequestArgument> Arguments { get; set; } = [];
 
     /// <summary>
     /// Constructor
@@ -81,7 +81,7 @@ public class OkxSocketRequest<T>
     /// Arguments
     /// </summary>
     [JsonProperty("args")]
-    public List<T> Arguments { get; set; }
+    public List<T> Arguments { get; set; } = [];
 
     /// <summary>
     /// Constructor
@@ -209,7 +209,7 @@ public class OkxSocketAuthRequest
     /// Arguments
     /// </summary>
     [JsonProperty("args")]
-    public List<OkxSocketAuthRequestArgument> Arguments { get; set; }
+    public List<OkxSocketAuthRequestArgument> Arguments { get; set; } = [];
 
     /// <summary>
     /// Constructor

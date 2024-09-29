@@ -10,37 +10,37 @@ public class OkxAccountFixedLoanBorrowingLimit
     /// </summary>
     [JsonProperty("totalBorrowLmt")]
     public decimal TotalBorrowLimit { get; set; }
-    
+
     /// <summary>
     /// (Master account and sub-accounts) Total available amount to borrow, unit in USD
     /// </summary>
     [JsonProperty("totalAvailBorrow")]
     public decimal TotalAvailableAmountToBorrow { get; set; }
-    
+
     /// <summary>
     /// (Current account) Borrowed amount, unit in USD
     /// </summary>
     [JsonProperty("borrowed")]
     public decimal BorrowedAmount { get; set; }
-    
+
     /// <summary>
     /// (Current account) Used amount, unit in USD
     /// </summary>
     [JsonProperty("used")]
     public decimal UsedAmount { get; set; }
-    
+
     /// <summary>
     /// (Current account) Available amount to repay, unit in USD
     /// </summary>
     [JsonProperty("availRepay")]
     public decimal AvailableRepay { get; set; }
-    
+
     /// <summary>
     /// Borrow limit info in details
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxAccountFixedLoanBorrowLimitDetails> Details { get; set; }
-    
+    public List<OkxAccountFixedLoanBorrowLimitDetails> Details { get; set; } = [];
+
     /// <summary>
     /// Data return time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
@@ -64,13 +64,13 @@ public class OkxAccountFixedLoanBorrowLimitDetails
     /// </summary>
     [JsonProperty("ccy")]
     public string Currency { get; set; }
-    
+
     /// <summary>
     /// Used amount of current currency
     /// </summary>
     [JsonProperty("used")]
     public decimal UsedAmount { get; set; }
-    
+
     /// <summary>
     /// Borrowed amount of current currency
     /// </summary>

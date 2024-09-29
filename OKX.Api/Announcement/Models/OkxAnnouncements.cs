@@ -15,7 +15,7 @@ public class OkxAnnouncements
     /// List of announcements
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxAnnouncement> Details { get; set; }=[];
+    public List<OkxAnnouncement> Details { get; set; } = [];
 }
 
 /// <summary>
@@ -52,7 +52,7 @@ public class OkxAnnouncement
     /// </summary>
     [JsonIgnore]
     public DateTime PublishTime { get { return PublishTimestamp.ConvertFromMilliseconds(); } }
-    
+
     /// <summary>
     /// Announcement url
     /// </summary>

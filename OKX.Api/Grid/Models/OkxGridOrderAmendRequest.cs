@@ -45,7 +45,7 @@ public class OkxGridOrderAmendRequest
     /// Trigger parameters
     /// </summary>
     [JsonProperty("triggerParams", NullValueHandling = NullValueHandling.Ignore)]
-    public List<OkxGridOrderAmendRequestTriggerParameters> TriggerParameters { get; set; }
+    public List<OkxGridOrderAmendRequestTriggerParameters> TriggerParameters { get; set; } = [];
 }
 
 /// <summary>

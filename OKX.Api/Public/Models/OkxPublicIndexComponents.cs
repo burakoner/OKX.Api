@@ -33,7 +33,7 @@ public class OkxPublicIndexComponents
     /// Components
     /// </summary>
     [JsonProperty("components")]
-    public List<OkxPublicIndexComponent> Components { get; set; }
+    public List<OkxPublicIndexComponent> Components { get; set; } = [];
 }
 
 /// <summary>

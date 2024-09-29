@@ -69,13 +69,13 @@ public class OkxGridOrder
     /// Rebate transfer info
     /// </summary>
     [JsonProperty("rebateTrans")]
-    public List<OkxGridOrderRebateTransfer> RebateTransfers { get; set; }
+    public List<OkxGridOrderRebateTransfer> RebateTransfers { get; set; } = [];
 
     /// <summary>
     /// Trigger Parameters
     /// </summary>
     [JsonProperty("triggerParams")]
-    public List<OkxGridTriggerParameters> TriggerParameters { get; set; }
+    public List<OkxGridTriggerParameters> TriggerParameters { get; set; } = [];
 
     /// <summary>
     /// Upper price of price range
@@ -263,25 +263,25 @@ public class OkxGridOrder
     /// </summary>
     [JsonProperty("copyType"), JsonConverter(typeof(OkxProfitSharingOrderTypeConverter))]
     public OkxProfitSharingOrderType ProfitSharingOrderType { get; set; }
-    
+
     /// <summary>
     /// Take profit ratio, 0.1 represents 10%
     /// </summary>
     [JsonProperty("tpRatio")]
     public decimal? TakeProfitRatio { get; set; }
-    
+
     /// <summary>
     /// Stop loss ratio, 0.1 represents 10%
     /// </summary>
     [JsonProperty("slRatio")]
     public decimal? StopLossRatio { get; set; }
-    
+
     /// <summary>
     /// Accumulated fee. Only applicable to contract grid, or it will be ""
     /// </summary>
     [JsonProperty("fee")]
     public decimal? Fee { get; set; }
-    
+
     /// <summary>
     /// Accumulated funding fee. Only applicable to contract grid, or it will be ""
     /// </summary>

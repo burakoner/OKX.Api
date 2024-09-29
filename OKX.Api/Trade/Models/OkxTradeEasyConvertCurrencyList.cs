@@ -15,7 +15,7 @@ public class OkxTradeEasyConvertCurrencyList
     /// Type of mainstream currency convert to, e.g. USDT
     /// </summary>
     [JsonProperty("toCcy")]
-    public List<string> ToCurrency { get; set; }
+    public List<string> ToCurrency { get; set; } = [];
 }
 
 /// <summary>

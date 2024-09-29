@@ -28,7 +28,7 @@ public class OkxAlgoOrder
     /// Order ID list
     /// </summary>
     [JsonProperty("ordIdList")]
-    public List<long> OrderIdList { get; set; }
+    public List<long> OrderIdList { get; set; } = [];
 
     /// <summary>
     /// Algo ID
@@ -287,7 +287,7 @@ public class OkxAlgoOrder
     /// Attached SL/TP orders info. Applicable to Spot and futures mode/Multi-currency margin/Portfolio margin
     /// </summary>
     [JsonProperty("attachAlgoOrds")]
-    public List<OkxAlgoAttachedAlgoOrder> AttachedAlgoOrders { get; set; }
+    public List<OkxAlgoAttachedAlgoOrder> AttachedAlgoOrders { get; set; } = [];
 
     /// <summary>
     /// Linked TP order detail, only applicable to SL order that comes from the one-cancels-the-other (OCO) order that contains the TP limit order.

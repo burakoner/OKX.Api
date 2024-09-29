@@ -76,7 +76,7 @@ public class OkxSubAccountTradingBalance
     /// Details
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxSubAccountTradingBalanceDetails> Details { get; set; }
+    public List<OkxSubAccountTradingBalanceDetails> Details { get; set; } = [];
 }
 
 /// <summary>

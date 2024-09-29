@@ -211,7 +211,7 @@ public class OkxTradeOrder
     /// TP/SL information attached when placing order
     /// </summary>
     [JsonProperty("attachAlgoOrds")]
-    public List<OkxTradeOrderAttachedAlgoOrder> AttachedAlgoOrders{ get; set; }
+    public List<OkxTradeOrderAttachedAlgoOrder> AttachedAlgoOrders{ get; set; } = [];
 
     /// <summary>
     /// Linked SL order detail, only applicable to the order that is placed by one-cancels-the-other (OCO) order that contains the TP limit order.

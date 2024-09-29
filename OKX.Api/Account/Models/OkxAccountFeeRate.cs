@@ -64,12 +64,12 @@ public class OkxAccountFeeRate
     /// </summary>
     [JsonProperty("makerUSDC")]
     public decimal? MakerUsdcPairsAndContracts { get; set; }
-    
+
     /// <summary>
     /// Trading rule types
     /// </summary>
     [JsonProperty("ruleType"), JsonConverter(typeof(OkxInstrumentRuleTypeConverter))]
-    public OkxInstrumentRuleType RuleType{ get; set; }
+    public OkxInstrumentRuleType RuleType { get; set; }
 
     /// <summary>
     /// Data return time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -87,7 +87,7 @@ public class OkxAccountFeeRate
     /// Details of fiat fee rate
     /// </summary>
     [JsonProperty("fiat")]
-    public List<OkxAccountFiatFeeRate> FiatFeeRates { get; set; }=[];
+    public List<OkxAccountFiatFeeRate> FiatFeeRates { get; set; } = [];
 }
 
 

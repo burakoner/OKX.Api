@@ -9,7 +9,7 @@ public class OkxGridInvestment
     /// Minimum Investment Data
     /// </summary>
     [JsonProperty("minInvestmentData")]
-    public List<OkxGridInvestmentData> MinimumInvestmentData { get; set; }
+    public List<OkxGridInvestmentData> MinimumInvestmentData { get; set; } = [];
 
     /// <summary>
     /// Single Quantity

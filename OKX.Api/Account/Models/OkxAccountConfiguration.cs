@@ -33,8 +33,8 @@ public class OkxAccountConfiguration
     /// Users can log in to the webpage through the master account to modify this configuration
     /// </summary>
     [JsonProperty("acctStpMode"), JsonConverter(typeof(OkxSelfTradePreventionModeConverter))]
-    public OkxSelfTradePreventionMode  SelfTradePreventionMode { get; set; }
-    
+    public OkxSelfTradePreventionMode SelfTradePreventionMode { get; set; }
+
     /// <summary>
     /// Position mode
     /// </summary>
@@ -94,7 +94,7 @@ public class OkxAccountConfiguration
     /// Leading trade instruments, only applicable to Leading trader
     /// </summary>
     [JsonProperty("traderInsts")]
-    public List<string> LeadingTraderInstruments { get; set; }=[];
+    public List<string> LeadingTraderInstruments { get; set; } = [];
 
     /// <summary>
     /// SPOT copy trading role type
@@ -107,7 +107,7 @@ public class OkxAccountConfiguration
     /// Spot lead trading instruments, only applicable to Leanding trader
     /// </summary>
     [JsonProperty("spotTraderInsts")]
-    public List<string> SpotLeadingTraderInstruments { get; set; }=[];
+    public List<string> SpotLeadingTraderInstruments { get; set; } = [];
 
     /// <summary>
     /// Whether the optional trading was activated
@@ -141,7 +141,7 @@ public class OkxAccountConfiguration
     /// </summary>
     [JsonProperty("perm"), JsonConverter(typeof(OkxAccountApiKeyPermissionConverter))]
     public OkxAccountApiKeyPermission ApiKeyPermission { get; set; }
-    
+
     /// <summary>
     /// Discount rule type for current account
     /// 0: Original discount rate rules, the default value
@@ -150,7 +150,7 @@ public class OkxAccountConfiguration
     /// </summary>
     [JsonProperty("discountType"), JsonConverter(typeof(OkxAccountDiscountTypeConverter))]
     public OkxAccountDiscountType DiscountType { get; set; }
-    
+
     /// <summary>
     /// The margin ratio level of liquidation alert
     /// 3 means that you will get hourly liquidation alerts on app and channel "Position risk warning" when your margin level drops to or below 300%

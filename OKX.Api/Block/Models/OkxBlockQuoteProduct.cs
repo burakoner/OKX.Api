@@ -35,7 +35,7 @@ public class OkxBlockQuoteProductData
     /// </summary>
     [JsonProperty("instFamily")]
     public string InstrumentFamily { get; set; }
-    
+
     /// <summary>
     /// Instrument ID. Required for SPOT only.
     /// </summary>

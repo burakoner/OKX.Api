@@ -33,7 +33,7 @@ public class OkxPublicLiquidationInfo
     /// Details
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxPublicLiquidationInfoDetail> Details { get; set; }
+    public List<OkxPublicLiquidationInfoDetail> Details { get; set; } = [];
 }
 
 /// <summary>

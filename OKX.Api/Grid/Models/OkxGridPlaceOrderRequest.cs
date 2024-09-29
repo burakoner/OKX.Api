@@ -77,7 +77,7 @@ public class OkxGridPlaceOrderRequest
     /// Trigger Parameters
     /// </summary>
     [JsonProperty("triggerParams", NullValueHandling = NullValueHandling.Ignore)]
-    public List<OkxGridTriggerParametersRequest> TriggerParameters { get; set; }
+    public List<OkxGridTriggerParametersRequest> TriggerParameters { get; set; } = [];
 
     /// <summary>
     /// Quote Size
