@@ -65,13 +65,6 @@ public class OkxPublicInterestRateVip
     /// </summary>
     [JsonProperty("loanQuotaCoef")]
     public decimal LoanQuotaCoefficient { get; set; }
-    
-    /// <summary>
-    /// Interest Rate Discount
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("irDiscount")]
-    public decimal? InterestRateDiscount { get; set; }
 }
 
 /// <summary>
@@ -90,11 +83,4 @@ public class OkxPublicInterestRateRegular
     /// </summary>
     [JsonProperty("loanQuotaCoef")]
     public decimal LoanQuotaCoefficient { get; set; }
-    
-    /// <summary>
-    /// Interest Rate Discount
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("irDiscount")]
-    public decimal? InterestRateDiscount { get; set; }
 }

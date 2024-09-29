@@ -12,13 +12,6 @@ public class OkxAlgoOrderResponse : OkxRestApiErrorBase
     public string AlgoOrderId { get; set; }
 
     /// <summary>
-    /// Client Order ID as assigned by the client
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; }
-
-    /// <summary>
     /// Algo Client Order ID
     /// </summary>
     [JsonProperty("algoClOrdId")]

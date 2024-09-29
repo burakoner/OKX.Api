@@ -36,48 +36,6 @@ public class OkxAccountPosition
     public decimal PositionsQuantity { get; set; }
 
     /// <summary>
-    /// Base currency balance, only applicable to MARGIN（Manual transfers and Quick Margin Mode）
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("baseBal")]
-    public decimal? BaseCurrencyBalance { get; set; }
-
-    /// <summary>
-    /// Quote currency balance, only applicable to MARGIN（Manual transfers and Quick Margin Mode）
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("quoteBal")]
-    public decimal? QuoteCurrencyBalance { get; set; }
-
-    /// <summary>
-    /// Base currency amount already borrowed, only applicable to MARGIN(Quick Margin Mode）
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("baseBorrowed")]
-    public decimal? BaseBorrowed { get; set; }
-
-    /// <summary>
-    /// Base Interest, undeducted interest that has been incurred, only applicable to MARGIN(Quick Margin Mode）
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("baseInterest")]
-    public decimal? BaseInterest { get; set; }
-
-    /// <summary>
-    /// Quote currency amount already borrowed, only applicable to MARGIN(Quick Margin Mode）
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("quoteBorrowed")]
-    public decimal? QuoteBorrowed { get; set; }
-
-    /// <summary>
-    /// Quote Interest, undeducted interest that has been incurred, only applicable to MARGIN(Quick Margin Mode）
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("quoteInterest")]
-    public decimal? QuoteInterest { get; set; }
-
-    /// <summary>
     /// Position currency, only applicable to MARGIN positions.
     /// </summary>
     [JsonProperty("posCcy")]

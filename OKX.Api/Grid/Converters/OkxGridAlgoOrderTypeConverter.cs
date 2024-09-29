@@ -8,6 +8,5 @@ internal class OkxGridAlgoOrderTypeConverter(bool quotes) : BaseConverter<OkxGri
     [
         new(OkxGridAlgoOrderType.SpotGrid, "grid"),
         new(OkxGridAlgoOrderType.ContractGrid, "contract_grid"),
-        new(OkxGridAlgoOrderType.MoonGrid, "moon_grid"),
     ];
 }

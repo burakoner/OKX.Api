@@ -40,11 +40,4 @@ public class OkxFlexibleSimpleEarnSavingsBalance
     /// </summary>
     [JsonProperty("pendingAmt")]
     public decimal PendingAmount { get; set; }
-
-    /// <summary>
-    /// Redempting amount (Deprecated)
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("redemptAmt")]
-    public decimal? RedemptingAmount { get; set; }
 }

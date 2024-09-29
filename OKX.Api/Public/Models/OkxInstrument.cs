@@ -30,13 +30,6 @@ public class OkxInstrument
     public string InstrumentFamily { get; set; }
 
     /// <summary>
-    /// Currency category. Note: this parameter is already deprecated
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("category")]
-    public string Category { get; set; }
-
-    /// <summary>
     /// Base currency
     /// </summary>
     [JsonProperty("baseCcy")]
@@ -198,11 +191,4 @@ public class OkxInstrument
     /// </summary>
     [JsonProperty("maxStopSz")]
     public decimal? MaximumStopMarketSize { get; set; }
-
-    /// <summary>
-    /// Alias
-    /// </summary>
-    [Obsolete("Not recommended for use, users are encouraged to rely on the expTime field to determine the delivery time of the contract")]
-    [JsonProperty("alias"), JsonConverter(typeof(OkxInstrumentAliasConverter))]
-    public OkxInstrumentAlias? Alias { get; set; }
 }

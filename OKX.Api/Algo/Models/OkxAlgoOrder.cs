@@ -25,13 +25,6 @@ public class OkxAlgoOrder
     public string Currency { get; set; }
 
     /// <summary>
-    /// Order ID
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("ordId")]
-    public long? OrderId { get; set; }
-
-    /// <summary>
     /// Order ID list
     /// </summary>
     [JsonProperty("ordIdList")]

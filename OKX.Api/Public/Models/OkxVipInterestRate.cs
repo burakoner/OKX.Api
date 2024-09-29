@@ -18,13 +18,6 @@ public class OkxVipInterestRate
     public decimal Rate { get; set; }
 
     /// <summary>
-    /// Quota
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("quota")]
-    public decimal? Quota { get; set; }
-
-    /// <summary>
     /// Level List
     /// </summary>
     [JsonProperty("levelList")]

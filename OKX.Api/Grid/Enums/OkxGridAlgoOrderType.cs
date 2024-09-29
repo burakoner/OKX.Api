@@ -14,10 +14,4 @@ public enum OkxGridAlgoOrderType
     /// ContractGrid
     /// </summary>
     ContractGrid,
-
-    /// <summary>
-    /// MoonGrid
-    /// </summary>
-    [Obsolete]
-    MoonGrid,
 }

@@ -97,20 +97,6 @@ public class OkxAccountPositionRiskPositionData
     public decimal Quantity { get; set; }
 
     /// <summary>
-    /// Base currency balance, only applicable to MARGIN（Manual transfers and Quick Margin Mode）
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("baseBal")]
-    public decimal? BaseBalance { get; set; }
-
-    /// <summary>
-    /// Quote currency balance, only applicable to MARGIN（Manual transfers and Quick Margin Mode）
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("quoteBal")]
-    public decimal? QuoteBalance { get; set; }
-
-    /// <summary>
     /// Position side
     /// </summary>
     [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]

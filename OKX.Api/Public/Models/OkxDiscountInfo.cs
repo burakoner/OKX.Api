@@ -18,13 +18,6 @@ public class OkxDiscountInfo
     public decimal Amount { get; set; }
 
     /// <summary>
-    /// Discount Level
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("discountLv")]
-    public int? DiscountLevel { get; set; }
-
-    /// <summary>
     /// Details
     /// </summary>
     [JsonProperty("discountInfo")]

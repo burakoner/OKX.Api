@@ -153,14 +153,6 @@ public class OkxTradeOrder
     public OkxTradeOrderState OrderState { get; set; }
 
     /// <summary>
-    /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.
-    /// Numerical integers defined by user in the range of 1-999999999
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("stpId")]
-    public long? SelfTradePreventionId { get; set; }
-
-    /// <summary>
     /// Self trade prevention mode
     /// Return "" if self trade prevention is not applicable
     /// </summary>

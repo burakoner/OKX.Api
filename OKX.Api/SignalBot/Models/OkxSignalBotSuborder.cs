@@ -43,13 +43,6 @@ public class OkxSignalBotSuborder
     public long SuborderId { get; set; }
 
     /// <summary>
-    /// Sub order client-supplied ID. It is equal to signalOrdId
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; }
-
-    /// <summary>
     /// Algo order created time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("cTime")]
