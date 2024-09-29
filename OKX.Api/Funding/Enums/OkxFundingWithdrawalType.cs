@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Funding.Enums;
+﻿namespace OKX.Api.Funding;
 
 /// <summary>
 /// OKX Withdrawal Type

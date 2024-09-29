@@ -1,6 +1,4 @@
-﻿using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Trade.Converters;
+﻿namespace OKX.Api.Trade;
 
 internal class OkxTradePositionTypeConverter(bool quotes) : BaseConverter<OkxTradePositionType>(quotes)
 {

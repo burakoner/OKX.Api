@@ -1,6 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-
-namespace OKX.Api.Public.Models;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Mark Candlestick

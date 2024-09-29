@@ -1,7 +1,4 @@
-﻿using OKX.Api.RecurringBuy.Converters;
-using OKX.Api.RecurringBuy.Enums;
-
-namespace OKX.Api.RecurringBuy.Models;
+﻿namespace OKX.Api.RecurringBuy;
 
 /// <summary>
 /// Recurring Buy Order Details

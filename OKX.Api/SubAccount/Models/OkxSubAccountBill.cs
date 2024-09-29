@@ -1,7 +1,4 @@
-﻿using OKX.Api.SubAccount.Converters;
-using OKX.Api.SubAccount.Enums;
-
-namespace OKX.Api.SubAccount.Models;
+﻿namespace OKX.Api.SubAccount;
 
 /// <summary>
 /// OKX Sub Account Bill

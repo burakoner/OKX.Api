@@ -1,12 +1,9 @@
-﻿using OKX.Api.Status.Converters;
-using OKX.Api.Status.Enums;
-
-namespace OKX.Api.Status.Models;
+﻿namespace OKX.Api.Status;
 
 /// <summary>
 /// System Status
 /// </summary>
-public class OkxAnnouncements
+public class OkxStatusMaintenance
 {
     /// <summary>
     /// The title of system maintenance instructions

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Funding.Clients;
+﻿namespace OKX.Api.Funding;
 
 /// <summary>
 /// OKX WebSocket Api Funding Account Client

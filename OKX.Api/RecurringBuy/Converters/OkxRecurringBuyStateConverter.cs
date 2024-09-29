@@ -1,6 +1,4 @@
-﻿using OKX.Api.RecurringBuy.Enums;
-
-namespace OKX.Api.RecurringBuy.Converters;
+﻿namespace OKX.Api.RecurringBuy;
 
 internal class OkxRecurringBuyStateConverter(bool quotes) : BaseConverter<OkxRecurringBuyState>(quotes)
 {

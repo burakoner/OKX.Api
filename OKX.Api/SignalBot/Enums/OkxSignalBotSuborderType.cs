@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.SignalBot.Enums;
+﻿namespace OKX.Api.SignalBot;
 
 /// <summary>
 /// OKX Signal Bot Suborder Type

@@ -1,12 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Funding.Converters;
-using OKX.Api.Funding.Enums;
-using OKX.Api.Funding.Models;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Funding.Clients;
+﻿namespace OKX.Api.Funding;
 
 /// <summary>
 /// OKX Rest Api Funding Account Client

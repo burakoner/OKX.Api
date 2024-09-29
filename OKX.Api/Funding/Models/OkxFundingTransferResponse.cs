@@ -1,7 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-
-namespace OKX.Api.Funding.Models;
+﻿namespace OKX.Api.Funding;
 
 /// <summary>
 /// OKX Transfer Response

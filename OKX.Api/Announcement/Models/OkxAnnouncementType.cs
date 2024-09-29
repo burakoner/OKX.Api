@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Announcement.Models;
+﻿namespace OKX.Api.Announcement;
 
 /// <summary>
 /// OKX Announcement Type

@@ -1,6 +1,4 @@
-﻿using OKX.Api.Financial.EthStaking.Enums;
-
-namespace OKX.Api.Financial.EthStaking.Converters;
+﻿namespace OKX.Api.Financial.EthStaking;
 
 internal class OkxFinancialEthStakingTypeConverter(bool quotes) : BaseConverter<OkxFinancialEthStakingType>(quotes)
 {

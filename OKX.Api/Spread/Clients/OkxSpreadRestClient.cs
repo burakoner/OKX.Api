@@ -1,11 +1,4 @@
-﻿using OKX.Api.Spread.Converters;
-using OKX.Api.Spread.Enums;
-using OKX.Api.Spread.Models;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-using OKX.Api.Trade.Models;
-
-namespace OKX.Api.Spread.Clients;
+﻿namespace OKX.Api.Spread;
 
 /// <summary>
 /// OKX Rest Api Spread Trading Client

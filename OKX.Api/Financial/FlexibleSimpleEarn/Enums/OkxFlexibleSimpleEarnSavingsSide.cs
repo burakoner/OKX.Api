@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Financial.FlexibleSimpleEarn.Enums;
+﻿namespace OKX.Api.Financial.FlexibleSimpleEarn;
 
 /// <summary>
 /// OKX Flexible Simple Earn Savings Side

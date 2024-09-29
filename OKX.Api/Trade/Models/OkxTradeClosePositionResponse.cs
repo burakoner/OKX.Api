@@ -1,7 +1,4 @@
-﻿using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Trade.Models;
+﻿namespace OKX.Api.Trade;
 
 /// <summary>
 /// OKX Close Position Response

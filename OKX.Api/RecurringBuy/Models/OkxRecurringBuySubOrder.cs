@@ -1,11 +1,4 @@
-﻿using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-using OKX.Api.RecurringBuy.Converters;
-using OKX.Api.RecurringBuy.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.RecurringBuy.Models;
+﻿namespace OKX.Api.RecurringBuy;
 
 /// <summary>
 /// Recurring Buy Sub Order

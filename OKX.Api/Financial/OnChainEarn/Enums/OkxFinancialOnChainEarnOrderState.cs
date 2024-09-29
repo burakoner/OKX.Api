@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Financial.OnChainEarn.Enums;
+﻿namespace OKX.Api.Financial.OnChainEarn;
 
 /// <summary>
 /// OKX Financial OnChainEarn Order State

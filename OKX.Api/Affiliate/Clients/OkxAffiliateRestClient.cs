@@ -1,6 +1,4 @@
-﻿using OKX.Api.Affiliate.Models;
-
-namespace OKX.Api.Affiliate.Clients;
+﻿namespace OKX.Api.Affiliate;
 
 /// <summary>
 /// OKX Rest Api Affiliate Client

@@ -1,10 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.SubAccount.Converters;
-using OKX.Api.SubAccount.Enums;
-using OKX.Api.SubAccount.Models;
-
-namespace OKX.Api.SubAccount.Clients;
+﻿namespace OKX.Api.SubAccount;
 
 /// <summary>
 /// OKX Rest Api Sub Account Client

@@ -1,6 +1,4 @@
-﻿using OKX.Api.Announcement.Models;
-
-namespace OKX.Api.Announcement.Clients;
+﻿namespace OKX.Api.Announcement;
 
 /// <summary>
 /// OKX Rest Api Announcement Client

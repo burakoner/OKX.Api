@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.SubAccount.Models;
+﻿namespace OKX.Api.SubAccount;
 
 /// <summary>
 /// OKX Sub-Account Interest Limits

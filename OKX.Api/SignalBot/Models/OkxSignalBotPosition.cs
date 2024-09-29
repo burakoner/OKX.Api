@@ -1,9 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.SignalBot.Models;
+﻿namespace OKX.Api.SignalBot;
 
 /// <summary>
 /// OKX Signal Order Position

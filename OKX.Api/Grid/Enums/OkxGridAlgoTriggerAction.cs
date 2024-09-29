@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Grid.Enums;
+﻿namespace OKX.Api.Grid;
 
 /// <summary>
 /// OKX Grid Algo Trigger Action

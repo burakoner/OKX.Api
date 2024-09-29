@@ -1,6 +1,4 @@
-﻿using OKX.Api.RecurringBuy.Models;
-
-namespace OKX.Api.RecurringBuy.Clients;
+﻿namespace OKX.Api.RecurringBuy;
 
 /// <summary>
 /// OKX WebSocket Api RecurringBuy Client

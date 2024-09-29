@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Financial.EthStaking.Models;
+﻿namespace OKX.Api.Financial.EthStaking;
 
 /// <summary>
 /// OKX Financial Eth Staking Redeem

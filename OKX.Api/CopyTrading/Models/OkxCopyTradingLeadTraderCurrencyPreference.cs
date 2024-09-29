@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.CopyTrading.Models;
+﻿namespace OKX.Api.CopyTrading;
 
 /// <summary>
 /// OKX Copy Trading Lead Trader Currency Preference

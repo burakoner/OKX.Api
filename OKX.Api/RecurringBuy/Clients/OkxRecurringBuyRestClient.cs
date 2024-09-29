@@ -1,10 +1,4 @@
-﻿using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-using OKX.Api.RecurringBuy.Converters;
-using OKX.Api.RecurringBuy.Enums;
-using OKX.Api.RecurringBuy.Models;
-
-namespace OKX.Api.RecurringBuy.Clients;
+﻿namespace OKX.Api.RecurringBuy;
 
 /// <summary>
 /// OKX Rest Api Recurring Buy Client

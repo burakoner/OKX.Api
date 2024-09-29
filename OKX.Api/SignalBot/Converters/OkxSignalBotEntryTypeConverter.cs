@@ -1,6 +1,4 @@
-﻿using OKX.Api.SignalBot.Enums;
-
-namespace OKX.Api.SignalBot.Converters;
+﻿namespace OKX.Api.SignalBot;
 
 internal class OkxSignalBotEntryTypeConverter(bool quotes) : BaseConverter<OkxSignalBotEntryType>(quotes)
 {

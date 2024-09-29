@@ -1,11 +1,4 @@
-﻿using OKX.Api.Grid.Converters;
-using OKX.Api.Grid.Enums;
-using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Grid.Models;
+﻿namespace OKX.Api.Grid;
 
 /// <summary>
 /// OKX Grid Algo Sub Order

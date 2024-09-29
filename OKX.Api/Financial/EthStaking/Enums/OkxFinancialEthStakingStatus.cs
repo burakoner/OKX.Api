@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Financial.EthStaking.Enums;
+﻿namespace OKX.Api.Financial.EthStaking;
 
 /// <summary>
 /// OKX Financial Eth Staking Status

@@ -1,10 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Grid.Converters;
-using OKX.Api.Grid.Enums;
-using OKX.Api.Grid.Models;
-
-namespace OKX.Api.Grid.Clients;
+﻿namespace OKX.Api.Grid;
 
 /// <summary>
 /// OKX Rest Api Grid Trading Client

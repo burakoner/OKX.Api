@@ -1,6 +1,4 @@
-﻿using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Trade.Converters;
+﻿namespace OKX.Api.Trade;
 
 internal class OkxTradeDebtTypeConverter(bool quotes) : BaseConverter<OkxTradeDebtType>(quotes)
 {

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Base.Models;
+﻿namespace OKX.Api.Base;
 
 /// <summary>
 /// OKX Socket Ping Pong

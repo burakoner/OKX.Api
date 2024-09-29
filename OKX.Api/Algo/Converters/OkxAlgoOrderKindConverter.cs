@@ -1,6 +1,4 @@
-﻿using OKX.Api.Algo.Enums;
-
-namespace OKX.Api.Algo.Converters;
+﻿namespace OKX.Api.Algo;
 
 internal class OkxAlgoOrderKindConverter(bool quotes) : BaseConverter<OkxAlgoOrderKind>(quotes)
 {

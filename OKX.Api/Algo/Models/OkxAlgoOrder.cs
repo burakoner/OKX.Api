@@ -1,11 +1,4 @@
-﻿using OKX.Api.Algo.Converters;
-using OKX.Api.Algo.Enums;
-using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Algo.Models;
+﻿namespace OKX.Api.Algo;
 
 /// <summary>
 /// OKX Algo Order

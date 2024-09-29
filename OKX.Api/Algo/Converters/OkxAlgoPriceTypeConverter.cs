@@ -1,6 +1,4 @@
-﻿using OKX.Api.Algo.Enums;
-
-namespace OKX.Api.Algo.Converters;
+﻿namespace OKX.Api.Algo;
 
 internal class OkxAlgoPriceTypeConverter(bool quotes) : BaseConverter<OkxAlgoPriceType>(quotes)
 {

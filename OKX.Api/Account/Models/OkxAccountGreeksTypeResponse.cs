@@ -1,15 +1,13 @@
-﻿using OKX.Api.Account.Converters;
-
-namespace OKX.Api.Account.Models;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OkxAccountGreeksType
 /// </summary>
-public class OkxAccountGreeksType
+public class OkxAccountGreeksTypeResponse
 {
     /// <summary>
     /// Display type of Greeks.
     /// </summary>
     [JsonProperty("greeksType"), JsonConverter(typeof(OkxAccountGreeksTypeConverter))]
-    public Enums.OkxAccountGreeksType GreeksType { get; set; }
+    public OkxAccountGreeksType GreeksType { get; set; }
 }

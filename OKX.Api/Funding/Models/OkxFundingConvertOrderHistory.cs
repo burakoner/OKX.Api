@@ -1,9 +1,4 @@
-﻿using OKX.Api.Funding.Converters;
-using OKX.Api.Funding.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Funding.Models;
+﻿namespace OKX.Api.Funding;
 
 /// <summary>
 /// OKX Convert Order History

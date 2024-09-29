@@ -1,9 +1,4 @@
-﻿using OKX.Api.Spread.Converters;
-using OKX.Api.Spread.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Spread.Models;
+﻿namespace OKX.Api.Spread;
 
 /// <summary>
 /// OKX Spread Order

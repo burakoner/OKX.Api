@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Common.Converters;
+﻿namespace OKX.Api.Common;
 
 internal class OkxQuickMarginTypeConverter(bool quotes) : BaseConverter<OkxQuickMarginType>(quotes)
 {

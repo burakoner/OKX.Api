@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.CopyTrading.Clients;
+﻿namespace OKX.Api.CopyTrading;
 
 /// <summary>
 /// OKX WebSocket Api Copy Trading Client

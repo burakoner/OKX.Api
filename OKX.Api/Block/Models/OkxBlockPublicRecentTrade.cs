@@ -1,7 +1,4 @@
-﻿using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-
-namespace OKX.Api.Block.Models;
+﻿namespace OKX.Api.Block;
 
 /// <summary>
 /// OKX Block Trade

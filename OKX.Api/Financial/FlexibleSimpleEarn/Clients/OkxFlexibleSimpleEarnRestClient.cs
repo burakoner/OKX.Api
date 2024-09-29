@@ -1,8 +1,4 @@
-﻿using ApiSharp.Throttling.Abstractions;
-using Newtonsoft.Json.Linq;
-using OKX.Api.Financial.FlexibleSimpleEarn.Models;
-
-namespace OKX.Api.Financial.FlexibleSimpleEarn.Clients;
+﻿namespace OKX.Api.Financial.FlexibleSimpleEarn;
 
 /// <summary>
 /// OKX Rest Api Savings Client

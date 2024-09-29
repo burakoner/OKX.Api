@@ -1,16 +1,4 @@
-﻿using OKX.Api.Block.Converters;
-using OKX.Api.Block.Enums;
-using OKX.Api.Block.Models;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-using System.Diagnostics;
-using System;
-using System.Xml.Linq;
-using System.Drawing;
-using Newtonsoft.Json.Linq;
-using System.Diagnostics.Metrics;
-
-namespace OKX.Api.Block.Clients;
+﻿namespace OKX.Api.Block;
 
 /// <summary>
 /// OKX Rest Api Block Trading Client

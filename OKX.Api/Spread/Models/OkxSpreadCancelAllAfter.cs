@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Trade.Models;
+﻿namespace OKX.Api.Spread;
 
 /// <summary>
 /// OKX Spread Cancel All After

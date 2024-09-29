@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Algo.Models;
+﻿namespace OKX.Api.Algo;
 
 /// <summary>
 /// OKX Algo Order Response

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.SignalBot.Models;
+﻿namespace OKX.Api.SignalBot;
 
 /// <summary>
 /// OKX Signal Bot Signal Order Id

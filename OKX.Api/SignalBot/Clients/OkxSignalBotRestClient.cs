@@ -1,13 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.SignalBot.Converters;
-using OKX.Api.SignalBot.Enums;
-using OKX.Api.SignalBot.Models;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-using System.Drawing;
-
-namespace OKX.Api.SignalBot.Clients;
+﻿namespace OKX.Api.SignalBot;
 
 /// <summary>
 /// OKX Rest Api Signal Trading Client

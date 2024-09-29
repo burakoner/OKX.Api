@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Common.Enums;
+﻿namespace OKX.Api.Common;
 
 /// <summary>
 /// OKX Liquidation State

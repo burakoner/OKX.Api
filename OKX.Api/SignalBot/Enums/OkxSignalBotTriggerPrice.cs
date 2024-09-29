@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.SignalBot.Enums;
+﻿namespace OKX.Api.SignalBot;
 
 /// <summary>
 /// Type of set the take-profit and stop-loss trigger price

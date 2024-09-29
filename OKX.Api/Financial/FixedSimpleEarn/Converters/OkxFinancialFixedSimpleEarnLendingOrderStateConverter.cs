@@ -1,6 +1,4 @@
-﻿using OKX.Api.Financial.FixedSimpleEarn.Enums;
-
-namespace OKX.Api.Financial.FixedSimpleEarn.Converters;
+﻿namespace OKX.Api.Financial.FixedSimpleEarn;
 
 internal class OkxFinancialFixedSimpleEarnLendingOrderStateConverter(bool quotes) : BaseConverter<OkxFinancialFixedSimpleEarnLendingOrderState>(quotes)
 {

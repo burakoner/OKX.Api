@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Block.Clients;
+﻿namespace OKX.Api.Block;
 
 /// <summary>
 /// OKX WebSocket Api Block Trading Client

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Rubik.Models;
+﻿namespace OKX.Api.Rubik;
 
 /// <summary>
 /// OKX Taker Flow

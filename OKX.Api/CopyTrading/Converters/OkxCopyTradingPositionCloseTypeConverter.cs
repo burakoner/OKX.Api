@@ -1,6 +1,4 @@
-﻿using OKX.Api.CopyTrading.Enums;
-
-namespace OKX.Api.CopyTrading.Converters;
+﻿namespace OKX.Api.CopyTrading;
 
 internal class OkxCopyTradingPositionCloseTypeConverter(bool quotes) : BaseConverter<OkxCopyTradingPositionCloseType>(quotes)
 {

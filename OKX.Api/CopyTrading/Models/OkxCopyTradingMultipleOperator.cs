@@ -1,7 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.CopyTrading.Enums;
-
-namespace OKX.Api.Account.Models;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OkxMultipleOperation

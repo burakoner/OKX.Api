@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Grid.Clients;
+﻿namespace OKX.Api.Grid;
 
 /// <summary>
 /// OKX WebSocket Api Grid Trading Client

@@ -1,7 +1,4 @@
-﻿using OKX.Api.Funding.Converters;
-using OKX.Api.Funding.Enums;
-
-namespace OKX.Api.Funding.Models;
+﻿namespace OKX.Api.Funding;
 
 /// <summary>
 /// OKX Withdrawal History

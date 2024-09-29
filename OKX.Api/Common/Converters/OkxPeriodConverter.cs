@@ -1,6 +1,4 @@
-﻿using OKX.Api.Common.Enums;
-
-namespace OKX.Api.Common.Converters;
+﻿namespace OKX.Api.Common;
 
 internal class OkxPeriodConverter(bool quotes) : BaseConverter<OkxPeriod>(quotes)
 {

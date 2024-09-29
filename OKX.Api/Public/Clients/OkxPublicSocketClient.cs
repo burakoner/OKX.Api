@@ -1,7 +1,4 @@
-﻿using OKX.Api.Public.Models;
-using OKX.Api.Status.Models;
-
-namespace OKX.Api.Public.Clients;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX WebSocket Api Public Market Data Client
@@ -563,9 +560,9 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSystemUpgradeStatusAsync(Action<OkxAnnouncements> onData, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToSystemUpgradeStatusAsync(Action<OkxStatusMaintenance> onData, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAnnouncements>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxStatusMaintenance>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);

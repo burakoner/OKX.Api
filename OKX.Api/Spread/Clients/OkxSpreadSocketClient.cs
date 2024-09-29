@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Spread.Clients;
+﻿namespace OKX.Api.Spread;
 
 /// <summary>
 /// OKX WebSocket Api Spread Trading Client

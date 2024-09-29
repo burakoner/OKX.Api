@@ -1,10 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-using OKX.Api.Public.Models;
-
-namespace OKX.Api.Public.Clients;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Rest Api Public Data &amp; Market Data Client

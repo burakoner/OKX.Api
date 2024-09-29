@@ -1,6 +1,4 @@
-﻿using OKX.Api.Financial.OnChainEarn.Enums;
-
-namespace OKX.Api.Financial.OnChainEarn.Converters;
+﻿namespace OKX.Api.Financial.OnChainEarn;
 
 internal class OkxFinancialOnChainEarnOrderStateConverter(bool quotes) : BaseConverter<OkxFinancialOnChainEarnOrderState>(quotes)
 {

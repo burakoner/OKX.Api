@@ -1,7 +1,4 @@
-﻿using OKX.Api.CopyTrading.Converters;
-using OKX.Api.CopyTrading.Enums;
-
-namespace OKX.Api.CopyTrading.Models;
+﻿namespace OKX.Api.CopyTrading;
 
 /// <summary>
 /// OkxCopyTradingConfiguration

@@ -1,6 +1,4 @@
-﻿using OKX.Api.Funding.Enums;
-
-namespace OKX.Api.Funding.Converters;
+﻿namespace OKX.Api.Funding;
 
 internal class OkxFundingBillTypeConverter(bool quotes) : BaseConverter<OkxFundingBillType>(quotes)
 {

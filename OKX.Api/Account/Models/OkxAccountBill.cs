@@ -1,9 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-
-namespace OKX.Api.Account.Models;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OKX Account Bill

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Status.Enums;
+﻿namespace OKX.Api.Status;
 
 /// <summary>
 /// OKX Maintenance Service

@@ -1,7 +1,4 @@
-﻿using OKX.Api.Broker.FullyDisclosed.Clients;
-using OKX.Api.Broker.NonDisclosed.Clients;
-
-namespace OKX.Api.Broker.Clients;
+﻿namespace OKX.Api.Broker;
 
 /// <summary>
 /// OKX Rest API Broker Client

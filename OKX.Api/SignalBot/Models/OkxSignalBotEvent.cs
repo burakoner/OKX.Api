@@ -1,7 +1,4 @@
-﻿using OKX.Api.SignalBot.Converters;
-using OKX.Api.SignalBot.Enums;
-
-namespace OKX.Api.SignalBot.Models;
+﻿namespace OKX.Api.SignalBot;
 
 /// <summary>
 /// OKX Signal Bot Event

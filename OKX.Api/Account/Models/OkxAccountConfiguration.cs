@@ -1,15 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.CopyTrading.Converters;
-using OKX.Api.CopyTrading.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-using System.Data.Common;
-using System.Data;
-using System.Diagnostics;
-using System.Net;
-
-namespace OKX.Api.Account.Models;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OkxAccountConfiguration
@@ -62,7 +51,7 @@ public class OkxAccountConfiguration
     /// Current display type of Greeks
     /// </summary>
     [JsonProperty("greeksType"), JsonConverter(typeof(OkxAccountGreeksTypeConverter))]
-    public Enums.OkxAccountGreeksType GreeksType { get; set; }
+    public OkxAccountGreeksType GreeksType { get; set; }
 
     /// <summary>
     /// The user level of the current real trading volume on the platform, e.g lv1

@@ -1,6 +1,4 @@
-﻿using OKX.Api.Financial.FlexibleSimpleEarn.Enums;
-
-namespace OKX.Api.Financial.FlexibleSimpleEarn.Converters;
+﻿namespace OKX.Api.Financial.FlexibleSimpleEarn;
 
 internal class OkxFlexibleSimpleEarnSavingsSideConverter(bool quotes) : BaseConverter<OkxFlexibleSimpleEarnSavingsSide>(quotes)
 {

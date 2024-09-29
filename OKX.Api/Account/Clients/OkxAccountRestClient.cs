@@ -1,13 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Account.Models;
-using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-using OKX.Api.Public.Models;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Account.Clients;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OKX Trading Account Rest Api Client
@@ -646,13 +637,13 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="greeksType">Display type of Greeks.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<Models.OkxAccountGreeksType>> SetGreeksAsync(Enums.OkxAccountGreeksType greeksType, CancellationToken ct = default)
+    public Task<RestCallResult<OkxAccountGreeksTypeResponse>> SetGreeksAsync(OkxAccountGreeksType greeksType, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object> {
             { "greeksType", JsonConvert.SerializeObject(greeksType, new OkxAccountGreeksTypeConverter(false)) },
         };
 
-        return ProcessOneRequestAsync<Models.OkxAccountGreeksType>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAccountGreeksTypeResponse>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -1194,7 +1185,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     OkxAccountRiskOffsetType spotOffsetType = OkxAccountRiskOffsetType.DerivativesOnly,
     IEnumerable<OkxAccountSimulatedPosition> simulatedPositions = null,
     IEnumerable<OkxAccountSimulatedAsset> simulatedAssets = null,
-    Enums.OkxAccountGreeksType? greeksType = Enums.OkxAccountGreeksType.BlackScholesGreeksInDollars,
+    OkxAccountGreeksType? greeksType = OkxAccountGreeksType.BlackScholesGreeksInDollars,
     CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
@@ -1273,7 +1264,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxAccountRiskOffsetTypeModel>> SetRiskOffsetTypeAsync(
-    Enums.OkxAccountRiskOffsetType type,
+    OkxAccountRiskOffsetType type,
     CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();

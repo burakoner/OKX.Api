@@ -1,11 +1,4 @@
-﻿using OKX.Api.Account.Converters;
-using OKX.Api.Account.Enums;
-using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Trade.Models;
+﻿namespace OKX.Api.Trade;
 
 /// <summary>
 /// Represents a transaction in OKX, a cryptocurrency exchange platform.

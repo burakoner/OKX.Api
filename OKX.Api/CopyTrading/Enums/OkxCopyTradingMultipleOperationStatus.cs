@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.CopyTrading.Enums;
+﻿namespace OKX.Api.CopyTrading;
 /// <summary>
 /// Okx Multiple Operation Status
 /// </summary>

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Public.Models;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Exchange Rate

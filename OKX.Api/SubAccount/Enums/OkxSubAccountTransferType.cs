@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.SubAccount.Enums;
+﻿namespace OKX.Api.SubAccount;
 
 /// <summary>
 /// OKX Sub-Account Transfer Type

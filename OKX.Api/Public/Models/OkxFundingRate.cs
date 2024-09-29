@@ -1,7 +1,4 @@
-﻿using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-
-namespace OKX.Api.Public.Models;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Funding Rate

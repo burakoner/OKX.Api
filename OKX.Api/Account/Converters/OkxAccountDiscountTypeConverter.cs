@@ -1,6 +1,4 @@
-﻿using OKX.Api.Account.Enums;
-
-namespace OKX.Api.Account.Converters;
+﻿namespace OKX.Api.Account;
 
 internal class OkxAccountDiscountTypeConverter(bool quotes) : BaseConverter<OkxAccountDiscountType>(quotes)
 {

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Financial.FixedSimpleEarn.Enums;
+﻿namespace OKX.Api.Financial.FixedSimpleEarn;
 
 /// <summary>
 /// OKX Financial Fixed Simple Earn Lending Order State

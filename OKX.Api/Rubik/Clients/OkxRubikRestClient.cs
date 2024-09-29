@@ -1,6 +1,4 @@
-﻿using OKX.Api.Rubik.Models;
-
-namespace OKX.Api.Rubik.Clients;
+﻿namespace OKX.Api.Rubik;
 
 /// <summary>
 /// OKX Rest Api Trading Statistics Client

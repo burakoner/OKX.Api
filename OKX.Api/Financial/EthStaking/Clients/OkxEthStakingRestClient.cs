@@ -1,8 +1,4 @@
-﻿using OKX.Api.Financial.EthStaking.Converters;
-using OKX.Api.Financial.EthStaking.Enums;
-using OKX.Api.Financial.EthStaking.Models;
-
-namespace OKX.Api.Financial.EthStaking.Clients;
+﻿namespace OKX.Api.Financial.EthStaking;
 
 /// <summary>
 /// OKX Rest Api Staking Client

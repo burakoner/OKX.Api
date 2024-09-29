@@ -1,7 +1,4 @@
-﻿using OKX.Api.Status.Converters;
-using OKX.Api.Status.Enums;
-
-namespace OKX.Api.Announcement.Models;
+﻿namespace OKX.Api.Announcement;
 
 /// <summary>
 /// OKX Announcement Wrapper

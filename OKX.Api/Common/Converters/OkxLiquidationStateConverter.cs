@@ -1,6 +1,4 @@
-﻿using OKX.Api.Common.Enums;
-
-namespace OKX.Api.Common.Converters;
+﻿namespace OKX.Api.Common;
 
 internal class OkxLiquidationStateConverter(bool quotes) : BaseConverter<OkxLiquidationState>(quotes)
 {

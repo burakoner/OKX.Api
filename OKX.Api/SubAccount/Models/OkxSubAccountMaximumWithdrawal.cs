@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.SubAccount.Models;
+﻿namespace OKX.Api.SubAccount;
 
 /// <summary>
 /// SubAccount Maximum Withdrawal

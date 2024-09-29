@@ -1,8 +1,4 @@
-﻿using OKX.Api.Status.Converters;
-using OKX.Api.Status.Enums;
-using OKX.Api.Status.Models;
-
-namespace OKX.Api.Status.Clients;
+﻿namespace OKX.Api.Status;
 
 /// <summary>
 /// OKX Rest Api Status Client
@@ -20,14 +16,14 @@ public class OkxStatusRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="state">System maintenance status</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxAnnouncements>>> GetSystemUpgradeStatusAsync(
+    public Task<RestCallResult<List<OkxStatusMaintenance>>> GetSystemUpgradeStatusAsync(
         OkxStatusMaintenanceState? state = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxStatusMaintenanceStateConverter(false)));
 
-        return ProcessListRequestAsync<OkxAnnouncements>(GetUri(v5SystemStatus), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxStatusMaintenance>(GetUri(v5SystemStatus), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
 }

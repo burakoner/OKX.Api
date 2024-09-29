@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Financial.FlexibleSimpleEarn.Models;
+﻿namespace OKX.Api.Financial.FlexibleSimpleEarn;
 
 /// <summary>
 /// OKX Flexible Simple Earn Savings Balance

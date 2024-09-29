@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Grid.Models;
+﻿namespace OKX.Api.Grid;
 
 /// <summary>
 /// OKX Grid Trigger Number

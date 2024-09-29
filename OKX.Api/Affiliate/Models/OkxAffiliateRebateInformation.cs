@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Affiliate.Models;
+﻿namespace OKX.Api.Affiliate;
 
 /// <summary>
 /// OKX Affiliate Rebate Information

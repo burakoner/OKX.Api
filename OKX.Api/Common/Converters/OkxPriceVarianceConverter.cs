@@ -1,6 +1,4 @@
-﻿using OKX.Api.Common.Enums;
-
-namespace OKX.Api.Common.Converters;
+﻿namespace OKX.Api.Common;
 
 internal class OkxPriceVarianceConverter(bool quotes) : BaseConverter<OkxPriceVariance>(quotes)
 {

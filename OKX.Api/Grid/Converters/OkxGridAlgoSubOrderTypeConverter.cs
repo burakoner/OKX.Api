@@ -1,6 +1,4 @@
-﻿using OKX.Api.Grid.Enums;
-
-namespace OKX.Api.Grid.Converters;
+﻿namespace OKX.Api.Grid;
 
 internal class OkxGridAlgoSubOrderTypeConverter(bool quotes) : BaseConverter<OkxGridAlgoSubOrderType>(quotes)
 {

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Financial.FixedSimpleEarn.Models;
+﻿namespace OKX.Api.Financial.FixedSimpleEarn;
 
 /// <summary>
 /// OKX Financial Fixed Simple Earn Lending Volume

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Financial.OnChainEarn.Models;
+﻿namespace OKX.Api.Financial.OnChainEarn;
 
 /// <summary>
 /// OKX Financial On Chain Earn Invest Data

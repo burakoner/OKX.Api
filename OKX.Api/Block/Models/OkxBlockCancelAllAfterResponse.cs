@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Block.Models;
+﻿namespace OKX.Api.Block;
 
 /// <summary>
 /// OKX Block Trading Cancel All After Response

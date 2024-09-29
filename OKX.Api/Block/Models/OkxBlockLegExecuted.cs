@@ -1,7 +1,4 @@
-﻿using OKX.Api.Trade.Converters;
-using OKX.Api.Trade.Enums;
-
-namespace OKX.Api.Block.Models;
+﻿namespace OKX.Api.Block;
 
 /// <summary>
 /// OKX Block Leg Executed

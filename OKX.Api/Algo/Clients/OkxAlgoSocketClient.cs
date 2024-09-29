@@ -1,6 +1,4 @@
-﻿using OKX.Api.Algo.Models;
-
-namespace OKX.Api.Algo.Clients;
+﻿namespace OKX.Api.Algo;
 
 /// <summary>
 /// OKX WebSocket Api Algo Trading Client

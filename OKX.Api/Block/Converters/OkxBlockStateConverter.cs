@@ -1,6 +1,4 @@
-﻿using OKX.Api.Block.Enums;
-
-namespace OKX.Api.Block.Converters;
+﻿namespace OKX.Api.Block;
 
 internal class OkxBlockStateConverter(bool quotes) : BaseConverter<OkxBlockState>(quotes)
 {

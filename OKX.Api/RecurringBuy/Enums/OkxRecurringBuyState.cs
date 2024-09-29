@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.RecurringBuy.Enums;
+﻿namespace OKX.Api.RecurringBuy;
 
 /// <summary>
 /// OKX Recurring Buy State

@@ -1,7 +1,4 @@
-﻿using OKX.Api.Block.Converters;
-using OKX.Api.Block.Enums;
-
-namespace OKX.Api.Block.Models;
+﻿namespace OKX.Api.Block;
 
 /// <summary>
 /// OKX Block RFQ

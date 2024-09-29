@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Block.Enums;
+﻿namespace OKX.Api.Block;
 
 /// <summary>
 /// OKX Block State

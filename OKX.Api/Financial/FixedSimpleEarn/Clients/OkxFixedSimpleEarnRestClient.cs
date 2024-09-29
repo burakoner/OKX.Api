@@ -1,8 +1,4 @@
-﻿using OKX.Api.Financial.FixedSimpleEarn.Converters;
-using OKX.Api.Financial.FixedSimpleEarn.Enums;
-using OKX.Api.Financial.FixedSimpleEarn.Models;
-
-namespace OKX.Api.Financial.FixedSimpleEarn.Clients;
+﻿namespace OKX.Api.Financial.FixedSimpleEarn;
 
 /// <summary>
 /// OKX Financial Fixed Simple Earn Rest Api Client

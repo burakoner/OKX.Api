@@ -1,6 +1,4 @@
-﻿using OKX.Api.CopyTrading.Enums;
-
-namespace OKX.Api.Account.Converters;
+﻿namespace OKX.Api.Account;
 
 internal class OkxCopyTradingMultipleOperationStatusConverter(bool quotes) : BaseConverter<OkxCopyTradingMultipleOperationStatus>(quotes)
 {

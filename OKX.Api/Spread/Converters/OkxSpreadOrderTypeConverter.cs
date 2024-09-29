@@ -1,6 +1,4 @@
-﻿using OKX.Api.Spread.Enums;
-
-namespace OKX.Api.Spread.Converters;
+﻿namespace OKX.Api.Spread;
 
 internal class OkxSpreadOrderTypeConverter(bool quotes) : BaseConverter<OkxSpreadOrderType>(quotes)
 {

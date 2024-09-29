@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.CopyTrading.Models;
+﻿namespace OKX.Api.CopyTrading;
 
 /// <summary>
 /// OkxProfitSharingTotalUnrealized

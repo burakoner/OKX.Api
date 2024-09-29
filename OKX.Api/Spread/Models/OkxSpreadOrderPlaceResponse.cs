@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Spread.Models;
+﻿namespace OKX.Api.Spread;
 
 /// <summary>
 /// Place Order Response

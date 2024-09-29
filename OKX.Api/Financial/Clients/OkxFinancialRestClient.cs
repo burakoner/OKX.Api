@@ -1,9 +1,4 @@
-﻿using OKX.Api.Financial.EthStaking.Clients;
-using OKX.Api.Financial.FixedSimpleEarn.Clients;
-using OKX.Api.Financial.FlexibleSimpleEarn.Clients;
-using OKX.Api.Financial.OnChainEarn.Clients;
-
-namespace OKX.Api.Financial.Clients;
+﻿namespace OKX.Api.Financial;
 
 /// <summary>
 /// OKX Rest Api Financial Products Client

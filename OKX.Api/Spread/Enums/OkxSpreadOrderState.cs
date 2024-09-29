@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Spread.Enums;
+﻿namespace OKX.Api.Spread;
 
 /// <summary>
 /// OKX Spread Order State

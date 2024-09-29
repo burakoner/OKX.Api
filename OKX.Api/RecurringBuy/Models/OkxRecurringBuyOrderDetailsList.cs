@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.RecurringBuy.Models;
+﻿namespace OKX.Api.RecurringBuy;
 
 /// <summary>
 /// Recurring Buy Order Details List

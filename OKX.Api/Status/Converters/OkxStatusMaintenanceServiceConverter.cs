@@ -1,6 +1,4 @@
-﻿using OKX.Api.Status.Enums;
-
-namespace OKX.Api.Status.Converters;
+﻿namespace OKX.Api.Status;
 
 internal class OkxStatusMaintenanceServiceConverter(bool quotes) : BaseConverter<OkxStatusMaintenanceService>(quotes)
 {

@@ -1,7 +1,4 @@
-﻿using OKX.Api.Financial.FixedSimpleEarn.Converters;
-using OKX.Api.Financial.FixedSimpleEarn.Enums;
-
-namespace OKX.Api.Financial.FixedSimpleEarn.Models;
+﻿namespace OKX.Api.Financial.FixedSimpleEarn;
 
 /// <summary>
 /// OKX Financial Fixed Simple Earn Lending Order Details

@@ -1,7 +1,4 @@
-﻿using OKX.Api.Public.Converters;
-using OKX.Api.Public.Enums;
-
-namespace OKX.Api.Account.Models;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OkxFeeRate

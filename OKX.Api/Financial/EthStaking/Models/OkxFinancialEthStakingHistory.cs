@@ -1,7 +1,4 @@
-﻿using OKX.Api.Financial.EthStaking.Converters;
-using OKX.Api.Financial.EthStaking.Enums;
-
-namespace OKX.Api.Financial.EthStaking.Models;
+﻿namespace OKX.Api.Financial.EthStaking;
 
 /// <summary>
 /// OKX Financial Eth Staking Purchase-Redeem History

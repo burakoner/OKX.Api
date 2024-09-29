@@ -1,6 +1,4 @@
-﻿using OKX.Api.Public.Enums;
-
-namespace OKX.Api.Public.Converters;
+﻿namespace OKX.Api.Public;
 
 internal class OkxConvertTypeConverter(bool quotes) : BaseConverter<OkxConvertType>(quotes)
 {

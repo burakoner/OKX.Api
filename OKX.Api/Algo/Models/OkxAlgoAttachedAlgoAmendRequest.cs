@@ -1,7 +1,4 @@
-﻿using OKX.Api.Algo.Converters;
-using OKX.Api.Algo.Enums;
-
-namespace OKX.Api.Algo.Models;
+﻿namespace OKX.Api.Algo;
 
 /// <summary>
 /// OKX Order Algo Request

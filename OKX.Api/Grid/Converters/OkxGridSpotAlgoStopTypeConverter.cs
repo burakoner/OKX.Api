@@ -1,6 +1,4 @@
-﻿using OKX.Api.Grid.Enums;
-
-namespace OKX.Api.Grid.Converters;
+﻿namespace OKX.Api.Grid;
 
 internal class OkxGridSpotAlgoStopTypeConverter(bool quotes) : BaseConverter<OkxGridSpotAlgoStopType>(quotes)
 {

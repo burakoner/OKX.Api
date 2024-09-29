@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Trade.Models;
+﻿namespace OKX.Api.Trade;
 
 /// <summary>
 /// Place Order Response

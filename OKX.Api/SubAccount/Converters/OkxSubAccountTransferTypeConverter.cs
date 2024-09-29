@@ -1,6 +1,4 @@
-﻿using OKX.Api.SubAccount.Enums;
-
-namespace OKX.Api.SubAccount.Converters;
+﻿namespace OKX.Api.SubAccount;
 
 internal class OkxSubAccountTransferTypeConverter(bool quotes) : BaseConverter<OkxSubAccountTransferType>(quotes)
 {

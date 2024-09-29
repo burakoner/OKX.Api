@@ -1,7 +1,4 @@
-﻿using OKX.Api.Common.Converters;
-using OKX.Api.Common.Enums;
-
-namespace OKX.Api.Public.Models;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Open Interest

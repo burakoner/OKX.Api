@@ -1,7 +1,4 @@
-﻿using OKX.Api.Grid.Converters;
-using OKX.Api.Grid.Enums;
-
-namespace OKX.Api.Grid.Models;
+﻿namespace OKX.Api.Grid;
 
 /// <summary>
 /// OKX Grid Amend Order Request

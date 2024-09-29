@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Trade.Enums;
+﻿namespace OKX.Api.Trade;
 
 /// <summary>
 /// OKX Position Mode

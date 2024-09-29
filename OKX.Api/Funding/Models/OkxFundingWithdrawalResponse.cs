@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Funding.Models;
+﻿namespace OKX.Api.Funding;
 
 /// <summary>
 /// OKX Withdrawal Response

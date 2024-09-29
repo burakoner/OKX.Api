@@ -1,6 +1,4 @@
-﻿using OKX.Api.Funding.Enums;
-
-namespace OKX.Api.Funding.Converters;
+﻿namespace OKX.Api.Funding;
 
 internal class OkxFundingTransferStateConverter(bool quotes) : BaseConverter<OkxFundingTransferState>(quotes)
 {

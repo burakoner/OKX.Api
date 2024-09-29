@@ -1,7 +1,4 @@
-﻿using OKX.Api.Financial.FlexibleSimpleEarn.Converters;
-using OKX.Api.Financial.FlexibleSimpleEarn.Enums;
-
-namespace OKX.Api.Financial.FlexibleSimpleEarn.Models;
+﻿namespace OKX.Api.Financial.FlexibleSimpleEarn;
 
 /// <summary>
 /// OKX Flexible Simple Earn Savings Order

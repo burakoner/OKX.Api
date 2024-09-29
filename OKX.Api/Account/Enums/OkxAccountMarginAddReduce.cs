@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Account.Enums;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OKX Margin Add Reduce

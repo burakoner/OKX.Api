@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Account.Models;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OKX Fixed Loan Borrow Order

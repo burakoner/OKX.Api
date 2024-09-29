@@ -1,8 +1,4 @@
-﻿using OKX.Api.Financial.OnChainEarn.Converters;
-using OKX.Api.Financial.OnChainEarn.Enums;
-using OKX.Api.Financial.OnChainEarn.Models;
-
-namespace OKX.Api.Financial.OnChainEarn.Clients;
+﻿namespace OKX.Api.Financial.OnChainEarn;
 
 /// <summary>
 /// OKX Rest Api Earn Client
