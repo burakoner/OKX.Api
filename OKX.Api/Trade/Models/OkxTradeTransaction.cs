@@ -129,8 +129,8 @@ public class OkxTradeTransaction
     /// <remarks>
     /// Not applicable to system orders such as ADL and liquidation.
     /// </remarks>
-    [JsonProperty("execType"), JsonConverter(typeof(OkxTradeRoleConverter))]
-    public OkxTradeRole OrderFlowType { get; set; }
+    [JsonProperty("execType"), JsonConverter(typeof(OkxTradeOrderRoleConverter))]
+    public OkxTradeOrderRole OrderFlowType { get; set; }
 
     /// <summary>
     /// The currency in which the transaction fee is paid.

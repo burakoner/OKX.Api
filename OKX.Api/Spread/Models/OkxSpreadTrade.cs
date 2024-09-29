@@ -57,8 +57,8 @@ public class OkxSpreadTrade
     /// <summary>
     /// Liquidity taker or maker, T: taker M: maker
     /// </summary>
-    [JsonProperty("execType"), JsonConverter(typeof(OkxTradeRoleConverter))]
-    public OkxTradeRole Role { get; set; }
+    [JsonProperty("execType"), JsonConverter(typeof(OkxTradeOrderRoleConverter))]
+    public OkxTradeOrderRole Role { get; set; }
 
     /// <summary>
     /// Data generation time, Unix timestamp format in milliseconds, e.g. 1597026383085.

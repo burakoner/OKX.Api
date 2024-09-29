@@ -32,8 +32,8 @@ public class OkxPublicOptionTradeInfo
     /// <summary>
     /// Trade side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeSideConverter))]
-    public OkxTradeSide Side { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide Side { get; set; }
 
     /// <summary>
     /// Trade time, Unix timestamp format in milliseconds, e.g. 1597026383085.

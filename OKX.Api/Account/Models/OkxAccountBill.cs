@@ -128,8 +128,8 @@ public class OkxAccountBill
     /// <summary>
     /// Liquidity taker or maker, T: taker M: maker
     /// </summary>
-    [JsonProperty("execType"), JsonConverter(typeof(OkxTradeRoleConverter))]
-    public OkxTradeRole? TradeRole { get; set; }
+    [JsonProperty("execType"), JsonConverter(typeof(OkxTradeOrderRoleConverter))]
+    public OkxTradeOrderRole? TradeRole { get; set; }
 
     /// <summary>
     /// The remitting account

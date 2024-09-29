@@ -38,8 +38,8 @@ public class OkxPublicOptionTrade
     /// <summary>
     /// Trade side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeSideConverter))]
-    public OkxTradeSide Side { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide Side { get; set; }
 
     /// <summary>
     /// Option type, C: Call P: Put

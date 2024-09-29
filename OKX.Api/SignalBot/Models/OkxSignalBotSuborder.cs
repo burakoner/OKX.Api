@@ -101,8 +101,8 @@ public class OkxSignalBotSuborder
     /// <summary>
     /// Sub order side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeSideConverter))]
-    public OkxTradeSide Side { get; set; }
+    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    public OkxTradeOrderSide Side { get; set; }
     
     /// <summary>
     /// Sub order price
