@@ -63,7 +63,7 @@ public class OkxCopyTradingLeadTrader
     /// Begin copying time.
     /// </summary>
     [JsonIgnore]
-    public DateTime BeginTime { get { return BeginTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime BeginTime => BeginTimestamp.ConvertFromMilliseconds();
         
     /// <summary>
     /// Unrealized profit &amp; loss

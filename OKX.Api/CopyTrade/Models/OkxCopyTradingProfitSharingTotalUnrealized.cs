@@ -15,7 +15,7 @@ public class OkxCopyTradingProfitSharingTotalUnrealized
     /// The settlement time for the total unrealized profit sharing amount.
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
     
     /// <summary>
     /// Total unrealized profit sharing amount

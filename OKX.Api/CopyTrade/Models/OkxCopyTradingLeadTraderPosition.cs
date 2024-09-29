@@ -51,7 +51,7 @@ public class OkxCopyTradingLeadTraderPosition
     /// Open time
     /// </summary>
     [JsonIgnore]
-    public DateTime OpenTime { get { return OpenTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime OpenTime => OpenTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Quantity of positions

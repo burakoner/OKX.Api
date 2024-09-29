@@ -27,7 +27,7 @@ public class OkxAccountInterestLimits
     /// Next Discount Time
     /// </summary>
     [JsonIgnore]
-    public DateTime NextDiscountTime { get { return NextDiscountTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime NextDiscountTime => NextDiscountTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Next Interest Time
@@ -39,7 +39,7 @@ public class OkxAccountInterestLimits
     /// Next Interest Time
     /// </summary>
     [JsonIgnore]
-    public DateTime NextInterestTime { get { return NextInterestTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime NextInterestTime => NextInterestTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Loan Allocation

@@ -51,7 +51,7 @@ public class OkxCopyTradingLeadTraderPositionHistory
     /// Open time
     /// </summary>
     [JsonIgnore]
-    public DateTime OpenTime { get { return OpenTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime OpenTime => OpenTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Quantity of positions
@@ -69,7 +69,7 @@ public class OkxCopyTradingLeadTraderPositionHistory
     /// Close time
     /// </summary>
     [JsonIgnore]
-    public DateTime CloseTime { get { return CloseTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CloseTime => CloseTimestamp.ConvertFromMilliseconds();
     
     /// <summary>
     /// Average price of closing position

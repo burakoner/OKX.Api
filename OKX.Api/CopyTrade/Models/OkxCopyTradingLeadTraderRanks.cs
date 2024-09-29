@@ -135,7 +135,7 @@ public class OkxCopyTradingLeadTraderPnlRatio
     /// Begin time of pnl ratio on that day
     /// </summary>
     [JsonIgnore]
-    public DateTime BeginTime { get { return BeginTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime BeginTime => BeginTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Pnl ratio on that day

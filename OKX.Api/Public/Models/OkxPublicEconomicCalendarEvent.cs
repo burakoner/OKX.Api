@@ -21,7 +21,7 @@ public class OkxPublicEconomicCalendarEvent
     /// Date
     /// </summary>
     [JsonIgnore]
-    public DateTime Date { get { return Datestamp.ConvertFromMilliseconds(); } }
+    public DateTime Date => Datestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Region
@@ -51,7 +51,7 @@ public class OkxPublicEconomicCalendarEvent
     /// Reference Date
     /// </summary>
     [JsonIgnore]
-    public DateTime ReferenceDate { get { return ReferenceDatestamp.ConvertFromMilliseconds(); } }
+    public DateTime ReferenceDate => ReferenceDatestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Actual
@@ -93,7 +93,7 @@ public class OkxPublicEconomicCalendarEvent
     /// Update Time
     /// </summary>
     [JsonIgnore]
-    public DateTime UpdateTime { get { return UpdateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime UpdateTime => UpdateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Previous Initial

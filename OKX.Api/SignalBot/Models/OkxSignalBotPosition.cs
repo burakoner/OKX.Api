@@ -39,7 +39,7 @@ public class OkxSignalBotPosition
     /// Algo order created time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Algo order updated time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -51,7 +51,7 @@ public class OkxSignalBotPosition
     /// Algo order updated time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
     
     /// <summary>
     /// Average open price

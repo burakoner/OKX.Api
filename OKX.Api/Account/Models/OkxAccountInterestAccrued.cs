@@ -58,5 +58,5 @@ public class OkxAccountInterestAccrued
     /// Timestamp for interest accured
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 }

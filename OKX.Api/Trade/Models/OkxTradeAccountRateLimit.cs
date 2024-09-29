@@ -48,5 +48,5 @@ public class OkxTradeAccountRateLimit
     /// For users with trading fee level &lt; VIP 5, return the current timestamp
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 }

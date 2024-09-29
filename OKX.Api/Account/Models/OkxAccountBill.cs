@@ -39,7 +39,7 @@ public class OkxAccountBill
     /// Creation time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Change in balance amount at the account level
@@ -170,7 +170,7 @@ public class OkxAccountBill
     /// Last filled time
     /// </summary>
     [JsonIgnore]
-    public DateTime? FillTime { get { return FillTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? FillTime => FillTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Last traded ID

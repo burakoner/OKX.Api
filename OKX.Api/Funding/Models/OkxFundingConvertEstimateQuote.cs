@@ -15,7 +15,7 @@ public class OkxFundingConvertEstimateQuote
     /// Quotation generation time
     /// </summary>
     [JsonIgnore]
-    public DateTime QuoteTime { get { return QuoteTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime QuoteTime => QuoteTimestamp.ConvertFromMilliseconds();
     
     /// <summary>
     /// Validity period of quotation in milliseconds

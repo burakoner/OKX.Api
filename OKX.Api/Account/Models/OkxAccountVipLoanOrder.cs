@@ -15,7 +15,7 @@ public class OkxAccountVipLoanOrder
     /// Time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Next refresh time
@@ -27,7 +27,7 @@ public class OkxAccountVipLoanOrder
     /// Next refresh time
     /// </summary>
     [JsonIgnore]
-    public DateTime NextRefreshTime { get { return NextRefreshTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime NextRefreshTime => NextRefreshTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Loan currency, e.g. BTC

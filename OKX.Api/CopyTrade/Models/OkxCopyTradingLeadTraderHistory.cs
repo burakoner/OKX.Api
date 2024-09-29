@@ -81,7 +81,7 @@ public class OkxCopyTradingLeadTraderHistory
     /// Begin copying time.
     /// </summary>
     [JsonIgnore]
-    public DateTime BeginTime { get { return BeginTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime BeginTime => BeginTimestamp.ConvertFromMilliseconds();
         
     /// <summary>
     /// Stop copying time. Unix timestamp format in milliseconds, e.g.1597026383085
@@ -93,7 +93,7 @@ public class OkxCopyTradingLeadTraderHistory
     /// Begin copying time.
     /// </summary>
     [JsonIgnore]
-    public DateTime? EndTime { get { return EndTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? EndTime => EndTimestamp?.ConvertFromMilliseconds();
     
     /// <summary>
     /// Copy relation ID

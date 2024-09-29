@@ -341,7 +341,7 @@ public class OkxAccountPosition
     /// Creation time
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Latest time position was adjusted, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -353,7 +353,7 @@ public class OkxAccountPosition
     /// Latest time position was adjusted
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 }
 
 /// <summary>

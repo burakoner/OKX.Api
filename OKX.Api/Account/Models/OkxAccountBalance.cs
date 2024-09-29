@@ -15,7 +15,7 @@ public class OkxAccountBalance
     /// Update time of account information
     /// </summary>
     [JsonIgnore]
-    public DateTime UpdateTime { get { return UpdateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime UpdateTime => UpdateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// The total amount of equity in USD

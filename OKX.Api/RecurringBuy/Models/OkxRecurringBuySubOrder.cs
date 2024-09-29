@@ -45,7 +45,7 @@ public class OkxRecurringBuySubOrder
     /// Algo order created time
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Algo order updated  time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -57,7 +57,7 @@ public class OkxRecurringBuySubOrder
     /// Algo order updated  time
     /// </summary>
     [JsonIgnore]
-    public DateTime UpdateTime { get { return UpdateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime UpdateTime => UpdateTimestamp.ConvertFromMilliseconds();
     
     /// <summary>
     /// Sub order trade mode

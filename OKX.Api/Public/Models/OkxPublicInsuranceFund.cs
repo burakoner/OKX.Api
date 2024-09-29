@@ -79,7 +79,7 @@ public class OkxPublicInsuranceFundDetails
     /// Only applicable when type is adl
     /// </summary>
     [JsonIgnore]
-    public DateTime? MaximumBalanceTime { get { return MaximumBalanceTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? MaximumBalanceTime => MaximumBalanceTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Real-time insurance fund decline rate (compare balance and maxBal)
@@ -110,5 +110,5 @@ public class OkxPublicInsuranceFundDetails
     /// Time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 }

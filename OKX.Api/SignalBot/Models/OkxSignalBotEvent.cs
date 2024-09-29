@@ -27,7 +27,7 @@ public class OkxSignalBotEvent
     /// Event timestamp of creation. Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Event timestamp of update. Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -39,7 +39,7 @@ public class OkxSignalBotEvent
     /// Event timestamp of update. Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Event process message

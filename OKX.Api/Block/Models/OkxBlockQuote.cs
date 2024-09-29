@@ -15,7 +15,7 @@ public class OkxBlockQuote
     /// The timestamp the RFQ was created.
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// The timestamp the RFQ was last updated. Unix timestamp format in milliseconds.
@@ -27,7 +27,7 @@ public class OkxBlockQuote
     /// The timestamp the RFQ was last updated.
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// The status of the RFQ.
@@ -55,7 +55,7 @@ public class OkxBlockQuote
     /// If all legs are options, the RFQ will expire after 10 minutes; otherwise, the RFQ will expire after 2 minutes.
     /// </summary>
     [JsonIgnore]
-    public DateTime? ValidUntilTime { get { return ValidUntilTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? ValidUntilTime => ValidUntilTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// RFQ Id

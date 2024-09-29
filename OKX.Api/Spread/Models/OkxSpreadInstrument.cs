@@ -69,7 +69,7 @@ public class OkxSpreadInstrument
     /// The timestamp the spread was created.
     /// </summary>
     [JsonIgnore]
-    public DateTime? ListTime { get { return ListTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? ListTime => ListTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Expiry time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -81,7 +81,7 @@ public class OkxSpreadInstrument
     /// Expiry time
     /// </summary>
     [JsonIgnore]
-    public DateTime? ExpiryTime { get { return ExpiryTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? ExpiryTime => ExpiryTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Expiry time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -93,7 +93,7 @@ public class OkxSpreadInstrument
     /// Expiry time
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Legs

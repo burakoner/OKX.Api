@@ -39,7 +39,7 @@ public class OkxGridAlgoPosition
     /// Created time of position
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Updated time of position
@@ -51,7 +51,7 @@ public class OkxGridAlgoPosition
     /// Updated time of position
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Average price

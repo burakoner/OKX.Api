@@ -75,7 +75,7 @@ public class OkxFinancialFixedSimpleEarnLendingOrder
     /// Start earning time
     /// </summary>
     [JsonIgnore]
-    public DateTime? StartTime { get { return StartTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? StartTime => StartTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Settled time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -87,7 +87,7 @@ public class OkxFinancialFixedSimpleEarnLendingOrder
     /// Settled time
     /// </summary>
     [JsonIgnore]
-    public DateTime? SettledTime { get { return SettledTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? SettledTime => SettledTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Creation time for lending order, unix timestamp format in milliseconds, e.g. 1597026383085
@@ -99,7 +99,7 @@ public class OkxFinancialFixedSimpleEarnLendingOrder
     /// Creation time for lending order
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Update time for lending order, unix timestamp format in milliseconds, e.g. 1597026383085
@@ -111,5 +111,5 @@ public class OkxFinancialFixedSimpleEarnLendingOrder
     /// Update time for lending order
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 }

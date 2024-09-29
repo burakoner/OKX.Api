@@ -17,7 +17,7 @@ public class OkxBlockCancelAllAfterResponse
     /// triggerTime=0 means Cancel All After is disabled.
     /// </summary>
     [JsonIgnore]
-    public DateTime TriggerTime { get { return TriggerTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime TriggerTime => TriggerTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// The time the request is received.
@@ -29,6 +29,6 @@ public class OkxBlockCancelAllAfterResponse
     /// The time the request is received.
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 
 }

@@ -51,7 +51,7 @@ public class OkxAnnouncement
     /// Publish time. Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonIgnore]
-    public DateTime PublishTime { get { return PublishTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime PublishTime => PublishTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Announcement url

@@ -57,7 +57,7 @@ public class OkxFinancialFixedSimpleEarnLendingSubOrder
     /// Sub-order expiration time
     /// </summary>
     [JsonIgnore]
-    public DateTime? ExpiryTime { get { return ExpiryTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? ExpiryTime => ExpiryTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Total interest
@@ -93,7 +93,7 @@ public class OkxFinancialFixedSimpleEarnLendingSubOrder
     /// Sub-order final settlement time
     /// </summary>
     [JsonIgnore]
-    public DateTime? FinalSettlementTime { get { return FinalSettlementTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? FinalSettlementTime => FinalSettlementTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Sub-order actual settlement time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -105,7 +105,7 @@ public class OkxFinancialFixedSimpleEarnLendingSubOrder
     /// Sub-order actual settlement time
     /// </summary>
     [JsonIgnore]
-    public DateTime? SettledTime { get { return SettledTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? SettledTime => SettledTimestamp?.ConvertFromMilliseconds();
     
     /// <summary>
     /// Creation time for sub-order, unix timestamp format in milliseconds, e.g. 1597026383085
@@ -117,7 +117,7 @@ public class OkxFinancialFixedSimpleEarnLendingSubOrder
     /// Creation time for sub-order
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Update time for sub-order, unix timestamp format in milliseconds, e.g. 1597026383085
@@ -129,5 +129,5 @@ public class OkxFinancialFixedSimpleEarnLendingSubOrder
     /// Update time for sub-order
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 }

@@ -45,5 +45,5 @@ public class OkxTradeEasyConvertOrder
     /// Trade time
     /// </summary>
     [JsonIgnore]
-    public DateTime UpdateTime { get { return UpdateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime UpdateTime => UpdateTimestamp.ConvertFromMilliseconds();
 }

@@ -88,7 +88,7 @@ public class OkxPublicInstrument
     /// Listing time
     /// </summary>
     [JsonIgnore]
-    public DateTime? ListingTime { get { return ListingTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? ListingTime => ListingTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Expiry timestamp
@@ -100,7 +100,7 @@ public class OkxPublicInstrument
     /// Expiry time
     /// </summary>
     [JsonIgnore]
-    public DateTime? ExpiryTime { get { return ExpiryTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? ExpiryTime => ExpiryTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Maximal leverage

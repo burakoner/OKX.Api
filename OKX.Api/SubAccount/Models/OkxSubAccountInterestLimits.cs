@@ -33,7 +33,7 @@ public class OkxSubAccountInterestLimits
     /// Next deduct time
     /// </summary>
     [JsonIgnore]
-    public DateTime NextDiscountTime { get { return NextDiscountTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime NextDiscountTime => NextDiscountTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Next accrual time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -45,7 +45,7 @@ public class OkxSubAccountInterestLimits
     /// Next accrual time
     /// </summary>
     [JsonIgnore]
-    public DateTime NextInterestTime { get { return NextInterestTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime NextInterestTime => NextInterestTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// VIP Loan allocation for the current trading account

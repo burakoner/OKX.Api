@@ -15,7 +15,7 @@ public class OkxSubAccountTradingBalance
     /// Update Time
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Total Equity
@@ -112,7 +112,7 @@ public class OkxSubAccountTradingBalanceDetails
     /// Update Time
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Isolated Margin Equity

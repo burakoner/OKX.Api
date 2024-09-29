@@ -33,7 +33,7 @@ public class OkxAccountBalanceDetails
     /// Update time of currency balance information
     /// </summary>
     [JsonIgnore]
-    public DateTime UpdateTime { get { return UpdateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime UpdateTime => UpdateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Isolated margin equity of the currency

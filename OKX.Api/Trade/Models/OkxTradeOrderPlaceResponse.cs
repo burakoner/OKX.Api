@@ -27,5 +27,5 @@ public class OkxTradeOrderPlaceResponse : OkxRestApiErrorBase
     /// Timestamp when the order request processing is finished by our system, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 }

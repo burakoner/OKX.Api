@@ -78,7 +78,7 @@ public class OkxFinancialOnChainEarnOrder
     /// Order purchased time
     /// </summary>
     [JsonIgnore]
-    public DateTime? PurchasedTime { get { return PurchasedTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? PurchasedTime => PurchasedTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Estimated redemption settlement time
@@ -90,7 +90,7 @@ public class OkxFinancialOnChainEarnOrder
     /// Estimated redemption settlement time
     /// </summary>
     [JsonIgnore]
-    public DateTime? EstimatedSettlementTime { get { return EstimatedSettlementTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? EstimatedSettlementTime => EstimatedSettlementTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Deadline for cancellation of redemption application
@@ -102,5 +102,5 @@ public class OkxFinancialOnChainEarnOrder
     /// Deadline for cancellation of redemption application
     /// </summary>
     [JsonIgnore]
-    public DateTime? CancelRedemptionDeadlineTime { get { return CancelRedemptionDeadlineTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? CancelRedemptionDeadlineTime => CancelRedemptionDeadlineTimestamp?.ConvertFromMilliseconds();
 }

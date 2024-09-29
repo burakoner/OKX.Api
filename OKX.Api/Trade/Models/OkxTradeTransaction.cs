@@ -154,7 +154,7 @@ public class OkxTradeTransaction
     /// the transaction's generation time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Trade time which is the same as fillTime for the order channel.
@@ -166,5 +166,5 @@ public class OkxTradeTransaction
     /// Trade time which is the same as fillTime for the order channel.
     /// </summary>
     [JsonIgnore]
-    public DateTime? FillTime { get { return FillTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? FillTime => FillTimestamp?.ConvertFromMilliseconds();
 }

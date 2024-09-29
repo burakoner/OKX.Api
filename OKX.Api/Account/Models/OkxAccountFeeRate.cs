@@ -81,7 +81,7 @@ public class OkxAccountFeeRate
     /// Data return time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Details of fiat fee rate

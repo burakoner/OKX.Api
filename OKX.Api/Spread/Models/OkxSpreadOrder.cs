@@ -117,7 +117,7 @@ public class OkxSpreadOrder
     /// Update time
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Creation time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -129,5 +129,5 @@ public class OkxSpreadOrder
     /// Creation time
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 }

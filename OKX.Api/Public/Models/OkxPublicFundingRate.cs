@@ -47,7 +47,7 @@ public class OkxPublicFundingRate
     /// Funding Time
     /// </summary>
     [JsonIgnore]
-    public DateTime FundingTime { get { return FundingTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime FundingTime => FundingTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Next Funding Time
@@ -59,7 +59,7 @@ public class OkxPublicFundingRate
     /// Next Funding Time
     /// </summary>
     [JsonIgnore]
-    public DateTime NextFundingTime { get { return NextFundingTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime NextFundingTime => NextFundingTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// The lower limit of the predicted funding rate of the next cycle
@@ -104,5 +104,5 @@ public class OkxPublicFundingRate
     /// Data return time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 }

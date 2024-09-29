@@ -16,7 +16,7 @@ public class OkxRubikInterestVolumeExpiry
     /// Time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Expiry Time
@@ -28,7 +28,7 @@ public class OkxRubikInterestVolumeExpiry
     /// Expiry Time
     /// </summary>
     [JsonIgnore]
-    public DateTime ExpiryTime { get { return ExpiryTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime ExpiryTime => ExpiryTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Call Open Interest

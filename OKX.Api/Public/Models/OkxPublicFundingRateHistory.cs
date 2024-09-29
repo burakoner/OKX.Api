@@ -39,7 +39,7 @@ public class OkxPublicFundingRateHistory
     /// Funding Time
     /// </summary>
     [JsonIgnore]
-    public DateTime FundingTime { get { return FundingTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime FundingTime => FundingTimestamp.ConvertFromMilliseconds();
     
     /// <summary>
     /// Funding rate mechanism

@@ -27,7 +27,7 @@ public class OkxStatusMaintenance
     /// Begin time of system maintenance
     /// </summary>
     [JsonIgnore]
-    public DateTime? BeginTime { get { return BeginTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? BeginTime => BeginTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// End time of system maintenance, Unix timestamp format in milliseconds, e.g. 1617788463867
@@ -39,7 +39,7 @@ public class OkxStatusMaintenance
     /// End time of system maintenance
     /// </summary>
     [JsonIgnore]
-    public DateTime? EndTime { get { return EndTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? EndTime => EndTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// The time of pre_open. Canceling orders, placing Post Only orders, and transferring funds to trading accounts are back after preOpenBegin.
@@ -51,7 +51,7 @@ public class OkxStatusMaintenance
     /// The time of pre_open. Canceling orders, placing Post Only orders, and transferring funds to trading accounts are back after preOpenBegin.
     /// </summary>
     [JsonIgnore]
-    public DateTime? PreOpenBeginTime { get { return PreOpenBeginTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? PreOpenBeginTime => PreOpenBeginTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Hyperlink for system maintenance details, if there is no return value, the default value will be empty. e.g. “”

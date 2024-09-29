@@ -57,7 +57,7 @@ public class OkxGridAlgoSubOrder
     /// Created time of sub order
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Updated time of sub order
@@ -69,7 +69,7 @@ public class OkxGridAlgoSubOrder
     /// Updated time of sub order
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Trade mode

@@ -51,7 +51,7 @@ public class OkxAccountFixedLoanBorrowingLimit
     /// Data return time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 }
 
 /// <summary>

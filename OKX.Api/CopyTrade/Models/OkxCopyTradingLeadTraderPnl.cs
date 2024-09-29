@@ -27,5 +27,5 @@ public class OkxCopyTradingLeadTraderPnl
     /// Begin time
     /// </summary>
     [JsonIgnore]
-    public DateTime BeginTime { get { return BeginTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime BeginTime => BeginTimestamp.ConvertFromMilliseconds();
 }

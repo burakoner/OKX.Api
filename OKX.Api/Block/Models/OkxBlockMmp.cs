@@ -45,5 +45,5 @@ public class OkxBlockMmpConfiguration : OkxBlockMmp
     /// If frozenInterval is not "0" and mmpFrozen = True, it is the time interval (in ms) when MMP is no longer triggered, otherwise ""
     /// </summary>
     [JsonIgnore]
-    public DateTime? FrozenUntilTime { get { return FrozenUntilTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? FrozenUntilTime => FrozenUntilTimestamp?.ConvertFromMilliseconds();
 }

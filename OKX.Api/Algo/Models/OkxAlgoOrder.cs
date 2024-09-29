@@ -182,7 +182,7 @@ public class OkxAlgoOrder
     /// Trigger time
     /// </summary>
     [JsonIgnore]
-    public DateTime? TriggerTime { get { return TriggerTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? TriggerTime => TriggerTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Price ratio
@@ -305,7 +305,7 @@ public class OkxAlgoOrder
     /// Creation time
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Creation time Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -317,6 +317,6 @@ public class OkxAlgoOrder
     /// Order updated time
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 
 }

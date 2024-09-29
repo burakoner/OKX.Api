@@ -33,7 +33,7 @@ public class OkxFinancialEthStakingHistory
     /// Request time of make purchase/redeem
     /// </summary>
     [JsonIgnore]
-    public DateTime RequestTime { get { return RequestTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime RequestTime => RequestTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Completed time of redeem settlement, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -45,7 +45,7 @@ public class OkxFinancialEthStakingHistory
     /// Completed time of redeem settlement
     /// </summary>
     [JsonIgnore]
-    public DateTime? CompletedTime { get { return CompletedTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? CompletedTime => CompletedTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Estimated completed time of redeem settlement, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -57,5 +57,5 @@ public class OkxFinancialEthStakingHistory
     /// Estimated completed time of redeem settlement
     /// </summary>
     [JsonIgnore]
-    public DateTime? EstimatedCompletedTime { get { return EstimatedCompletedTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? EstimatedCompletedTime => EstimatedCompletedTimestamp?.ConvertFromMilliseconds();
 }

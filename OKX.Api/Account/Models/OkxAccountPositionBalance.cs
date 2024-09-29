@@ -15,7 +15,7 @@ public class OkxAccountPositionBalance
     /// Update time of account information
     /// </summary>
     [JsonIgnore]
-    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Adjusted / Effective equity in USD

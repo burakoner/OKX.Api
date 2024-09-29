@@ -21,7 +21,7 @@ public class OkxBlockPublicExecutedTrade
     /// The time the trade was executed.
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Block trade ID.

@@ -95,7 +95,7 @@ public class OkxAccountFixedLoanBorrowingOrderDetails
     /// Expiry time, Unix timestamp format in milliseconds
     /// </summary>
     [JsonIgnore]
-    public DateTime? ExpiryTime { get { return ExpiryTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? ExpiryTime => ExpiryTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Force repayment time, unix timestamp format in milliseconds, e.g. 1597026383085
@@ -107,7 +107,7 @@ public class OkxAccountFixedLoanBorrowingOrderDetails
     /// Force repayment time, unix timestamp format in milliseconds
     /// </summary>
     [JsonIgnore]
-    public DateTime? ForceRepayTime { get { return ForceRepayTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? ForceRepayTime => ForceRepayTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Deadline of penalty interest for early repayment, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -119,7 +119,7 @@ public class OkxAccountFixedLoanBorrowingOrderDetails
     /// Deadline of penalty interest for early repayment, Unix timestamp format in milliseconds
     /// </summary>
     [JsonIgnore]
-    public DateTime? PenaltyInterestDeadlineTime { get { return PenaltyInterestDeadlineTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? PenaltyInterestDeadlineTime => PenaltyInterestDeadlineTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Potential penalty Interest for early repayment
@@ -149,7 +149,7 @@ public class OkxAccountFixedLoanBorrowingOrderDetails
     /// Creation time for borrowing order, unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonIgnore]
-    public DateTime CreateTime { get { return CreateTimestamp.ConvertFromMilliseconds(); } }
+    public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
     /// Update time for borrowing order, unix timestamp format in milliseconds, e.g. 1597026383085
@@ -161,5 +161,5 @@ public class OkxAccountFixedLoanBorrowingOrderDetails
     /// Update time for borrowing order, unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonIgnore]
-    public DateTime? UpdateTime { get { return UpdateTimestamp?.ConvertFromMilliseconds(); } }
+    public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
 }
