@@ -62,7 +62,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="underlying">Underlying</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxTicker>>> GetTickersAsync(
+    public Task<RestCallResult<List<OkxPublicTicker>>> GetTickersAsync(
         OkxInstrumentType instrumentType,
         string instrumentFamily = null,
         string underlying = null,
@@ -75,7 +75,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
         parameters.AddOptionalParameter("uly", underlying);
 
-        return ProcessListRequestAsync<OkxTicker>(GetUri(v5MarketTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicTicker>(GetUri(v5MarketTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -84,14 +84,14 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxTicker>> GetTickerAsync(string instrumentId, CancellationToken ct = default)
+    public Task<RestCallResult<OkxPublicTicker>> GetTickerAsync(string instrumentId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
         };
 
-        return ProcessOneRequestAsync<OkxTicker>(GetUri(v5MarketTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicTicker>(GetUri(v5MarketTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="depth">Order book depth per side. Maximum 400, e.g. 400 bids + 400 asks. Default returns to 1 depth data</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxOrderBook>> GetOrderBookAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxPublicOrderBook>> GetOrderBookAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
     {
         depth.ValidateIntBetween(nameof(depth), 1, 400);
         var parameters = new Dictionary<string, object>
@@ -110,7 +110,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "sz", depth},
         };
 
-        var result = await ProcessOneRequestAsync<OkxOrderBook>(GetUri(v5MarketBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxPublicOrderBook>(GetUri(v5MarketBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         result.Data.InstrumentId = instrumentId;
@@ -124,7 +124,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="depth">Order book depth per side. Maximum 5000, e.g. 5000 bids + 5000 asks. Default returns to 1 depth data.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxOrderBook>> GetOrderBookFullAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxPublicOrderBook>> GetOrderBookFullAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
     {
         depth.ValidateIntBetween(nameof(depth), 1, 5000);
         var parameters = new Dictionary<string, object>
@@ -133,7 +133,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "sz", depth},
         };
 
-        var result = await ProcessOneRequestAsync<OkxOrderBook>(GetUri(v5MarketBooksFull), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxPublicOrderBook>(GetUri(v5MarketBooksFull), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         result.Data.InstrumentId = instrumentId;
@@ -153,7 +153,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 300; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxCandlestick>>> GetCandlesticksAsync(
+    public Task<RestCallResult<List<OkxPublicCandlestick>>> GetCandlesticksAsync(
         string instrumentId,
         OkxPeriod period,
         long? after = null,
@@ -177,7 +177,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 300; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxCandlestick>>> GetCandlesticksAsync(
+    public async Task<RestCallResult<List<OkxPublicCandlestick>>> GetCandlesticksAsync(
         string instrumentId,
         string period,
         long? after = null,
@@ -195,7 +195,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxCandlestick>(GetUri(v5MarketCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicCandlestick>(GetUri(v5MarketCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -215,7 +215,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxCandlestick>>> GetCandlestickHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public async Task<RestCallResult<List<OkxPublicCandlestick>>> GetCandlestickHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         return await GetCandlestickHistoryAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
     }
@@ -233,7 +233,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxCandlestick>>> GetCandlestickHistoryAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public async Task<RestCallResult<List<OkxPublicCandlestick>>> GetCandlestickHistoryAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
@@ -245,7 +245,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxCandlestick>(GetUri(v5MarketCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicCandlestick>(GetUri(v5MarketCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -259,7 +259,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxTrade>>> GetTradesAsync(string instrumentId, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicTrade>>> GetTradesAsync(string instrumentId, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 500);
         var parameters = new Dictionary<string, object>
@@ -268,7 +268,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         };
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxTrade>(GetUri(v5MarketTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicTrade>(GetUri(v5MarketTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -283,9 +283,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxTrade>>> GetTradeHistoryAsync(
+    public Task<RestCallResult<List<OkxPublicTrade>>> GetTradeHistoryAsync(
         string instrumentId,
-        OkxTradeHistoryPaginationType? type = null,
+        OkxPublicTradeHistoryPaginationType? type = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -297,12 +297,12 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "instId", instrumentId },
         };
 
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxTradeHistoryPaginationTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxPublicTradeHistoryPaginationTypeConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxTrade>(GetUri(v5MarketTradesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicTrade>(GetUri(v5MarketTradesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -311,7 +311,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentFamily">Instrument family, e.g. BTC-USD. Applicable to OPTION</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxOptionTradeByInstrumentFamily>>> GetOptionTradesByInstrumentFamilyAsync(
+    public Task<RestCallResult<List<OkxPublicOptionTradeByInstrumentFamily>>> GetOptionTradesByInstrumentFamilyAsync(
         string instrumentFamily,
         CancellationToken ct = default)
     {
@@ -320,7 +320,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "instFamily", instrumentFamily },
         };
 
-        return ProcessListRequestAsync<OkxOptionTradeByInstrumentFamily>(GetUri(v5MarketOptionInstrumentFamilyTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicOptionTradeByInstrumentFamily>(GetUri(v5MarketOptionInstrumentFamilyTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -331,7 +331,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="optionType">Option type, C: Call P: put</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxOptionTrade>>> GetOptionTradesAsync(
+    public Task<RestCallResult<List<OkxPublicOptionTrade>>> GetOptionTradesAsync(
     string instrumentId = null,
     string instrumentFamily = null,
     OkxOptionType? optionType = null,
@@ -342,7 +342,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
         parameters.AddOptionalParameter("optType", JsonConvert.SerializeObject(optionType, new OkxOptionTypeConverter(false)));
 
-        return ProcessListRequestAsync<OkxOptionTrade>(GetUri(v5PublicOptionTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicOptionTrade>(GetUri(v5PublicOptionTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -350,9 +350,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxVolume>> Get24HourVolumeAsync(CancellationToken ct = default)
+    public Task<RestCallResult<OkxPublicVolume>> Get24HourVolumeAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxVolume>(GetUri(v5MarketPlatform24Volume), HttpMethod.Get, ct);
+        return ProcessOneRequestAsync<OkxPublicVolume>(GetUri(v5MarketPlatform24Volume), HttpMethod.Get, ct);
     }
     #endregion
 
@@ -367,7 +367,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="signed">Sign Request</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxInstrument>>> GetInstrumentsAsync(
+    public Task<RestCallResult<List<OkxPublicInstrument>>> GetInstrumentsAsync(
         OkxInstrumentType instrumentType,
         string underlying = null,
         string instrumentId = null,
@@ -383,7 +383,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
-        return ProcessListRequestAsync<OkxInstrument>(GetUri(v5PublicInstruments), HttpMethod.Get, ct, signed: signed, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicInstrument>(GetUri(v5PublicInstruments), HttpMethod.Get, ct, signed: signed, queryParameters: parameters);
     }
 
     /// <summary>
@@ -397,7 +397,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxDeliveryExerciseHistory>>> GetDeliveryExerciseHistoryAsync(
+    public Task<RestCallResult<List<OkxPublicDeliveryExerciseHistory>>> GetDeliveryExerciseHistoryAsync(
         OkxInstrumentType instrumentType,
         string underlying = null,
         string instrumentFamily = null,
@@ -420,7 +420,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxDeliveryExerciseHistory>(GetUri(v5PublicDeliveryExerciseHistory), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicDeliveryExerciseHistory>(GetUri(v5PublicDeliveryExerciseHistory), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -432,7 +432,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxOpenInterest>>> GetOpenInterestsAsync(
+    public Task<RestCallResult<List<OkxPublicOpenInterest>>> GetOpenInterestsAsync(
         OkxInstrumentType instrumentType,
         string underlying = null,
         string instrumentId = null,
@@ -453,7 +453,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
-        return ProcessListRequestAsync<OkxOpenInterest>(GetUri(v5PublicOpenInterest), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicOpenInterest>(GetUri(v5PublicOpenInterest), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -462,14 +462,14 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingRate>>> GetFundingRatesAsync(string instrumentId, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicFundingRate>>> GetFundingRatesAsync(string instrumentId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
         };
 
-        return ProcessListRequestAsync<OkxFundingRate>(GetUri(v5PublicFundingRate), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicFundingRate>(GetUri(v5PublicFundingRate), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -481,7 +481,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingRateHistory>>> GetFundingRateHistoryAsync(string instrumentId, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicFundingRateHistory>>> GetFundingRateHistoryAsync(string instrumentId, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
@@ -492,7 +492,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFundingRateHistory>(GetUri(v5PublicFundingRateHistory), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicFundingRateHistory>(GetUri(v5PublicFundingRateHistory), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -501,14 +501,14 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxLimitPrice>> GetLimitPriceAsync(string instrumentId, CancellationToken ct = default)
+    public Task<RestCallResult<OkxPublicLimitPrice>> GetLimitPriceAsync(string instrumentId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
         };
 
-        return ProcessOneRequestAsync<OkxLimitPrice>(GetUri(v5PublicPriceLimit), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicLimitPrice>(GetUri(v5PublicPriceLimit), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -519,7 +519,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="expiryDate">Contract expiry date, the format is "YYMMDD", e.g. "200527"</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxOptionSummary>>> GetOptionMarketDataAsync(
+    public Task<RestCallResult<List<OkxPublicOptionSummary>>> GetOptionMarketDataAsync(
         string underlying = null,
         string instrumentFamily = null,
         DateTime? expiryDate = null,
@@ -530,7 +530,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
         parameters.AddOptionalParameter("expTime", expiryDate?.ToString("yyMMdd"));
 
-        return ProcessListRequestAsync<OkxOptionSummary>(GetUri(v5PublicOptionSummary), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicOptionSummary>(GetUri(v5PublicOptionSummary), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -539,14 +539,14 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxEstimatedPrice>> GetEstimatedPriceAsync(string instrumentId, CancellationToken ct = default)
+    public Task<RestCallResult<OkxPublicEstimatedPrice>> GetEstimatedPriceAsync(string instrumentId, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "instId", instrumentId },
         };
 
-        return ProcessOneRequestAsync<OkxEstimatedPrice>(GetUri(v5PublicEstimatedPrice), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicEstimatedPrice>(GetUri(v5PublicEstimatedPrice), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -555,12 +555,12 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxDiscountInfo>>> GetDiscountInfoAsync(string currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicDiscountInfo>>> GetDiscountInfoAsync(string currency = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("ccy", currency);
 
-        return ProcessListRequestAsync<OkxDiscountInfo>(GetUri(v5PublicDiscountRateInterestFreeQuota), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicDiscountInfo>(GetUri(v5PublicDiscountRateInterestFreeQuota), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -570,7 +570,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public async Task<RestCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
     {
-        var result = await ProcessOneRequestAsync<OkxTime>(GetUri(v5PublicTime), HttpMethod.Get, ct);
+        var result = await ProcessOneRequestAsync<OkxPublicTime>(GetUri(v5PublicTime), HttpMethod.Get, ct);
         return result.As(result.Data?.Time ?? default);
     }
 
@@ -584,7 +584,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxMarkPrice>>> GetMarkPricesAsync(
+    public Task<RestCallResult<List<OkxPublicMarkPrice>>> GetMarkPricesAsync(
         OkxInstrumentType instrumentType,
         string underlying = null,
         string instrumentId = null,
@@ -602,7 +602,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
 
-        return ProcessListRequestAsync<OkxMarkPrice>(GetUri(v5PublicMarkPrice), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicMarkPrice>(GetUri(v5PublicMarkPrice), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -617,7 +617,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="tier"></param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPositionTier>>> GetPositionTiersAsync(
+    public Task<RestCallResult<List<OkxPublicPositionTier>>> GetPositionTiersAsync(
         OkxInstrumentType instrumentType,
         OkxAccountMarginMode marginMode,
         string underlying,
@@ -641,7 +641,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("ccy", currency);
         parameters.AddOptionalParameter("tier", tier);
 
-        return ProcessListRequestAsync<OkxPositionTier>(GetUri(v5PublicPositionTiers), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicPositionTier>(GetUri(v5PublicPositionTiers), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -649,9 +649,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxInterestRateLoanQuota>> GetInterestRatesAsync(CancellationToken ct = default)
+    public Task<RestCallResult<OkxPublicInterestRateLoanQuota>> GetInterestRatesAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxInterestRateLoanQuota>(GetUri(v5PublicInterestRateLoanQuota), HttpMethod.Get, ct);
+        return ProcessOneRequestAsync<OkxPublicInterestRateLoanQuota>(GetUri(v5PublicInterestRateLoanQuota), HttpMethod.Get, ct);
     }
 
     /// <summary>
@@ -659,9 +659,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxVipInterestRate>>> GetVIPInterestRatesAsync(CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicVipInterestRate>>> GetVIPInterestRatesAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxVipInterestRate>(GetUri(v5PublicVIPInterestRateLoanQuota), HttpMethod.Get, ct);
+        return ProcessListRequestAsync<OkxPublicVipInterestRate>(GetUri(v5PublicVIPInterestRateLoanQuota), HttpMethod.Get, ct);
     }
 
     /// <summary>
@@ -697,9 +697,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit"></param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxInsuranceFund>> GetInsuranceFundAsync(
+    public Task<RestCallResult<OkxPublicInsuranceFund>> GetInsuranceFundAsync(
         OkxInstrumentType instrumentType,
-        OkxInsuranceType? type = null,
+        OkxPublicInsuranceType? type = null,
         string underlying = "",
         string instrumentFamily = "",
         string currency = "",
@@ -716,7 +716,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
         };
 
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxInsuranceTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxPublicInsuranceTypeConverter(false)));
         parameters.AddOptionalParameter("uly", underlying);
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
         parameters.AddOptionalParameter("ccy", currency);
@@ -724,7 +724,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxInsuranceFund>(GetUri(v5PublicInsuranceFund), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicInsuranceFund>(GetUri(v5PublicInsuranceFund), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -750,24 +750,24 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// Applicable to FUTURES SWAP</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxUnitConvert>> GetUnitConvertAsync(
+    public Task<RestCallResult<OkxPublicUnitConvert>> GetUnitConvertAsync(
         string instrumentId,
         decimal size,
         decimal? price = null,
-        OkxConvertType? type = null,
-        OkxConvertUnit? unit = null,
-        OkxConvertOperation? operationType = null,
+        OkxPublicConvertType? type = null,
+        OkxPublicConvertUnit? unit = null,
+        OkxPublicConvertOperation? operationType = null,
         CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxConvertTypeConverter(false)));
+        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxPublicConvertTypeConverter(false)));
         parameters.AddOptionalParameter("instId", instrumentId);
         parameters.AddOptionalParameter("sz", size.ToOkxString());
         parameters.AddOptionalParameter("px", price?.ToOkxString());
-        parameters.AddOptionalParameter("unit", JsonConvert.SerializeObject(unit, new OkxConvertUnitConverter(false)));
-        parameters.AddOptionalParameter("opType", JsonConvert.SerializeObject(operationType, new OkxConvertOperationConverter(false)));
+        parameters.AddOptionalParameter("unit", JsonConvert.SerializeObject(unit, new OkxPublicConvertUnitConverter(false)));
+        parameters.AddOptionalParameter("opType", JsonConvert.SerializeObject(operationType, new OkxPublicConvertOperationConverter(false)));
 
-        return ProcessOneRequestAsync<OkxUnitConvert>(GetUri(v5PublicConvertContractCoin), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicUnitConvert>(GetUri(v5PublicConvertContractCoin), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -776,7 +776,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentFamily">Instrument family. Only applicable to OPTION</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxOptionTickBands>>> GetOptionTickBandsAsync(
+    public Task<RestCallResult<List<OkxPublicOptionTickBands>>> GetOptionTickBandsAsync(
     string instrumentFamily = "",
     CancellationToken ct = default)
     {
@@ -786,7 +786,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         };
 
         parameters.AddOptionalParameter("instFamily", instrumentFamily);
-        return ProcessListRequestAsync<OkxOptionTickBands>(GetUri(v5PublicInstrumentTickBands), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicOptionTickBands>(GetUri(v5PublicInstrumentTickBands), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -798,7 +798,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPremiumHistory>>> GetPremiumHistoryAsync(
+    public Task<RestCallResult<List<OkxPublicPremiumHistory>>> GetPremiumHistoryAsync(
         string instrumentId,
         long? after = null,
         long? before = null,
@@ -814,7 +814,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPremiumHistory>(GetUri(v5PublicPremiumHistory), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicPremiumHistory>(GetUri(v5PublicPremiumHistory), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -824,13 +824,13 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxIndexTicker>>> GetIndexTickersAsync(string quoteCurrency = null, string instrumentId = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicIndexTicker>>> GetIndexTickersAsync(string quoteCurrency = null, string instrumentId = null, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("quoteCcy", quoteCurrency);
         parameters.AddOptionalParameter("instId", instrumentId);
 
-        return ProcessListRequestAsync<OkxIndexTicker>(GetUri(v5MarketIndexTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicIndexTicker>(GetUri(v5MarketIndexTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -843,7 +843,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxIndexCandlestick>>> GetIndexCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicIndexCandlestick>>> GetIndexCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         return GetIndexCandlesticksAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
     }
@@ -858,7 +858,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxIndexCandlestick>>> GetIndexCandlesticksAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public async Task<RestCallResult<List<OkxPublicIndexCandlestick>>> GetIndexCandlesticksAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
@@ -870,7 +870,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxIndexCandlestick>(GetUri(v5MarketIndexCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicIndexCandlestick>(GetUri(v5MarketIndexCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -887,7 +887,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxIndexCandlestick>>> GetIndexCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicIndexCandlestick>>> GetIndexCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         return GetIndexCandlesticksHistoryAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
     }
@@ -902,7 +902,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxIndexCandlestick>>> GetIndexCandlesticksHistoryAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public async Task<RestCallResult<List<OkxPublicIndexCandlestick>>> GetIndexCandlesticksHistoryAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
@@ -914,7 +914,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxIndexCandlestick>(GetUri(v5MarketIndexCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicIndexCandlestick>(GetUri(v5MarketIndexCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -931,7 +931,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxMarkCandlestick>>> GetMarkPriceCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicMarkCandlestick>>> GetMarkPriceCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         return GetMarkPriceCandlesticksAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
     }
@@ -946,7 +946,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxMarkCandlestick>>> GetMarkPriceCandlesticksAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public async Task<RestCallResult<List<OkxPublicMarkCandlestick>>> GetMarkPriceCandlesticksAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
@@ -958,7 +958,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxMarkCandlestick>(GetUri(v5MarketMarkPriceCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicMarkCandlestick>(GetUri(v5MarketMarkPriceCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -975,7 +975,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxMarkCandlestick>>> GetMarkPriceCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicMarkCandlestick>>> GetMarkPriceCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         return GetMarkPriceCandlesticksHistoryAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
     }
@@ -990,7 +990,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<List<OkxMarkCandlestick>>> GetMarkPriceCandlesticksHistoryAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    public async Task<RestCallResult<List<OkxPublicMarkCandlestick>>> GetMarkPriceCandlesticksHistoryAsync(string instrumentId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>
@@ -1002,7 +1002,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxMarkCandlestick>(GetUri(v5MarketMarkPriceCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicMarkCandlestick>(GetUri(v5MarketMarkPriceCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -1014,9 +1014,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxOracle>> GetOracleAsync(CancellationToken ct = default)
+    public Task<RestCallResult<OkxPublicOracle>> GetOracleAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxOracle>(GetUri(v5MarketOpenOracle), HttpMethod.Get, ct);
+        return ProcessOneRequestAsync<OkxPublicOracle>(GetUri(v5MarketOpenOracle), HttpMethod.Get, ct);
     }
 
     /// <summary>
@@ -1024,9 +1024,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxExchangeRate>>> GetExchangeRateAsync(CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicExchangeRate>>> GetExchangeRateAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxExchangeRate>(GetUri(v5MarketExchangeRate), HttpMethod.Get, ct);
+        return ProcessListRequestAsync<OkxPublicExchangeRate>(GetUri(v5MarketExchangeRate), HttpMethod.Get, ct);
     }
 
     /// <summary>
@@ -1035,14 +1035,14 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="index"></param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxIndexComponents>> GetIndexComponentsAsync(string index, CancellationToken ct = default)
+    public Task<RestCallResult<OkxPublicIndexComponents>> GetIndexComponentsAsync(string index, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, object>
         {
             { "index", index },
         };
 
-        return ProcessModelRequestAsync<OkxIndexComponents>(GetUri(v5MarketIndexComponents), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessModelRequestAsync<OkxPublicIndexComponents>(GetUri(v5MarketIndexComponents), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -1055,9 +1055,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxEconomicCalendarEvent>>> GetEconomicCalendarDataAsync(
+    public Task<RestCallResult<List<OkxPublicEconomicCalendarEvent>>> GetEconomicCalendarDataAsync(
         string region = null,
-        OkxEventImportance? importance = null,
+        OkxPublicEventImportance? importance = null,
         long? after = null,
         long? before = null, int limit = 100,
         CancellationToken ct = default)
@@ -1065,12 +1065,12 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new Dictionary<string, object>();
         parameters.AddOptionalParameter("region", region);
-        parameters.AddOptionalParameter("importance", JsonConvert.SerializeObject(importance, new OkxEventImportanceConverter(false)));
+        parameters.AddOptionalParameter("importance", JsonConvert.SerializeObject(importance, new OkxPublicEventImportanceConverter(false)));
         parameters.AddOptionalParameter("after", after?.ToOkxString());
         parameters.AddOptionalParameter("before", before?.ToOkxString());
         parameters.AddOptionalParameter("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxEconomicCalendarEvent>(GetUri(v5PublicEconomicCalendar), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicEconomicCalendarEvent>(GetUri(v5PublicEconomicCalendar), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
     #endregion
 

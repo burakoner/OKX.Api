@@ -1,0 +1,37 @@
+﻿namespace OKX.Api.Public;
+
+/// <summary>
+/// OKX Order Book
+/// </summary>
+public class OkxPublicOrderBook
+{
+    /// <summary>
+    /// Instrument ID
+    /// </summary>
+    [JsonIgnore]
+    public string InstrumentId { get; set; }
+    
+    /// <summary>
+    /// Asks
+    /// </summary>
+    [JsonProperty("asks")]
+    public List<OkxPublicOrderBookRow> Asks { get; set; } = [];
+
+    /// <summary>
+    /// Bids
+    /// </summary>
+    [JsonProperty("bids")]
+    public List<OkxPublicOrderBookRow> Bids { get; set; } = [];
+
+    /// <summary>
+    /// Timestamp
+    /// </summary>
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
+
+    /// <summary>
+    /// Time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime Time { get { return Timestamp.ConvertFromMilliseconds(); } }
+}
