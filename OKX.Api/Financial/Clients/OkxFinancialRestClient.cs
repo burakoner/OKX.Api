@@ -8,30 +8,30 @@ public class OkxFinancialRestClient
     /// <summary>
     /// Eth Staking Client
     /// </summary>
-    public OkxEthStakingRestClient EthStaking { get; }
+    public OkxFinancialEthStakingRestClient EthStaking { get; }
 
     /// <summary>
     /// OnChain Earn Client
     /// </summary>
-    public OkxOnChainEarnRestClient OnChainEarn { get; }
+    public OkxFinancialOnChainEarnRestClient OnChainEarn { get; }
 
     /// <summary>
     /// Fixed Simple Earn Client
     /// </summary>
-    public OkxFixedSimpleEarnRestClient FixedSimpleEarn { get; }
+    public OkxFinancialFixedSimpleEarnRestClient FixedSimpleEarn { get; }
 
     /// <summary>
     /// Flexible Simple Earn Client
     /// </summary>
-    public OkxFlexibleSimpleEarnRestClient FlexibleSimpleEarn { get; }
+    public OkxFinancialFlexibleSimpleEarnRestClient FlexibleSimpleEarn { get; }
 
 
     internal OkxFinancialRestClient(OkxRestApiClient root)
     {
-        EthStaking = new OkxEthStakingRestClient(root);
-        OnChainEarn = new OkxOnChainEarnRestClient(root);
-        FixedSimpleEarn = new OkxFixedSimpleEarnRestClient(root);
-        FlexibleSimpleEarn = new OkxFlexibleSimpleEarnRestClient(root);
+        EthStaking = new OkxFinancialEthStakingRestClient(root);
+        OnChainEarn = new OkxFinancialOnChainEarnRestClient(root);
+        FixedSimpleEarn = new OkxFinancialFixedSimpleEarnRestClient(root);
+        FlexibleSimpleEarn = new OkxFinancialFlexibleSimpleEarnRestClient(root);
     }
 
     /// <summary>

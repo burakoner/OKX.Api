@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Earn Client
 /// </summary>
-public class OkxOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
+public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     private const string v5FinanceStakingDefiOffers = "api/v5/finance/staking-defi/offers";

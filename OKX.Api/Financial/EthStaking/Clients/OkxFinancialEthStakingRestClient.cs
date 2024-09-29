@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Staking Client
 /// </summary>
-public class OkxEthStakingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
+public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     private const string v5FinanceStakingDefiEthPurchase = "api/v5/finance/staking-defi/eth/purchase";

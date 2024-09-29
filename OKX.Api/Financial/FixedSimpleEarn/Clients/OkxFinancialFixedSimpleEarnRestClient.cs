@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial Fixed Simple Earn Rest Api Client
 /// </summary>
-public class OkxFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
+public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     private const string v5FinanceFixedLoanLendingOffers = "api/v5/finance/fixed-loan/lending-offers";

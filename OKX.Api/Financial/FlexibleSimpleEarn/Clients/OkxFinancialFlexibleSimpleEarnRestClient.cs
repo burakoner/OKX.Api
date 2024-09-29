@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Rest Api Savings Client
 /// </summary>
-public class OkxFlexibleSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
+public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
     private const string v5FinanceSavingsBalance = "api/v5/finance/savings/balance";
