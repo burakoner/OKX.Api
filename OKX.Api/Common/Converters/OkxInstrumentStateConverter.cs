@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Public;
+﻿namespace OKX.Api.Common;
 
 internal class OkxInstrumentStateConverter(bool quotes) : BaseConverter<OkxInstrumentState>(quotes)
 {

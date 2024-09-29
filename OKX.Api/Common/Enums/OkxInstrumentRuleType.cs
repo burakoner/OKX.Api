@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Public;
+﻿namespace OKX.Api.Common;
 
 /// <summary>
 /// OKX Instrument Rule Type

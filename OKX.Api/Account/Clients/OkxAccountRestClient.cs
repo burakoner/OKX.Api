@@ -30,8 +30,6 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountSetIsolatedMode = "api/v5/account/set-isolated-mode";
     private const string v5AccountMaxWithdrawal = "api/v5/account/max-withdrawal";
     private const string v5AccountRiskState = "api/v5/account/risk-state";
-    private const string v5AccountQuickMarginBorrowRepay = "api/v5/account/quick-margin-borrow-repay";
-    private const string v5AccountQuickMarginBorrowRepayHistory = "api/v5/account/quick-margin-borrow-repay-history";
     private const string v5AccountBorrowRepay = "api/v5/account/borrow-repay";
     private const string v5AccountBorrowRepayHistory = "api/v5/account/borrow-repay-history";
     private const string v5AccountVipInterestAccrued = "api/v5/account/vip-interest-accrued";

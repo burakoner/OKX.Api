@@ -1,4 +1,12 @@
-﻿namespace OKX.Api.Examples;
+﻿using OKX.Api.Account;
+using OKX.Api.Algo;
+using OKX.Api.Common;
+using OKX.Api.Funding;
+using OKX.Api.Grid;
+using OKX.Api.Public;
+using OKX.Api.Trade;
+
+namespace OKX.Api.Examples;
 
 internal class Program
 {
@@ -105,9 +113,6 @@ internal class Program
         var account_24 = await api.Account.SetIsolatedMarginModeAsync(OkxInstrumentType.Futures, OkxAccountIsolatedMarginMode.AutoTransfer);
         var account_25 = await api.Account.GetMaximumWithdrawalsAsync();
         var account_26 = await api.Account.GetRiskStateAsync();
-        var account_27 = await api.Account.QuickMarginBorrowAsync("BTC-USDT", "BTC", 0.1m);
-        var account_28 = await api.Account.QuickMarginRepayAsync("BTC-USDT", "BTC", 0.1m);
-        var account_29 = await api.Account.GetQuickMarginBorrowRepayHistoryAsync();
         var account_30 = await api.Account.VipLoanBorrowAsync("USDT", 1000.0m);
         var account_31 = await api.Account.VipLoanRepayAsync("USDT", 1000.0m, 1_000_001);
         var account_32 = await api.Account.GetVipLoanBorrowRepayHistoryAsync();
@@ -586,12 +591,12 @@ internal class Program
             // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
 
-        await ws.Trading.PlaceOrderAsync(new Trade.Models.OkxTradeOrderPlaceRequest());
-        await ws.Trading.PlaceOrdersAsync(new List<Trade.Models.OkxTradeOrderPlaceRequest>());
-        await ws.Trading.CancelOrderAsync(new Trade.Models.OkxTradeOrderCancelRequest());
-        await ws.Trading.CancelOrdersAsync(new List<Trade.Models.OkxTradeOrderCancelRequest>());
-        await ws.Trading.AmendOrderAsync(new Trade.Models.OkxTradeOrderAmendRequest());
-        await ws.Trading.AmendOrdersAsync(new List<Trade.Models.OkxTradeOrderAmendRequest>());
+        await ws.Trading.PlaceOrderAsync(new OkxTradeOrderPlaceRequest());
+        await ws.Trading.PlaceOrdersAsync(new List<OkxTradeOrderPlaceRequest>());
+        await ws.Trading.CancelOrderAsync(new OkxTradeOrderCancelRequest());
+        await ws.Trading.CancelOrdersAsync(new List<OkxTradeOrderCancelRequest>());
+        await ws.Trading.AmendOrderAsync(new OkxTradeOrderAmendRequest());
+        await ws.Trading.AmendOrdersAsync(new List<OkxTradeOrderAmendRequest>());
         // End of Trade Updates (Private) ----------------------------------------------------------
 
         // AlgoTrading Updates (Private) -----------------------------------------------------------

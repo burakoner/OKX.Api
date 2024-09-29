@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Public;
+﻿namespace OKX.Api.Trade;
 
 internal class OkxTradeModeConverter(bool quotes) : BaseConverter<OkxTradeMode>(quotes)
 {

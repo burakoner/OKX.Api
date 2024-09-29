@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Public;
+﻿namespace OKX.Api.Trade;
 
 /// <summary>
 /// OKX Trade Mode

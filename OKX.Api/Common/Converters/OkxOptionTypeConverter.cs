@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Public;
+﻿namespace OKX.Api.Common;
 
 internal class OkxOptionTypeConverter(bool quotes) : BaseConverter<OkxOptionType>(quotes)
 {
