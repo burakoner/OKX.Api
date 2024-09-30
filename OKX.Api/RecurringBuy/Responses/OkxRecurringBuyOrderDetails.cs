@@ -15,7 +15,7 @@ public class OkxRecurringBuyOrderDetails
     /// Client Order Id
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string ClientOrderId { get; set; } = "";
+    public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Instrument type
@@ -63,7 +63,7 @@ public class OkxRecurringBuyOrderDetails
     /// Strategy name
     /// </summary>
     [JsonProperty("stgyName")]
-    public string StrategyName { get; set; } = "";
+    public string StrategyName { get; set; } = string.Empty;
 
     /// <summary>
     /// Recurring list
@@ -99,7 +99,7 @@ public class OkxRecurringBuyOrderDetails
     /// Time zone
     /// </summary>
     [JsonProperty("timeZone")]
-    public string Timezone { get; set; } = "";
+    public string Timezone { get; set; } = string.Empty;
 
     /// <summary>
     /// Amount
@@ -117,7 +117,7 @@ public class OkxRecurringBuyOrderDetails
     /// Investment currency
     /// </summary>
     [JsonProperty("investmentCcy")]
-    public string InvestmentCurrency { get; set; } = "";
+    public string InvestmentCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Total PNL

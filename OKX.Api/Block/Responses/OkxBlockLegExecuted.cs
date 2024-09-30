@@ -9,7 +9,7 @@ public class OkxBlockLegExecuted
     /// Instrument ID, e.g. BTC-USDT-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// The direction of the leg from the Takers perspective. Valid value can be buy or sell.

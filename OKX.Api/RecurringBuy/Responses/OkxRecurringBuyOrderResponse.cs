@@ -15,5 +15,5 @@ public class OkxRecurringBuyOrderResponse : OkxRestApiErrorBase
     /// Client-supplied Algo ID
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string ClientOrderId { get; set; } = "";
+    public string ClientOrderId { get; set; } = string.Empty;
 }

@@ -8,22 +8,22 @@ public class OkxAddress
     /// <summary>
     /// Rest Api Address
     /// </summary>
-    public string RestApiAddress { get; set; } = "";
+    public string RestApiAddress { get; set; } = string.Empty;
 
     /// <summary>
     /// WebSocket Public Address
     /// </summary>
-    public string WebSocketPublicAddress { get; set; } = "";
+    public string WebSocketPublicAddress { get; set; } = string.Empty;
 
     /// <summary>
     /// WebSocket Private Address
     /// </summary>
-    public string WebSocketPrivateAddress { get; set; } = "";
+    public string WebSocketPrivateAddress { get; set; } = string.Empty;
 
     /// <summary>
     /// WebSocket Business Address
     /// </summary>
-    public string WebSocketBusinessAddress { get; set; } = "";
+    public string WebSocketBusinessAddress { get; set; } = string.Empty;
 
     /// <summary>
     /// Default Environment Endpoints

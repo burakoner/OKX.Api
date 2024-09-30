@@ -15,11 +15,11 @@ public class OkxSpreadOrderAmendResponse : OkxRestApiErrorBase
     /// Client Order Id
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; } = "";
+    public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Request Id
     /// </summary>
     [JsonProperty("reqId")]
-    public string RequestId { get; set; } = "";
+    public string RequestId { get; set; } = string.Empty;
 }

@@ -9,25 +9,25 @@ public class OkxCopyTradingLeadTraderHistory
     /// Portrait link
     /// </summary>
     [JsonProperty("portLink")]
-    public string PortraitLink { get; set; } = "";
+    public string PortraitLink { get; set; } = string.Empty;
 
     /// <summary>
     /// Nick name
     /// </summary>
     [JsonProperty("nickName")]
-    public string NickName { get; set; } = "";
+    public string NickName { get; set; } = string.Empty;
     
     /// <summary>
     /// Lead trader unique code
     /// </summary>
     [JsonProperty("uniqueCode")]
-    public string UniqueCode { get; set; } = "";
+    public string UniqueCode { get; set; } = string.Empty;
 
     /// <summary>
     /// Number of times to copy order
     /// </summary>
     [JsonProperty("copyNum")]
-    public string CopyNumber { get; set; } = "";
+    public string CopyNumber { get; set; } = string.Empty;
 
     /// <summary>
     /// Copy total amount
@@ -63,7 +63,7 @@ public class OkxCopyTradingLeadTraderHistory
     /// margin currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
     
     /// <summary>
     /// Profit sharing ratio. 0.1 represents 10%

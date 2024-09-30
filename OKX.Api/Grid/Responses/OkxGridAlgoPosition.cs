@@ -9,13 +9,13 @@ public class OkxGridAlgoPosition
     /// Algo order ID
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoOrderId { get; set; } = "";
+    public string AlgoOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Algo client order ID
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; } = "";
+    public string AlgoClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Instrument type
@@ -27,7 +27,7 @@ public class OkxGridAlgoPosition
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Created time of position
@@ -63,7 +63,7 @@ public class OkxGridAlgoPosition
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Leverage

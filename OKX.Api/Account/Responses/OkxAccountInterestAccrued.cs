@@ -15,14 +15,14 @@ public class OkxAccountInterestAccrued
     /// Loan currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Instrument ID, e.g. BTC-USDT
     /// Only applicable to Market loans
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Margin mode

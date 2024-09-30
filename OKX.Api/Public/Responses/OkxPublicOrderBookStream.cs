@@ -8,7 +8,7 @@ public class OkxPublicOrderBookStream
     /// <summary>
     /// Instrument Id
     /// </summary>
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Asks
@@ -38,7 +38,7 @@ public class OkxPublicOrderBookStream
     /// Action
     /// </summary>
     [JsonProperty("action")]
-    public string Action { get; set; } = "";
+    public string Action { get; set; } = string.Empty;
 
     /// <summary>
     /// Checksum

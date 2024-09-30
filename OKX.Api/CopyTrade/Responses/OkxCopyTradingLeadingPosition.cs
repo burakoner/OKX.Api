@@ -9,7 +9,7 @@ public class OkxCopyTradingLeadingPosition
     /// Instrument ID, e.g. BTC-USDT-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Leading position ID
@@ -129,13 +129,13 @@ public class OkxCopyTradingLeadingPosition
     /// Lead trader unique code
     /// </summary>
     [JsonProperty("uniqueCode")]
-    public string UniqueCode { get; set; } = "";
+    public string UniqueCode { get; set; } = string.Empty;
 
     /// <summary>
     /// Margin currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Quantity of positions that can be closed

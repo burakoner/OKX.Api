@@ -33,7 +33,7 @@ public class OkxTradeOneClickDeptData
     /// Debt currency type
     /// </summary>
     [JsonProperty("debtCcy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Debt currency amount. Including principal and interest
@@ -51,7 +51,7 @@ public class OkxTradeOneClickRepayData
     /// Repay currency type
     /// </summary>
     [JsonProperty("repayCcy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Repay currency's available balance amount

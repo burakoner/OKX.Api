@@ -9,13 +9,13 @@ public class OkxFundingConvertCurrencyPair
     /// Currency pair, e.g. BTC-USDT
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Base currency, e.g. BTC in BTC-USDT
     /// </summary>
     [JsonProperty("baseCcy")]
-    public string BaseCurrency { get; set; } = "";
+    public string BaseCurrency { get; set; } = string.Empty;
     
     /// <summary>
     /// Maximum amount of base currency
@@ -33,7 +33,7 @@ public class OkxFundingConvertCurrencyPair
     /// Quote currency, e.g. USDT in BTC-USDT
     /// </summary>
     [JsonProperty("quoteCcy")]
-    public string QuoteCurrency { get; set; } = "";
+    public string QuoteCurrency { get; set; } = string.Empty;
     
     /// <summary>
     /// Maximum amount of quote currency

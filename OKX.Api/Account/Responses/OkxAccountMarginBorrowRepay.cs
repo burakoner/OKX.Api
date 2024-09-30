@@ -9,19 +9,19 @@ public class OkxAccountMarginBorrowRepay
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Loan currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// borrow repay
     /// </summary>
     [JsonProperty("side")]
-    public string Side { get; set; } = "";
+    public string Side { get; set; } = string.Empty;
 
     /// <summary>
     /// borrow/repay amount

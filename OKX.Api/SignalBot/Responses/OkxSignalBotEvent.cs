@@ -45,7 +45,7 @@ public class OkxSignalBotEvent
     /// Event process message
     /// </summary>
     [JsonProperty("eventProcessMsg")]
-    public string EventProcessMessage { get; set; } = "";
+    public string EventProcessMessage { get; set; } = string.Empty;
 
     /// <summary>
     /// Event status
@@ -69,5 +69,5 @@ public class OkxSignalBotTriggeredOrderData
     /// 	Sub order client-supplied id
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; } = "";
+    public string ClientOrderId { get; set; } = string.Empty;
 }

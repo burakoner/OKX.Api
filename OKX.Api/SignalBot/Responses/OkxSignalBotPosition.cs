@@ -15,7 +15,7 @@ public class OkxSignalBotPosition
     /// Client-supplied Algo ID
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; } = "";
+    public string AlgoClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Instrument type
@@ -27,7 +27,7 @@ public class OkxSignalBotPosition
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
     
     /// <summary>
     /// Algo order created time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -63,7 +63,7 @@ public class OkxSignalBotPosition
     /// Margin currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
     
     /// <summary>
     /// Leverage

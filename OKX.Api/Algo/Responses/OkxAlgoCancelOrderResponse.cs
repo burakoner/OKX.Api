@@ -9,5 +9,5 @@ public class OkxAlgoCancelOrderResponse : OkxRestApiErrorBase
     /// Algo Order ID
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoOrderId { get; set; } = "";
+    public string AlgoOrderId { get; set; } = string.Empty;
 }

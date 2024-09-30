@@ -15,7 +15,7 @@ public class OkxSubAccountBill
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Amount
@@ -33,7 +33,7 @@ public class OkxSubAccountBill
     /// Sub Account Name
     /// </summary>
     [JsonProperty("subAcct")]
-    public string SubAccountName { get; set; } = "";
+    public string SubAccountName { get; set; } = string.Empty;
 
     /// <summary>
     /// Timestamp

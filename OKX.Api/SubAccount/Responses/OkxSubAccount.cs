@@ -21,25 +21,25 @@ public class OkxSubAccount
     /// Sub-account name
     /// </summary>
     [JsonProperty("subAcct")]
-    public string SubAccountName { get; set; } = "";
+    public string SubAccountName { get; set; } = string.Empty;
 
     /// <summary>
     /// Sub-account uid
     /// </summary>
     [JsonProperty("uid")]
-    public string SubAccountId { get; set; } = "";
+    public string SubAccountId { get; set; } = string.Empty;
 
     /// <summary>
     /// Sub-account note
     /// </summary>
     [JsonProperty("label")]
-    public string Label { get; set; } = "";
+    public string Label { get; set; } = string.Empty;
 
     /// <summary>
     /// Mobile number that linked with the sub-account.
     /// </summary>
     [JsonProperty("mobile")]
-    public string Mobile { get; set; } = "";
+    public string Mobile { get; set; } = string.Empty;
 
     /// <summary>
     /// If the sub-account switches on the Google Authenticator for login authentication.

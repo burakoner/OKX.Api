@@ -9,5 +9,5 @@ public class OkxFinancialOnChainEarnOrderId
     /// Order Id
     /// </summary>
     [JsonProperty("ordId")]
-    public string OrderId { get; set; } = "";
+    public string OrderId { get; set; } = string.Empty;
 }

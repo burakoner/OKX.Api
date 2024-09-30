@@ -63,7 +63,7 @@ public class OkxAccountFixedLoanBorrowLimitDetails
     /// Borrowing currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Used amount of current currency

@@ -9,14 +9,14 @@ public class OkxAccountFixedLoanBorrowingQuote
     /// Borrowing currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Fixed term for borrowing order
     /// 30D：30 Days
     /// </summary>
     [JsonProperty("term")]
-    public string Term { get; set; } = "";
+    public string Term { get; set; } = string.Empty;
     
     /// <summary>
     /// Estimated available borrowing amount

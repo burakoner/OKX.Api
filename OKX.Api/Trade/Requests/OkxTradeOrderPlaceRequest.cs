@@ -9,7 +9,7 @@ public class OkxTradeOrderPlaceRequest
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Trade Mode
@@ -57,7 +57,7 @@ public class OkxTradeOrderPlaceRequest
     /// Size
     /// </summary>
     [JsonProperty("sz")]
-    public string Size { get; set; } = "";
+    public string Size { get; set; } = string.Empty;
 
     /// <summary>
     /// Order price. Only applicable to limit,post_only,fok,ioc,mmp,mmp_and_post_only order.

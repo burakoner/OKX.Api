@@ -9,7 +9,7 @@ public class OkxPublicOrderBook
     /// Instrument ID
     /// </summary>
     [JsonIgnore]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
     
     /// <summary>
     /// Asks

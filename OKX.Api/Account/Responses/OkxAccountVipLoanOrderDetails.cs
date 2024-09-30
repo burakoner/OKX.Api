@@ -21,7 +21,7 @@ public class OkxAccountVipLoanOrderDetails
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Type
@@ -45,5 +45,5 @@ public class OkxAccountVipLoanOrderDetails
     /// Failure reason
     /// </summary>
     [JsonProperty("failReason")]
-    public string FailReason { get; set; } = "";
+    public string FailReason { get; set; } = string.Empty;
 }

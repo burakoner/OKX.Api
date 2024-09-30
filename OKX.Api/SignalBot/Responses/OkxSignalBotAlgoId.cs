@@ -9,5 +9,5 @@ public class OkxSignalBotAlgoId
     /// Algo ID
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoId { get; set; } = "";
+    public string AlgoId { get; set; } = string.Empty;
 }

@@ -9,26 +9,26 @@ public class OkxFinancialOnChainEarnOffer
     /// Currency type, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Product ID
     /// </summary>
     [JsonProperty("productId")]
-    public string ProductId { get; set; } = "";
+    public string ProductId { get; set; } = string.Empty;
 
     /// <summary>
     /// Protocol
     /// </summary>
     [JsonProperty("protocol")]
-    public string Protocol { get; set; } = "";
+    public string Protocol { get; set; } = string.Empty;
 
     /// <summary>
     /// Protocol type
     /// defi: on-chain earn
     /// </summary>
     [JsonProperty("protocolType")]
-    public string ProtocolType { get; set; } = "";
+    public string ProtocolType { get; set; } = string.Empty;
 
     /// <summary>
     /// Protocol term
@@ -84,7 +84,7 @@ public class OkxFinancialOnChainEarnOfferInvestData
     /// Investment currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Available balance to invest
@@ -114,7 +114,7 @@ public class OkxFinancialOnChainEarnOfferEarningData
     /// Investment currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Earning type

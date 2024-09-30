@@ -46,7 +46,7 @@ public class OkxAccountPositionRiskBalanceData
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Equity of the currency
@@ -88,7 +88,7 @@ public class OkxAccountPositionRiskPositionData
     /// Instrument ID, e.g. BTC-USD-180216
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Quantity of positions contract. In the mode of autonomous transfer from position to position, after the deposit is transferred, a position with pos of 0 will be generated
@@ -106,13 +106,13 @@ public class OkxAccountPositionRiskPositionData
     /// Position currency, only applicable to MARGIN positions.
     /// </summary>
     [JsonProperty("posCcy")]
-    public string PositionCurrency { get; set; } = "";
+    public string PositionCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Currency used for margin
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Notional value of positions in coin

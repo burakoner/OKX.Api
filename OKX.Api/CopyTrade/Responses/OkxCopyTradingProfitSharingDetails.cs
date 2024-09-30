@@ -9,7 +9,7 @@ public class OkxCopyTradingProfitSharingDetails
     /// The currency of profit sharing.
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Profit sharing amount. Default is 0.
@@ -21,7 +21,7 @@ public class OkxCopyTradingProfitSharingDetails
     /// Nickname of copy trader.
     /// </summary>
     [JsonProperty("nickName")]
-    public string Nickname { get; set; } = "";
+    public string Nickname { get; set; } = string.Empty;
 
     /// <summary>
     /// Profit sharing ID.
@@ -39,7 +39,7 @@ public class OkxCopyTradingProfitSharingDetails
     /// Portrait link
     /// </summary>
     [JsonProperty("portLink")]
-    public string PortraitLink { get; set; } = "";
+    public string PortraitLink { get; set; } = string.Empty;
 
     /// <summary>
     /// Profit sharing time.

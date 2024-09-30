@@ -9,11 +9,11 @@ public class OkxAlgoOrderResponse : OkxRestApiErrorBase
     /// Algo Order ID
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoOrderId { get; set; } = "";
+    public string AlgoOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Algo Client Order ID
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string ClientAlgoOrderId { get; set; } = "";
+    public string ClientAlgoOrderId { get; set; } = string.Empty;
 }

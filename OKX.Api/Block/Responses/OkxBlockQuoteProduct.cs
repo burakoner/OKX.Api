@@ -34,13 +34,13 @@ public class OkxBlockQuoteProductData
     /// Instrument family. Required for FUTURES, OPTION and SWAP only.
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; } = "";
+    public string InstrumentFamily { get; set; } = string.Empty;
 
     /// <summary>
     /// Instrument ID. Required for SPOT only.
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Max trade quantity for the product(s).

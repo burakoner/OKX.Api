@@ -75,7 +75,7 @@ public class OkxAccountPositionBuilderAsset
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Available balance
@@ -111,13 +111,13 @@ public class OkxAccountPositionBuilderRiskUnit
     /// Risk unit
     /// </summary>
     [JsonProperty("riskUnit")]
-    public string RiskUnit { get; set; } = "";
+    public string RiskUnit { get; set; } = string.Empty;
 
     /// <summary>
     /// Index USD
     /// </summary>
     [JsonProperty("indexUsd")]
-    public string IndexUsd { get; set; } = "";
+    public string IndexUsd { get; set; } = string.Empty;
 
     /// <summary>
     /// MMR
@@ -267,7 +267,7 @@ public class OkxAccountPositionBuilderRiskUnitMR1FinalResult
     /// Volatility shock
     /// </summary>
     [JsonProperty("volShock")]
-    public string VolatilityShock { get; set; } = "";
+    public string VolatilityShock { get; set; } = string.Empty;
 }
 
 /// <summary>
@@ -297,7 +297,7 @@ public class OkxAccountPositionBuilderRiskUnitPortfolio
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Instrument Type

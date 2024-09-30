@@ -9,7 +9,7 @@ public class OkxFlexibleSimpleEarnSavingsBorrowSummary
     /// Currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
     
     /// <summary>
     /// 24H average borrowing amount

@@ -9,7 +9,7 @@ public class OkxCopyTradingProfitSharingUnrealized
     /// The currency of profit sharing. e.g. USDT
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Unrealized profit sharing amount.
@@ -21,7 +21,7 @@ public class OkxCopyTradingProfitSharingUnrealized
     /// Nickname of copy trader.
     /// </summary>
     [JsonProperty("nickName")]
-    public string Nickname { get; set; } = "";
+    public string Nickname { get; set; } = string.Empty;
     
     /// <summary>
     /// Instrument type
@@ -33,7 +33,7 @@ public class OkxCopyTradingProfitSharingUnrealized
     /// Portrait link
     /// </summary>
     [JsonProperty("portLink")]
-    public string PortraitLink { get; set; } = "";
+    public string PortraitLink { get; set; } = string.Empty;
 
     /// <summary>
     /// Update time.

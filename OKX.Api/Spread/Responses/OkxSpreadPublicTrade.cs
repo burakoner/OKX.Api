@@ -9,7 +9,7 @@ public class OkxSpreadPublicTrade
     /// Spread ID
     /// </summary>
     [JsonProperty("sprdId")]
-    public string SpreadId { get; set; } = "";
+    public string SpreadId { get; set; } = string.Empty;
 
     /// <summary>
     /// Trade ID

@@ -15,5 +15,5 @@ public class OkxSignalBotOrderId : OkxRestApiErrorBase
     /// Client-supplied Algo ID
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; } = "";
+    public string AlgoClientOrderId { get; set; } = string.Empty;
 }

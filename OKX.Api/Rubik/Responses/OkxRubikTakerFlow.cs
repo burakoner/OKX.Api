@@ -22,25 +22,25 @@ public class OkxRubikTakerFlow
     /// Call Option Buy Volume
     /// </summary>
     [ArrayProperty(1)]
-    public string CallOptionBuyVolume { get; set; } = "";
+    public string CallOptionBuyVolume { get; set; } = string.Empty;
 
     /// <summary>
     /// Call Option Sell Volume
     /// </summary>
     [ArrayProperty(2)]
-    public string CallOptionSellVolume { get; set; } = "";
+    public string CallOptionSellVolume { get; set; } = string.Empty;
 
     /// <summary>
     /// Put Option Buy Volume
     /// </summary>
     [ArrayProperty(3)]
-    public string PutOptionBuyVolume { get; set; } = "";
+    public string PutOptionBuyVolume { get; set; } = string.Empty;
 
     /// <summary>
     /// Put Option Sell Volume
     /// </summary>
     [ArrayProperty(4)]
-    public string PutOptionSellVolume { get; set; } = "";
+    public string PutOptionSellVolume { get; set; } = string.Empty;
 
     /// <summary>
     /// Call Block Volume

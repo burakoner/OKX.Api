@@ -15,13 +15,13 @@ public class OkxPublicOptionSummary
     /// Instrument ID, e.g. BTC-USD-200103-5500-C
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Underlying
     /// </summary>
     [JsonProperty("uly")]
-    public string Underlying { get; set; } = "";
+    public string Underlying { get; set; } = string.Empty;
 
     /// <summary>
     /// Sensitivity of option price to uly price

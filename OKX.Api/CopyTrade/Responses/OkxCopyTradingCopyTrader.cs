@@ -15,7 +15,7 @@ public class OkxCopyTradingCopyTrader
     /// The currency name of profit and loss
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Number change in last 7 days
@@ -57,13 +57,13 @@ public class OkxCopyTradingCopyTraderRecord
     /// Nick name
     /// </summary>
     [JsonProperty("nickName")]
-    public string NickName { get; set; } = "";
+    public string NickName { get; set; } = string.Empty;
 
     /// <summary>
     /// Copy trader portrait link
     /// </summary>
     [JsonProperty("portLink")]
-    public string PortraitLink { get; set; } = "";
+    public string PortraitLink { get; set; } = string.Empty;
 
     /// <summary>
     /// Copy trading profit and loss

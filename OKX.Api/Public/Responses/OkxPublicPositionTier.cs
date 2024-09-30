@@ -9,19 +9,19 @@ public class OkxPublicPositionTier
     /// Underlying
     /// </summary>
     [JsonProperty("uly")]
-    public string Underlying { get; set; } = "";
+    public string Underlying { get; set; } = string.Empty;
 
     /// <summary>
     /// Instrument Family
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; } = "";
+    public string InstrumentFamily { get; set; } = string.Empty;
 
     /// <summary>
     /// Instrument Id
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Tier

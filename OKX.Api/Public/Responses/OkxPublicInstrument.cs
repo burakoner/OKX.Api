@@ -15,37 +15,37 @@ public class OkxPublicInstrument
     /// Instrument ID, e.g. BTC-USD-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Underlying, e.g. BTC-USD. Only applicable to FUTURES/SWAP/OPTION
     /// </summary>
     [JsonProperty("uly")]
-    public string Underlying { get; set; } = "";
+    public string Underlying { get; set; } = string.Empty;
     
     /// <summary>
     /// Instrument family
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; } = "";
+    public string InstrumentFamily { get; set; } = string.Empty;
 
     /// <summary>
     /// Base currency
     /// </summary>
     [JsonProperty("baseCcy")]
-    public string BaseCurrency { get; set; } = "";
+    public string BaseCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Quote currency
     /// </summary>
     [JsonProperty("quoteCcy")]
-    public string QuoteCurrency { get; set; } = "";
+    public string QuoteCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Settlement currency
     /// </summary>
     [JsonProperty("settleCcy")]
-    public string SettlementCurrency { get; set; } = "";
+    public string SettlementCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Contract value
@@ -63,7 +63,7 @@ public class OkxPublicInstrument
     /// Contract value currency
     /// </summary>
     [JsonProperty("ctValCcy")]
-    public string ContractValueCurrency { get; set; } = "";
+    public string ContractValueCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Option type

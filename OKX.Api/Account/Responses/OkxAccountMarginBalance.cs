@@ -9,7 +9,7 @@ public class OkxAccountMarginBalance
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Position side, long short
@@ -40,5 +40,5 @@ public class OkxAccountMarginBalance
     /// Currency, only applicable to MARGIN（Manual transfers and Quick Margin Mode）
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 }

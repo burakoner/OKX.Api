@@ -55,7 +55,7 @@ public class OkxAffiliateInvitee
     /// Invitee trading fee level, e.g. Lv1
     /// </summary>
     [JsonProperty("level")]
-    public string Level { get; set; } = "";
+    public string Level { get; set; } = string.Empty;
 
     /// <summary>
     /// Accumulated amount of deposit in USDT
@@ -96,11 +96,11 @@ public class OkxAffiliateInvitee
     /// User country or region. e.g. "United Kingdom"
     /// </summary>
     [JsonProperty("region")]
-    public string Region { get; set; } = "";
+    public string Region { get; set; } = string.Empty;
     
     /// <summary>
     /// Affiliate invite code that the invitee registered/recalled via
     /// </summary>
     [JsonProperty("affiliateCode")]
-    public string AffiliateCode { get; set; } = "";
+    public string AffiliateCode { get; set; } = string.Empty;
 }

@@ -9,7 +9,7 @@ public class OkxRecurringBuyOrderList
     /// Recurring currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Proportion of recurring currency assets, e.g. "0.2" representing 20%

@@ -9,7 +9,7 @@ public class OkxPublicVipInterestRateLevel
     /// Level
     /// </summary>
     [JsonProperty("level")]
-    public string Level { get; set; } = "";
+    public string Level { get; set; } = string.Empty;
 
     /// <summary>
     /// Loan Quota

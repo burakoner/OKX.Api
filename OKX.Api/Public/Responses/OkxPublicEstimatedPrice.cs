@@ -15,7 +15,7 @@ public class OkxPublicEstimatedPrice
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Estimated Price

@@ -9,7 +9,7 @@ public class OkxSubAccountInterestLimits
     /// Name of sub account
     /// </summary>
     [JsonProperty("subAcct")]
-    public string SubAccountName { get; set; } = "";
+    public string SubAccountName { get; set; } = string.Empty;
 
     /// <summary>
     /// Current debt in USDT
@@ -72,7 +72,7 @@ public class OkxSubAccountInterestLimitsRecord
     /// Loan currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Current daily rate

@@ -27,7 +27,7 @@ public class OkxFinancialFixedSimpleEarnLendingSubOrder
     /// Lending currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Lending amount
@@ -45,7 +45,7 @@ public class OkxFinancialFixedSimpleEarnLendingSubOrder
     /// Fixed term for lending order, e.g. 30D
     /// </summary>
     [JsonProperty("term")]
-    public string Term { get; set; } = "";
+    public string Term { get; set; } = string.Empty;
 
     /// <summary>
     /// Sub-order expiration time, Unix timestamp format in milliseconds, e.g. 1597026383085

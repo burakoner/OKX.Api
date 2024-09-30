@@ -15,13 +15,13 @@ public class OkxTradeOneClickRepayOrder
     /// Debt currency type
     /// </summary>
     [JsonProperty("debtCcy")]
-    public string DeptCurrency { get; set; } = "";
+    public string DeptCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Repay currency type
     /// </summary>
     [JsonProperty("repayCcy")]
-    public string RepayCurrency { get; set; } = "";
+    public string RepayCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Filled amount of debt currency

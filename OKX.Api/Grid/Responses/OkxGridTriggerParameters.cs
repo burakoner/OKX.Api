@@ -66,7 +66,7 @@ public class OkxGridTriggerParameters
     /// This field is only valid when triggerAction is stop
     /// </summary>
     [JsonProperty("stopType")]
-    public string AlgoStopType { get; set; } = "";
+    public string AlgoStopType { get; set; } = string.Empty;
 
     /// <summary>
     /// Actual action triggered time, unix timestamp format in milliseconds, e.g. 1597026383085

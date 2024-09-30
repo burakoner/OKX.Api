@@ -9,7 +9,7 @@ public class OkxBlockLegQuote
     /// The Instrument ID of each leg. Example : "BTC-USDT-SWAP"
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Trade mode
@@ -28,19 +28,19 @@ public class OkxBlockLegQuote
     /// Only applicable to cross MARGIN orders in Spot and futures mode. The parameter will be ignored in other scenarios.
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Size of the leg in contracts or spot.
     /// </summary>
     [JsonProperty("sz")]
-    public string Size { get; set; } = "";
+    public string Size { get; set; } = string.Empty;
 
     /// <summary>
     /// The price of the leg.
     /// </summary>
     [JsonProperty("px")]
-    public string Price { get; set; } = "";
+    public string Price { get; set; } = string.Empty;
     
     /// <summary>
     /// The direction of each leg. Valid values can be buy or sell.
@@ -63,5 +63,5 @@ public class OkxBlockLegQuote
     /// The valid enumerations are base_ccy and quote_ccy. When not specified, this is equal to base_ccy by default.
     /// </summary>
     [JsonProperty("tgtCcy")]
-    public string TargetCurrency { get; set; } = "";
+    public string TargetCurrency { get; set; } = string.Empty;
 }

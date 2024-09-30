@@ -9,7 +9,7 @@ public class OkxSpreadTrade
     /// Spread ID
     /// </summary>
     [JsonProperty("sprdId")]
-    public string SpreadId { get; set; } = "";
+    public string SpreadId { get; set; } = string.Empty;
 
     /// <summary>
     /// Trade ID
@@ -27,7 +27,7 @@ public class OkxSpreadTrade
     /// Client Order ID as assigned by the client
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; } = "";
+    public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Filled price
@@ -82,13 +82,13 @@ public class OkxSpreadTrade
     /// Error Code
     /// </summary>
     [JsonProperty("code")]
-    public string ErrorCode { get; set; } = "";
+    public string ErrorCode { get; set; } = string.Empty;
 
     /// <summary>
     /// Error Message
     /// </summary>
     [JsonProperty("msg")]
-    public string ErrorMessage { get; set; } = "";
+    public string ErrorMessage { get; set; } = string.Empty;
 }
 
 /// <summary>
@@ -100,7 +100,7 @@ public class OkxSpreadTradeLeg
     /// Instrument ID, e.g. BTC-USDT-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
     
     /// <summary>
     /// The price the leg executed
@@ -130,7 +130,7 @@ public class OkxSpreadTradeLeg
     /// Fee currency
     /// </summary>
     [JsonProperty("feeCcy")]
-    public string FeeCurrency { get; set; } = "";
+    public string FeeCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Traded ID in the OKX orderbook.

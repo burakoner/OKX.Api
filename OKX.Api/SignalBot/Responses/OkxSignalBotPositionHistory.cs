@@ -9,7 +9,7 @@ public class OkxSignalBotPositionHistory
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
     
     /// <summary>
     /// Margin mode
@@ -81,5 +81,5 @@ public class OkxSignalBotPositionHistory
     /// Underlying { get; set; }
     /// </summary>
     [JsonProperty("uly")]
-    public string Underlying { get; set; } = "";
+    public string Underlying { get; set; } = string.Empty;
 }

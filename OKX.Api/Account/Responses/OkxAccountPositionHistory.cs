@@ -15,7 +15,7 @@ public class OkxAccountPositionHistory
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Margin mode
@@ -143,11 +143,11 @@ public class OkxAccountPositionHistory
     /// Underlying
     /// </summary>
     [JsonProperty("uly")]
-    public string Underlying { get; set; } = "";
+    public string Underlying { get; set; } = string.Empty;
 
     /// <summary>
     /// Currency used for margin
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 }

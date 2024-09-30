@@ -15,14 +15,14 @@ public class OkxAlgoOrder
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Margin currency
     /// Only applicable to cross MARGIN orders in Single-currency margin.
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Order ID list
@@ -40,7 +40,7 @@ public class OkxAlgoOrder
     /// Client Order ID as assigned by the client
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; } = "";
+    public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Quantity to buy or sell
@@ -267,13 +267,13 @@ public class OkxAlgoOrder
     /// Only applicable to Stop Order, Trailing Stop Order, Trigger order.
     /// </summary>
     [JsonProperty("failCode")]
-    public string FailureCode { get; set; } = "";
+    public string FailureCode { get; set; } = string.Empty;
 
     /// <summary>
     /// Client Algo Order ID as assigned by the client.
     /// </summary>
     [JsonProperty("algoClOrdId")]
-    public string AlgoClientOrderId { get; set; } = "";
+    public string AlgoClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Whether to enable Cost-price SL. Only applicable to SL order of split TPs.

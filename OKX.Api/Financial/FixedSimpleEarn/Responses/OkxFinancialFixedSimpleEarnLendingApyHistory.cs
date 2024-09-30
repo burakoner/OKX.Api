@@ -9,7 +9,7 @@ public class OkxFinancialFixedSimpleEarnLendingApyHistory
     /// Currency type, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Latest lending APY, in decimal.

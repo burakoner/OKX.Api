@@ -9,13 +9,13 @@ public class OkxPublicOptionTrade
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Instrument family
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; } = "";
+    public string InstrumentFamily { get; set; } = string.Empty;
 
     /// <summary>
     /// Trade ID

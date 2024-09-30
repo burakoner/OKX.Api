@@ -15,13 +15,13 @@ public class OkxFundingBill
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Client Order ID
     /// </summary>
     [JsonProperty("clientId")]
-    public string ClientOrderId { get; set; } = "";
+    public string ClientOrderId { get; set; } = string.Empty;
     
     /// <summary>
     /// Balance Change

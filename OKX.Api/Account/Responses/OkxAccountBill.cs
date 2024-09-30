@@ -88,7 +88,7 @@ public class OkxAccountBill
     /// Account balance currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Profit and loss
@@ -116,7 +116,7 @@ public class OkxAccountBill
     /// Instrument ID, e.g. BTC-USD-190927-5000-C
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Order ID
@@ -152,7 +152,7 @@ public class OkxAccountBill
     /// Only applicable to transfer.When bill type is not transfer, the field returns "".
     /// </summary>
     [JsonProperty("notes")]
-    public string Notes { get; set; } = "";
+    public string Notes { get; set; } = string.Empty;
 
     /// <summary>
     /// Interest
@@ -183,7 +183,7 @@ public class OkxAccountBill
     /// A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.
     /// </summary>
     [JsonProperty("clOrdId")]
-    public string ClientOrderId { get; set; } = "";
+    public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// Index price at the moment of trade execution

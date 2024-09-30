@@ -9,13 +9,13 @@ public class OkxFundingDepositHistory
     /// Currency
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Chain
     /// </summary>
     [JsonProperty("chain")]
-    public string Chain { get; set; } = "";
+    public string Chain { get; set; } = string.Empty;
 
     /// <summary>
     /// Amount
@@ -27,25 +27,25 @@ public class OkxFundingDepositHistory
     /// From
     /// </summary>
     [JsonProperty("from")]
-    public string From { get; set; } = "";
+    public string From { get; set; } = string.Empty;
 
     /// <summary>
     /// Area Code From
     /// </summary>
     [JsonProperty("areaCodeFrom")]
-    public string AreaCodeFrom { get; set; } = "";
+    public string AreaCodeFrom { get; set; } = string.Empty;
 
     /// <summary>
     /// To
     /// </summary>
     [JsonProperty("to")]
-    public string To { get; set; } = "";
+    public string To { get; set; } = string.Empty;
 
     /// <summary>
     /// Transaction ID
     /// </summary>
     [JsonProperty("txId")]
-    public string TransactionId { get; set; } = "";
+    public string TransactionId { get; set; } = string.Empty;
 
     /// <summary>
     /// Timestamp
@@ -69,7 +69,7 @@ public class OkxFundingDepositHistory
     /// Deposit ID
     /// </summary>
     [JsonProperty("depId")]
-    public string DepositId { get; set; } = "";
+    public string DepositId { get; set; } = string.Empty;
 
     /// <summary>
     /// From Withdrawal ID

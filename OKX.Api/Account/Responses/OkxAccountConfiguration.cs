@@ -57,13 +57,13 @@ public class OkxAccountConfiguration
     /// The user level of the current real trading volume on the platform, e.g lv1
     /// </summary>
     [JsonProperty("level")]
-    public string Level { get; set; } = "";
+    public string Level { get; set; } = string.Empty;
 
     /// <summary>
     /// Temporary experience user level of special users, e.g lv3
     /// </summary>
     [JsonProperty("levelTmp")]
-    public string LevelTemporary { get; set; } = "";
+    public string LevelTemporary { get; set; } = string.Empty;
 
     /// <summary>
     /// Contract isolated margin trading settings
@@ -128,13 +128,13 @@ public class OkxAccountConfiguration
     /// API key note of current request API key. No more than 50 letters (case sensitive) or numbers, which can be pure letters or pure numbers.
     /// </summary>
     [JsonProperty("label")]
-    public string Label { get; set; } = "";
+    public string Label { get; set; } = string.Empty;
 
     /// <summary>
     /// IP addresses that linked with current API key, separate with commas if more than one, e.g. 117.37.203.58,117.37.203.57. It is an empty string "" if there is no IP bonded.
     /// </summary>
     [JsonProperty("ip")]
-    public string IpAddresses { get; set; } = "";
+    public string IpAddresses { get; set; } = string.Empty;
 
     /// <summary>
     /// The permission of the urrent request API Key. read_only：Read only；trade ：Trade; withdraw: Withdraw

@@ -9,7 +9,7 @@ public class OkxFinancialEthStakingBalance
     /// Currency, e.g. BETH
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Currency amount

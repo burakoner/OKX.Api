@@ -15,5 +15,5 @@ public class OkxSignalBotChannel
     /// User identify when placing orders via signal
     /// </summary>
     [JsonProperty("signalChanToken")]
-    public string SignalChannelToken { get; set; } = "";
+    public string SignalChannelToken { get; set; } = string.Empty;
 }

@@ -15,11 +15,11 @@ public class OkxSignalBotExitParamaters
     /// Take-profit percentage
     /// </summary>
     [JsonProperty("tpPct")]
-    public string TakeProfitPercentage { get; set; } = "";
+    public string TakeProfitPercentage { get; set; } = string.Empty;
 
     /// <summary>
     /// Stop-loss percentage
     /// </summary>
     [JsonProperty("slPct")]
-    public string StopLossPercentage { get; set; } = "";
+    public string StopLossPercentage { get; set; } = string.Empty;
 }

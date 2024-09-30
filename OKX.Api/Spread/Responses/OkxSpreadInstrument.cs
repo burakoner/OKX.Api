@@ -9,7 +9,7 @@ public class OkxSpreadInstrument
     /// Spread ID
     /// </summary>
     [JsonProperty("sprdId")]
-    public string SpreadId { get; set; } = "";
+    public string SpreadId { get; set; } = string.Empty;
 
     /// <summary>
     /// spread Type. Valid values are linear, inverse, hybrid
@@ -27,19 +27,19 @@ public class OkxSpreadInstrument
     /// Currency instrument is based in. Valid values include BTC, ETH
     /// </summary>
     [JsonProperty("baseCcy")]
-    public string BaseCurrency { get; set; } = "";
+    public string BaseCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// The currency the spread order size is submitted to the underlying venue in, e.g. USD, BTC, ETH.
     /// </summary>
     [JsonProperty("szCcy")]
-    public string SizeCurrency { get; set; } = "";
+    public string SizeCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// The currency the spread is priced in, e.g. USDT, USD
     /// </summary>
     [JsonProperty("quoteCcy")]
-    public string QuoteCurrency { get; set; } = "";
+    public string QuoteCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Tick size, e.g. 0.0001 in the quoteCcy of the spread.
@@ -111,7 +111,7 @@ public class OkxSpreadInstrumentLeg
     /// Instrument ID, e.g. BTC-USDT-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = "";
+    public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// The direction of the leg of the spread. Valid Values include buy and sell.

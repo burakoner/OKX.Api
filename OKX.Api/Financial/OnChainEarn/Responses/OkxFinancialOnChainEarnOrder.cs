@@ -9,7 +9,7 @@ public class OkxFinancialOnChainEarnOrder
     /// Currency type, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Currency { get; set; } = "";
+    public string Currency { get; set; } = string.Empty;
 
     /// <summary>
     /// Order ID
@@ -21,7 +21,7 @@ public class OkxFinancialOnChainEarnOrder
     /// Product ID
     /// </summary>
     [JsonProperty("productId")]
-    public string ProductId { get; set; } = "";
+    public string ProductId { get; set; } = string.Empty;
 
     /// <summary>
     /// Order state
@@ -33,14 +33,14 @@ public class OkxFinancialOnChainEarnOrder
     /// Protocol
     /// </summary>
     [JsonProperty("protocol")]
-    public string Protocol { get; set; } = "";
+    public string Protocol { get; set; } = string.Empty;
 
     /// <summary>
     /// Protocol type
     /// defi: on-chain earn
     /// </summary>
     [JsonProperty("protocolType")]
-    public string ProtocolType { get; set; } = "";
+    public string ProtocolType { get; set; } = string.Empty;
 
     /// <summary>
     /// Protocol term
