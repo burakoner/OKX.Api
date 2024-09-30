@@ -8,10 +8,12 @@ public enum OkxCopyTradingLeadingMode
     /// <summary>
     /// Public
     /// </summary>
+    [Map("public")]
     Public,
 
     /// <summary>
     /// Private
     /// </summary>
+    [Map("private")]
     Private
 }

@@ -8,10 +8,12 @@ public enum OkxCopyTradingMode
     /// <summary>
     /// Fixed Amount: set the same fixed amount for each order,
     /// </summary>
+    [Map("fixed_amount")]
     FixedAmount,
 
     /// <summary>
     /// Ratio Copy: set amount as a multiple of the lead trader’s order value
     /// </summary>
+    [Map("ratio_copy")]
     RatioCopy
 }

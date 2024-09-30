@@ -8,10 +8,12 @@ public enum OkxCopyTradingState
     /// <summary>
     /// NonCopy
     /// </summary>
+    [Map("0")]
     NonCopy,
 
     /// <summary>
     /// Copy
     /// </summary>
+    [Map("1")]
     Copy
 }
