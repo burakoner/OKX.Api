@@ -57,12 +57,36 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Account\Requests\" />
+	  <Folder Include="Affiliate\Requests\" />
+	  <Folder Include="Algo\Requests\" />
+	  <Folder Include="Announcement\Requests\" />
+	  <Folder Include="Base\Requests\" />
+	  <Folder Include="Block\Requests\" />
 	  <Folder Include="Broker\FullyDisclosed\Converters\" />
 	  <Folder Include="Broker\FullyDisclosed\Enums\" />
-	  <Folder Include="Broker\FullyDisclosed\Models\" />
+	  <Folder Include="Broker\FullyDisclosed\Requests\" />
+	  <Folder Include="Broker\FullyDisclosed\Responses\" />
 	  <Folder Include="Broker\NonDisclosed\Converters\" />
 	  <Folder Include="Broker\NonDisclosed\Enums\" />
-	  <Folder Include="Broker\NonDisclosed\Models\" />
+	  <Folder Include="Broker\NonDisclosed\Requests\" />
+	  <Folder Include="Broker\NonDisclosed\Responses\" />
+	  <Folder Include="Common\Requests\" />
+	  <Folder Include="CopyTrade\Requests\" />
+	  <Folder Include="Financial\EthStaking\Requests\" />
+	  <Folder Include="Financial\FixedSimpleEarn\Requests\" />
+	  <Folder Include="Financial\FlexibleSimpleEarn\Requests\" />
+	  <Folder Include="Financial\OnChainEarn\Requests\" />
+	  <Folder Include="Funding\Requests\" />
+	  <Folder Include="Grid\Requests\" />
+	  <Folder Include="Public\Requests\" />
+	  <Folder Include="RecurringBuy\Requests\" />
+	  <Folder Include="Rubik\Requests\" />
+	  <Folder Include="SignalBot\Requests\" />
+	  <Folder Include="Spread\Requests\" />
+	  <Folder Include="Status\Requests\" />
+	  <Folder Include="SubAccount\Requests\" />
+	  <Folder Include="Trade\Requests\" />
 	</ItemGroup>
 
 	<ItemGroup>
