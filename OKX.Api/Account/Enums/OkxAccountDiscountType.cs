@@ -9,11 +9,11 @@ public enum OkxAccountDiscountType
     /// Original discount rate rules, the default value
     /// </summary>
     [Map("0")]
-    OriginalDiscountRateRules,
+    OriginalDiscountRateRules = 0,
 
     /// <summary>
     /// New discount rules
     /// </summary>
     [Map("1")]
-    NewDiscountRules,
+    NewDiscountRules = 1,
 }

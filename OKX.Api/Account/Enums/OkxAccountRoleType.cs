@@ -9,17 +9,17 @@ public enum OkxAccountRoleType
     /// General User
     /// </summary>
     [Map("0")]
-    GeneralUser,
+    GeneralUser = 0,
 
     /// <summary>
     /// Leading Trader
     /// </summary>
     [Map("1")]
-    LeadingTrader,
+    LeadingTrader = 1,
 
     /// <summary>
     /// Copy Trader
     /// </summary>
     [Map("2")]
-    CopyTrader
+    CopyTrader = 2
 }

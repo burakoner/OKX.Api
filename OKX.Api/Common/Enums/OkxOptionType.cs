@@ -9,11 +9,11 @@ public enum OkxOptionType
     /// Call
     /// </summary>
     [Map("C")]
-    Call,
+    Call = 1,
 
     /// <summary>
     /// Put
     /// </summary>
     [Map("P")]
-    Put,
+    Put = 2,
 }

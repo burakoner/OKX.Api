@@ -9,17 +9,17 @@ public enum OkxCopyTradingRole
     /// General user
     /// </summary>
     [Map("0")]
-    GeneralUser,
+    GeneralUser = 0,
 
     /// <summary>
     /// Leading trader
     /// </summary>
     [Map("1")]
-    LeadingTrader,
+    LeadingTrader = 1,
 
     /// <summary>
     /// Copy trader
     /// </summary>
     [Map("2")]
-    CopyTrader,
+    CopyTrader = 2,
 }

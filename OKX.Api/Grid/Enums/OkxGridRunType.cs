@@ -9,11 +9,11 @@ public enum OkxGridRunType
     /// Arithmetic
     /// </summary>
     [Map("1")]
-    Arithmetic,
+    Arithmetic = 1,
 
     /// <summary>
     /// Geometric
     /// </summary>
     [Map("2")]
-    Geometric,
+    Geometric = 2,
 }

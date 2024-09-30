@@ -9,17 +9,17 @@ public enum OkxTradePositionSide
     /// Long
     /// </summary>
     [Map("long")]
-    Long,
+    Long = 1,
 
     /// <summary>
     /// Short
     /// </summary>
     [Map("short")]
-    Short,
+    Short = -1,
 
     /// <summary>
     /// Net
     /// </summary>
     [Map("net")]
-    Net,
+    Net = 0,
 }

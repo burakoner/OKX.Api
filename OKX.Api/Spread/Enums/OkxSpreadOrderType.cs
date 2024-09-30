@@ -9,17 +9,17 @@ public enum OkxSpreadOrderType
     /// Limit Order
     /// </summary>
     [Map("limit")]
-    LimitOrder,
+    LimitOrder = 1,
 
     /// <summary>
     /// Post Only Order
     /// </summary>
     [Map("post_only")]
-    PostOnly,
+    PostOnly = 2,
 
     /// <summary>
     /// Immediate-Or-Cancel Order
     /// </summary>
     [Map("ioc")]
-    ImmediateOrCancel,
+    ImmediateOrCancel = 3,
 }

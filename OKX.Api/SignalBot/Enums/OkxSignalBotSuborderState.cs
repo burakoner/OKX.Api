@@ -9,29 +9,29 @@ public enum OkxSignalBotSuborderState
     /// Live
     /// </summary>
     [Map("live")]
-    Live,
+    Live = 1,
 
     /// <summary>
     /// Partially Filled
     /// </summary>
     [Map("partially_filled")]
-    PartiallyFilled,
+    PartiallyFilled = 2,
 
     /// <summary>
     /// Filled
     /// </summary>
     [Map("filled")]
-    Filled,
+    Filled = 3,
 
     /// <summary>
     /// Cancelling
     /// </summary>
     [Map("cancelling")]
-    Cancelling,
+    Cancelling = 4,
 
     /// <summary>
     /// Cancelled
     /// </summary>
     [Map("cancelled")]
-    Cancelled,
+    Cancelled = 5,
 }

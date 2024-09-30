@@ -9,53 +9,53 @@ public enum OkxTradeOrderType
     /// LimitOrder
     /// </summary>
     [Map("limit")]
-    LimitOrder,
+    LimitOrder = 1,
 
     /// <summary>
     /// MarketOrder
     /// </summary>
     [Map("market")]
-    MarketOrder,
+    MarketOrder = 2,
 
     /// <summary>
     /// PostOnly
     /// </summary>
     [Map("post_only")]
-    PostOnly,
+    PostOnly = 3,
 
     /// <summary>
     /// FillOrKill
     /// </summary>
     [Map("fok")]
-    FillOrKill,
+    FillOrKill = 4,
 
     /// <summary>
     /// ImmediateOrCancel
     /// </summary>
     [Map("ioc")]
-    ImmediateOrCancel,
+    ImmediateOrCancel = 5,
 
     /// <summary>
     /// Market order with immediate-or-cancel order (applicable only to Futures and Perpetual swap).
     /// </summary>
     [Map("optimal_limit_ioc")]
-    OptimalLimitOrder,
+    OptimalLimitOrder = 6,
 
     /// <summary>
     /// Market Maker Protection (only applicable to Option in Portfolio Margin mode)
     /// </summary>
     [Map("mmp")]
-    MarketMakerProtection,
+    MarketMakerProtection = 7,
 
     /// <summary>
     /// Marekt Maker Protection and Post-only order(only applicable to Option in Portfolio Margin mode)
     /// </summary>
     [Map("mmp_and_post_only")]
-    MarektMakerProtectionAndPostOnly,
+    MarektMakerProtectionAndPostOnly = 8,
 
     /// <summary>
     /// Simple options (fok)
     /// </summary>
     [Map("op_fok")]
-    SimpleOptionsFillOrKill,
+    SimpleOptionsFillOrKill = 9,
 }

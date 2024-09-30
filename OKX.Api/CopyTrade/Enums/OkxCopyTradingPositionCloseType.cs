@@ -9,17 +9,17 @@ public enum OkxCopyTradingPositionCloseType
     /// Market Close
     /// </summary>
     [Map("market_close")]
-    MarketClose,
+    MarketClose = 1,
 
     /// <summary>
     /// Copy Close
     /// </summary>
     [Map("copy_close")]
-    CopyClose,
+    CopyClose = 2,
 
     /// <summary>
     /// Manual Close
     /// </summary>
     [Map("manual_close")]
-    ManualClose,
+    ManualClose = 3,
 }

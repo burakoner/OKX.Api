@@ -253,7 +253,7 @@ internal class Program
             ],
             leverage: 10.0m,
             amount: 100.0m,
-            orderType: OkxSignalBotOrderType.TradingViewSignal,
+            orderType: OkxSignalBotOrderType.TradingView,
             entryParamaters: new OkxSignalBotEntryParamaters
             {
                 AllowMultipleEntry = true,

@@ -9,11 +9,11 @@ public enum OkxGridSpotAlgoStopType
     /// SellBaseCurrency
     /// </summary>
     [Map("1")]
-    SellBaseCurrency,
+    SellBaseCurrency = 1,
 
     /// <summary>
     /// KeepBaseCurrency
     /// </summary>
     [Map("2")]
-    KeepBaseCurrency,
+    KeepBaseCurrency = 2,
 }

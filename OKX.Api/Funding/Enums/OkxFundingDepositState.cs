@@ -9,23 +9,23 @@ public enum OkxFundingDepositState
     /// WaitingForConfirmation
     /// </summary>
     [Map("1")]
-    WaitingForConfirmation,
+    WaitingForConfirmation = 1,
 
     /// <summary>
     /// Credited
     /// </summary>
     [Map("2")]
-    Credited,
+    Credited = 2,
 
     /// <summary>
     /// Successful
     /// </summary>
     [Map("3")]
-    Successful,
+    Successful = 3,
 
     /// <summary>
     /// Pending
     /// </summary>
     [Map("4")]
-    Pending,
+    Pending = 4,
 }

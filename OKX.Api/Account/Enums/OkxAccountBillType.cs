@@ -9,125 +9,125 @@ public enum OkxAccountBillType
     /// Transfer
     /// </summary>
     [Map("1")]
-    Transfer,
+    Transfer = 1,
 
     /// <summary>
     /// Trade
     /// </summary>
     [Map("2")]
-    Trade,
+    Trade = 2,
 
     /// <summary>
     /// Delivery
     /// </summary>
     [Map("3")]
-    Delivery,
+    Delivery = 3,
 
     /// <summary>
     /// Auto Token Conversion
     /// </summary>
     [Map("4")]
-    AutoTokenConversion,
+    AutoTokenConversion = 4,
 
     /// <summary>
     /// Liquidation
     /// </summary>
     [Map("5")]
-    Liquidation,
+    Liquidation = 5,
 
     /// <summary>
     /// Margin Transfer
     /// </summary>
     [Map("6")]
-    MarginTransfer,
+    MarginTransfer = 6,
 
     /// <summary>
     /// Interest Deduction
     /// </summary>
     [Map("7")]
-    InterestDeduction,
+    InterestDeduction = 7,
 
     /// <summary>
     /// Funding Fee
     /// </summary>
     [Map("8")]
-    FundingFee,
+    FundingFee = 8,
 
     /// <summary>
     /// ADL
     /// </summary>
     [Map("9")]
-    ADL,
+    ADL = 9,
 
     /// <summary>
     /// Clawback
     /// </summary>
     [Map("10")]
-    Clawback,
+    Clawback = 10,
 
     /// <summary>
     /// System Token Conversion
     /// </summary>
     [Map("11")]
-    SystemTokenConversion,
+    SystemTokenConversion = 11,
 
     /// <summary>
     /// Strategy Transfer
     /// </summary>
     [Map("12")]
-    StrategyTransfer,
+    StrategyTransfer = 12,
 
     /// <summary>
     /// DDH
     /// </summary>
     [Map("13")]
-    DDH,
+    DDH = 13,
 
     /// <summary>
     /// Block Trade
     /// </summary>
     [Map("14")]
-    BlockTrade,
+    BlockTrade = 14,
 
     /// <summary>
     /// Quick Margin
     /// </summary>
     [Map("15")]
-    QuickMargin,
+    QuickMargin = 15,
 
     /// <summary>
     /// Profit Sharing
     /// </summary>
     [Map("18")]
-    ProfitSharing,
+    ProfitSharing = 18,
 
     /// <summary>
     /// Repay
     /// </summary>
     [Map("22")]
-    Repay,
+    Repay = 22,
 
     /// <summary>
     /// SpreadTrading
     /// </summary>
     [Map("24")]
-    SpreadTrading,
+    SpreadTrading = 24,
 
     /// <summary>
     /// Structured products
     /// </summary>
     [Map("26")]
-    StructuredProducts,
+    StructuredProducts = 26,
 
     /// <summary>
     /// Copy trader profit sharing expenses
     /// </summary>
     [Map("250")]
-    CopyTraderProfitSharingExpenses,
+    CopyTraderProfitSharingExpenses = 250,
 
     /// <summary>
     /// Copy trader profit sharing refund
     /// </summary>
     [Map("251")]
-    CopyTraderProfitSharingRefund,
+    CopyTraderProfitSharingRefund = 251,
 }

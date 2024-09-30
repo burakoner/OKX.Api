@@ -9,11 +9,11 @@ public enum OkxPublicFundingRateMethod
     /// CurrentPeriod
     /// </summary>
     [Map("current_period")]
-    CurrentPeriod,
+    CurrentPeriod = 1,
 
     /// <summary>
     /// NextPeriod
     /// </summary>
     [Map("next_period")]
-    NextPeriod,
+    NextPeriod = 2,
 }

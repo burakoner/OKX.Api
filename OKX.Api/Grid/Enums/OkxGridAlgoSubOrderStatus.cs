@@ -9,29 +9,29 @@ public enum OkxGridAlgoSubOrderStatus
     /// Live
     /// </summary>
     [Map("live")]
-    Live,
+    Live = 1,
 
     /// <summary>
     /// Partial
     /// </summary>
     [Map("partially_filled")]
-    Partial,
+    Partial = 2,
 
     /// <summary>
     /// Filled
     /// </summary>
     [Map("filled")]
-    Filled,
+    Filled = 3,
 
     /// <summary>
     /// Cancelling
     /// </summary>
     [Map("cancelling")]
-    Cancelling,
+    Cancelling = 4,
 
     /// <summary>
     /// Canceled
     /// </summary>
     [Map("canceled")]
-    Canceled,
+    Canceled = 5,
 }

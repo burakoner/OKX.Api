@@ -9,35 +9,35 @@ public enum OkxAlgoOrderType
     /// Conditional
     /// </summary>
     [Map("conditional")]
-    Conditional,
+    Conditional = 1,
 
     /// <summary>
     /// OCO
     /// </summary>
     [Map("oco")]
-    OCO,
+    OCO = 2,
 
     /// <summary>
     /// Trigger
     /// </summary>
     [Map("trigger")]
-    Trigger,
+    Trigger = 3,
 
     /// <summary>
     /// TrailingOrder
     /// </summary>
     [Map("move_order_stop")]
-    TrailingOrder,
+    TrailingOrder = 4,
 
     /// <summary>
     /// Iceberg
     /// </summary>
     [Map("iceberg")]
-    Iceberg,
+    Iceberg = 5,
 
     /// <summary>
     /// TWAP
     /// </summary>
     [Map("twap")]
-    TWAP,
+    TWAP = 6,
 }

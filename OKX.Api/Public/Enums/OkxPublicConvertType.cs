@@ -9,11 +9,11 @@ public enum OkxPublicConvertType
     /// CurrencyToContract
     /// </summary>
     [Map("1")]
-    CurrencyToContract,
+    CurrencyToContract = 1,
 
     /// <summary>
     /// ContractToCurrency
     /// </summary>
     [Map("2")]
-    ContractToCurrency,
+    ContractToCurrency = 2,
 }

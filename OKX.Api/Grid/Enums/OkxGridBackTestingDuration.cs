@@ -9,17 +9,17 @@ public enum OkxGridBackTestingDuration
     /// OneWeek
     /// </summary>
     [Map("7D")]
-    OneWeek,
+    OneWeek = 7,
 
     /// <summary>
     /// OneMonth
     /// </summary>
     [Map("30D")]
-    OneMonth,
+    OneMonth = 30,
 
     /// <summary>
     /// SixMonths
     /// </summary>
     [Map("180D")]
-    SixMonths,
+    SixMonths = 180,
 }

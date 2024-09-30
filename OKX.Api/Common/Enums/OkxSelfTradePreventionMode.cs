@@ -9,17 +9,17 @@ public enum OkxSelfTradePreventionMode
     /// CancelMaker
     /// </summary>
     [Map("cancel_maker")]
-    CancelMaker,
+    CancelMaker = 1,
 
     /// <summary>
     /// CancelTaker
     /// </summary>
     [Map("cancel_taker")]
-    CancelTaker,
+    CancelTaker = 2,
 
     /// <summary>
     /// CancelBoth
     /// </summary>
     [Map("cancel_both")]
-    CancelBoth
+    CancelBoth = 3
 }

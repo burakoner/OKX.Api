@@ -9,11 +9,11 @@ public enum OkxAccount
     /// Funding Account
     /// </summary>
     [Map("6")]
-    Funding,
+    Funding = 6,
 
     /// <summary>
     /// Trading Account
     /// </summary>
     [Map("18")]
-    Trading,
+    Trading = 18,
 }

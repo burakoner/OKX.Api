@@ -9,11 +9,11 @@ public enum OkxFinancialOnChainEarnEarningType
     /// Estimated earning
     /// </summary>
     [Map("0")]
-    EstimatedEarning,
+    EstimatedEarning = 0,
 
     /// <summary>
     /// Cumulative earning
     /// </summary>
     [Map("1")]
-    CumulativeEarning,
+    CumulativeEarning = 1,
 }

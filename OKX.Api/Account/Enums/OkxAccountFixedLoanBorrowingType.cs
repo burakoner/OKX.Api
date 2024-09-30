@@ -9,11 +9,11 @@ public enum OkxAccountFixedLoanBorrowingType
     /// normal: new order
     /// </summary>
     [Map("normal")]
-    Normal,
+    Normal = 1,
 
     /// <summary>
     /// reborrow: renew existing order
     /// </summary>
     [Map("reborrow")]
-    Reborrow,
+    Reborrow = 2,
 }

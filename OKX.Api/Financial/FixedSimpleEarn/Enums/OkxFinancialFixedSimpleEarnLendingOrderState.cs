@@ -9,23 +9,23 @@ public enum OkxFinancialFixedSimpleEarnLendingOrderState
     /// Pending
     /// </summary>
     [Map("pending")]
-    Pending,
+    Pending = 1,
 
     /// <summary>
     /// Earning
     /// </summary>
     [Map("earning")]
-    Earning,
+    Earning = 2,
 
     /// <summary>
     /// Expired
     /// </summary>
     [Map("expired")]
-    Expired,
+    Expired = 3,
 
     /// <summary>
     /// Settled
     /// </summary>
     [Map("settled")]
-    Settled,
+    Settled = 4,
 }

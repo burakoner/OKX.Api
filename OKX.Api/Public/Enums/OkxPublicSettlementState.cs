@@ -9,11 +9,11 @@ public enum OkxPublicSettlementState
     /// Processing
     /// </summary>
     [Map("processing")]
-    Processing,
+    Processing = 1,
 
     /// <summary>
     /// Settled
     /// </summary>
     [Map("settled")]
-    Settled,
+    Settled = 2,
 }

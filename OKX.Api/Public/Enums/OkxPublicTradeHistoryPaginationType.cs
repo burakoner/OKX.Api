@@ -9,11 +9,11 @@ public enum OkxPublicTradeHistoryPaginationType
     /// TradeId
     /// </summary>
     [Map("1")]
-    TradeId,
+    TradeId = 1,
 
     /// <summary>
     /// Timestamp
     /// </summary>
     [Map("2")]
-    Timestamp,
+    Timestamp = 2,
 }

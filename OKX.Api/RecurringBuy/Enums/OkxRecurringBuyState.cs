@@ -9,29 +9,29 @@ public enum OkxRecurringBuyState
     /// Live
     /// </summary>
     [Map("canceled")]
-    Live,
+    Live = 1,
 
     /// <summary>
     /// Filled
     /// </summary>
     [Map("live")]
-    Filled,
+    Filled = 2,
 
     /// <summary>
     /// PartiallyFilled
     /// </summary>
     [Map("partially_filled")]
-    PartiallyFilled,
+    PartiallyFilled = 3,
 
     /// <summary>
     /// Cancelling
     /// </summary>
     [Map("filled")]
-    Cancelling,
+    Cancelling = 4,
 
     /// <summary>
     /// Canceled
     /// </summary>
     [Map("cancelling")]
-    Canceled
+    Canceled = 5
 }

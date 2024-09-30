@@ -9,11 +9,11 @@ public enum OkxFundingDepositType
     /// InternalDeposit
     /// </summary>
     [Map("3")]
-    InternalDeposit,
+    InternalDeposit = 3,
 
     /// <summary>
     /// BlockchainDeposit
     /// </summary>
     [Map("4")]
-    BlockchainDeposit,
+    BlockchainDeposit = 4,
 }

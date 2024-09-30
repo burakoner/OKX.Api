@@ -9,23 +9,23 @@ public enum OkxGridInvestmentType
     /// Grid
     /// </summary>
     [Map("grid")]
-    Grid,
+    Grid = 1,
 
     /// <summary>
     /// Quote
     /// </summary>
     [Map("quote")]
-    Quote,
+    Quote = 2,
 
     /// <summary>
     /// Base
     /// </summary>
     [Map("base")]
-    Base,
+    Base = 3,
 
     /// <summary>
     /// Dual
     /// </summary>
     [Map("dual")]
-    Dual
+    Dual = 4
 }

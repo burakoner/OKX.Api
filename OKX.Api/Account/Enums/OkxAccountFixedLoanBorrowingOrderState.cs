@@ -9,41 +9,41 @@ public enum OkxAccountFixedLoanBorrowingOrderState
     /// Borrowing
     /// </summary>
     [Map("1")]
-    Borrowing,
+    Borrowing = 1,
 
     /// <summary>
     /// Borrowed
     /// </summary>
     [Map("2")]
-    Borrowed,
+    Borrowed = 2,
 
     /// <summary>
     /// Settled (Repaid)
     /// </summary>
     [Map("3")]
-    Settled,
+    Settled = 3,
 
     /// <summary>
     /// Borrow failed
     /// </summary>
     [Map("4")]
-    Failed,
+    Failed = 4,
 
     /// <summary>
     /// Overdue
     /// </summary>
     [Map("5")]
-    Overdue,
+    Overdue = 5,
 
     /// <summary>
     /// Settling
     /// </summary>
     [Map("6")]
-    Settling,
+    Settling = 6,
 
     /// <summary>
     /// Reborrowing
     /// </summary>
     [Map("7")]
-    Reborrowing,
+    Reborrowing = 7,
 }

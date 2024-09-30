@@ -9,17 +9,17 @@ public enum OkxFinancialOnChainEarnOfferState
     /// Purchasable
     /// </summary>
     [Map("purchasable")]
-    Purchasable,
+    Purchasable = 1,
 
     /// <summary>
     /// Sold Out
     /// </summary>
     [Map("sold_out")]
-    SoldOut,
+    SoldOut = 2,
 
     /// <summary>
     /// Stop
     /// </summary>
     [Map("stop", "Stop")]
-    Stop,
+    Stop = 3,
 }

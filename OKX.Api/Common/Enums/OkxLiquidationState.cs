@@ -9,11 +9,11 @@ public enum OkxLiquidationState
     /// Unfilled
     /// </summary>
     [Map("unfilled")]
-    Unfilled,
+    Unfilled = 1,
 
     /// <summary>
     /// Filled
     /// </summary>
     [Map("filled")]
-    Filled,
+    Filled = 2,
 }

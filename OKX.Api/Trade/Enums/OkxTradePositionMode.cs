@@ -9,11 +9,11 @@ public enum OkxTradePositionMode
     /// LongShortMode
     /// </summary>
     [Map("long_short_mode")]
-    LongShortMode,
+    LongShortMode = 1,
 
     /// <summary>
     /// NetMode
     /// </summary>
     [Map("net_mode")]
-    NetMode,
+    NetMode = 2,
 }

@@ -9,11 +9,11 @@ public enum OkxPublicConvertUnit
     /// Coin
     /// </summary>
     [Map("coin")]
-    Coin,
+    Coin = 1,
 
     /// <summary>
     /// Usds
     /// </summary>
     [Map("usds")]
-    Usds,
+    USDs = 2,
 }

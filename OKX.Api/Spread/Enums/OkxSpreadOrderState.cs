@@ -9,23 +9,23 @@ public enum OkxSpreadOrderState
     /// Live
     /// </summary>
     [Map("live")]
-    Live,
+    Live = 1,
 
     /// <summary>
     /// Filled
     /// </summary>
     [Map("filled")]
-    Filled,
+    Filled = 2,
 
     /// <summary>
     /// Partially Filled
     /// </summary>
     [Map("partially_filled")]
-    PartiallyFilled,
+    PartiallyFilled = 3,
 
     /// <summary>
     /// Canceled
     /// </summary>
     [Map("canceled")]
-    Canceled,
+    Canceled = 4,
 }

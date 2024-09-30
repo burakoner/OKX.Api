@@ -9,17 +9,17 @@ public enum OkxSignalBotOrderType
     /// Limit Order
     /// </summary>
     [Map("1")]
-    LimitOrder,
+    LimitOrder = 1,
 
     /// <summary>
     /// Market Order
     /// </summary>
     [Map("2")]
-    MarketOrder,
+    MarketOrder = 2,
 
     /// <summary>
     /// TradingView Signal
     /// </summary>
     [Map("9")]
-    TradingViewSignal,
+    TradingView = 9,
 }

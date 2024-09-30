@@ -9,17 +9,17 @@ public enum OkxSignalBotEventType
     /// SystemAction
     /// </summary>
     [Map("system_action")]
-    SystemAction,
+    SystemAction = 1,
 
     /// <summary>
     /// UserAction
     /// </summary>
     [Map("user_action")]
-    UserAction,
+    UserAction = 2,
 
     /// <summary>
     /// SignalProcessing
     /// </summary>
     [Map("signal_processing")]
-    SignalProcessing
+    SignalProcessing = 3
 }

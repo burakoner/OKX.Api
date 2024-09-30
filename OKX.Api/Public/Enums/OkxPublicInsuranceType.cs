@@ -9,23 +9,23 @@ public enum OkxPublicInsuranceType
     /// All
     /// </summary>
     [Map("all")]
-    All,
+    All = 1,
 
     /// <summary>
     /// LiquidationBalanceDeposit
     /// </summary>
     [Map("liquidation_balance_deposit")]
-    LiquidationBalanceDeposit,
+    LiquidationBalanceDeposit = 2,
 
     /// <summary>
     /// BankruptcyLoss
     /// </summary>
     [Map("bankruptcy_loss")]
-    BankruptcyLoss,
+    BankruptcyLoss = 3,
 
     /// <summary>
     /// PlatformRevenue
     /// </summary>
     [Map("platform_revenue")]
-    PlatformRevenue,
+    PlatformRevenue = 4,
 }

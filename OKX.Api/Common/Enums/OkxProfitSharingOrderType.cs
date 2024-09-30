@@ -9,23 +9,23 @@ public enum OkxProfitSharingOrderType
     /// Normal order
     /// </summary>
     [Map("0")]
-    NormalOrder,
+    NormalOrder = 0,
 
     /// <summary>
     /// Copy order without profit sharing
     /// </summary>
     [Map("1")]
-    CopyOrderWithoutProfitSharing,
+    CopyOrderWithoutProfitSharing = 1,
 
     /// <summary>
     /// Copy order with profit sharing
     /// </summary>
     [Map("2")]
-    CopyOrderWithProfitSharing,
+    CopyOrderWithProfitSharing = 2,
 
     /// <summary>
     /// Lead order
     /// </summary>
     [Map("3")]
-    LeadOrder,
+    LeadOrder = 3,
 }

@@ -9,41 +9,41 @@ public enum OkxGridAlgoTimeFrame
     /// ThreeMinutes
     /// </summary>
     [Map("3m")]
-    ThreeMinutes,
+    ThreeMinutes = 180,
 
     /// <summary>
     /// FiveMinutes
     /// </summary>
     [Map("5m")]
-    FiveMinutes,
+    FiveMinutes = 300,
 
     /// <summary>
     /// FifteenMinutes
     /// </summary>
     [Map("15m")]
-    FifteenMinutes,
+    FifteenMinutes = 900,
 
     /// <summary>
     /// ThirtyMinutes
     /// </summary>
     [Map("30m")]
-    ThirtyMinutes,
+    ThirtyMinutes = 1800,
 
     /// <summary>
     /// OneHour
     /// </summary>
     [Map("1H")]
-    OneHour,
+    OneHour = 3600,
 
     /// <summary>
     /// FourHours
     /// </summary>
     [Map("4H")]
-    FourHours,
+    FourHours = 14400,
 
     /// <summary>
     /// OneDay
     /// </summary>
     [Map("1D")]
-    OneDay,
+    OneDay = 86400,
 }

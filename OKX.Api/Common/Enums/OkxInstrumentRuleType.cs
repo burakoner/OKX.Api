@@ -9,11 +9,11 @@ public enum OkxInstrumentRuleType
     /// Normal
     /// </summary>
     [Map("normal")]
-    Normal,
+    Normal = 1,
 
     /// <summary>
     /// PreMarket
     /// </summary>
     [Map("pre_market")]
-    PreMarket,
+    PreMarket = 2,
 }

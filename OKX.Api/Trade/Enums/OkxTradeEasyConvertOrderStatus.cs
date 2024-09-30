@@ -9,17 +9,17 @@ public enum OkxTradeEasyConvertOrderStatus
     /// Running
     /// </summary>
     [Map("running")]
-    Running,
+    Running = 1,
 
     /// <summary>
     /// Filled
     /// </summary>
     [Map("filled")]
-    Filled,
+    Filled = 2,
 
     /// <summary>
     /// Failed
     /// </summary>
     [Map("failed")]
-    Failed,
+    Failed = 3,
 }

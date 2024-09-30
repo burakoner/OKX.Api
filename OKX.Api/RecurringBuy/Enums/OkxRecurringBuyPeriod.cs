@@ -9,23 +9,23 @@ public enum OkxRecurringBuyPeriod
     /// Monthly
     /// </summary>
     [Map("monthly")]
-    Monthly,
+    Monthly = 4,
 
     /// <summary>
     /// Weekly
     /// </summary>
     [Map("weekly")]
-    Weekly,
+    Weekly = 3,
 
     /// <summary>
     /// Daily
     /// </summary>
     [Map("daily")]
-    Daily,
+    Daily = 2,
 
     /// <summary>
     /// Hourly
     /// </summary>
     [Map("hourly")]
-    Hourly
+    Hourly = 1
 }

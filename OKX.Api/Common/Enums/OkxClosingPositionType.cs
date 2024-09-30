@@ -9,29 +9,29 @@ public enum OkxClosingPositionType
     /// ClosePartially
     /// </summary>
     [Map("1")]
-    ClosePartially,
+    ClosePartially = 1,
 
     /// <summary>
     /// CloseAll
     /// </summary>
     [Map("2")]
-    CloseAll,
+    CloseAll = 2,
 
     /// <summary>
     /// Liquidation
     /// </summary>
     [Map("3")]
-    Liquidation,
+    Liquidation = 3,
 
     /// <summary>
     /// PartialLiquidation
     /// </summary>
     [Map("4")]
-    PartialLiquidation,
+    PartialLiquidation = 4,
 
     /// <summary>
     /// ADL
     /// </summary>
     [Map("5")]
-    ADL
+    ADL = 5
 }

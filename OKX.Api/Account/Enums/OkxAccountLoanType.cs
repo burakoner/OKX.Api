@@ -9,11 +9,11 @@ public enum OkxAccountLoanType
     /// VIP Loans
     /// </summary>
     [Map("1")]
-    VIP,
+    VIP = 1,
 
     /// <summary>
     /// Market Loans
     /// </summary>
     [Map("2")]
-    Market,
+    Market = 2,
 }

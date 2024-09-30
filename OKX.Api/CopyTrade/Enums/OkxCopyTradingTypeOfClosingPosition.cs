@@ -9,11 +9,11 @@ public enum OkxCopyTradingTypeOfClosingPosition
     /// Close position partially
     /// </summary>
     [Map("1")]
-    ClosePositionPartially,
+    ClosePositionPartially = 1,
 
     /// <summary>
     /// Close all
     /// </summary>
     [Map("2")]
-    CloseAll
+    CloseAll = 2
 }

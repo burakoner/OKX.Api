@@ -9,41 +9,41 @@ public enum OkxAlgoOrderState
     /// Live
     /// </summary>
     [Map("live")]
-    Live,
+    Live = 1,
 
     /// <summary>
     /// Pause
     /// </summary>
     [Map("pause")]
-    Pause,
+    Pause = 2,
 
     /// <summary>
     /// Effective
     /// </summary>
     [Map("effective")]
-    Effective,
+    Effective = 3,
 
     /// <summary>
     /// PartiallyEffective
     /// </summary>
     [Map("partially_effective")]
-    PartiallyEffective,
+    PartiallyEffective = 4,
 
     /// <summary>
     /// PartiallyFailed
     /// </summary>
     [Map("partially_failed")]
-    PartiallyFailed,
+    PartiallyFailed = 5,
 
     /// <summary>
     /// Canceled
     /// </summary>
     [Map("canceled")]
-    Canceled,
+    Canceled = 6,
 
     /// <summary>
     /// Failed
     /// </summary>
     [Map("order_failed")]
-    Failed,
+    Failed = 7,
 }

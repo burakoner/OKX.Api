@@ -9,23 +9,23 @@ public enum OkxAccountVipLoanType
     /// Borrow
     /// </summary>
     [Map("1")]
-    Borrow,
+    Borrow = 1,
 
     /// <summary>
     /// Repayment
     /// </summary>
     [Map("2")]
-    Repayment,
+    Repayment = 2,
 
     /// <summary>
     /// :System Repayment
     /// </summary>
     [Map("3")]
-    SystemRepayment,
+    SystemRepayment = 3,
 
     /// <summary>
     /// Interest Rate Refresh
     /// </summary>
     [Map("4")]
-    InterestRateRefresh,
+    InterestRateRefresh = 4,
 }

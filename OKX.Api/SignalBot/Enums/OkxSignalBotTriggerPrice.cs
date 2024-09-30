@@ -9,11 +9,11 @@ public enum OkxSignalBotTriggerPrice
     /// Based on the estimated profit and loss percentage from the entry point
     /// </summary>
     [Map("pnl")]
-    ProfitAndLossPercentage,
+    PnlPercent = 1,
 
     /// <summary>
     /// Based on price increase or decrease from the crypto’s entry price
     /// </summary>
     [Map("price")]
-    Price,
+    Price = 2,
 }

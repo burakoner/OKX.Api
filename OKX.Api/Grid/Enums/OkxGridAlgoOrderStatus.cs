@@ -9,23 +9,23 @@ public enum OkxGridAlgoOrderStatus
     /// Starting
     /// </summary>
     [Map("starting")]
-    Starting,
+    Starting = 1,
 
     /// <summary>
     /// Running
     /// </summary>
     [Map("running")]
-    Running,
+    Running = 2,
 
     /// <summary>
     /// Stopping
     /// </summary>
     [Map("stopping")]
-    Stopping,
+    Stopping = 3,
 
     /// <summary>
     /// NoClosePosition
     /// </summary>
     [Map("no_close_position")]
-    NoClosePosition
+    NoClosePosition = 4
 }

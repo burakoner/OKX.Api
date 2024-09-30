@@ -9,41 +9,41 @@ public enum OkxGridCancelType
     /// None
     /// </summary>
     [Map("0")]
-    None,
+    None = 0,
 
     /// <summary>
     /// ManualStop
     /// </summary>
     [Map("1")]
-    ManualStop,
+    ManualStop = 1,
 
     /// <summary>
     /// TakeProfit
     /// </summary>
     [Map("2")]
-    TakeProfit,
+    TakeProfit = 2,
 
     /// <summary>
     /// StopLoss
     /// </summary>
     [Map("3")]
-    StopLoss,
+    StopLoss = 3,
 
     /// <summary>
     /// RiskControl
     /// </summary>
     [Map("4")]
-    RiskControl,
+    RiskControl = 4,
 
     /// <summary>
     /// Delivery
     /// </summary>
     [Map("5")]
-    Delivery,
+    Delivery = 5,
 
     /// <summary>
     /// Signal
     /// </summary>
     [Map("6")]
-    Signal,
+    Signal = 6,
 }

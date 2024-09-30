@@ -9,29 +9,29 @@ public enum OkxStatusMaintenanceState
     /// Scheduled
     /// </summary>
     [Map("scheduled")]
-    Scheduled,
+    Scheduled = 1,
 
     /// <summary>
     /// Ongoing
     /// </summary>
     [Map("ongoing")]
-    Ongoing,
+    Ongoing = 2,
 
     /// <summary>
     /// Pre-Open
     /// </summary>
     [Map("pre_open")]
-    PreOpen,
+    PreOpen = 3,
 
     /// <summary>
     /// Completed
     /// </summary>
     [Map("completed")]
-    Completed,
+    Completed = 4,
 
     /// <summary>
     /// Canceled
     /// </summary>
     [Map("canceled")]
-    Canceled,
+    Canceled = 5,
 }

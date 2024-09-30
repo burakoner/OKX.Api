@@ -9,17 +9,17 @@ public enum OkxPublicEventImportance
     /// Low
     /// </summary>
     [Map("1")]
-    Low,
+    Low = 1,
 
     /// <summary>
     /// Medium
     /// </summary>
     [Map("2")]
-    Medium,
+    Medium = 2,
 
     /// <summary>
     /// High
     /// </summary>
     [Map("3")]
-    High,
+    High = 3,
 }

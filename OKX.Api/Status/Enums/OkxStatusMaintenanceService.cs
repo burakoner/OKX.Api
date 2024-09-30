@@ -9,79 +9,79 @@ public enum OkxStatusMaintenanceService
     /// WebSocket
     /// </summary>
     [Map("0")]
-    WebSocket,
+    WebSocket = 0,
 
     /*
     /// <summary>
     /// SpotMargin
     /// </summary>
     [Map("1")]
-    SpotMargin,
+    SpotMargin = 1,
 
     /// <summary>
     /// Futures
     /// </summary>
     [Map("2")]
-    Futures,
+    Futures = 2,
 
     /// <summary>
     /// Perpetual
     /// </summary>
     [Map("3")]
-    Perpetual,
+    Perpetual = 3,
 
     /// <summary>
     /// Options
     /// </summary>
     [Map("4")]
-    Options,
+    Options = 4,
     */
 
     /// <summary>
     /// TradingService
     /// </summary>
     [Map("5")]
-    TradingService,
+    TradingService = 5,
 
     /// <summary>
     /// BlockTrading
     /// </summary>
     [Map("6")]
-    BlockTrading,
+    BlockTrading = 6,
 
     /// <summary>
     /// TradingBot
     /// </summary>
     [Map("7")]
-    TradingBot,
+    TradingBot = 7,
 
     /// <summary>
     /// Trading Service (In Batches Of Accounts)
     /// </summary>
     [Map("8")]
-    TradingServiceInBatchesOfAccounts,
+    TradingServiceInBatchesOfAccounts = 8,
 
     /// <summary>
     /// Trading Service (In Batches Of Products)
     /// </summary>
     [Map("9")]
-    TradingServiceInBatchesOfProducts,
+    TradingServiceInBatchesOfProducts = 9,
 
     /// <summary>
     /// SpreadTrading
     /// </summary>
     [Map("10")]
-    SpreadTrading,
+    SpreadTrading = 10,
 
     /// <summary>
     /// CopyTrading
     /// </summary>
     [Map("11")]
-    CopyTrading,
+    CopyTrading = 11,
 
     /// <summary>
     /// Others
     /// </summary>
     [Map("99")]
-    Others
+    Others = 99
 }

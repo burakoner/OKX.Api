@@ -9,17 +9,17 @@ public enum OkxPublicDeliveryExerciseStatus
     /// Delivery
     /// </summary>
     [Map("delivery")]
-    Delivery,
+    Delivery = 1,
 
     /// <summary>
     /// Exercised
     /// </summary>
     [Map("exercised")]
-    Exercised,
+    Exercised = 2,
 
     /// <summary>
     /// ExpiredOtm
     /// </summary>
     [Map("expired_otm")]
-    ExpiredOtm,
+    ExpiredOtm = 3,
 }

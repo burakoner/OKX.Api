@@ -6,20 +6,20 @@
 public enum OkxFundingTransferState
 {
     /// <summary>
-    /// Success
-    /// </summary>
-    [Map("success")]
-    Success,
-
-    /// <summary>
     /// Pending
     /// </summary>
     [Map("pending")]
-    Pending,
+    Pending = 1,
+
+    /// <summary>
+    /// Success
+    /// </summary>
+    [Map("success")]
+    Success = 2,
 
     /// <summary>
     /// Failed
     /// </summary>
     [Map("failed")]
-    Failed,
+    Failed = 3,
 }

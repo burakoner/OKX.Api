@@ -9,11 +9,11 @@ public enum OkxAlgoOrderKind
     /// Condition
     /// </summary>
     [Map("condition")]
-    Condition,
+    Condition = 1,
 
     /// <summary>
     /// Limit
     /// </summary>
     [Map("limit")]
-    Limit,
+    Limit = 2,
 }

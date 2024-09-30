@@ -9,11 +9,11 @@ public enum OkxCopyTradingState
     /// NonCopy
     /// </summary>
     [Map("0")]
-    NonCopy,
+    NonCopy = 0,
 
     /// <summary>
     /// Copy
     /// </summary>
     [Map("1")]
-    Copy
+    Copy = 1
 }

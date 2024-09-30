@@ -9,29 +9,29 @@ public enum OkxFinancialOnChainEarnOrderState
     /// Pending
     /// </summary>
     [Map("8")]
-    Pending,
+    Pending = 8,
 
     /// <summary>
     /// Cancelling
     /// </summary>
     [Map("13")]
-    Cancelling,
+    Cancelling = 13,
 
     /// <summary>
     /// Onchain
     /// </summary>
     [Map("9")]
-    Onchain,
+    Onchain = 9,
 
     /// <summary>
     /// Earning
     /// </summary>
     [Map("1")]
-    Earning,
+    Earning = 1,
 
     /// <summary>
     /// Redeeming
     /// </summary>
     [Map("2")]
-    Redeeming,
+    Redeeming = 2,
 }

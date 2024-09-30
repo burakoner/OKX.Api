@@ -9,29 +9,29 @@ public enum OkxTradeOrderState
     /// Live
     /// </summary>
     [Map("live")]
-    Live,
+    Live = 1,
 
     /// <summary>
     /// Canceled
     /// </summary>
     [Map("canceled")]
-    Canceled,
+    Canceled = 2,
 
     /// <summary>
     /// PartiallyFilled
     /// </summary>
     [Map("partially_filled")]
-    PartiallyFilled,
+    PartiallyFilled = 3,
 
     /// <summary>
     /// Filled
     /// </summary>
     [Map("filled")]
-    Filled,
+    Filled = 4,
 
     /// <summary>
     /// Order cancelled automatically due to Market Maker Protection
     /// </summary>
     [Map("mmp_canceled")]
-    MmpCanceled
+    MmpCanceled = 5
 }

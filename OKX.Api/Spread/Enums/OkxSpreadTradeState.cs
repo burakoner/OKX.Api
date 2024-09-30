@@ -9,11 +9,11 @@ public enum OkxSpreadTradeState
     /// Filled
     /// </summary>
     [Map("filled")]
-    Filled,
+    Filled = 1,
 
     /// <summary>
     /// Rejected
     /// </summary>
     [Map("rejected")]
-    Rejected,
+    Rejected = 2,
 }

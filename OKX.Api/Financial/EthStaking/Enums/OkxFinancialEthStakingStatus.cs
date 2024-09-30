@@ -9,17 +9,17 @@ public enum OkxFinancialEthStakingStatus
     /// Pending
     /// </summary>
     [Map("pending")]
-    Pending,
+    Pending = 1,
 
     /// <summary>
     /// Success
     /// </summary>
     [Map("success")]
-    Success,
+    Success = 2,
 
     /// <summary>
     /// Failed
     /// </summary>
     [Map("failed")]
-    Failed,
+    Failed = 3,
 }

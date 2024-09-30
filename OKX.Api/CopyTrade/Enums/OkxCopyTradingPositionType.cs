@@ -9,11 +9,11 @@ public enum OkxCopyTradingPositionType
     /// Lead
     /// </summary>
     [Map("lead")]
-    Lead,
+    Lead = 1,
 
     /// <summary>
     /// Copy
     /// </summary>
     [Map("copy")]
-    Copy
+    Copy = 2
 }

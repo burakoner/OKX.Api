@@ -9,527 +9,527 @@ public enum OkxAccountBillSubType
     /// Buy
     /// </summary>
     [Map("1")]
-    Buy,
+    Buy = 1,
 
     /// <summary>
     /// Sell
     /// </summary>
     [Map("2")]
-    Sell,
+    Sell = 2,
 
     /// <summary>
     /// Open Long
     /// </summary>
     [Map("3")]
-    OpenLong,
+    OpenLong = 3,
 
     /// <summary>
     /// Open Short
     /// </summary>
     [Map("4")]
-    OpenShort,
+    OpenShort = 4,
 
     /// <summary>
     /// Close Long
     /// </summary>
     [Map("5")]
-    CloseLong,
+    CloseLong = 5,
 
     /// <summary>
     /// Close Short
     /// </summary>
     [Map("6")]
-    CloseShort,
+    CloseShort = 6,
 
     /// <summary>
     /// Interest Deduction
     /// </summary>
     [Map("9")]
-    InterestDeduction,
+    InterestDeduction = 9,
 
     /// <summary>
     /// Transfer In
     /// </summary>
     [Map("11")]
-    TransferIn,
+    TransferIn = 11,
 
     /// <summary>
     /// Transfer Out
     /// </summary>
     [Map("12")]
-    TransferOut,
+    TransferOut = 12,
 
     /// <summary>
     /// Interest Deduction For VIP Loans
     /// </summary>
     [Map("14")]
-    InterestDeductionForVipLoans,
+    InterestDeductionForVipLoans = 14,
 
     /// <summary>
     /// Repay Forcibly
     /// </summary>
     [Map("16")]
-    RepayForcibly,
+    RepayForcibly = 16,
 
     /// <summary>
     /// Repay Interest By Borrowing Forcibly
     /// </summary>
     [Map("17")]
-    RepayInterestByBorrowingForcibly,
+    RepayInterestByBorrowingForcibly = 17,
 
     /// <summary>
     /// Partial Liquidation Close Long
     /// </summary>
     [Map("100")]
-    PartialLiquidationCloseLong,
+    PartialLiquidationCloseLong = 100,
 
     /// <summary>
     /// Partial Liquidation Close Short
     /// </summary>
     [Map("101")]
-    PartialLiquidationCloseShort,
+    PartialLiquidationCloseShort = 101,
 
     /// <summary>
     /// Partial Liquidation Buy
     /// </summary>
     [Map("102")]
-    PartialLiquidationBuy,
+    PartialLiquidationBuy = 102,
 
     /// <summary>
     /// Partial Liquidation Sell
     /// </summary>
     [Map("103")]
-    PartialLiquidationSell,
+    PartialLiquidationSell = 103,
 
     /// <summary>
     /// Liquidation Long
     /// </summary>
     [Map("104")]
-    LiquidationLong,
+    LiquidationLong = 104,
 
     /// <summary>
     /// Liquidation Short
     /// </summary>
     [Map("105")]
-    LiquidationShort,
+    LiquidationShort = 105,
 
     /// <summary>
     /// Liquidation Buy
     /// </summary>
     [Map("106")]
-    LiquidationBuy,
+    LiquidationBuy = 106,
 
     /// <summary>
     /// Liquidation Sell
     /// </summary>
     [Map("107")]
-    LiquidationSell,
+    LiquidationSell = 107,
 
     /// <summary>
     /// Clawback
     /// </summary>
     [Map("108")]
-    Clawback,
+    Clawback = 108,
 
     /// <summary>
     /// Liquidation fees
     /// </summary>
     [Map("109")]
-    LiquidationFees,
+    LiquidationFees = 109,
 
     /// <summary>
     /// Liquidation Transfer In
     /// </summary>
     [Map("110")]
-    LiquidationTransferIn,
+    LiquidationTransferIn = 110,
 
     /// <summary>
     /// Liquidation Transfer Out
     /// </summary>
     [Map("111")]
-    LiquidationTransferOut,
+    LiquidationTransferOut = 111,
 
     /// <summary>
     /// Delivery Long
     /// </summary>
-    [Map("113")]
-    DeliveryLong,
+    [Map("112")]
+    DeliveryLong = 112,
 
     /// <summary>
     /// Delivery Short
     /// </summary>
     [Map("113")]
-    DeliveryShort,
+    DeliveryShort = 113,
 
     /// <summary>
     /// Auto Buy
     /// </summary>
     [Map("114")]
-    AutoBuy,
+    AutoBuy = 114,
 
     /// <summary>
     /// Auto Sell
     /// </summary>
     [Map("115")]
-    AutoSell,
+    AutoSell = 115,
 
     /// <summary>
     /// Delivery Exercise Clawback
     /// </summary>
     [Map("117")]
-    DeliveryExerciseClawback,
+    DeliveryExerciseClawback = 117,
 
     /// <summary>
     /// System Token Conversion Transfer In
     /// </summary>
     [Map("118")]
-    SystemTokenConversionTransferIn,
+    SystemTokenConversionTransferIn = 118,
 
     /// <summary>
     /// System Token Conversion Transfer Out
     /// </summary>
     [Map("119")]
-    SystemTokenConversionTransferOut,
+    SystemTokenConversionTransferOut = 119,
 
     /// <summary>
     /// ADL Close Long
     /// </summary>
     [Map("125")]
-    ADLCloseLong,
+    ADLCloseLong = 125,
 
     /// <summary>
     /// ADL Close Short
     /// </summary>
     [Map("126")]
-    ADLCloseShort,
+    ADLCloseShort = 126,
 
     /// <summary>
     /// ADL Buy
     /// </summary>
     [Map("127")]
-    ADLBuy,
+    ADLBuy = 127,
 
     /// <summary>
     /// ADL Sell
     /// </summary>
     [Map("128")]
-    ADLSell,
+    ADLSell = 128,
 
     /// <summary>
     /// DDH Buy
     /// </summary>
     [Map("131")]
-    DDHBuy,
+    DDHBuy = 131,
 
     /// <summary>
     /// DDH Sell
     /// </summary>
     [Map("132")]
-    DDHSell,
+    DDHSell = 132,
 
     /// <summary>
     /// Manual Margin Increase
     /// </summary>
     [Map("160")]
-    ManualMarginIncrease,
+    ManualMarginIncrease = 160,
 
     /// <summary>
     /// Manual Margin Decrease
     /// </summary>
     [Map("161")]
-    ManualMarginDecrease,
+    ManualMarginDecrease = 161,
 
     /// <summary>
     /// Auto Margin Increase
     /// </summary>
     [Map("162")]
-    AutoMarginIncrease,
+    AutoMarginIncrease = 162,
 
     /// <summary>
     /// Exercised
     /// </summary>
     [Map("170")]
-    Exercised,
+    Exercised = 170,
 
     /// <summary>
     /// Counterparty Exercised
     /// </summary>
     [Map("171")]
-    CounterpartyExercised,
+    CounterpartyExercised = 171,
 
     /// <summary>
     /// Expired OTM
     /// </summary>
     [Map("172")]
-    ExpiredOTM,
+    ExpiredOTM = 172,
 
     /// <summary>
     /// Funding Fee Expense
     /// </summary>
     [Map("173")]
-    FundingFeeExpense,
+    FundingFeeExpense = 173,
 
     /// <summary>
     /// Funding Fee Income
     /// </summary>
     [Map("174")]
-    FundingFeeIncome,
+    FundingFeeIncome = 174,
 
     /// <summary>
     /// System Transfer In
     /// </summary>
     [Map("200")]
-    SystemTransferIn,
+    SystemTransferIn = 200,
 
     /// <summary>
     /// Manually Transfer In
     /// </summary>
     [Map("201")]
-    ManuallyTransferIn,
+    ManuallyTransferIn = 201,
 
     /// <summary>
     /// System Transfer Out
     /// </summary>
     [Map("202")]
-    SystemTransferOut,
+    SystemTransferOut = 202,
 
     /// <summary>
     /// Manually Transfer Out
     /// </summary>
     [Map("203")]
-    ManuallyTransferOut,
+    ManuallyTransferOut = 203,
 
     /// <summary>
     /// Block Trade Buy
     /// </summary>
     [Map("204")]
-    BlockTradeBuy,
+    BlockTradeBuy = 204,
 
     /// <summary>
     /// Block Trade Sell
     /// </summary>
     [Map("205")]
-    BlockTradeSell,
+    BlockTradeSell = 205,
 
     /// <summary>
     /// Block Trade Open Long
     /// </summary>
     [Map("206")]
-    BlockTradeOpenLong,
+    BlockTradeOpenLong = 206,
 
     /// <summary>
     /// Block Trade Open Short
     /// </summary>
     [Map("207")]
-    BlockTradeOpenShort,
+    BlockTradeOpenShort = 207,
 
     /// <summary>
     /// Block Trade Close Open
     /// </summary>
     [Map("208")]
-    BlockTradeCloseOpen,
+    BlockTradeCloseOpen = 208,
 
     /// <summary>
     /// Block Trade Close Short
     /// </summary>
     [Map("209")]
-    BlockTradeCloseShort,
+    BlockTradeCloseShort = 209,
 
     /// <summary>
     /// Manual Borrowing
     /// </summary>
     [Map("210")]
-    ManualBorrowing,
+    ManualBorrowing = 210,
 
     /// <summary>
     /// Manual Repayment
     /// </summary>
     [Map("211")]
-    ManualRepayment,
+    ManualRepayment = 211,
 
     /// <summary>
     /// Auto Borrow
     /// </summary>
     [Map("212")]
-    AutoBorrow,
+    AutoBorrow = 212,
 
     /// <summary>
     /// Auto Repay
     /// </summary>
     [Map("213")]
-    AutoRepay,
+    AutoRepay = 213,
 
     /// <summary>
     /// Transfer in when using USDT to buy OPTION
     /// </summary>
     [Map("220")]
-    TransferInWhenUsingUsdtToBuyOption,
+    TransferInWhenUsingUsdtToBuyOption = 220,
 
     /// <summary>
     /// Transfer out when using USDT to buy OPTION
     /// </summary>
     [Map("221")]
-    TransferOutWhenUsingUsdtToBuyOption,
+    TransferOutWhenUsingUsdtToBuyOption = 221,
 
     /// <summary>
     /// Repayment Transfer In
     /// </summary>
     [Map("224")]
-    RepaymentTransferIn,
+    RepaymentTransferIn = 224,
 
     /// <summary>
     /// Repayment Transfer Out
     /// </summary>
     [Map("225")]
-    RepaymentTransferOut,
+    RepaymentTransferOut = 225,
 
     /// <summary>
     /// Easy convert in
     /// </summary>
     [Map("236")]
-    EasyConvertIn,
+    EasyConvertIn = 236,
 
     /// <summary>
     /// Easy convert out
     /// </summary>
     [Map("237")]
-    EasyConvertOut,
+    EasyConvertOut = 237,
 
     /// <summary>
     /// Profit Sharing Expenses
     /// </summary>
     [Map("250")]
-    ProfitSharingExpenses,
+    ProfitSharingExpenses = 250,
 
     /// <summary>
     /// Profit Sharing Refund
     /// </summary>
     [Map("251")]
-    ProfitSharingRefund,
+    ProfitSharingRefund = 251,
 
     /// <summary>
     /// Profit Sharing Income
     /// </summary>
     [Map("252")]
-    ProfitSharingIncome,
+    ProfitSharingIncome = 252,
 
     /// <summary>
     /// SpreadTradingBuy
     /// </summary>
     [Map("270")]
-    SpreadTradingBuy,
+    SpreadTradingBuy = 270,
 
     /// <summary>
     /// SpreadTradingSell
     /// </summary>
     [Map("271")]
-    SpreadTradingSell,
+    SpreadTradingSell = 271,
 
     /// <summary>
     /// SpreadTradingOpenLong
     /// </summary>
     [Map("272")]
-    SpreadTradingOpenLong,
+    SpreadTradingOpenLong = 272,
 
     /// <summary>
     /// SpreadTradingOpenShort
     /// </summary>
     [Map("273")]
-    SpreadTradingOpenShort,
+    SpreadTradingOpenShort = 273,
 
     /// <summary>
     /// SpreadTradingCloseLong
     /// </summary>
     [Map("274")]
-    SpreadTradingCloseLong,
+    SpreadTradingCloseLong = 274,
 
     /// <summary>
     /// SpreadTradingCloseShort
     /// </summary>
     [Map("275")]
-    SpreadTradingCloseShort,
+    SpreadTradingCloseShort = 275,
 
     /// <summary>
     /// SPOT profit sharing expenses
     /// </summary>
     [Map("280")]
-    SpotProfitSharingExpenses,
+    SpotProfitSharingExpenses = 280,
 
     /// <summary>
     /// SPOT profit sharing refund
     /// </summary>
     [Map("281")]
-    SpotProfitSharingRefund,
+    SpotProfitSharingRefund = 281,
 
     /// <summary>
     /// Copy trade automatic transfer in
     /// </summary>
     [Map("284")]
-    CopyTradeAutomaticTransferIn,
+    CopyTradeAutomaticTransferIn = 284,
 
     /// <summary>
     /// Copy trade manual transfer in
     /// </summary>
     [Map("285")]
-    CopyTradeManualTransferIn,
+    CopyTradeManualTransferIn = 285,
 
     /// <summary>
     /// Copy trade automatic transfer out
     /// </summary>
     [Map("286")]
-    CopyTradeAutomaticTransferOut,
+    CopyTradeAutomaticTransferOut = 286,
 
     /// <summary>
     /// Copy trade manual transfer out
     /// </summary>
     [Map("287")]
-    CopyTradeManualTransferOut,
+    CopyTradeManualTransferOut = 287,
 
     /// <summary>
     /// Crypto dust auto-transfer out
     /// </summary>
     [Map("290")]
-    CryptoDustAutoTransferOut,
+    CryptoDustAutoTransferOut = 290,
 
     /// <summary>
     /// Fixed loan interest deduction
     /// </summary>
     [Map("293")]
-    FixedLoanInterestDeduction,
+    FixedLoanInterestDeduction = 293,
 
     /// <summary>
     /// Fixed loan interest refund
     /// </summary>
     [Map("294")]
-    FixedLoanInterestRefund,
+    FixedLoanInterestRefund = 294,
 
     /// <summary>
     /// Fixed loan overdue penalty
     /// </summary>
     [Map("295")]
-    FixedLoanOverduePenalty,
+    FixedLoanOverduePenalty = 295,
 
     /// <summary>
     /// From structured order placements
     /// </summary>
     [Map("296")]
-    FromStructuredOrderPlacements,
+    FromStructuredOrderPlacements = 296,
 
     /// <summary>
     /// To structured order placements
     /// </summary>
     [Map("297")]
-    ToStructuredOrderPlacements,
+    ToStructuredOrderPlacements = 297,
 
     /// <summary>
     /// From structured settlements
     /// </summary>
     [Map("298")]
-    FromStructuredSettlements,
+    FromStructuredSettlements = 298,
 
     /// <summary>
     /// To structured settlements
     /// </summary>
     [Map("299")]
-    ToStructuredSettlements
+    ToStructuredSettlements = 299
 }

@@ -9,23 +9,23 @@ public enum OkxTradeMode
     /// Cash
     /// </summary>
     [Map("cash")]
-    Cash,
+    Cash = 1,
 
     /// <summary>
     /// Cross
     /// </summary>
     [Map("cross")]
-    Cross,
+    Cross = 2,
 
     /// <summary>
     /// Isolated
     /// </summary>
     [Map("isolated")]
-    Isolated,
+    Isolated = 3,
 
     /// <summary>
     /// Spot Isolated
     /// </summary>
     [Map("spot_isolated")]
-    SpotIsolated
+    SpotIsolated = 4
 }

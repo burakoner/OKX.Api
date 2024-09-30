@@ -9,17 +9,17 @@ public enum OkxQuickMarginType
     /// Manual
     /// </summary>
     [Map("manual")]
-    Manual,
+    Manual = 1,
 
     /// <summary>
     /// AutoBorrow
     /// </summary>
     [Map("auto_borrow")]
-    AutoBorrow,
+    AutoBorrow = 2,
 
     /// <summary>
     /// AutoRepay
     /// </summary>
     [Map("auto_repay")]
-    AutoRepay
+    AutoRepay = 3
 }

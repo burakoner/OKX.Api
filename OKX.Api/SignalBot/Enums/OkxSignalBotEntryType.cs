@@ -9,29 +9,29 @@ public enum OkxSignalBotEntryType
     /// TradingView Signal
     /// </summary>
     [Map("1")]
-    TradingViewSignal,
+    TradingViewSignal = 1,
 
     /// <summary>
     /// Fixed margin
     /// </summary>
     [Map("2")]
-    FixedMargin,
+    FixedMargin = 2,
 
     /// <summary>
     /// Contracts
     /// </summary>
     [Map("3")]
-    Contracts,
+    Contracts = 3,
 
     /// <summary>
     /// Percentage of free margin
     /// </summary>
     [Map("4")]
-    PercentageOfFreeMargin,
+    PercentageOfFreeMargin = 4,
 
     /// <summary>
     /// Percentage of the initial invested margin
     /// </summary>
     [Map("5")]
-    PercentageOfTheInitialInvestedMargin
+    PercentageOfTheInitialInvestedMargin = 5
 }

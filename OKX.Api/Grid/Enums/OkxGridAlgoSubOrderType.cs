@@ -9,11 +9,11 @@ public enum OkxGridAlgoSubOrderType
     /// Live
     /// </summary>
     [Map("live")]
-    Live,
+    Live = 1,
 
     /// <summary>
     /// Filled
     /// </summary>
     [Map("filled")]
-    Filled,
+    Filled = 2,
 }

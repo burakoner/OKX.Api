@@ -9,17 +9,17 @@ public enum OkxAlgoPriceType
     /// Last
     /// </summary>
     [Map("last")]
-    Last,
+    Last = 1,
 
     /// <summary>
     /// Index
     /// </summary>
     [Map("index")]
-    Index,
+    Index = 2,
 
     /// <summary>
     /// Mark
     /// </summary>
     [Map("mark")]
-    Mark,
+    Mark = 3,
 }

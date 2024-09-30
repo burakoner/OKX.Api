@@ -9,5 +9,5 @@ public enum OkxRecurringBuyType
     /// Recurring
     /// </summary>
     [Map("recurring")]
-    Recurring,
+    Recurring = 1,
 }

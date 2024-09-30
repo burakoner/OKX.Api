@@ -9,101 +9,101 @@ public enum OkxPeriod
     /// 1m
     /// </summary>
     [Map("1s")]
-    OneSecond,
+    OneSecond = 1,
 
     /// <summary>
     /// 1m
     /// </summary>
     [Map("1m")]
-    OneMinute,
+    OneMinute = 60,
 
     /// <summary>
     /// 3m
     /// </summary>
     [Map("3m")]
-    ThreeMinutes,
+    ThreeMinutes = 180,
 
     /// <summary>
     /// 5m
     /// </summary>
     [Map("5m")]
-    FiveMinutes,
+    FiveMinutes = 300,
 
     /// <summary>
     /// 15m
     /// </summary>
     [Map("15m")]
-    FifteenMinutes,
+    FifteenMinutes = 900,
 
     /// <summary>
     /// 30m
     /// </summary>
     [Map("30m")]
-    ThirtyMinutes,
+    ThirtyMinutes = 1800,
 
     /// <summary>
     /// 1H
     /// </summary>
     [Map("1H")]
-    OneHour,
+    OneHour = 3600,
 
     /// <summary>
     /// 2H
     /// </summary>
     [Map("2H")]
-    TwoHours,
+    TwoHours = 7200,
 
     /// <summary>
     /// 4H
     /// </summary>
     [Map("4H")]
-    FourHours,
+    FourHours = 14400,
 
     /// <summary>
     /// 6H
     /// </summary>
     [Map("6H")]
-    SixHours,
+    SixHours = 21600,
 
     /// <summary>
     /// 12H
     /// </summary>
     [Map("12H")]
-    TwelveHours,
+    TwelveHours = 43200,
 
     /// <summary>
     /// 1D
     /// </summary>
     [Map("1D")]
-    OneDay,
+    OneDay = 86400,
 
     /// <summary>
     /// 1W
     /// </summary>
     [Map("1W")]
-    OneWeek,
+    OneWeek = 604800,
 
     /// <summary>
     /// 1M
     /// </summary>
     [Map("1M")]
-    OneMonth,
+    OneMonth = 2_592_000,
 
     /// <summary>
     /// 3M
     /// </summary>
     [Map("3M")]
-    ThreeMonths,
+    ThreeMonths = 7_776_000,
 
     /// <summary>
     /// 6M
     /// </summary>
     [Map("6M")]
-    SixMonths,
+    SixMonths = 15_552_000,
 
     /// <summary>
     /// 1Y
     /// </summary>
     [Map("1Y")]
-    OneYear,
+    OneYear = 31_104_000,
 }

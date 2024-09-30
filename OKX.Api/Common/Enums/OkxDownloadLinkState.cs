@@ -9,17 +9,17 @@ public enum OkxDownloadLinkState
     /// Ongoing
     /// </summary>
     [Map("ongoing")]
-    Ongoing,
+    Ongoing = 1,
 
     /// <summary>
     /// Finished
     /// </summary>
     [Map("finished")]
-    Finished,
+    Finished = 2,
 
     /// <summary>
     /// Failed
     /// </summary>
     [Map("failed")]
-    Failed,
+    Failed = 3,
 }

@@ -9,17 +9,17 @@ public enum OkxSpreadInstrumentType
     /// Linear
     /// </summary>
     [Map("linear")]
-    Linear,
+    Linear = 1,
 
     /// <summary>
     /// Inverse
     /// </summary>
     [Map("inverse")]
-    Inverse,
+    Inverse = 2,
 
     /// <summary>
     /// Hybrid
     /// </summary>
     [Map("hybrid")]
-    Hybrid,
+    Hybrid = 3,
 }

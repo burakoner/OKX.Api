@@ -9,23 +9,23 @@ public enum OkxAccountLevel
     /// Simple
     /// </summary>
     [Map("1")]
-    Simple,
+    Simple = 1,
 
     /// <summary>
     /// Single Currency Margin
     /// </summary>
     [Map("2")]
-    SingleCurrencyMargin,
+    SingleCurrencyMargin = 2,
 
     /// <summary>
     /// Multi Currency Margin
     /// </summary>
     [Map("3")]
-    MultiCurrencyMargin,
+    MultiCurrencyMargin = 3,
 
     /// <summary>
     /// Portfolio Margin
     /// </summary>
     [Map("4")]
-    PortfolioMargin,
+    PortfolioMargin = 4,
 }

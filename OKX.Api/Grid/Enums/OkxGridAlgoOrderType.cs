@@ -9,11 +9,11 @@ public enum OkxGridAlgoOrderType
     /// SpotGrid
     /// </summary>
     [Map("grid")]
-    SpotGrid,
+    SpotGrid = 1,
 
     /// <summary>
     /// ContractGrid
     /// </summary>
     [Map("contract_grid")]
-    ContractGrid,
+    ContractGrid = 2,
 }

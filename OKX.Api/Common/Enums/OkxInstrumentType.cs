@@ -9,41 +9,41 @@ public enum OkxInstrumentType
     /// Any
     /// </summary>
     [Map("ANY")]
-    Any,
+    Any = 0,
 
     /// <summary>
     /// Spot
     /// </summary>
     [Map("SPOT")]
-    Spot,
+    Spot = 1,
 
     /// <summary>
     /// Margin
     /// </summary>
     [Map("MARGIN")]
-    Margin,
+    Margin = 2,
 
     /// <summary>
     /// Swap
     /// </summary>
     [Map("SWAP")]
-    Swap,
+    Swap = 3,
 
     /// <summary>
     /// Futures
     /// </summary>
     [Map("FUTURES")]
-    Futures,
+    Futures = 4,
 
     /// <summary>
     /// Option
     /// </summary>
     [Map("OPTION")]
-    Option,
+    Option = 5,
 
     /// <summary>
     /// Contracts
     /// </summary>
     [Map("CONTRACTS")]
-    Contracts,
+    Contracts = 6,
 }

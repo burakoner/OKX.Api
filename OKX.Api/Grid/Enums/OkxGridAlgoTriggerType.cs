@@ -9,11 +9,11 @@ public enum OkxGridAlgoTriggerType
     /// Auto
     /// </summary>
     [Map("auto")]
-    Auto,
+    Auto = 1,
 
     /// <summary>
     /// Manual
     /// </summary>
     [Map("manual")]
-    Manual,
+    Manual = 2,
 }

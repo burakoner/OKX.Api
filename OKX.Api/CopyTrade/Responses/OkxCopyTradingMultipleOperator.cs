@@ -21,5 +21,5 @@ public class OkxCopyTradingMultipleOperation
     /// Result
     /// </summary>
     [JsonProperty("result")]
-    public OkxCopyTradingMultipleOperationStatus Result { get; set; }
+    public OkxCopyTradingOperationStatus Result { get; set; }
 }

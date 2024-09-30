@@ -9,11 +9,11 @@ public enum OkxFlexibleSimpleEarnSavingsSide
     /// Purchase
     /// </summary>
     [Map("purchase")]
-    Purchase,
+    Purchase = 1,
 
     /// <summary>
     /// Redeem
     /// </summary>
     [Map("redempt")]
-    Redeem,
+    Redeem = 2,
 }

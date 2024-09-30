@@ -9,11 +9,11 @@ public enum OkxCopyTradingInstrumentIdType
     /// custom: custom by instId which is required；
     /// </summary>
     [Map("custom")]
-    Custom,
+    Custom = 1,
 
     /// <summary>
     /// copy: Keep your contracts consistent with this trader by automatically adding or removing contracts when they do
     /// </summary>
     [Map("copy")]
-    Copy,
+    Copy = 2,
 }

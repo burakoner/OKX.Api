@@ -9,11 +9,11 @@ public enum OkxFundingConvertOrderState
     /// fullyFilled: success
     /// </summary>
     [Map("fullyFilled")]
-    Success,
+    Success = 1,
 
     /// <summary>
     /// rejected: failed
     /// </summary>
     [Map("rejected")]
-    Failed,
+    Failed = 2,
 }

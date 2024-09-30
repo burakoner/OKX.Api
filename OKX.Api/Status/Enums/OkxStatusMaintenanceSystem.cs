@@ -9,11 +9,11 @@ public enum OkxStatusMaintenanceSystem
     /// Classic
     /// </summary>
     [Map("classic")]
-    Classic,
+    Classic = 1,
 
     /// <summary>
     /// Unified
     /// </summary>
     [Map("unified")]
-    Unified,
+    Unified = 2,
 }

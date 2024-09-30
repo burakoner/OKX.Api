@@ -9,11 +9,11 @@ public enum OkxPriceVariance
     /// Spread
     /// </summary>
     [Map("pxSpread")]
-    Spread,
+    Spread = 1,
 
     /// <summary>
     /// Variance
     /// </summary>
     [Map("pxVar")]
-    Variance,
+    Variance = 2,
 }

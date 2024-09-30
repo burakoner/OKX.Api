@@ -9,17 +9,17 @@ public enum OkxInstrumentState
     /// Live
     /// </summary>
     [Map("live")]
-    Live,
+    Live = 1,
 
     /// <summary>
     /// Suspend
     /// </summary>
     [Map("suspend")]
-    Suspend,
+    Suspend = 2,
 
     /// <summary>
     /// PreOpen
     /// </summary>
     [Map("preopen")]
-    PreOpen,
+    PreOpen = 3,
 }

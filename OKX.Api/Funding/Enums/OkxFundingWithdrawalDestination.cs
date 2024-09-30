@@ -9,11 +9,11 @@ public enum OkxFundingWithdrawalDestination
     /// OKX
     /// </summary>
     [Map("3")]
-    OKX,
+    OKX = 3,
 
     /// <summary>
     /// DigitalCurrencyAddress
     /// </summary>
     [Map("4")]
-    DigitalCurrencyAddress,
+    DigitalCurrencyAddress = 4,
 }

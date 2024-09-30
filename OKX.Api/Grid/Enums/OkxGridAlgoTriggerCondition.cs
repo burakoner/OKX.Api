@@ -9,29 +9,29 @@ public enum OkxGridAlgoTriggerCondition
     /// CrossUp
     /// </summary>
     [Map("cross_up")]
-    CrossUp,
+    CrossUp = 1,
 
     /// <summary>
     /// CrossDown
     /// </summary>
     [Map("cross_down")]
-    CrossDown,
+    CrossDown = 2,
 
     /// <summary>
     /// Above
     /// </summary>
     [Map("above")]
-    Above,
+    Above = 3,
 
     /// <summary>
     /// Below
     /// </summary>
     [Map("below")]
-    Below,
+    Below = 4,
 
     /// <summary>
     /// Cross
     /// </summary>
     [Map("cross")]
-    Cross
+    Cross = 5
 }

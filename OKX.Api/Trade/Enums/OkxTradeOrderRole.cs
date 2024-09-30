@@ -9,11 +9,11 @@ public enum OkxTradeOrderRole
     /// Taker
     /// </summary>
     [Map("T")]
-    Taker,
+    Taker = 1,
 
     /// <summary>
     /// Maker
     /// </summary>
     [Map("M")]
-    Maker,
+    Maker = 2,
 }

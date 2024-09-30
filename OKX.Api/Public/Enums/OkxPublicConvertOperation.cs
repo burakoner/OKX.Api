@@ -9,11 +9,11 @@ public enum OkxPublicConvertOperation
     /// Open
     /// </summary>
     [Map("open")]
-    Open,
+    Open = 1,
 
     /// <summary>
     /// Close
     /// </summary>
     [Map("close")]
-    Close,
+    Close = 2,
 }

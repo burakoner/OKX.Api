@@ -9,29 +9,29 @@ public enum OkxAccountVipLoanState
     /// Borrowing
     /// </summary>
     [Map("1")]
-    Borrowing,
+    Borrowing = 1,
 
     /// <summary>
     /// Borrowed
     /// </summary>
     [Map("2")]
-    Borrowed,
+    Borrowed = 2,
 
     /// <summary>
     /// Repaying
     /// </summary>
     [Map("3")]
-    Repaying,
+    Repaying = 3,
 
     /// <summary>
     /// Repaid
     /// </summary>
     [Map("4")]
-    Repaid,
+    Repaid = 4,
 
     /// <summary>
     /// Borrow failed
     /// </summary>
     [Map("5")]
-    BorrowFailed,
+    BorrowFailed = 5,
 }

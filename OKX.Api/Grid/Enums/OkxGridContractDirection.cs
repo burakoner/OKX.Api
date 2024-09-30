@@ -9,17 +9,17 @@ public enum OkxGridContractDirection
     /// Long
     /// </summary>
     [Map("long")]
-    Long,
+    Long = 1,
 
     /// <summary>
     /// Short
     /// </summary>
     [Map("short")]
-    Short,
+    Short = -1,
 
     /// <summary>
     /// Neutral
     /// </summary>
     [Map("neutral")]
-    Neutral
+    Neutral = 0
 }

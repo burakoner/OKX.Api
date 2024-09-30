@@ -9,17 +9,17 @@ public enum OkxSignalBotSourceType
     /// Created by yourself
     /// </summary>
     [Map("1")]
-    CreatedbyYourself,
+    CreatedbyYourself = 1,
 
     /// <summary>
     /// Subscribe
     /// </summary>
     [Map("2")]
-    Subscribe,
+    Subscribe = 2,
 
     /// <summary>
     /// Free signal
     /// </summary>
     [Map("3")]
-    FreeSignal,
+    FreeSignal = 3,
 }

@@ -9,11 +9,11 @@ public enum OkxSignalBotEventStatus
     /// Success
     /// </summary>
     [Map("success")]
-    Success,
+    Success = 1,
 
     /// <summary>
     /// Failure
     /// </summary>
     [Map("failure")]
-    Failure,
+    Failure = 2,
 }

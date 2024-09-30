@@ -9,17 +9,17 @@ public enum OkxAccountApiKeyPermission
     /// ReadOnly
     /// </summary>
     [Map("read_only")]
-    ReadOnly,
+    ReadOnly = 1,
 
     /// <summary>
     /// Trade
     /// </summary>
     [Map("trade")]
-    Trade,
+    Trade = 2,
 
     /// <summary>
     /// Withdraw
     /// </summary>
     [Map("withdraw")]
-    Withdraw
+    Withdraw = 3
 }

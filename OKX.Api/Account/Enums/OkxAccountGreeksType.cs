@@ -9,17 +9,17 @@ public enum OkxAccountGreeksType
     /// GreeksInCoins
     /// </summary>
     [Map("PA")]
-    GreeksInCoins,
+    GreeksInCoins = 1,
 
     /// <summary>
     /// BlackScholesGreeksInDollars
     /// </summary>
     [Map("BS")]
-    BlackScholesGreeksInDollars,
+    BlackScholesGreeksInDollars = 2,
 
     /// <summary>
     /// Empirical Greeks
     /// </summary>
     [Map("CASH")]
-    EmpiricalGreeks
+    EmpiricalGreeks = 3
 }

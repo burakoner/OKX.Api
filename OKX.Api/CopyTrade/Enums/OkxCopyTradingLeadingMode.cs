@@ -9,11 +9,11 @@ public enum OkxCopyTradingLeadingMode
     /// Public
     /// </summary>
     [Map("public")]
-    Public,
+    Public = 1,
 
     /// <summary>
     /// Private
     /// </summary>
     [Map("private")]
-    Private
+    Private = 2
 }

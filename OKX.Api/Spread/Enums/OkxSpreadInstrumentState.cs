@@ -9,17 +9,17 @@ public enum OkxSpreadInstrumentState
     /// Live
     /// </summary>
     [Map("live")]
-    Live,
+    Live = 1,
 
     /// <summary>
     /// Suspended
     /// </summary>
     [Map("suspend")]
-    Suspended,
+    Suspended = 2,
 
     /// <summary>
     /// Expired
     /// </summary>
     [Map("expired")]
-    Expired,
+    Expired = 3,
 }

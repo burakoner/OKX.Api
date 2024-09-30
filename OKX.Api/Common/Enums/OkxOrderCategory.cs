@@ -9,41 +9,41 @@ public enum OkxOrderCategory
     /// Normal
     /// </summary>
     [Map("normal")]
-    Normal,
+    Normal = 1,
 
     /// <summary>
     /// TWAP
     /// </summary>
     [Map("twap")]
-    TWAP,
+    TWAP = 2,
 
     /// <summary>
     /// ADL
     /// </summary>
     [Map("adl")]
-    ADL,
+    ADL = 3,
 
     /// <summary>
     /// FullLiquidation
     /// </summary>
     [Map("full_liquidation")]
-    FullLiquidation,
+    FullLiquidation = 4,
 
     /// <summary>
     /// PartialLiquidation
     /// </summary>
     [Map("partial_liquidation")]
-    PartialLiquidation,
+    PartialLiquidation = 5,
 
     /// <summary>
     /// Delivery
     /// </summary>
     [Map("delivery")]
-    Delivery,
+    Delivery = 6,
 
     /// <summary>
     /// DDH
     /// </summary>
     [Map("ddh")]
-    DDH,
+    DDH = 7,
 }
