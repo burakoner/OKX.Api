@@ -8,5 +8,6 @@ public enum OkxRecurringBuyType
     /// <summary>
     /// Recurring
     /// </summary>
+    [Map("recurring")]
     Recurring,
 }

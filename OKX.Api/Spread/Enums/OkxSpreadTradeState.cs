@@ -8,10 +8,12 @@ public enum OkxSpreadTradeState
     /// <summary>
     /// Filled
     /// </summary>
+    [Map("filled")]
     Filled,
 
     /// <summary>
     /// Rejected
     /// </summary>
+    [Map("rejected")]
     Rejected,
 }
