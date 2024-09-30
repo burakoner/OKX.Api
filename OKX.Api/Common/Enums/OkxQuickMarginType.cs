@@ -3,7 +3,6 @@
 /// <summary>
 /// OKX Quick Margin Type
 /// </summary>
-[Obsolete]
 public enum OkxQuickMarginType
 {
     /// <summary>

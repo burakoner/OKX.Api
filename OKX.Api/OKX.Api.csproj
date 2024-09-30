@@ -59,10 +59,7 @@
 	<ItemGroup>
 	  <Folder Include="Account\Requests\" />
 	  <Folder Include="Affiliate\Requests\" />
-	  <Folder Include="Algo\Requests\" />
 	  <Folder Include="Announcement\Requests\" />
-	  <Folder Include="Base\Requests\" />
-	  <Folder Include="Block\Requests\" />
 	  <Folder Include="Broker\FullyDisclosed\Converters\" />
 	  <Folder Include="Broker\FullyDisclosed\Enums\" />
 	  <Folder Include="Broker\FullyDisclosed\Requests\" />
@@ -78,7 +75,6 @@
 	  <Folder Include="Financial\FlexibleSimpleEarn\Requests\" />
 	  <Folder Include="Financial\OnChainEarn\Requests\" />
 	  <Folder Include="Funding\Requests\" />
-	  <Folder Include="Grid\Requests\" />
 	  <Folder Include="Public\Requests\" />
 	  <Folder Include="RecurringBuy\Requests\" />
 	  <Folder Include="Rubik\Requests\" />
@@ -86,7 +82,6 @@
 	  <Folder Include="Spread\Requests\" />
 	  <Folder Include="Status\Requests\" />
 	  <Folder Include="SubAccount\Requests\" />
-	  <Folder Include="Trade\Requests\" />
 	</ItemGroup>
 
 	<ItemGroup>
