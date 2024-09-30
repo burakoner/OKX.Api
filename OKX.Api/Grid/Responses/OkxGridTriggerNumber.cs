@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Grid Trigger Number
 /// </summary>
-public record OkxGridTriggerNumber
+internal record OkxGridTriggerNumber
 {
     /// <summary>
     /// Trigger Number
     /// </summary>
     [JsonProperty("triggerNum")]
-    public int TriggerNumber { get; set; }
+    public long Data { get; set; }
 }

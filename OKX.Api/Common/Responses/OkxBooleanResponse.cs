@@ -3,11 +3,11 @@
 /// <summary>
 /// Okx Boolean Response
 /// </summary>
-public record OkxBooleanResponse
+internal record OkxBooleanResponse
 {
     /// <summary>
     /// Result
     /// </summary>
     [JsonProperty("result")]
-    public bool Result { get; set; }
+    public bool Data { get; set; }
 }

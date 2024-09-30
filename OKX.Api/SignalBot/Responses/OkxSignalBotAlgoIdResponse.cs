@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Signal Algo Response
 /// </summary>
-public record OkxSignalBotAlgoIdResponse : OkxRestApiErrorBase
+internal record OkxSignalBotAlgoIdResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Algo ID
     /// </summary>
     [JsonProperty("algoId")]
-    public long AlgoId { get; set; }
+    public long Data { get; set; }
 }

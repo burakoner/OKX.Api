@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Signal Algo Id
 /// </summary>
-public record OkxSignalBotAlgoId
+internal record OkxSignalBotAlgoId
 {
     /// <summary>
     /// Algo ID
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoId { get; set; } = string.Empty;
+    public string Data { get; set; } = string.Empty;
 }

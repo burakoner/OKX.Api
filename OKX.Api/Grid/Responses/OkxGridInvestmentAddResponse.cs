@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Grid Investment Add Response
 /// </summary>
-public record OkxGridInvestmentAddResponse
+internal record OkxGridInvestmentAddResponse
 {
     /// <summary>
     /// Algo Order Id
     /// </summary>
     [JsonProperty("algoId")]
-    public string AlgoOrderId { get; set; } = string.Empty;
+    public string Data { get; set; } = string.Empty;
 }

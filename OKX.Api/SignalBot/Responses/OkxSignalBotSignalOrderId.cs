@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Signal Bot Signal Order Id
 /// </summary>
-public record OkxSignalBotSignalOrderId : OkxRestApiErrorBase
+internal record OkxSignalBotSignalOrderId : OkxRestApiErrorBase
 {
     /// <summary>
     /// Signal Order Id
     /// </summary>
     [JsonProperty("signalOrdId")]
-    public long? SignalOrdId { get; set; }
+    public long? Data { get; set; }
 }

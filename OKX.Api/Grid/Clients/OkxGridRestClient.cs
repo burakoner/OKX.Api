@@ -23,7 +23,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     private const string v5TradingBotGridAdjustInvestment = "api/v5/tradingBot/grid/adjust-investment";
     private const string v5TradingBotGridAiParam = "api/v5/tradingBot/grid/ai-param";
     private const string v5TradingBotGridMinInvestment = "api/v5/tradingBot/grid/min-investment";
-    private const string v5TradingBotGridRsiBackTesting = "api/v5/tradingBot/grid/rsi-back-testing";
+    private const string v5TradingBotPublicRsiBackTesting = "api/v5/tradingBot/public/rsi-back-testing";
 
     /// <summary>
     /// Place grid algo order
@@ -595,7 +595,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="duration">	Back testing duration.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridRsiBacktest>> RsiBacktestAsync(
+    public Task<RestCallResult<OkxGridTriggerNumber>> RsiBacktestAsync(
         string instrumentId,
         OkxGridAlgoTimeFrame timeframe,
         decimal threshold,
@@ -613,7 +613,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalEnum("triggerCond", triggerCondition);
         parameters.AddOptional("duration", duration);
 
-        return ProcessOneRequestAsync<OkxGridRsiBacktest>(GetUri(v5TradingBotGridRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridTriggerNumber>(GetUri(v5TradingBotPublicRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters);
     }
 
 }

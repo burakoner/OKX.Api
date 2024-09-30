@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Exchange Rate
 /// </summary>
-public record OkxPublicExchangeRate
+internal record OkxPublicExchangeRate
 {
     /// <summary>
     /// USD to CNY
     /// </summary>
     [JsonProperty("usdCny")]
-    public decimal UsdCny { get; set; }
+    public decimal Data { get; set; }
 }
