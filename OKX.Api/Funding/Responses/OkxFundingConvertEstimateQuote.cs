@@ -50,7 +50,7 @@ public class OkxFundingConvertEstimateQuote
     /// <summary>
     /// Trade side based on baseCcy
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide Side { get; set; }
     
     /// <summary>

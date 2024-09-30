@@ -80,6 +80,6 @@ public class OkxCopyTradingLeadTrader
     /// <summary>
     /// Lead mode public private
     /// </summary>
-    [JsonProperty("leadMode"), JsonConverter(typeof(OkxCopyTradingLeadingModeConverter))]
+    [JsonProperty("leadMode")]
     public OkxCopyTradingLeadingMode LeadMode { get; set; }
 }

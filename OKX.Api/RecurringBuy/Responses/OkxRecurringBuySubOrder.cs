@@ -14,7 +14,7 @@ public class OkxRecurringBuySubOrder
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
     
     /// <summary>
@@ -26,7 +26,7 @@ public class OkxRecurringBuySubOrder
     /// <summary>
     /// Algo order type. recurring: recurring buy
     /// </summary>
-    [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxRecurringBuyTypeConverter))]
+    [JsonProperty("algoOrdType")]
     public OkxRecurringBuyType AlgoOrderType { get; set; }
     
     /// <summary>
@@ -64,13 +64,13 @@ public class OkxRecurringBuySubOrder
     /// Margin mode : cross
     /// Non-Margin mode : cash
     /// </summary>
-    [JsonProperty("tdMode"), JsonConverter(typeof(OkxTradeModeConverter))]
+    [JsonProperty("tdMode")]
     public OkxTradeMode TradeMode { get; set; }
     
     /// <summary>
     /// Sub order type
     /// </summary>
-    [JsonProperty("ordType"), JsonConverter(typeof(OkxTradeModeConverter))]
+    [JsonProperty("ordType")]
     public OkxTradeOrderType OrderType { get; set; }
 
     /// <summary>
@@ -82,13 +82,13 @@ public class OkxRecurringBuySubOrder
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxRecurringBuyStateConverter))]
+    [JsonProperty("state")]
     public OkxRecurringBuyState State { get; set; }
     
     /// <summary>
     /// Sub order side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide OrderSide { get; set; }
     
     /// <summary>

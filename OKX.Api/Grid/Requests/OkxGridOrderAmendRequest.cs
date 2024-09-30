@@ -56,13 +56,13 @@ public class OkxGridOrderAmendRequestTriggerParameters
     /// <summary>
     /// Trigger action
     /// </summary>
-    [JsonProperty("triggerAction"), JsonConverter(typeof(OkxGridAlgoTriggerActionConverter))]
+    [JsonProperty("triggerAction")]
     public OkxGridAlgoTriggerAction TriggerAction { get; set; }
 
     /// <summary>
     /// Trigger strategy
     /// </summary>
-    [JsonProperty("triggerStrategy"), JsonConverter(typeof(OkxGridTriggerStrategyConverter))]
+    [JsonProperty("triggerStrategy")]
     public OkxGridTriggerStrategy TriggerStrategy { get; set; }
 
     /// <summary>
@@ -91,8 +91,8 @@ public class OkxGridOrderAmendRequestTriggerParameters
     {
         get
         {
-            if (SpotAlgoStopType is not null) return JsonConvert.SerializeObject(SpotAlgoStopType, new OkxGridSpotAlgoStopTypeConverter(false));
-            if (ContractAlgoStopType is not null) return JsonConvert.SerializeObject(ContractAlgoStopType, new OkxGridContractAlgoStopTypeConverter(false));
+            if (SpotAlgoStopType is not null) return MapConverter.GetString(SpotAlgoStopType);
+            if (ContractAlgoStopType is not null) return MapConverter.GetString(ContractAlgoStopType);
             return string.Empty;
         }
     }

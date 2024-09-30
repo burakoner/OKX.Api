@@ -50,7 +50,7 @@ public class OkxCopyTradingLeadTraderHistory
     /// <summary>
     /// Copy mode
     /// </summary>
-    [JsonProperty("copyMode"), JsonConverter(typeof(OkxCopyTradingModeConverter))]
+    [JsonProperty("copyMode")]
     public OkxCopyTradingMode CopyMode { get; set; }
     
     /// <summary>
@@ -104,12 +104,12 @@ public class OkxCopyTradingLeadTraderHistory
     /// <summary>
     /// Current copy state
     /// </summary>
-    [JsonProperty("copyState"), JsonConverter(typeof(OkxCopyTradingStateConverter))]
+    [JsonProperty("copyState")]
     public OkxCopyTradingState CopyState { get; set; }
     
     /// <summary>
     /// Lead mode public private
     /// </summary>
-    [JsonProperty("leadMode"), JsonConverter(typeof(OkxCopyTradingLeadingModeConverter))]
+    [JsonProperty("leadMode")]
     public OkxCopyTradingLeadingMode LeadMode { get; set; }
 }

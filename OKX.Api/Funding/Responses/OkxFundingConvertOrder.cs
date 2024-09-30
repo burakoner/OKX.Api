@@ -28,7 +28,7 @@ public class OkxFundingConvertOrder
     /// fullyFilled : success
     /// rejected : failed
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxFundingConvertOrderStateConverter))]
+    [JsonProperty("state")]
     public OkxFundingConvertOrderState State { get; set; }
 
     /// <summary>
@@ -52,7 +52,7 @@ public class OkxFundingConvertOrder
     /// <summary>
     /// Trade side based on baseCcy
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide Side { get; set; }
 
     /// <summary>

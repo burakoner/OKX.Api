@@ -8,13 +8,13 @@ public class OkxGridTriggerParameters
     /// <summary>
     /// Trigger action
     /// </summary>
-    [JsonProperty("triggerAction"), JsonConverter(typeof(OkxGridAlgoTriggerActionConverter))]
+    [JsonProperty("triggerAction")]
     public OkxGridAlgoTriggerAction TriggerAction { get; set; }
 
     /// <summary>
     /// Trigger strategy
     /// </summary>
-    [JsonProperty("triggerStrategy"), JsonConverter(typeof(OkxGridTriggerStrategyConverter))]
+    [JsonProperty("triggerStrategy")]
     public OkxGridTriggerStrategy TriggerStrategy { get; set; }
 
     /// <summary>
@@ -27,7 +27,7 @@ public class OkxGridTriggerParameters
     /// K-line type
     /// This field is only valid when triggerStrategy is rsi
     /// </summary>
-    [JsonProperty("timeframe"), JsonConverter(typeof(OkxGridAlgoTimeFrameConverter))]
+    [JsonProperty("timeframe")]
     public OkxGridAlgoTimeFrame? TimeFrame { get; set; }
     
     /// <summary>
@@ -42,7 +42,7 @@ public class OkxGridTriggerParameters
     /// Trigger condition
     /// This field is only valid when triggerStrategy is rsi
     /// </summary>
-    [JsonProperty("triggerCond"), JsonConverter(typeof(OkxGridAlgoTriggerConditionConverter))]
+    [JsonProperty("triggerCond")]
     public OkxGridAlgoTriggerCondition? TriggerCondition { get; set; }
     
     /// <summary>
@@ -81,7 +81,7 @@ public class OkxGridTriggerParameters
     /// <summary>
     /// Actual action triggered type
     /// </summary>
-    [JsonProperty("triggerType"), JsonConverter(typeof(OkxGridTriggerTypeConverter))]
+    [JsonProperty("triggerType")]
     public OkxGridTriggerType? TriggerType { get; set; }
 }
 

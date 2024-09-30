@@ -20,7 +20,7 @@ public class OkxCopyTradingLeadTraderPositionHistory
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    [JsonProperty("posSide")]
     public OkxTradePositionSide Side { get; set; }
 
     /// <summary>
@@ -92,7 +92,7 @@ public class OkxCopyTradingLeadTraderPositionHistory
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>

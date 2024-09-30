@@ -20,7 +20,7 @@ public class OkxGridAlgoSubOrder
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -32,7 +32,7 @@ public class OkxGridAlgoSubOrder
     /// <summary>
     /// Algo order type
     /// </summary>
-    [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxGridAlgoOrderTypeConverter))]
+    [JsonProperty("algoOrdType")]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class OkxGridAlgoSubOrder
     /// <summary>
     /// Trade mode
     /// </summary>
-    [JsonProperty("tdMode"), JsonConverter(typeof(OkxTradeModeConverter))]
+    [JsonProperty("tdMode")]
     public OkxTradeMode TradeMode { get; set; }
 
     /// <summary>
@@ -86,7 +86,7 @@ public class OkxGridAlgoSubOrder
     /// <summary>
     /// Order type
     /// </summary>
-    [JsonProperty("ordType"), JsonConverter(typeof(OkxTradeOrderTypeConverter))]
+    [JsonProperty("ordType")]
     public OkxTradeOrderType OrderType { get; set; }
 
     /// <summary>
@@ -98,13 +98,13 @@ public class OkxGridAlgoSubOrder
     /// <summary>
     /// Algo sub order status
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxGridAlgoSubOrderStatusConverter))]
+    [JsonProperty("state")]
     public OkxGridAlgoSubOrderStatus AlgoSubOrderStatus { get; set; }
 
     /// <summary>
     /// Order side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide OrderSide { get; set; }
 
     /// <summary>
@@ -152,7 +152,7 @@ public class OkxGridAlgoSubOrder
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    [JsonProperty("posSide")]
     public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>

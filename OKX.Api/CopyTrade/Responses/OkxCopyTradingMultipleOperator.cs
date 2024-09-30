@@ -20,6 +20,6 @@ public class OkxCopyTradingMultipleOperation
     /// <summary>
     /// Result
     /// </summary>
-    [JsonProperty("result"), JsonConverter(typeof(OkxCopyTradingMultipleOperationStatusConverter))]
+    [JsonProperty("result")]
     public OkxCopyTradingMultipleOperationStatus Result { get; set; }
 }

@@ -26,6 +26,6 @@ public class OkxDownloadLink
     /// <summary>
     /// Download link status
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxDownloadLinkStateConverter))]
+    [JsonProperty("state")]
     public OkxDownloadLinkState State { get; set; }
 }

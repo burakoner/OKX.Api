@@ -14,13 +14,13 @@ public class OkxSpreadInstrument
     /// <summary>
     /// spread Type. Valid values are linear, inverse, hybrid
     /// </summary>
-    [JsonProperty("sprdType"), JsonConverter(typeof(OkxSpreadInstrumentTypeConverter))]
+    [JsonProperty("sprdType")]
     public OkxSpreadInstrumentType Type { get; set; }
 
     /// <summary>
     /// Current state of the spread. Valid values include live, expired, suspend.
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxSpreadInstrumentStateConverter))]
+    [JsonProperty("state")]
     public OkxSpreadInstrumentState State { get; set; }
 
     /// <summary>
@@ -116,6 +116,6 @@ public class OkxSpreadInstrumentLeg
     /// <summary>
     /// The direction of the leg of the spread. Valid Values include buy and sell.
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide OrderSide { get; set; }
 }

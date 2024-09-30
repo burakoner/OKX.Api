@@ -9,7 +9,7 @@ global using ApiSharp.Security;
 global using ApiSharp.Throttling;
 global using ApiSharp.WebSocket;
 global using Microsoft.Extensions.Logging;
-// global using Newtonsoft.Json;
+global using Newtonsoft.Json;
 global using Newtonsoft.Json.Linq;
 global using Newtonsoft.Json.Serialization;
 global using OKX.Api.Account;

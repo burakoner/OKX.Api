@@ -8,7 +8,7 @@ public class OkxFinancialEthStakingHistory
     /// <summary>
     /// Type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxFinancialEthStakingTypeConverter))]
+    [JsonProperty("type")]
     public OkxFinancialEthStakingType Type { get; set; }
 
     /// <summary>
@@ -20,7 +20,7 @@ public class OkxFinancialEthStakingHistory
     /// <summary>
     /// Status
     /// </summary>
-    [JsonProperty("status"), JsonConverter(typeof(OkxFinancialEthStakingStatusConverter))]
+    [JsonProperty("status")]
     public OkxFinancialEthStakingStatus Status { get; set; }
 
     /// <summary>

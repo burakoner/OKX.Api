@@ -32,7 +32,7 @@ public class OkxFundingTransferStateResponse
     /// <summary>
     /// Type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxFundingTransferTypeConverter))]
+    [JsonProperty("type")]
     public OkxFundingTransferType Type { get; set; }
 
     /// <summary>
@@ -56,6 +56,6 @@ public class OkxFundingTransferStateResponse
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxFundingTransferStateConverter))]
+    [JsonProperty("state")]
     public OkxFundingTransferState State { get; set; }
 }

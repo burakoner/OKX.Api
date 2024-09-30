@@ -14,7 +14,7 @@ public class OkxTradeClosePositionResponse
     /// <summary>
     /// Position Side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    [JsonProperty("posSide")]
     public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>

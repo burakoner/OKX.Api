@@ -32,7 +32,7 @@ public class OkxSpreadPublicTrade
     /// <summary>
     /// Trade side of the taker.
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide TakerSide { get; set; }
 
     /// <summary>

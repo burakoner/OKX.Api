@@ -14,7 +14,7 @@ public class OkxFinancialOnChainEarnEarningData
     /// <summary>
     /// Earning type
     /// </summary>
-    [JsonProperty("earningType"), JsonConverter(typeof(OkxFinancialOnChainEarnEarningTypeConverter))]
+    [JsonProperty("earningType")]
     public OkxFinancialOnChainEarnEarningType EarningType { get; set; }
 
     /// <summary>

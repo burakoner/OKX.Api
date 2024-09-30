@@ -74,7 +74,7 @@ public class OkxSignalBotPositionHistory
     /// <summary>
     /// Direction: long short
     /// </summary>
-    [JsonProperty("direction"), JsonConverter(typeof(OkxTradePositionDirectionConverter))]
+    [JsonProperty("direction")]
     public OkxTradePositionDirection Direction { get; set; }
     
     /// <summary>

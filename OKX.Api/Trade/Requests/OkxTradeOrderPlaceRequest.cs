@@ -14,7 +14,7 @@ public class OkxTradeOrderPlaceRequest
     /// <summary>
     /// Trade Mode
     /// </summary>
-    [JsonProperty("tdMode"), JsonConverter(typeof(OkxTradeModeConverter))]
+    [JsonProperty("tdMode")]
     public OkxTradeMode TradeMode { get; set; }
 
     /// <summary>
@@ -38,19 +38,19 @@ public class OkxTradeOrderPlaceRequest
     /// <summary>
     /// Order Side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide OrderSide { get; set; }
 
     /// <summary>
     /// Position Side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    [JsonProperty("posSide")]
     public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
     /// Order Type
     /// </summary>
-    [JsonProperty("ordType"), JsonConverter(typeof(OkxTradeOrderTypeConverter))]
+    [JsonProperty("ordType")]
     public OkxTradeOrderType OrderType { get; set; }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class OkxTradeOrderPlaceRequest
     /// <summary>
     /// Quantity Type
     /// </summary>
-    [JsonProperty("tgtCcy", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxTradeQuantityTypeConverter))]
+    [JsonProperty("tgtCcy", NullValueHandling = NullValueHandling.Ignore)]
     public OkxTradeQuantityType? QuantityType { get; set; }
 
 
@@ -114,7 +114,7 @@ public class OkxTradeOrderPlaceRequest
     /// cancel_maker,cancel_taker, cancel_both
     /// Cancel both does not support FOK.
     /// </summary>
-    [JsonProperty("stpMode", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxSelfTradePreventionModeConverter))]
+    [JsonProperty("stpMode", NullValueHandling = NullValueHandling.Ignore)]
     public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
 
     /// <summary>

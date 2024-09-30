@@ -14,7 +14,7 @@ public class OkxGridPlaceOrderRequest
     /// <summary>
     /// Algo Order Type
     /// </summary>
-    [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxGridAlgoOrderTypeConverter))]
+    [JsonProperty("algoOrdType")]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }
 
     /// <summary>
@@ -38,7 +38,7 @@ public class OkxGridPlaceOrderRequest
     /// <summary>
     /// Grid Run Type
     /// </summary>
-    [JsonProperty("runType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxGridRunTypeConverter))]
+    [JsonProperty("runType", NullValueHandling = NullValueHandling.Ignore)]
     public OkxGridRunType? GridRunType { get; set; }
 
     /// <summary>
@@ -100,7 +100,7 @@ public class OkxGridPlaceOrderRequest
     /// <summary>
     /// Contract Grid Direction
     /// </summary>
-    [JsonProperty("direction", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxGridContractDirectionConverter))]
+    [JsonProperty("direction", NullValueHandling = NullValueHandling.Ignore)]
     public OkxGridContractDirection? ContractGridDirection { get; set; }
 
     /// <summary>

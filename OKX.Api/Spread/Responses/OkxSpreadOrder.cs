@@ -38,13 +38,13 @@ public class OkxSpreadOrder
     /// <summary>
     /// Order type
     /// </summary>
-    [JsonProperty("ordType"), JsonConverter(typeof(OkxSpreadOrderTypeConverter))]
+    [JsonProperty("ordType")]
     public OkxSpreadOrderType OrderType { get; set; }
     
     /// <summary>
     /// Order side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide OrderSide { get; set; }
     
     /// <summary>
@@ -98,13 +98,13 @@ public class OkxSpreadOrder
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxSpreadOrderStateConverter))]
+    [JsonProperty("state")]
     public OkxSpreadOrderState OrderState { get; set; }
 
     /// <summary>
     /// Source of the order cancellation.
     /// </summary>
-    [JsonProperty("cancelSource"), JsonConverter(typeof(OkxSpreadOrderCancelSourceConverter))]
+    [JsonProperty("cancelSource")]
     public OkxSpreadOrderCancelSource OrderCancelSource { get; set; }
 
     /// <summary>

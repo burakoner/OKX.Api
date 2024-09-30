@@ -26,7 +26,7 @@ public class OkxAccountPosition
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    [JsonProperty("posSide")]
     public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
@@ -376,7 +376,7 @@ public class OkxAccountCloseAlgoOrder
     /// <summary>
     /// Stop-loss trigger price type.
     /// </summary>
-    [JsonProperty("slTriggerPxType"), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
+    [JsonProperty("slTriggerPxType")]
     public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
 
     /// <summary>
@@ -388,7 +388,7 @@ public class OkxAccountCloseAlgoOrder
     /// <summary>
     /// Take-profit trigger price type.
     /// </summary>
-    [JsonProperty("tpTriggerPxType"), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
+    [JsonProperty("tpTriggerPxType")]
     public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; }
 
     /// <summary>

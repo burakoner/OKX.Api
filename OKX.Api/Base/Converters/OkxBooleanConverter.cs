@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Common;
+﻿namespace OKX.Api.Base;
 
 internal class OkxBooleanConverter(bool quotes) : BaseConverter<bool>(quotes)
 {

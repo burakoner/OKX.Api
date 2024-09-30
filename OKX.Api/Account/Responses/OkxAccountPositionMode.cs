@@ -8,6 +8,6 @@ public class OkxAccountPositionMode
     /// <summary>
     /// Position mode
     /// </summary>
-    [JsonProperty("posMode"), JsonConverter(typeof(OkxTradePositionModeConverter))]
+    [JsonProperty("posMode")]
     public OkxTradePositionMode PositionMode { get; set; }
 }

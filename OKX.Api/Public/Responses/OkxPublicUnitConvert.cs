@@ -8,7 +8,7 @@ public class OkxPublicUnitConvert
     /// <summary>
     /// Type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxPublicConvertTypeConverter))]
+    [JsonProperty("type")]
     public OkxPublicConvertType Type { get; set; }
 
     /// <summary>
@@ -32,6 +32,6 @@ public class OkxPublicUnitConvert
     /// <summary>
     /// Unit
     /// </summary>
-    [JsonProperty("unit"), JsonConverter(typeof(OkxPublicConvertUnitConverter))]
+    [JsonProperty("unit")]
     public OkxPublicConvertUnit Unit { get; set; }
 }

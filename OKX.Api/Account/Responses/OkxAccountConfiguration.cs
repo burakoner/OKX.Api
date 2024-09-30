@@ -32,13 +32,13 @@ public class OkxAccountConfiguration
     /// cancel_both
     /// Users can log in to the webpage through the master account to modify this configuration
     /// </summary>
-    [JsonProperty("acctStpMode"), JsonConverter(typeof(OkxSelfTradePreventionModeConverter))]
+    [JsonProperty("acctStpMode")]
     public OkxSelfTradePreventionMode SelfTradePreventionMode { get; set; }
 
     /// <summary>
     /// Position mode
     /// </summary>
-    [JsonProperty("posMode"), JsonConverter(typeof(OkxTradePositionModeConverter))]
+    [JsonProperty("posMode")]
     public OkxTradePositionMode PositionMode { get; set; }
 
     /// <summary>
@@ -100,7 +100,7 @@ public class OkxAccountConfiguration
     /// SPOT copy trading role type
     /// 0: General user；1：Leading trader；2：Copy trader
     /// </summary>
-    [JsonProperty("spotRoleType"), JsonConverter(typeof(OkxCopyTradingRoleConverter))]
+    [JsonProperty("spotRoleType")]
     public OkxCopyTradingRole? SpotCopyTradingRole { get; set; }
 
     /// <summary>
@@ -121,7 +121,7 @@ public class OkxAccountConfiguration
     /// If the request originates from a subaccount, kycLv is the KYC level of the main account.
     /// If the request originates from the main account, kycLv is the KYC level of the current account.
     /// </summary>
-    [JsonProperty("kycLv"), JsonConverter(typeof(OkxKycLevelConverter))]
+    [JsonProperty("kycLv")]
     public OkxKycLevel KycLevel { get; set; }
 
     /// <summary>

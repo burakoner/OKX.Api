@@ -8,7 +8,7 @@ public class OkxTradeOneClickRepayOrder
     /// <summary>
     /// Current status of one-click repay
     /// </summary>
-    [JsonProperty("status"), JsonConverter(typeof(OkxTradeOneClickRepayOrderStatusConverter))]
+    [JsonProperty("status")]
     public OkxTradeOneClickRepayOrderStatus Status { get; set; }
 
     /// <summary>

@@ -8,7 +8,7 @@ public class OkxSubAccount
     /// <summary>
     /// Sub-account type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxSubAccountTypeConverter))]
+    [JsonProperty("type")]
     public OkxSubAccountType Type { get; set; }
 
     /// <summary>

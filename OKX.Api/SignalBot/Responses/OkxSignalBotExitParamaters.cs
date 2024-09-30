@@ -8,7 +8,7 @@ public class OkxSignalBotExitParamaters
     /// <summary>
     /// Type of set the take-profit and stop-loss trigger price
     /// </summary>
-    [JsonProperty("tpSlType"), JsonConverter(typeof(OkxSignalBotTriggerPriceConverter))]
+    [JsonProperty("tpSlType")]
     public OkxSignalBotTriggerPrice TakeProfitStopLossTriggerPrice { get; set; }
 
     /// <summary>

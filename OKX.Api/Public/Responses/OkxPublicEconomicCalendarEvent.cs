@@ -80,7 +80,7 @@ public class OkxPublicEconomicCalendarEvent
     /// <summary>
     /// Importance
     /// </summary>
-    [JsonProperty("importance"), JsonConverter(typeof(OkxPublicEventImportanceConverter))]
+    [JsonProperty("importance")]
     public OkxPublicEventImportance Importance { get; set; }
 
     /// <summary>

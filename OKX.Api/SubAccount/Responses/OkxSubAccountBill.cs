@@ -26,7 +26,7 @@ public class OkxSubAccountBill
     /// <summary>
     /// Type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxSubAccountTransferTypeConverter))]
+    [JsonProperty("type")]
     public OkxSubAccountTransferType Type { get; set; }
 
     /// <summary>

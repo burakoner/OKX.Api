@@ -44,20 +44,20 @@ public class OkxSpreadTrade
     /// <summary>
     /// Order side, buy sell
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide OrderSide { get; set; }
 
     /// <summary>
     /// Trade state.
     /// Valid values are filled and rejected
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxSpreadTradeStateConverter))]
+    [JsonProperty("state")]
     public OkxSpreadTradeState State { get; set; }
 
     /// <summary>
     /// Liquidity taker or maker, T: taker M: maker
     /// </summary>
-    [JsonProperty("execType"), JsonConverter(typeof(OkxTradeOrderRoleConverter))]
+    [JsonProperty("execType")]
     public OkxTradeOrderRole Role { get; set; }
 
     /// <summary>
@@ -117,7 +117,7 @@ public class OkxSpreadTradeLeg
     /// <summary>
     /// The direction of the leg. Valid value can be buy or sell.
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide OrderSide { get; set; }
     
     /// <summary>

@@ -20,7 +20,7 @@ public class OkxRecurringBuyOrder
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -50,13 +50,13 @@ public class OkxRecurringBuyOrder
     /// <summary>
     /// Algo order type. recurring: recurring buy
     /// </summary>
-    [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxRecurringBuyTypeConverter))]
+    [JsonProperty("algoOrdType")]
     public OkxRecurringBuyType Type { get; set; }
 
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxRecurringBuyStateConverter))]
+    [JsonProperty("state")]
     public OkxRecurringBuyState State { get; set; }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class OkxRecurringBuyOrder
     /// <summary>
     /// Period
     /// </summary>
-    [JsonProperty("period"), JsonConverter(typeof(OkxRecurringBuyPeriodConverter))]
+    [JsonProperty("period")]
     public OkxRecurringBuyPeriod Period { get; set; }
 
     /// <summary>

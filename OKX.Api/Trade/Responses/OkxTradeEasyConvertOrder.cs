@@ -8,7 +8,7 @@ public class OkxTradeEasyConvertOrder
     /// <summary>
     /// Current status of easy convert
     /// </summary>
-    [JsonProperty("status"), JsonConverter(typeof(OkxTradeEasyConvertOrderStatusConverter))]
+    [JsonProperty("status")]
     public OkxTradeEasyConvertOrderStatus Status { get; set; }
     
     /// <summary>

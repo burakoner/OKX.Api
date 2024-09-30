@@ -38,7 +38,7 @@ public class OkxAnnouncement
     /// <summary>
     /// System maintenance status
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxStatusMaintenanceStateConverter))]
+    [JsonProperty("state")]
     public OkxStatusMaintenanceState Status { get; set; }
 
     /// <summary>

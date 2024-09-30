@@ -50,7 +50,7 @@ public class OkxAccountFeeRate
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -68,7 +68,7 @@ public class OkxAccountFeeRate
     /// <summary>
     /// Trading rule types
     /// </summary>
-    [JsonProperty("ruleType"), JsonConverter(typeof(OkxInstrumentRuleTypeConverter))]
+    [JsonProperty("ruleType")]
     public OkxInstrumentRuleType RuleType { get; set; }
 
     /// <summary>

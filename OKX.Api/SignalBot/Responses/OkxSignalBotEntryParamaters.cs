@@ -14,7 +14,7 @@ public class OkxSignalBotEntryParamaters
     /// <summary>
     /// Entry type
     /// </summary>
-    [JsonProperty("entryType"), JsonConverter(typeof(OkxSignalBotEntryTypeConverter))]
+    [JsonProperty("entryType")]
     public OkxSignalBotEntryType EntryType { get; set; }
 
     /// <summary>

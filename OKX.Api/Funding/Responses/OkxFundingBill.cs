@@ -38,7 +38,7 @@ public class OkxFundingBill
     /// <summary>
     /// Type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxFundingBillTypeConverter))]
+    [JsonProperty("type")]
     public OkxFundingBillType Type { get; set; }
 
     /// <summary>

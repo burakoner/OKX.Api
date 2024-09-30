@@ -26,7 +26,7 @@ public class OkxFinancialOnChainEarnOrder
     /// <summary>
     /// Order state
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxFinancialOnChainEarnOrderStateConverter))]
+    [JsonProperty("state")]
     public OkxFinancialOnChainEarnOrderState State { get; set; }
 
     /// <summary>

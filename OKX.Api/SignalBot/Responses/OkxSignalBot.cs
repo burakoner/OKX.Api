@@ -20,7 +20,7 @@ public class OkxSignalBot
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
     
     /// <summary>
@@ -65,7 +65,7 @@ public class OkxSignalBot
     /// running
     /// stopping
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxSignalBotOrderStateConverter))]
+    [JsonProperty("state")]
     public OkxSignalBotOrderState State { get; set; }
     
     /// <summary>
@@ -135,7 +135,7 @@ public class OkxSignalBot
     /// 2：market order
     /// 9：tradingView signal
     /// </summary>
-    [JsonProperty("subOrdType"), JsonConverter(typeof(OkxSignalBotOrderTypeConverter))]
+    [JsonProperty("subOrdType")]
     public OkxSignalBotOrderType OrderType { get; set; }
     
     /// <summary>
@@ -175,6 +175,6 @@ public class OkxSignalBot
     /// 2: Subscribe
     /// 3: Free signal
     /// </summary>
-    [JsonProperty("signalSourceType"), JsonConverter(typeof(OkxSignalBotSourceTypeConverter))]
+    [JsonProperty("signalSourceType")]
     public OkxSignalBotSourceType SignalSourceType { get; set; }
 }

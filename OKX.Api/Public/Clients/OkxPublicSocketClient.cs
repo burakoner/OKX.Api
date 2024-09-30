@@ -330,7 +330,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = "mark-price-candle" + JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)),
+            Channel = "mark-price-candle" + MapConverter.GetString(period),
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
@@ -373,7 +373,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = "index-candle" + JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)),
+            Channel = "index-candle" + MapConverter.GetString(period),
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
@@ -458,7 +458,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = "candle" + JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)),
+            Channel = "candle" + MapConverter.GetString(period),
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
@@ -551,7 +551,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = JsonConvert.SerializeObject(orderBookType, new OkxOrderBookTypeConverter(false)),
+            Channel = MapConverter.GetString(orderBookType),
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);

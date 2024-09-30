@@ -32,7 +32,7 @@ public class OkxPublicOptionTradeInfo
     /// <summary>
     /// Trade side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide Side { get; set; }
 
     /// <summary>

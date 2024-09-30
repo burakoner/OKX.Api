@@ -14,13 +14,13 @@ public class OkxGridAiParameter
     /// <summary>
     /// Algo order type
     /// </summary>
-    [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxGridAlgoOrderTypeConverter))]
+    [JsonProperty("algoOrdType")]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }
 
     /// <summary>
     /// Duration
     /// </summary>
-    [JsonProperty("duration"), JsonConverter(typeof(OkxGridBackTestingDurationConverter))]
+    [JsonProperty("duration")]
     public OkxGridBackTestingDuration Duration { get; set; }
     
     /// <summary>
@@ -74,13 +74,13 @@ public class OkxGridAiParameter
     /// <summary>
     /// Run type
     /// </summary>
-    [JsonProperty("runType"), JsonConverter(typeof(OkxGridRunTypeConverter))]
+    [JsonProperty("runType")]
     public OkxGridRunType RunType { get; set; }
 
     /// <summary>
     /// Direction
     /// </summary>
-    [JsonProperty("direction"), JsonConverter(typeof(OkxGridContractDirectionConverter))]
+    [JsonProperty("direction")]
     public OkxGridContractDirection? Direction { get; set; }
 
     /// <summary>

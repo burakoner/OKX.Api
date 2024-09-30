@@ -57,13 +57,13 @@ public class OkxTradeOrderPlaceAttachedAlgoRequest
     /// <summary>
     /// Take-profit trigger price type
     /// </summary>
-    [JsonProperty("tpTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
+    [JsonProperty("tpTriggerPxType", NullValueHandling = NullValueHandling.Ignore)]
     public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; } = OkxAlgoPriceType.Last;
 
     /// <summary>
     /// Stop-loss trigger price type
     /// </summary>
-    [JsonProperty("slTriggerPxType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
+    [JsonProperty("slTriggerPxType", NullValueHandling = NullValueHandling.Ignore)]
     public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; } = OkxAlgoPriceType.Last;
 
     /// <summary>

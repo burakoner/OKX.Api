@@ -107,7 +107,7 @@ public class OkxFundingWithdrawalHistory
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxFundingWithdrawalStateConverter))]
+    [JsonProperty("state")]
     public OkxFundingWithdrawalState State { get; set; }
 
     /// <summary>

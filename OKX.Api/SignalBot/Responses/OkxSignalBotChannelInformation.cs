@@ -32,6 +32,6 @@ public class OkxSignalBotChannelInformation
     /// <summary>
     /// Signal source type
     /// </summary>
-    [JsonProperty("signalSourceType"), JsonConverter(typeof(OkxSignalBotSourceTypeConverter))]
+    [JsonProperty("signalSourceType")]
     public OkxSignalBotSourceType SignalSourceType { get; set; }
 }

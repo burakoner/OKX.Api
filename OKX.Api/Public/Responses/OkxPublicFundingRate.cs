@@ -8,7 +8,7 @@ public class OkxPublicFundingRate
     /// <summary>
     /// Instrument Type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -22,7 +22,7 @@ public class OkxPublicFundingRate
     /// current_period
     /// next_period
     /// </summary>
-    [JsonProperty("method"), JsonConverter(typeof(OkxPublicFundingRateMethodConverter))]
+    [JsonProperty("method")]
     public OkxPublicFundingRateMethod Method { get; set; }
 
     /// <summary>
@@ -78,7 +78,7 @@ public class OkxPublicFundingRate
     /// processing
     /// settled
     /// </summary>
-    [JsonProperty("settState"), JsonConverter(typeof(OkxPublicSettlementStateConverter))]
+    [JsonProperty("settState")]
     public OkxPublicSettlementState SettlementState { get; set; }
 
     /// <summary>

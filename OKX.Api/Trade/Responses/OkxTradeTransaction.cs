@@ -8,7 +8,7 @@ public class OkxTradeTransaction
     /// <summary>
     /// Type of the instrument involved in the transaction.
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -114,13 +114,13 @@ public class OkxTradeTransaction
     /// <summary>
     /// Specifies whether the order was a buy or sell.
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide OrderSide { get; set; }
 
     /// <summary>
     /// Specifies the position side of the order (long, short, or net innet mode).
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    [JsonProperty("posSide")]
     public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
@@ -129,7 +129,7 @@ public class OkxTradeTransaction
     /// <remarks>
     /// Not applicable to system orders such as ADL and liquidation.
     /// </remarks>
-    [JsonProperty("execType"), JsonConverter(typeof(OkxTradeOrderRoleConverter))]
+    [JsonProperty("execType")]
     public OkxTradeOrderRole OrderFlowType { get; set; }
 
     /// <summary>

@@ -8,7 +8,7 @@ public class OkxPublicFundingRateHistory
     /// <summary>
     /// Instrument Type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -46,6 +46,6 @@ public class OkxPublicFundingRateHistory
     /// current_period
     /// next_period
     /// </summary>
-    [JsonProperty("method"), JsonConverter(typeof(OkxPublicFundingRateMethodConverter))]
+    [JsonProperty("method")]
     public OkxPublicFundingRateMethod Method { get; set; }
 }

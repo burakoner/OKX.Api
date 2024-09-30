@@ -14,7 +14,7 @@ public class OkxSignalBotEvent
     /// <summary>
     /// Event type
     /// </summary>
-    [JsonProperty("eventType"), JsonConverter(typeof(OkxSignalBotEventTypeConverter))]
+    [JsonProperty("eventType")]
     public OkxSignalBotEventType EventType { get; set; }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class OkxSignalBotEvent
     /// <summary>
     /// Event status
     /// </summary>
-    [JsonProperty("eventStatus"), JsonConverter(typeof(OkxSignalBotEventStatusConverter))]
+    [JsonProperty("eventStatus")]
     public OkxSignalBotEventStatus EventStatus { get; set; }
 
     /// <summary>

@@ -44,6 +44,6 @@ public class OkxPublicDeliveryExerciseHistoryData
     /// <summary>
     /// Type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxPublicDeliveryExerciseStatusConverter))]
+    [JsonProperty("type")]
     public OkxPublicDeliveryExerciseStatus Type { get; set; }
 }

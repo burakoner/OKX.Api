@@ -20,7 +20,7 @@ public class OkxGridOrder
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -56,13 +56,13 @@ public class OkxGridOrder
     /// <summary>
     /// Algo order type
     /// </summary>
-    [JsonProperty("algoOrdType"), JsonConverter(typeof(OkxGridAlgoOrderTypeConverter))]
+    [JsonProperty("algoOrdType")]
     public OkxGridAlgoOrderType AlgoOrderType { get; set; }
 
     /// <summary>
     /// Algo order state
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxGridAlgoOrderStatusConverter))]
+    [JsonProperty("state")]
     public OkxGridAlgoOrderStatus AlgoOrderStatus { get; set; }
 
     /// <summary>
@@ -98,7 +98,7 @@ public class OkxGridOrder
     /// <summary>
     /// Grid type
     /// </summary>
-    [JsonProperty("runType"), JsonConverter(typeof(OkxGridRunTypeConverter))]
+    [JsonProperty("runType")]
     public OkxGridRunType? GridRunType { get; set; }
 
     /// <summary>
@@ -153,7 +153,7 @@ public class OkxGridOrder
     /// <summary>
     /// Algo order stop reason
     /// </summary>
-    [JsonProperty("cancelType"), JsonConverter(typeof(OkxGridCancelTypeConverter))]
+    [JsonProperty("cancelType")]
     public OkxGridCancelType? CancelType { get; set; }
 
     /// <summary>
@@ -183,7 +183,7 @@ public class OkxGridOrder
     /// long,short,neutral
     /// Only applicable to contract grid
     /// </summary>
-    [JsonProperty("direction"), JsonConverter(typeof(OkxGridContractDirectionConverter))]
+    [JsonProperty("direction")]
     public OkxGridContractDirection? ContractGridDirection { get; set; }
 
     /// <summary>
@@ -261,7 +261,7 @@ public class OkxGridOrder
     /// <summary>
     /// Profit sharing order type
     /// </summary>
-    [JsonProperty("copyType"), JsonConverter(typeof(OkxProfitSharingOrderTypeConverter))]
+    [JsonProperty("copyType")]
     public OkxProfitSharingOrderType ProfitSharingOrderType { get; set; }
 
     /// <summary>

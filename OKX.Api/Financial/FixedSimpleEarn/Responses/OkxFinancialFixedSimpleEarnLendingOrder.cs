@@ -14,7 +14,7 @@ public class OkxFinancialFixedSimpleEarnLendingOrder
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxFinancialFixedSimpleEarnLendingOrderStateConverter))]
+    [JsonProperty("state")]
     public OkxFinancialFixedSimpleEarnLendingOrderState State { get; set; }
 
     /// <summary>

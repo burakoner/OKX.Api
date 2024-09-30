@@ -22,7 +22,7 @@ public class OkxFlexibleSimpleEarnSavingsOrder
     /// purchase: purchase saving shares
     /// redempt: redeem saving shares
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxFlexibleSimpleEarnSavingsSideConverter))]
+    [JsonProperty("side")]
     public OkxFlexibleSimpleEarnSavingsSide Side { get; set; }
 
     /// <summary>

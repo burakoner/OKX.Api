@@ -65,7 +65,7 @@ public class OkxFinancialOnChainEarnOffer
     /// <summary>
     /// Product state
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxFinancialOnChainEarnOfferStateConverter))]
+    [JsonProperty("state")]
     public OkxFinancialOnChainEarnOfferState State { get; set; }
 
     /// <summary>
@@ -119,6 +119,6 @@ public class OkxFinancialOnChainEarnOfferEarningData
     /// <summary>
     /// Earning type
     /// </summary>
-    [JsonProperty("earningType"), JsonConverter(typeof(OkxFinancialOnChainEarnEarningTypeConverter))]
+    [JsonProperty("earningType")]
     public OkxFinancialOnChainEarnEarningType EarningType { get; set; }
 }

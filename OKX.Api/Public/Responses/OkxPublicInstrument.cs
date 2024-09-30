@@ -8,7 +8,7 @@ public class OkxPublicInstrument
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -68,7 +68,7 @@ public class OkxPublicInstrument
     /// <summary>
     /// Option type
     /// </summary>
-    [JsonProperty("optType"), JsonConverter(typeof(OkxOptionTypeConverter))]
+    [JsonProperty("optType")]
     public OkxOptionType? OptionType { get; set; }
 
     /// <summary>
@@ -129,19 +129,19 @@ public class OkxPublicInstrument
     /// <summary>
     /// Contract type
     /// </summary>
-    [JsonProperty("ctType"), JsonConverter(typeof(OkxContractTypeConverter))]
+    [JsonProperty("ctType")]
     public OkxContractType? ContractType { get; set; }
 
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxInstrumentStateConverter))]
+    [JsonProperty("state")]
     public OkxInstrumentState State { get; set; }
 
     /// <summary>
     /// Trading rule types
     /// </summary>
-    [JsonProperty("ruleType"), JsonConverter(typeof(OkxInstrumentRuleTypeConverter))]
+    [JsonProperty("ruleType")]
     public OkxInstrumentRuleType RuleType { get; set; }
 
     /// <summary>

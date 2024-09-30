@@ -14,7 +14,7 @@ public class OkxTradeOneClickRepayCurrencyList
     /// <summary>
     /// Debt type
     /// </summary>
-    [JsonProperty("debtType"), JsonConverter(typeof(OkxTradeDebtTypeConverter))]
+    [JsonProperty("debtType")]
     public OkxTradeDebtType Type { get; set; }
 
     /// <summary>

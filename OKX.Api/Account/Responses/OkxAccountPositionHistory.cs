@@ -130,7 +130,7 @@ public class OkxAccountPositionHistory
     /// Direction: long short
     /// Only applicable to MARGIN/FUTURES/SWAP/OPTION
     /// </summary>
-    [JsonProperty("direction"), JsonConverter(typeof(OkxTradePositionDirectionConverter))]
+    [JsonProperty("direction")]
     public OkxTradePositionDirection Direction { get; set; }
 
     /// <summary>

@@ -98,7 +98,7 @@ public class OkxCopyTradingLeadingPositionHistory
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -140,6 +140,6 @@ public class OkxCopyTradingLeadingPositionHistory
     /// <summary>
     /// The type of closing position
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxCopyTradingTypeOfClosingPositionConverter))]
+    [JsonProperty("type")]
     public OkxCopyTradingTypeOfClosingPosition? TypeOfClosingPosition { get; set; }
 }

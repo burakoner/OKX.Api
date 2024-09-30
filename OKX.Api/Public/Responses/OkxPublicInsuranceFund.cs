@@ -21,7 +21,7 @@ public class OkxPublicInsuranceFund
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ public class OkxPublicInsuranceFundDetails
     /// <summary>
     /// Type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxPublicInsuranceTypeConverter))]
+    [JsonProperty("type")]
     public OkxPublicInsuranceType Type { get; set; }
 
     /// <summary>

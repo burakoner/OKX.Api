@@ -20,7 +20,7 @@ public class OkxSignalBotSuborder
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class OkxSignalBotSuborder
     /// Margin mode: cross/isolated
     /// Non-Margin mode: cash
     /// </summary>
-    [JsonProperty("tdMode"), JsonConverter(typeof(OkxTradeModeConverter))]
+    [JsonProperty("tdMode")]
     public OkxTradeMode TradeMode { get; set; }
     
     /// <summary>
@@ -83,7 +83,7 @@ public class OkxSignalBotSuborder
     /// <summary>
     /// Sub order type
     /// </summary>
-    [JsonProperty("ordType"), JsonConverter(typeof(OkxSignalBotOrderTypeConverter))]
+    [JsonProperty("ordType")]
     public OkxSignalBotOrderType OrderType { get; set; }
     
     /// <summary>
@@ -95,13 +95,13 @@ public class OkxSignalBotSuborder
     /// <summary>
     /// Sub order state
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxSignalBotSuborderStateConverter))]
+    [JsonProperty("state")]
     public OkxSignalBotSuborderState State { get; set; }
 
     /// <summary>
     /// Sub order side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide Side { get; set; }
     
     /// <summary>
@@ -137,7 +137,7 @@ public class OkxSignalBotSuborder
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    [JsonProperty("posSide")]
     public OkxTradePositionSide PositionSide { get; set; }
     
     /// <summary>

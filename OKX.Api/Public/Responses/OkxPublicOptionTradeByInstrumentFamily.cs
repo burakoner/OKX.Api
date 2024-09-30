@@ -14,7 +14,7 @@ public class OkxPublicOptionTradeByInstrumentFamily
     /// <summary>
     /// Option type, C: Call P: Put
     /// </summary>
-    [JsonProperty("optType"), JsonConverter(typeof(OkxOptionTypeConverter))]
+    [JsonProperty("optType")]
     public OkxOptionType OptionType { get; set; }
 
     /// <summary>

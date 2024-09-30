@@ -38,7 +38,7 @@ public class OkxCopyTradingLeadTraderRank
     /// <summary>
     /// Current copy state
     /// </summary>
-    [JsonProperty("copyState"), JsonConverter(typeof(OkxCopyTradingStateConverter))]
+    [JsonProperty("copyState")]
     public OkxCopyTradingState State { get; set; }
 
     /// <summary>

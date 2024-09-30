@@ -62,7 +62,7 @@ public class OkxFundingDepositHistory
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxFundingDepositStateConverter))]
+    [JsonProperty("state")]
     public OkxFundingDepositState State { get; set; }
 
     /// <summary>

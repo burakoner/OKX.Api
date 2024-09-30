@@ -8,7 +8,7 @@ public class OkxCopyTradingCopySettings
     /// <summary>
     /// Copy mode
     /// </summary>
-    [JsonProperty("copyMode"), JsonConverter(typeof(OkxCopyTradingModeConverter))]
+    [JsonProperty("copyMode")]
     public OkxCopyTradingMode CopyMode { get; set; }
 
     /// <summary>
@@ -45,7 +45,7 @@ public class OkxCopyTradingCopySettings
     /// <summary>
     /// Copy contract type setted
     /// </summary>
-    [JsonProperty("copyInstIdType"), JsonConverter(typeof(OkxCopyTradingInstrumentIdTypeConverter))]
+    [JsonProperty("copyInstIdType")]
     public OkxCopyTradingInstrumentIdType CopyInstrumentIdType { get; set; }
 
     /// <summary>
@@ -63,13 +63,13 @@ public class OkxCopyTradingCopySettings
     /// <summary>
     /// Action type for open positions
     /// </summary>
-    [JsonProperty("subPosCloseType"), JsonConverter(typeof(OkxCopyTradingPositionCloseTypeConverter))]
+    [JsonProperty("subPosCloseType")]
     public OkxCopyTradingPositionCloseType PositionCloseType { get; set; }
 
     /// <summary>
     /// Copy margin mode
     /// </summary>
-    [JsonProperty("copyMgnMode"), JsonConverter(typeof(OkxCopyTradingMarginModeConverter))]
+    [JsonProperty("copyMgnMode")]
     public OkxCopyTradingMarginMode MarginMode { get; set; }
 
     /// <summary>
@@ -81,7 +81,7 @@ public class OkxCopyTradingCopySettings
     /// <summary>
     /// Current copy state
     /// </summary>
-    [JsonProperty("copyState"), JsonConverter(typeof(OkxCopyTradingStateConverter))]
+    [JsonProperty("copyState")]
     public OkxCopyTradingState State { get; set; }
 }
 
