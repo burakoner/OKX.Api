@@ -207,7 +207,7 @@ internal class Program
                 new ()
                 {
                     TriggerAction = OkxGridAlgoTriggerAction.Start,
-                    TriggerStrategy =  OkxGridTriggerStrategy.Rsi,
+                    TriggerStrategy =  OkxGridTriggerStrategy.RSI,
                     TimeFrame = OkxGridAlgoTimeFrame.ThirtyMinutes,
                     Threshold = "10",
                     TriggerCondition = OkxGridAlgoTriggerCondition.Cross,

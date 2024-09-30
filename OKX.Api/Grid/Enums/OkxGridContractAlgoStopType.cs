@@ -8,10 +8,12 @@ public enum OkxGridContractAlgoStopType
     /// <summary>
     /// MarketCloseAllPositions
     /// </summary>
+    [Map("1")]
     MarketCloseAllPositions,
 
     /// <summary>
     /// KeepPositions
     /// </summary>
+    [Map("2")]
     KeepPositions
 }

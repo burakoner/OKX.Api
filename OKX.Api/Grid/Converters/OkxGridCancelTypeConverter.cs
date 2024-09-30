@@ -12,6 +12,6 @@ internal class OkxGridCancelTypeConverter(bool quotes) : BaseConverter<OkxGridCa
         new(OkxGridCancelType.StopLoss, "3"),
         new(OkxGridCancelType.RiskControl, "4"),
         new(OkxGridCancelType.Delivery, "5"),
-        new(OkxGridCancelType.Signal, "5"),
+        new(OkxGridCancelType.Signal, "6"),
     ];
 }

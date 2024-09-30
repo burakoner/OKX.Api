@@ -8,10 +8,12 @@ public enum OkxGridAlgoTriggerAction
     /// <summary>
     /// Start
     /// </summary>
+    [Map("start")]
     Start,
 
     /// <summary>
     /// Stop
     /// </summary>
+    [Map("stop")]
     Stop,
 }

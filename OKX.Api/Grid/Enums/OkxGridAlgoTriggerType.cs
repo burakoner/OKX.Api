@@ -8,10 +8,12 @@ public enum OkxGridAlgoTriggerType
     /// <summary>
     /// Auto
     /// </summary>
+    [Map("auto")]
     Auto,
 
     /// <summary>
     /// Manual
     /// </summary>
+    [Map("manual")]
     Manual,
 }

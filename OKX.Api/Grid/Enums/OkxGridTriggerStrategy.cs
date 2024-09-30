@@ -8,15 +8,18 @@ public enum OkxGridTriggerStrategy
     /// <summary>
     /// Instant
     /// </summary>
+    [Map("instant")]
     Instant,
 
     /// <summary>
     /// Price
     /// </summary>
+    [Map("price")]
     Price,
 
     /// <summary>
-    /// Rsi
+    /// RSI
     /// </summary>
-    Rsi
+    [Map("rsi")]
+    RSI
 }

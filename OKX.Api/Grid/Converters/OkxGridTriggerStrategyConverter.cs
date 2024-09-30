@@ -8,6 +8,6 @@ internal class OkxGridTriggerStrategyConverter(bool quotes) : BaseConverter<OkxG
     [
         new(OkxGridTriggerStrategy.Instant, "instant"),
         new(OkxGridTriggerStrategy.Price, "price"),
-        new(OkxGridTriggerStrategy.Rsi, "rsi"),
+        new(OkxGridTriggerStrategy.RSI, "rsi"),
     ];
 }
