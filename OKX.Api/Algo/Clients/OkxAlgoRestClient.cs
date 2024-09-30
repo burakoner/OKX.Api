@@ -116,50 +116,52 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         // Common
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"instId", instrumentId },
-            {"tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
-            {"side", JsonConvert.SerializeObject(orderSide, new OkxTradeOrderSideConverter(false)) },
-            {"ordType", JsonConvert.SerializeObject(algoOrderType, new OkxAlgoOrderTypeConverter(false)) },
         };
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new OkxTradePositionSideConverter(false)));
-        parameters.AddOptionalParameter("sz", size?.ToOkxString());
-        parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new OkxTradeQuantityTypeConverter(false)));
-        parameters.AddOptionalParameter("algoClOrdId", clientOrderId);
-        parameters.AddOptionalParameter("closeFraction", closeFraction?.ToOkxString());
+        parameters.AddEnum("tdMode", tradeMode);
+        parameters.AddEnum("side", orderSide);
+        parameters.AddEnum("ordType", algoOrderType);
+
+        // Optional
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptionalEnum("posSide", positionSide);
+        parameters.AddOptional("sz", size?.ToOkxString());
+        parameters.AddOptionalEnum("tgtCcy", quantityType);
+        parameters.AddOptional("algoClOrdId", clientOrderId);
+        parameters.AddOptional("closeFraction", closeFraction?.ToOkxString());
 
         // Take Profit / Stop Loss
-        parameters.AddOptionalParameter("tpTriggerPx", tpTriggerPrice?.ToOkxString());
-        parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(tpTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("tpOrdPx", tpOrderPrice?.ToOkxString());
-        parameters.AddOptionalParameter("tpOrdKind", JsonConvert.SerializeObject(tpOrderKind, new OkxAlgoOrderKindConverter(false)));
-        parameters.AddOptionalParameter("slTriggerPx", slTriggerPrice?.ToOkxString());
-        parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(slTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("slOrdPx", slOrderPrice?.ToOkxString());
-        parameters.AddOptionalParameter("cxlOnClosePos", cancelOnClosePosition);
-        parameters.AddOptionalParameter("reduceOnly", reduceOnly);
+        parameters.AddOptional("tpTriggerPx", tpTriggerPrice?.ToOkxString());
+        parameters.AddOptionalEnum("tpTriggerPxType", tpTriggerPriceType);
+        parameters.AddOptional("tpOrdPx", tpOrderPrice?.ToOkxString());
+        parameters.AddOptionalEnum("tpOrdKind", tpOrderKind);
+        parameters.AddOptional("slTriggerPx", slTriggerPrice?.ToOkxString());
+        parameters.AddOptionalEnum("slTriggerPxType", slTriggerPriceType);
+        parameters.AddOptional("slOrdPx", slOrderPrice?.ToOkxString());
+        parameters.AddOptional("cxlOnClosePos", cancelOnClosePosition);
+        parameters.AddOptional("reduceOnly", reduceOnly);
 
         // Trigger Order
-        parameters.AddOptionalParameter("triggerPx", triggerPrice?.ToOkxString());
-        parameters.AddOptionalParameter("orderPx", orderPrice?.ToOkxString());
-        parameters.AddOptionalParameter("triggerPxType", JsonConvert.SerializeObject(triggerPriceType, new OkxAlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("attachAlgoOrds", attachedAlgoOrders);
+        parameters.AddOptional("triggerPx", triggerPrice?.ToOkxString());
+        parameters.AddOptional("orderPx", orderPrice?.ToOkxString());
+        parameters.AddOptionalEnum("triggerPxType", triggerPriceType);
+        parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
         // Trailing Stop Order
-        parameters.AddOptionalParameter("callbackRatio", callbackRatio?.ToOkxString());
-        parameters.AddOptionalParameter("callbackSpread", callbackSpread?.ToOkxString());
-        parameters.AddOptionalParameter("activePx", activePrice?.ToOkxString());
+        parameters.AddOptional("callbackRatio", callbackRatio?.ToOkxString());
+        parameters.AddOptional("callbackSpread", callbackSpread?.ToOkxString());
+        parameters.AddOptional("activePx", activePrice?.ToOkxString());
 
         // TWAP Order
-        parameters.AddOptionalParameter("pxVar", JsonConvert.SerializeObject(priceVariance, new OkxPriceVarianceConverter(false)));
-        parameters.AddOptionalParameter("pxSpread", priceSpread?.ToOkxString());
-        parameters.AddOptionalParameter("szLimit", sizeLimit?.ToOkxString());
-        parameters.AddOptionalParameter("pxLimit", priceLimit?.ToOkxString());
-        parameters.AddOptionalParameter("timeInterval", timeInterval?.ToOkxString());
+        parameters.AddOptionalEnum("pxVar", priceVariance);
+        parameters.AddOptional("pxSpread", priceSpread?.ToOkxString());
+        parameters.AddOptional("szLimit", sizeLimit?.ToOkxString());
+        parameters.AddOptional("pxLimit", priceLimit?.ToOkxString());
+        parameters.AddOptional("timeInterval", timeInterval?.ToOkxString());
 
         // Broker Id
-        parameters.AddOptionalParameter("tag", Options.BrokerId);
+        parameters.AddOptional("tag", Options.BrokerId);
 
         // Reequest
         return ProcessOneRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -242,30 +244,30 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         // Common
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"instId", instrumentId },
         };
-        parameters.AddOptionalParameter("algoId", algoOrderId);
-        parameters.AddOptionalParameter("algoClOrdId", algoClientOrderId);
-        parameters.AddOptionalParameter("cxlOnFail", cancelOnFail);
-        parameters.AddOptionalParameter("reqId", clientRequestId);
-        parameters.AddOptionalParameter("newSz", newSize);
+        parameters.AddOptional("algoId", algoOrderId);
+        parameters.AddOptional("algoClOrdId", algoClientOrderId);
+        parameters.AddOptional("cxlOnFail", cancelOnFail);
+        parameters.AddOptional("reqId", clientRequestId);
+        parameters.AddOptional("newSz", newSize);
 
         // Take Profit
-        parameters.AddOptionalParameter("newTpTriggerPxType", JsonConvert.SerializeObject(newTakeProfitTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("newTpTriggerPx", newTakeProfitTriggerPrice?.ToOkxString());
-        parameters.AddOptionalParameter("newTpOrdPx", newTakeProfitOrderPrice?.ToOkxString());
+        parameters.AddOptionalEnum("newTpTriggerPxType", newTakeProfitTriggerPriceType);
+        parameters.AddOptional("newTpTriggerPx", newTakeProfitTriggerPrice?.ToOkxString());
+        parameters.AddOptional("newTpOrdPx", newTakeProfitOrderPrice?.ToOkxString());
 
         // Stop Loss
-        parameters.AddOptionalParameter("newSlTriggerPxType", JsonConvert.SerializeObject(newStopLossTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("newSlTriggerPx", newStopLossTriggerPrice?.ToOkxString());
-        parameters.AddOptionalParameter("newSlOrdPx", newStopLossOrderPrice?.ToOkxString());
+        parameters.AddOptionalEnum("newSlTriggerPxType", newStopLossTriggerPriceType);
+        parameters.AddOptional("newSlTriggerPx", newStopLossTriggerPrice?.ToOkxString());
+        parameters.AddOptional("newSlOrdPx", newStopLossOrderPrice?.ToOkxString());
         
         // Trigger Order
-        parameters.AddOptionalParameter("newTriggerPx", newTriggerPrice?.ToOkxString());
-        parameters.AddOptionalParameter("newOrdPx", newOrderPrice?.ToOkxString());
-        parameters.AddOptionalParameter("newTriggerPxType", JsonConvert.SerializeObject(newTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("attachAlgoOrds", attachedAlgoOrders);
+        parameters.AddOptional("newTriggerPx", newTriggerPrice?.ToOkxString());
+        parameters.AddOptional("newOrdPx", newOrderPrice?.ToOkxString());
+        parameters.AddOptionalEnum("newTriggerPxType", newTriggerPriceType);
+        parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
         // Reequest
         return ProcessOneRequestAsync<OkxAlgoAmendOrderResponse>(GetUri(v5TradeAmendAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -294,9 +296,9 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<OkxAlgoOrder>> GetOrderAsync(long? algoOrderId = null, string? algoClientOrderId = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("algoId", algoOrderId?.ToOkxString());
-        parameters.AddOptionalParameter("algoClOrdId", algoClientOrderId);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("algoId", algoOrderId?.ToOkxString());
+        parameters.AddOptional("algoClOrdId", algoClientOrderId);
 
         return ProcessOneRequestAsync<OkxAlgoOrder>(GetUri(v5TradeOrderAlgoGet), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -326,17 +328,15 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>
-        {
-            { "ordType", JsonConvert.SerializeObject(algoOrderType, new OkxAlgoOrderTypeConverter(false)) }
-        };
-        parameters.AddOptionalParameter("algoId", algoId?.ToOkxString());
-        parameters.AddOptionalParameter("algoClOrdId", algoClientOrderId);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("ordType", algoOrderType);
+        parameters.AddOptional("algoId", algoId?.ToOkxString());
+        parameters.AddOptional("algoClOrdId", algoClientOrderId);
+        parameters.AddOptionalEnum("instType", instrumentType);
+        parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxAlgoOrder>(GetUri(v5TradeOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -366,17 +366,15 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>
-        {
-            {"ordType",   JsonConvert.SerializeObject(algoOrderType, new OkxAlgoOrderTypeConverter(false))}
-        };
-        parameters.AddOptionalParameter("algoId", algoId?.ToOkxString());
-        parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(algoOrderState, new OkxAlgoOrderStateConverter(false)));
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("ordType", algoOrderType);
+        parameters.AddOptional("algoId", algoId?.ToOkxString());
+        parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("state", algoOrderState);
+        parameters.AddOptionalEnum("instType", instrumentType);
 
         return ProcessListRequestAsync<OkxAlgoOrder>(GetUri(v5TradeOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

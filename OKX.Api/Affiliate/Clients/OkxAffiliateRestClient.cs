@@ -17,7 +17,7 @@ public class OkxAffiliateRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <returns></returns>
     public Task<RestCallResult<OkxAffiliateInvitee>> GetInviteeAsync(long uid, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "uid", uid.ToOkxString() },
         };
@@ -34,7 +34,7 @@ public class OkxAffiliateRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <returns></returns>
     public Task<RestCallResult<OkxAffiliateRebateInformation>> GetRebateInformationAsync(string apiKey, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "apiKey", apiKey },
         };

@@ -57,8 +57,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Account\Requests\" />
-	  <Folder Include="Affiliate\Requests\" />
 	  <Folder Include="Announcement\Requests\" />
 	  <Folder Include="Broker\FullyDisclosed\Converters\" />
 	  <Folder Include="Broker\FullyDisclosed\Enums\" />

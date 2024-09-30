@@ -8,7 +8,7 @@ public class OkxAlgoOrder
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -57,25 +57,25 @@ public class OkxAlgoOrder
     /// <summary>
     /// Order type
     /// </summary>
-    [JsonProperty("ordType"), JsonConverter(typeof(OkxAlgoOrderTypeConverter))]
+    [JsonProperty("ordType")]
     public OkxAlgoOrderType OrderType { get; set; }
 
     /// <summary>
     /// Order side
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide OrderSide { get; set; }
 
     /// <summary>
     /// Position side
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    [JsonProperty("posSide")]
     public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
     /// Trade mode
     /// </summary>
-    [JsonProperty("tdMode"), JsonConverter(typeof(OkxTradeModeConverter))]
+    [JsonProperty("tdMode")]
     public OkxTradeMode TradeMode { get; set; }
 
     /// <summary>
@@ -84,13 +84,13 @@ public class OkxAlgoOrder
     /// Only applicable to SPOT Market Orders
     /// Default is quote_ccy for buy, base_ccy for sell
     /// </summary>
-    [JsonProperty("tgtCcy"), JsonConverter(typeof(OkxTradeQuantityTypeConverter))]
+    [JsonProperty("tgtCcy")]
     public OkxTradeQuantityType? QuantityType { get; set; }
 
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxAlgoOrderStateConverter))]
+    [JsonProperty("state")]
     public OkxAlgoOrderState State { get; set; }
 
     /// <summary>
@@ -109,7 +109,7 @@ public class OkxAlgoOrder
     /// <summary>
     /// Take-profit trigger price type.
     /// </summary>
-    [JsonProperty("tpTriggerPxType"), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
+    [JsonProperty("tpTriggerPxType")]
     public OkxAlgoPriceType? TakeProfitTriggerPriceType { get; set; }
 
     /// <summary>
@@ -127,7 +127,7 @@ public class OkxAlgoOrder
     /// <summary>
     /// Stop-loss trigger price type.
     /// </summary>
-    [JsonProperty("slTriggerPxType"), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
+    [JsonProperty("slTriggerPxType")]
     public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
 
     /// <summary>
@@ -145,7 +145,7 @@ public class OkxAlgoOrder
     /// <summary>
     /// trigger price type.
     /// </summary>
-    [JsonProperty("triggerPxType"), JsonConverter(typeof(OkxAlgoPriceTypeConverter))]
+    [JsonProperty("triggerPxType")]
     public OkxAlgoPriceType? TriggerPriceType { get; set; }
 
     /// <summary>
@@ -169,7 +169,7 @@ public class OkxAlgoOrder
     /// <summary>
     /// Actual trigger side, tp: take profit sl: stop loss
     /// </summary>
-    [JsonProperty("actualSide"), JsonConverter(typeof(OkxAlgoActualSideConverter))]
+    [JsonProperty("actualSide")]
     public OkxAlgoActualSide? ActualSide { get; set; }
 
     /// <summary>
@@ -252,7 +252,7 @@ public class OkxAlgoOrder
     /// <summary>
     /// Quick Margin type, Only applicable to Quick Margin Mode of isolated margin
     /// </summary>
-    [JsonProperty("quickMgnType"), JsonConverter(typeof(OkxQuickMarginTypeConverter))]
+    [JsonProperty("quickMgnType")]
     public OkxQuickMarginType? QuickMarginType { get; set; }
 
     /// <summary>
