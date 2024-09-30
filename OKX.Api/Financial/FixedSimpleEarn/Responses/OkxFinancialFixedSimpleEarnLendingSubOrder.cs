@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial Fixed Simple Earn Lending Sub Order Details
 /// </summary>
-public class OkxFinancialFixedSimpleEarnLendingSubOrder
+public record OkxFinancialFixedSimpleEarnLendingSubOrder
 {
     /// <summary>
     /// Lending order ID

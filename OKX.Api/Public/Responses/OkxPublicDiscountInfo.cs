@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Discount Info
 /// </summary>
-public class OkxPublicDiscountInfo
+public record OkxPublicDiscountInfo
 {
     /// <summary>
     /// Currency
@@ -39,7 +39,7 @@ public class OkxPublicDiscountInfo
 /// <summary>
 /// OKX Public Discount Info Detail
 /// </summary>
-public class OkxPublicDiscountInfoData
+public record OkxPublicDiscountInfoData
 {
     /// <summary>
     /// Discount Rate
@@ -63,7 +63,7 @@ public class OkxPublicDiscountInfoData
 /// <summary>
 /// OKX Public Discount Info Details
 /// </summary>
-public class OkxPublicDiscountInfoDetails
+public record OkxPublicDiscountInfoDetails
 {
     /// <summary>
     /// Discount Rate

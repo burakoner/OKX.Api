@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxLeverage
 /// </summary>
-public class OkxAccountLeverage
+public record OkxAccountLeverage
 {
     /// <summary>
     /// Instrument ID

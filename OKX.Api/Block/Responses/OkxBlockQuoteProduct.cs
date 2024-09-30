@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Quote Product
 /// </summary>
-public class OkxBlockQuoteProduct
+public record OkxBlockQuoteProduct
 {
     /// <summary>
     /// Type of instrument. Valid value can be FUTURES, OPTION, SWAP or SPOT.
@@ -28,7 +28,7 @@ public class OkxBlockQuoteProduct
 /// <summary>
 /// OKX Block Quote Product Data
 /// </summary>
-public class OkxBlockQuoteProductData
+public record OkxBlockQuoteProductData
 {
     /// <summary>
     /// Instrument family. Required for FUTURES, OPTION and SWAP only.

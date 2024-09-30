@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial Fixed Simple Earn Lending APY History
 /// </summary>
-public class OkxFinancialFixedSimpleEarnLendingApyHistory
+public record OkxFinancialFixedSimpleEarnLendingApyHistory
 {
     /// <summary>
     /// Currency type, e.g. BTC

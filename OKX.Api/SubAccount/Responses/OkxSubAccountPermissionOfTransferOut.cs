@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub Account Permission of Transfer Out
 /// </summary>
-public class OkxSubAccountPermissionOfTransferOut
+public record OkxSubAccountPermissionOfTransferOut
 {
     /// <summary>
     /// Name of the sub-account

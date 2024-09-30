@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Mark Price
 /// </summary>
-public class OkxPublicMarkPrice
+public record OkxPublicMarkPrice
 {
     /// <summary>
     /// Instrument Type

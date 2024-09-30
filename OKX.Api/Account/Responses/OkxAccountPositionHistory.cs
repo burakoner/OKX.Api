@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxPositionHistory
 /// </summary>
-public class OkxAccountPositionHistory
+public record OkxAccountPositionHistory
 {
     /// <summary>
     /// Instrument type

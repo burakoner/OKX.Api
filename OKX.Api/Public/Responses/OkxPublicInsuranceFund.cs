@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Insurance Fund
 /// </summary>
-public class OkxPublicInsuranceFund
+public record OkxPublicInsuranceFund
 {
     /// <summary>
     /// Total
@@ -34,7 +34,7 @@ public class OkxPublicInsuranceFund
 /// <summary>
 /// OKX Insurance Fund Detail
 /// </summary>
-public class OkxPublicInsuranceFundDetails
+public record OkxPublicInsuranceFundDetails
 {
     /// <summary>
     /// Balance

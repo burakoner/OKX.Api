@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Estimated Price
 /// </summary>
-public class OkxPublicEstimatedPrice
+public record OkxPublicEstimatedPrice
 {
     /// <summary>
     /// Instrument Type

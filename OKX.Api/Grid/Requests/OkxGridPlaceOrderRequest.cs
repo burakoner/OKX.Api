@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Place Order Request
 /// </summary>
-public class OkxGridPlaceOrderRequest
+public record OkxGridPlaceOrderRequest
 {
     /// <summary>
     /// Instrument Id

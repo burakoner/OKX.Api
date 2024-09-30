@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Open Interest
 /// </summary>
-public class OkxPublicOpenInterest
+public record OkxPublicOpenInterest
 {
     /// <summary>
     /// Instrument Type

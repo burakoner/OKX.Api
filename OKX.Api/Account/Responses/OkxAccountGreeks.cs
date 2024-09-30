@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Greeks
 /// </summary>
-public class OkxAccountGreeks
+public record OkxAccountGreeks
 {
     /// <summary>
     /// Delta BS

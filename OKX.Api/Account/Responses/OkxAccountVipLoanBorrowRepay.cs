@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx VIP Loan Borrow-Repay
 /// </summary>
-public class OkxAccountVipLoanBorrowRepay
+public record OkxAccountVipLoanBorrowRepay
 {
     /// <summary>
     /// Loan currency, e.g. BTC

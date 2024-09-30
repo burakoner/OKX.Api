@@ -1,27 +1,9 @@
 ﻿namespace OKX.Api.Funding;
 
 /// <summary>
-/// OKX Convert Dust Assets Response
-/// </summary>
-public class OkxFundingConvertDustAssetsResponse
-{
-    /// <summary>
-    /// Total quantity of OKB after conversion
-    /// </summary>
-    [JsonProperty("totalCnvAmt")]
-    public decimal TotalOkbAmount { get; set; }
-
-    /// <summary>
-    /// Details of asset conversion
-    /// </summary>
-    [JsonProperty("details")]
-    public List<OkxFundingConvertDustAssetsDetails> Details { get; set; } = [];
-}
-
-/// <summary>
 /// OKX Convert Dust Assets Details
 /// </summary>
-public class OkxFundingConvertDustAssetsDetails
+public record OkxFundingConvertDustAssetsDetails
 {
     /// <summary>
     /// Currency, e.g. BTC

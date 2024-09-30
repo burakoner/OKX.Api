@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Trigger Number
 /// </summary>
-public class OkxGridTriggerNumber
+public record OkxGridTriggerNumber
 {
     /// <summary>
     /// Trigger Number

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub Account Trading Balance
 /// </summary>
-public class OkxSubAccountTradingBalance
+public record OkxSubAccountTradingBalance
 {
     /// <summary>
     /// Update Time
@@ -82,7 +82,7 @@ public class OkxSubAccountTradingBalance
 /// <summary>
 /// OKX Sub Account Trading Balance Detail
 /// </summary>
-public class OkxSubAccountTradingBalanceDetails
+public record OkxSubAccountTradingBalanceDetails
 {
     /// <summary>
     /// Currency

@@ -3,7 +3,7 @@
 /// <summary>
 /// Recurring Buy Sub Order
 /// </summary>
-public class OkxRecurringBuySubOrder
+public record OkxRecurringBuySubOrder
 {
     /// <summary>
     /// Order Id

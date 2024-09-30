@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Withdrawal Response
 /// </summary>
-public class OkxFundingWithdrawalResponse
+public record OkxFundingWithdrawalResponse
 {
     /// <summary>
     /// Currency

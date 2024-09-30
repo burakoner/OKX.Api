@@ -3,7 +3,7 @@
 /// <summary>
 /// SubAccount Maximum Withdrawal
 /// </summary>
-public class OkxSubAccountMaximumWithdrawal
+public record OkxSubAccountMaximumWithdrawal
 {
     /// <summary>
     /// Currency

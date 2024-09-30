@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Easy Convert Currency List
 /// </summary>
-public class OkxTradeEasyConvertCurrencyList
+public record OkxTradeEasyConvertCurrencyList
 {
     /// <summary>
     /// Currently owned and convertible small currency list
@@ -21,7 +21,7 @@ public class OkxTradeEasyConvertCurrencyList
 /// <summary>
 /// OKX Easy Convert Currency From Data
 /// </summary>
-public class OkxTradeEasyConvertCurrencyFromData
+public record OkxTradeEasyConvertCurrencyFromData
 {
     /// <summary>
     /// Amount of small payment currency convert from

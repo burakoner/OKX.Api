@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Deposit History
 /// </summary>
-public class OkxFundingDepositHistory
+public record OkxFundingDepositHistory
 {
     /// <summary>
     /// Currency

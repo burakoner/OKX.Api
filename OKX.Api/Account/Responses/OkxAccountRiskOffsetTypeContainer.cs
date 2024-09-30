@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Risk Offset Type
 /// </summary>
-public class OkxAccountRiskOffsetTypeModel
+public record OkxAccountRiskOffsetTypeContainer
 {
     /// <summary>
     /// Type

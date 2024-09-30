@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Flexible Simple Earn Savings Order
 /// </summary>
-public class OkxFlexibleSimpleEarnSavingsOrder
+public record OkxFinancialFlexibleSimpleEarnSavingsOrder
 {
     /// <summary>
     /// Currency, e.g. BTC
@@ -23,7 +23,7 @@ public class OkxFlexibleSimpleEarnSavingsOrder
     /// redempt: redeem saving shares
     /// </summary>
     [JsonProperty("side")]
-    public OkxFlexibleSimpleEarnSavingsSide Side { get; set; }
+    public OkxFinancialFlexibleSimpleEarnSavingsSide Side { get; set; }
 
     /// <summary>
     /// Annual purchase rate

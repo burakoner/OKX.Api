@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Public Configuration
 /// </summary>
-public class OkxCopyTradingPublicConfiguration
+public record OkxCopyTradingPublicConfiguration
 {
     /// <summary>
     /// Maximum copy amount per order in USDT when you are using copy mode fixed_amount

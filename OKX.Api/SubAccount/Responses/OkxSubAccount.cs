@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub-Account
 /// </summary>
-public class OkxSubAccount
+public record OkxSubAccount
 {
     /// <summary>
     /// Sub-account type

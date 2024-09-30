@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Withdraw Income
 /// </summary>
-public class OkxGridWithdrawIncome
+public record OkxGridWithdrawIncome
 {
     /// <summary>
     /// Algo Order Id

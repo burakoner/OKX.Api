@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxIsolatedMarginMode
 /// </summary>
-public class OkxAccountIsolatedMarginModeSettings
+public record OkxAccountIsolatedMarginModeContainer
 {
     /// <summary>
     /// Isolated margin trading settings

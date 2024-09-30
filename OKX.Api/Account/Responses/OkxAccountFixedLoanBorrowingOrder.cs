@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Fixed Loan Borrow Order
 /// </summary>
-public class OkxAccountFixedLoanBorrowingOrder
+public record OkxAccountFixedLoanBorrowingOrder
 {
     /// <summary>
     /// Borrowing order ID

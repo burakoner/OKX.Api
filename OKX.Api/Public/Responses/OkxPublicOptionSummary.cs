@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Option Market Data
 /// </summary>
-public class OkxPublicOptionSummary
+public record OkxPublicOptionSummary
 {
     /// <summary>
     /// Instrument type

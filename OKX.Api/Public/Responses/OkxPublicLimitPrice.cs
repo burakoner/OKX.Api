@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Limit Price
 /// </summary>
-public class OkxPublicLimitPrice
+public record OkxPublicLimitPrice
 {
     /// <summary>
     /// Instrument Type

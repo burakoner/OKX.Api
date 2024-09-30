@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Algo Order
 /// </summary>
-public class OkxGridOrder
+public record OkxGridOrder
 {
     /// <summary>
     /// Algo ID

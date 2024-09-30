@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order
 /// </summary>
-public class OkxTradeOrderCheck
+public record OkxTradeOrderCheck
 {
     /// <summary>
     /// Current adjusted / Effective equity in USD

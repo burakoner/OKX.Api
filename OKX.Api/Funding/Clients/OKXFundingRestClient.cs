@@ -383,7 +383,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="currencies">Small assets needed to be converted, e.g. ["BTC","USDT"]</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFundingConvertDustAssetsResponse>> ConvertDustAssetsAsync(
+    public Task<RestCallResult<OkxFundingConvertDustAssets>> ConvertDustAssetsAsync(
         IEnumerable<string> currencies,
         CancellationToken ct = default)
     {
@@ -392,7 +392,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "ccy", currencies },
         };
 
-        return ProcessOneRequestAsync<OkxFundingConvertDustAssetsResponse>(GetUri(v5AssetConvertDustAssets), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingConvertDustAssets>(GetUri(v5AssetConvertDustAssets), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>

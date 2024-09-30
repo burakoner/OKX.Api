@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Easy Convert Order
 /// </summary>
-public class OkxTradeEasyConvertOrder
+public record OkxTradeEasyConvertOrder
 {
     /// <summary>
     /// Current status of easy convert

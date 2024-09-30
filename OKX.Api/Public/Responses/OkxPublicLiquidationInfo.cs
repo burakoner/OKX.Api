@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Liquidation Info
 /// </summary>
-public class OkxPublicLiquidationInfo
+public record OkxPublicLiquidationInfo
 {
     /// <summary>
     /// Instrument Id
@@ -39,7 +39,7 @@ public class OkxPublicLiquidationInfo
 /// <summary>
 /// OKX Public Liquidation Info Detail
 /// </summary>
-public class OkxPublicLiquidationInfoDetail
+public record OkxPublicLiquidationInfoDetail
 {
     /// <summary>
     /// Order Side

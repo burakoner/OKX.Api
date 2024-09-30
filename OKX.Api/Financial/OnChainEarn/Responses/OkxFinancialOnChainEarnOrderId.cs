@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial OnChainEarn Cancel
 /// </summary>
-public class OkxFinancialOnChainEarnOrderId
+public record OkxFinancialOnChainEarnOrderId
 {
     /// <summary>
     /// Order Id

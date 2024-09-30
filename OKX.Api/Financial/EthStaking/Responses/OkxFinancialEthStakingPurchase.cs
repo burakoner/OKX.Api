@@ -3,6 +3,6 @@
 /// <summary>
 /// OKX Financial Eth Staking Purchase
 /// </summary>
-public class OkxFinancialEthStakingPurchase
+public record OkxFinancialEthStakingPurchase
 {
 }

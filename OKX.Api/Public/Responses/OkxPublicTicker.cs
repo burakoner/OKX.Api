@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Ticker
 /// </summary>
-public class OkxPublicTicker
+public record OkxPublicTicker
 {
     /// <summary>
     /// Instrument Type

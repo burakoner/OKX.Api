@@ -4,7 +4,7 @@
 /// OKX Spread Order Book Row
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class OkxSpreadOrderBookRow
+public record OkxSpreadOrderBookRow
 {
     /// <summary>
     /// The price for this row

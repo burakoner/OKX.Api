@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Order Response
 /// </summary>
-public class OkxGridOrderStopResponse : OkxRestApiErrorBase
+public record OkxGridOrderStopResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Algo Order Id

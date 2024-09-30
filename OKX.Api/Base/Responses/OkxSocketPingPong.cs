@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Socket Ping Pong
 /// </summary>
-public class OkxSocketPingPong
+public record OkxSocketPingPong
 {
     /// <summary>
     /// Ping Time

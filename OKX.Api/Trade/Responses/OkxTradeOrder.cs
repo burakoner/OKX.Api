@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order
 /// </summary>
-public class OkxTradeOrder
+public record OkxTradeOrder
 {
     /// <summary>
     /// Instrument type
@@ -328,7 +328,7 @@ public class OkxTradeOrder
 /// <summary>
 /// OKX Order Linked Algo Order
 /// </summary>
-public class OkxTradeOrderLinkedAlgoOrder
+public record OkxTradeOrderLinkedAlgoOrder
 {
     /// <summary>
     /// Instrument type
@@ -340,7 +340,7 @@ public class OkxTradeOrderLinkedAlgoOrder
 /// <summary>
 /// OKX Order Attached Algo Order
 /// </summary>
-public class OkxTradeOrderAttachedAlgoOrder
+public record OkxTradeOrderAttachedAlgoOrder
 {
     /// <summary>
     /// The order ID of attached TP/SL order. It can be used to identity the TP/SL order when amending. It will not be posted to algoId when placing TP/SL order after the general order is filled completely.

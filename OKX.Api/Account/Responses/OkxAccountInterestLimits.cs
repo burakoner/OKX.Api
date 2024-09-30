@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Interest Limits
 /// </summary>
-public class OkxAccountInterestLimits
+public record OkxAccountInterestLimits
 {
     /// <summary>
     /// Debt
@@ -57,7 +57,7 @@ public class OkxAccountInterestLimits
 /// <summary>
 /// OKX Interest Limit Record
 /// </summary>
-public class OkxAccountInterestLimitRecord
+public record OkxAccountInterestLimitRecord
 {
     /// <summary>
     /// Currency
@@ -87,7 +87,7 @@ public class OkxAccountInterestLimitRecord
     /// Surplus Limit Details
     /// </summary>
     [JsonProperty("surplusLmtDetails")]
-    public OkxAccountInterestLimitRecordSurplusLimitDetails? SurplusLimitDetails { get; set; }
+    public OkxAccountInterestLimitRecordSurplus? SurplusLimitDetails { get; set; }
 
     /// <summary>
     /// Used Limit
@@ -130,7 +130,7 @@ public class OkxAccountInterestLimitRecord
 /// <summary>
 /// OKX Interest Limit Record Surplus Limit Details
 /// </summary>
-public class OkxAccountInterestLimitRecordSurplusLimitDetails
+public record OkxAccountInterestLimitRecordSurplus
 {
     /// <summary>
     /// All Accounts Remaining Quota

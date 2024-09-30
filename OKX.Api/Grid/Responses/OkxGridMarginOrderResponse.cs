@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Margin Order Response
 /// </summary>
-public class OkxGridMarginOrderResponse
+public record OkxGridMarginOrderResponse
 {
     /// <summary>
     /// Algo Order Id

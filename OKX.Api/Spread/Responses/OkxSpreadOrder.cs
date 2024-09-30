@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Spread Order
 /// </summary>
-public class OkxSpreadOrder
+public record OkxSpreadOrder
 {
     /// <summary>
     /// spread ID

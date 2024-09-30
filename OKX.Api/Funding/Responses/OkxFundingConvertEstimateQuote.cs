@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Convert Estimate Quote
 /// </summary>
-public class OkxFundingConvertEstimateQuote
+public record OkxFundingConvertEstimateQuote
 {
     /// <summary>
     /// Quotation generation time, Unix timestamp format in milliseconds, e.g. 1597026383085

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX SignalBot Signal Details
 /// </summary>
-public class OkxSignalBotChannelInformation
+public record OkxSignalBotChannelInformation
 {
     /// <summary>
     /// Signal Channel Id

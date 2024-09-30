@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxAccountPositionMode
 /// </summary>
-public class OkxAccountPositionMode
+public record OkxAccountPositionModeContainer
 {
     /// <summary>
     /// Position mode

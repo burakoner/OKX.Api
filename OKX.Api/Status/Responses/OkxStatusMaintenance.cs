@@ -3,7 +3,7 @@
 /// <summary>
 /// System Status
 /// </summary>
-public class OkxStatusMaintenance
+public record OkxStatusMaintenance
 {
     /// <summary>
     /// The title of system maintenance instructions

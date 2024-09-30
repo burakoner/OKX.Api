@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxOptionTradeInfo
 /// </summary>
-public class OkxPublicOptionTradeInfo
+public record OkxPublicOptionTradeInfo
 {
     /// <summary>
     /// The Instrument ID

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Timestamp
 /// </summary>
-public class OkxTimestamp
+public record OkxTimestamp
 {
     /// <summary>
     /// Timestamp

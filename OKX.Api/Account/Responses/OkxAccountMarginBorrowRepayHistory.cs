@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Margin Borrow-Repay
 /// </summary>
-public class OkxAccountMarginBorrowRepayHistory
+public record OkxAccountMarginBorrowRepayHistory
 {
     /// <summary>
     /// Instrument ID

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Risk Offset Amount
 /// </summary>
-public class OkxAccountRiskOffsetAmount
+public record OkxAccountRiskOffsetAmount
 {
     /// <summary>
     /// Currency

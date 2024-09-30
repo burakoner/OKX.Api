@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Counterparty
 /// </summary>
-public class OkxBlockCounterparty
+public record OkxBlockCounterparty
 {
     /// <summary>
     /// The long formative username of trader or entity on the platform.

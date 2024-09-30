@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub Account Loan Allocation
 /// </summary>
-public class OkxSubAccountLoanAllocation
+public record OkxSubAccountLoanAllocation
 {
     /// <summary>
     /// Sub Account Name

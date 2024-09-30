@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Fixed Loan Borrow Quote
 /// </summary>
-public class OkxAccountFixedLoanBorrowingQuote
+public record OkxAccountFixedLoanBorrowingQuote
 {
     /// <summary>
     /// Borrowing currency, e.g. BTC

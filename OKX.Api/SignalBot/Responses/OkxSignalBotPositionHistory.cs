@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Order Position History
 /// </summary>
-public class OkxSignalBotPositionHistory
+public record OkxSignalBotPositionHistory
 {
     /// <summary>
     /// Instrument ID

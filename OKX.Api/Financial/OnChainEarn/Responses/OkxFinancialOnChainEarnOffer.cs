@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial On Chain Earn Offer
 /// </summary>
-public class OkxFinancialOnChainEarnOffer
+public record OkxFinancialOnChainEarnOffer
 {
     /// <summary>
     /// Currency type, e.g. BTC
@@ -78,7 +78,7 @@ public class OkxFinancialOnChainEarnOffer
 /// <summary>
 /// OKX Financial On Chain Earn Offer Invest Data
 /// </summary>
-public class OkxFinancialOnChainEarnOfferInvestData
+public record OkxFinancialOnChainEarnOfferInvestData
 {
     /// <summary>
     /// Investment currency, e.g. BTC
@@ -108,7 +108,7 @@ public class OkxFinancialOnChainEarnOfferInvestData
 /// <summary>
 /// OKX Financial On Chain Earn Offer Earning Data
 /// </summary>
-public class OkxFinancialOnChainEarnOfferEarningData
+public record OkxFinancialOnChainEarnOfferEarningData
 {
     /// <summary>
     /// Investment currency, e.g. BTC

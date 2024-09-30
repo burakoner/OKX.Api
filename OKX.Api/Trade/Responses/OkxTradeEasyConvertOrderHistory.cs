@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Easy Convert Order History
 /// </summary>
-public class OkxTradeEasyConvertOrderHistory : OkxTradeEasyConvertOrder
+public record OkxTradeEasyConvertOrderHistory : OkxTradeEasyConvertOrder
 {
     /// <summary>
     /// Account

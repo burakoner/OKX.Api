@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Spread;
 
 /// <summary>
-/// Amend Order Response
+/// Place Order Response
 /// </summary>
-public class OkxSpreadOrderAmendResponse : OkxRestApiErrorBase
+public record OkxSpreadOrderPlace : OkxRestApiErrorBase
 {
     /// <summary>
     /// Order Id
@@ -16,10 +16,4 @@ public class OkxSpreadOrderAmendResponse : OkxRestApiErrorBase
     /// </summary>
     [JsonProperty("clOrdId")]
     public string ClientOrderId { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Request Id
-    /// </summary>
-    [JsonProperty("reqId")]
-    public string RequestId { get; set; } = string.Empty;
 }

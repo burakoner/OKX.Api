@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub Account Api Key
 /// </summary>
-public class OkxSubAccountApiKey
+public record OkxSubAccountApiKey
 {
     /// <summary>
     /// Sub Account Name

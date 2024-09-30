@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order Book
 /// </summary>
-public class OkxPublicOrderBook
+public record OkxPublicOrderBook
 {
     /// <summary>
     /// Instrument ID

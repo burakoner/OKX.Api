@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Amend Order Request
 /// </summary>
-public class OkxGridOrderAmendRequest
+public record OkxGridOrderAmendRequest
 {
     /// <summary>
     /// Algo order ID
@@ -51,7 +51,7 @@ public class OkxGridOrderAmendRequest
 /// <summary>
 /// OKX Grid Amend Trigger Parameters
 /// </summary>
-public class OkxGridOrderAmendRequestTriggerParameters
+public record OkxGridOrderAmendRequestTriggerParameters
 {
     /// <summary>
     /// Trigger action

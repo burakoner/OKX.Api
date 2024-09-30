@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Place Trigger Parameters Request
 /// </summary>
-public class OkxGridTriggerParametersRequest
+public record OkxGridTriggerParametersRequest
 {
     /// <summary>
     /// Trigger Action

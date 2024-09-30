@@ -369,9 +369,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingAccountConfiguration>> GetAccountConfigurationAsync(CancellationToken ct = default)
+    public Task<RestCallResult<OkxCopyTradingAccount>> GetAccountConfigurationAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxCopyTradingAccountConfiguration>(GetUri(v5CopyTradingConfig), HttpMethod.Get, ct, signed: true);
+        return ProcessOneRequestAsync<OkxCopyTradingAccount>(GetUri(v5CopyTradingConfig), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>

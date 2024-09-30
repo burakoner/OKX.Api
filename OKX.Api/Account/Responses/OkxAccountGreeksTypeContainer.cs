@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxAccountGreeksType
 /// </summary>
-public class OkxAccountGreeksTypeResponse
+public record OkxAccountGreeksTypeContainer
 {
     /// <summary>
     /// Display type of Greeks.

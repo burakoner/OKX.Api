@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block MMP
 /// </summary>
-public class OkxBlockMmp
+public record OkxBlockMmp
 {
     /// <summary>
     /// Frozen period (ms).
@@ -27,7 +27,7 @@ public class OkxBlockMmp
 /// <summary>
 /// OKX Block MMP Configuration
 /// </summary>
-public class OkxBlockMmpConfiguration : OkxBlockMmp
+public record OkxBlockMmpConfiguration : OkxBlockMmp
 {
     /// <summary>
     /// Whether MMP is currently triggered. true or false

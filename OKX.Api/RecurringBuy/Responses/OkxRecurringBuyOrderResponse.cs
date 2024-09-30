@@ -3,7 +3,7 @@
 /// <summary>
 /// Recurring Buy Order Response
 /// </summary>
-public class OkxRecurringBuyOrderResponse : OkxRestApiErrorBase
+public record OkxRecurringBuyOrderResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Algo ID

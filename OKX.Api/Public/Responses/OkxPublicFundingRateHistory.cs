@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Funding Rate History
 /// </summary>
-public class OkxPublicFundingRateHistory
+public record OkxPublicFundingRateHistory
 {
     /// <summary>
     /// Instrument Type

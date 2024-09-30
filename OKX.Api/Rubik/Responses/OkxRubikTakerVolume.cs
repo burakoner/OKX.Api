@@ -4,7 +4,7 @@
 /// OKX Taker Volume
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class OkxRubikTakerVolume
+public record OkxRubikTakerVolume
 {
     /// <summary>
     /// Timestamp

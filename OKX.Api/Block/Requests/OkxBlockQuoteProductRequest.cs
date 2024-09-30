@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Quote Product Request
 /// </summary>
-public class OkxBlockQuoteProductRequest
+public record OkxBlockQuoteProductRequest
 {
     /// <summary>
     /// Type of instrument. Valid value can be FUTURES, OPTION, SWAP or SPOT.
@@ -28,7 +28,7 @@ public class OkxBlockQuoteProductRequest
 /// <summary>
 /// OKX Block Quote Product Request Data
 /// </summary>
-public class OkxBlockQuoteProductRequestData
+public record OkxBlockQuoteProductRequestData
 {
     /// <summary>
     /// Instrument ID. Required for SPOT only.

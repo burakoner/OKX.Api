@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid RSI Backtest
 /// </summary>
-public class OkxGridRsiBacktest
+public record OkxGridRsiBacktest
 {
     /// <summary>
     /// Trigger number

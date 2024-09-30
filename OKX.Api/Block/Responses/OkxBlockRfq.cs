@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block RFQ
 /// </summary>
-public class OkxBlockRfq
+public record OkxBlockRfq
 {
     /// <summary>
     /// The timestamp the RFQ was created. Unix timestamp format in milliseconds.

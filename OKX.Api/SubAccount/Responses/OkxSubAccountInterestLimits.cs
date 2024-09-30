@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub-Account Interest Limits
 /// </summary>
-public class OkxSubAccountInterestLimits
+public record OkxSubAccountInterestLimits
 {
     /// <summary>
     /// Name of sub account
@@ -66,7 +66,7 @@ public class OkxSubAccountInterestLimits
 /// <summary>
 /// OKX Sub-Account Interest Limits Record
 /// </summary>
-public class OkxSubAccountInterestLimitsRecord
+public record OkxSubAccountInterestLimitsRecord
 {
     /// <summary>
     /// Loan currency, e.g. BTC
@@ -147,7 +147,7 @@ public class OkxSubAccountInterestLimitsRecord
 /// <summary>
 /// OKX Sub-Account Interest Surplus Limit Details
 /// </summary>
-public class OkxSubAccountInterestSurplusLimitDetails
+public record OkxSubAccountInterestSurplusLimitDetails
 {
     /// <summary>
     /// Total remaining quota for master account and sub-accounts

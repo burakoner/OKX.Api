@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Order Amend Response
 /// </summary>
-public class OkxAlgoAmendOrderResponse : OkxRestApiErrorBase
+public record OkxAlgoAmendOrderResponse : OkxRestApiErrorBase
 {
     /// <summary>
     /// Algo Order ID

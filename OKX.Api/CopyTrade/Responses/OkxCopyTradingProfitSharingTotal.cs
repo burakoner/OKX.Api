@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxProfitSharingTotal
 /// </summary>
-public class OkxCopyTradingProfitSharingTotal
+public record OkxCopyTradingProfitSharingTotal
 {
     /// <summary>
     /// The currency of profit sharing.

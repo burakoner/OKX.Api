@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX VIP Interest Rate Level
 /// </summary>
-public class OkxPublicVipInterestRateLevel
+public record OkxPublicVipInterestRateLevel
 {
     /// <summary>
     /// Level

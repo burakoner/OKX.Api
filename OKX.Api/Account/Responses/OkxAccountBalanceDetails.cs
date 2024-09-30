@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxAccountBalanceDetails
 /// </summary>
-public class OkxAccountBalanceDetails
+public record OkxAccountBalanceDetails
 {
     /// <summary>
     /// Currency

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub Account Name
 /// </summary>
-public class OkxSubAccountName
+public record OkxSubAccountName
 {
     /// <summary>
     /// Sub Account Name

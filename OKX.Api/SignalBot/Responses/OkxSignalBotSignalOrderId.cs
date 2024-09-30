@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Bot Signal Order Id
 /// </summary>
-public class OkxSignalBotSignalOrderId : OkxRestApiErrorBase
+public record OkxSignalBotSignalOrderId : OkxRestApiErrorBase
 {
     /// <summary>
     /// Signal Order Id

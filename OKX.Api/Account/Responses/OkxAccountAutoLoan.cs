@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Auto Loan
 /// </summary>
-public class OkxAccountAutoLoan
+public record OkxAccountAutoLoan
 {
     /// <summary>
     /// Auto Loan

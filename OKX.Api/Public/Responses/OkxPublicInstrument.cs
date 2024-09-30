@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Instrument
 /// </summary>
-public class OkxPublicInstrument
+public record OkxPublicInstrument
 {
     /// <summary>
     /// Instrument type

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Bot Sub-Order
 /// </summary>
-public class OkxSignalBotSuborder
+public record OkxSignalBotSuborder
 {
     /// <summary>
     /// Algo ID

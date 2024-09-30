@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Investment Add Response
 /// </summary>
-public class OkxGridInvestmentAddResponse
+public record OkxGridInvestmentAddResponse
 {
     /// <summary>
     /// Algo Order Id

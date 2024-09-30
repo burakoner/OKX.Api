@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Leg Quote
 /// </summary>
-public class OkxBlockLegQuote
+public record OkxBlockLegQuote
 {
     /// <summary>
     /// The Instrument ID of each leg. Example : "BTC-USDT-SWAP"

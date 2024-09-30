@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX One Click Repay Currency List
 /// </summary>
-public class OkxTradeOneClickRepayCurrencyList
+public record OkxTradeOneClickRepayCurrencyList
 {
     /// <summary>
     /// Debt currency data list
@@ -27,7 +27,7 @@ public class OkxTradeOneClickRepayCurrencyList
 /// <summary>
 /// OKX One Click Debt Data
 /// </summary>
-public class OkxTradeOneClickDeptData
+public record OkxTradeOneClickDeptData
 {
     /// <summary>
     /// Debt currency type
@@ -45,7 +45,7 @@ public class OkxTradeOneClickDeptData
 /// <summary>
 /// OKX One Click Repay Data
 /// </summary>
-public class OkxTradeOneClickRepayData
+public record OkxTradeOneClickRepayData
 {
     /// <summary>
     /// Repay currency type

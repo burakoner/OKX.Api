@@ -19,12 +19,12 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="currency">Currency, e.g. BTC</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsBalance>>> GetBalancesAsync(string? currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFinancialFlexibleSimpleEarnSavingsBalance>>> GetBalancesAsync(string? currency = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", currency);
 
-        return ProcessListRequestAsync<OkxFlexibleSimpleEarnSavingsBalance>(GetUri(v5FinanceSavingsBalance), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialFlexibleSimpleEarnSavingsBalance>(GetUri(v5FinanceSavingsBalance), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="rate">Annual purchase rate</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsOrder>> PurchaseAsync(string currency, decimal amount, decimal rate, CancellationToken ct = default)
+    public Task<RestCallResult<OkxFinancialFlexibleSimpleEarnSavingsOrder>> PurchaseAsync(string currency, decimal amount, decimal rate, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             {"ccy", currency },
@@ -44,7 +44,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
             {"rate", rate.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFlexibleSimpleEarnSavingsOrder>(GetUri(v5FinanceSavingsPurchaseRedempt), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialFlexibleSimpleEarnSavingsOrder>(GetUri(v5FinanceSavingsPurchaseRedempt), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
         /// <summary>
@@ -55,7 +55,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="rate">Annual purchase rate</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsOrder>> RedeemAsync(string currency, decimal amount, decimal rate, CancellationToken ct = default)
+    public Task<RestCallResult<OkxFinancialFlexibleSimpleEarnSavingsOrder>> RedeemAsync(string currency, decimal amount, decimal rate, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             {"ccy", currency },
@@ -64,7 +64,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
             {"rate", rate.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFlexibleSimpleEarnSavingsOrder>(GetUri(v5FinanceSavingsPurchaseRedempt), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialFlexibleSimpleEarnSavingsOrder>(GetUri(v5FinanceSavingsPurchaseRedempt), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -74,14 +74,14 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="rate">Annual lending rate. The rate value range is between 1% and 365%</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsRate>> SetLendingRateAsync(string currency, decimal rate, CancellationToken ct = default)
+    public Task<RestCallResult<OkxFinancialFlexibleSimpleEarnSavingsRate>> SetLendingRateAsync(string currency, decimal rate, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             {"ccy", currency },
             {"rate", rate.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFlexibleSimpleEarnSavingsRate>(GetUri(v5FinanceSavingsSetLendingRate), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialFlexibleSimpleEarnSavingsRate>(GetUri(v5FinanceSavingsSetLendingRate), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -93,7 +93,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsLendingHistory>>> GetLendingHistoryAsync(
+    public Task<RestCallResult<List<OkxFinancialFlexibleSimpleEarnSavingsLendingHistory>>> GetLendingHistoryAsync(
         string? currency = null,
         long? after = null,
         long? before = null,
@@ -106,7 +106,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFlexibleSimpleEarnSavingsLendingHistory>(GetUri(v5FinanceSavingsLendingHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialFlexibleSimpleEarnSavingsLendingHistory>(GetUri(v5FinanceSavingsLendingHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     
     /// <summary>
@@ -115,12 +115,12 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="currency">Currency, e.g. BTC</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsBorrowSummary>> GetPublicBorrowSummaryAsync(string? currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxFinancialFlexibleSimpleEarnSavingsBorrowSummary>> GetPublicBorrowSummaryAsync(string? currency = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", currency);
 
-        return ProcessOneRequestAsync<OkxFlexibleSimpleEarnSavingsBorrowSummary>(GetUri(v5FinanceSavingsLendingRateSummary), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialFlexibleSimpleEarnSavingsBorrowSummary>(GetUri(v5FinanceSavingsLendingRateSummary), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -133,7 +133,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100. If ccy is not specified, all data under the same ts will be returned, not limited by limit</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsBorrowHistory>>> GetPublicBorrowHistoryAsync(
+    public Task<RestCallResult<List<OkxFinancialFlexibleSimpleEarnSavingsBorrowHistory>>> GetPublicBorrowHistoryAsync(
         string? currency = null,
         long? after = null,
         long? before = null,
@@ -146,6 +146,6 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFlexibleSimpleEarnSavingsBorrowHistory>(GetUri(v5FinanceSavingsLendingRateHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialFlexibleSimpleEarnSavingsBorrowHistory>(GetUri(v5FinanceSavingsLendingRateHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 }

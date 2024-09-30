@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Trade
 /// </summary>
-public class OkxBlockPublicRecentTrade
+public record OkxBlockPublicRecentTrade
 {
     /// <summary>
     /// Instrument ID

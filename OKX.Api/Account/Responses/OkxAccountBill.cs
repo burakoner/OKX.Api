@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Bill
 /// </summary>
-public class OkxAccountBill
+public record OkxAccountBill
 {
     /// <summary>
     /// Instrument type

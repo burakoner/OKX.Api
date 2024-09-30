@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Lead Trader Stats
 /// </summary>
-public class OkxCopyTradingLeadTraderStats
+public record OkxCopyTradingLeadTraderStats
 {
     /// <summary>
     /// Win ratio

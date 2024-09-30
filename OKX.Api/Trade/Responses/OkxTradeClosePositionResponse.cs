@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Close Position Response
 /// </summary>
-public class OkxTradeClosePositionResponse
+public record OkxTradeClosePositionResponse
 {
     /// <summary>
     /// Instrument ID

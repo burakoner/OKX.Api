@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx VIP Loan Borrow-Repay
 /// </summary>
-public class OkxAccountVipLoanBorrowRepayHistory
+public record OkxAccountVipLoanBorrowRepayHistory
 {
     /// <summary>
     /// Type

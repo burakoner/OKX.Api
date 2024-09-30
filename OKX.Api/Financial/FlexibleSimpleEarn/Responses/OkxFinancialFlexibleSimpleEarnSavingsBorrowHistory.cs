@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Flexible Simple Earn Savings Borrow History
 /// </summary>
-public class OkxFlexibleSimpleEarnSavingsBorrowHistory
+public record OkxFinancialFlexibleSimpleEarnSavingsBorrowHistory
 {
     /// <summary>
     /// Currency, e.g. BTC

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Leg Execution
 /// </summary>
-public class OkxBlockLegTrade
+public record OkxBlockLegTrade
 {
     /// <summary>
     /// The price the leg executed

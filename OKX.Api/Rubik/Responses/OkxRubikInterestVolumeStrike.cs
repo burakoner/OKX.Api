@@ -4,7 +4,7 @@
 /// OKX Interest Volume Strike
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class OkxRubikInterestVolumeStrike
+public record OkxRubikInterestVolumeStrike
 {
     /// <summary>
     /// Time

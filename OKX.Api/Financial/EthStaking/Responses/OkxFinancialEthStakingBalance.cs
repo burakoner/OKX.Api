@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial Eth Staking Balance
 /// </summary>
-public class OkxFinancialEthStakingBalance
+public record OkxFinancialEthStakingBalance
 {
     /// <summary>
     /// Currency, e.g. BETH

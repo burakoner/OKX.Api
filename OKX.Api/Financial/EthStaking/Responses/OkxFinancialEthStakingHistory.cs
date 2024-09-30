@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial Eth Staking Purchase-Redeem History
 /// </summary>
-public class OkxFinancialEthStakingHistory
+public record OkxFinancialEthStakingHistory
 {
     /// <summary>
     /// Type

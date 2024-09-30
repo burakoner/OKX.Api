@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx VIP Loan Order
 /// </summary>
-public class OkxAccountVipLoanOrderDetails
+public record OkxAccountVipLoanOrderDetails
 {
     /// <summary>
     /// Timestamp

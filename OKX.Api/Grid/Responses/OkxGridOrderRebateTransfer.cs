@@ -3,7 +3,7 @@
 /// <summary>
 /// Rebate transfer info
 /// </summary>
-public class OkxGridOrderRebateTransfer
+public record OkxGridOrderRebateTransfer
 {
     /// <summary>
     /// Rebate amount

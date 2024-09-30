@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxMultipleLeverage
 /// </summary>
-public class OkxCopyTradingMultipleLeverage
+public record OkxCopyTradingMultipleLeverage
 {
     /// <summary>
     /// Instrument ID
@@ -33,7 +33,7 @@ public class OkxCopyTradingMultipleLeverage
 /// <summary>
 /// LeverageData
 /// </summary>
-public class OkxCopyTradingLeverageData()
+public record OkxCopyTradingLeverageData()
 {
     /// <summary>
     /// Leverage

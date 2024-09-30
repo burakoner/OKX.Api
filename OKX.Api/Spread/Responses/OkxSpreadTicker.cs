@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Spread Ticker
 /// </summary>
-public class OkxSpreadTicker
+public record OkxSpreadTicker
 {
     /// <summary>
     /// Spread ID

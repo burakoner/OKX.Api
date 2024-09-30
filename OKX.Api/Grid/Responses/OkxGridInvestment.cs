@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Investment
 /// </summary>
-public class OkxGridInvestment
+public record OkxGridInvestment
 {
     /// <summary>
     /// Minimum Investment Data
@@ -21,7 +21,7 @@ public class OkxGridInvestment
 /// <summary>
 /// OKX Grid Investment Data
 /// </summary>
-public class OkxGridInvestmentData
+public record OkxGridInvestmentData
 {
     /// <summary>
     /// Currency

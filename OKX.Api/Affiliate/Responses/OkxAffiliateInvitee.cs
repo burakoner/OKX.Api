@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Affiliate Invitee
 /// </summary>
-public class OkxAffiliateInvitee
+public record OkxAffiliateInvitee
 {
     /// <summary>
     /// Invitee's relative level to the affiliate. If the user is a invitee, the level will be 2.

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Volume
 /// </summary>
-public class OkxPublicVolume
+public record OkxPublicVolume
 {
     /// <summary>
     /// Volume in USD

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Position Tier
 /// </summary>
-public class OkxPublicPositionTier
+public record OkxPublicPositionTier
 {
     /// <summary>
     /// Underlying

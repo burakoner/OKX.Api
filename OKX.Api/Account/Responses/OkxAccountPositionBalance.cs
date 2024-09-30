@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxPositionRisk
 /// </summary>
-public class OkxAccountPositionBalance
+public record OkxAccountPositionBalance
 {
     /// <summary>
     /// Update time of account information, millisecond format of Unix timestamp, e.g. 1597026383085
@@ -28,19 +28,19 @@ public class OkxAccountPositionBalance
     /// Detailed asset information in all currencies
     /// </summary>
     [JsonProperty("balData")]
-    public List<OkxAccountPositionRiskBalanceData> BalanceData { get; set; } = [];
+    public List<OkxAccountBalanceData> BalanceData { get; set; } = [];
 
     /// <summary>
     /// Detailed position information in all currencies
     /// </summary>
     [JsonProperty("posData")]
-    public List<OkxAccountPositionRiskPositionData> PositionData { get; set; } = [];
+    public List<OkxAccountPositionData> PositionData { get; set; } = [];
 }
 
 /// <summary>
 /// OkxAccountPositionRiskBalanceData
 /// </summary>
-public class OkxAccountPositionRiskBalanceData
+public record OkxAccountBalanceData
 {
     /// <summary>
     /// Currency
@@ -64,7 +64,7 @@ public class OkxAccountPositionRiskBalanceData
 /// <summary>
 /// OkxAccountPositionRiskPositionData
 /// </summary>
-public class OkxAccountPositionRiskPositionData
+public record OkxAccountPositionData
 {
     /// <summary>
     /// Instrument type

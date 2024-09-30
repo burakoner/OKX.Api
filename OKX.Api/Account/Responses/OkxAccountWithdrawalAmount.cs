@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxWithdrawalAmount
 /// </summary>
-public class OkxAccountWithdrawalAmount
+public record OkxAccountWithdrawalAmount
 {
     /// <summary>
     /// Currency

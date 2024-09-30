@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Spread Instrument
 /// </summary>
-public class OkxSpreadInstrument
+public record OkxSpreadInstrument
 {
     /// <summary>
     /// Spread ID
@@ -100,22 +100,4 @@ public class OkxSpreadInstrument
     /// </summary>
     [JsonProperty("legs")]
     public List<OkxSpreadInstrumentLeg> Legs { get; set; } = [];
-}
-
-/// <summary>
-/// OKX Spread Instrument Leg
-/// </summary>
-public class OkxSpreadInstrumentLeg
-{
-    /// <summary>
-    /// Instrument ID, e.g. BTC-USDT-SWAP
-    /// </summary>
-    [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = string.Empty;
-
-    /// <summary>
-    /// The direction of the leg of the spread. Valid Values include buy and sell.
-    /// </summary>
-    [JsonProperty("side")]
-    public OkxTradeOrderSide OrderSide { get; set; }
 }

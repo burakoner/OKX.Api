@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Index Components
 /// </summary>
-public class OkxPublicIndexComponents
+public record OkxPublicIndexComponents
 {
     /// <summary>
     /// Index
@@ -39,7 +39,7 @@ public class OkxPublicIndexComponents
 /// <summary>
 /// OKX Index Component
 /// </summary>
-public class OkxPublicIndexComponent
+public record OkxPublicIndexComponent
 {
     /// <summary>
     /// Exchange

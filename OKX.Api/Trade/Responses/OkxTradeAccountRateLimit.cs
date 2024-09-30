@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Rate Limit
 /// </summary>
-public class OkxTradeAccountRateLimit
+public record OkxTradeAccountRateLimit
 {
     /// <summary>
     /// Sub account fill ratio during the monitoring period

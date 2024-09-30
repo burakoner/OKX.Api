@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial Eth Staking APY History
 /// </summary>
-public class OkxFinancialEthStakingApyHistory
+public record OkxFinancialEthStakingApyHistory
 {
     /// <summary>
     /// APY(Annual percentage yield), e.g. 0.01 represents 1%

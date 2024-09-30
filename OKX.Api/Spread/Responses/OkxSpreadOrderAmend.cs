@@ -1,9 +1,9 @@
-﻿namespace OKX.Api.Trade;
+﻿namespace OKX.Api.Spread;
 
 /// <summary>
-/// OKX Order Amend Response
+/// Amend Order Response
 /// </summary>
-public class OkxTradeOrderAmendResponse : OkxRestApiErrorBase
+public record OkxSpreadOrderAmend : OkxRestApiErrorBase
 {
     /// <summary>
     /// Order Id

@@ -1,18 +1,18 @@
 ﻿namespace OKX.Api.Financial.FlexibleSimpleEarn;
 
 /// <summary>
-/// OKX Flexible Simple Earn Savings Balance
+/// OKX Flexible Simple Earn Savings Lending History
 /// </summary>
-public class OkxFlexibleSimpleEarnSavingsBalance
+public record OkxFinancialFlexibleSimpleEarnSavingsLendingHistory
 {
     /// <summary>
-    /// Currency
+    /// Currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
     public string Currency { get; set; } = string.Empty;
 
     /// <summary>
-    /// Currency amount
+    /// Lending amount
     /// </summary>
     [JsonProperty("amt")]
     public decimal Amount { get; set; }
@@ -24,20 +24,20 @@ public class OkxFlexibleSimpleEarnSavingsBalance
     public decimal Earnings { get; set; }
 
     /// <summary>
-    /// Lending rate
+    /// Lending annual interest rate
     /// </summary>
     [JsonProperty("rate")]
-    public decimal LendingRate { get; set; }
+    public decimal Rate { get; set; }
 
     /// <summary>
-    /// Lending amount
+    /// Lending time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
-    [JsonProperty("loanAmt")]
-    public decimal LendingAmount { get; set; }
+    [JsonProperty("ts")]
+    public long Timestamp { get; set; }
 
     /// <summary>
-    /// Pending amount
+    /// Lending time
     /// </summary>
-    [JsonProperty("pendingAmt")]
-    public decimal PendingAmount { get; set; }
+    [JsonIgnore]
+    public DateTime Time => Timestamp.ConvertFromMilliseconds();
 }

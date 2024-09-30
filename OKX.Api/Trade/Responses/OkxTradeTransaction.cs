@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a transaction in OKX, a cryptocurrency exchange platform.
 /// </summary>
-public class OkxTradeTransaction
+public record OkxTradeTransaction
 {
     /// <summary>
     /// Type of the instrument involved in the transaction.

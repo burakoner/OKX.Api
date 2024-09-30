@@ -4,7 +4,7 @@
 /// OKX Ratio
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class OkxRubikRatio
+public record OkxRubikRatio
 {
     /// <summary>
     /// Time

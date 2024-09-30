@@ -3,7 +3,7 @@
 /// <summary>
 /// Option Tick Bands
 /// </summary>
-public class OkxPublicOptionTickBands
+public record OkxPublicOptionTickBands
 {
     /// <summary>
     /// Instrument type
@@ -28,7 +28,7 @@ public class OkxPublicOptionTickBands
 /// <summary>
 /// Option Tick Band
 /// </summary>
-public class OkxPublicOptionTickBand
+public record OkxPublicOptionTickBand
 {
     /// <summary>
     /// Minimum price while placing an order

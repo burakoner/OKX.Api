@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxProfitSharingTotalUnrealized
 /// </summary>
-public class OkxCopyTradingProfitSharingTotalUnrealized
+public record OkxCopyTradingProfitSharingTotalUnrealized
 {
     /// <summary>
     /// The settlement time for the total unrealized profit sharing amount. Unix timestamp format in milliseconds, e.g.1597026383085

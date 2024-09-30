@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Lead Traders Ranks
 /// </summary>
-public class OkxCopyTradingLeadTradersRanks
+public record OkxCopyTradingLeadTradersRanks
 {
     /// <summary>
     /// Data version
@@ -27,7 +27,7 @@ public class OkxCopyTradingLeadTradersRanks
 /// <summary>
 /// OKX Copy Trading Lead Traders Rank
 /// </summary>
-public class OkxCopyTradingLeadTraderRank
+public record OkxCopyTradingLeadTraderRank
 {
     /// <summary>
     /// assets under management
@@ -123,7 +123,7 @@ public class OkxCopyTradingLeadTraderRank
 /// <summary>
 /// OKX Copy Trading Lead Trader Pnl Ratio
 /// </summary>
-public class OkxCopyTradingLeadTraderPnlRatio
+public record OkxCopyTradingLeadTraderPnlRatio
 {
     /// <summary>
     /// Begin time of pnl ratio on that day

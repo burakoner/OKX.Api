@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Computed Margin Balance
 /// </summary>
-public class OkxGridComputedMarginBalance
+public record OkxGridComputedMarginBalance
 {
     /// <summary>
     /// Leverage

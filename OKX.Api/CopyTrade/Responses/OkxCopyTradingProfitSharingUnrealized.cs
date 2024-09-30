@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxProfitSharingUnrealized
 /// </summary>
-public class OkxCopyTradingProfitSharingUnrealized
+public record OkxCopyTradingProfitSharingUnrealized
 {
     /// <summary>
     /// The currency of profit sharing. e.g. USDT

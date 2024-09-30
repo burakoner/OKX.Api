@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub Account Transfer
 /// </summary>
-public class OkxSubAccountTransfer
+public record OkxSubAccountTransfer
 {
     /// <summary>
     /// Transfer Id

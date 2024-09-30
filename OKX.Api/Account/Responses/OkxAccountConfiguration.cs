@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxAccountConfiguration
 /// </summary>
-public class OkxAccountConfiguration
+public record OkxAccountConfiguration
 {
     /// <summary>
     /// Account ID of current request.

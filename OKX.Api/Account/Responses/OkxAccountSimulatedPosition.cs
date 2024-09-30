@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Simulated Position Request
 /// </summary>
-public class OkxAccountSimulatedPosition
+public record OkxAccountSimulatedPosition
 {
     /// <summary>
     /// Instrument ID

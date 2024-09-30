@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx MMP Configuration
 /// </summary>
-public class OkxAccountMmpConfiguration
+public record OkxAccountMmpConfiguration
 {
     /// <summary>
     /// Instrument Family

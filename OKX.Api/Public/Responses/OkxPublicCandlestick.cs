@@ -4,7 +4,7 @@
 /// OKX Candlestick
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class OkxPublicCandlestick
+public record OkxPublicCandlestick
 {
     /// <summary>
     /// Instrument ID

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial On Chain Earn Invest Data
 /// </summary>
-public class OkxFinancialOnChainEarnInvestData
+public record OkxFinancialOnChainEarnInvestData
 {
     /// <summary>
     /// Currency type, e.g. BTC

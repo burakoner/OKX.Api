@@ -3,7 +3,7 @@
 /// <summary>
 /// VIP Interest Accrued Data
 /// </summary>
-public class OkxAccountVipInterestAccruedData
+public record OkxAccountVipInterestAccruedData
 {
     /// <summary>
     /// Order Id

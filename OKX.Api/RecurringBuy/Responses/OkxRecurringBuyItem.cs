@@ -3,7 +3,7 @@
 /// <summary>
 /// Recurring Buy Item
 /// </summary>
-public class OkxRecurringBuyItem
+public record OkxRecurringBuyItem
 {
     /// <summary>
     /// Recurring currency, e.g. BTC

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Non Tradable Asset Balance
 /// </summary>
-public class OkxFundingNonTradableAssetBalance
+public record OkxFundingNonTradableAssetBalance
 {
     /// <summary>
     /// Currency

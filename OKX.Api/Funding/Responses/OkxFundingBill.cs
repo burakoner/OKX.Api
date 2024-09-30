@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Funding Bill
 /// </summary>
-public class OkxFundingBill
+public record OkxFundingBill
 {
     /// <summary>
     /// Bill ID

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Copy Trader
 /// </summary>
-public class OkxCopyTradingCopyTrader
+public record OkxCopyTradingCopyTrader
 {
     /// <summary>
     /// Total copy trader profit and loss
@@ -39,7 +39,7 @@ public class OkxCopyTradingCopyTrader
 /// <summary>
 /// OKX Copy Trading Copy Trader Record
 /// </summary>
-public class OkxCopyTradingCopyTraderRecord
+public record OkxCopyTradingCopyTraderRecord
 {
     /// <summary>
     /// Begin copying time. Unix timestamp format in milliseconds, e.g.1597026383085

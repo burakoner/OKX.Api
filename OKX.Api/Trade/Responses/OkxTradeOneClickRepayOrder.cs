@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX One Click Repay Order
 /// </summary>
-public class OkxTradeOneClickRepayOrder
+public record OkxTradeOneClickRepayOrder
 {
     /// <summary>
     /// Current status of one-click repay

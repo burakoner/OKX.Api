@@ -4,7 +4,7 @@
 /// OKX Rest API Response
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class OkxRestApiResponse<T>
+public record OkxRestApiResponse<T>
 {
     /// <summary>
     /// Error Code

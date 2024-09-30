@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Fixed Loan Borrow Limit
 /// </summary>
-public class OkxAccountFixedLoanBorrowingLimit
+public record OkxAccountFixedLoanBorrowingLimit
 {
     /// <summary>
     /// (Master account and sub-accounts) Total borrow limit, unit in USD
@@ -57,7 +57,7 @@ public class OkxAccountFixedLoanBorrowingLimit
 /// <summary>
 /// OKX Fixed Loan Borrow Limit Details
 /// </summary>
-public class OkxAccountFixedLoanBorrowLimitDetails
+public record OkxAccountFixedLoanBorrowLimitDetails
 {
     /// <summary>
     /// Borrowing currency, e.g. BTC

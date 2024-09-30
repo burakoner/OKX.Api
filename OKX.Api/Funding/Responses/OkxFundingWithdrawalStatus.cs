@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Withdrawal Status
 /// </summary>
-public class OkxFundingWithdrawalStatus
+public record OkxFundingWithdrawalStatus
 {
     /// <summary>
     /// Withdrawal ID

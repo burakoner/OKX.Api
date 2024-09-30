@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Convert Currency
 /// </summary>
-public class OkxFundingConvertCurrency
+public record OkxFundingConvertCurrency
 {
     /// <summary>
     /// Currency, e.g. BTC

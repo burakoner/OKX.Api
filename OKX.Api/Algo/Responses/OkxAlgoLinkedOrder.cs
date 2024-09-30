@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Linked Order
 /// </summary>
-public class OkxAlgoLinkedOrder
+public record OkxAlgoLinkedOrder
 {
     /// <summary>
     /// Order ID

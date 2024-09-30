@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxMaximumAvailableAmount
 /// </summary>
-public class OkxAccountMaximumAvailableAmount
+public record OkxAccountMaximumAvailableAmount
 {
     /// <summary>
     /// Instrument ID

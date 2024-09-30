@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Leg Executed
 /// </summary>
-public class OkxBlockLegExecuted
+public record OkxBlockLegExecuted
 {
     /// <summary>
     /// Instrument ID, e.g. BTC-USDT-SWAP

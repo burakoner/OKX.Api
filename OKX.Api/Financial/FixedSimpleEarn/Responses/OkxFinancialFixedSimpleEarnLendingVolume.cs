@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial Fixed Simple Earn Lending Volume
 /// </summary>
-public class OkxFinancialFixedSimpleEarnLendingVolume
+public record OkxFinancialFixedSimpleEarnLendingVolume
 {
     /// <summary>
     /// Currency type, e.g. BTC

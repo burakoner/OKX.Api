@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Delivery Exercise History
 /// </summary>
-public class OkxPublicDeliveryExerciseHistory
+public record OkxPublicDeliveryExerciseHistory
 {
     /// <summary>
     /// Timestamp
@@ -27,7 +27,7 @@ public class OkxPublicDeliveryExerciseHistory
 /// <summary>
 /// OKX Delivery Exercise History Detail
 /// </summary>
-public class OkxPublicDeliveryExerciseHistoryData
+public record OkxPublicDeliveryExerciseHistoryData
 {
     /// <summary>
     /// Instrument ID

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Convert Order
 /// </summary>
-public class OkxFundingConvertOrder
+public record OkxFundingConvertOrder
 {
     /// <summary>
     /// Trade ID

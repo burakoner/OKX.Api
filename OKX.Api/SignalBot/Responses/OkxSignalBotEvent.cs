@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Bot Event
 /// </summary>
-public class OkxSignalBotEvent
+public record OkxSignalBotEvent
 {
     /// <summary>
     /// Algo ID
@@ -63,7 +63,7 @@ public class OkxSignalBotEvent
 /// <summary>
 /// OKX Signal Bot Triggered sub order data
 /// </summary>
-public class OkxSignalBotTriggeredOrderData
+public record OkxSignalBotTriggeredOrderData
 {
     /// <summary>
     /// 	Sub order client-supplied id

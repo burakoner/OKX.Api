@@ -4,7 +4,7 @@
 /// OKX Candlestick
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class OkxSpreadCandlestick
+public record OkxSpreadCandlestick
 {
     /// <summary>
     /// Timestamp

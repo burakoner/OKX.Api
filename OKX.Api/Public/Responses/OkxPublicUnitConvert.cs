@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Unit Convert
 /// </summary>
-public class OkxPublicUnitConvert
+public record OkxPublicUnitConvert
 {
     /// <summary>
     /// Type

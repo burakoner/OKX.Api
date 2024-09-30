@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub Account Funding Balance
 /// </summary>
-public class OkxSubAccountFundingBalance
+public record OkxSubAccountFundingBalance
 {
     /// <summary>
     /// Currency

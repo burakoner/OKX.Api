@@ -308,14 +308,14 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// Setting timeOut to 0 disables Cancel All After.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxBlockCancelAllAfterResponse>> CancelAllQuotesAfterAsync(int timeout, CancellationToken ct = default)
+    public Task<RestCallResult<OkxCancelAllAfter>> CancelAllQuotesAfterAsync(int timeout, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
         {
             { "timeOut", timeout.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxBlockCancelAllAfterResponse>(GetUri(v5RfqCancelAllAfter), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxCancelAllAfter>(GetUri(v5RfqCancelAllAfter), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>

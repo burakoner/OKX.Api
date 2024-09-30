@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Boolean Response
 /// </summary>
-public class OkxBooleanResponse
+public record OkxBooleanResponse
 {
     /// <summary>
     /// Result

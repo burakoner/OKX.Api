@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Exchange Rate
 /// </summary>
-public class OkxPublicExchangeRate
+public record OkxPublicExchangeRate
 {
     /// <summary>
     /// USD to CNY

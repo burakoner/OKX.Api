@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Ticker
 /// </summary>
-public class OkxBlockTicker
+public record OkxBlockTicker
 {
     /// <summary>
     /// Instrument ID

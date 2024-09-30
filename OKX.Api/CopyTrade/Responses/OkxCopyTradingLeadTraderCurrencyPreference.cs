@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Lead Trader Currency Preference
 /// </summary>
-public class OkxCopyTradingLeadTraderCurrencyPreference
+public record OkxCopyTradingLeadTraderCurrencyPreference
 {
     /// <summary>
     /// Currency

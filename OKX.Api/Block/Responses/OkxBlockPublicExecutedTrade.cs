@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Public Executed Trade
 /// </summary>
-public class OkxBlockPublicExecutedTrade
+public record OkxBlockPublicExecutedTrade
 {
     /// <summary>
     /// Option strategy, e.g. CALL_CALENDAR_SPREAD

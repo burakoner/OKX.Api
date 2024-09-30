@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Oracle
 /// </summary>
-public class OkxPublicOracle
+public record OkxPublicOracle
 {
     /// <summary>
     /// Messages

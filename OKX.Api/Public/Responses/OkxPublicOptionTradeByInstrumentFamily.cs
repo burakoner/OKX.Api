@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxOptionTrade
 /// </summary>
-public class OkxPublicOptionTradeByInstrumentFamily
+public record OkxPublicOptionTradeByInstrumentFamily
 {
     /// <summary>
     /// 24h trading volume, with a unit of contract.

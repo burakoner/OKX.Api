@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Convert Currency Pair
 /// </summary>
-public class OkxFundingConvertCurrencyPair
+public record OkxFundingConvertCurrencyPair
 {
     /// <summary>
     /// Currency pair, e.g. BTC-USDT

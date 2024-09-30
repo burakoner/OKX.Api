@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxPosition
 /// </summary>
-public class OkxAccountPositionTiers
+public record OkxAccountPositionTiers
 {
     /// <summary>
     /// Underlying

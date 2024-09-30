@@ -4,7 +4,7 @@
 /// OKX Order Book Row
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class OkxPublicOrderBookRow
+public record OkxPublicOrderBookRow
 {
     /// <summary>
     /// The price for this row

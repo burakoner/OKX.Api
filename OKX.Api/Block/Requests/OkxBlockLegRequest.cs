@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Block Leg Request
 /// </summary>
-public class OkxBlockLegRequest
+public record OkxBlockLegRequest
 {
     /// <summary>
     /// The Instrument ID of each leg. Example : "BTC-USDT-SWAP"

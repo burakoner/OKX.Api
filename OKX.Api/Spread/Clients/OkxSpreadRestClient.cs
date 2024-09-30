@@ -33,7 +33,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="clientOrderId">Client Order ID as assigned by the client. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSpreadOrderPlaceResponse>> PlaceOrderAsync(
+    public Task<RestCallResult<OkxSpreadOrderPlace>> PlaceOrderAsync(
         string spreadId,
         OkxTradeOrderSide side,
         OkxSpreadOrderType type,
@@ -52,7 +52,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("clOrdId", clientOrderId);
         parameters.AddOptional("tag", Options.BrokerId);
 
-        return ProcessOneRequestAsync<OkxSpreadOrderPlaceResponse>(GetUri(v5SpreadOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSpreadOrderPlace>(GetUri(v5SpreadOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -62,13 +62,13 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="clientOrderId">Client Order ID as assigned by the client</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSpreadOrderCancelResponse>> CancelOrderAsync(long? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
+    public Task<RestCallResult<OkxSpreadOrderCancel>> CancelOrderAsync(long? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("ordId", orderId?.ToOkxString());
         parameters.AddOptional("clOrdId", clientOrderId);
 
-        return ProcessOneRequestAsync<OkxSpreadOrderCancelResponse>(GetUri(v5SpreadCancelOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSpreadOrderCancel>(GetUri(v5SpreadCancelOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// Either newSz or newPx is required.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSpreadOrderAmendResponse>> AmendOrderAsync(
+    public Task<RestCallResult<OkxSpreadOrderAmend>> AmendOrderAsync(
         long? orderId = null,
         string? clientOrderId = null,
         string? requestId = null,
@@ -116,7 +116,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("newSz", newQuantity?.ToOkxString());
         parameters.AddOptional("newPx", newPrice?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxSpreadOrderAmendResponse>(GetUri(v5SpreadAmendOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSpreadOrderAmend>(GetUri(v5SpreadAmendOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -479,13 +479,13 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// Setting timeOut to 0 disables Cancel All After.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSpreadCancelAllAfter>> CancelAllAfterAsync(int timeout, CancellationToken ct = default)
+    public Task<RestCallResult<OkxCancelAllAfter>> CancelAllAfterAsync(int timeout, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             {"timeOut", timeout.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxSpreadCancelAllAfter>(GetUri(v5SpreadCancelAllAfter), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxCancelAllAfter>(GetUri(v5SpreadCancelAllAfter), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
 }

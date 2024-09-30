@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Spread Order Book
 /// </summary>
-public class OkxSpreadOrderBook
+public record OkxSpreadOrderBook
 {
     /// <summary>
     /// Asks

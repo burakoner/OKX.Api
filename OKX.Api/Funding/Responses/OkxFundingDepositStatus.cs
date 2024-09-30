@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Deposit Status
 /// </summary>
-public class OkxFundingDepositStatus
+public record OkxFundingDepositStatus
 {
     /// <summary>
     /// Hash record on-chain

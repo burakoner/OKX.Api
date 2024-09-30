@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Affiliate Rebate Information
 /// </summary>
-public class OkxAffiliateRebateInformation
+public record OkxAffiliateRebateInformation
 {
     /// <summary>
     /// Whether the user is invited by the current affiliate. true, false

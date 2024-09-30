@@ -3,7 +3,7 @@
 /// <summary>
 /// Account Level
 /// </summary>
-public class OkxAccountLevelData
+public record OkxAccountLevelContainer
 {
     /// <summary>
     /// Account level

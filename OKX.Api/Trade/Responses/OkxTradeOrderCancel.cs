@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order Cancel Response
 /// </summary>
-public class OkxTradeOrderCancelResponse : OkxRestApiErrorBase
+public record OkxTradeOrderCancel : OkxRestApiErrorBase
 {
     /// <summary>
     /// Order Id

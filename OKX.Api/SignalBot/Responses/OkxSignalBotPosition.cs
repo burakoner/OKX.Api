@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Order Position
 /// </summary>
-public class OkxSignalBotPosition
+public record OkxSignalBotPosition
 {
     /// <summary>
     /// Algo ID

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Balance
 /// </summary>
-public class OkxAccountBalance
+public record OkxAccountBalance
 {
     /// <summary>
     /// Update time of account information, millisecond format of Unix timestamp, e.g. 1597026383085
@@ -53,7 +53,7 @@ public class OkxAccountBalance
     /// Applicable to Multi-currency margin and Portfolio margin
     /// </summary>
     [JsonProperty("imr")]
-    public decimal? InitialMarginRequirement { get; set; }
+    public decimal? IMR { get; set; }
 
     /// <summary>
     /// Maintenance margin requirement in USD
@@ -61,7 +61,7 @@ public class OkxAccountBalance
     /// Applicable to Multi-currency margin and Portfolio margin
     /// </summary>
     [JsonProperty("mmr")]
-    public decimal? MaintenanceMarginRequirement { get; set; }
+    public decimal? MMR { get; set; }
 
     /// <summary>
     /// Potential borrowing IMR of the account in USD

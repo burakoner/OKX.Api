@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Lead Traders Ranks
 /// </summary>
-public class OkxCopyTradingLeadTraderPnl
+public record OkxCopyTradingLeadTraderPnl
 {
     /// <summary>
     /// Pnl

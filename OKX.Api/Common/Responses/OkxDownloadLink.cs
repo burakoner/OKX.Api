@@ -3,7 +3,7 @@
 /// <summary>
 /// Download Link
 /// </summary>
-public class OkxDownloadLink
+public record OkxDownloadLink
 {
     /// <summary>
     /// Download file link

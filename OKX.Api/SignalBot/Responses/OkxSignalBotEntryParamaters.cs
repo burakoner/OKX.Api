@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Entry Paramaters
 /// </summary>
-public class OkxSignalBotEntryParamaters
+public record OkxSignalBotEntryParamaters
 {
     /// <summary>
     /// Whether or not allow multiple entries in the same direction for the same trading pairs.The default value is true。 true：Allow false：Prohibit

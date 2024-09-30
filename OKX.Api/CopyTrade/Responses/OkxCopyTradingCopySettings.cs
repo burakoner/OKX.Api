@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxCopyTradingCopySettings
 /// </summary>
-public class OkxCopyTradingCopySettings
+public record OkxCopyTradingCopySettings
 {
     /// <summary>
     /// Copy mode
@@ -88,7 +88,7 @@ public class OkxCopyTradingCopySettings
 /// <summary>
 /// OKX Copy Trading Copy Instrument Settings
 /// </summary>
-public class OkxCopyTradingCopyInstrumentSettings
+public record OkxCopyTradingCopyInstrumentSettings
 {
     /// <summary>
     /// Instrument ID

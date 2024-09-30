@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Asset Valuation
 /// </summary>
-public class OkxFundingAssetValuation
+public record OkxFundingAssetValuation
 {
     /// <summary>
     /// Total Balance
@@ -28,35 +28,4 @@ public class OkxFundingAssetValuation
     /// </summary>
     [JsonProperty("details")]
     public OkxFundingAssetValuationDetails? Details { get; set; }
-}
-
-/// <summary>
-/// OKX Asset Valuation Details
-/// </summary>
-public class OkxFundingAssetValuationDetails
-{
-    /// <summary>
-    /// Funding
-    /// </summary>
-    [JsonProperty("funding")]
-    public decimal Funding { get; set; }
-
-    /// <summary>
-    /// Trading
-    /// </summary>
-    [JsonProperty("trading")]
-    public decimal Trading { get; set; }
-
-    /// <summary>
-    /// Classic
-    /// </summary>
-    [Obsolete("Deprecated")]
-    [JsonProperty("classic")]
-    public decimal Classic { get; set; }
-
-    /// <summary>
-    /// Earn
-    /// </summary>
-    [JsonProperty("earn")]
-    public decimal Earn { get; set; }
 }

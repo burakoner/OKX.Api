@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial On Chain Earn Order
 /// </summary>
-public class OkxFinancialOnChainEarnOrder
+public record OkxFinancialOnChainEarnOrder
 {
     /// <summary>
     /// Currency type, e.g. BTC

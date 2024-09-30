@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxMaximumLoanAmount
 /// </summary>
-public class OkxAccountMaximumLoanAmount
+public record OkxAccountMaximumLoanAmount
 {
     /// <summary>
     /// Instrument ID

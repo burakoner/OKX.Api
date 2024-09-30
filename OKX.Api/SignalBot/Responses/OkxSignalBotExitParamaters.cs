@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Exit Paramaters
 /// </summary>
-public class OkxSignalBotExitParamaters
+public record OkxSignalBotExitParamaters
 {
     /// <summary>
     /// Type of set the take-profit and stop-loss trigger price

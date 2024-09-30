@@ -3,7 +3,7 @@
 /// <summary>
 /// Deposit Address
 /// </summary>
-public class OkxFundingDepositAddress
+public record OkxFundingDepositAddress
 {
     /// <summary>
     /// Deposit address

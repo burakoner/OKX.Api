@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Transfer Response
 /// </summary>
-public class OkxFundingTransferResponse
+public record OkxFundingTransferResponse
 {
     /// <summary>
     /// Transfer Id

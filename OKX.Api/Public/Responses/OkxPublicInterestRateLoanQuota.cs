@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Interest Rate
 /// </summary>
-public class OkxPublicInterestRateLoanQuota
+public record OkxPublicInterestRateLoanQuota
 {
     /// <summary>
     /// Basic
@@ -28,7 +28,7 @@ public class OkxPublicInterestRateLoanQuota
 /// <summary>
 /// OKX Public Interest Rate Basic
 /// </summary>
-public class OkxPublicInterestRateBasic
+public record OkxPublicInterestRateBasic
 {
     /// <summary>
     /// Currency
@@ -52,7 +52,7 @@ public class OkxPublicInterestRateBasic
 /// <summary>
 /// OKX Public Interest Rate VIP
 /// </summary>
-public class OkxPublicInterestRateVip
+public record OkxPublicInterestRateVip
 {
     /// <summary>
     /// Level
@@ -70,7 +70,7 @@ public class OkxPublicInterestRateVip
 /// <summary>
 /// OKX Public Interest Rate Regular
 /// </summary>
-public class OkxPublicInterestRateRegular
+public record OkxPublicInterestRateRegular
 {
     /// <summary>
     /// Level

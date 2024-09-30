@@ -3,7 +3,7 @@
 /// <summary>
 /// Trigger Parameters
 /// </summary>
-public class OkxGridTriggerParameters
+public record OkxGridTriggerParameters
 {
     /// <summary>
     /// Trigger action

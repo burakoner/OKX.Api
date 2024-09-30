@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Position Builder
 /// </summary>
-public class OkxAccountPositionBuilder
+public record OkxAccountPositionBuilder
 {
     /// <summary>
     /// Adjusted equity (USD) for the account
@@ -69,7 +69,7 @@ public class OkxAccountPositionBuilder
 /// <summary>
 /// OKX Position Builder Asset
 /// </summary>
-public class OkxAccountPositionBuilderAsset
+public record OkxAccountPositionBuilderAsset
 {
     /// <summary>
     /// Currency
@@ -105,7 +105,7 @@ public class OkxAccountPositionBuilderAsset
 /// <summary>
 /// OKX Position Builder Risk Unit
 /// </summary>
-public class OkxAccountPositionBuilderRiskUnit
+public record OkxAccountPositionBuilderRiskUnit
 {
     /// <summary>
     /// Risk unit
@@ -225,7 +225,7 @@ public class OkxAccountPositionBuilderRiskUnit
 /// <summary>
 /// OKX Position Builder Risk Unit MR1 Scenarios
 /// </summary>
-public class OkxAccountPositionBuilderRiskUnitMR1Scenarios
+public record OkxAccountPositionBuilderRiskUnitMR1Scenarios
 {
     /// <summary>
     /// Volatility shock down
@@ -249,7 +249,7 @@ public class OkxAccountPositionBuilderRiskUnitMR1Scenarios
 /// <summary>
 /// OKX Position Builder Risk Unit MR1 Final Result
 /// </summary>
-public class OkxAccountPositionBuilderRiskUnitMR1FinalResult
+public record OkxAccountPositionBuilderRiskUnitMR1FinalResult
 {
     /// <summary>
     /// PNL
@@ -273,7 +273,7 @@ public class OkxAccountPositionBuilderRiskUnitMR1FinalResult
 /// <summary>
 /// OKX Position Builder Risk Unit MR6 Final Result
 /// </summary>
-public class OkxAccountPositionBuilderRiskUnitMR6FinalResult
+public record OkxAccountPositionBuilderRiskUnitMR6FinalResult
 {
     /// <summary>
     /// PNL
@@ -291,7 +291,7 @@ public class OkxAccountPositionBuilderRiskUnitMR6FinalResult
 /// <summary>
 /// OKX Position Builder Risk Unit Portfolio
 /// </summary>
-public class OkxAccountPositionBuilderRiskUnitPortfolio
+public record OkxAccountPositionBuilderRiskUnitPortfolio
 {
     /// <summary>
     /// Instrument ID

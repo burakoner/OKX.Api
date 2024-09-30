@@ -533,7 +533,7 @@ public class OkxPublicSocketClient(OKXWebSocketApiClient root)
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderBookAsync(Action<OkxPublicOrderBookStream> onData, IEnumerable<string> instrumentIds, OkxOrderBookType orderBookType, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxOrderBookUpdate>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketOrderBookUpdate>>(data =>
         {
             foreach (var d in data.Data.Data)
             {

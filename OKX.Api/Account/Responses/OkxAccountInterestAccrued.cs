@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxInterestAccrued
 /// </summary>
-public class OkxAccountInterestAccrued
+public record OkxAccountInterestAccrued
 {
     /// <summary>
     /// Loan type

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Lead Trader History
 /// </summary>
-public class OkxCopyTradingLeadTraderHistory
+public record OkxCopyTradingLeadTraderHistory
 {
     /// <summary>
     /// Portrait link

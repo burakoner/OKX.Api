@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid AI Parameter
 /// </summary>
-public class OkxGridAiParameter
+public record OkxGridAiParameter
 {
     /// <summary>
     /// Instrument ID

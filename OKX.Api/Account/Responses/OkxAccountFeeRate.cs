@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxFeeRate
 /// </summary>
-public class OkxAccountFeeRate
+public record OkxAccountFeeRate
 {
     /// <summary>
     /// Fee rate Level
@@ -94,7 +94,7 @@ public class OkxAccountFeeRate
 /// <summary>
 /// OkxFiatFeeRate
 /// </summary>
-public class OkxAccountFiatFeeRate
+public record OkxAccountFiatFeeRate
 {
     /// <summary>
     /// Fiat currency

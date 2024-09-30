@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Download Link Application
 /// </summary>
-public class OkxDownloadApplication
+public record OkxDownloadApplication
 {
     /// <summary>
     /// Whether there is already a download link for this section

@@ -4,7 +4,7 @@
 /// OKX Contract Open Interest History
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class OkxRubikContractOpenInterestHistory
+public record OkxRubikContractOpenInterestHistory
 {
     /// <summary>
     /// Timestamp, millisecond format of Unix timestamp, e.g. 1597026383085

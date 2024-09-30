@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Saving Action Response
 /// </summary>
-public class OkxFundingSavingActionResponse
+public record OkxFundingSavingActionResponse
 {
     /// <summary>
     /// Currency

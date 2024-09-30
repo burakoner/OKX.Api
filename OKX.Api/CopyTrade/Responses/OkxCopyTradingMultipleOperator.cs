@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxMultipleOperation
 /// </summary>
-public class OkxCopyTradingMultipleOperation
+public record OkxCopyTradingMultipleOperation
 {
     /// <summary>
     /// Instrument ID setted successfully

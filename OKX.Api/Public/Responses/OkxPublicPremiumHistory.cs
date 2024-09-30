@@ -3,7 +3,7 @@
 /// <summary>
 /// Option Premium History
 /// </summary>
-public class OkxPublicPremiumHistory
+public record OkxPublicPremiumHistory
 {
     /// <summary>
     /// Instrument ID, e.g. BTC-USDT-SWAP

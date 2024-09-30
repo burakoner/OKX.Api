@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxAccountMaximumOrderQuantity
 /// </summary>
-public class OkxAccountMaximumOrderQuantity
+public record OkxAccountMaximumOrderQuantity
 {
     /// <summary>
     /// Instrument ID

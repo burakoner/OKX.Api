@@ -4,7 +4,7 @@
 /// OKX Put Call Ratio
 /// </summary>
 [JsonConverter(typeof(ArrayConverter))]
-public class OkxRubikPutCallRatio
+public record OkxRubikPutCallRatio
 {
     /// <summary>
     /// Time

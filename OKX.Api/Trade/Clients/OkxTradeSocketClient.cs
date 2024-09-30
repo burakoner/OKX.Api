@@ -85,10 +85,10 @@ public class OkxTradeSocketClient(OKXWebSocketApiClient root)
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
-    public async Task<CallResult<OkxTradeOrderCancelResponse>> CancelOrderAsync(OkxTradeOrderCancelRequest request)
+    public async Task<CallResult<OkxTradeOrderCancel>> CancelOrderAsync(OkxTradeOrderCancelRequest request)
     {
         var req = new OkxSocketRequest<OkxTradeOrderCancelRequest>(Root.RequestId().ToString(), OkxSocketOperation.CancelOrder, [request]);
-        return await Root.RootQueryAsync<OkxTradeOrderCancelResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        return await Root.RootQueryAsync<OkxTradeOrderCancel>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -96,10 +96,10 @@ public class OkxTradeSocketClient(OKXWebSocketApiClient root)
     /// </summary>
     /// <param name="requests">Requests</param>
     /// <returns></returns>
-    public async Task<CallResult<IEnumerable<OkxTradeOrderCancelResponse>>> CancelOrdersAsync(IEnumerable<OkxTradeOrderCancelRequest> requests)
+    public async Task<CallResult<IEnumerable<OkxTradeOrderCancel>>> CancelOrdersAsync(IEnumerable<OkxTradeOrderCancelRequest> requests)
     {
         var req = new OkxSocketRequest<OkxTradeOrderCancelRequest>(Root.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, requests);
-        return await Root.RootQueryAsync<IEnumerable<OkxTradeOrderCancelResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        return await Root.RootQueryAsync<IEnumerable<OkxTradeOrderCancel>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -107,10 +107,10 @@ public class OkxTradeSocketClient(OKXWebSocketApiClient root)
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
-    public async Task<CallResult<OkxTradeOrderAmendResponse>> AmendOrderAsync(OkxTradeOrderAmendRequest request)
+    public async Task<CallResult<OkxTradeOrderAmend>> AmendOrderAsync(OkxTradeOrderAmendRequest request)
     {
         var req = new OkxSocketRequest<OkxTradeOrderAmendRequest>(Root.RequestId().ToString(), OkxSocketOperation.AmendOrder, [request]);
-        return await Root.RootQueryAsync<OkxTradeOrderAmendResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        return await Root.RootQueryAsync<OkxTradeOrderAmend>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -118,10 +118,10 @@ public class OkxTradeSocketClient(OKXWebSocketApiClient root)
     /// </summary>
     /// <param name="requests">Requests</param>
     /// <returns></returns>
-    public async Task<CallResult<IEnumerable<OkxTradeOrderAmendResponse>>> AmendOrdersAsync(IEnumerable<OkxTradeOrderAmendRequest> requests)
+    public async Task<CallResult<IEnumerable<OkxTradeOrderAmend>>> AmendOrdersAsync(IEnumerable<OkxTradeOrderAmendRequest> requests)
     {
         var req = new OkxSocketRequest<OkxTradeOrderAmendRequest>(Root.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, requests);
-        return await Root.RootQueryAsync<IEnumerable<OkxTradeOrderAmendResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        return await Root.RootQueryAsync<IEnumerable<OkxTradeOrderAmend>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -130,10 +130,10 @@ public class OkxTradeSocketClient(OKXWebSocketApiClient root)
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
-    public async Task<CallResult<OkxTradeMassCancelResponse>> MassCancelAsync(OkxTradeMassCancelRequest request)
+    public async Task<CallResult<OkxBooleanResponse>> MassCancelAsync(OkxTradeMassCancelRequest request)
     {
         var req = new OkxSocketRequest<OkxTradeMassCancelRequest>(Root.RequestId().ToString(), OkxSocketOperation.MassCancel, [request]);
-        return await Root.RootQueryAsync<OkxTradeMassCancelResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        return await Root.RootQueryAsync<OkxBooleanResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
 }

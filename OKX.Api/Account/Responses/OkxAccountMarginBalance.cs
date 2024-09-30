@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxMarginBalance
 /// </summary>
-public class OkxAccountMarginBalance
+public record OkxAccountMarginBalance
 {
     /// <summary>
     /// Instrument ID

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Order
 /// </summary>
-public class OkxAlgoOrder
+public record OkxAlgoOrder
 {
     /// <summary>
     /// Instrument type

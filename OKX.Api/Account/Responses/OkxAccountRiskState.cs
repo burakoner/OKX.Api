@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Risk State
 /// </summary>
-public class OkxAccountRiskState
+public record OkxAccountRiskState
 {
     /// <summary>
     /// At Risk

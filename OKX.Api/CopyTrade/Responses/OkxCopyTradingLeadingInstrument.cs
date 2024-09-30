@@ -3,7 +3,7 @@
 /// <summary>
 /// OkxLeadingInstrument
 /// </summary>
-public class OkxCopyTradingLeadingInstrument
+public record OkxCopyTradingLeadingInstrument
 {
     /// <summary>
     /// Instrument ID, e.g. BTC-USDT-SWAP

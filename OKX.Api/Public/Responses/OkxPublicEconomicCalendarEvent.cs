@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Economic Calendar Event
 /// </summary>
-public class OkxPublicEconomicCalendarEvent
+public record OkxPublicEconomicCalendarEvent
 {
     /// <summary>
     /// Calendar ID
