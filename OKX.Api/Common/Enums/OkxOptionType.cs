@@ -8,10 +8,12 @@ public enum OkxOptionType
     /// <summary>
     /// Call
     /// </summary>
+    [Map("C")]
     Call,
 
     /// <summary>
     /// Put
     /// </summary>
+    [Map("P")]
     Put,
 }
