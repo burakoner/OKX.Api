@@ -3,11 +3,11 @@
 /// <summary>
 /// OkxAccountGreeksType
 /// </summary>
-public record OkxAccountGreeksTypeContainer
+internal record OkxAccountGreeksTypeContainer
 {
     /// <summary>
     /// Display type of Greeks.
     /// </summary>
     [JsonProperty("greeksType")]
-    public OkxAccountGreeksType GreeksType { get; set; }
+    public OkxAccountGreeksType Data { get; set; }
 }

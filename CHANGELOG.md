@@ -10,7 +10,7 @@
   * Removed Json Converters
   * Defined integer values for enums
   * DTO models converted to record
-  * Performance Optimizations
+  * Performance improvements and optimizations
   * Fixed minor bugs
   * Commit: [d3705fb](https://github.com/burakoner/OKX.Api/commit/d3705fb3023c3c2c3bfd5e8c91cd26a78de4698f)
   * Commit: [0fdb84e](https://github.com/burakoner/OKX.Api/commit/0fdb84eb92f1b3bdedbb6169a0f5c36ff769294c)

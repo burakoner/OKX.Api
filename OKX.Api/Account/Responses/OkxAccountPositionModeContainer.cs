@@ -3,11 +3,11 @@
 /// <summary>
 /// OkxAccountPositionMode
 /// </summary>
-public record OkxAccountPositionModeContainer
+internal record OkxAccountPositionModeContainer
 {
     /// <summary>
     /// Position mode
     /// </summary>
     [JsonProperty("posMode")]
-    public OkxTradePositionMode PositionMode { get; set; }
+    public OkxTradePositionMode Data { get; set; }
 }

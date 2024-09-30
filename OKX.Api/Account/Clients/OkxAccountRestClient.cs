@@ -320,12 +320,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="positionMode"></param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountPositionModeContainer>> SetPositionModeAsync(OkxTradePositionMode positionMode, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxTradePositionMode>> SetPositionModeAsync(OkxTradePositionMode positionMode, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddEnum("posMode", positionMode);
 
-        return ProcessOneRequestAsync<OkxAccountPositionModeContainer>(GetUri(v5AccountSetPositionMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxAccountPositionModeContainer>(GetUri(v5AccountSetPositionMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<OkxTradePositionMode>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<OkxTradePositionMode>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -642,12 +644,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="greeksType">Display type of Greeks.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountGreeksTypeContainer>> SetGreeksAsync(OkxAccountGreeksType greeksType, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxAccountGreeksType>> SetGreeksAsync(OkxAccountGreeksType greeksType, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddEnum("greeksType", greeksType);
 
-        return ProcessOneRequestAsync<OkxAccountGreeksTypeContainer>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxAccountGreeksTypeContainer>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<OkxAccountGreeksType>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<OkxAccountGreeksType>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -658,14 +662,16 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public Task<RestCallResult<OkxAccountIsolatedMarginModeContainer>> SetIsolatedMarginModeAsync(OkxInstrumentType instrumentType, OkxAccountIsolatedMarginMode marginMode, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxAccountIsolatedMarginMode>> SetIsolatedMarginModeAsync(OkxInstrumentType instrumentType, OkxAccountIsolatedMarginMode marginMode, CancellationToken ct = default)
     {
         if (!instrumentType.IsIn(OkxInstrumentType.Margin, OkxInstrumentType.Contracts)) throw new ArgumentException("Only Margin and Contracts allowed", nameof(instrumentType));
         var parameters = new ParameterCollection();
         parameters.AddEnum("isoMode", marginMode);
         parameters.AddEnum("type", instrumentType);
 
-        return ProcessOneRequestAsync<OkxAccountIsolatedMarginModeContainer>(GetUri(v5AccountSetIsolatedMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxAccountIsolatedMarginModeContainer>(GetUri(v5AccountSetIsolatedMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<OkxAccountIsolatedMarginMode>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<OkxAccountIsolatedMarginMode>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -972,7 +978,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="reborrowRate">Auto-renew borrowing rate, in decimal. e.g. 0.01 represents 1%. If reborrow is true, the parameter is required.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> PlaceFixedLoanBorrowingOrderAsync(
+    public async Task<RestCallResult<long?>> PlaceFixedLoanBorrowingOrderAsync(
     string currency,
     decimal amount,
     decimal maximumRate,
@@ -991,7 +997,9 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("reborrow", reborrow);
         parameters.AddOptional("reborrowRate", reborrowRate?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxAccountOrderId>(GetUri(v5AccountFixedLoanBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -1002,7 +1010,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="maximumRate">Maximum acceptable auto-renew borrow rate for borrowing order, in decimal. e.g. 0.01 represents 1%. If reborrow is true, the parameter is required.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> AmendFixedLoanBorrowingOrderAsync(
+    public async Task<RestCallResult<long?>> AmendFixedLoanBorrowingOrderAsync(
     long orderId,
     bool? reborrow = null,
     decimal? maximumRate = null,
@@ -1015,7 +1023,9 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("reborrow", reborrow);
         parameters.AddOptional("renewMaxRate", maximumRate?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanAmendBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxAccountOrderId>(GetUri(v5AccountFixedLoanAmendBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -1025,7 +1035,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="maximumRate">Maximum acceptable auto-renew borrow rate for borrowing order, in decimal. e.g. 0.01 represents 1%.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> RenewFixedLoanBorrowingOrderAsync(
+    public async Task<RestCallResult<long?>> RenewFixedLoanBorrowingOrderAsync(
     long orderId,
     decimal? maximumRate = null,
     CancellationToken ct = default)
@@ -1036,7 +1046,9 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "maxRate", maximumRate.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanManualReborrow), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxAccountOrderId>(GetUri(v5AccountFixedLoanManualReborrow), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -1045,7 +1057,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="orderId">Borrowing order ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrder>> RepayFixedLoanBorrowingOrderAsync(
+    public async Task<RestCallResult<long?>> RepayFixedLoanBorrowingOrderAsync(
     long orderId,
     CancellationToken ct = default)
     {
@@ -1054,7 +1066,9 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "ordId", orderId },
         };
 
-        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrder>(GetUri(v5AccountFixedLoanRepayBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxAccountOrderId>(GetUri(v5AccountFixedLoanRepayBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -1182,14 +1196,16 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="type">Risk offset type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountRiskOffsetTypeContainer>> SetRiskOffsetTypeAsync(
+    public async Task<RestCallResult<OkxAccountRiskOffsetType>> SetRiskOffsetTypeAsync(
     OkxAccountRiskOffsetType type,
     CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("type", type);
 
-        return ProcessOneRequestAsync<OkxAccountRiskOffsetTypeContainer>(GetUri(v5AccountSetRiskOffsetType), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxAccountRiskOffsetTypeContainer>(GetUri(v5AccountSetRiskOffsetType), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<OkxAccountRiskOffsetType>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<OkxAccountRiskOffsetType>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -1209,14 +1225,16 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="autoLoan">Whether to automatically make loans. Valid values are true, false. The default is true</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountAutoLoan>> SetAutoLoanAsync(bool autoLoan, CancellationToken ct = default)
+    public async Task<RestCallResult<bool>> SetAutoLoanAsync(bool autoLoan, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
         {
             { "autoLoan", autoLoan }
         };
 
-        return ProcessOneRequestAsync<OkxAccountAutoLoan>(GetUri(v5AccountSetAutoLoan), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxAccountAutoLoan>(GetUri(v5AccountSetAutoLoan), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<bool>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<bool>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -1226,12 +1244,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="accountLevel">Account mode</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountLevelContainer>> SetLevelAsync(OkxAccountLevel accountLevel, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxAccountLevel>> SetLevelAsync(OkxAccountLevel accountLevel, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("acctLv", accountLevel);
 
-        return ProcessOneRequestAsync<OkxAccountLevelContainer>(GetUri(v5AccountSetAccountLevel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxAccountLevelContainer>(GetUri(v5AccountSetAccountLevel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<OkxAccountLevel>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<OkxAccountLevel>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>

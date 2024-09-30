@@ -3,11 +3,11 @@
 /// <summary>
 /// Account Level
 /// </summary>
-public record OkxAccountLevelContainer
+internal record OkxAccountLevelContainer
 {
     /// <summary>
     /// Account level
     /// </summary>
     [JsonProperty("acctLv")]
-    public OkxAccountLevel AccountLevel { get; set; }
+    public OkxAccountLevel Data { get; set; }
 }

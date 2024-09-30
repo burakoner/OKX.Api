@@ -2,7 +2,24 @@
 
 internal class Program
 {
-    static async Task Main(string[] args)
+        static async Task Main(string[] args)
+    {
+        var api = new OkxRestApiClient(new OkxRestApiOptions
+        {
+            RawResponse = true,
+        });
+        api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
+
+        // Order Book Trading -> Market Data Methods (Signed)
+        var market_01 = await api.Public.GetTickersAsync(OkxInstrumentType.Spot);
+        var market_02 = await api.Public.GetTickerAsync("BTC-USDT");
+        var market_03 = await api.Public.GetOrderBookAsync("BTC-USDT", 40);
+        var market_04 = await api.Public.GetOrderBookFullAsync("BTC-USDT", 5000);
+        var market_05 = await api.Public.GetCandlesticksAsync("BTC-USDT", "6Hutc");
+        var market_06 = await api.Public.GetCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);
+    }
+
+    static async Task Main2(string[] args)
     {
         #region Rest Api Client Examples
         var api = new OkxRestApiClient(new OkxRestApiOptions

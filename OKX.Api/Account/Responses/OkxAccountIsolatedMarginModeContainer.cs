@@ -3,11 +3,11 @@
 /// <summary>
 /// OkxIsolatedMarginMode
 /// </summary>
-public record OkxAccountIsolatedMarginModeContainer
+internal record OkxAccountIsolatedMarginModeContainer
 {
     /// <summary>
     /// Isolated margin trading settings
     /// </summary>
     [JsonProperty("isoMode")]
-    public OkxAccountIsolatedMarginMode MarginMode { get; set; }
+    public OkxAccountIsolatedMarginMode Data { get; set; }
 }

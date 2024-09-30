@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Fixed Loan Borrow Order
 /// </summary>
-public record OkxAccountFixedLoanBorrowingOrder
+internal record OkxAccountOrderId
 {
     /// <summary>
     /// Borrowing order ID
     /// </summary>
     [JsonProperty("ordId")]
-    public long OrderId { get; set; }
+    public long? Data { get; set; }
 }
