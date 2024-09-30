@@ -8,10 +8,12 @@ public enum OkxFinancialEthStakingType
     /// <summary>
     /// Redeem
     /// </summary>
+    [Map("")]
     Purchase,
 
     /// <summary>
     /// Redeem
     /// </summary>
+    [Map("")]
     Redeem,
 }
