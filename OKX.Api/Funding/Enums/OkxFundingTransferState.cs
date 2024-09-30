@@ -8,15 +8,18 @@ public enum OkxFundingTransferState
     /// <summary>
     /// Success
     /// </summary>
+    [Map("success")]
     Success,
 
     /// <summary>
     /// Pending
     /// </summary>
+    [Map("pending")]
     Pending,
 
     /// <summary>
     /// Failed
     /// </summary>
+    [Map("failed")]
     Failed,
 }

@@ -8,10 +8,12 @@ public enum OkxFundingSavingActionSide
     /// <summary>
     /// Purchase
     /// </summary>
+    [Map("purchase")]
     Purchase,
 
     /// <summary>
     /// Redempt
     /// </summary>
+    [Map("redempt")]
     Redempt,
 }
