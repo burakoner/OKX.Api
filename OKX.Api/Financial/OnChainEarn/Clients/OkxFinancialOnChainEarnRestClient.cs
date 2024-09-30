@@ -123,7 +123,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         parameters.AddOptional("ccy", currency);
         parameters.AddOptional("productId", productId);
         parameters.AddOptional("protocolType", protocolType);
-        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxFinancialOnChainEarnOrderStateConverter(false)));
+        parameters.AddOptionalEnum("state", state);
 
         return ProcessListRequestAsync<OkxFinancialOnChainEarnOrder>(GetUri(v5FinanceStakingDefiOrdersActive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

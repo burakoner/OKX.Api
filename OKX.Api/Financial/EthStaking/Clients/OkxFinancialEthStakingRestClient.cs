@@ -71,10 +71,9 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection {
-            {"type", JsonConvert.SerializeObject(type, new OkxFinancialEthStakingTypeConverter(false)) },
-        };
-        parameters.AddOptional("status", JsonConvert.SerializeObject(status, new OkxFinancialEthStakingStatusConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("type", type);
+        parameters.AddOptionalEnum("status", status);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());

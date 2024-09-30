@@ -106,17 +106,17 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     {
         var parameters = new ParameterCollection {
             { "instId", instrumentId },
-            { "algoOrdType", JsonConvert.SerializeObject(algoOrderType, new OkxGridAlgoOrderTypeConverter(false)) },
             { "maxPx", maximumPrice.ToOkxString() },
             { "minPx", minimumPrice.ToOkxString() },
             { "gridNum", gridNumber.ToOkxString() },
         };
-        parameters.AddOptional("runType", JsonConvert.SerializeObject(gridRunType, new OkxGridRunTypeConverter(false)));
+        parameters.AddEnum("algoOrdType", algoOrderType);
+        parameters.AddOptionalEnum("runType", JsonConvert.SerializeObject(gridRunType, new OkxGridRunTypeConverter(false)));
         parameters.AddOptional("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
         parameters.AddOptional("slTriggerPx", stopLossTriggerPrice?.ToOkxString());
         parameters.AddOptional("algoClOrdId", algoClientOrderId);
         parameters.AddOptional("profitSharingRatio", profitSharingRatio?.ToOkxString());
-        parameters.AddOptional("triggerParams", JsonConvert.SerializeObject(triggerParameters));
+        parameters.AddOptionalEnum("triggerParams", JsonConvert.SerializeObject(triggerParameters));
 
         // Spot Grid Order
         parameters.AddOptional("quoteSz", quoteSize?.ToOkxString());
@@ -124,7 +124,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 
         // Contract Grid Order
         parameters.AddOptional("sz", size?.ToOkxString());
-        parameters.AddOptional("direction", JsonConvert.SerializeObject(contractGridDirection, new OkxGridContractDirectionConverter(false)));
+        parameters.AddOptionalEnum("direction", JsonConvert.SerializeObject(contractGridDirection, new OkxGridContractDirectionConverter(false)));
         parameters.AddOptional("lever", leverage?.ToOkxString());
         parameters.AddOptional("basePos", basePosition);
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
@@ -185,7 +185,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
         parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
-        parameters.AddOptional("triggerParams", JsonConvert.SerializeObject(triggerParameters));
+        parameters.AddOptionalEnum("triggerParams", JsonConvert.SerializeObject(triggerParameters));
 
         return ProcessOneRequestAsync<OkxGridOrderAmendResponse>(GetUri(v5TradingBotGridAmendOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -214,9 +214,9 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "algoOrdType", JsonConvert.SerializeObject(algoOrderType, new OkxGridAlgoOrderTypeConverter(false)) },
         };
         if (spotAlgoStopType.HasValue)
-            parameters.AddOptional("stopType", JsonConvert.SerializeObject(spotAlgoStopType, new OkxGridSpotAlgoStopTypeConverter(false)));
+            parameters.AddOptionalEnum("stopType", JsonConvert.SerializeObject(spotAlgoStopType, new OkxGridSpotAlgoStopTypeConverter(false)));
         else if (contractAlgoStopType.HasValue)
-            parameters.AddOptional("stopType", JsonConvert.SerializeObject(contractAlgoStopType, new OkxGridContractAlgoStopTypeConverter(false)));
+            parameters.AddOptionalEnum("stopType", JsonConvert.SerializeObject(contractAlgoStopType, new OkxGridContractAlgoStopTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxGridOrderStopResponse>(GetUri(v5TradingBotGridStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -309,7 +309,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddOptional("algoId", algoOrderId?.ToOkxString());
         parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptionalEnum("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
@@ -344,7 +344,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddOptional("algoId", algoOrderId?.ToOkxString());
         parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptionalEnum("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
@@ -530,8 +530,8 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "algoOrdType", JsonConvert.SerializeObject(algoOrderType, new OkxGridAlgoOrderTypeConverter(false)) },
             { "instId", instrumentId },
         };
-        parameters.AddOptional("direction", JsonConvert.SerializeObject(direction, new OkxGridContractDirectionConverter(false)));
-        parameters.AddOptional("duration", JsonConvert.SerializeObject(duration, new OkxGridBackTestingDurationConverter(false)));
+        parameters.AddOptionalEnum("direction", JsonConvert.SerializeObject(direction, new OkxGridContractDirectionConverter(false)));
+        parameters.AddOptionalEnum("duration", JsonConvert.SerializeObject(duration, new OkxGridBackTestingDurationConverter(false)));
 
         return ProcessOneRequestAsync<OkxGridAiParameter>(GetUri(v5TradingBotGridAiParam), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -576,12 +576,12 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "gridNum", gridNumber.ToOkxString() },
             { "runType", JsonConvert.SerializeObject(gridRunType, new OkxGridRunTypeConverter(false)) },
         };
-        parameters.AddOptional("direction", JsonConvert.SerializeObject(direction, new OkxGridContractDirectionConverter(false)));
+        parameters.AddOptionalEnum("direction", JsonConvert.SerializeObject(direction, new OkxGridContractDirectionConverter(false)));
         parameters.AddOptional("lever", leverage?.ToOkxString());
         parameters.AddOptional("basePos", basePosition);
-        parameters.AddOptional("investmentType", JsonConvert.SerializeObject(investmentType, new OkxGridInvestmentTypeConverter(false)));
-        parameters.AddOptional("triggerStrategy", JsonConvert.SerializeObject(triggerStrategy, new OkxGridTriggerStrategyConverter(false)));
-        parameters.AddOptional("investmentData", JsonConvert.SerializeObject(investmentData));
+        parameters.AddOptionalEnum("investmentType", JsonConvert.SerializeObject(investmentType, new OkxGridInvestmentTypeConverter(false)));
+        parameters.AddOptionalEnum("triggerStrategy", JsonConvert.SerializeObject(triggerStrategy, new OkxGridTriggerStrategyConverter(false)));
+        parameters.AddOptionalEnum("investmentData", JsonConvert.SerializeObject(investmentData));
 
         return ProcessOneRequestAsync<OkxGridInvestment>(GetUri(v5TradingBotGridMinInvestment), HttpMethod.Post, ct, signed: false, bodyParameters: parameters);
     }
@@ -612,7 +612,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "thold", threshold.ToOkxString() },
             { "timePeriod", timePeriod.ToOkxString() },
         };
-        parameters.AddOptional("triggerCond", JsonConvert.SerializeObject(triggerCondition, new OkxGridAlgoTriggerConditionConverter(false)));
+        parameters.AddOptionalEnum("triggerCond", JsonConvert.SerializeObject(triggerCondition, new OkxGridAlgoTriggerConditionConverter(false)));
         parameters.AddOptional("duration", duration);
 
         return ProcessOneRequestAsync<OkxGridRsiBacktest>(GetUri(v5TradingBotGridRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters);

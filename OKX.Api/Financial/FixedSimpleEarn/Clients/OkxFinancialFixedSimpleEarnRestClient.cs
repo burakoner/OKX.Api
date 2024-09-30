@@ -141,7 +141,7 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
         var parameters = new ParameterCollection();
         parameters.AddOptional("ordId", orderId?.ToOkxString());
         parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxFinancialFixedSimpleEarnLendingOrderStateConverter(false)));
+        parameters.AddOptionalEnum("state", state);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
@@ -174,7 +174,7 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
         parameters.AddOptional("ordId", orderId?.ToOkxString());
-        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxFinancialFixedSimpleEarnLendingOrderStateConverter(false)));
+        parameters.AddOptionalEnum("state", state);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
