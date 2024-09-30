@@ -33,7 +33,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <returns></returns>
     public Task<RestCallResult<OkxSignalBotChannel>> CreateChannelAsync(string name, string description = "", CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "signalChanName", name },
             { "signalChanDesc", description },
         };
@@ -58,13 +58,13 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"signalSourceType", JsonConvert.SerializeObject(signalSourceType, new OkxSignalBotSourceTypeConverter(false))}
         };
-        parameters.AddOptionalParameter("signalChanId", signalChannelId?.ToOkxString());
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("signalChanId", signalChannelId?.ToOkxString());
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSignalBotChannelInformation>(GetUri(v5TradingBotSignalSignals), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -95,17 +95,17 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         OkxSignalBotExitParamaters? exitParamaters = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "signalChanId", signalChannelId.ToString() },
             { "lever", leverage.ToOkxString() },
             { "investAmt", amount.ToOkxString() },
             { "subOrdType", JsonConvert.SerializeObject(orderType, new OkxSignalBotOrderTypeConverter(false)) },
         };
-        parameters.AddOptionalParameter("includeAll", includeAll);
-        parameters.AddOptionalParameter("instIds", instrumentIds);
-        parameters.AddOptionalParameter("ratio", ratio?.ToOkxString());
-        parameters.AddOptionalParameter("entrySettingParam", entryParamaters);
-        parameters.AddOptionalParameter("exitSettingParam", exitParamaters);
+        parameters.AddOptional("includeAll", includeAll);
+        parameters.AddOptional("instIds", instrumentIds);
+        parameters.AddOptional("ratio", ratio?.ToOkxString());
+        parameters.AddOptional("entrySettingParam", entryParamaters);
+        parameters.AddOptional("exitSettingParam", exitParamaters);
 
         return ProcessOneRequestAsync<OkxSignalBotOrderId>(GetUri(v5TradingBotSignalOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -120,7 +120,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         IEnumerable<long> algoIds,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoIds.Select(x=>new OkxSignalBotAlgoId{ AlgoId = x.ToOkxString()}) },
         };
 
@@ -146,12 +146,12 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         bool? allowReinvest = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
             { "type", JsonConvert.SerializeObject(type, new OkxAccountMarginAddReduceConverter(false)) },
             { "amt", amount.ToOkxString() },
         };
-        parameters.AddOptionalParameter("allowReinvest", allowReinvest);
+        parameters.AddOptional("allowReinvest", allowReinvest);
 
         return ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -168,7 +168,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         OkxSignalBotExitParamaters exitSettingParam,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
             { "exitSettingParam", exitSettingParam },
         };
@@ -190,7 +190,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         bool includeAll,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
             { "instIds", InstrumentIds },
             { "includeAll", includeAll },
@@ -209,7 +209,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         long algoId,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
             { "algoOrdType", "contract" },
         };
@@ -232,13 +232,13 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
             { "algoOrdType", "contract" },
         };
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSignalBot>(GetUri(v5TradingBotSignalOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -259,13 +259,13 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
             { "algoOrdType", "contract" },
         };
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSignalBot>(GetUri(v5TradingBotSignalOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -280,7 +280,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         long algoId,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
             { "algoOrdType", "contract" },
         };
@@ -306,13 +306,13 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
         };
-        parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSignalBotPositionHistory>(GetUri(v5TradingBotSignalPositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -329,10 +329,10 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         string? instrumentId = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
         };
-        parameters.AddOptionalParameter("instId", instrumentId);
+        parameters.AddOptional("instId", instrumentId);
 
         return ProcessListRequestAsync<OkxSignalBotAlgoId>(GetUri(v5TradingBotSignalClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -363,16 +363,16 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         if (type.IsNotIn(OkxTradeOrderType.MarketOrder, OkxTradeOrderType.LimitOrder))
             throw new ArgumentException("Only market and limit orders are supported for suborders", nameof(type));
 
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
             { "instId", instrumentId },
             { "sz", size.ToOkxString() },
         };
-        parameters.AddOptionalParameter("side", JsonConvert.SerializeObject(side, new OkxTradeOrderSideConverter(false)));
-        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
-        parameters.AddOptionalParameter("px", price?.ToOkxString());
-        parameters.AddOptionalParameter("reduceOnly", reduceOnly);
-        parameters.AddOptionalParameter("tag", Options.BrokerId);
+        parameters.AddOptional("side", JsonConvert.SerializeObject(side, new OkxTradeOrderSideConverter(false)));
+        parameters.AddOptional("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
+        parameters.AddOptional("px", price?.ToOkxString());
+        parameters.AddOptional("reduceOnly", reduceOnly);
+        parameters.AddOptional("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<object>(GetUri(v5TradingBotSignalSubOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -391,7 +391,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         long signalOrderId,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
             { "signalOrdId", signalOrderId.ToOkxString() },
             { "instId", instrumentId },
@@ -426,18 +426,18 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
             { "algoOrdType", "contract" },
         };
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxSignalBotSuborderStateConverter(false)));
-        parameters.AddOptionalParameter("signalOrdId", signalOrderId);
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxSignalBotSuborderTypeConverter(false)));
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxSignalBotSuborderStateConverter(false)));
+        parameters.AddOptional("signalOrdId", signalOrderId);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxSignalBotSuborderTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxSignalBotSuborder>(GetUri(v5TradingBotSignalSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -458,12 +458,12 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
         };
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSignalBotSuborder>(GetUri(v5TradingBotSignalEventHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

@@ -53,13 +53,13 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "instId", instrumentId},
         };
-        parameters.AddOptionalParameter("period", period);
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("period", period);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikContractOpenInterestHistory>(GetUri(v5RubikStatContractsOpenInterestHistory), HttpMethod.Get, ct, false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -84,13 +84,13 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "ccy", currency},
             { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
         };
-        parameters.AddOptionalParameter("period", period);
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptional("period", period);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikTakerVolume>(GetUri(v5RubikStatTakerVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -118,14 +118,14 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "instId", instrumentId},
         };
-        parameters.AddOptionalParameter("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
-        parameters.AddOptionalParameter("unit", unit);
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptional("unit", unit);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikContractTakerVolume>(GetUri(v5RubikStatTakerVolumeContract), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -148,12 +148,12 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", period);
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptional("period", period);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikRatio>(GetUri(v5RubikStatMarginLoanRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -179,13 +179,13 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "instId", instrumentId},
         };
-        parameters.AddOptionalParameter("period", period);
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("period", period);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikRatio>(GetUri(v5RubikStatContractsLongShortAccountRatioContractTopTrader), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -211,13 +211,13 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "instId", instrumentId},
         };
-        parameters.AddOptionalParameter("period", period);
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("period", period);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikRatio>(GetUri(v5RubikStatContractsLongShortPositionRatioContractTopTrader), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -243,13 +243,13 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "instId", instrumentId},
         };
-        parameters.AddOptionalParameter("period", period);
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("period", period);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikRatio>(GetUri(v5RubikStatContractsLongShortAccountRatioContract), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -273,12 +273,12 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", period);
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptional("period", period);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikRatio>(GetUri(v5RubikStatContractsLongShortAccountRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -299,12 +299,12 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", period);
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
+        parameters.AddOptional("period", period);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikInterestVolume>(GetUri(v5RubikStatContractsOpenInterestVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -321,10 +321,10 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? period = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", period);
+        parameters.AddOptional("period", period);
 
         return await ProcessListRequestAsync<OkxRubikInterestVolume>(GetUri(v5RubikStatOptionOpenInterestVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -341,10 +341,10 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? period = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", period);
+        parameters.AddOptional("period", period);
 
         return await ProcessListRequestAsync<OkxRubikPutCallRatio>(GetUri(v5RubikStatOptionOpenInterestVolumeRatio), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -361,10 +361,10 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? period = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", period);
+        parameters.AddOptional("period", period);
 
         return await ProcessListRequestAsync<OkxRubikInterestVolumeExpiry>(GetUri(v5RubikStatOptionOpenInterestVolumeExpiry), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -383,11 +383,11 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? period = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "ccy", currency},
             { "expTime", expiryTime},
         };
-        parameters.AddOptionalParameter("period", period);
+        parameters.AddOptional("period", period);
 
         return await ProcessListRequestAsync<OkxRubikInterestVolumeStrike>(GetUri(v5RubikStatOptionOpenInterestVolumeStrike), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -404,10 +404,10 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? period = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "ccy", currency},
         };
-        parameters.AddOptionalParameter("period", period);
+        parameters.AddOptional("period", period);
 
         return await ProcessArrayModelRequestAsync<OkxRubikTakerFlow>(GetUri(v5RubikStatOptionTakerBlockVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }

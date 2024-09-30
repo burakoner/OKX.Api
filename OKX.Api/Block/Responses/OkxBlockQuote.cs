@@ -34,7 +34,7 @@ public class OkxBlockQuote
     /// Valid values can be active canceled pending_fill filled expired traded_away failed.
     /// traded_away only applies to Maker
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxBlockStateConverter))]
+    [JsonProperty("state")]
     public OkxBlockState State { get; set; }
 
     /// <summary>
@@ -90,7 +90,7 @@ public class OkxBlockQuote
     /// <summary>
     /// Top level direction of Quote. Its value can be buy or sell.
     /// </summary>
-    [JsonProperty("quoteSide"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("quoteSide")]
     public OkxTradeOrderSide QuoteSide { get; set; }
 
     /// <summary>

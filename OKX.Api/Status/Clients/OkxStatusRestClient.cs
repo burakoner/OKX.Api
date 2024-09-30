@@ -20,8 +20,8 @@ public class OkxStatusRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         OkxStatusMaintenanceState? state = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxStatusMaintenanceStateConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxStatusMaintenanceStateConverter(false)));
 
         return ProcessListRequestAsync<OkxStatusMaintenance>(GetUri(v5SystemStatus), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }

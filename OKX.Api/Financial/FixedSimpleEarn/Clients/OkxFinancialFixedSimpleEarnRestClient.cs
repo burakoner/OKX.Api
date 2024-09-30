@@ -23,9 +23,9 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialFixedSimpleEarnLendingOffer>>> GetLendingOffersAsync(string? currency = null, string? term = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("term", term);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("term", term);
 
         return ProcessListRequestAsync<OkxFinancialFixedSimpleEarnLendingOffer>(GetUri(v5FinanceFixedLoanLendingOffers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -39,9 +39,9 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialFixedSimpleEarnLendingApyHistory>>> GetLendingApyHistoryAsync(string? currency = null, string? term = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("term", term);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("term", term);
 
         return ProcessListRequestAsync<OkxFinancialFixedSimpleEarnLendingApyHistory>(GetUri(v5FinanceFixedLoanLendingApyHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -55,9 +55,9 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
     /// <returns></returns>
     public Task<RestCallResult<OkxFinancialFixedSimpleEarnLendingVolume>> GetPendingLendingVolumeAsync(string? currency = null, string? term = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("term", term);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("term", term);
 
         return ProcessOneRequestAsync<OkxFinancialFixedSimpleEarnLendingVolume>(GetUri(v5FinanceFixedLoanPendingLendingVolume), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -80,7 +80,7 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
         bool autoRenewal = false,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"ccy", currency },
             {"amt", amount.ToOkxString() },
             {"rate", rate.ToOkxString() },
@@ -107,12 +107,12 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
         bool autoRenewal = false,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"ordId", orderId.ToOkxString() },
             {"autoRenewal", autoRenewal },
         };
-        parameters.AddOptionalParameter("changeAmt", changeAmount?.ToOkxString());
-        parameters.AddOptionalParameter("rate", rate?.ToOkxString());
+        parameters.AddOptional("changeAmt", changeAmount?.ToOkxString());
+        parameters.AddOptional("rate", rate?.ToOkxString());
 
         return ProcessOneRequestAsync<OkxFinancialFixedSimpleEarnLendingOrderId>(GetUri(v5FinanceFixedLoanAmendLendingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -138,13 +138,13 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxFinancialFixedSimpleEarnLendingOrderStateConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ordId", orderId?.ToOkxString());
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxFinancialFixedSimpleEarnLendingOrderStateConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFinancialFixedSimpleEarnLendingOrder>(GetUri(v5FinanceFixedLoanLendingOrdersList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -172,12 +172,12 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
             throw new ArgumentException("State cannot be Pending for sub-orders", nameof(state));
 
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxFinancialFixedSimpleEarnLendingOrderStateConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ordId", orderId?.ToOkxString());
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxFinancialFixedSimpleEarnLendingOrderStateConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFinancialFixedSimpleEarnLendingSubOrder>(GetUri(v5FinanceFixedLoanLendingSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

@@ -21,8 +21,8 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFlexibleSimpleEarnSavingsBalance>>> GetBalancesAsync(string? currency = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
 
         return ProcessListRequestAsync<OkxFlexibleSimpleEarnSavingsBalance>(GetUri(v5FinanceSavingsBalance), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -37,7 +37,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <returns></returns>
     public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsOrder>> PurchaseAsync(string currency, decimal amount, decimal rate, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"ccy", currency },
             {"side", "purchase" },
             {"amt", amount.ToOkxString() },
@@ -57,7 +57,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <returns></returns>
     public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsOrder>> RedeemAsync(string currency, decimal amount, decimal rate, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"ccy", currency },
             {"side", "redempt" },
             {"amt", amount.ToOkxString() },
@@ -76,7 +76,7 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <returns></returns>
     public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsRate>> SetLendingRateAsync(string currency, decimal rate, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"ccy", currency },
             {"rate", rate.ToOkxString() },
         };
@@ -100,11 +100,11 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFlexibleSimpleEarnSavingsLendingHistory>(GetUri(v5FinanceSavingsLendingHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -117,8 +117,8 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
     /// <returns></returns>
     public Task<RestCallResult<OkxFlexibleSimpleEarnSavingsBorrowSummary>> GetPublicBorrowSummaryAsync(string? currency = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
 
         return ProcessOneRequestAsync<OkxFlexibleSimpleEarnSavingsBorrowSummary>(GetUri(v5FinanceSavingsLendingRateSummary), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -140,11 +140,11 @@ public class OkxFinancialFlexibleSimpleEarnRestClient(OkxRestApiClient root) : O
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFlexibleSimpleEarnSavingsBorrowHistory>(GetUri(v5FinanceSavingsLendingRateHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }

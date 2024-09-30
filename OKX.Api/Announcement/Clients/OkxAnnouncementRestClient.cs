@@ -20,9 +20,9 @@ public class OkxAnnouncementRestClient(OkxRestApiClient root) : OkxBaseRestClien
     /// <returns></returns>
     public Task<RestCallResult<OkxAnnouncements>> GetAnnouncementsAsync(string? announcementType = null, int? page = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("annType", announcementType);
-        parameters.AddOptionalParameter("page", page?.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("annType", announcementType);
+        parameters.AddOptional("page", page?.ToOkxString());
 
         return ProcessOneRequestAsync<OkxAnnouncements>(GetUri(v5SupportAnnouncements), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

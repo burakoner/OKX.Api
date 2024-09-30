@@ -8,7 +8,7 @@ public class OkxBlockQuoteProduct
     /// <summary>
     /// Type of instrument. Valid value can be FUTURES, OPTION, SWAP or SPOT.
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>

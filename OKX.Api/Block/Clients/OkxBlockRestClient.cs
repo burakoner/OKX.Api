@@ -58,15 +58,15 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         bool allowPartialExecution = false,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "counterparties", counterparties },
             { "legs", legs },
             { "anonymous", anonymous },
             { "allowPartialExecution", allowPartialExecution },
         };
-        parameters.AddOptionalParameter("clRfqId", clientRfqId);
-        parameters.AddOptionalParameter("tag", Options.BrokerId);
+        parameters.AddOptional("clRfqId", clientRfqId);
+        parameters.AddOptional("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxBlockRfq>(GetUri(v5RfqCreateRfq), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -83,9 +83,9 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? clientRfqId = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("rfqId", rfqId);
-        parameters.AddOptionalParameter("clRfqId", clientRfqId);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("rfqId", rfqId);
+        parameters.AddOptional("clRfqId", clientRfqId);
 
         return ProcessOneRequestAsync<OkxBlockCancelRfqResponse>(GetUri(v5RfqCancelRfq), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -104,9 +104,9 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         IEnumerable<string>? clientRfqIds = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("rfqIds", rfqIds);
-        parameters.AddOptionalParameter("clRfqIds", clientRfqIds);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("rfqIds", rfqIds);
+        parameters.AddOptional("clRfqIds", clientRfqIds);
 
         return ProcessListRequestAsync<OkxBlockCancelRfqResponse>(GetUri(v5RfqCancelBatchRfqs), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -137,12 +137,12 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         IEnumerable<OkxBlockLegSize>? legs = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "rfqId", rfqId },
             { "quoteId", quoteId },
         };
-        parameters.AddOptionalParameter("legs", legs);
+        parameters.AddOptional("legs", legs);
 
         return ProcessListRequestAsync<OkxBlockTrade>(GetUri(v5RfqExecuteQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -195,7 +195,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<OkxBlockMmp>> SetMmpAsync(int timeInterval, int frozenInterval, int countLimit, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "timeInterval", timeInterval.ToOkxString() },
             { "frozenInterval", frozenInterval.ToOkxString() },
@@ -235,16 +235,16 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         int? expiresIn = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "rfqId", rfqId },
-            { "quoteSide", JsonConvert.SerializeObject(quoteSide, new OkxTradeOrderSideConverter(false)) },
             { "legs", legs },
             { "anonymous", anonymous },
         };
-        parameters.AddOptionalParameter("clRfqId", clientQuoteId);
-        parameters.AddOptionalParameter("expiresIn", expiresIn?.ToOkxString());
-        parameters.AddOptionalParameter("tag", Options.BrokerId);
+        parameters.AddEnum("quoteSide", quoteSide);
+        parameters.AddOptional("clRfqId", clientQuoteId);
+        parameters.AddOptional("expiresIn", expiresIn?.ToOkxString());
+        parameters.AddOptional("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxBlockRfq>(GetUri(v5RfqCreateQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -263,10 +263,10 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? rfqId = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("quoteId", quoteId);
-        parameters.AddOptionalParameter("clQuoteId", clientQuoteId);
-        parameters.AddOptionalParameter("rfqId", rfqId);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("quoteId", quoteId);
+        parameters.AddOptional("clQuoteId", clientQuoteId);
+        parameters.AddOptional("rfqId", rfqId);
 
         return ProcessOneRequestAsync<OkxBlockCancelQuoteResponse>(GetUri(v5RfqCancelQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -283,9 +283,9 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         IEnumerable<string>? clientQuoteIds = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("quoteIds", quoteIds);
-        parameters.AddOptionalParameter("clQuoteIds", clientQuoteIds);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("quoteIds", quoteIds);
+        parameters.AddOptional("clQuoteIds", clientQuoteIds);
 
         return ProcessListRequestAsync<OkxBlockCancelQuoteResponse>(GetUri(v5RfqCancelBatchQuotes), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -310,14 +310,14 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<OkxBlockCancelAllAfterResponse>> CancelAllQuotesAfterAsync(int timeout, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "timeOut", timeout.ToOkxString() },
         };
 
         return ProcessOneRequestAsync<OkxBlockCancelAllAfterResponse>(GetUri(v5RfqCancelAllAfter), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
     /// <summary>
     /// Retrieves details of RFQs that the user is a counterparty to (either as the creator or the receiver of the RFQ).
     /// </summary>
@@ -339,14 +339,13 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("rfqId", rfqId);
-        parameters.AddOptionalParameter("clRfqId", clientRfqId);
-        if(state is not null)
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxBlockStateConverter(false)));
-        parameters.AddOptionalParameter("beginId", beginId);
-        parameters.AddOptionalParameter("endId", endId);
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("rfqId", rfqId);
+        parameters.AddOptional("clRfqId", clientRfqId);
+        parameters.AddOptionalEnum("state", state);
+        parameters.AddOptional("beginId", beginId);
+        parameters.AddOptional("endId", endId);
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxBlockRfq>(GetUri(v5RfqRfqs), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -376,20 +375,19 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("rfqId", rfqId);
-        parameters.AddOptionalParameter("clRfqId", clientRfqId);
-        parameters.AddOptionalParameter("quoteId", quoteId);
-        parameters.AddOptionalParameter("clQuoteId", clientQuoteId);
-        if(state is not null)
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxBlockStateConverter(false)));
-        parameters.AddOptionalParameter("beginId", beginId);
-        parameters.AddOptionalParameter("endId", endId);
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("rfqId", rfqId);
+        parameters.AddOptional("clRfqId", clientRfqId);
+        parameters.AddOptional("quoteId", quoteId);
+        parameters.AddOptional("clQuoteId", clientQuoteId);
+        parameters.AddOptionalEnum("state", state);
+        parameters.AddOptional("beginId", beginId);
+        parameters.AddOptional("endId", endId);
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxBlockQuote>(GetUri(v5RfqQuotes), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     /// <summary>
     /// Retrieves the executed trades that the user is a counterparty to (either as the creator or the receiver).
     /// </summary>
@@ -424,19 +422,18 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("rfqId", rfqId);
-        parameters.AddOptionalParameter("clRfqId", clientRfqId);
-        parameters.AddOptionalParameter("quoteId", quoteId);
-        parameters.AddOptionalParameter("clQuoteId", clientQuoteId);
-        parameters.AddOptionalParameter("blockTdId", blockTradeId);
-        if(state is not null)
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxBlockStateConverter(false)));
-        parameters.AddOptionalParameter("beginId", beginId);
-        parameters.AddOptionalParameter("endId", endId);
-        parameters.AddOptionalParameter("beginTs", beginTimestamp);
-        parameters.AddOptionalParameter("endTs", endTimestamp);
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("rfqId", rfqId);
+        parameters.AddOptional("clRfqId", clientRfqId);
+        parameters.AddOptional("quoteId", quoteId);
+        parameters.AddOptional("clQuoteId", clientQuoteId);
+        parameters.AddOptional("blockTdId", blockTradeId);
+        parameters.AddOptionalEnum("state", state);
+        parameters.AddOptional("beginId", beginId);
+        parameters.AddOptional("endId", endId);
+        parameters.AddOptional("beginTs", beginTimestamp);
+        parameters.AddOptional("endTs", endTimestamp);
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxBlockTrade>(GetUri(v5RfqTrades), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -456,10 +453,10 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("beginId", beginId);
-        parameters.AddOptionalParameter("endId", endId);
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("beginId", beginId);
+        parameters.AddOptional("endId", endId);
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxBlockPublicExecutedTrade>(GetUri(v5RfqPublicTrades), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -476,12 +473,10 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBlockTicker>>> GetTickersAsync(OkxInstrumentType instrumentType, string? instrumentFamily = null, string? underlying = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
-        {
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-        };
-        parameters.AddOptionalParameter("uly", underlying);
-        parameters.AddOptionalParameter("instFamily", instrumentFamily);
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("instType", instrumentType);
+        parameters.AddOptional("uly", underlying);
+        parameters.AddOptional("instFamily", instrumentFamily);
 
         return ProcessListRequestAsync<OkxBlockTicker>(GetUri(v5MarketBlockTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -496,7 +491,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<OkxBlockTicker>> GetTickerAsync(string instrumentId, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "instId", instrumentId },
         };
@@ -514,7 +509,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBlockPublicRecentTrade>>> GetPublicRecentTradesAsync(string instrumentId, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "instId", instrumentId },
         };

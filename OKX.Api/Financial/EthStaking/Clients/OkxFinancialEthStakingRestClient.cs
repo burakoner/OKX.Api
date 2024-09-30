@@ -21,7 +21,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <returns></returns>
     public Task<RestCallResult<OkxFinancialEthStakingPurchase>> PurchaseAsync(decimal amount, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"amt", amount.ToOkxString() },
         };
 
@@ -36,7 +36,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <returns></returns>
     public Task<RestCallResult<OkxFinancialEthStakingRedeem>> RedeemAsync(decimal amount, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"amt", amount.ToOkxString() },
         };
 
@@ -71,13 +71,13 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"type", JsonConvert.SerializeObject(type, new OkxFinancialEthStakingTypeConverter(false)) },
         };
-        parameters.AddOptionalParameter("status", JsonConvert.SerializeObject(status, new OkxFinancialEthStakingStatusConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("status", JsonConvert.SerializeObject(status, new OkxFinancialEthStakingStatusConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFinancialEthStakingHistory>(GetUri(v5FinanceStakingDefiEthPurchaseRedeemHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -90,7 +90,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialEthStakingApyHistory>>> GetApyHistoryAsync(int days, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"days", days.ToOkxString() },
         };
 

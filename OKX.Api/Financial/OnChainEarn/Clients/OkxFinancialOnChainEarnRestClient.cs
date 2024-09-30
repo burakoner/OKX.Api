@@ -27,10 +27,10 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         string? protocolType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("productId", productId);
-        parameters.AddOptionalParameter("protocolType", protocolType);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("productId", productId);
+        parameters.AddOptional("protocolType", protocolType);
 
         return ProcessListRequestAsync<OkxFinancialOnChainEarnOffer>(GetUri(v5FinanceStakingDefiOffers), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -49,12 +49,12 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         string? term = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"productId", productId },
             {"investData", investData },
         };
-        parameters.AddOptionalParameter("term", term);
-        parameters.AddOptionalParameter("tag", Options.BrokerId);
+        parameters.AddOptional("term", term);
+        parameters.AddOptional("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -73,12 +73,12 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         bool allowEarlyRedeem = false,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"ordId", orderId },
             {"protocolType", protocolType },
             {"allowEarlyRedeem", allowEarlyRedeem },
         };
-        parameters.AddOptionalParameter("tag", Options.BrokerId);
+        parameters.AddOptional("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -95,7 +95,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         string protocolType,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"ordId", orderId },
             {"protocolType", protocolType },
         };
@@ -119,11 +119,11 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         OkxFinancialOnChainEarnOrderState? state = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("productId", productId);
-        parameters.AddOptionalParameter("protocolType", protocolType);
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxFinancialOnChainEarnOrderStateConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("productId", productId);
+        parameters.AddOptional("protocolType", protocolType);
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxFinancialOnChainEarnOrderStateConverter(false)));
 
         return ProcessListRequestAsync<OkxFinancialOnChainEarnOrder>(GetUri(v5FinanceStakingDefiOrdersActive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -150,13 +150,13 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
 
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("productId", productId);
-        parameters.AddOptionalParameter("protocolType", protocolType);
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("productId", productId);
+        parameters.AddOptional("protocolType", protocolType);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFinancialOnChainEarnOrder>(GetUri(v5FinanceStakingDefiOrdersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

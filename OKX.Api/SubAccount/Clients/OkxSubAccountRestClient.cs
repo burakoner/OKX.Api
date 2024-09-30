@@ -38,12 +38,12 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("enable", enable);
-        parameters.AddOptionalParameter("subAcct", subAccountName);
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("enable", enable);
+        parameters.AddOptional("subAcct", subAccountName);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSubAccount>(GetUri(v5UsersSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -68,19 +68,19 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         string? ipAddresses = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "subAcct", subAccountName },
             { "apiKey", apiKey},
         };
-        parameters.AddOptionalParameter("label", apiLabel);
-        parameters.AddOptionalParameter("ip", ipAddresses);
+        parameters.AddOptional("label", apiLabel);
+        parameters.AddOptional("ip", ipAddresses);
 
         var permissions = new List<string>();
         if (readPermission.HasValue && readPermission.Value) permissions.Add("read_only");
         if (tradePermission.HasValue && tradePermission.Value) permissions.Add("trade");
         if (permissions.Count > 0)
-            parameters.AddOptionalParameter("perm", string.Join(",", permissions));
+            parameters.AddOptional("perm", string.Join(",", permissions));
 
         return ProcessOneRequestAsync<OkxSubAccountApiKey>(GetUri(v5UsersSubaccountResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -95,7 +95,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         string subAccountName,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             {"subAcct", subAccountName },
         };
@@ -116,12 +116,12 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         string? currency = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "subAcct", subAccountName },
         };
 
-        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptional("ccy", currency);
 
         return ProcessOneRequestAsync<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -138,12 +138,12 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         string? currency = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "subAcct", subAccountName },
         };
 
-        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptional("ccy", currency);
 
         return ProcessListRequestAsync<OkxSubAccountMaximumWithdrawal>(GetUri(v5AccountSubaccountMaxWithdrawal), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -169,13 +169,13 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("subAcct", subAccountName);
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxSubAccountTransferTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("subAcct", subAccountName);
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxSubAccountTransferTypeConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSubAccountBill>(GetUri(v5UsersSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -203,14 +203,14 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxSubAccountTransferTypeConverter(false)));
-        parameters.AddOptionalParameter("subAcct", subAccountName);
-        parameters.AddOptionalParameter("subUid", subAccountId?.ToOkxString());
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxSubAccountTransferTypeConverter(false)));
+        parameters.AddOptional("subAcct", subAccountName);
+        parameters.AddOptional("subUid", subAccountId?.ToOkxString());
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSubAccountManagedBill>(GetUri(v5AssetSubaccountManagedSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -239,7 +239,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         bool? omitPositionRisk = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             {"ccy", currency },
             {"amt", amount.ToOkxString() },
@@ -248,8 +248,8 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
             {"fromSubAccount", fromSubAccountName },
             {"toSubAccount", toSubAccountName },
         };
-        parameters.AddOptionalParameter("loanTrans", loanTransfer);
-        parameters.AddOptionalParameter("omitPosRisk", omitPositionRisk);
+        parameters.AddOptional("loanTrans", loanTransfer);
+        parameters.AddOptional("omitPosRisk", omitPositionRisk);
 
         return ProcessOneRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -268,9 +268,9 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         bool canTransferOut,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("subAcct", subAccountName);
-        parameters.AddOptionalParameter("canTransOut", canTransferOut);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("subAcct", subAccountName);
+        parameters.AddOptional("canTransOut", canTransferOut);
 
         return ProcessListRequestAsync<OkxSubAccountPermissionOfTransferOut>(GetUri(v5UsersSubaccountSetTransferOut), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -283,8 +283,8 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSubAccountName>>> GetCustodySubAccountsAsync(string subAccountName, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("subAcct", subAccountName);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("subAcct", subAccountName);
 
         return ProcessListRequestAsync<OkxSubAccountName>(GetUri(v5UsersEntrustSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -301,11 +301,11 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         IEnumerable<OkxSubAccountLoanAllocation>? allocations = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "enable", enable },
         };
-        parameters.AddOptionalParameter("alloc", allocations);
+        parameters.AddOptional("alloc", allocations);
 
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5AccountSubaccountSetLoanAllocation), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -319,11 +319,11 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <returns></returns>
     public Task<RestCallResult<OkxSubAccountInterestLimits>> GetInterestLimitsAsync(string subAccountName, string? currency = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "subAcct", subAccountName },
         };
-        parameters.AddOptionalParameter("ccy", currency);
+        parameters.AddOptional("ccy", currency);
 
         return ProcessOneRequestAsync<OkxSubAccountInterestLimits>(GetUri(v5AccountSubaccountInterestLimits), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

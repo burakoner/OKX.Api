@@ -69,14 +69,14 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingLeadingPosition>(GetUri(v5CopyTradingCurrentSubpositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -103,13 +103,13 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptional("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingLeadingPositionHistory>(GetUri(v5CopyTradingSubpositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -143,18 +143,18 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxCopyTradingPositionType? positionType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "subPosId", positionId },
         };
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
-        parameters.AddOptionalParameter("slTriggerPx", stopLossTriggerPrice?.ToOkxString());
-        parameters.AddOptionalParameter("tpOrdPx", takeProfitOrderPrice?.ToOkxString());
-        parameters.AddOptionalParameter("slOrdPx", stopLossOrderPrice?.ToOkxString());
-        parameters.AddOptionalParameter("tpTriggerPxType", JsonConvert.SerializeObject(takeProfitTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("slTriggerPxType", JsonConvert.SerializeObject(stopLossTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
-        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
+        parameters.AddOptional("slTriggerPx", stopLossTriggerPrice?.ToOkxString());
+        parameters.AddOptional("tpOrdPx", takeProfitOrderPrice?.ToOkxString());
+        parameters.AddOptional("slOrdPx", stopLossOrderPrice?.ToOkxString());
+        parameters.AddOptional("tpTriggerPxType", JsonConvert.SerializeObject(takeProfitTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
+        parameters.AddOptional("slTriggerPxType", JsonConvert.SerializeObject(stopLossTriggerPriceType, new OkxAlgoPriceTypeConverter(false)));
+        parameters.AddOptional("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -181,14 +181,14 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         if (orderType.IsNotIn(OkxTradeOrderType.MarketOrder, OkxTradeOrderType.LimitOrder))
             throw new ArgumentException("Order type must be MarketOrder or LimitOrder", nameof(orderType));
 
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "subPosId", positionId },
         };
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
-        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OkxTradeOrderTypeConverter(false)));
-        parameters.AddOptionalParameter("px", price?.ToOkxString());
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("subPosType", JsonConvert.SerializeObject(positionType, new OkxCopyTradingPositionTypeConverter(false)));
+        parameters.AddOptional("ordType", JsonConvert.SerializeObject(orderType, new OkxTradeOrderTypeConverter(false)));
+        parameters.AddOptional("px", price?.ToOkxString());
 
         return ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -203,8 +203,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadingInstrument>(GetUri(v5CopyTradingInstruments), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -222,11 +222,11 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "instId", string.Join(",", instrumentIds) },
         };
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadingInstrument>(GetUri(v5CopyTradingSetInstruments), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -247,11 +247,11 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingProfitSharingDetails>(GetUri(v5CopyTradingProfitSharingDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -266,8 +266,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingProfitSharingTotal>(GetUri(v5CopyTradingTotalProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -283,8 +283,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingProfitSharingUnrealized>(GetUri(v5CopyTradingUnrealizedProfitSharingDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -297,8 +297,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingProfitSharingTotalUnrealized>> GetTotalUnrealizedProfitSharingAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxCopyTradingProfitSharingTotalUnrealized>(GetUri(v5CopyTradingTotalUnrealizedProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -318,11 +318,11 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "instId", string.Join(",", instrumentIds) },
         };
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingApplyLeadTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -337,8 +337,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingStopLeadTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -355,11 +355,11 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "profitSharingRatio", profitSharingRatio.ToOkxString() },
         };
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingAmendProfitSharingRatio), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -408,7 +408,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         decimal? stopLossTotalAmount = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "uniqueCode", uniqueCode },
             { "copyMgnMode", JsonConvert.SerializeObject(copyMarginMode, new OkxCopyTradingMarginModeConverter(false)) },
@@ -416,14 +416,14 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
             { "copyTotalAmt", copyTotalAmount.ToOkxString() },
             { "subPosCloseType", JsonConvert.SerializeObject(positionCloseType, new OkxCopyTradingPositionCloseTypeConverter(false)) },
         };
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        if (instrumentIds is not null) parameters.AddOptionalParameter("instId", string.Join(",", instrumentIds));
-        parameters.AddOptionalParameter("copyMode", JsonConvert.SerializeObject(copyMode, new OkxCopyTradingModeConverter(false)));
-        parameters.AddOptionalParameter("copyAmt", copyAmount?.ToOkxString());
-        parameters.AddOptionalParameter("copyRatio", copyRatio?.ToOkxString());
-        parameters.AddOptionalParameter("tpRatio", takeProfitRatio?.ToOkxString());
-        parameters.AddOptionalParameter("slRatio", stopLossRatio?.ToOkxString());
-        parameters.AddOptionalParameter("slTotalAmt", stopLossTotalAmount?.ToOkxString());
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        if (instrumentIds is not null) parameters.AddOptional("instId", string.Join(",", instrumentIds));
+        parameters.AddOptional("copyMode", JsonConvert.SerializeObject(copyMode, new OkxCopyTradingModeConverter(false)));
+        parameters.AddOptional("copyAmt", copyAmount?.ToOkxString());
+        parameters.AddOptional("copyRatio", copyRatio?.ToOkxString());
+        parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
+        parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
+        parameters.AddOptional("slTotalAmt", stopLossTotalAmount?.ToOkxString());
 
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingFirstCopySettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -462,7 +462,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         decimal? stopLossTotalAmount = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "uniqueCode", uniqueCode },
             { "copyMgnMode", JsonConvert.SerializeObject(copyMarginMode, new OkxCopyTradingMarginModeConverter(false)) },
@@ -470,14 +470,14 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
             { "copyTotalAmt", copyTotalAmount.ToOkxString() },
             { "subPosCloseType", JsonConvert.SerializeObject(positionCloseType, new OkxCopyTradingPositionCloseTypeConverter(false)) },
         };
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        if (instrumentIds is not null) parameters.AddOptionalParameter("instId", string.Join(",", instrumentIds));
-        parameters.AddOptionalParameter("copyMode", JsonConvert.SerializeObject(copyMode, new OkxCopyTradingModeConverter(false)));
-        parameters.AddOptionalParameter("copyAmt", copyAmount?.ToOkxString());
-        parameters.AddOptionalParameter("copyRatio", copyRatio?.ToOkxString());
-        parameters.AddOptionalParameter("tpRatio", takeProfitRatio?.ToOkxString());
-        parameters.AddOptionalParameter("slRatio", stopLossRatio?.ToOkxString());
-        parameters.AddOptionalParameter("slTotalAmt", stopLossTotalAmount?.ToOkxString());
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        if (instrumentIds is not null) parameters.AddOptional("instId", string.Join(",", instrumentIds));
+        parameters.AddOptional("copyMode", JsonConvert.SerializeObject(copyMode, new OkxCopyTradingModeConverter(false)));
+        parameters.AddOptional("copyAmt", copyAmount?.ToOkxString());
+        parameters.AddOptional("copyRatio", copyRatio?.ToOkxString());
+        parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
+        parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
+        parameters.AddOptional("slTotalAmt", stopLossTotalAmount?.ToOkxString());
 
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingAmendCopySettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -499,12 +499,12 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         if (instrumentType.IsNotIn(OkxInstrumentType.Swap))
             throw new ArgumentException("Instrument type must be Swap", nameof(instrumentType));
 
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "uniqueCode", uniqueCode },
             { "subPosCloseType", JsonConvert.SerializeObject(positionCloseType, new OkxCopyTradingPositionCloseTypeConverter(false)) },
         };
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingStopCopyTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -521,11 +521,11 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "uniqueCode", uniqueCode },
         };
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxCopyTradingCopySettings>(GetUri(v5CopyTradingCopySettings), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -551,7 +551,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         if (string.IsNullOrEmpty(instrumentIds))
             throw new ArgumentException("instrumentIds is required");
 
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
             { "uniqueCode", uniqueCode },
             { "instId", instrumentIds },
@@ -619,7 +619,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         if (leverage < 0.01m)
             throw new ArgumentException("Invalid Leverage");
 
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"mgnMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
             {"lever", leverage.ToOkxString() },
             {"instId", string.Join(",", instrumentIds)},
@@ -655,8 +655,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTrader>(GetUri(v5CopyTradingCurrentLeadTraders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -679,11 +679,11 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
 
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderHistory>(GetUri(v5CopyTradingLeadTradersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -698,8 +698,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxCopyTradingPublicConfiguration>(GetUri(v5CopyTradingPublicConfig), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -737,18 +737,18 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 20);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("sortType", sortType);
-        parameters.AddOptionalParameter("state", state);
-        parameters.AddOptionalParameter("minLeadDays", minLeadDays);
-        parameters.AddOptionalParameter("minAssets", minAssets?.ToOkxString());
-        parameters.AddOptionalParameter("maxAssets", maxAssets?.ToOkxString());
-        parameters.AddOptionalParameter("minAum", minAum?.ToOkxString());
-        parameters.AddOptionalParameter("maxAum", maxAum?.ToOkxString());
-        parameters.AddOptionalParameter("dataVer", dataVersion);
-        parameters.AddOptionalParameter("page", page?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("sortType", sortType);
+        parameters.AddOptional("state", state);
+        parameters.AddOptional("minLeadDays", minLeadDays);
+        parameters.AddOptional("minAssets", minAssets?.ToOkxString());
+        parameters.AddOptional("maxAssets", maxAssets?.ToOkxString());
+        parameters.AddOptional("minAum", minAum?.ToOkxString());
+        parameters.AddOptional("maxAum", maxAum?.ToOkxString());
+        parameters.AddOptional("dataVer", dataVersion);
+        parameters.AddOptional("page", page?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTradersRanks>(GetUri(v5CopyTradingPublicLeadTraders), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -765,9 +765,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri(v5CopyTradingPublicWeeklyPnl), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -786,10 +786,10 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("lastDays", lastDays);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("lastDays", lastDays);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri(v5CopyTradingPublicPnl), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -808,10 +808,10 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("lastDays", lastDays);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("lastDays", lastDays);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderStats>(GetUri(v5CopyTradingPublicStats), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -828,9 +828,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderCurrencyPreference>(GetUri(v5CopyTradingPublicPreferenceCurrency), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -854,12 +854,12 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderPosition>(GetUri(v5CopyTradingPublicCurrentSubpositions), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -884,12 +884,12 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderPositionHistory>(GetUri(v5CopyTradingPublicSubpositionsHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -909,10 +909,10 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingCopyTrader>(GetUri(v5CopyTradingPublicCopyTraders), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -951,18 +951,18 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 20);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("sortType", sortType);
-        parameters.AddOptionalParameter("state", state);
-        parameters.AddOptionalParameter("minLeadDays", minLeadDays);
-        parameters.AddOptionalParameter("minAssets", minAssets?.ToOkxString());
-        parameters.AddOptionalParameter("maxAssets", maxAssets?.ToOkxString());
-        parameters.AddOptionalParameter("minAum", minAum?.ToOkxString());
-        parameters.AddOptionalParameter("maxAum", maxAum?.ToOkxString());
-        parameters.AddOptionalParameter("dataVer", dataVersion);
-        parameters.AddOptionalParameter("page", page?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("sortType", sortType);
+        parameters.AddOptional("state", state);
+        parameters.AddOptional("minLeadDays", minLeadDays);
+        parameters.AddOptional("minAssets", minAssets?.ToOkxString());
+        parameters.AddOptional("maxAssets", maxAssets?.ToOkxString());
+        parameters.AddOptional("minAum", minAum?.ToOkxString());
+        parameters.AddOptional("maxAum", maxAum?.ToOkxString());
+        parameters.AddOptional("dataVer", dataVersion);
+        parameters.AddOptional("page", page?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessOneRequestAsync<OkxCopyTradingLeadTradersRanks>(GetUri(v5CopyTradingLeadTraders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -980,9 +980,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri(v5CopyTradingWeeklyPnl), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -1002,10 +1002,10 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("lastDays", lastDays);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("lastDays", lastDays);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri(v5CopyTradingPnl), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -1025,10 +1025,10 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("lastDays", lastDays);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("lastDays", lastDays);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderStats>(GetUri(v5CopyTradingStats), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -1046,9 +1046,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderCurrencyPreference>(GetUri(v5CopyTradingPreferenceCurrency), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -1073,12 +1073,12 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderPosition>(GetUri(v5CopyTradingPerformanceCurrentSubpositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -1104,12 +1104,12 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderPositionHistory>(GetUri(v5CopyTradingPerformanceSubpositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -1130,10 +1130,10 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("uniqueCode", uniqueCode);
-        parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.AddOptional("instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)));
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingCopyTrader>(GetUri(v5CopyTradingCopyTraders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

@@ -47,8 +47,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingBalance>>> GetBalancesAsync(string? currency = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
 
         return ProcessListRequestAsync<OkxFundingBalance>(GetUri(v5AssetBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -61,8 +61,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingNonTradableAssetBalance>>> GetNonTradableBalancesAsync(string? currency = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
 
         return ProcessListRequestAsync<OkxFundingNonTradableAssetBalance>(GetUri(v5AssetNonTradableAssets), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -75,8 +75,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<OkxFundingAssetValuation>> GetAssetValuationAsync(string? currency = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
 
         return ProcessOneRequestAsync<OkxFundingAssetValuation>(GetUri(v5AssetAssetValuation), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -107,17 +107,17 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? clientOrderId = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "type", JsonConvert.SerializeObject(type, new OkxFundingTransferTypeConverter(false)) },
             { "ccy",currency},
             { "amt",amount.ToOkxString()},
             { "from", JsonConvert.SerializeObject(fromAccount, new OkxAccountConverter(false)) },
             { "to", JsonConvert.SerializeObject(toAccount, new OkxAccountConverter(false)) },
         };
-        parameters.AddOptionalParameter("subAcct", subAccountName);
-        parameters.AddOptionalParameter("loanTrans", loanTransfer);
-        parameters.AddOptionalParameter("clientId", clientOrderId);
-        parameters.AddOptionalParameter("omitPosRisk", omitPositionRisk);
+        parameters.AddOptional("subAcct", subAccountName);
+        parameters.AddOptional("loanTrans", loanTransfer);
+        parameters.AddOptional("clientId", clientOrderId);
+        parameters.AddOptional("omitPosRisk", omitPositionRisk);
 
         return ProcessOneRequestAsync<OkxFundingTransferResponse>(GetUri(v5AssetTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -136,10 +136,10 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         OkxFundingTransferType? type = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("transId", transferId?.ToOkxString());
-        parameters.AddOptionalParameter("clientId", clientOrderId);
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxFundingTransferTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("transId", transferId?.ToOkxString());
+        parameters.AddOptional("clientId", clientOrderId);
+        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxFundingTransferTypeConverter(false)));
 
         return ProcessOneRequestAsync<OkxFundingTransferStateResponse>(GetUri(v5AssetTransferState), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -165,13 +165,13 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxFundingBillTypeConverter(false)));
-        parameters.AddOptionalParameter("clientId", clientOrderId);
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxFundingBillTypeConverter(false)));
+        parameters.AddOptional("clientId", clientOrderId);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingBill>(GetUri(v5AssetBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -184,8 +184,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingDepositAddress>>> GetDepositAddressAsync(string? currency = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
 
         return ProcessListRequestAsync<OkxFundingDepositAddress>(GetUri(v5AssetDepositAddress), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -217,16 +217,16 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("depId", depositId);
-        parameters.AddOptionalParameter("fromWdId", fromWithdrawalId);
-        parameters.AddOptionalParameter("txId", transactionId);
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxFundingDepositTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxFundingDepositStateConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("depId", depositId);
+        parameters.AddOptional("fromWdId", fromWithdrawalId);
+        parameters.AddOptional("txId", transactionId);
+        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxFundingDepositTypeConverter(false)));
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxFundingDepositStateConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingDepositHistory>(GetUri(v5AssetDepositHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -257,17 +257,17 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? clientOrderId = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "ccy",currency},
             { "amt",amount.ToOkxString()},
             { "dest", JsonConvert.SerializeObject(destination, new OkxFundingWithdrawalDestinationConverter(false)) },
             { "toAddr",toAddress},
             { "fee",fee   .ToOkxString()},
         };
-        parameters.AddOptionalParameter("chain", chain);
-        parameters.AddOptionalParameter("areaCode", areaCode);
-        parameters.AddOptionalParameter("rcvrInfo", receiverInfo);
-        parameters.AddOptionalParameter("clientId", clientOrderId);
+        parameters.AddOptional("chain", chain);
+        parameters.AddOptional("areaCode", areaCode);
+        parameters.AddOptional("rcvrInfo", receiverInfo);
+        parameters.AddOptional("clientId", clientOrderId);
 
         return ProcessOneRequestAsync<OkxFundingWithdrawalResponse>(GetUri(v5AssetWithdrawal), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -282,7 +282,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<OkxFundingWithdrawalId>> CancelWithdrawalAsync(long withdrawalId, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             { "wdId", withdrawalId},
         };
 
@@ -316,16 +316,16 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("wdId", withdrawalId);
-        parameters.AddOptionalParameter("clientId", clientOrderId);
-        parameters.AddOptionalParameter("txId", transactionId);
-        parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new OkxFundingWithdrawalTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxFundingWithdrawalStateConverter(false)));
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("wdId", withdrawalId);
+        parameters.AddOptional("clientId", clientOrderId);
+        parameters.AddOptional("txId", transactionId);
+        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxFundingWithdrawalTypeConverter(false)));
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxFundingWithdrawalStateConverter(false)));
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingWithdrawalHistory>(GetUri(v5AssetWithdrawalHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -346,7 +346,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string chain,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>()
+        var parameters = new ParameterCollection()
         {
             { "ccy", currency },
             { "txId", txId },
@@ -367,7 +367,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long withdrawalId,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>()
+        var parameters = new ParameterCollection()
         {
             { "wdId", withdrawalId.ToOkxString() },
         };
@@ -385,7 +385,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         IEnumerable<string> currencies,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>()
+        var parameters = new ParameterCollection()
         {
             { "ccy", currencies },
         };
@@ -413,8 +413,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? month = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("month", month);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("month", month);
 
         return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5AssetMonthlyStatement), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -429,8 +429,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string month,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("month", month);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("month", month);
 
         return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5AssetMonthlyStatement), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -457,9 +457,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string toCurrency,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("fromCcy", fromCurrency);
-        parameters.AddOptionalParameter("toCcy", toCurrency);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("fromCcy", fromCurrency);
+        parameters.AddOptional("toCcy", toCurrency);
 
         return ProcessOneRequestAsync<OkxFundingConvertCurrencyPair>(GetUri(v5AssetConvertCurrencyPair), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -484,7 +484,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? clientOrderId = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "baseCcy", baseCurrency },
             { "quoteCcy", quoteCurrency },
@@ -492,8 +492,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "rfqSz", rfqAmount.ToOkxString() },
             { "rfqSzCcy", rfqCurrency },
         };
-        parameters.AddOptionalParameter("clQReqId", clientOrderId);
-        parameters.AddOptionalParameter("tag", Options.BrokerId);
+        parameters.AddOptional("clQReqId", clientOrderId);
+        parameters.AddOptional("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxFundingConvertEstimateQuote>(GetUri(v5AssetConvertEstimateQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -520,7 +520,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? clientOrderId = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "quoteId", quoteId },
             { "baseCcy", baseCurrency },
@@ -529,8 +529,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "sz", amount.ToOkxString() },
             { "szCcy", amountCurrency },
         };
-        parameters.AddOptionalParameter("clQReqId", clientOrderId);
-        parameters.AddOptionalParameter("tag", Options.BrokerId);
+        parameters.AddOptional("clQReqId", clientOrderId);
+        parameters.AddOptional("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxFundingConvertOrder>(GetUri(v5AssetConvertTrade), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -554,12 +554,12 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("clTReqId", clientOrderId);
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
-        parameters.AddOptionalParameter("tag", tag);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("clTReqId", clientOrderId);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("tag", tag);
 
         return ProcessListRequestAsync<OkxFundingConvertOrderHistory>(GetUri(v5AssetConvertHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

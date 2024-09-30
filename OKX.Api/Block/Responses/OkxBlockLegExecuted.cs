@@ -14,7 +14,7 @@ public class OkxBlockLegExecuted
     /// <summary>
     /// The direction of the leg from the Takers perspective. Valid value can be buy or sell.
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide Side { get; set; }
     
     /// <summary>

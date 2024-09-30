@@ -34,7 +34,7 @@ public class OkxBlockRfq
     /// Valid values can be active canceled pending_fill filled expired traded_away failed.
     /// traded_away only applies to Maker
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxBlockStateConverter))]
+    [JsonProperty("state")]
     public OkxBlockState State { get; set; }
 
     /// <summary>

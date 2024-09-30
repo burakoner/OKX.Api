@@ -20,7 +20,7 @@ public class OkxBlockLegRequest
     /// Buy options in Spot and futures mode and Multi-currency Margin: isolated
     /// Other cases: cross
     /// </summary>
-    [JsonProperty("tdMode"), JsonConverter(typeof(OkxTradeModeConverter))]
+    [JsonProperty("tdMode")]
     public OkxTradeMode? TradeMode { get; set; }
 
     /// <summary>
@@ -39,7 +39,7 @@ public class OkxBlockLegRequest
     /// <summary>
     /// The direction of each leg. Valid values can be buy or sell.
     /// </summary>
-    [JsonProperty("side"), JsonConverter(typeof(OkxTradeOrderSideConverter))]
+    [JsonProperty("side")]
     public OkxTradeOrderSide Side { get; set; }
 
     /// <summary>
@@ -48,7 +48,7 @@ public class OkxBlockLegRequest
     /// If not specified, users in long/short mode always open new positions.
     /// Only applicable to FUTURES/SWAP.
     /// </summary>
-    [JsonProperty("posSide"), JsonConverter(typeof(OkxTradePositionSideConverter))]
+    [JsonProperty("posSide")]
     public OkxTradePositionSide? PositionSide { get; set; }
     
     /// <summary>

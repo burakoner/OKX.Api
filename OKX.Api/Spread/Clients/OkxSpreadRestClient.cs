@@ -42,15 +42,15 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         string? clientOrderId = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"sprdId", spreadId },
             {"side", JsonConvert.SerializeObject(side, new OkxTradeOrderSideConverter(false)) },
             {"ordType", JsonConvert.SerializeObject(type, new OkxSpreadOrderTypeConverter(false)) },
             {"sz", size.ToOkxString() },
         };
-        parameters.AddOptionalParameter("px", price?.ToOkxString());
-        parameters.AddOptionalParameter("clOrdId", clientOrderId);
-        parameters.AddOptionalParameter("tag", Options.BrokerId);
+        parameters.AddOptional("px", price?.ToOkxString());
+        parameters.AddOptional("clOrdId", clientOrderId);
+        parameters.AddOptional("tag", Options.BrokerId);
 
         return ProcessOneRequestAsync<OkxSpreadOrderPlaceResponse>(GetUri(v5SpreadOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -64,9 +64,9 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<OkxSpreadOrderCancelResponse>> CancelOrderAsync(long? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
-        parameters.AddOptionalParameter("clOrdId", clientOrderId);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ordId", orderId?.ToOkxString());
+        parameters.AddOptional("clOrdId", clientOrderId);
 
         return ProcessOneRequestAsync<OkxSpreadOrderCancelResponse>(GetUri(v5SpreadCancelOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -79,7 +79,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBooleanResponse>>> CancelOrdersAsync(string spreadId, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"sprdId", spreadId },
         };
 
@@ -109,12 +109,12 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         decimal? newPrice = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
-        parameters.AddOptionalParameter("clOrdId", clientOrderId);
-        parameters.AddOptionalParameter("reqId", requestId);
-        parameters.AddOptionalParameter("newSz", newQuantity?.ToOkxString());
-        parameters.AddOptionalParameter("newPx", newPrice?.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ordId", orderId?.ToOkxString());
+        parameters.AddOptional("clOrdId", clientOrderId);
+        parameters.AddOptional("reqId", requestId);
+        parameters.AddOptional("newSz", newQuantity?.ToOkxString());
+        parameters.AddOptional("newPx", newPrice?.ToOkxString());
 
         return ProcessOneRequestAsync<OkxSpreadOrderAmendResponse>(GetUri(v5SpreadAmendOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -131,9 +131,9 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         string? clientOrderId = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
-        parameters.AddOptionalParameter("clOrdId", clientOrderId);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ordId", orderId?.ToOkxString());
+        parameters.AddOptional("clOrdId", clientOrderId);
 
         return ProcessOneRequestAsync<OkxSpreadOrder>(GetUri(v5SpreadOrder), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -159,13 +159,13 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("sprdId", spreadId);
-        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxTradeOrderStateConverter(false)));
-        parameters.AddOptionalParameter("beginId", beginId?.ToOkxString());
-        parameters.AddOptionalParameter("endId", endId?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("sprdId", spreadId);
+        parameters.AddOptional("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxTradeOrderStateConverter(false)));
+        parameters.AddOptional("beginId", beginId?.ToOkxString());
+        parameters.AddOptional("endId", endId?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSpreadOrder>(GetUri(v5SpreadOrdersPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -195,15 +195,15 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("sprdId", spreadId);
-        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxTradeOrderStateConverter(false)));
-        parameters.AddOptionalParameter("beginId", beginId?.ToOkxString());
-        parameters.AddOptionalParameter("endId", endId?.ToOkxString());
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("sprdId", spreadId);
+        parameters.AddOptional("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxTradeOrderStateConverter(false)));
+        parameters.AddOptional("beginId", beginId?.ToOkxString());
+        parameters.AddOptional("endId", endId?.ToOkxString());
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSpreadOrder>(GetUri(v5SpreadOrdersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -233,15 +233,15 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("sprdId", spreadId);
-        parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxTradeOrderStateConverter(false)));
-        parameters.AddOptionalParameter("beginId", beginId?.ToOkxString());
-        parameters.AddOptionalParameter("endId", endId?.ToOkxString());
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("sprdId", spreadId);
+        parameters.AddOptional("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxTradeOrderStateConverter(false)));
+        parameters.AddOptional("beginId", beginId?.ToOkxString());
+        parameters.AddOptional("endId", endId?.ToOkxString());
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSpreadOrder>(GetUri(v5SpreadOrdersHistoryArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -271,15 +271,15 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("sprdId", spreadId);
-        parameters.AddOptionalParameter("tradeId", tradeId?.ToOkxString());
-        parameters.AddOptionalParameter("ordId", orderId?.ToOkxString());
-        parameters.AddOptionalParameter("beginId", beginId?.ToOkxString());
-        parameters.AddOptionalParameter("endId", endId?.ToOkxString());
-        parameters.AddOptionalParameter("begin", begin?.ToOkxString());
-        parameters.AddOptionalParameter("end", end?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("sprdId", spreadId);
+        parameters.AddOptional("tradeId", tradeId?.ToOkxString());
+        parameters.AddOptional("ordId", orderId?.ToOkxString());
+        parameters.AddOptional("beginId", beginId?.ToOkxString());
+        parameters.AddOptional("endId", endId?.ToOkxString());
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSpreadTrade>(GetUri(v5SpreadTrades), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -300,11 +300,11 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         OkxSpreadInstrumentState? state = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>();
-        parameters.AddOptionalParameter("baseCcy", baseCurrency);
-        parameters.AddOptionalParameter("instId", instrumentId);
-        parameters.AddOptionalParameter("sprdId", spreadId);
-        parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OkxSpreadInstrumentStateConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("baseCcy", baseCurrency);
+        parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptional("sprdId", spreadId);
+        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxSpreadInstrumentStateConverter(false)));
 
         return ProcessListRequestAsync<OkxSpreadInstrument>(GetUri(v5SpreadSpreads), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -319,7 +319,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     public Task<RestCallResult<OkxSpreadOrderBook>> GetOrderBookAsync(string spreadId, int depth = 5, CancellationToken ct = default)
     {
         depth.ValidateIntBetween(nameof(depth), 1, 400);
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "sprdId", spreadId},
             { "sz", depth},
@@ -336,7 +336,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<OkxSpreadTicker>> GetTickerAsync(string spreadId, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "sprdId", spreadId},
         };
@@ -352,7 +352,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSpreadPublicTrade>>> GetTradesAsync(string spreadId, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "sprdId", spreadId},
         };
@@ -404,14 +404,14 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 300);
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "sprdId", spreadId },
             { "bar", period },
         };
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSpreadCandlestick>(GetUri(v5MarketSpreadCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -454,14 +454,14 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     public Task<RestCallResult<List<OkxSpreadCandlestick>>> GetCandlesticksHistoryAsync(string spreadId, string period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new Dictionary<string, object>
+        var parameters = new ParameterCollection
         {
             { "sprdId", spreadId },
             { "bar", period },
         };
-        parameters.AddOptionalParameter("after", after?.ToOkxString());
-        parameters.AddOptionalParameter("before", before?.ToOkxString());
-        parameters.AddOptionalParameter("limit", limit.ToOkxString());
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSpreadCandlestick>(GetUri(v5MarketSpreadHistoryCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -476,7 +476,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<OkxSpreadCancelAllAfter>> CancelAllAfterAsync(int timeout, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
+        var parameters = new ParameterCollection {
             {"timeOut", timeout.ToOkxString() },
         };
 
