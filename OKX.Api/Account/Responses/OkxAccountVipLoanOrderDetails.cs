@@ -26,7 +26,7 @@ public class OkxAccountVipLoanOrderDetails
     /// <summary>
     /// Type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxAccountVipLoanTypeConverter))]
+    [JsonProperty("type")]
     public OkxAccountVipLoanType Type { get; set; }
     
     /// <summary>

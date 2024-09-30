@@ -8,6 +8,6 @@ public class OkxAccountRiskOffsetTypeModel
     /// <summary>
     /// Type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxAccountRiskOffsetTypeConverter))]
+    [JsonProperty("type")]
     public OkxAccountRiskOffsetType Type { get; set; }
 }

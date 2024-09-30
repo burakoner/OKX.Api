@@ -8,13 +8,13 @@ public class OkxAccountPosition
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
     /// Margin mode
     /// </summary>
-    [JsonProperty("mgnMode"), JsonConverter(typeof(OkxAccountMarginModeConverter))]
+    [JsonProperty("mgnMode")]
     public OkxAccountMarginMode MarginMode { get; set; }
 
     /// <summary>

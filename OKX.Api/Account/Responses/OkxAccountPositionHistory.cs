@@ -8,7 +8,7 @@ public class OkxAccountPositionHistory
     /// <summary>
     /// Instrument type
     /// </summary>
-    [JsonProperty("instType"), JsonConverter(typeof(OkxInstrumentTypeConverter))]
+    [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
@@ -20,13 +20,13 @@ public class OkxAccountPositionHistory
     /// <summary>
     /// Margin mode
     /// </summary>
-    [JsonProperty("mgnMode"), JsonConverter(typeof(OkxAccountMarginModeConverter))]
+    [JsonProperty("mgnMode")]
     public OkxAccountMarginMode MarginMode { get; set; }
 
     /// <summary>
     /// The type of closing position
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxClosingPositionTypeConverter))]
+    [JsonProperty("type")]
     public OkxClosingPositionType Type { get; set; }
 
     /// <summary>

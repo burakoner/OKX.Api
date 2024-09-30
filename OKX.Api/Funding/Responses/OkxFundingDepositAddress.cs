@@ -47,7 +47,7 @@ public class OkxFundingDepositAddress
     /// <summary>
     /// The beneficiary account
     /// </summary>
-    [JsonProperty("to"), JsonConverter(typeof(OkxAccountConverter))]
+    [JsonProperty("to")]
     public OkxAccount BeneficiaryAccount { get; set; }
     
     /// <summary>

@@ -26,7 +26,7 @@ public class OkxAccountFixedLoanBorrowingOrderDetails
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxAccountFixedLoanBorrowingOrderStateConverter))]
+    [JsonProperty("state")]
     public OkxAccountFixedLoanBorrowingOrderState State { get; set; }
 
     /// <summary>

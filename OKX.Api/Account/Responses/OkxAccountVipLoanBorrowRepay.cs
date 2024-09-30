@@ -32,6 +32,6 @@ public class OkxAccountVipLoanBorrowRepay
     /// <summary>
     /// State
     /// </summary>
-    [JsonProperty("state"), JsonConverter(typeof(OkxAccountVipLoanStateConverter))]
+    [JsonProperty("state")]
     public OkxAccountVipLoanState State { get; set; }
 }

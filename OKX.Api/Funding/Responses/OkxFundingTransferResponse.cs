@@ -26,7 +26,7 @@ public class OkxFundingTransferResponse
     /// <summary>
     /// Remitting Account
     /// </summary>
-    [JsonProperty("from"), JsonConverter(typeof(OkxAccountConverter))]
+    [JsonProperty("from")]
     public OkxAccount RemittingAccount { get; set; }
     
     /// <summary>
@@ -38,6 +38,6 @@ public class OkxFundingTransferResponse
     /// <summary>
     /// Beneficiary Account
     /// </summary>
-    [JsonProperty("to"), JsonConverter(typeof(OkxAccountConverter))]
+    [JsonProperty("to")]
     public OkxAccount BeneficiaryAccount { get; set; }
 }

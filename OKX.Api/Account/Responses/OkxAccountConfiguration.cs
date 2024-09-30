@@ -22,7 +22,7 @@ public class OkxAccountConfiguration
     /// <summary>
     /// Account level
     /// </summary>
-    [JsonProperty("acctLv"), JsonConverter(typeof(OkxAccountLevelConverter))]
+    [JsonProperty("acctLv")]
     public OkxAccountLevel AccountLevel { get; set; }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class OkxAccountConfiguration
     /// <summary>
     /// Current display type of Greeks
     /// </summary>
-    [JsonProperty("greeksType"), JsonConverter(typeof(OkxAccountGreeksTypeConverter))]
+    [JsonProperty("greeksType")]
     public OkxAccountGreeksType GreeksType { get; set; }
 
     /// <summary>
@@ -68,26 +68,26 @@ public class OkxAccountConfiguration
     /// <summary>
     /// Contract isolated margin trading settings
     /// </summary>
-    [JsonProperty("ctIsoMode"), JsonConverter(typeof(OkxAccountIsolatedMarginModeConverter))]
+    [JsonProperty("ctIsoMode")]
     public OkxAccountIsolatedMarginMode ContractIsolatedMarginTradingMode { get; set; }
 
     /// <summary>
     /// Margin isolated margin trading settings
     /// </summary>
-    [JsonProperty("mgnIsoMode"), JsonConverter(typeof(OkxAccountIsolatedMarginModeConverter))]
+    [JsonProperty("mgnIsoMode")]
     public OkxAccountIsolatedMarginMode MarginIsolatedMarginTradingMode { get; set; }
 
     /// <summary>
     /// Risk offset type
     /// Only applicable to Portfolio margin
     /// </summary>
-    [JsonProperty("spotOffsetType"), JsonConverter(typeof(OkxAccountRiskOffsetTypeConverter))]
+    [JsonProperty("spotOffsetType")]
     public OkxAccountRiskOffsetType? RiskOffsetType { get; set; }
 
     /// <summary>
     /// Role type.
     /// </summary>
-    [JsonProperty("roleType"), JsonConverter(typeof(OkxAccountRoleTypeConverter))]
+    [JsonProperty("roleType")]
     public OkxAccountRoleType? AccountRoleType { get; set; }
 
     /// <summary>
@@ -139,7 +139,7 @@ public class OkxAccountConfiguration
     /// <summary>
     /// The permission of the urrent request API Key. read_only：Read only；trade ：Trade; withdraw: Withdraw
     /// </summary>
-    [JsonProperty("perm"), JsonConverter(typeof(OkxAccountApiKeyPermissionConverter))]
+    [JsonProperty("perm")]
     public OkxAccountApiKeyPermission ApiKeyPermission { get; set; }
 
     /// <summary>
@@ -148,7 +148,7 @@ public class OkxAccountConfiguration
     /// 1: New discount rules
     /// After new discount rate rules are effective completely, this parameter will be removed from the endpoint. Advice you to prepare in advance.
     /// </summary>
-    [JsonProperty("discountType"), JsonConverter(typeof(OkxAccountDiscountTypeConverter))]
+    [JsonProperty("discountType")]
     public OkxAccountDiscountType DiscountType { get; set; }
 
     /// <summary>

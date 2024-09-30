@@ -8,6 +8,6 @@ public class OkxTradeEasyConvertOrderHistory : OkxTradeEasyConvertOrder
     /// <summary>
     /// Account
     /// </summary>
-    [JsonProperty("acct"), JsonConverter(typeof(OkxAccountConverter))]
+    [JsonProperty("acct")]
     public OkxAccount Account { get; set; }
 }

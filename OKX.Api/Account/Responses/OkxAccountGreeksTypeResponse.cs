@@ -8,6 +8,6 @@ public class OkxAccountGreeksTypeResponse
     /// <summary>
     /// Display type of Greeks.
     /// </summary>
-    [JsonProperty("greeksType"), JsonConverter(typeof(OkxAccountGreeksTypeConverter))]
+    [JsonProperty("greeksType")]
     public OkxAccountGreeksType GreeksType { get; set; }
 }

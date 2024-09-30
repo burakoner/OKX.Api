@@ -8,7 +8,7 @@ public class OkxAccountInterestAccrued
     /// <summary>
     /// Loan type
     /// </summary>
-    [JsonProperty("type"), JsonConverter(typeof(OkxAccountLoanTypeConverter))]
+    [JsonProperty("type")]
     public OkxAccountLoanType LoanType { get; set; }
 
     /// <summary>
@@ -27,7 +27,7 @@ public class OkxAccountInterestAccrued
     /// <summary>
     /// Margin mode
     /// </summary>
-    [JsonProperty("mgnMode"), JsonConverter(typeof(OkxAccountMarginModeConverter))]
+    [JsonProperty("mgnMode")]
     public OkxAccountMarginMode? MarginMode { get; set; }
 
     /// <summary>

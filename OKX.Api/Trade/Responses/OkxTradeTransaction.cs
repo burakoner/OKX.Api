@@ -53,7 +53,7 @@ public class OkxTradeTransaction
     /// <summary>
     /// Transaction type
     /// </summary>
-    [JsonProperty("subType"), JsonConverter(typeof(OkxAccountBillSubTypeConverter))]
+    [JsonProperty("subType")]
     public OkxAccountBillSubType TransactionType { get; set; }
 
     /// <summary>
