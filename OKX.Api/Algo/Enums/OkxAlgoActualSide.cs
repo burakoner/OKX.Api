@@ -8,10 +8,12 @@ public enum OkxAlgoActualSide
     /// <summary>
     /// StopLoss
     /// </summary>
+    [Map("sl")]
     StopLoss,
 
     /// <summary>
     /// TakeProfit
     /// </summary>
+    [Map("tp")]
     TakeProfit,
 }
