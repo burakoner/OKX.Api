@@ -57,11 +57,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Broker\FullyDisclosed\Converters\" />
 	  <Folder Include="Broker\FullyDisclosed\Enums\" />
 	  <Folder Include="Broker\FullyDisclosed\Requests\" />
 	  <Folder Include="Broker\FullyDisclosed\Responses\" />
-	  <Folder Include="Broker\NonDisclosed\Converters\" />
 	  <Folder Include="Broker\NonDisclosed\Enums\" />
 	  <Folder Include="Broker\NonDisclosed\Requests\" />
 	  <Folder Include="Broker\NonDisclosed\Responses\" />

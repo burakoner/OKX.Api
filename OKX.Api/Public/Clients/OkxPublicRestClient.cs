@@ -68,10 +68,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         string? underlying = null,
         CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection
-        {
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("instType", instrumentType);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("uly", underlying);
 
@@ -161,7 +159,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         int limit = 100,
         CancellationToken ct = default)
     {
-        return GetCandlesticksAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
+        return GetCandlesticksAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
     }
 
     /// <summary>
@@ -217,7 +215,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxPublicCandlestick>>> GetCandlestickHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return await GetCandlestickHistoryAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
+        return await GetCandlestickHistoryAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
     }
 
     /// <summary>
@@ -297,7 +295,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "instId", instrumentId },
         };
 
-        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxPublicTradeHistoryPaginationTypeConverter(false)));
+        parameters.AddOptionalEnum("type", type);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
@@ -340,7 +338,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         var parameters = new ParameterCollection();
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
-        parameters.AddOptional("optType", JsonConvert.SerializeObject(optionType, new OkxOptionTypeConverter(false)));
+        parameters.AddOptionalEnum("optType", optionType);
 
         return ProcessListRequestAsync<OkxPublicOptionTrade>(GetUri(v5PublicOptionTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -375,10 +373,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         bool signed = false,
         CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection
-        {
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("instType", instrumentType);
         parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
@@ -410,10 +406,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             throw new ArgumentException("Instrument Type can be only Futures or Option.");
 
         limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new ParameterCollection
-        {
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("instType", instrumentType);
         parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("after", after?.ToOkxString());
@@ -445,10 +439,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         if (instrumentType == OkxInstrumentType.Swap && string.IsNullOrEmpty(underlying))
             throw new ArgumentException("Underlying is required for Option.");
 
-        var parameters = new ParameterCollection
-        {
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("instType", instrumentType);
         parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
@@ -594,10 +586,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         if (instrumentType.IsNotIn(OkxInstrumentType.Margin, OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
             throw new ArgumentException("Instrument Type can be only Margin, Futures, Option or Swap.");
 
-        var parameters = new ParameterCollection
-        {
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("instType", instrumentType);
         parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
@@ -630,11 +620,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         if (instrumentType.IsNotIn(OkxInstrumentType.Margin, OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
             throw new ArgumentException("Instrument Type can be only Margin, Futures, Option or Swap.");
 
-        var parameters = new ParameterCollection
-        {
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-            { "tdMode", JsonConvert.SerializeObject(marginMode, new OkxAccountMarginModeConverter(false)) },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("instType", instrumentType);
+        parameters.AddEnum("tdMode", marginMode);
         parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("instId", instrumentId);
@@ -675,10 +663,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         if (instrumentType.IsNotIn(OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
             throw new ArgumentException("Instrument Type can be only Futures, Option or Swap.");
 
-        var parameters = new ParameterCollection
-        {
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("instType", instrumentType);
+
         return ProcessOneRequestAsync<List<string>>(GetUri(v5PublicUnderlying), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
@@ -711,12 +698,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         if (instrumentType.IsNotIn(OkxInstrumentType.Margin, OkxInstrumentType.Swap, OkxInstrumentType.Futures, OkxInstrumentType.Option))
             throw new ArgumentException("Instrument Type can be only Margin, Swap, Futures or Option.");
 
-        var parameters = new ParameterCollection
-        {
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
-        };
-
-        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxPublicInsuranceTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("instType", instrumentType);
+        parameters.AddOptionalEnum("type", type);
         parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("ccy", currency);
@@ -760,12 +744,12 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
-        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxPublicConvertTypeConverter(false)));
+        parameters.AddOptionalEnum("type", type);
+        parameters.AddOptionalEnum("unit", unit);
+        parameters.AddOptionalEnum("opType", operationType);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("sz", size.ToOkxString());
         parameters.AddOptional("px", price?.ToOkxString());
-        parameters.AddOptional("unit", JsonConvert.SerializeObject(unit, new OkxPublicConvertUnitConverter(false)));
-        parameters.AddOptional("opType", JsonConvert.SerializeObject(operationType, new OkxPublicConvertOperationConverter(false)));
 
         return ProcessOneRequestAsync<OkxPublicUnitConvert>(GetUri(v5PublicConvertContractCoin), HttpMethod.Get, ct, queryParameters: parameters);
     }
@@ -845,7 +829,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicIndexCandlestick>>> GetIndexCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return GetIndexCandlesticksAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
+        return GetIndexCandlesticksAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
     }
 
     /// <summary>
@@ -889,7 +873,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicIndexCandlestick>>> GetIndexCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return GetIndexCandlesticksHistoryAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
+        return GetIndexCandlesticksHistoryAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
     }
 
     /// <summary>
@@ -933,7 +917,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicMarkCandlestick>>> GetMarkPriceCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return GetMarkPriceCandlesticksAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
+        return GetMarkPriceCandlesticksAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
     }
 
     /// <summary>
@@ -977,7 +961,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicMarkCandlestick>>> GetMarkPriceCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return GetMarkPriceCandlesticksHistoryAsync(instrumentId, JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)), after, before, limit, ct);
+        return GetMarkPriceCandlesticksHistoryAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
     }
 
     /// <summary>
@@ -1064,8 +1048,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("importance", importance);
         parameters.AddOptional("region", region);
-        parameters.AddOptional("importance", JsonConvert.SerializeObject(importance, new OkxPublicEventImportanceConverter(false)));
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());

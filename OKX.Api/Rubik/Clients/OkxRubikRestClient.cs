@@ -53,6 +53,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+
         var parameters = new ParameterCollection {
             { "instId", instrumentId},
         };
@@ -86,8 +87,8 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     {
         var parameters = new ParameterCollection {
             { "ccy", currency},
-            { "instType", JsonConvert.SerializeObject(instrumentType, new OkxInstrumentTypeConverter(false)) },
         };
+        parameters.AddEnum("instType", instrumentType);
         parameters.AddOptional("period", period);
         parameters.AddOptional("begin", begin?.ToOkxString());
         parameters.AddOptional("end", end?.ToOkxString());
@@ -118,10 +119,11 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+
         var parameters = new ParameterCollection {
             { "instId", instrumentId},
         };
-        parameters.AddOptional("period", JsonConvert.SerializeObject(period, new OkxPeriodConverter(false)));
+        parameters.AddOptional("period", period);
         parameters.AddOptional("unit", unit);
         parameters.AddOptional("begin", begin?.ToOkxString());
         parameters.AddOptional("end", end?.ToOkxString());
@@ -179,6 +181,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+
         var parameters = new ParameterCollection {
             { "instId", instrumentId},
         };
@@ -211,6 +214,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+
         var parameters = new ParameterCollection {
             { "instId", instrumentId},
         };
@@ -243,6 +247,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+
         var parameters = new ParameterCollection {
             { "instId", instrumentId},
         };

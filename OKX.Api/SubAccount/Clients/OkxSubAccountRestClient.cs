@@ -79,8 +79,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         var permissions = new List<string>();
         if (readPermission.HasValue && readPermission.Value) permissions.Add("read_only");
         if (tradePermission.HasValue && tradePermission.Value) permissions.Add("trade");
-        if (permissions.Count > 0)
-            parameters.AddOptional("perm", string.Join(",", permissions));
+        if (permissions.Count > 0) parameters.AddOptional("perm", string.Join(",", permissions));
 
         return ProcessOneRequestAsync<OkxSubAccountApiKey>(GetUri(v5UsersSubaccountResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -169,10 +168,11 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+
         var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("type", type);
         parameters.AddOptional("subAcct", subAccountName);
         parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxSubAccountTransferTypeConverter(false)));
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
@@ -203,9 +203,10 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+
         var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("type", type);
         parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxSubAccountTransferTypeConverter(false)));
         parameters.AddOptional("subAcct", subAccountName);
         parameters.AddOptional("subUid", subAccountId?.ToOkxString());
         parameters.AddOptional("after", after?.ToOkxString());
@@ -243,11 +244,11 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         {
             {"ccy", currency },
             {"amt", amount.ToOkxString() },
-            {"from", JsonConvert.SerializeObject(fromAccount, new OkxAccountConverter(false)) },
-            {"to", JsonConvert.SerializeObject(toAccount, new OkxAccountConverter(false)) },
             {"fromSubAccount", fromSubAccountName },
             {"toSubAccount", toSubAccountName },
         };
+        parameters.AddEnum("from", fromAccount);
+        parameters.AddEnum("to", toAccount);
         parameters.AddOptional("loanTrans", loanTransfer);
         parameters.AddOptional("omitPosRisk", omitPositionRisk);
 

@@ -58,9 +58,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         int limit = 100,
         CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection {
-            {"signalSourceType", JsonConvert.SerializeObject(signalSourceType, new OkxSignalBotSourceTypeConverter(false))}
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("signalSourceType", signalSourceType);
         parameters.AddOptional("signalChanId", signalChannelId?.ToOkxString());
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
@@ -99,8 +98,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "signalChanId", signalChannelId.ToString() },
             { "lever", leverage.ToOkxString() },
             { "investAmt", amount.ToOkxString() },
-            { "subOrdType", JsonConvert.SerializeObject(orderType, new OkxSignalBotOrderTypeConverter(false)) },
         };
+        parameters.AddEnum("subOrdType", orderType);
         parameters.AddOptional("includeAll", includeAll);
         parameters.AddOptional("instIds", instrumentIds);
         parameters.AddOptional("ratio", ratio?.ToOkxString());
@@ -148,9 +147,9 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     {
         var parameters = new ParameterCollection {
             { "algoId", algoId.ToOkxString() },
-            { "type", JsonConvert.SerializeObject(type, new OkxAccountMarginAddReduceConverter(false)) },
             { "amt", amount.ToOkxString() },
         };
+        parameters.AddEnum("type", type);
         parameters.AddOptional("allowReinvest", allowReinvest);
 
         return ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -368,8 +367,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "instId", instrumentId },
             { "sz", size.ToOkxString() },
         };
-        parameters.AddOptional("side", JsonConvert.SerializeObject(side, new OkxTradeOrderSideConverter(false)));
-        parameters.AddOptional("ordType", JsonConvert.SerializeObject(type, new OkxTradeOrderTypeConverter(false)));
+        parameters.AddOptionalEnum("side", side);
+        parameters.AddOptionalEnum("ordType", type);
         parameters.AddOptional("px", price?.ToOkxString());
         parameters.AddOptional("reduceOnly", reduceOnly);
         parameters.AddOptional("tag", Options.BrokerId);
@@ -430,14 +429,14 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "algoId", algoId.ToOkxString() },
             { "algoOrdType", "contract" },
         };
-        parameters.AddOptional("state", JsonConvert.SerializeObject(state, new OkxSignalBotSuborderStateConverter(false)));
+        parameters.AddOptionalEnum("state", state);
+        parameters.AddOptionalEnum("type", type);
         parameters.AddOptional("signalOrdId", signalOrderId);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("begin", begin?.ToOkxString());
         parameters.AddOptional("end", end?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
-        parameters.AddOptional("type", JsonConvert.SerializeObject(type, new OkxSignalBotSuborderTypeConverter(false)));
 
         return ProcessListRequestAsync<OkxSignalBotSuborder>(GetUri(v5TradingBotSignalSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
