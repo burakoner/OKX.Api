@@ -8,10 +8,12 @@ public enum OkxAccountMarginAddReduce
     /// <summary>
     /// Add
     /// </summary>
+    [Map("add")]
     Add,
 
     /// <summary>
     /// Reduce
     /// </summary>
+    [Map("reduce")]
     Reduce,
 }

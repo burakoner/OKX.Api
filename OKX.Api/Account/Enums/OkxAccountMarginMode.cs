@@ -8,10 +8,12 @@ public enum OkxAccountMarginMode
     /// <summary>
     /// Isolated
     /// </summary>
+    [Map("isolated")]
     Isolated,
 
     /// <summary>
     /// Cross
     /// </summary>
+    [Map("cross")]
     Cross,
 }
