@@ -8,10 +8,12 @@ public enum OkxSubAccountType
     /// <summary>
     /// Standard
     /// </summary>
+    [Map("1")]
     Standard,
 
     /// <summary>
     /// Custody
     /// </summary>
+    [Map("2")]
     Custody,
 }

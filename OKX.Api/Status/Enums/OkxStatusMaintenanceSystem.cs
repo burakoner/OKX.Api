@@ -8,10 +8,12 @@ public enum OkxStatusMaintenanceSystem
     /// <summary>
     /// Classic
     /// </summary>
+    [Map("classic")]
     Classic,
 
     /// <summary>
     /// Unified
     /// </summary>
+    [Map("unified")]
     Unified,
 }

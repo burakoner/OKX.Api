@@ -8,10 +8,12 @@ public enum OkxSubAccountTransferType
     /// <summary>
     /// FromMasterAccountToSubAccout
     /// </summary>
+    [Map("0")]
     FromMasterAccountToSubAccout,
 
     /// <summary>
     /// FromSubAccountToMasterAccout
     /// </summary>
+    [Map("1")]
     FromSubAccountToMasterAccout,
 }
