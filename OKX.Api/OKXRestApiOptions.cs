@@ -100,8 +100,5 @@ public class OkxRestApiOptions : RestApiClientOptions
             EncodeQueryString = true,
             BodyFormat = RestBodyFormat.Json,
         };
-
-        // Request Body
-        RequestBodyParameterKey = "BODY";
     }
 }

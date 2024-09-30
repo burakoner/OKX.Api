@@ -1,12 +1,4 @@
-﻿using OKX.Api.Account;
-using OKX.Api.Algo;
-using OKX.Api.Common;
-using OKX.Api.Funding;
-using OKX.Api.Grid;
-using OKX.Api.Public;
-using OKX.Api.Trade;
-
-namespace OKX.Api.Examples;
+﻿namespace OKX.Api.Examples;
 
 internal class Program
 {

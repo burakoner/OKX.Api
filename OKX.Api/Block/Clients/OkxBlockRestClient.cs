@@ -167,9 +167,8 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         IEnumerable<OkxBlockQuoteProductRequest> products,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
-            { Options.RequestBodyParameterKey, products },
-        };
+        var parameters = new ParameterCollection();
+        parameters.SetBody(products);
 
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5RfqMakerInstrumentSettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

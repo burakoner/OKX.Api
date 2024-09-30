@@ -93,7 +93,7 @@ public class OkxGridOrderAmendRequestTriggerParameters
         {
             if (SpotAlgoStopType is not null) return JsonConvert.SerializeObject(SpotAlgoStopType, new OkxGridSpotAlgoStopTypeConverter(false));
             if (ContractAlgoStopType is not null) return JsonConvert.SerializeObject(ContractAlgoStopType, new OkxGridContractAlgoStopTypeConverter(false));
-            return "";
+            return string.Empty;
         }
     }
 

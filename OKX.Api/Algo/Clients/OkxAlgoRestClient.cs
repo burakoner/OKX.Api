@@ -183,9 +183,8 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAlgoCancelOrderResponse>>> CancelOrdersAsync(IEnumerable<OkxAlgoCancelOrderRequest> orders, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
-            { Options.RequestBodyParameterKey, orders },
-        };
+        var parameters = new ParameterCollection();
+        parameters.SetBody(orders);
 
         return ProcessListRequestAsync<OkxAlgoCancelOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -280,9 +279,8 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAlgoCancelOrderResponse>>> CancelAdvanceAsync(IEnumerable<OkxAlgoCancelOrderRequest> orders, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
-            { Options.RequestBodyParameterKey, orders },
-        };
+        var parameters = new ParameterCollection();
+        parameters.SetBody(orders);
 
         return ProcessListRequestAsync<OkxAlgoCancelOrderResponse>(GetUri(v5TradeCancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

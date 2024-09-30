@@ -1,8 +1,14 @@
-﻿global using OKX.Api.CopyTrade;
+﻿global using OKX.Api.Account;
+global using OKX.Api.Algo;
+global using OKX.Api.Common;
+global using OKX.Api.CopyTrade;
 global using OKX.Api.Financial.EthStaking;
+global using OKX.Api.Funding;
+global using OKX.Api.Grid;
 global using OKX.Api.RecurringBuy;
 global using OKX.Api.SignalBot;
 global using OKX.Api.Spread;
+global using OKX.Api.Trade;
 global using System;
 global using System.Collections.Generic;
 global using System.Threading.Tasks;

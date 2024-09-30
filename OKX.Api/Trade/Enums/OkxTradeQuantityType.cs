@@ -8,10 +8,12 @@ public enum OkxTradeQuantityType
     /// <summary>
     /// BaseCurrency
     /// </summary>
+    [Map("base_ccy")]
     BaseCurrency,
 
     /// <summary>
     /// QuoteCurrency
     /// </summary>
+    [Map("quote_ccy")]
     QuoteCurrency,
 }

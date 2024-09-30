@@ -700,9 +700,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     public Task<RestCallResult<OkxPublicInsuranceFund>> GetInsuranceFundAsync(
         OkxInstrumentType instrumentType,
         OkxPublicInsuranceType? type = null,
-        string underlying = "",
-        string instrumentFamily = "",
-        string currency = "",
+        string? underlying = null,
+        string? instrumentFamily = null,
+        string? currency = null,
         long? after = null,
         long? before = null,
         int limit = 100,

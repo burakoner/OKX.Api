@@ -109,19 +109,19 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? attachedAlgoOrders = null,
         CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
-            {"instId", instrumentId },
-            {"tdMode", JsonConvert.SerializeObject(tradeMode, new OkxTradeModeConverter(false)) },
-            {"side", JsonConvert.SerializeObject(orderSide, new OkxTradeOrderSideConverter(false)) },
-            {"posSide", JsonConvert.SerializeObject(positionSide, new OkxTradePositionSideConverter(false)) },
-            {"ordType", JsonConvert.SerializeObject(orderType, new OkxTradeOrderTypeConverter(false)) },
-            {"sz", size.ToOkxString() },
-        };
-        parameters.AddOptionalParameter("px", price?.ToOkxString());
-        parameters.AddOptionalParameter("ccy", currency);
-        parameters.AddOptionalParameter("clOrdId", clientOrderId);
-        parameters.AddOptionalParameter("reduceOnly", reduceOnly);
-        parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new OkxTradeQuantityTypeConverter(false)));
+        var parameters = new ParameterCollection();
+        parameters.Add("instId", instrumentId);
+        parameters.AddEnum("tdMode", tradeMode);
+        parameters.AddEnum("side", orderSide);
+        parameters.AddEnum("posSide", positionSide);
+        parameters.AddEnum("ordType", orderType);
+        parameters.Add("sz", size.ToOkxString());
+
+        parameters.AddOptional("px", price?.ToOkxString());
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("clOrdId", clientOrderId);
+        parameters.AddOptional("reduceOnly", reduceOnly);
+        parameters.AddOptionalEnum("tgtCcy", quantityType);
 
         parameters.AddOptionalParameter("quickMgnType", JsonConvert.SerializeObject(quickMgnType, new OkxQuickMarginTypeConverter(false)));
         parameters.AddOptionalParameter("banAmend", banAmend);
@@ -158,10 +158,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<List<OkxTradeOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxTradeOrderPlaceRequest> orders, CancellationToken ct = default)
     {
         foreach (var order in orders) order.Tag = Options.BrokerId;
-        var parameters = new Dictionary<string, object>
-        {
-            { Options.RequestBodyParameterKey, orders },
-        };
+        var parameters = new ParameterCollection();
+        parameters.SetBody(orders);
 
         return ProcessListRequestAsync<OkxTradeOrderPlaceResponse>(GetUri(v5TradeBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -193,9 +191,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeOrderCancelResponse>>> CancelOrdersAsync(IEnumerable<OkxTradeOrderCancelRequest> orders, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
-            { Options.RequestBodyParameterKey, orders },
-        };
+        var parameters = new ParameterCollection();
+        parameters.SetBody(orders);
 
         return ProcessListRequestAsync<OkxTradeOrderCancelResponse>(GetUri(v5TradeCancelBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -257,9 +254,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeOrderAmendResponse>>> AmendOrdersAsync(IEnumerable<OkxTradeOrderAmendRequest> orders, CancellationToken ct = default)
     {
-        var parameters = new Dictionary<string, object> {
-            { Options.RequestBodyParameterKey, orders },
-        };
+        var parameters = new ParameterCollection();
+        parameters.SetBody(orders);
 
         return ProcessListRequestAsync<OkxTradeOrderAmendResponse>(GetUri(v5TradeAmendBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

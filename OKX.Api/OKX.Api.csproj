@@ -85,7 +85,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="ApiSharp" Version="2.2.1" />
+	  <PackageReference Include="ApiSharp" Version="3.0.0" />
 	</ItemGroup>
 
 </Project>
