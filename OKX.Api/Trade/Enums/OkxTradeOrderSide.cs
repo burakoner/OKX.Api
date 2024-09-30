@@ -8,10 +8,12 @@ public enum OkxTradeOrderSide
     /// <summary>
     /// Buy
     /// </summary>
+    [Map("buy")]
     Buy,
 
     /// <summary>
     /// Sell
     /// </summary>
+    [Map("sell")]
     Sell,
 }

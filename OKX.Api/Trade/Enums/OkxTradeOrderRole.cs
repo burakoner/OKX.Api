@@ -8,10 +8,12 @@ public enum OkxTradeOrderRole
     /// <summary>
     /// Taker
     /// </summary>
+    [Map("T")]
     Taker,
 
     /// <summary>
     /// Maker
     /// </summary>
+    [Map("M")]
     Maker,
 }

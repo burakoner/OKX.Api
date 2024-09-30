@@ -8,10 +8,12 @@ public enum OkxTradeDebtType
     /// <summary>
     /// Cross
     /// </summary>
+    [Map("cross")]
     Cross,
 
     /// <summary>
     /// Isolated
     /// </summary>
+    [Map("isolated")]
     Isolated,
 }
