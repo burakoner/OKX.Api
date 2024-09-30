@@ -8,7 +8,7 @@ public class OkxPublicOrderBookStream
     /// <summary>
     /// Instrument Id
     /// </summary>
-    public string InstrumentId { get; set; }
+    public string InstrumentId { get; set; } = "";
 
     /// <summary>
     /// Asks

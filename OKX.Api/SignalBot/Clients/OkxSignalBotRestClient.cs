@@ -331,8 +331,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     {
         var parameters = new Dictionary<string, object> {
             { "algoId", algoId.ToOkxString() },
-            { "instId", instrumentId },
         };
+        parameters.AddOptionalParameter("instId", instrumentId);
 
         return ProcessListRequestAsync<OkxSignalBotAlgoId>(GetUri(v5TradingBotSignalClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

@@ -58,7 +58,7 @@ public class OkxRestApiOptions : RestApiClientOptions
     /// Constructor
     /// </summary>
     /// <param name="credentials">OkxApiCredentials</param>
-    public OkxRestApiOptions(OkxApiCredentials credentials)
+    public OkxRestApiOptions(OkxApiCredentials? credentials)
     {
         // API Credentials
         ApiCredentials = credentials;

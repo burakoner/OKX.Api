@@ -45,7 +45,7 @@ public class OkxSignalBotEvent
     /// Event process message
     /// </summary>
     [JsonProperty("eventProcessMsg")]
-    public string EventProcessMessage { get; set; }
+    public string EventProcessMessage { get; set; } = "";
 
     /// <summary>
     /// Event status

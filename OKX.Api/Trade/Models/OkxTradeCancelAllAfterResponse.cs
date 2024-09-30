@@ -9,7 +9,7 @@ public class OkxTradeCancelAllAfterResponse
     /// CAA order tag
     /// </summary>
     [JsonProperty("tag")]
-    public string Tag { get; set; }
+    public string Tag { get; set; } = "";
 
     /// <summary>
     /// The time the cancellation is triggered. triggerTime=0 means Cancel All After is disabled.

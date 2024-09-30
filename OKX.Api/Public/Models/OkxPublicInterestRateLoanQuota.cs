@@ -58,7 +58,7 @@ public class OkxPublicInterestRateVip
     /// Level
     /// </summary>
     [JsonProperty("level")]
-    public string Level { get; set; }
+    public string Level { get; set; } = "";
 
     /// <summary>
     /// Loan Quota Coefficient
@@ -76,7 +76,7 @@ public class OkxPublicInterestRateRegular
     /// Level
     /// </summary>
     [JsonProperty("level")]
-    public string Level { get; set; }
+    public string Level { get; set; } = "";
 
     /// <summary>
     /// Loan Quota Coefficient
