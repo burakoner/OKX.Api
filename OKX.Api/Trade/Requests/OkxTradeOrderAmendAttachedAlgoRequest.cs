@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order Algo Request
 /// </summary>
-public class OkxTradeOrderAmendAttachedAlgoRequest
+public record OkxTradeOrderAmendAttachedAlgoRequest
 {
     /// <summary>
     /// The order ID of attached TP/SL order. It can be used to identity the TP/SL order when amending. It will not be posted to algoId when placing TP/SL order after the general order is filled completely.

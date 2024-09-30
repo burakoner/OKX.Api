@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Cancel All After
 /// </summary>
-public class OkxCancelAllAfter
+public record OkxCancelAllAfter
 {
     /// <summary>
     /// The time the cancellation is triggered. triggerTime=0 means Cancel All After is disabled.

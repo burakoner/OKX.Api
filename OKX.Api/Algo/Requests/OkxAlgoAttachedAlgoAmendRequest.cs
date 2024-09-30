@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order Algo Request
 /// </summary>
-public class OkxAlgoAttachedAlgoAmendRequest
+public record OkxAlgoAttachedAlgoAmendRequest
 {
     /// <summary>
     /// Take-profit trigger price

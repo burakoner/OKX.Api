@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Socket Request
 /// </summary>
-public class OkxSocketRequest
+public record OkxSocketRequest
 {
     /// <summary>
     /// Request Id
@@ -63,7 +63,7 @@ public class OkxSocketRequest
 /// OKX Socket Request
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class OkxSocketRequest<T>
+public record OkxSocketRequest<T>
 {
     /// <summary>
     /// Request Id
@@ -122,7 +122,7 @@ public class OkxSocketRequest<T>
 /// <summary>
 /// OKX Socket Request Argument
 /// </summary>
-public class OkxSocketRequestArgument
+public record OkxSocketRequestArgument
 {
     /// <summary>
     /// Channel
@@ -158,7 +158,7 @@ public class OkxSocketRequestArgument
 /// <summary>
 /// OKX Socket Symbol Request
 /// </summary>
-public class OkxSocketSymbolRequest
+public record OkxSocketSymbolRequest
 {
     /// <summary>
     /// Instrument Type
@@ -197,7 +197,7 @@ public class OkxSocketSymbolRequest
 /// <summary>
 /// OKX Socket Auth Request
 /// </summary>
-public class OkxSocketAuthRequest
+public record OkxSocketAuthRequest
 {
     /// <summary>
     /// Operation
@@ -244,7 +244,7 @@ public class OkxSocketAuthRequest
 /// <summary>
 /// OKX Socket Auth Request Argument
 /// </summary>
-public class OkxSocketAuthRequestArgument
+public record OkxSocketAuthRequestArgument
 {
     /// <summary>
     /// API Key

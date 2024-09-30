@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Mass Cancel Request
 /// </summary>
-public class OkxTradeMassCancelRequest
+public record OkxTradeMassCancelRequest
 {
     /// <summary>
     /// Instrument Type

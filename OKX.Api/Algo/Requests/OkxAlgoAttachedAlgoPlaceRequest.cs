@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order Algo Request
 /// </summary>
-public class OkxAlgoAttachedAlgoPlaceRequest
+public record OkxAlgoAttachedAlgoPlaceRequest
 {
     /// <summary>
     /// Client-supplied Algo ID when placing order attaching TP/SL

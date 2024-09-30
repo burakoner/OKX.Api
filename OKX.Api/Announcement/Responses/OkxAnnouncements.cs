@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Announcement Wrapper
 /// </summary>
-public class OkxAnnouncements
+public record OkxAnnouncements
 {
     /// <summary>
     /// Total number of pages
@@ -21,7 +21,7 @@ public class OkxAnnouncements
 /// <summary>
 /// OKX Announcement
 /// </summary>
-public class OkxAnnouncement
+public record OkxAnnouncement
 {
     /// <summary>
     /// Announcement type

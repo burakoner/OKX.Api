@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Announcement Type
 /// </summary>
-public class OkxAnnouncementType
+public record OkxAnnouncementType
 {
     /// <summary>
     /// Announcement type

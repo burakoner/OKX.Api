@@ -3,7 +3,7 @@
 /// <summary>
 /// Order Place Request
 /// </summary>
-public class OkxTradeOrderPlaceRequest
+public record OkxTradeOrderPlaceRequest
 {
     /// <summary>
     /// Instrument ID
