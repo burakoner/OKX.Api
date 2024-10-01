@@ -52,6 +52,7 @@
   * Commit: [5512722](https://github.com/burakoner/OKX.Api/commit/55127229161d8aa57907c4af0a4446432e143ecc)
   * Commit: [1673706](https://github.com/burakoner/OKX.Api/commit/167370629d3e2c00826407b7b4f4873c226be68c)
   * Commit: [34b7680](https://github.com/burakoner/OKX.Api/commit/34b768027834281fe2d72292527c79b231fc92eb)
+  * Commit: [5415adb](https://github.com/burakoner/OKX.Api/commit/5415adbc29752bf0143b92424ff38d674bbc400e)
 
 * Version 2.6.8 - 26 Sep 2024
   * Fixed Issue: [https://github.com/burakoner/OKX.Api/issues/66](https://github.com/burakoner/OKX.Api/issues/66)
