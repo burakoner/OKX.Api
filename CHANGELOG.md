@@ -1,7 +1,6 @@
 ## Change Log & Release Notes
 
 * Version 5.4.1001 - 01 Oct 2024
-  * Version 5.4.1001 - 01 Oct 2024
   * ApiSharp 3.0.0 Update
   * Removed Json Converters
   * DTO models converted to record
@@ -47,15 +46,12 @@
   * Commit: [07eba41](https://github.com/burakoner/OKX.Api/commit/07eba41be7b7f260dbc405521f91eae25242e605)
   * Commit: [5e4a249](https://github.com/burakoner/OKX.Api/commit/5e4a249ddf1c5212677536fbc4075eef57220bec)
   * Commit: [2ae7e74](https://github.com/burakoner/OKX.Api/commit/2ae7e74a9f3a0272816c397066d460d8a98f7b94)
-  * Commit: [](https://github.com/burakoner/OKX.Api/commit/)
-  * Commit: [](https://github.com/burakoner/OKX.Api/commit/)
-  * Commit: [](https://github.com/burakoner/OKX.Api/commit/)
-  * Commit: [](https://github.com/burakoner/OKX.Api/commit/)
-  * Commit: [](https://github.com/burakoner/OKX.Api/commit/)
-  * Commit: [](https://github.com/burakoner/OKX.Api/commit/)
-  * Commit: [](https://github.com/burakoner/OKX.Api/commit/)
-  * Commit: [](https://github.com/burakoner/OKX.Api/commit/)
-  * Commit: [](https://github.com/burakoner/OKX.Api/commit/)
+  * Commit: [8dbc9ee](https://github.com/burakoner/OKX.Api/commit/8dbc9ee412efffaf2b96e7e1286fcf08b60f16ab)
+  * Commit: [a54fb42](https://github.com/burakoner/OKX.Api/commit/a54fb42d7491c95345ec62ea77b0e78687f214a0)
+  * Commit: [74a724d](https://github.com/burakoner/OKX.Api/commit/74a724d8b5663a67196b04a3ef0b91dfaf7093bf)
+  * Commit: [5512722](https://github.com/burakoner/OKX.Api/commit/55127229161d8aa57907c4af0a4446432e143ecc)
+  * Commit: [1673706](https://github.com/burakoner/OKX.Api/commit/167370629d3e2c00826407b7b4f4873c226be68c)
+  * Commit: [34b7680](https://github.com/burakoner/OKX.Api/commit/34b768027834281fe2d72292527c79b231fc92eb)
 
 * Version 2.6.8 - 26 Sep 2024
   * Fixed Issue: [https://github.com/burakoner/OKX.Api/issues/66](https://github.com/burakoner/OKX.Api/issues/66)
