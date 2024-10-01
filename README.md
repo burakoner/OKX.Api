@@ -139,9 +139,6 @@ var account_23 = await api.Account.SetGreeksAsync(OkxAccountGreeksType.GreeksInC
 var account_24 = await api.Account.SetIsolatedMarginModeAsync(OkxInstrumentType.Futures, OkxAccountIsolatedMarginMode.AutoTransfer);
 var account_25 = await api.Account.GetMaximumWithdrawalsAsync();
 var account_26 = await api.Account.GetRiskStateAsync();
-var account_27 = await api.Account.QuickMarginBorrowAsync("BTC-USDT", "BTC", 0.1m);
-var account_28 = await api.Account.QuickMarginRepayAsync("BTC-USDT", "BTC", 0.1m);
-var account_29 = await api.Account.GetQuickMarginBorrowRepayHistoryAsync();
 var account_30 = await api.Account.VipLoanBorrowAsync("USDT", 1000.0m);
 var account_31 = await api.Account.VipLoanRepayAsync("USDT", 1000.0m, 1_000_001);
 var account_32 = await api.Account.GetVipLoanBorrowRepayHistoryAsync();
@@ -173,31 +170,31 @@ var account_57 = await api.Account.SetMmpAsync("BTC-USDT", 5000, 5000, 1);
 var account_58 = await api.Account.GetMmpAsync("BTC-USDT");
 
 // Order Book Trading -> Trade Methods (Signed)
-var trade_01 = await api.Trading.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradePositionSide.Long, OkxTradeOrderType.MarketOrder, 0.1m);
-var trade_02 = await api.Trading.PlaceOrdersAsync([]);
-var trade_03 = await api.Trading.CancelOrderAsync("BTC-USDT");
-var trade_04 = await api.Trading.CancelOrdersAsync([]);
-var trade_05 = await api.Trading.AmendOrderAsync("BTC-USDT");
-var trade_06 = await api.Trading.AmendOrdersAsync([]);
-var trade_07 = await api.Trading.ClosePositionAsync("BTC-USDT", OkxAccountMarginMode.Isolated);
-var trade_08 = await api.Trading.GetOrderAsync("BTC-USDT");
-var trade_09 = await api.Trading.GetOpenOrdersAsync();
-var trade_10 = await api.Trading.GetOrderHistoryAsync(OkxInstrumentType.Swap);
-var trade_11 = await api.Trading.GetOrderArchiveAsync(OkxInstrumentType.Futures);
-var trade_12 = await api.Trading.GetTradesAsync();
-var trade_13 = await api.Trading.GetTradesHistoryAsync(OkxInstrumentType.Futures);
-var trade_14 = await api.Trading.ApplyTradesArchiveAsync(2021, OkxQuarter.Quarter3);
-var trade_15 = await api.Trading.GetTradesArchiveAsync(2021, OkxQuarter.Quarter3);
-var trade_16 = await api.Trading.GetEasyConvertCurrenciesAsync();
-var trade_17 = await api.Trading.PlaceEasyConvertOrderAsync([], "USDT");
-var trade_18 = await api.Trading.GetEasyConvertHistoryAsync();
-var trade_19 = await api.Trading.GetOneClickRepayCurrenciesAsync(OkxTradeDebtType.Isolated);
-var trade_20 = await api.Trading.PlaceOneClickRepayOrderAsync([], "USDT");
-var trade_21 = await api.Trading.GetOneClickRepayHistoryAsync();
-var trade_22 = await api.Trading.MassCancelAsync(OkxInstrumentType.Option, "USDT");
-var trade_23 = await api.Trading.CancelAllAfterAsync(30, "TAG");
-var trade_24 = await api.Trading.GetAccountRateLimitAsync();
-var trade_25 = await api.Trading.CheckOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradePositionSide.Long, OkxTradeOrderType.MarketOrder, 0.1m);
+var trade_01 = await api.Trade.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradePositionSide.Long, OkxTradeOrderType.MarketOrder, 0.1m);
+var trade_02 = await api.Trade.PlaceOrdersAsync([]);
+var trade_03 = await api.Trade.CancelOrderAsync("BTC-USDT");
+var trade_04 = await api.Trade.CancelOrdersAsync([]);
+var trade_05 = await api.Trade.AmendOrderAsync("BTC-USDT");
+var trade_06 = await api.Trade.AmendOrdersAsync([]);
+var trade_07 = await api.Trade.ClosePositionAsync("BTC-USDT", OkxAccountMarginMode.Isolated);
+var trade_08 = await api.Trade.GetOrderAsync("BTC-USDT");
+var trade_09 = await api.Trade.GetOpenOrdersAsync();
+var trade_10 = await api.Trade.GetOrderHistoryAsync(OkxInstrumentType.Swap);
+var trade_11 = await api.Trade.GetOrderArchiveAsync(OkxInstrumentType.Futures);
+var trade_12 = await api.Trade.GetTradesAsync();
+var trade_13 = await api.Trade.GetTradesHistoryAsync(OkxInstrumentType.Futures);
+var trade_14 = await api.Trade.ApplyTradesArchiveAsync(2021, OkxQuarter.Quarter3);
+var trade_15 = await api.Trade.GetTradesArchiveAsync(2021, OkxQuarter.Quarter3);
+var trade_16 = await api.Trade.GetEasyConvertCurrenciesAsync();
+var trade_17 = await api.Trade.PlaceEasyConvertOrderAsync([], "USDT");
+var trade_18 = await api.Trade.GetEasyConvertHistoryAsync();
+var trade_19 = await api.Trade.GetOneClickRepayCurrenciesAsync(OkxTradeDebtType.Isolated);
+var trade_20 = await api.Trade.PlaceOneClickRepayOrderAsync([], "USDT");
+var trade_21 = await api.Trade.GetOneClickRepayHistoryAsync();
+var trade_22 = await api.Trade.MassCancelAsync(OkxInstrumentType.Option, "USDT");
+var trade_23 = await api.Trade.CancelAllAfterAsync(30, "TAG");
+var trade_24 = await api.Trade.GetAccountRateLimitAsync();
+var trade_25 = await api.Trade.CheckOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradePositionSide.Long, OkxTradeOrderType.MarketOrder, 0.1m);
 
 // Order Book Trading -> Algo Trading Methods (Signed)
 var algo_01 = await api.Algo.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxTradeOrderSide.Sell, OkxAlgoOrderType.Conditional);
@@ -244,7 +241,7 @@ var grid_02 = await api.Grid.PlaceOrderAsync(
         new ()
         {
             TriggerAction = OkxGridAlgoTriggerAction.Start,
-            TriggerStrategy =  OkxGridTriggerStrategy.Rsi,
+            TriggerStrategy =  OkxGridTriggerStrategy.RSI,
             TimeFrame = OkxGridAlgoTimeFrame.ThirtyMinutes,
             Threshold = "10",
             TriggerCondition = OkxGridAlgoTriggerCondition.Cross,
@@ -290,7 +287,7 @@ var signal_03 = await api.SignalBot.CreateSignalBotAsync(
     ],
     leverage: 10.0m,
     amount: 100.0m,
-    orderType: OkxSignalBotOrderType.TradingViewSignal,
+    orderType: OkxSignalBotOrderType.TradingView,
     entryParamaters: new OkxSignalBotEntryParamaters
     {
         AllowMultipleEntry = true,

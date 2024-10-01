@@ -6,24 +6,14 @@
 public class OKXWebSocketApiClient : OkxBaseSocketClient
 {
     /// <summary>
-    /// Public and Market Data Client
-    /// </summary>
-    public OkxPublicSocketClient Public { get; }
-
-    /// <summary>
     /// Trading Account Client
     /// </summary>
     public OkxAccountSocketClient Account { get; }
 
     /// <summary>
-    /// Funding Account Client
-    /// </summary>
-    public OkxFundingSocketClient Funding { get; }
-
-    /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradeSocketClient Trading { get; }
+    public OkxTradeSocketClient Trade { get; }
 
     /// <summary>
     /// Algo Trading Client
@@ -39,11 +29,16 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
     /// Recurring Buy Client
     /// </summary>
     public OkxRecurringBuySocketClient RecurringBuy { get; }
-
+    
     /// <summary>
     /// Copy Trading Client
     /// </summary>
     public OkxCopyTradingSocketClient CopyTrading { get; }
+    
+    /// <summary>
+    /// Alias for Public Client
+    /// </summary>
+    public OkxPublicSocketClient Market { get => Public; }
 
     /// <summary>
     /// Block Trading Client
@@ -54,6 +49,16 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
     /// Spread Trading Client
     /// </summary>
     public OkxSpreadSocketClient Spread { get; }
+
+    /// <summary>
+    /// Public and Market Data Client
+    /// </summary>
+    public OkxPublicSocketClient Public { get; }
+    
+    /// <summary>
+    /// Funding Account Client
+    /// </summary>
+    public OkxFundingSocketClient Funding { get; }
 
     /// <summary>
     /// OKXWebSocketApiClient Constructor
@@ -80,7 +85,7 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
         this.Public = new OkxPublicSocketClient(this);
         this.Account = new OkxAccountSocketClient(this);
         this.Funding = new OkxFundingSocketClient(this);
-        this.Trading = new OkxTradeSocketClient(this);
+        this.Trade = new OkxTradeSocketClient(this);
         this.Algo = new OkxAlgoSocketClient(this);
         this.Grid = new OkxGridSocketClient(this);
         this.RecurringBuy = new OkxRecurringBuySocketClient(this);

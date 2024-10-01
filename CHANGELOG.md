@@ -3,13 +3,14 @@
 * Version 5.4.1001 - 01 Oct 2024
   * Version 5.4.1001 - 01 Oct 2024
   * ApiSharp 3.0.0 Update
-  * Rearrenged namespace structure. Removed subfolder names from namespaces.
-  * Removed obsolete/deprecated fields from both request and reponses.
-  * Renamed: OKX.Api.Public.* -> OKX.Api.Public.OkxPublic*
-  * Enabled nullable option for library
   * Removed Json Converters
-  * Defined integer values for enums
   * DTO models converted to record
+  * Defined integer values for enums
+  * Enabled nullable option for library
+  * <ins>__Rearrenged namespace structure. Removed subfolder names from namespaces.__</ins>
+  * <ins>__Removed obsolete/deprecated fields from both request and reponses.__</ins>
+  * <ins>__Renamed: OKX.Api.Public.* -> OKX.Api.Public.OkxPublic*__</ins>
+  * <ins>__Renamed: Trading -> Trade (both in Rest and WS Api)__</ins>
   * Performance improvements and optimizations
   * Fixed minor bugs
   * Commit: [d3705fb](https://github.com/burakoner/OKX.Api/commit/d3705fb3023c3c2c3bfd5e8c91cd26a78de4698f)

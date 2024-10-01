@@ -28,7 +28,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradeRestClient Trading { get; }
+    public OkxTradeRestClient Trade { get; }
 
     /// <summary>
     /// Algo Trading Client
@@ -148,7 +148,7 @@ public class OkxRestApiClient
         Account = new OkxAccountRestClient(this);
         Funding = new OkxFundingRestClient(this);
         SubAccount = new OkxSubAccountRestClient(this);
-        Trading = new OkxTradeRestClient(this);
+        Trade = new OkxTradeRestClient(this);
         Algo = new OkxAlgoRestClient(this);
         Grid = new OkxGridRestClient(this);
         SignalBot = new OkxSignalBotRestClient(this);
@@ -187,7 +187,7 @@ public class OkxRestApiClient
         Account.SetApiCredentials(credentials);
         Funding.SetApiCredentials(credentials);
         SubAccount.SetApiCredentials(credentials);
-        Trading.SetApiCredentials(credentials);
+        Trade.SetApiCredentials(credentials);
         Algo.SetApiCredentials(credentials);
         Grid.SetApiCredentials(credentials);
         SignalBot.SetApiCredentials(credentials);
