@@ -9,5 +9,5 @@ internal record OkxSignalBotSignalOrderId : OkxRestApiErrorBase
     /// Signal Order Id
     /// </summary>
     [JsonProperty("signalOrdId")]
-    public long? Data { get; set; }
+    public long Data { get; set; }
 }

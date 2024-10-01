@@ -19,13 +19,15 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <param name="amount">Investment amount</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFinancialEthStakingPurchase>> PurchaseAsync(decimal amount, CancellationToken ct = default)
+    public async Task<RestCallResult<bool?>> PurchaseAsync(decimal amount, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             {"amt", amount.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFinancialEthStakingPurchase>(GetUri(v5FinanceStakingDefiEthPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialEthStakingPurchase>(GetUri(v5FinanceStakingDefiEthPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -34,13 +36,15 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <param name="amount">Redeeming amount</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFinancialEthStakingRedeem>> RedeemAsync(decimal amount, CancellationToken ct = default)
+    public async Task<RestCallResult<bool?>> RedeemAsync(decimal amount, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             {"amt", amount.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFinancialEthStakingRedeem>(GetUri(v5FinanceStakingDefiEthRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialEthStakingRedeem>(GetUri(v5FinanceStakingDefiEthRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw, result.Error);
     }
 
     /// <summary>

@@ -1008,9 +1008,11 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPublicExchangeRate>>> GetExchangeRateAsync(CancellationToken ct = default)
+    public async Task<RestCallResult<decimal>> GetExchangeRateAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxPublicExchangeRate>(GetUri(v5MarketExchangeRate), HttpMethod.Get, ct);
+        var result = await ProcessOneRequestAsync<OkxPublicExchangeRate>(GetUri(v5MarketExchangeRate), HttpMethod.Get, ct);
+        if (!result) return new RestCallResult<decimal>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<decimal>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>

@@ -9,5 +9,5 @@ internal record OkxFinancialOnChainEarnOrderId
     /// Order Id
     /// </summary>
     [JsonProperty("ordId")]
-    public string OrderId { get; set; } = string.Empty;
+    public long? Data { get; set; }
 }

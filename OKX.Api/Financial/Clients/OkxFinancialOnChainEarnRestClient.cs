@@ -43,7 +43,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
     /// <param name="term">Investment term. Investment term must be specified for fixed-term product</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFinancialOnChainEarnOrderId>> PurchaseAsync(
+    public async Task<RestCallResult<long?>> PurchaseAsync(
         string productId,
         IEnumerable<OkxFinancialOnChainEarnInvestData> investData,
         string? term = null,
@@ -56,7 +56,9 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         parameters.AddOptional("term", term);
         parameters.AddOptional("tag", Options.BrokerId);
 
-        return ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -67,7 +69,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
     /// <param name="allowEarlyRedeem">Whether allows early redemption. Default is false</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFinancialOnChainEarnOrderId>> RedeemAsync(
+    public async Task<RestCallResult<long?>> RedeemAsync(
         string orderId,
         string protocolType,
         bool allowEarlyRedeem = false,
@@ -80,7 +82,9 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         };
         parameters.AddOptional("tag", Options.BrokerId);
 
-        return ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -90,7 +94,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
     /// <param name="protocolType">Protocol type. defi: on-chain earn</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFinancialOnChainEarnOrderId>> CancelAsync(
+    public async Task<RestCallResult<long?>> CancelAsync(
         string orderId,
         string protocolType,
         CancellationToken ct = default)
@@ -100,7 +104,9 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
             {"protocolType", protocolType },
         };
 
-        return ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>

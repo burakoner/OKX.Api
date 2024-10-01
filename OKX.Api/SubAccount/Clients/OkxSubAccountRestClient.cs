@@ -101,7 +101,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
 
         return ProcessOneRequestAsync<OkxSubAccountTradingBalance>(GetUri(v5UsersSubaccountTradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     /// <summary>
     /// Get sub-account funding balance
     /// Query detailed balance info of Funding Account of a sub-account via the master account (applies to master accounts only)
@@ -229,7 +229,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <param name="omitPositionRisk">Ignore position risk. Default is false. Applicable to Portfolio margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSubAccountTransfer>> TransferBetweenSubAccountsAsync(
+    public async Task<RestCallResult<long?>> TransferBetweenSubAccountsAsync(
         string currency,
         decimal amount,
         OkxAccount fromAccount,
@@ -252,9 +252,11 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptional("loanTrans", loanTransfer);
         parameters.AddOptional("omitPosRisk", omitPositionRisk);
 
-        return ProcessOneRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
-    
+
     /// <summary>
     /// Set permission of transfer out for sub-account (only applicable to master account API key). Sub-account can transfer out to master account by default.
     /// </summary>
@@ -289,7 +291,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
 
         return ProcessListRequestAsync<OkxSubAccountName>(GetUri(v5UsersEntrustSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     /// <summary>
     /// Set the VIP loan allocation of sub-accounts. Only Applicable to master account API keys with Trade access.
     /// </summary>
@@ -297,7 +299,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <param name="allocations">If enable = false, this will not be validated</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxBooleanResponse>> SetLoanAllocationAsync(
+    public async Task<RestCallResult<bool?>> SetLoanAllocationAsync(
         bool enable,
         IEnumerable<OkxSubAccountLoanAllocation>? allocations = null,
         CancellationToken ct = default)
@@ -308,9 +310,11 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         };
         parameters.AddOptional("alloc", allocations);
 
-        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5AccountSubaccountSetLoanAllocation), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5AccountSubaccountSetLoanAllocation), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw, result.Error);
     }
-    
+
     /// <summary>
     /// Only applicable to master account API keys. Only return VIP loan information
     /// </summary>
@@ -328,5 +332,5 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
 
         return ProcessOneRequestAsync<OkxSubAccountInterestLimits>(GetUri(v5AccountSubaccountInterestLimits), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
 }

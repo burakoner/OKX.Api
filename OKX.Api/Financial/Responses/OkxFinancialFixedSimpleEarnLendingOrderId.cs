@@ -9,5 +9,5 @@ internal record OkxFinancialFixedSimpleEarnLendingOrderId
     /// Lending order ID
     /// </summary>
     [JsonProperty("ordId")]
-    public long OrderId { get; set; }
+    public long? Data { get; set; }
 }

@@ -498,14 +498,16 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="amount">The amount is going to be added</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridInvestmentAddResponse>> AddInvestmentAsync(long algoOrderId, decimal amount, CancellationToken ct = default)
+    public async Task<RestCallResult<long?>> AddInvestmentAsync(long algoOrderId, decimal amount, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             { "algoId", algoOrderId.ToOkxString() },
             { "amt", amount.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxGridInvestmentAddResponse>(GetUri(v5TradingBotGridAdjustInvestment), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxGridInvestmentAddResponse>(GetUri(v5TradingBotGridAdjustInvestment), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -595,7 +597,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="duration">	Back testing duration.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxGridTriggerNumber>> RsiBacktestAsync(
+    public async Task<RestCallResult<long?>> RsiBacktestAsync(
         string instrumentId,
         OkxGridAlgoTimeFrame timeframe,
         decimal threshold,
@@ -613,7 +615,9 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalEnum("triggerCond", triggerCondition);
         parameters.AddOptional("duration", duration);
 
-        return ProcessOneRequestAsync<OkxGridTriggerNumber>(GetUri(v5TradingBotPublicRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxGridTriggerNumber>(GetUri(v5TradingBotPublicRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
 }

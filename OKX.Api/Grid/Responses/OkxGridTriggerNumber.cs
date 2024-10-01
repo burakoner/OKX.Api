@@ -9,5 +9,5 @@ internal record OkxGridTriggerNumber
     /// Trigger Number
     /// </summary>
     [JsonProperty("triggerNum")]
-    public long Data { get; set; }
+    public long? Data { get; set; }
 }

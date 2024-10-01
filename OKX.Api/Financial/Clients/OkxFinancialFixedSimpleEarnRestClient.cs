@@ -72,7 +72,7 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
     /// <param name="autoRenewal">Whether or not auto-renewal when the term is due</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFinancialFixedSimpleEarnLendingOrderId>> PlaceOrderAsync(
+    public async Task<RestCallResult<long?>> PlaceOrderAsync(
         string currency,
         decimal amount,
         decimal rate,
@@ -88,7 +88,9 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
             {"autoRenewal", autoRenewal },
         };
 
-        return ProcessOneRequestAsync<OkxFinancialFixedSimpleEarnLendingOrderId>(GetUri(v5FinanceFixedLoanLendingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialFixedSimpleEarnLendingOrderId>(GetUri(v5FinanceFixedLoanLendingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -100,7 +102,7 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
     /// <param name="autoRenewal">Whether or not auto-renewal when the term is due</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFinancialFixedSimpleEarnLendingOrderId>> AmendOrderAsync(
+    public async Task<RestCallResult<long?>> AmendOrderAsync(
         long orderId,
         decimal? changeAmount = null,
         decimal? rate = null,
@@ -114,7 +116,9 @@ public class OkxFinancialFixedSimpleEarnRestClient(OkxRestApiClient root) : OkxB
         parameters.AddOptional("changeAmt", changeAmount?.ToOkxString());
         parameters.AddOptional("rate", rate?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxFinancialFixedSimpleEarnLendingOrderId>(GetUri(v5FinanceFixedLoanAmendLendingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialFixedSimpleEarnLendingOrderId>(GetUri(v5FinanceFixedLoanAmendLendingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>

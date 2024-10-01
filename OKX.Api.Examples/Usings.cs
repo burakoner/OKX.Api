@@ -2,7 +2,7 @@
 global using OKX.Api.Algo;
 global using OKX.Api.Common;
 global using OKX.Api.CopyTrade;
-global using OKX.Api.Financial.EthStaking;
+global using OKX.Api.Financial;
 global using OKX.Api.Funding;
 global using OKX.Api.Grid;
 global using OKX.Api.RecurringBuy;

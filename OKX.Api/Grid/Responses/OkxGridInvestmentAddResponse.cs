@@ -9,5 +9,5 @@ internal record OkxGridInvestmentAddResponse
     /// Algo Order Id
     /// </summary>
     [JsonProperty("algoId")]
-    public string Data { get; set; } = string.Empty;
+    public long? Data { get; set; }
 }

@@ -77,13 +77,15 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="spreadId">spread ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxBooleanResponse>>> CancelOrdersAsync(string spreadId, CancellationToken ct = default)
+    public async Task<RestCallResult<bool?>> CancelOrdersAsync(string spreadId, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             {"sprdId", spreadId },
         };
 
-        return ProcessListRequestAsync<OkxBooleanResponse>(GetUri(v5SpreadMassCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await  ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5SpreadMassCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw, result.Error);
     }
 
     /// <summary>

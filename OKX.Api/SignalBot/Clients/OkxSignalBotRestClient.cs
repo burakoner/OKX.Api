@@ -115,15 +115,17 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="algoIds">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxSignalBotAlgoIdResponse>>> CancelSignalBotsAsync(
+    public async Task<RestCallResult<List<long>>> CancelSignalBotsAsync(
         IEnumerable<long> algoIds,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
-            { "algoId", algoIds.Select(x=>new OkxSignalBotAlgoId{ AlgoId = x.ToOkxString()}) },
+            { "algoId", algoIds.Select(x => new OkxSignalBotAlgoId { Data = x }) },
         };
 
-        return ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw, result.Error);
     }
 
     /// <summary>
@@ -138,7 +140,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// Only applicable to your signal comes in with an “investmentType” of “percentage_investment”</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxSignalBotAlgoIdResponse>>> AdjustMarginBalanceAsync(
+    public async Task<RestCallResult<List<long>>> AdjustMarginBalanceAsync(
         long algoId,
         OkxAccountMarginAddReduce type,
         decimal amount,
@@ -152,7 +154,9 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddEnum("type", type);
         parameters.AddOptional("allowReinvest", allowReinvest);
 
-        return ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw, result.Error);
     }
 
     /// <summary>
@@ -162,7 +166,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="exitSettingParam">Exit setting</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxSignalBotAlgoIdResponse>>> AmendTPSLAsync(
+    public async Task<RestCallResult<List<long>>> AmendTPSLAsync(
         long algoId,
         OkxSignalBotExitParamaters exitSettingParam,
         CancellationToken ct = default)
@@ -172,7 +176,9 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "exitSettingParam", exitSettingParam },
         };
 
-        return ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalAmendTPSL), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalAmendTPSL), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw, result.Error);
     }
 
     /// <summary>
@@ -183,7 +189,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="includeAll">Whether to include all USDT-margined contract.The default value is false. true: include false : exclude</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxSignalBotAlgoIdResponse>>> SetInstrumentsAsync(
+    public async Task<RestCallResult<List<long>>> SetInstrumentsAsync(
         long algoId,
         IEnumerable<string> InstrumentIds,
         bool includeAll,
@@ -195,7 +201,9 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "includeAll", includeAll },
         };
 
-        return ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalSetInstruments), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalSetInstruments), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw, result.Error);
     }
 
     /// <summary>
@@ -323,7 +331,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxSignalBotAlgoId>>> ClosePositionAsync(
+    public async Task<RestCallResult<List<long>>> ClosePositionAsync(
         long algoId,
         string? instrumentId = null,
         CancellationToken ct = default)
@@ -333,7 +341,9 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         };
         parameters.AddOptional("instId", instrumentId);
 
-        return ProcessListRequestAsync<OkxSignalBotAlgoId>(GetUri(v5TradingBotSignalClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxSignalBotAlgoId>(GetUri(v5TradingBotSignalClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Where(x => x.Data.HasValue).Select(x => x.Data!.Value).ToList(), result.Raw, result.Error);
     }
 
     /// <summary>
@@ -384,7 +394,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="signalOrderId">Order ID</param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSignalBotSignalOrderId>> CancelSuborderAsync(
+    public async Task<RestCallResult<long?>> CancelSuborderAsync(
         long algoId,
         string instrumentId,
         long signalOrderId,
@@ -396,7 +406,9 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "instId", instrumentId },
         };
 
-        return ProcessOneRequestAsync<OkxSignalBotSignalOrderId>(GetUri(v5TradingBotSignalCancelSubOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxSignalBotSignalOrderId>(GetUri(v5TradingBotSignalCancelSubOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>

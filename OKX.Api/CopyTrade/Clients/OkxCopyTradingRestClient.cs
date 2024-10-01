@@ -128,7 +128,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="positionType">Data type.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingPositionId>> PlaceLeadingStopOrderAsync(
+    public async Task<RestCallResult<long?>> PlaceLeadingStopOrderAsync(
         long positionId,
         OkxInstrumentType? instrumentType = null,
 
@@ -156,7 +156,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalEnum("slTriggerPxType", stopLossTriggerPriceType);
         parameters.AddOptionalEnum("subPosType", positionType);
 
-        return ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -170,7 +172,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="price">Order price. Only applicable to limit order and SPOT lead trader. If the price is 0, the pending order will be canceled. It is modifying order if you set px after placing limit order.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingPositionId>> CloseLeadingPositionAsync(
+    public async Task<RestCallResult<long?>> CloseLeadingPositionAsync(
         long positionId,
         OkxInstrumentType? instrumentType = null,
         OkxCopyTradingPositionType? positionType = null,
@@ -190,7 +192,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalEnum("ordType", orderType);
         parameters.AddOptional("px", price?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -1137,5 +1141,4 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
 
         return ProcessListRequestAsync<OkxCopyTradingCopyTrader>(GetUri(v5CopyTradingCopyTraders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-
 }

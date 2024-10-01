@@ -163,14 +163,16 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="products">Products request</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxBooleanResponse>> SetQuoteProductsAsync(
+    public async Task<RestCallResult<bool?>> SetQuoteProductsAsync(
         IEnumerable<OkxBlockQuoteProductRequest> products,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.SetBody(products);
 
-        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5RfqMakerInstrumentSettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5RfqMakerInstrumentSettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw, result.Error);
     }
 
     /// <summary>

@@ -281,13 +281,15 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="withdrawalId">Withdrawal ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFundingWithdrawalId>> CancelWithdrawalAsync(long withdrawalId, CancellationToken ct = default)
+    public async Task<RestCallResult<long?>> CancelWithdrawalAsync(long withdrawalId, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             { "wdId", withdrawalId},
         };
 
-        return ProcessOneRequestAsync<OkxFundingWithdrawalId>(GetUri(v5AssetWithdrawalCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFundingWithdrawalId>(GetUri(v5AssetWithdrawalCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -442,9 +444,11 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingConvertCurrency>>> GetConvertCurrenciesAsync(CancellationToken ct = default)
+    public async Task<RestCallResult<List<string>>> GetConvertCurrenciesAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxFundingConvertCurrency>(GetUri(v5AssetConvertCurrencies), HttpMethod.Get, ct, signed: true);
+        var result = await ProcessListRequestAsync<OkxFundingConvertCurrency>(GetUri(v5AssetConvertCurrencies), HttpMethod.Get, ct, signed: true);
+        if (!result) return new RestCallResult<List<string>>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<List<string>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw, result.Error);
     }
 
     /// <summary>
