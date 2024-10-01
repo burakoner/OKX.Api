@@ -1,4 +1,4 @@
-﻿﻿# OKX.Api
+# OKX.Api
 
 A .Net wrapper for the OKX API as described on [OKX](https://www.okx.com/docs-v5/en/), including all features the API provides using clear and readable objects.
 
