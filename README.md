@@ -1,8 +1,20 @@
-﻿# OKX.Api
+﻿﻿# OKX.Api
 
 A .Net wrapper for the OKX API as described on [OKX](https://www.okx.com/docs-v5/en/), including all features the API provides using clear and readable objects.
 
 **If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/burakoner/OKX.Api/issues)**
+
+## !!! WARNING !!!
+
+A new version architecture has been released with version 5.4.1001. You may have some issues while migrating to new version. 
+
+Here are some hints.
+  * __Rearrenged namespace structure. Removed subfolder names from namespaces.__
+  * __Removed obsolete/deprecated fields from both request and reponses.__
+  * __Renamed: OKX.Api.Public.* -> OKX.Api.Public.OkxPublic*__
+  * __Renamed: Trading -> Trade (both in Rest and WS Api)__
+
+Please take a look to [ChangeLog](https://github.com/burakoner/OKX.Api/blob/master/CHANGELOG.md) for all changes.
 
 ## Donations
 
