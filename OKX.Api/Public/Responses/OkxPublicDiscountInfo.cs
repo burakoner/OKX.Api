@@ -94,4 +94,10 @@ public record OkxPublicDiscountInfoDetails
     /// </summary>
     [JsonProperty("liqPenaltyRate")]
     public decimal LiquidationPenaltyRate { get; set; }
+
+    /// <summary>
+    /// Discount equity in currency for quick calculation if your equity is themaxAmt
+    /// </summary>
+    [JsonProperty("disCcyEq")]
+    public decimal DiscountEquity { get; set; }
 }

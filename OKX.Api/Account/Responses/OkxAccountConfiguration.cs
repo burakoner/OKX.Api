@@ -158,4 +158,20 @@ public record OkxAccountConfiguration
     /// </summary>
     [JsonProperty("liquidationGear")]
     public int LiquidationGear { get; set; }
+
+    /// <summary>
+    /// Whether borrow is allowed or not in Spot mode
+    /// true: Enabled
+    /// false: Disabled
+    /// </summary>
+    [JsonProperty("enableSpotBorrow")]
+    public bool EnableSpotBorrow { get; set; }
+
+    /// <summary>
+    /// Whether auto-repay is allowed or not in Spot mode
+    /// true: Enabled
+    /// false: Disabled
+    /// </summary>
+    [JsonProperty("spotBorrowAutoRepay")]
+    public bool SpotBorrowAutoRepay { get; set; }
 }

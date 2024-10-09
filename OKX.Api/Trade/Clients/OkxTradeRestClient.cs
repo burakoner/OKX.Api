@@ -695,14 +695,28 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// </summary>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="instrumentFamily">Instrument family</param>
+    /// <param name="lockInterval">Lock interval(ms)
+    /// The range should be [0, 10 000]
+    /// The default is 0. You can set it as "0" if you want to unlock it immediately.
+    /// Error 54008 will be thorwn when placing order duiring lock interval, it is different from 51034 which is thrown when MMP is triggered</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<bool?>> MassCancelAsync(OkxInstrumentType instrumentType, string instrumentFamily, CancellationToken ct = default)
+    public async Task<RestCallResult<bool?>> MassCancelAsync(
+        OkxInstrumentType instrumentType, 
+        string instrumentFamily,
+        int? lockInterval = null,
+        CancellationToken ct = default)
     {
+        if(lockInterval.HasValue)
+        {
+            lockInterval?.ValidateIntBetween(nameof(lockInterval), 1, 10000);
+        }
+
         var parameters = new ParameterCollection {
             { "instFamily", instrumentFamily },
         };
         parameters.AddEnum("instType", instrumentType);
+        parameters.AddOptionalString("lockInterval", lockInterval);
 
         var result = await ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5TradeMassCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);

@@ -318,5 +318,13 @@ public record OkxAlgoOrder
     /// </summary>
     [JsonIgnore]
     public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
-
+    
+    /// <summary>
+    /// 是否自动借币
+    /// true：自动借币
+    /// false：不自动借币
+    /// 仅适用于计划委托、移动止盈止损和 时间加权策略
+    /// </summary>
+    [JsonProperty("isTradeBorrowMode")]
+    public bool IsTradeBorrowMode { get; set; }
 }

@@ -1071,6 +1071,9 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
 
+    // TODO: Convert fixed loan to market loan
+    // TODO: Reduce liabilities for fixed loan
+
     /// <summary>
     /// Get fixed loan borrow order list
     /// </summary>

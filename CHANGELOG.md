@@ -1,5 +1,8 @@
 ## Change Log & Release Notes
 
+* Version 5.4.1009 - 09 Oct 2024
+  * Updated endpoints and models to [2024-10-04](https://www.okx.com/docs-v5/log_en/#2024-10-04) version
+  
 * Version 5.4.1001 - 01 Oct 2024
   * ApiSharp 3.0.0 Update
   * Removed Json Converters

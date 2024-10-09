@@ -46,4 +46,10 @@ public enum OkxAccountFixedLoanBorrowingOrderState
     /// </summary>
     [Map("7")]
     Reborrowing = 7,
+
+    /// <summary>
+    /// Pending repay
+    /// </summary>
+    [Map("8")]
+    PendingRepay = 8,
 }
