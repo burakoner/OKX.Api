@@ -4,19 +4,6 @@ internal class Program
 {
     static async Task Main(string[] args)
     {
-        var ws = new OKXWebSocketApiClient();
-        ws.SetApiCredentials("ab69cb97-05fb-430f-b880-49940796f86e", "BCD93B0F1C9BCB9C2BE3AD3E2BE53DCE", "bo1144167AZ*");
-
-        await ws.Account.SubscribeToAccountUpdatesAsync(data =>
-        {
-            Console.WriteLine($"Account Balance: {data}");
-        }, "BTC", 100);
-
-        Console.WriteLine("Press any key to exit...");
-        Console.ReadKey();
-    }
-    static async Task Main2(string[] args)
-    {
         #region Rest Api Client Examples
         var api = new OkxRestApiClient();
         api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
