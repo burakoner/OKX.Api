@@ -131,6 +131,18 @@ public record OkxSocketRequestArgument
     public string? Channel { get; set; }
 
     /// <summary>
+    /// Currency
+    /// </summary>
+    [JsonProperty("ccy", NullValueHandling = NullValueHandling.Ignore)]
+    public string? Currency { get; set; }
+    
+    /// <summary>
+    /// Algo Order Id
+    /// </summary>
+    [JsonProperty("algoId", NullValueHandling = NullValueHandling.Ignore)]
+    public string? AlgoOrderId { get; set; }
+
+    /// <summary>
     /// Instrument Family
     /// </summary>
     [JsonProperty("instFamily", NullValueHandling = NullValueHandling.Ignore)]
@@ -149,10 +161,10 @@ public record OkxSocketRequestArgument
     public OkxInstrumentType? InstrumentType { get; set; }
 
     /// <summary>
-    /// Algo Order Id
+    /// Additional configuration
     /// </summary>
-    [JsonProperty("algoId", NullValueHandling = NullValueHandling.Ignore)]
-    public string? AlgoOrderId { get; set; }
+    [JsonProperty("extraParams", NullValueHandling = NullValueHandling.Ignore)]
+    public Dictionary<string, string>? ExtraParameters { get; set; }
 }
 
 /// <summary>

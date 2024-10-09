@@ -48,9 +48,13 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5MarketExchangeRate = "api/v5/market/exchange-rate";
     private const string v5MarketIndexComponents = "api/v5/market/index-components";
     private const string v5PublicEconomicCalendar = "api/v5/public/economic-calendar";
-
+    
     // System Endpoints
     private const string v5SystemStatus = "api/v5/system/status";
+
+    // Announcement Endpoints
+    private const string v5SupportAnnouncements = "api/v5/support/announcements";
+    private const string v5SupportAnnouncementTypes = "api/v5/support/announcement-types";
     #endregion
 
     #region Market Data Methods
@@ -1057,6 +1061,56 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxPublicEconomicCalendarEvent>(GetUri(v5PublicEconomicCalendar), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+    #endregion
+
+    #region System Status Methods
+    /// <summary>
+    /// Get event status of system upgrade.
+    /// Planned system maintenance that may result in short interruption (lasting less than 5 seconds) or websocket disconnection (users can immediately reconnect) will not be announced. 
+    /// The maintenance will only be performed during times of low market volatility.
+    /// </summary>
+    /// <param name="state">System maintenance status</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicMaintenance>>> GetSystemUpgradeStatusAsync(
+        OkxPublicMaintenanceState? state = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("state", state);
+
+        return ProcessListRequestAsync<OkxPublicMaintenance>(GetUri(v5SystemStatus), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+    #endregion
+
+    #region Announcement Methods
+    /// <summary>
+    /// Authentication is required for this private endpoint.
+    /// Get announcements, the response is sorted by pTime with the most recent first. The sort will not be affected if the announcement is updated. Every page has 20 records
+    /// </summary>
+    /// <param name="type">Announcement type. Delivering the annType from "GET / Announcement types"
+    /// Returning all when it is not posted</param>
+    /// <param name="page">Page for pagination. The default is 1</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxPublicAnnouncements>> GetAnnouncementsAsync(string? type = null, int? page = null, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("annType", type);
+        parameters.AddOptional("page", page?.ToOkxString());
+
+        return ProcessOneRequestAsync<OkxPublicAnnouncements>(GetUri(v5SupportAnnouncements), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Authentication is not required for this public endpoint. Get announcements types
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicAnnouncementType>>> GetAnnouncementTypesAsync(CancellationToken ct = default)
+    {
+        return ProcessListRequestAsync<OkxPublicAnnouncementType>(GetUri(v5SupportAnnouncementTypes), HttpMethod.Get, ct, signed: false);
     }
     #endregion
 

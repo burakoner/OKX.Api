@@ -1,9 +1,9 @@
-﻿namespace OKX.Api.Status;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Maintenance System
 /// </summary>
-public enum OkxStatusMaintenanceSystem
+public enum OkxPublicMaintenanceSystem
 {
     /// <summary>
     /// Classic

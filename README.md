@@ -115,14 +115,9 @@ var public_39 = await api.Public.GetOracleAsync();
 var public_40 = await api.Public.GetExchangeRateAsync();
 var public_41 = await api.Public.GetIndexComponentsAsync("BTC-USDT");
 var public_42 = await api.Public.GetEconomicCalendarDataAsync("BTC-USDT");
-
-// Status Methods (Unsigned)
-var system_01 = await api.Status.GetSystemUpgradeStatusAsync();
-
-// Announcement Methods
-var announcement_01 = await api.Announcement.GetAnnouncementTypesAsync(); // (Unsigned)
-var announcement_02 = await api.Announcement.GetAnnouncementsAsync(); // (Signed)
-
+var public_43 = await api.Public.GetAnnouncementTypesAsync();
+var public_44 = await api.Public.GetAnnouncementsAsync();
+var public_45 = await api.Public.GetSystemUpgradeStatusAsync();
 
 // Trading Account Methods (Signed)
 var account_01 = await api.Account.GetInstrumentsAsync(OkxInstrumentType.Spot);
@@ -625,7 +620,10 @@ await ws.Trading.SubscribeToOrderUpdatesAsync((data) =>
 {
     // ... Your logic here
 }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
-
+await ws.Trade.SubscribeToFillsAsync((data) =>
+{
+    // ... Your logic here
+});
 await ws.Trading.PlaceOrderAsync(new Trade.Models.OkxOrderPlaceRequest());
 await ws.Trading.PlaceOrdersAsync(new List<Trade.Models.OkxOrderPlaceRequest>());
 await ws.Trading.CancelOrderAsync(new Trade.Models.OkxOrderCancelRequest());

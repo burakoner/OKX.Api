@@ -1,9 +1,9 @@
-﻿namespace OKX.Api.Announcement;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Announcement Wrapper
 /// </summary>
-public record OkxAnnouncements
+public record OkxPublicAnnouncements
 {
     /// <summary>
     /// Total number of pages
@@ -15,5 +15,5 @@ public record OkxAnnouncements
     /// List of announcements
     /// </summary>
     [JsonProperty("details")]
-    public List<OkxAnnouncement> Details { get; set; } = [];
+    public List<OkxPublicAnnouncement> Details { get; set; } = [];
 }

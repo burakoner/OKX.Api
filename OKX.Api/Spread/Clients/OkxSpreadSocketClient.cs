@@ -6,12 +6,19 @@
 public class OkxSpreadSocketClient(OKXWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient Root { get; } = root;
+    internal OKXWebSocketApiClient _ { get; } = root;
+
+    // TODO: WS / Place order
+    // TODO: WS / Amend order
+    // TODO: WS / Cancel order
+    // TODO: WS / Cancel all orders
 
     // TODO: Order channel
     // TODO: Trades channel
+
     // TODO: Order book channel
     // TODO: Public Trades channel
     // TODO: Tickers channel
+    // TODO: Candlesticks channel
 
 }

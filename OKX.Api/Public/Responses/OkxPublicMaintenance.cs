@@ -1,9 +1,9 @@
-﻿namespace OKX.Api.Status;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// System Status
 /// </summary>
-public record OkxStatusMaintenance
+public record OkxPublicMaintenance
 {
     /// <summary>
     /// The title of system maintenance instructions
@@ -15,7 +15,7 @@ public record OkxStatusMaintenance
     /// System maintenance status
     /// </summary>
     [JsonProperty("state")]
-    public OkxStatusMaintenanceState Status { get; set; }
+    public OkxPublicMaintenanceState Status { get; set; }
 
     /// <summary>
     /// Begin time of system maintenance, Unix timestamp format in milliseconds, e.g. 1617788463867
@@ -63,13 +63,13 @@ public record OkxStatusMaintenance
     /// Service type, 0：WebSocket ; 1：Spot/Margin ; 2：Futures ; 3：Perpetual ; 4：Options ; 5：Trading service
     /// </summary>
     [JsonProperty("serviceType")]
-    public OkxStatusMaintenanceService Service { get; set; }
+    public OkxPublicMaintenanceService Service { get; set; }
 
     /// <summary>
     /// Service type, 0：WebSocket ; 1：Spot/Margin ; 2：Futures ; 3：Perpetual ; 4：Options ; 5：Trading service
     /// </summary>
     [JsonProperty("system")]
-    public OkxStatusMaintenanceSystem System { get; set; }
+    public OkxPublicMaintenanceSystem System { get; set; }
 
     /// <summary>
     /// Rescheduled description，e.g. Rescheduled from 2021-01-26T16:30:00.000Z to 2021-01-28T16:30:00.000Z

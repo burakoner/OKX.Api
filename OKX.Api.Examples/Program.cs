@@ -4,6 +4,19 @@ internal class Program
 {
     static async Task Main(string[] args)
     {
+        var ws = new OKXWebSocketApiClient();
+        ws.SetApiCredentials("ab69cb97-05fb-430f-b880-49940796f86e", "BCD93B0F1C9BCB9C2BE3AD3E2BE53DCE", "bo1144167AZ*");
+
+        await ws.Account.SubscribeToAccountUpdatesAsync(data =>
+        {
+            Console.WriteLine($"Account Balance: {data}");
+        }, "BTC", 100);
+
+        Console.WriteLine("Press any key to exit...");
+        Console.ReadKey();
+    }
+    static async Task Main2(string[] args)
+    {
         #region Rest Api Client Examples
         var api = new OkxRestApiClient();
         api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
@@ -66,13 +79,9 @@ internal class Program
         var public_40 = await api.Public.GetExchangeRateAsync();
         var public_41 = await api.Public.GetIndexComponentsAsync("BTC-USDT");
         var public_42 = await api.Public.GetEconomicCalendarDataAsync("BTC-USDT");
-
-        // Status Methods (Unsigned)
-        var system_01 = await api.Status.GetSystemUpgradeStatusAsync();
-
-        // Announcement Methods
-        var announcement_01 = await api.Announcement.GetAnnouncementTypesAsync(); // (Unsigned)
-        var announcement_02 = await api.Announcement.GetAnnouncementsAsync(); // (Signed)
+        var public_43 = await api.Public.GetAnnouncementTypesAsync();
+        var public_44 = await api.Public.GetAnnouncementsAsync();
+        var public_45 = await api.Public.GetSystemUpgradeStatusAsync();
 
         // Trading Account Methods (Signed)
         var account_01 = await api.Account.GetInstrumentsAsync(OkxInstrumentType.Spot);
@@ -578,7 +587,10 @@ internal class Program
         {
             // ... Your logic here
         }, OkxInstrumentType.Futures, "INSTRUMENT-FAMILY", "INSTRUMENT-ID");
-
+        await ws.Trade.SubscribeToFillsAsync((data) =>
+        {
+            // ... Your logic here
+        });
         await ws.Trade.PlaceOrderAsync(new OkxTradeOrderPlaceRequest());
         await ws.Trade.PlaceOrdersAsync(new List<OkxTradeOrderPlaceRequest>());
         await ws.Trade.CancelOrderAsync(new OkxTradeOrderCancelRequest());

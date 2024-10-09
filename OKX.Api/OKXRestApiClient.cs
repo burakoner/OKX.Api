@@ -56,11 +56,6 @@ public class OkxRestApiClient
     public OkxCopyTradingRestClient CopyTrading { get; }
 
     /// <summary>
-    /// Alias for Public Client
-    /// </summary>
-    public OkxPublicRestClient Market { get => Public; }
-
-    /// <summary>
     /// Block Trading Client
     /// </summary>
     public OkxBlockRestClient Block { get; }
@@ -104,17 +99,6 @@ public class OkxRestApiClient
     /// Affiliate Client
     /// </summary>
     public OkxAffiliateRestClient Affiliate { get; }
-
-    /// <summary>
-    /// Status Client
-    /// </summary>
-    public OkxStatusRestClient Status { get; }
-
-    /// <summary>
-    /// Announcement Client
-    /// </summary>
-    public OkxAnnouncementRestClient Announcement { get; }
-
     #endregion
 
     #region Constructors
@@ -160,8 +144,6 @@ public class OkxRestApiClient
         Rubik = new OkxRubikRestClient(this);
         Broker = new OkxBrokerRestClient(this);
         Affiliate = new OkxAffiliateRestClient(this);
-        Status = new OkxStatusRestClient(this);
-        Announcement = new OkxAnnouncementRestClient(this);
     }
     #endregion
 
@@ -200,8 +182,6 @@ public class OkxRestApiClient
         Rubik.SetApiCredentials(credentials);
         Broker.SetApiCredentials(credentials);
         Affiliate.SetApiCredentials(credentials);
-        Status.SetApiCredentials(credentials);
-        Announcement.SetApiCredentials(credentials);
     }
     #endregion
 }

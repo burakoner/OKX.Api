@@ -1,9 +1,9 @@
-﻿namespace OKX.Api.Announcement;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Announcement
 /// </summary>
-public record OkxAnnouncement
+public record OkxPublicAnnouncement
 {
     /// <summary>
     /// Announcement type
@@ -21,7 +21,7 @@ public record OkxAnnouncement
     /// System maintenance status
     /// </summary>
     [JsonProperty("state")]
-    public OkxStatusMaintenanceState Status { get; set; }
+    public OkxPublicMaintenanceState Status { get; set; }
 
     /// <summary>
     /// Publish time. Unix timestamp format in milliseconds, e.g. 1597026383085

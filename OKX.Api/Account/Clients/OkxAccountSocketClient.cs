@@ -6,15 +6,23 @@
 public class OkxAccountSocketClient(OKXWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient Root { get; } = root;
+    internal OKXWebSocketApiClient _ { get; } = root;
 
     /// <summary>
     /// Retrieve account information. Data will be pushed when triggered by events such as placing/canceling order, and will also be pushed in regular interval according to subscription granularity.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
+    /// <param name="currency">Currency</param>
+    /// <param name="updateInterval">0: only push due to account events
+    /// The data will be pushed both by events and regularly if this field is omitted or set to other values than 0.
+    /// The following format should be strictly obeyed when using this field.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAccountUpdatesAsync(Action<OkxAccountBalance> onData, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAccountUpdatesAsync(
+        Action<OkxAccountBalance> onData,
+        string? currency = null,
+        int? updateInterval = null,
+        CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountBalance>>>>(data =>
         {
@@ -24,9 +32,14 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
 
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
         {
-            Channel = "account"
+            Channel = "account",
+            Currency = currency,
+            ExtraParameters = updateInterval.HasValue 
+                ? new Dictionary<string, string> { { "interval", updateInterval.Value.ToOkxString() } }
+                : null
         });
-        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -65,7 +78,7 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
             InstrumentFamily = symbol.InstrumentFamily,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -86,7 +99,7 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
         {
             Channel = "balance_and_position"
         });
-        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -113,7 +126,7 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
             Channel = "liquidation-warning",
             InstrumentType = instrumentType
         });
-        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -135,6 +148,6 @@ public class OkxAccountSocketClient(OKXWebSocketApiClient root)
         {
             Channel = "account-greeks",
         });
-        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 }

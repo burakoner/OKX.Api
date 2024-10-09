@@ -1,9 +1,9 @@
-﻿namespace OKX.Api.Status;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Maintenance Service
 /// </summary>
-public enum OkxStatusMaintenanceService
+public enum OkxPublicMaintenanceService
 {
     /// <summary>
     /// WebSocket

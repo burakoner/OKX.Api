@@ -1,9 +1,9 @@
-﻿namespace OKX.Api.Announcement;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Announcement Type
 /// </summary>
-public record OkxAnnouncementType
+public record OkxPublicAnnouncementType
 {
     /// <summary>
     /// Announcement type

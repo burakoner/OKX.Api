@@ -6,8 +6,8 @@
 public class OkxRecurringBuySocketClient(OKXWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient Root { get; } = root;
-    internal OkxWebSocketApiOptions Options { get { return Root.Options; } }
+    internal OKXWebSocketApiClient _ { get; } = root;
+    internal OkxWebSocketApiOptions Options { get { return _.Options; } }
 
     /// <summary>
     /// Retrieve recurring buy orders. 
@@ -25,12 +25,6 @@ public class OkxRecurringBuySocketClient(OKXWebSocketApiClient root)
         long? algoOrderId = null,
         CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxRecurringBuyOrder>>>>(data =>
-        {
-            foreach (var d in data.Data.Data)
-                if (d is not null) onData(d);
-        });
-
         var args = new OkxSocketRequestArgument
         {
             Channel = "algo-recurring-buy",
@@ -39,6 +33,12 @@ public class OkxRecurringBuySocketClient(OKXWebSocketApiClient root)
         if(algoOrderId.HasValue)args.AlgoOrderId = algoOrderId.ToOkxString();
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, args);
 
-        return await Root.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxRecurringBuyOrder>>>>(data =>
+        {
+            foreach (var d in data.Data.Data)
+                if (d is not null) onData(d);
+        });
+
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 }

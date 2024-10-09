@@ -36,11 +36,6 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
     public OkxCopyTradingSocketClient CopyTrading { get; }
     
     /// <summary>
-    /// Alias for Public Client
-    /// </summary>
-    public OkxPublicSocketClient Market { get => Public; }
-
-    /// <summary>
     /// Block Trading Client
     /// </summary>
     public OkxBlockSocketClient Block { get; }

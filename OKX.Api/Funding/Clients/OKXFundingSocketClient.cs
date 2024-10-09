@@ -6,7 +6,7 @@
 public class OkxFundingSocketClient(OKXWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient Root { get; } = root;
+    internal OKXWebSocketApiClient _ { get; } = root;
 
     // TODO: Deposit info channel
     // TODO: Withdrawal info channel

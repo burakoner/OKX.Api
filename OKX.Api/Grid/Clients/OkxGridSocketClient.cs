@@ -6,7 +6,7 @@
 public class OkxGridSocketClient(OKXWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient Root { get; } = root;
+    internal OKXWebSocketApiClient _ { get; } = root;
 
     // TODO: WS / Spot grid algo orders channel
     // TODO: WS / Contract grid algo orders channel
