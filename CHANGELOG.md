@@ -1,8 +1,11 @@
 ## Change Log & Release Notes
 
+* Version 5.4.1018 - 18 Oct 2024
+  * ApiSharp 3.0.3 Update
+
 * Version 5.4.1011 - 10 Oct 2024
   * ApiSharp 3.0.2 Update
-  * 
+
 * * Version 5.4.1010 - 09 Oct 2024
   * Updated WebSocket API endpoints and models to [2024-10-04](https://www.okx.com/docs-v5/log_en/#2024-10-04) version
   * Moved Status methods to Public Client
