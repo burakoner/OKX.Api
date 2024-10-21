@@ -1,5 +1,8 @@
 ## Change Log & Release Notes
 
+* Version 5.4.1021 - 21 Oct 2024
+  * Renamed OKXWebSocketApiClient to OkxWebSocketApiClient
+
 * Version 5.4.1018 - 18 Oct 2024
   * ApiSharp 3.0.3 Update
 

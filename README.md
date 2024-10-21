@@ -49,12 +49,12 @@ After doing either of above steps you should now be ready to actually start usin
 
 After installing it's time to actually use it. To get started we have to add the OKX.Api namespace:  `using OKX.Api;`.
 
-OKX.Api provides two clients to interact with the OKX.Api. The  `OKXRestApiClient`  provides all rest API calls. The  `OKXWebSocketApiClient` provides functions to interact with the websocket provided by the OKX.Api. Both clients are disposable and as such can be used in a  `using`statement.
+OKX.Api provides two clients to interact with the OKX.Api. The  `OkxRestApiClient`  provides all rest API calls. The  `OkxWebSocketApiClient` provides functions to interact with the websocket provided by the OKX.Api. Both clients are disposable and as such can be used in a  `using`statement.
 
 ## Rest Api Examples
 
 ```csharp
-var api = new OKXRestApiClient();
+var api = new OkxRestApiClient();
 api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
 // Order Book Trading -> Market Data Methods (Signed)
@@ -507,7 +507,7 @@ var affiliate_01 = await api.Affiliate.GetInviteeAsync(1_000_000L);
 The OKX.Api socket client provides several socket endpoint to which can be subscribed.
 
 ```csharp
-var ws = new OKXWebSocketApiClient();
+var ws = new OkxWebSocketApiClient();
 ws.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
 // Subscription
