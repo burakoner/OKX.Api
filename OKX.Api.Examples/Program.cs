@@ -455,7 +455,7 @@ internal class Program
 
         #region WebSocket Api Client Examples
         // OKX Socket Client
-        var ws = new OKXWebSocketApiClient();
+        var ws = new OkxWebSocketApiClient();
         ws.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
         // Subscription

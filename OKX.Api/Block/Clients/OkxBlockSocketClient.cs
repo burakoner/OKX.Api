@@ -3,10 +3,10 @@
 /// <summary>
 /// OKX WebSocket Api Block Trading Client
 /// </summary>
-public class OkxBlockSocketClient(OKXWebSocketApiClient root)
+public class OkxBlockSocketClient(OkxWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient _ { get; } = root;
+    internal OkxWebSocketApiClient _ { get; } = root;
 
     // TODO: Rfqs channel
     // TODO: Quotes channel

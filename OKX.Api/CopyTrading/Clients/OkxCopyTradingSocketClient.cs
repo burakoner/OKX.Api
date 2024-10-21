@@ -3,10 +3,10 @@
 /// <summary>
 /// OKX WebSocket Api Copy Trading Client
 /// </summary>
-public class OkxCopyTradingSocketClient(OKXWebSocketApiClient root)
+public class OkxCopyTradingSocketClient(OkxWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient _ { get; } = root;
+    internal OkxWebSocketApiClient _ { get; } = root;
 
     // WS / Copy trading notification channel
     // WS / Lead trading notification channel

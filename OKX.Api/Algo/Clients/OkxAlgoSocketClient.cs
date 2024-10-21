@@ -3,10 +3,10 @@
 /// <summary>
 /// OKX WebSocket Api Algo Trading Client
 /// </summary>
-public class OkxAlgoSocketClient(OKXWebSocketApiClient root)
+public class OkxAlgoSocketClient(OkxWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient _ { get; } = root;
+    internal OkxWebSocketApiClient _ { get; } = root;
 
     /// <summary>
     /// Retrieve algo orders (includes trigger order, oco order, conditional order). Data will not be pushed when first subscribed. Data will only be pushed when triggered by events such as placing/canceling order.

@@ -3,10 +3,10 @@
 /// <summary>
 /// OKX WebSocket Api Trade Client
 /// </summary>
-public class OkxTradeSocketClient(OKXWebSocketApiClient root)
+public class OkxTradeSocketClient(OkxWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient _ { get; } = root;
+    internal OkxWebSocketApiClient _ { get; } = root;
     internal OkxWebSocketApiOptions Options { get { return _.Options; } }
 
     /// <summary>

@@ -3,10 +3,10 @@
 /// <summary>
 /// OKX WebSocket Api Spread Trading Client
 /// </summary>
-public class OkxSpreadSocketClient(OKXWebSocketApiClient root)
+public class OkxSpreadSocketClient(OkxWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient _ { get; } = root;
+    internal OkxWebSocketApiClient _ { get; } = root;
 
     // TODO: WS / Place order
     // TODO: WS / Amend order

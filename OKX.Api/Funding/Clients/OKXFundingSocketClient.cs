@@ -3,10 +3,10 @@
 /// <summary>
 /// OKX WebSocket Api Funding Account Client
 /// </summary>
-public class OkxFundingSocketClient(OKXWebSocketApiClient root)
+public class OkxFundingSocketClient(OkxWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient _ { get; } = root;
+    internal OkxWebSocketApiClient _ { get; } = root;
 
     // TODO: Deposit info channel
     // TODO: Withdrawal info channel

@@ -3,10 +3,10 @@
 /// <summary>
 /// OKX WebSocket Api Public Market Data Client
 /// </summary>
-public class OkxPublicSocketClient(OKXWebSocketApiClient root)
+public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient _ { get; } = root;
+    internal OkxWebSocketApiClient _ { get; } = root;
 
     #region Market Data
 

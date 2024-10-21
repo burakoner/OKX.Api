@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX WebSocket Client
 /// </summary>
-public class OKXWebSocketApiClient : OkxBaseSocketClient
+public class OkxWebSocketApiClient : OkxBaseSocketClient
 {
     /// <summary>
     /// Trading Account Client
@@ -58,7 +58,7 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
     /// <summary>
     /// OKXWebSocketApiClient Constructor
     /// </summary>
-    public OKXWebSocketApiClient() : this(null, new OkxWebSocketApiOptions())
+    public OkxWebSocketApiClient() : this(null, new OkxWebSocketApiOptions())
     {
     }
 
@@ -66,7 +66,7 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
     /// OKXWebSocketApiClient Constructor
     /// </summary>
     /// <param name="options"></param>
-    public OKXWebSocketApiClient(OkxWebSocketApiOptions options) : this(null, options)
+    public OkxWebSocketApiClient(OkxWebSocketApiOptions options) : this(null, options)
     {
     }
 
@@ -75,7 +75,7 @@ public class OKXWebSocketApiClient : OkxBaseSocketClient
     /// </summary>
     /// <param name="logger">Logger</param>
     /// <param name="options">Options</param>
-    public OKXWebSocketApiClient(ILogger? logger, OkxWebSocketApiOptions options) : base(logger, options)
+    public OkxWebSocketApiClient(ILogger? logger, OkxWebSocketApiOptions options) : base(logger, options)
     {
         this.Public = new OkxPublicSocketClient(this);
         this.Account = new OkxAccountSocketClient(this);

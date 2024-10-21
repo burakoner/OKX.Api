@@ -3,10 +3,10 @@
 /// <summary>
 /// OKX WebSocket Api RecurringBuy Client
 /// </summary>
-public class OkxRecurringBuySocketClient(OKXWebSocketApiClient root)
+public class OkxRecurringBuySocketClient(OkxWebSocketApiClient root)
 {
     // Internal
-    internal OKXWebSocketApiClient _ { get; } = root;
+    internal OkxWebSocketApiClient _ { get; } = root;
     internal OkxWebSocketApiOptions Options { get { return _.Options; } }
 
     /// <summary>
