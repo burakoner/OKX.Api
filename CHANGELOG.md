@@ -1,5 +1,9 @@
 ## Change Log & Release Notes
 
+* Version 5.4.1025 - 25 Oct 2024
+  * ApiSharp 3.1.0 Update
+  * Fixed issue [#67](https://github.com/burakoner/OKX.Api/issues/67)
+
 * Version 5.4.1021 - 21 Oct 2024
   * Renamed OKXWebSocketApiClient to OkxWebSocketApiClient
 
