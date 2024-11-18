@@ -177,7 +177,8 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        var needLogin = orderBookType == OkxOrderBookType.OrderBook_50_l2_TBT || orderBookType == OkxOrderBookType.OrderBook_l2_TBT;
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, needLogin, internalHandler, ct).ConfigureAwait(false);
     }
 
     // TODO: WS / Option trades channel
