@@ -21,5 +21,5 @@ public record OkxFinancialOnChainEarnEarningData
     /// Earning amount
     /// </summary>
     [JsonProperty("earnings")]
-    public string Earnings { get; set; } = string.Empty;
+    public decimal? Earnings { get; set; }
 }

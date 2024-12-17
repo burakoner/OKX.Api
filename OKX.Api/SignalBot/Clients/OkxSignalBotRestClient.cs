@@ -381,7 +381,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptionalEnum("ordType", type);
         parameters.AddOptional("px", price?.ToOkxString());
         parameters.AddOptional("reduceOnly", reduceOnly);
-        parameters.AddOptional("tag", Options.BrokerId);
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<object>(GetUri(v5TradingBotSignalSubOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

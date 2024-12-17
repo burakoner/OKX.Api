@@ -98,6 +98,7 @@ public enum OkxAccountBillType
     /// <summary>
     /// Profit Sharing
     /// </summary>
+    [Obsolete]
     [Map("18")]
     ProfitSharing = 18,
 
@@ -118,6 +119,30 @@ public enum OkxAccountBillType
     /// </summary>
     [Map("26")]
     StructuredProducts = 26,
+
+    /// <summary>
+    /// Convert
+    /// </summary>
+    [Map("27")]
+    Convert = 27,
+
+    /// <summary>
+    /// EasyConvert
+    /// </summary>
+    [Map("28")]
+    EasyConvert = 28,
+
+    /// <summary>
+    /// One-click repay
+    /// </summary>
+    [Map("29")]
+    OneClickRepay = 29,
+
+    /// <summary>
+    /// Simple trade
+    /// </summary>
+    [Map("30")]
+    SimpleTrade = 30,
 
     /// <summary>
     /// Copy trader profit sharing expenses

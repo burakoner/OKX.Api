@@ -24,11 +24,24 @@ public record OkxSpreadTradeLeg
     public decimal Quantity { get; set; }
 
     /// <summary>
+    /// Filled amount of the contract
+    /// Only applicable to contracts, return "" for spot
+        /// </summary>
+        [JsonProperty("szCont")]
+    public decimal? ContractQuantity { get; set; }
+
+    /// <summary>
     /// The direction of the leg. Valid value can be buy or sell.
     /// </summary>
     [JsonProperty("side")]
     public OkxTradeOrderSide OrderSide { get; set; }
-    
+
+    /// <summary>
+    /// Last filled profit and loss, applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
+    /// </summary>
+    [JsonProperty("fillPnl")]
+    public decimal? LastFilledPnl { get; set; }
+
     /// <summary>
     /// Fee. Negative number represents the user transaction fee charged by the platform. Positive number represents rebate.
     /// </summary>

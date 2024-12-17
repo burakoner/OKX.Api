@@ -88,4 +88,10 @@ public record OkxAccountFixedLoanBorrowLimitDetails
     /// </summary>
     [JsonProperty("minBorrow")]
     public decimal MinimumBorrowAmount { get; set; }
+
+    /// <summary>
+    /// Borrowing term, e.g. 30D: 30 Days
+    /// </summary>
+    [JsonProperty("term")]
+    public string Term { get; set; } = string.Empty;
 }

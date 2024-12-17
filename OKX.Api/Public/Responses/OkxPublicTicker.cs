@@ -21,13 +21,13 @@ public record OkxPublicTicker
     /// Last Price
     /// </summary>
     [JsonProperty("last")]
-    public decimal LastPrice { get; set; }
+    public decimal? LastPrice { get; set; }
 
     /// <summary>
     /// Last Size
     /// </summary>
     [JsonProperty("lastSz")]
-    public decimal LastSize { get; set; }
+    public decimal? LastSize { get; set; }
 
     /// <summary>
     /// Ask Price
@@ -57,19 +57,19 @@ public record OkxPublicTicker
     /// Open Price
     /// </summary>
     [JsonProperty("open24h")]
-    public decimal Open { get; set; }
+    public decimal? Open { get; set; }
 
     /// <summary>
     /// High
     /// </summary>
     [JsonProperty("high24h")]
-    public decimal High { get; set; }
+    public decimal? High { get; set; }
 
     /// <summary>
     /// Low
     /// </summary>
     [JsonProperty("low24h")]
-    public decimal Low { get; set; }
+    public decimal? Low { get; set; }
 
     /// <summary>
     /// Base Volume

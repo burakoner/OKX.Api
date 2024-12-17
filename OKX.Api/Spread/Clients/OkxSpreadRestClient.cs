@@ -50,7 +50,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddEnum("ordType", type);
         parameters.AddOptional("px", price?.ToOkxString());
         parameters.AddOptional("clOrdId", clientOrderId);
-        parameters.AddOptional("tag", Options.BrokerId);
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxSpreadOrderPlace>(GetUri(v5SpreadOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

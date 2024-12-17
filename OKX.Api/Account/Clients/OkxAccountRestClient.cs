@@ -44,6 +44,9 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountFixedLoanManualReborrow = "api/v5/account/fixed-loan/manual-reborrow";
     private const string v5AccountFixedLoanRepayBorrowingOrder = "api/v5/account/fixed-loan/repay-borrowing-order";
     private const string v5AccountFixedLoanBorrowingOrdersList = "api/v5/account/fixed-loan/borrowing-orders-list";
+    // api/v5/account/spot-manual-borrow-repay
+    // api/v5/account/set-auto-repay
+    // api/v5/account/spot-borrow-repay-history
     private const string v5AccountPositionBuilder = "api/v5/account/position-builder";
     private const string v5AccountSetRiskOffsetAmount = "api/v5/account/set-riskOffset-amt";
     private const string v5AccountGreeks = "api/v5/account/greeks";
@@ -51,6 +54,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountSetRiskOffsetType = "api/v5/account/set-riskOffset-type";
     private const string v5AccountActivateOption = "api/v5/account/activate-option";
     private const string v5AccountSetAutoLoan = "api/v5/account/set-auto-loan";
+    // api/v5/account/account-level-switch-preset
+    // api/v5/account/set-account-switch-precheck
     private const string v5AccountSetAccountLevel = "api/v5/account/set-account-level";
     private const string v5AccountMmpReset = "api/v5/account/mmp-reset";
     private const string v5AccountMmpConfig = "api/v5/account/mmp-config";
@@ -540,20 +545,21 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="marginMode">Margin Mode</param>
+    /// <param name="currency">Margin Currency</param>
     /// <param name="marginCurrency">Margin Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountMaximumLoanAmount>>> GetMaximumLoanAmountAsync(
-        string instrumentId,
         OkxAccountMarginMode marginMode,
+        string? instrumentId = null,
+        string? currency = null,
         string? marginCurrency = null,
         CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection
-        {
-            { "instId", instrumentId }
-        };
+        var parameters = new ParameterCollection();
         parameters.AddEnum("mgnMode", marginMode);
+        parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptional("ccy", currency);
         parameters.AddOptional("mgnCcy", marginCurrency);
 
         return ProcessListRequestAsync<OkxAccountMaximumLoanAmount>(GetUri(v5AccountMaxLoan), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
@@ -1080,6 +1086,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="orderId">Borrowing order ID</param>
     /// <param name="currency">Borrowing currency, e.g. BTC</param>
     /// <param name="state">State</param>
+    /// <param name="term">Borrowing term, e.g. 30D: 30 Days</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ordId</param>
     /// <param name="before">Pagination of data to return records newer than the requested ordId</param>
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
@@ -1089,6 +1096,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     long? orderId = null,
     string? currency = null,
     OkxAccountFixedLoanBorrowingOrderState? state = null,
+    string? term = null,
     long? after = null,
     long? before = null,
     int limit = 100,
@@ -1098,12 +1106,18 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("ordId", orderId);
         parameters.AddOptional("after", currency);
         parameters.AddOptionalEnum("state", state);
+        parameters.AddOptional("term", term);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrderDetails>(GetUri(v5AccountFixedLoanBorrowingOrdersList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
+
+    // TODO
+    // api/v5/account/spot-manual-borrow-repay
+    // api/v5/account/set-auto-repay
+    // api/v5/account/spot-borrow-repay-history
 
     /// <summary>
     /// Calculates portfolio margin information for virtual position/assets or current position of the user.
@@ -1239,6 +1253,10 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
     }
+
+    // TODO
+    // api/v5/account/account-level-switch-preset
+    // api/v5/account/set-account-switch-precheck
 
     /// <summary>
     /// Set account mode

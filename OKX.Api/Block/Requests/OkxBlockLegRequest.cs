@@ -1,4 +1,9 @@
-﻿namespace OKX.Api.Block;
+﻿using ApiSharp.Rest;
+using System.Diagnostics.Metrics;
+using System.Diagnostics;
+using System.Drawing;
+
+namespace OKX.Api.Block;
 
 /// <summary>
 /// OKX Block Leg Request
@@ -35,7 +40,19 @@ public record OkxBlockLegRequest
     /// </summary>
     [JsonProperty("sz")]
     public string Size { get; set; } = string.Empty;
-    
+
+    /// <summary>
+    /// Taker expected price for the RFQ
+    /// If provided, RFQ trade will be automatically executed if the price from the quote is better than or equal to the price specified until the RFQ is canceled or expired.
+    /// This field has to be provided for all legs to have the RFQ automatically executed, or leave empty for all legs, otherwise request will be rejected.
+    /// The auto execution side depends on the leg side of the RFQ.
+    /// For SPOT/MARGIN/FUTURES/SWAP, lmtPx will be in unit of the quote ccy.
+    /// For OPTION, lmtPx will be in unit of settle ccy.
+    /// The field will not be disclosed to counterparties.
+    /// </summary>
+    [JsonProperty("lmtPx")]
+    public string LimitPrice { get; set; } = string.Empty;
+
     /// <summary>
     /// The direction of each leg. Valid values can be buy or sell.
     /// </summary>
@@ -50,7 +67,7 @@ public record OkxBlockLegRequest
     /// </summary>
     [JsonProperty("posSide")]
     public OkxTradePositionSide? PositionSide { get; set; }
-    
+
     /// <summary>
     /// Defines the unit of the “sz” attribute.
     /// Only applicable to instType = SPOT.

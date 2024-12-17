@@ -18,6 +18,12 @@ public record OkxFinancialEthStakingHistory
     public decimal Amount { get; set; }
 
     /// <summary>
+    /// Redeeming amount
+    /// </summary>
+    [JsonProperty("redeemingAmt")]
+    public decimal RedeemingAmount { get; set; }
+
+    /// <summary>
     /// Status
     /// </summary>
     [JsonProperty("status")]

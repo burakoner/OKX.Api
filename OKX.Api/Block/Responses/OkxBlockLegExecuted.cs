@@ -12,11 +12,11 @@ public record OkxBlockLegExecuted
     public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
-    /// The direction of the leg from the Takers perspective. Valid value can be buy or sell.
+    /// The price the leg executed
     /// </summary>
-    [JsonProperty("side")]
-    public OkxTradeOrderSide Side { get; set; }
-    
+    [JsonProperty("px")]
+    public decimal Price { get; set; }
+
     /// <summary>
     /// Size of the leg in contracts or spot.
     /// </summary>
@@ -24,11 +24,11 @@ public record OkxBlockLegExecuted
     public decimal Size { get; set; }
 
     /// <summary>
-    /// The price the leg executed
+    /// The direction of the leg from the Takers perspective. Valid value can be buy or sell.
     /// </summary>
-    [JsonProperty("px")]
-    public decimal Price { get; set; }
-
+    [JsonProperty("side")]
+    public OkxTradeOrderSide Side { get; set; }
+    
     /// <summary>
     /// Last traded ID.
     /// </summary>

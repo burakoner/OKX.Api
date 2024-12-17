@@ -24,14 +24,14 @@ public record OkxTradeEasyConvertCurrencyList
 public record OkxTradeEasyConvertCurrencyFromData
 {
     /// <summary>
-    /// Amount of small payment currency convert from
-    /// </summary>
-    [JsonProperty("fromAmt")]
-    public decimal FromAmount { get; set; }
-
-    /// <summary>
     /// Type of small payment currency convert from, e.g. BTC
     /// </summary>
     [JsonProperty("fromCcy")]
     public string FromCurrency { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Amount of small payment currency convert from
+    /// </summary>
+    [JsonProperty("fromAmt")]
+    public decimal FromAmount { get; set; }
 }

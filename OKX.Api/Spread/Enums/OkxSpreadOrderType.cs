@@ -6,6 +6,12 @@
 public enum OkxSpreadOrderType
 {
     /// <summary>
+    /// Market order
+    /// </summary>
+    [Map("market")]
+    MarketOrder = 4,
+
+    /// <summary>
     /// Limit Order
     /// </summary>
     [Map("limit")]

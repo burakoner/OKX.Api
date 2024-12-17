@@ -24,10 +24,28 @@ public enum OkxSpreadOrderCancelSource
     PartiallyCanceled = 14,
 
     /// <summary>
+    /// Order canceled: The order price is beyond the limit
+    /// </summary>
+    [Map("15")]
+    PriceIsBeyondTheLimit = 15,
+
+    /// <summary>
+    /// Cancel all after triggered
+    /// </summary>
+    [Map("20")]
+    CancelAllAfterTriggered = 20,
+
+    /// <summary>
     /// The post-only order will take liquidity in maker orders
     /// </summary>
     [Map("31")]
     PostOnlyOrderTakeLiquidity = 31,
+
+    /// <summary>
+    /// Self trade prevention
+    /// </summary>
+    [Map("32")]
+    SelfTradePrevention = 32,
 
     /// <summary>
     /// Order failed to settle due to insufficient margin

@@ -22,7 +22,7 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonProperty("uly")]
     public string Underlying { get; set; } = string.Empty;
-    
+
     /// <summary>
     /// Instrument family
     /// </summary>
@@ -77,7 +77,6 @@ public record OkxPublicInstrument
     [JsonProperty("stk")]
     public decimal? StrikePrice { get; set; }
 
-
     /// <summary>
     /// Listing timestamp
     /// </summary>
@@ -89,6 +88,20 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonIgnore]
     public DateTime? ListingTime => ListingTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// The end time of call auction, Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// Only applicable to SPOT that are listed through call auctions, return "" in other cases
+    /// </summary>
+    [JsonProperty("auctionEndTime")]
+    public long? AuctionEndTimestamp { get; set; }
+
+    /// <summary>
+    /// The end time of call auction, Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// Only applicable to SPOT that are listed through call auctions, return "" in other cases
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? AuctionEndTime => AuctionEndTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Expiry timestamp

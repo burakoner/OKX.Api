@@ -38,12 +38,6 @@ public record OkxBlockRfq
     public OkxBlockState State { get; set; }
 
     /// <summary>
-    /// Reasons of state. Valid values can be mmp_canceled.
-    /// </summary>
-    [JsonProperty("reason")]
-    public string Reason { get; set; } = string.Empty;
-
-    /// <summary>
     /// The list of counterparties traderCode the RFQ was broadcast to.
     /// </summary>
     [JsonProperty("counterparties")]
@@ -92,4 +86,10 @@ public record OkxBlockRfq
     /// </summary>
     [JsonProperty("legs")]
     public List<OkxBlockLegResponse> Legs { get; set; } = [];
+
+    /// <summary>
+    /// Reasons of state. Valid values can be mmp_canceled.
+    /// </summary>
+    [JsonProperty("reason")]
+    public string Reason { get; set; } = string.Empty;
 }

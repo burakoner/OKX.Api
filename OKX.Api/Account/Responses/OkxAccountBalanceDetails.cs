@@ -111,6 +111,12 @@ public record OkxAccountBalanceDetails
     public decimal? CrossLiabilities { get; set; }
 
     /// <summary>
+    /// Trial fund balance
+    /// </summary>
+    [JsonProperty("rewardBal")]
+    public decimal? RewardBalance { get; set; }
+
+    /// <summary>
     /// Isolated liabilities of the currency
     /// Applicable to Multi-currency margin and Portfolio margin
     /// </summary>
@@ -212,7 +218,7 @@ public record OkxAccountBalanceDetails
     /// Max possible spot risk offset amount
     /// Applicable to Portfolio margin
     /// </summary>
-    [JsonProperty("maxSpotInUseAmt")]
+    [JsonProperty("maxSpotInUse")]
     public decimal? MaxPossibleSpotRiskOffsetAmount { get; set; }
 
     /// <summary>
@@ -227,6 +233,13 @@ public record OkxAccountBalanceDetails
     /// </summary>
     [JsonProperty("smtSyncEq")]
     public decimal SmarkSyncEquity { get; set; }
+
+    /// <summary>
+    /// Spot smart sync equity.
+    /// The default is "0", only applicable to copy trader.
+    /// </summary>
+        [JsonProperty("spotCopyTradingEq")]
+    public decimal? SpotCopyTradingEquity { get; set; }
 
     /// <summary>
     /// 	Spot balance. The unit is currency, e.g. BTC.

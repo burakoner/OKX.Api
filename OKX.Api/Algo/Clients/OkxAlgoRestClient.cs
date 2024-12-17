@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Algo;
+﻿using System.Threading.Tasks;
+using static ApiSharp.Security.Cryptology;
+
+namespace OKX.Api.Algo;
 
 /// <summary>
 /// OKX Rest Api Algo Trading Client
@@ -16,6 +19,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <summary>
     /// The algo order includes trigger order, oco order, conditional order,iceberg order and twap order.
     /// </summary>
+    /// 
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="tradeMode">Trade Mode</param>
     /// <param name="orderSide">Order Side</param>
@@ -67,6 +71,19 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// This is only applicable if the stop loss and take profit order is executed as market order
     /// Either sz or closeFraction is required.</param>
     /// 
+    /// <param name="chaseType">Chase type</param>
+    /// <param name="chaseValue">Chase value.
+    /// It represents distance from best bid/ask price when chaseType is distance.
+    /// For USDT-margined contract, the unit is USDT.
+    /// For USDC-margined contract, the unit is USDC.
+    /// For Crypto-margined contract, the unit is USD.
+    /// It represents ratio when chaseType is ratio. 0.1 represents 10%.
+    /// The default value is 0.</param>
+    /// <param name="maxChaseType">Maximum chase type. maxChaseTyep and maxChaseVal need to be used together or none of them.</param>
+    /// <param name="maxChaseValue">Maximum chase value.
+    /// It represents maximum distance when maxChaseType is distance.
+    /// It represents ratio when maxChaseType is ratio. 0.1 represents 10%.</param>
+    /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxAlgoOrderResponse>> PlaceOrderAsync(
@@ -111,6 +128,12 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? sizeLimit = null,
         decimal? priceLimit = null,
         long? timeInterval = null,
+
+        // Chase Order
+        OkxAlgoChaseType? chaseType = null,
+        decimal? chaseValue = null,
+        OkxAlgoChaseType? maxChaseType = null,
+        decimal? maxChaseValue = null,
 
         // Cancellation Token
         CancellationToken ct = default)
@@ -160,8 +183,14 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("pxLimit", priceLimit?.ToOkxString());
         parameters.AddOptional("timeInterval", timeInterval?.ToOkxString());
 
+        // Chase Order
+        parameters.AddOptionalEnum("chaseType", chaseType);
+        parameters.AddOptional("chaseVal", chaseValue?.ToOkxString());
+        parameters.AddOptionalEnum("maxChaseType", maxChaseType);
+        parameters.AddOptional("maxChaseVal", maxChaseValue?.ToOkxString());
+
         // Broker Id
-        parameters.AddOptional("tag", Options.BrokerId);
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         // Reequest
         return ProcessOneRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);

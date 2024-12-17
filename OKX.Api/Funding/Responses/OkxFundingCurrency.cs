@@ -48,6 +48,30 @@ public record OkxFundingCurrency
     public bool AllowInternalTransfer { get; set; }
 
     /// <summary>
+    /// Estimated opening time for deposit, Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// </summary>
+    [JsonProperty("depEstOpenTime")]
+    public long? DepositEstimatedOpenTimestamp { get; set; }
+
+    /// <summary>
+    /// Estimated opening time for deposit
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? DepositEstimatedOpenTime => DepositEstimatedOpenTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Estimated opening time for withdraw, Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// </summary>
+    [JsonProperty("wdEstOpenTime")]
+    public long? WithdrawalEstimatedOpenTimestamp { get; set; }
+
+    /// <summary>
+    /// Estimated opening time for withdraw
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? WithdrawalEstimatedOpenTime => WithdrawalEstimatedOpenTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
     /// The minimum deposit amount of the currency in a single transaction
     /// </summary>
     [JsonProperty("minDep")]
@@ -58,6 +82,13 @@ public record OkxFundingCurrency
     /// </summary>
     [JsonProperty("minWd")]
     public decimal MinimumWithdrawalAmount { get; set; }
+
+    /// <summary>
+    /// The minimum internal transfer amount of currency in a single transaction
+    /// No maximum internal transfer limit in a single transaction, subject to the withdrawal limit in the past 24 hours(wdQuota).
+    /// </summary>
+    [JsonProperty("minInternal")]
+    public decimal MinimumInternalAmount { get; set; }
 
     /// <summary>
     /// The maximum amount of currency withdrawal in a single transaction
@@ -86,28 +117,47 @@ public record OkxFundingCurrency
     public decimal? UsedWithdrawalQuota { get; set; }
 
     /// <summary>
+    /// The fixed withdrawal fee
+    /// Apply to on-chain withdrawal
+    /// </summary>
+    [JsonProperty("fee")]
+    public decimal? Fee { get; set; }
+
+    /// <summary>
     /// The minimum withdrawal fee for normal address
     /// </summary>
+    [Obsolete]
     [JsonProperty("minFee")]
     public decimal MinimumWithdrawalFeeForNormalAddress { get; set; }
 
     /// <summary>
     /// The maximum withdrawal fee for normal address
     /// </summary>
+    [Obsolete]
     [JsonProperty("maxFee")]
     public decimal MaximumWithdrawalFeeForNormalAddress { get; set; }
 
     /// <summary>
     /// The minimum withdrawal fee for contract address
     /// </summary>
+    [Obsolete]
     [JsonProperty("minFeeForCtAddr")]
     public decimal? MinimumWithdrawalFeeForContractAddress { get; set; }
 
     /// <summary>
     /// The maximum withdrawal fee for contract address
     /// </summary>
+    [Obsolete]
     [JsonProperty("maxFeeForCtAddr")]
     public decimal? MaximumWithdrawalFeeForContractAddress { get; set; }
+
+    /// <summary>
+    /// Burning fee rate, e.g "0.05" represents "5%".
+    /// Some currencies may charge combustion fees.The burning fee is deducted based on the withdrawal quantity (excluding gas fee) multiplied by the burning fee rate.
+    /// Apply to on-chain withdrawal
+    /// </summary>
+    [JsonProperty("burningFeeRate")]
+    public decimal? BurningFeeRate { get; set; }
 
     /// <summary>
     /// If current chain is main net then return true, otherwise return false

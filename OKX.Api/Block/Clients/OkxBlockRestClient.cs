@@ -52,7 +52,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<OkxBlockRfq>> CreateRfqAsync(
         IEnumerable<string> counterparties,
-        IEnumerable<OkxBlockLegResponse> legs,
+        IEnumerable<OkxBlockLegRequest> legs,
         string? clientRfqId = null,
         bool anonymous = false,
         bool allowPartialExecution = false,
@@ -66,7 +66,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "allowPartialExecution", allowPartialExecution },
         };
         parameters.AddOptional("clRfqId", clientRfqId);
-        parameters.AddOptional("tag", Options.BrokerId);
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxBlockRfq>(GetUri(v5RfqCreateRfq), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -246,7 +246,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddEnum("quoteSide", quoteSide);
         parameters.AddOptional("clRfqId", clientQuoteId);
         parameters.AddOptional("expiresIn", expiresIn?.ToOkxString());
-        parameters.AddOptional("tag", Options.BrokerId);
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxBlockRfq>(GetUri(v5RfqCreateQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -398,9 +398,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="quoteId">Quote ID</param>
     /// <param name="clientQuoteId">Client-supplied Quote ID. If both clQuoteId and quoteId are passed, quoteId will be treated as primary identifier</param>
     /// <param name="blockTradeId">Block trade ID</param>
-    /// <param name="state">The status of the RFQ.
-    /// Valid values can be active canceled pending_fill filled expired failed traded_away.
-    /// traded_away only applies to Maker</param>
+    /// <param name="isSuccessful">Whether the trade is filled successfully. true: the default value. false.</param>
     /// <param name="beginId">The starting rfq id the request to begin with. Pagination of data to return records newer than the requested blockTdId, not including beginId.</param>
     /// <param name="endId">The last rfq id the request to end withPagination of data to return records earlier than the requested blockTdId, not including endId.</param>
     /// <param name="beginTimestamp">Filter trade execution time with a begin timestamp (UTC timezone). Unix timestamp format in milliseconds, e.g. 1597026383085</param>
@@ -415,7 +413,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? quoteId = null,
         string? clientQuoteId = null,
         string? blockTradeId = null,
-        OkxBlockState? state = null,
+        bool? isSuccessful = null,
         string? beginId = null,
         string? endId = null,
         long? beginTimestamp = null,
@@ -430,7 +428,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("quoteId", quoteId);
         parameters.AddOptional("clQuoteId", clientQuoteId);
         parameters.AddOptional("blockTdId", blockTradeId);
-        parameters.AddOptionalEnum("state", state);
+        parameters.AddOptional("isSuccessful", isSuccessful);
         parameters.AddOptional("beginId", beginId);
         parameters.AddOptional("endId", endId);
         parameters.AddOptional("beginTs", beginTimestamp);

@@ -144,7 +144,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
-        parameters.AddOptional("tag", Options.BrokerId);
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxTradeOrderPlaceResponse>(GetUri(v5TradeOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -157,7 +157,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxTradeOrderPlaceRequest> orders, CancellationToken ct = default)
     {
-        foreach (var order in orders) order.Tag = Options.BrokerId;
+        foreach (var order in orders) order.Tag = OkxConstants.BrokerId;
         var parameters = new ParameterCollection();
         parameters.SetBody(orders);
 
@@ -288,7 +288,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("ccy", currency);
         parameters.AddOptional("autoCxl", autoCxl);
         parameters.AddOptional("clOrdId", clientOrderId);
-        parameters.AddOptional("tag", Options.BrokerId);
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxTradeClosePositionResponse>(GetUri(v5TradeClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -594,10 +594,16 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <summary>
     /// Get list of small convertibles and mainstream currencies. Only applicable to the crypto balance less than $10.
     /// </summary>
+    /// <param name="source">Funding source</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxTradeEasyConvertCurrencyList>> GetEasyConvertCurrenciesAsync(CancellationToken ct = default)
+    public Task<RestCallResult<OkxTradeEasyConvertCurrencyList>> GetEasyConvertCurrenciesAsync(
+        OkxTradeEasyConvertSource? source = null,
+        CancellationToken ct = default)
     {
+        var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("source", source);
+
         return ProcessOneRequestAsync<OkxTradeEasyConvertCurrencyList>(GetUri(v5TradeEasyConvertCurrencyList), HttpMethod.Get, ct, signed: true);
     }
 
@@ -606,14 +612,20 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// </summary>
     /// <param name="fromCcy">Type of small payment currency convert from. Maximum 5 currencies can be selected in one order</param>
     /// <param name="toCcy">Type of mainstream currency convert to. Only one receiving currency type can be selected in one order and cannot be the same as the small payment currencies.</param>
+    /// <param name="source">Funding source</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxTradeEasyConvertOrder>>> PlaceEasyConvertOrderAsync(IEnumerable<string> fromCcy, string toCcy, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxTradeEasyConvertOrder>>> PlaceEasyConvertOrderAsync(
+        IEnumerable<string> fromCcy, 
+        string toCcy, 
+        OkxTradeEasyConvertSource? source = null,
+        CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             {"fromCcy", fromCcy },
             {"toCcy", toCcy },
         };
+        parameters.AddOptionalEnum("source", source);
 
         return ProcessListRequestAsync<OkxTradeEasyConvertOrder>(GetUri(v5TradeEasyConvert), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

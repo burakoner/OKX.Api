@@ -320,11 +320,33 @@ public record OkxAlgoOrder
     public DateTime? UpdateTime => UpdateTimestamp?.ConvertFromMilliseconds();
     
     /// <summary>
-    /// 是否自动借币
-    /// true：自动借币
-    /// false：不自动借币
-    /// 仅适用于计划委托、移动止盈止损和 时间加权策略
+    /// Whether borrowing currency automatically
+    /// Only applicable to trigger order, trailing order and twap order
     /// </summary>
     [JsonProperty("isTradeBorrowMode")]
     public bool IsTradeBorrowMode { get; set; }
+
+    /// <summary>
+    /// Chase type. Only applicable to chase order.
+    /// </summary>
+    [JsonProperty("chaseType")]
+    public OkxAlgoChaseType? ChaseType { get; set; }
+
+    /// <summary>
+    /// Chase value. Only applicable to chase order.
+    /// </summary>
+    [JsonProperty("chaseVal")]
+    public decimal? ChaseValue { get; set; }
+
+    /// <summary>
+    /// Maximum chase type. Only applicable to chase order.
+    /// </summary>
+    [JsonProperty("maxChaseType")]
+    public OkxAlgoChaseType? MaxChaseType { get; set; }
+
+    /// <summary>
+    /// Maximum chase value. Only applicable to chase order.
+    /// </summary>
+    [JsonProperty("maxChaseVal")]
+    public decimal? MaxChaseValue { get; set; }
 }

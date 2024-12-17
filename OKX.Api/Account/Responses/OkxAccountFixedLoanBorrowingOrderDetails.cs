@@ -69,7 +69,7 @@ public record OkxAccountFixedLoanBorrowingOrderDetails
     /// Actual borrowed mount
     /// </summary>
     [JsonProperty("actualBorrowAmt")]
-    public decimal? ActualBorrowAmt { get; set; }
+    public decimal? ActualBorrowAmount { get; set; }
 
     /// <summary>
     /// Whether or not auto-renew when the term is due

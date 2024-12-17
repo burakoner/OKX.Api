@@ -40,4 +40,10 @@ public enum OkxAlgoOrderType
     /// </summary>
     [Map("twap")]
     TWAP = 6,
+
+    /// <summary>
+    /// Chase order, only applicable to FUTURES and SWAP
+    /// </summary>
+    [Map("chase")]
+    Chase = 7,
 }

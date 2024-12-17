@@ -69,6 +69,12 @@ public record OkxFinancialOnChainEarnOrder
     public List<OkxFinancialOnChainEarnEarningData> EarningData { get; set; } = [];
 
     /// <summary>
+    /// Fast redemption data
+    /// </summary>
+    [JsonProperty("fastRedemptionData")]
+    public List<OkxFinancialOnChainEarnFastRedemptionData> FastRedemptionData { get; set; } = [];
+
+    /// <summary>
     /// Order purchased time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("purchasedTime")]

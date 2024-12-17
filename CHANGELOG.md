@@ -1,5 +1,39 @@
 ## Change Log & Release Notes
 
+* Version 5.4.1217 - 17 Dec 2024
+  * Fixed issue [#72](https://github.com/burakoner/OKX.Api/issues/72)
+  * Synced models with the latest API documentation (2024-12-16).
+  * Edited `OkxFundingCurrency` model: Added some new properties and marked some properties as obsolete.
+  * Edited `OkxFundingNonTradableAssetBalance` model: Added some new properties.
+  * Edited `OkxSpreadOrderType` enum: Added MarketOrder option.
+  * Edited `OkxSpreadOrderCancelSource` enum: Added new options.
+  * Edited `OkxAccountBillType` enum: Added new options and marked some options as obsolete.
+  * Edited `OkxAccountBillSubType` enum: Added new options and marked some options as obsolete.
+  * Edited `OkxAccountFixedLoanBorrowLimitDetails` model: Added new properties.
+  * Edited `OkxAccountRestClient.GetFixedLoanBorrowingOrdersAsync()` method: Added new parameter.
+  * Edited `OkxAccountFixedLoanBorrowingOrderDetails` model: Renamed some parameters.
+  * Edited `OkxSubAccountType` enum: Renamed existing options and added new options.
+  * Added `OkxTradeEasyConvertSource` enum.
+  * Edited `OkxTradeRestClient.GetEasyConvertCurrenciesAsync()` method: Added new parameter.
+  * Edited `OkxTradeRestClient.PlaceEasyConvertOrderAsync()` method: Added new parameter.
+  * Edited `OkxPublicInstrument` model: Added some new properties.
+  * Edited `OkxAccountBalanceDetails` model: Added some new properties.
+  * Edited `OkxFinancialOnChainEarnOffer` model: Added some new properties.
+  * Edited `OkxFinancialOnChainEarnEarningData` model: Changes data types for some new properties.
+  * Edited `OkxFinancialOnChainEarnOrder` model: Added some new properties.
+  * Added `OkxFinancialOnChainEarnFastRedemptionData` model.
+  * Edited `OkxAccountRestClient.GetMaximumLoanAmountAsync()` method: Added new parameter.
+  * Edited `OkxAlgoOrderType` enum: Added ChaseOrder option.
+  * Added ChaseOrder functionality to `OkxAlgoRestClient.PlaceAlgoOrderAsync()` method.
+  * Added `OkxAlgoChaseType` enum.
+  * Edited `OkxAlgoOrder` model: Added some new properties.
+  * Edited `OkxBlockRestClient.GetTradesAsync()` method: Removed state parameter and added isSuccessful parameter.
+  * Edited `OkxBlockLegRequest` model: Added some new properties.
+  * Edited `OkxSpreadTradeLeg` model: Added some new properties.
+  
+* Version 5.4.1202 - 12 Dec 2024
+  * Merged pull request [#71](https://github.com/burakoner/OKX.Api/pull/71)
+
 * Version 5.4.1025 - 25 Oct 2024
   * ApiSharp 3.1.0 Update
   * Fixed issue [#67](https://github.com/burakoner/OKX.Api/issues/67)

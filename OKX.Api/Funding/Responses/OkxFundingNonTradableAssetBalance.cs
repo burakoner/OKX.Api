@@ -60,6 +60,20 @@ public record OkxFundingNonTradableAssetBalance
     public decimal Fee { get; set; }
 
     /// <summary>
+    /// Fixed withdrawal fee unit, e.g. USDT
+    /// </summary>
+    [JsonProperty("feeCcy")]
+    public decimal FeeCurrency { get; set; }
+
+    /// <summary>
+    /// Burning fee rate, e.g "0.05" represents "5%".
+    /// Some currencies may charge combustion fees.The burning fee is deducted based on the withdrawal quantity (excluding gas fee) multiplied by the burning fee rate.
+    /// Apply to on-chain withdrawal
+    /// </summary>
+    [JsonProperty("burningFeeRate")]
+    public decimal? BurningFeeRate { get; set; }
+
+    /// <summary>
     /// Contract Address
     /// </summary>
     [JsonProperty("ctAddr")]

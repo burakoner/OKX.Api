@@ -9,10 +9,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>5.4.1202</Version>
-		<FileVersion>5.4.1202</FileVersion>
-		<PackageVersion>5.4.1202</PackageVersion>
-		<AssemblyVersion>5.4.1202</AssemblyVersion>
+		<Version>5.4.1217</Version>
+		<FileVersion>5.4.1217</FileVersion>
+		<PackageVersion>5.4.1217</PackageVersion>
+		<AssemblyVersion>5.4.1217</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>

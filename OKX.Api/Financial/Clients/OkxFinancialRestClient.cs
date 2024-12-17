@@ -6,25 +6,28 @@
 public class OkxFinancialRestClient
 {
     /// <summary>
-    /// Eth Staking Client
-    /// </summary>
-    public OkxFinancialEthStakingRestClient EthStaking { get; }
-
-    /// <summary>
     /// OnChain Earn Client
     /// </summary>
     public OkxFinancialOnChainEarnRestClient OnChainEarn { get; }
 
     /// <summary>
-    /// Fixed Simple Earn Client
+    /// Eth Staking Client
     /// </summary>
-    public OkxFinancialFixedSimpleEarnRestClient FixedSimpleEarn { get; }
+    public OkxFinancialEthStakingRestClient EthStaking { get; }
+
+    // TODO: SOL Staking
 
     /// <summary>
     /// Flexible Simple Earn Client
     /// </summary>
     public OkxFinancialFlexibleSimpleEarnRestClient FlexibleSimpleEarn { get; }
 
+    /// <summary>
+    /// Fixed Simple Earn Client
+    /// </summary>
+    public OkxFinancialFixedSimpleEarnRestClient FixedSimpleEarn { get; }
+
+    // TODO: Flexible Loan
 
     internal OkxFinancialRestClient(OkxRestApiClient root)
     {

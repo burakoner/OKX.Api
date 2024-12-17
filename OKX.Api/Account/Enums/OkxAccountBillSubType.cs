@@ -66,16 +66,46 @@ public enum OkxAccountBillSubType
     InterestDeductionForVipLoans = 14,
 
     /// <summary>
-    /// Repay Forcibly
+    /// Manual Margin Increase
     /// </summary>
-    [Map("16")]
-    RepayForcibly = 16,
+    [Map("160")]
+    ManualMarginIncrease = 160,
 
     /// <summary>
-    /// Repay Interest By Borrowing Forcibly
+    /// Manual Margin Decrease
     /// </summary>
-    [Map("17")]
-    RepayInterestByBorrowingForcibly = 17,
+    [Map("161")]
+    ManualMarginDecrease = 161,
+
+    /// <summary>
+    /// Auto Margin Increase
+    /// </summary>
+    [Map("162")]
+    AutoMarginIncrease = 162,
+
+    /// <summary>
+    /// Auto Buy
+    /// </summary>
+    [Map("114")]
+    AutoBuy = 114,
+
+    /// <summary>
+    /// Auto Sell
+    /// </summary>
+    [Map("115")]
+    AutoSell = 115,
+
+    /// <summary>
+    /// System Token Conversion Transfer In
+    /// </summary>
+    [Map("118")]
+    SystemTokenConversionTransferIn = 118,
+
+    /// <summary>
+    /// System Token Conversion Transfer Out
+    /// </summary>
+    [Map("119")]
+    SystemTokenConversionTransferOut = 119,
 
     /// <summary>
     /// Partial Liquidation Close Long
@@ -150,48 +180,6 @@ public enum OkxAccountBillSubType
     LiquidationTransferOut = 111,
 
     /// <summary>
-    /// Delivery Long
-    /// </summary>
-    [Map("112")]
-    DeliveryLong = 112,
-
-    /// <summary>
-    /// Delivery Short
-    /// </summary>
-    [Map("113")]
-    DeliveryShort = 113,
-
-    /// <summary>
-    /// Auto Buy
-    /// </summary>
-    [Map("114")]
-    AutoBuy = 114,
-
-    /// <summary>
-    /// Auto Sell
-    /// </summary>
-    [Map("115")]
-    AutoSell = 115,
-
-    /// <summary>
-    /// Delivery Exercise Clawback
-    /// </summary>
-    [Map("117")]
-    DeliveryExerciseClawback = 117,
-
-    /// <summary>
-    /// System Token Conversion Transfer In
-    /// </summary>
-    [Map("118")]
-    SystemTokenConversionTransferIn = 118,
-
-    /// <summary>
-    /// System Token Conversion Transfer Out
-    /// </summary>
-    [Map("119")]
-    SystemTokenConversionTransferOut = 119,
-
-    /// <summary>
     /// ADL Close Long
     /// </summary>
     [Map("125")]
@@ -228,24 +216,6 @@ public enum OkxAccountBillSubType
     DDHSell = 132,
 
     /// <summary>
-    /// Manual Margin Increase
-    /// </summary>
-    [Map("160")]
-    ManualMarginIncrease = 160,
-
-    /// <summary>
-    /// Manual Margin Decrease
-    /// </summary>
-    [Map("161")]
-    ManualMarginDecrease = 161,
-
-    /// <summary>
-    /// Auto Margin Increase
-    /// </summary>
-    [Map("162")]
-    AutoMarginIncrease = 162,
-
-    /// <summary>
     /// Exercised
     /// </summary>
     [Map("170")]
@@ -262,6 +232,24 @@ public enum OkxAccountBillSubType
     /// </summary>
     [Map("172")]
     ExpiredOTM = 172,
+
+    /// <summary>
+    /// Delivery Long
+    /// </summary>
+    [Map("112")]
+    DeliveryLong = 112,
+
+    /// <summary>
+    /// Delivery Short
+    /// </summary>
+    [Map("113")]
+    DeliveryShort = 113,
+
+    /// <summary>
+    /// Delivery Exercise Clawback
+    /// </summary>
+    [Map("117")]
+    DeliveryExerciseClawback = 117,
 
     /// <summary>
     /// Funding Fee Expense
@@ -336,28 +324,28 @@ public enum OkxAccountBillSubType
     BlockTradeCloseShort = 209,
 
     /// <summary>
-    /// Manual Borrowing
+    /// Manual Borrowing of quick margin
     /// </summary>
     [Map("210")]
-    ManualBorrowing = 210,
+    ManualBorrowingOfQuickMargin = 210,
 
     /// <summary>
-    /// Manual Repayment
+    /// Manual Repayment of quick margin
     /// </summary>
     [Map("211")]
-    ManualRepayment = 211,
+    ManualRepaymentOfQuickMargin = 211,
 
     /// <summary>
-    /// Auto Borrow
+    /// Auto Borrow of quick margin
     /// </summary>
     [Map("212")]
-    AutoBorrow = 212,
+    AutoBorrowOfQuickMargin = 212,
 
     /// <summary>
-    /// Auto Repay
+    /// Auto Repay of quick margin
     /// </summary>
     [Map("213")]
-    AutoRepay = 213,
+    AutoRepayOfQuickMargin = 213,
 
     /// <summary>
     /// Transfer in when using USDT to buy OPTION
@@ -370,6 +358,18 @@ public enum OkxAccountBillSubType
     /// </summary>
     [Map("221")]
     TransferOutWhenUsingUsdtToBuyOption = 221,
+
+    /// <summary>
+    /// Repay Forcibly
+    /// </summary>
+    [Map("16")]
+    RepayForcibly = 16,
+
+    /// <summary>
+    /// Repay Interest By Borrowing Forcibly
+    /// </summary>
+    [Map("17")]
+    RepayInterestByBorrowingForcibly = 17,
 
     /// <summary>
     /// Repayment Transfer In
@@ -410,8 +410,21 @@ public enum OkxAccountBillSubType
     /// <summary>
     /// Profit Sharing Income
     /// </summary>
+    [Obsolete]
     [Map("252")]
     ProfitSharingIncome = 252,
+
+    /// <summary>
+    /// SPOT profit sharing expenses
+    /// </summary>
+    [Map("280")]
+    SpotProfitSharingExpenses = 280,
+
+    /// <summary>
+    /// SPOT profit sharing refund
+    /// </summary>
+    [Map("281")]
+    SpotProfitSharingRefund = 281,
 
     /// <summary>
     /// SpreadTradingBuy
@@ -448,18 +461,6 @@ public enum OkxAccountBillSubType
     /// </summary>
     [Map("275")]
     SpreadTradingCloseShort = 275,
-
-    /// <summary>
-    /// SPOT profit sharing expenses
-    /// </summary>
-    [Map("280")]
-    SpotProfitSharingExpenses = 280,
-
-    /// <summary>
-    /// SPOT profit sharing refund
-    /// </summary>
-    [Map("281")]
-    SpotProfitSharingRefund = 281,
 
     /// <summary>
     /// Copy trade automatic transfer in
@@ -531,5 +532,59 @@ public enum OkxAccountBillSubType
     /// To structured settlements
     /// </summary>
     [Map("299")]
-    ToStructuredSettlements = 299
+    ToStructuredSettlements = 299,
+
+    /// <summary>
+    /// Manual borrow
+    /// </summary>
+    [Map("306")]
+    ManualBorrow = 306,
+
+    /// <summary>
+    /// AutoBorrow
+    /// </summary>
+    [Map("307")]
+    AutoBorrow = 307,
+
+    /// <summary>
+    /// ManualRepay
+    /// </summary>
+    [Map("308")]
+    ManualRepay = 308,
+
+    /// <summary>
+    /// Auto repay
+    /// </summary>
+    [Map("309")]
+    AutoRepay = 309,
+
+    /// <summary>
+    /// Auto offset
+    /// </summary>
+    [Map("312")]
+    AutoOffset = 312,
+
+    /// <summary>
+    /// Convert in
+    /// </summary>
+    [Map("318")]
+    ConvertIn = 318,
+
+    /// <summary>
+    /// Convert out
+    /// </summary>
+    [Map("319")]
+    ConvertOut = 319,
+
+    /// <summary>
+    /// Simple buy
+    /// </summary>
+    [Map("320")]
+    SimpleBuy = 320,
+
+    /// <summary>
+    /// Simple sell
+    /// </summary>
+    [Map("321")]
+    SimpleSell = 321,
 }

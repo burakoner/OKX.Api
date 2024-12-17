@@ -73,6 +73,13 @@ public record OkxFinancialOnChainEarnOffer
     /// </summary>
     [JsonProperty("redeemPeriod")]
     public List<string> RedeemPeriod { get; set; } = [];
+
+    /// <summary>
+    /// Fast redemption daily limit
+    /// If fast redemption is not supported, it will return ''.
+    /// </summary>
+    [JsonProperty("fastRedemptionDailyLimit")]
+    public decimal? FastRedemptionDailyLimit { get; set; }
 }
 
 /// <summary>
