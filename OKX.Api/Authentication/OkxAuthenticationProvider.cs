@@ -30,7 +30,8 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
         uri = uri.SetParameters(query, serialization);
 
         // Signature
-        var time = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.sssZ");
+        // var time = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.sssZ");
+        var time = GetTimestamp(apiClient).ToString("yyyy-MM-ddTHH:mm:ss.sssZ");
         var signtext = time + method.Method.ToUpper() + uri.PathAndQuery.Trim('?') + bodyContent;
         var signature = Base64Encode(encryptor.ComputeHash(Encoding.UTF8.GetBytes(signtext)));
 

@@ -88,7 +88,7 @@ internal class Program
         var account_15 = await api.Account.GetMaximumAvailableAmountAsync("BTC-USDT", OkxTradeMode.Isolated);
         var account_16 = await api.Account.SetMarginAmountAsync("BTC-USDT", OkxTradePositionSide.Long, OkxAccountMarginAddReduce.Add, 100.0m);
         var account_17 = await api.Account.GetLeverageEstimatedInformationAsync(OkxInstrumentType.Futures, OkxAccountMarginMode.Cross, 10);
-        var account_18 = await api.Account.GetMaximumLoanAmountAsync("BTC-USDT", OkxAccountMarginMode.Cross);
+        var account_18 = await api.Account.GetMaximumLoanAmountAsync(OkxAccountMarginMode.Cross, "BTC-USDT");
         var account_19 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Spot, OkxInstrumentRuleType.Normal);
         var account_20 = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Futures, OkxInstrumentRuleType.Normal);
         var account_21 = await api.Account.GetInterestAccruedAsync();
