@@ -11,11 +11,6 @@ public class OkxWebSocketApiOptions : WebSocketApiClientOptions
     public bool DemoTradingService { get; set; } = false;
     
     /// <summary>
-    /// Broker ID
-    /// </summary>
-    public string BrokerId { get; set; } = OkxConstants.BrokerId;
-
-    /// <summary>
     /// Constructor
     /// </summary>
     public OkxWebSocketApiOptions()
