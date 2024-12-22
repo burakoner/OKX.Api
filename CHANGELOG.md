@@ -1,5 +1,7 @@
 ## Change Log & Release Notes
 
+* Version 5.4.1222 - 22 Dec 2024
+
 * Version 5.4.1221 - 21 Dec 2024
 
 * Version 5.4.1219 - 19 Dec 2024
