@@ -66,7 +66,7 @@ public record OkxTradeOrder
     /// pxUsd: Place an order based on pxUsd, in the unit of USD (the unit for the request parameter px is USD)
     /// </summary>
     [JsonProperty("pxType")]
-    public OkxTradeOptionsPriceType OptionsPriceType { get; set; }
+    public OkxTradeOptionsPriceType? OptionsPriceType { get; set; }
 
     /// <summary>
     /// Quantity to buy or sell
