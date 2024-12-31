@@ -324,7 +324,7 @@ public record OkxAlgoOrder
     /// Only applicable to trigger order, trailing order and twap order
     /// </summary>
     [JsonProperty("isTradeBorrowMode")]
-    public bool IsTradeBorrowMode { get; set; }
+    public bool? IsTradeBorrowMode { get; set; }
 
     /// <summary>
     /// Chase type. Only applicable to chase order.

@@ -1,5 +1,8 @@
 ## Change Log & Release Notes
 
+* Version 5.4.1231 - 31 Dec 2024
+  * Fixed issue [#75](https://github.com/burakoner/OKX.Api/issues/75)
+
 * Version 5.4.1223 - 23 Dec 2024
   * Fixed issue [#74](https://github.com/burakoner/OKX.Api/issues/74)
 
