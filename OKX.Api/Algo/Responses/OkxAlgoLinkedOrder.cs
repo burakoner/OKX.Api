@@ -9,5 +9,5 @@ public record OkxAlgoLinkedOrder
     /// Order ID
     /// </summary>
     [JsonProperty("ordId")]
-    public long OrderId { get; set; }
+    public long? OrderId { get; set; }
 }

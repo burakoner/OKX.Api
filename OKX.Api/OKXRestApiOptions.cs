@@ -93,7 +93,6 @@ public class OkxRestApiOptions : RestApiClientOptions
             AcceptMimeType = RestApiConstants.JSON_CONTENT_HEADER,
             RequestTimeout = TimeSpan.FromSeconds(30),
             EncodeQueryString = true,
-            BodyFormat = RestBodyFormat.Json,
         };
     }
 }
