@@ -408,7 +408,7 @@ public record OkxTradeOrderAttachedAlgoOrder
     /// Whether to enable Cost-price SL. Only applicable to SL order of split TPs.
     /// </summary>
     [JsonProperty("amendPxOnTriggerType")]
-    public string AmendPriceOnTriggerType { get; set; } = string.Empty;
+    public bool? AmendPriceOnTriggerType { get; set; }
     
     /// <summary>
     /// The error code when failing to place TP/SL order, e.g. 51020

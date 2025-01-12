@@ -44,7 +44,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5MarketIndexCandlesHistory = "api/v5/market/history-index-candles";
     private const string v5MarketMarkPriceCandles = "api/v5/market/mark-price-candles";
     private const string v5MarketMarkPriceCandlesHistory = "api/v5/market/history-mark-price-candles";
-    private const string v5MarketOpenOracle = "api/v5/market/open-oracle";
     private const string v5MarketExchangeRate = "api/v5/market/exchange-rate";
     private const string v5MarketIndexComponents = "api/v5/market/index-components";
     private const string v5PublicEconomicCalendar = "api/v5/public/economic-calendar";
@@ -995,16 +994,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
         return result;
-    }
-
-    /// <summary>
-    /// Get the crypto price of signing using Open Oracle smart contract.
-    /// </summary>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxPublicOracle>> GetOracleAsync(CancellationToken ct = default)
-    {
-        return ProcessOneRequestAsync<OkxPublicOracle>(GetUri(v5MarketOpenOracle), HttpMethod.Get, ct);
     }
 
     /// <summary>

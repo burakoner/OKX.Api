@@ -71,7 +71,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialEthStakingHistory>>> GetHistoryAsync(
-        OkxFinancialEthStakingType type,
+        OkxFinancialEthStakingType? type = null,
         OkxFinancialEthStakingStatus? status = null,
         long? after = null,
         long? before = null,
@@ -79,7 +79,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
-        parameters.AddEnum("type", type);
+        parameters.AddOptionalEnum("type", type);
         parameters.AddOptionalEnum("status", status);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());

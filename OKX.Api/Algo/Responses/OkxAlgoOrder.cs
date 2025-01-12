@@ -281,7 +281,7 @@ public record OkxAlgoOrder
     /// 1: Enable
     /// </summary>
     [JsonProperty("amendPxOnTriggerType")]
-    public bool AmendPriceOnTriggerType { get; set; }
+    public bool? AmendPriceOnTriggerType { get; set; }
 
     /// <summary>
     /// Attached SL/TP orders info. Applicable to Spot and futures mode/Multi-currency margin/Portfolio margin

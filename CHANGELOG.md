@@ -1,5 +1,9 @@
 ## Change Log & Release Notes
 
+* Version 5.5.0112 - 12 Jan 2025
+  * Synced endpoints & models with the latest API documentation (2025-01-07).
+  * Fixed issue [#77](https://github.com/burakoner/OKX.Api/issues/77)
+
 * Version 5.5.0101 - 31 Dec 2024
   * ApiSharp 3.3.1 Update
   * Fixed issue [#76](https://github.com/burakoner/OKX.Api/issues/76)
