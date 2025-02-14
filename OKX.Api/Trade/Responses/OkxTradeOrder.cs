@@ -169,7 +169,7 @@ public record OkxTradeOrder
     /// Client-supplied Algo ID when placing order attaching TP/SL.
     /// </summary>
     [JsonProperty("attachAlgoClOrdId")]
-    public long? AttachedAlgoClientOrderId { get; set; }
+    public string? AttachedAlgoClientOrderId { get; set; }
 
     /// <summary>
     /// Take-profit trigger price.
@@ -354,7 +354,7 @@ public record OkxTradeOrderAttachedAlgoOrder
     /// It will be posted to algoClOrdId when placing TP/SL order once the general order is filled completely.
     /// </summary>
     [JsonProperty("attachAlgoClOrdId")]
-    public string AttachedAlgoClientOrderId { get; set; } = string.Empty;
+    public string? AttachedAlgoClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
     /// TP order kind
