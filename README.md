@@ -157,13 +157,6 @@ var account_37 = await api.Account.GetVipInterestDeductedDataAsync("USDT");
 var account_38 = await api.Account.GetVipLoanOrdersAsync();
 var account_39 = await api.Account.GetVipLoanOrderDetailsAsync();
 var account_40 = await api.Account.GetInterestLimitsAsync();
-var account_41 = await api.Account.GetFixedLoanBorrowingLimitAsync();
-var account_42 = await api.Account.GetFixedLoanBorrowingQuoteAsync(OkxAccountFixedLoanBorrowingType.Normal);
-var account_43 = await api.Account.PlaceFixedLoanBorrowingOrderAsync("", 0.0m, 0.0m, "30D");
-var account_44 = await api.Account.AmendFixedLoanBorrowingOrderAsync(1_000_001L);
-var account_45 = await api.Account.RenewFixedLoanBorrowingOrderAsync(1_000_001L);
-var account_46 = await api.Account.RepayFixedLoanBorrowingOrderAsync(1_000_001L);
-var account_47 = await api.Account.GetFixedLoanBorrowingOrdersAsync(1_000_001L);
 var account_48 = await api.Account.PositionBuilderAsync();
 var account_49 = await api.Account.SetRiskOffsetAmountAsync("BTC", 1.0M);
 var account_50 = await api.Account.GetGreeksAsync();
@@ -485,15 +478,6 @@ var flexible_04 = await api.Financial.FlexibleSimpleEarn.SetLendingRateAsync("",
 var flexible_05 = await api.Financial.FlexibleSimpleEarn.GetLendingHistoryAsync();
 var flexible_06 = await api.Financial.FlexibleSimpleEarn.GetPublicBorrowSummaryAsync();
 var flexible_07 = await api.Financial.FlexibleSimpleEarn.GetPublicBorrowHistoryAsync();
-
-// Financial Product -> Simple Earn Fixed Methods (Signed)
-var fixed_01 = await api.Financial.FixedSimpleEarn.GetLendingOffersAsync();
-var fixed_02 = await api.Financial.FixedSimpleEarn.GetLendingApyHistoryAsync();
-var fixed_03 = await api.Financial.FixedSimpleEarn.GetPendingLendingVolumeAsync();
-var fixed_04 = await api.Financial.FixedSimpleEarn.PlaceOrderAsync("", 1_000.0m, 1.0m, "");
-var fixed_05 = await api.Financial.FixedSimpleEarn.AmendOrderAsync(1_000_000L);
-var fixed_06 = await api.Financial.FixedSimpleEarn.GetOrdersAsync();
-var fixed_07 = await api.Financial.FixedSimpleEarn.GetSubOrdersAsync();
 
 // Affiliate Methods (Signed)
 var affiliate_01 = await api.Affiliate.GetInviteeAsync(1_000_000L);

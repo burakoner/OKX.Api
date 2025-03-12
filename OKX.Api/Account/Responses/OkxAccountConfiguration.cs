@@ -78,13 +78,6 @@ public record OkxAccountConfiguration
     public OkxAccountIsolatedMarginMode MarginIsolatedMarginTradingMode { get; set; }
 
     /// <summary>
-    /// Risk offset type
-    /// Only applicable to Portfolio margin
-    /// </summary>
-    [JsonProperty("spotOffsetType")]
-    public OkxAccountRiskOffsetType? RiskOffsetType { get; set; }
-
-    /// <summary>
     /// Role type.
     /// </summary>
     [JsonProperty("roleType")]

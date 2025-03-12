@@ -37,13 +37,6 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountVipLoanOrderList = "api/v5/account/vip-loan-order-list";
     private const string v5AccountVipLoanOrderDetail = "api/v5/account/vip-loan-order-detail";
     private const string v5AccountInterestLimits = "api/v5/account/interest-limits";
-    private const string v5AccountFixedLoanBorrowingLimit = "api/v5/account/fixed-loan/borrowing-limit";
-    private const string v5AccountFixedLoanBorrowingQuote = "api/v5/account/fixed-loan/borrowing-quote";
-    private const string v5AccountFixedLoanBorrowingOrder = "api/v5/account/fixed-loan/borrowing-order";
-    private const string v5AccountFixedLoanAmendBorrowingOrder = "api/v5/account/fixed-loan/amend-borrowing-order";
-    private const string v5AccountFixedLoanManualReborrow = "api/v5/account/fixed-loan/manual-reborrow";
-    private const string v5AccountFixedLoanRepayBorrowingOrder = "api/v5/account/fixed-loan/repay-borrowing-order";
-    private const string v5AccountFixedLoanBorrowingOrdersList = "api/v5/account/fixed-loan/borrowing-orders-list";
     // api/v5/account/spot-manual-borrow-repay
     // api/v5/account/set-auto-repay
     // api/v5/account/spot-borrow-repay-history
@@ -917,203 +910,6 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountInterestLimits>(GetUri(v5AccountInterestLimits), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    /// <summary>
-    /// Get fixed loan borrow limit
-    /// </summary>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxAccountFixedLoanBorrowingLimit>> GetFixedLoanBorrowingLimitAsync(CancellationToken ct = default)
-    {
-        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingLimit>(GetUri(v5AccountFixedLoanBorrowingLimit), HttpMethod.Get, ct, signed: true);
-    }
-
-    /// <summary>
-    /// Get fixed loan borrow quote
-    /// </summary>
-    /// <param name="type">Type</param>
-    /// <param name="currency">Borrowing currency, e.g. BTC. if type=normal, the parameter is required.</param>
-    /// <param name="amount">Borrowing amount. if type=normal, the parameter is required.</param>
-    /// <param name="maximumRate">Maximum acceptable borrow rate, in decimal. e.g. 0.01 represents 1%. if type=normal, the parameter is required.</param>
-    /// <param name="term">Fixed term for borrowing order. 30D：30 Days. if type=normal, the parameter is required.</param>
-    /// <param name="orderId">Order ID. if type=reborrow, the parameter is required.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    public Task<RestCallResult<OkxAccountFixedLoanBorrowingQuote>> GetFixedLoanBorrowingQuoteAsync(
-    OkxAccountFixedLoanBorrowingType type,
-    string? currency = null,
-    decimal? amount = null,
-    decimal? maximumRate = null,
-    string? term = null,
-    long? orderId = null,
-    CancellationToken ct = default)
-    {
-        if (type == OkxAccountFixedLoanBorrowingType.Normal)
-        {
-            if (string.IsNullOrEmpty(currency)) throw new ArgumentNullException($"{nameof(currency)} is required for Normal Borrows");
-            if (amount is null) throw new ArgumentNullException($"{nameof(amount)} is required for Normal Borrows");
-            if (maximumRate is null) throw new ArgumentNullException($"{nameof(maximumRate)} is required for Normal Borrows");
-            if (string.IsNullOrEmpty(term)) throw new ArgumentNullException($"{nameof(term)} is required for Normal Borrows");
-        }
-        else if (type == OkxAccountFixedLoanBorrowingType.Reborrow)
-        {
-            if (orderId is null) throw new ArgumentNullException($"{nameof(orderId)} is required for Reborrows");
-        }
-
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("type", type);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("amt", amount?.ToOkxString());
-        parameters.AddOptional("maxRate", maximumRate?.ToOkxString());
-        parameters.AddOptional("term", term);
-        parameters.AddOptional("ordId", orderId?.ToOkxString());
-
-        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingQuote>(GetUri(v5AccountFixedLoanBorrowingQuote), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Place fixed loan borrowing order
-    /// For new borrowing orders, they belong to the IOC (immediately close and cancel the remaining) type. For renewal orders, they belong to the FOK (Fill-or-kill) type.
-    /// Order book may refer to Get lending volume (public).
-    /// </summary>
-    /// <param name="currency">Borrowing currency, e.g. BTC</param>
-    /// <param name="amount">Borrowing amount</param>
-    /// <param name="maximumRate">Maximum acceptable borrow rate, in decimal. e.g. 0.01 represents 1%.</param>
-    /// <param name="term">Fixed term for borrowing order. 30D：30 Days</param>
-    /// <param name="reborrow">Whether or not auto-renew when the term is due</param>
-    /// <param name="reborrowRate">Auto-renew borrowing rate, in decimal. e.g. 0.01 represents 1%. If reborrow is true, the parameter is required.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<RestCallResult<long?>> PlaceFixedLoanBorrowingOrderAsync(
-    string currency,
-    decimal amount,
-    decimal maximumRate,
-    string term,
-    bool reborrow = false,
-    decimal? reborrowRate = null,
-    CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection
-        {
-            { "ccy", currency },
-            { "amt", amount.ToOkxString() },
-            { "maxRate", maximumRate.ToOkxString() },
-            { "term", term },
-        };
-        parameters.AddOptional("reborrow", reborrow);
-        parameters.AddOptional("reborrowRate", reborrowRate?.ToOkxString());
-
-        var result = await ProcessOneRequestAsync<OkxAccountOrderId>(GetUri(v5AccountFixedLoanBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
-    }
-
-    /// <summary>
-    /// Amend fixed loan borrowing order
-    /// </summary>
-    /// <param name="orderId">Borrowing order ID, e.g. BTC</param>
-    /// <param name="reborrow">Whether or not reborrowing when the term is due. Default is false.</param>
-    /// <param name="maximumRate">Maximum acceptable auto-renew borrow rate for borrowing order, in decimal. e.g. 0.01 represents 1%. If reborrow is true, the parameter is required.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<RestCallResult<long?>> AmendFixedLoanBorrowingOrderAsync(
-    long orderId,
-    bool? reborrow = null,
-    decimal? maximumRate = null,
-    CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection
-        {
-            { "ordId", orderId },
-        };
-        parameters.AddOptional("reborrow", reborrow);
-        parameters.AddOptional("renewMaxRate", maximumRate?.ToOkxString());
-
-        var result = await ProcessOneRequestAsync<OkxAccountOrderId>(GetUri(v5AccountFixedLoanAmendBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
-    }
-
-    /// <summary>
-    /// Manual renew fixed loan borrowing order
-    /// </summary>
-    /// <param name="orderId">Borrowing order ID</param>
-    /// <param name="maximumRate">Maximum acceptable auto-renew borrow rate for borrowing order, in decimal. e.g. 0.01 represents 1%.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<RestCallResult<long?>> RenewFixedLoanBorrowingOrderAsync(
-    long orderId,
-    decimal? maximumRate = null,
-    CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection
-        {
-            { "ordId", orderId },
-            { "maxRate", maximumRate.ToOkxString() },
-        };
-
-        var result = await ProcessOneRequestAsync<OkxAccountOrderId>(GetUri(v5AccountFixedLoanManualReborrow), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
-    }
-
-    /// <summary>
-    /// Repay fixed loan borrowing order
-    /// </summary>
-    /// <param name="orderId">Borrowing order ID</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<RestCallResult<long?>> RepayFixedLoanBorrowingOrderAsync(
-    long orderId,
-    CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection
-        {
-            { "ordId", orderId },
-        };
-
-        var result = await ProcessOneRequestAsync<OkxAccountOrderId>(GetUri(v5AccountFixedLoanRepayBorrowingOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
-    }
-
-    // TODO: Convert fixed loan to market loan
-    // TODO: Reduce liabilities for fixed loan
-
-    /// <summary>
-    /// Get fixed loan borrow order list
-    /// </summary>
-    /// <param name="orderId">Borrowing order ID</param>
-    /// <param name="currency">Borrowing currency, e.g. BTC</param>
-    /// <param name="state">State</param>
-    /// <param name="term">Borrowing term, e.g. 30D: 30 Days</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested ordId</param>
-    /// <param name="before">Pagination of data to return records newer than the requested ordId</param>
-    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxAccountFixedLoanBorrowingOrderDetails>> GetFixedLoanBorrowingOrdersAsync(
-    long? orderId = null,
-    string? currency = null,
-    OkxAccountFixedLoanBorrowingOrderState? state = null,
-    string? term = null,
-    long? after = null,
-    long? before = null,
-    int limit = 100,
-    CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection();
-        parameters.AddOptional("ordId", orderId);
-        parameters.AddOptional("after", currency);
-        parameters.AddOptionalEnum("state", state);
-        parameters.AddOptional("term", term);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
-
-        return ProcessOneRequestAsync<OkxAccountFixedLoanBorrowingOrderDetails>(GetUri(v5AccountFixedLoanBorrowingOrdersList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
     // TODO
     // api/v5/account/spot-manual-borrow-repay
     // api/v5/account/set-auto-repay
@@ -1123,24 +919,27 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// Calculates portfolio margin information for virtual position/assets or current position of the user.
     /// You can add up to 200 virtual positions and 200 virtual assets in one request.
     /// </summary>
-    /// <param name="importExistingPositionsAndAssets">Whether import existing positions and assets. The default is true</param>
-    /// <param name="spotOffsetType">Spot-derivatives risk offset mode</param>
+    /// <param name="accountLevel">Switch to account mode</param>
+    /// <param name="importExisting">Whether import existing positions and assets. The default is true</param>
+    /// <param name="leverage">Cross margin leverage in Multi-currency margin mode, the default is 1. If the allowed leverage is exceeded, set according to the maximum leverage. Only applicable to Multi-currency margin</param>
     /// <param name="simulatedPositions">List of simulated positions</param>
     /// <param name="simulatedAssets">List of simulated assets</param>
     /// <param name="greeksType">Greeks type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountPositionBuilder>>> PositionBuilderAsync(
-    bool importExistingPositionsAndAssets = true,
-    OkxAccountRiskOffsetType spotOffsetType = OkxAccountRiskOffsetType.DerivativesOnly,
+    OkxAccountLevel? accountLevel = null,
+    bool importExisting = true,
+    decimal? leverage = null,
     IEnumerable<OkxAccountSimulatedPosition>? simulatedPositions = null,
     IEnumerable<OkxAccountSimulatedAsset>? simulatedAssets = null,
     OkxAccountGreeksType? greeksType = OkxAccountGreeksType.BlackScholesGreeksInDollars,
     CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
-        parameters.AddOptional("inclRealPosAndEq", importExistingPositionsAndAssets);
-        parameters.AddOptionalEnum("spotOffsetType", spotOffsetType);
+        parameters.AddOptionalEnum("acctLv", accountLevel);
+        parameters.AddOptional("lever", leverage?.ToOkxString());
+        parameters.AddOptional("inclRealPosAndEq", importExisting);
         parameters.AddOptional("simPos", simulatedPositions);
         parameters.AddOptional("simAsset", simulatedAssets);
         parameters.AddOptionalEnum("greeksType", greeksType);

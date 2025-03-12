@@ -204,4 +204,11 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonProperty("maxStopSz")]
     public decimal? MaximumStopMarketSize { get; set; }
+
+    /// <summary>
+    /// Whether daily settlement for expiry feature is enabled
+    /// Applicable to FUTURES cross
+    /// </summary>
+    [JsonProperty("futureSettlement")]
+    public bool? IsFutureSettlement { get; set; }
 }

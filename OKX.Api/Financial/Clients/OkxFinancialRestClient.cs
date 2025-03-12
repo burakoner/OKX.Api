@@ -22,18 +22,12 @@ public class OkxFinancialRestClient
     /// </summary>
     public OkxFinancialFlexibleSimpleEarnRestClient FlexibleSimpleEarn { get; }
 
-    /// <summary>
-    /// Fixed Simple Earn Client
-    /// </summary>
-    public OkxFinancialFixedSimpleEarnRestClient FixedSimpleEarn { get; }
-
     // TODO: Flexible Loan
 
     internal OkxFinancialRestClient(OkxRestApiClient root)
     {
         EthStaking = new OkxFinancialEthStakingRestClient(root);
         OnChainEarn = new OkxFinancialOnChainEarnRestClient(root);
-        FixedSimpleEarn = new OkxFinancialFixedSimpleEarnRestClient(root);
         FlexibleSimpleEarn = new OkxFinancialFlexibleSimpleEarnRestClient(root);
     }
 
@@ -45,7 +39,6 @@ public class OkxFinancialRestClient
     {
         EthStaking.SetApiCredentials(credentials);
         OnChainEarn.SetApiCredentials(credentials);
-        FixedSimpleEarn.SetApiCredentials(credentials);
         FlexibleSimpleEarn.SetApiCredentials(credentials);
     }
 }

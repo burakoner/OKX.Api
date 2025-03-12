@@ -42,6 +42,18 @@ public record OkxAccountPositionBuilder
     public decimal MarginRatio { get; set; }
 
     /// <summary>
+    /// UPL for the account
+    /// </summary>
+    [JsonProperty("upl")]
+    public decimal UPL { get; set; }
+
+    /// <summary>
+    /// Leverage of the account
+    /// </summary>
+    [JsonProperty("acctLever")]
+    public decimal AccountLeverage { get; set; }
+
+    /// <summary>
     /// Update time for the account, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("ts")]
@@ -90,12 +102,6 @@ public record OkxAccountPositionBuilderAsset
     public decimal SpotInUse { get; set; }
 
     /// <summary>
-    /// Borrow in use
-    /// </summary>
-    [JsonProperty("borrowMmr")]
-    public decimal BorrowMmr { get; set; }
-
-    /// <summary>
     /// Borrow IMR
     /// </summary>
     [JsonProperty("borrowImr")]
@@ -132,46 +138,58 @@ public record OkxAccountPositionBuilderRiskUnit
     public decimal IMR { get; set; }
 
     /// <summary>
-    /// MR1
+    /// Stress testing value of spot and volatility (all derivatives, and spot trading in spot-derivatives risk offset mode)
     /// </summary>
     [JsonProperty("mr1")]
     public decimal MR1 { get; set; }
 
     /// <summary>
-    /// MR2
+    /// Stress testing value of time value of money (TVM) (for options)
     /// </summary>
     [JsonProperty("mr2")]
     public decimal MR2 { get; set; }
 
     /// <summary>
-    /// MR3
+    /// Stress testing value of volatility span (for options)
     /// </summary>
     [JsonProperty("mr3")]
     public decimal MR3 { get; set; }
 
     /// <summary>
-    /// MR4
+    /// Stress testing value of basis (for all derivatives)
     /// </summary>
     [JsonProperty("mr4")]
     public decimal MR4 { get; set; }
 
     /// <summary>
-    /// MR5
+    /// Stress testing value of interest rate risk (for options)
     /// </summary>
     [JsonProperty("mr5")]
     public decimal MR5 { get; set; }
 
     /// <summary>
-    /// MR6
+    /// Stress testing value of extremely volatile markets (for all derivatives, and spot trading in spot-derivatives risk offset mode)
     /// </summary>
     [JsonProperty("mr6")]
     public decimal MR6 { get; set; }
 
     /// <summary>
-    /// MR7
+    /// Stress testing value of position reduction cost (for all derivatives)
     /// </summary>
     [JsonProperty("mr7")]
     public decimal MR7 { get; set; }
+
+    /// <summary>
+    /// Borrowing MMR/IMR
+    /// </summary>
+    [JsonProperty("mr8")]
+    public decimal MR8 { get; set; }
+
+    /// <summary>
+    /// USDT-USDC-USD hedge risk
+    /// </summary>
+    [JsonProperty("mr9")]
+    public decimal MR9 { get; set; }
 
     /// <summary>
     /// MR1 scenarios
@@ -220,6 +238,12 @@ public record OkxAccountPositionBuilderRiskUnit
     /// </summary>
     [JsonProperty("portfolios")]
     public List<OkxAccountPositionBuilderRiskUnitPortfolio> Portfolios { get; set; } = [];
+
+    /// <summary>
+    /// Position info. Only applicable to Multi-currency margin
+    /// </summary>
+    [JsonProperty("positions")]
+    public List<OkxAccountPositionBuilderRiskUnitPosition> Positions { get; set; } = [];
 }
 
 /// <summary>
@@ -312,10 +336,34 @@ public record OkxAccountPositionBuilderRiskUnitPortfolio
     public decimal Amount { get; set; }
 
     /// <summary>
+    /// Position side
+    /// </summary>
+    [JsonProperty("posSide")]
+    public OkxTradePositionSide PositionSide { get; set; }
+
+    /// <summary>
+    /// Average open price
+    /// </summary>
+    [JsonProperty("avgPx")]
+    public decimal? AverageOpenPrice { get; set; }
+
+    /// <summary>
+    /// Mark price
+    /// </summary>
+    [JsonProperty("markPx")]
+    public decimal? MarkPrice { get; set; }
+
+    /// <summary>
+    /// Float P&amp;L
+    /// </summary>
+    [JsonProperty("floatPnl")]
+    public decimal? FloatPnl { get; set; }
+
+    /// <summary>
     /// Notional USD
     /// </summary>
     [JsonProperty("notionalUsd")]
-    public decimal NotionalUsd { get; set; }
+    public decimal? NotionalUsd { get; set; }
 
     /// <summary>
     /// Delta
@@ -340,6 +388,84 @@ public record OkxAccountPositionBuilderRiskUnitPortfolio
     /// </summary>
     [JsonProperty("vega")]
     public decimal? Vega { get; set; }
+
+    /// <summary>
+    /// Is real position
+    /// </summary>
+    [JsonProperty("isRealPos")]
+    public bool IsRealPosition { get; set; }
+}
+
+/// <summary>
+/// OKX Position Builder Risk Unit Position
+/// </summary>
+public record OkxAccountPositionBuilderRiskUnitPosition
+{
+    /// <summary>
+    /// Instrument ID
+    /// </summary>
+    [JsonProperty("instId")]
+    public string InstrumentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Instrument Type
+    /// </summary>
+    [JsonProperty("instType")]
+    public OkxInstrumentType InstrumentType { get; set; }
+
+    /// <summary>
+    /// Amount
+    /// </summary>
+    [JsonProperty("amt")]
+    public decimal Amount { get; set; }
+
+    /// <summary>
+    /// Position side
+    /// </summary>
+    [JsonProperty("posSide")]
+    public OkxTradePositionSide PositionSide { get; set; }
+
+    /// <summary>
+    /// Average open price
+    /// </summary>
+    [JsonProperty("avgPx")]
+    public decimal? AverageOpenPrice { get; set; }
+
+    /// <summary>
+    /// Mark price
+    /// </summary>
+    [JsonProperty("markPx")]
+    public decimal? MarkPrice { get; set; }
+
+    /// <summary>
+    /// IMR
+    /// </summary>
+    [JsonProperty("floatPnl")]
+    public decimal? FloatPnl { get; set; }
+
+    /// <summary>
+    /// Notional USD
+    /// </summary>
+    [JsonProperty("imr")]
+    public decimal? IMR { get; set; }
+
+    /// <summary>
+    /// Margin ratio
+    /// </summary>
+    [JsonProperty("mgnRatio")]
+    public decimal? MarginRatio { get; set; }
+
+    /// <summary>
+    /// Leverage
+    /// </summary>
+    [JsonProperty("lever")]
+    public decimal? Leverage { get; set; }
+
+    /// <summary>
+    /// Notional in USD
+    /// </summary>
+    [JsonProperty("notionalUsd")]
+    public decimal? NotionalUsd { get; set; }
 
     /// <summary>
     /// Is real position

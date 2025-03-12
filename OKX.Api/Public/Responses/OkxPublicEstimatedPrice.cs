@@ -18,6 +18,12 @@ public record OkxPublicEstimatedPrice
     public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
+    /// Type
+    /// </summary>
+    [JsonProperty("settleType")]
+    public OkxPublicSettlementType? SettlementType { get; set; }
+
+    /// <summary>
     /// Estimated Price
     /// </summary>
     [JsonProperty("settlePx")]

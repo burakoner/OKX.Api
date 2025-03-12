@@ -587,4 +587,64 @@ public enum OkxAccountBillSubType
     /// </summary>
     [Map("321")]
     SimpleSell = 321,
+
+    /// <summary>
+    /// Margin transfer in isolated margin position
+    /// </summary>
+    [Map("332")]
+    MarginTransferInIsolatedMarginPosition = 332,
+
+    /// <summary>
+    /// Margin transfer out isolated margin position
+    /// </summary>
+    [Map("333")]
+    MarginTransferOutIsolatedMarginPosition = 333,
+
+    /// <summary>
+    /// Margin loss when closing isolated margin position
+    /// </summary>
+    [Map("334")]
+    MarginLossWhenClosingIsolatedMarginPosition = 334,
+
+    /// <summary>
+    /// [Credit line] Forced repayment
+    /// </summary>
+    [Map("348")]
+    CreditLineForcedRepayment = 348,
+
+    /// <summary>
+    /// [Credit line] Forced repayment refund
+    /// </summary>
+    [Map("350")]
+    CreditLineForcedRepaymentRefund = 350,
+
+    /// <summary>
+    /// [Credit line] Forced repayment penalty fee deduction
+    /// </summary>
+    [Map("352")]
+    CreditLineForcedRepaymentPenaltyFeeDeduction = 352,
+
+    /// <summary>
+    /// [Credit line] Forced repayment penalty fee(pending deduction)
+    /// </summary>
+    [Map("353")]
+    CreditLineForcedRepaymentPenaltyFeePendingDeduction = 353,
+
+    /// <summary>
+    /// Settlement PnL
+    /// </summary>
+    [Map("355")]
+    SettlementPnL = 355,
+
+    /// <summary>
+    /// [Credit line] Auto conversion(pending deduction)
+    /// </summary>
+    [Map("356")]
+    CreditLineAutoConversionPendingDeduction = 356,
+
+    /// <summary>
+    /// [Credit line] Auto Conversion Transfer to Funding
+    /// </summary>
+    [Map("357")]
+    CreditLineAutoConversionTransferToFunding = 357,
 }

@@ -40,14 +40,18 @@ public abstract class OkxBaseRestClient : RestApiClient
     protected override Task<ServerError> TryParseErrorAsync(JToken error)
     {
         if (!error.HasValues)
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             return Task.FromResult<ServerError>(null);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
         if (error["msg"] is not null
             && !string.IsNullOrWhiteSpace((string)error["msg"]!)
             && error["code"] is not null)
             return Task.FromResult(new ServerError((int)error["code"]!, (string)error["msg"]!));
 
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         return Task.FromResult<ServerError>(null);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
     }
     /// <inheritdoc />
     protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync() => _.Public.GetServerTimeAsync();

@@ -145,6 +145,18 @@ public enum OkxAccountBillType
     SimpleTrade = 30,
 
     /// <summary>
+    /// Loans
+    /// </summary>
+    [Map("33")]
+    Loans = 33,
+
+    /// <summary>
+    /// Settlement
+    /// </summary>
+    [Map("34")]
+    Settlement = 34,
+
+    /// <summary>
     /// Copy trader profit sharing expenses
     /// </summary>
     [Map("250")]

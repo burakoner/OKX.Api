@@ -73,6 +73,34 @@ public record OkxSubAccountTradingBalance
     public decimal? NotionalUsd { get; set; }
 
     /// <summary>
+    /// Notional value for Borrow in USD
+    /// Applicable to Spot mode/Multi-currency margin/Portfolio margin
+    /// </summary>
+    [JsonProperty("notionalUsdForBorrow")]
+    public decimal? NotionalUsdForBorrow { get; set; }
+
+    /// <summary>
+    /// Notional value of positions for Perpetual Futures in USD
+    /// Applicable to Multi-currency margin/Portfolio margin
+    /// </summary>
+    [JsonProperty("notionalUsdForSwap")]
+    public decimal? NotionalUsdForSwap { get; set; }
+
+    /// <summary>
+    /// Notional value of positions for Expiry Futures in USD
+    /// Applicable to Multi-currency margin/Portfolio margin
+    /// </summary>
+    [JsonProperty("notionalUsdForFutures")]
+    public decimal? NotionalUsdForFutures { get; set; }
+
+    /// <summary>
+    /// Notional value of positions for Option in USD
+    /// Applicable to Spot mode/Multi-currency margin/Portfolio margin
+    /// </summary>
+    [JsonProperty("notionalUsdForOption")]
+    public decimal? NotionalUsdForOption { get; set; }
+
+    /// <summary>
     /// Details
     /// </summary>
     [JsonProperty("details")]

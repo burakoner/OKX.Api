@@ -22,4 +22,10 @@ public enum OkxAccountIsolatedMarginMode
     /// </summary>
     [Map("quick_margin")]
     QuickMarginMode = 3,
+
+    /// <summary>
+    /// QuickMarginMode
+    /// </summary>
+    [Map("auto_transfers_ccy")]
+    AutoTransfersCurrency = 4,
 }

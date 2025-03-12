@@ -282,4 +282,12 @@ public record OkxAccountBalanceDetails
     /// </summary>
     [JsonProperty("totalPnlRatio")]
     public decimal? TotalPnlRatio { get; set; }
+
+    /// <summary>
+    /// true: Collateral enabled
+    /// false: Collateral disabled
+    /// Applicable to Portfolio margin
+    /// </summary>
+    [JsonProperty("collateralEnabled")]
+    public bool? IsCollateralEnabled { get; set; }
 }

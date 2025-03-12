@@ -1,5 +1,11 @@
 ## Change Log & Release Notes
 
+* Version 5.5.312 - 12 Mar 2025
+  * Synced endpoints & models with the latest API documentation (2025-03-12).
+  * Edited some models and enums.
+  * Removed Fixed Loan endpoints and models.
+  * Removed Simple Earn Fixed endpoints and models.
+
 * Version 5.5.0112 - 12 Jan 2025
   * Synced endpoints & models with the latest API documentation (2025-01-07).
   * Fixed issue [#77](https://github.com/burakoner/OKX.Api/issues/77)
@@ -35,7 +41,6 @@
   * Edited `OkxAccountRestClient.GetFixedLoanBorrowingOrdersAsync()` method: Added new parameter.
   * Edited `OkxAccountFixedLoanBorrowingOrderDetails` model: Renamed some parameters.
   * Edited `OkxSubAccountType` enum: Renamed existing options and added new options.
-  * Added `OkxTradeEasyConvertSource` enum.
   * Edited `OkxTradeRestClient.GetEasyConvertCurrenciesAsync()` method: Added new parameter.
   * Edited `OkxTradeRestClient.PlaceEasyConvertOrderAsync()` method: Added new parameter.
   * Edited `OkxPublicInstrument` model: Added some new properties.
@@ -47,6 +52,7 @@
   * Edited `OkxAccountRestClient.GetMaximumLoanAmountAsync()` method: Added new parameter.
   * Edited `OkxAlgoOrderType` enum: Added ChaseOrder option.
   * Added ChaseOrder functionality to `OkxAlgoRestClient.PlaceAlgoOrderAsync()` method.
+  * Added `OkxTradeEasyConvertSource` enum.
   * Added `OkxAlgoChaseType` enum.
   * Edited `OkxAlgoOrder` model: Added some new properties.
   * Edited `OkxBlockRestClient.GetTradesAsync()` method: Removed state parameter and added isSuccessful parameter.

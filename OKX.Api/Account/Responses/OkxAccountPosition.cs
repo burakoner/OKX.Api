@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Account;
+﻿using System.Diagnostics;
+using System.Reflection;
+
+namespace OKX.Api.Account;
 
 /// <summary>
 /// OkxPosition
@@ -53,6 +56,14 @@ public record OkxAccountPosition
     /// </summary>
     [JsonProperty("avgPx")]
     public decimal? AveragePrice { get; set; }
+
+    /// <summary>
+    /// Non-settlement entry price
+    /// The non-settlement entry price only reflects the average price at which the position is opened or increased.
+    /// Applicable to cross FUTURES positions.
+    /// </summary>
+    [JsonProperty("nonSettleAvgPx")]
+    public decimal? NonSettlementAveragePrice { get; set; }
 
     /// <summary>
     /// Latest Mark price
@@ -299,6 +310,13 @@ public record OkxAccountPosition
     /// </summary>
     [JsonProperty("realizedPnl")]
     public decimal? RealizedPnl { get; set; }
+
+    /// <summary>
+    /// Settled profit and loss (calculated by settlement price)
+    /// Only applicable to cross FUTURES
+    /// </summary>
+    [JsonProperty("settledPnl")]
+    public decimal? SettledPnl { get; set; }
 
     /// <summary>
     /// Accumulated pnl of closing order(s)
