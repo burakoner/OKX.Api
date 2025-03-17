@@ -23,7 +23,7 @@ public record OkxAccountConfiguration
     /// Account level
     /// </summary>
     [JsonProperty("acctLv")]
-    public OkxAccountLevel AccountLevel { get; set; }
+    public OkxAccountMode AccountLevel { get; set; }
 
     /// <summary>
     /// Account self-trade prevention mode

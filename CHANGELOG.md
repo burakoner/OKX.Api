@@ -1,5 +1,27 @@
 ## Change Log & Release Notes
 
+* Version 5.5.317 - 17 Mar 2025
+  * Leverage data type converted to integer
+  * OkxAccountLevel renamed to OkxAccountMode
+  * Changes in OkxAccountRestClient
+    * Added ManualBorrowRepayAsync
+    * Added ManualBorrowAsync
+    * Added ManualRepayAsync
+    * Added GetBorrowRepayHistoryAsync
+    * Added SetAutoRepayAsync
+    * Added SwitchPresetAccountModeAsync
+    * Added PrecheckAccountModeSwitchAsync
+    * Removed QuickMarginBorrowAsync
+    * Removed QuickMarginRepayAsync
+    * Removed VipLoanBorrowAsync
+    * Removed VipLoanRepayAsync
+    * Removed GetVipLoanBorrowRepayHistoryAsync
+    * Removed GetVipInterestAccruedDataAsync
+    * Removed GetVipInterestDeductedDataAsync
+    * Removed GetVipLoanOrdersAsync
+    * Removed GetVipLoanOrderDetailsAsync
+    * Removed SetRiskOffsetTypeAsync
+
 * Version 5.5.312 - 12 Mar 2025
   * Synced endpoints & models with the latest API documentation (2025-03-12).
   * Edited some models and enums.

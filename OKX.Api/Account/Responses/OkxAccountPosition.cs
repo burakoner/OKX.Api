@@ -105,7 +105,7 @@ public record OkxAccountPosition
     /// Leverage, not applicable to OPTION
     /// </summary>
     [JsonProperty("lever")]
-    public decimal? Leverage { get; set; }
+    public int? Leverage { get; set; }
 
     /// <summary>
     /// Estimated liquidation price

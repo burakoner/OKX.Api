@@ -616,11 +616,11 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingMultipleOperation>> SetMultipleLeverageAsync(
         OkxAccountMarginMode marginMode,
-        decimal leverage,
+        int leverage,
         IEnumerable<string> instrumentIds,
         CancellationToken ct = default)
     {
-        if (leverage < 0.01m)
+        if (leverage < 1)
             throw new ArgumentException("Invalid Leverage");
 
         var parameters = new ParameterCollection {
@@ -642,7 +642,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingMultipleOperation>> SetMultipleLeverageAsync(
         OkxAccountMarginMode marginMode,
-        decimal leverage,
+        int leverage,
         CancellationToken ct = default,
         params string[] instrumentIds)
     {

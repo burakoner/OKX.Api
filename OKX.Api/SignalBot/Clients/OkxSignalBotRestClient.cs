@@ -84,7 +84,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <returns></returns>
     public Task<RestCallResult<OkxSignalBotOrderId>> CreateSignalBotAsync(
         long signalChannelId,
-        decimal leverage,
+        int leverage,
         decimal amount,
         OkxSignalBotOrderType orderType,
         bool includeAll = false,

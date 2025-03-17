@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Broker;
 
 /// <summary>
-/// OKX Rest Api Non Disclosed Broker Client
+/// OKX Rest Api DMA Broker Client
 /// </summary>
-public class OkxNonDisclosedBrokerRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
+public class OkxDMABrokerRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
 
     #region Non Disclosed Broker API Endpoints

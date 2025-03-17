@@ -263,7 +263,7 @@ public record OkxSubAccountTradingBalanceDetails
     /// Leverage
     /// </summary>
     [JsonProperty("notionalLever")]
-    public decimal? Leverage { get; set; }
+    public int? Leverage { get; set; }
 
     /// <summary>
     /// SPOT isolated balance. only applicable to copy trading

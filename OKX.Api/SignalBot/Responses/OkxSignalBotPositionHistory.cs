@@ -69,7 +69,7 @@ public record OkxSignalBotPositionHistory
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public decimal Leverage { get; set; }
+    public int Leverage { get; set; }
     
     /// <summary>
     /// Direction: long short

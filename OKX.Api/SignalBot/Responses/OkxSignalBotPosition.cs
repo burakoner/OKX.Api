@@ -69,7 +69,7 @@ public record OkxSignalBotPosition
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public decimal? Leverage { get; set; }
+    public int? Leverage { get; set; }
     
     /// <summary>
     /// Estimated liquidation price

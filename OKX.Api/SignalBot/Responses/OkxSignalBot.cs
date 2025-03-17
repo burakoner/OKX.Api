@@ -121,7 +121,7 @@ public record OkxSignalBot
     /// Only applicable to contract signal
     /// </summary>
     [JsonProperty("lever")]
-    public decimal? Leverage { get; set; }
+    public int? Leverage { get; set; }
     
     /// <summary>
     /// Investment amount

@@ -51,7 +51,7 @@ public record OkxAccountPositionBuilder
     /// Leverage of the account
     /// </summary>
     [JsonProperty("acctLever")]
-    public decimal AccountLeverage { get; set; }
+    public int AccountLeverage { get; set; }
 
     /// <summary>
     /// Update time for the account, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -459,7 +459,7 @@ public record OkxAccountPositionBuilderRiskUnitPosition
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public decimal? Leverage { get; set; }
+    public int? Leverage { get; set; }
 
     /// <summary>
     /// Notional in USD

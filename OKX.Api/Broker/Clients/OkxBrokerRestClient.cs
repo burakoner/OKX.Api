@@ -8,17 +8,17 @@ public class OkxBrokerRestClient
     /// <summary>
     /// Fully Disclosed Broker Client
     /// </summary>
-    public OkxFullyDisclosedBrokerRestClient FullyDisclosed { get; }
+    public OkxFDBrokerRestClient FD { get; }
 
     /// <summary>
     /// Eth Staking Client
     /// </summary>
-    public OkxNonDisclosedBrokerRestClient NonDisclosed { get; }
+    public OkxDMABrokerRestClient DMA { get; }
 
     internal OkxBrokerRestClient(OkxRestApiClient root)
     {
-        FullyDisclosed = new OkxFullyDisclosedBrokerRestClient(root);
-        NonDisclosed = new OkxNonDisclosedBrokerRestClient(root);
+        FD = new OkxFDBrokerRestClient(root);
+        DMA = new OkxDMABrokerRestClient(root);
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ public class OkxBrokerRestClient
     /// <param name="credentials">OkxApiCredentials Object</param>
     public void SetApiCredentials(OkxApiCredentials credentials)
     {
-        FullyDisclosed.SetApiCredentials(credentials);
-        NonDisclosed.SetApiCredentials(credentials);
+        FD.SetApiCredentials(credentials);
+        DMA.SetApiCredentials(credentials);
     }
 }

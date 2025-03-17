@@ -39,7 +39,7 @@ public record OkxCopyTradingLeverageData()
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public decimal Leverage { get; set; }
+    public int Leverage { get; set; }
 
     /// <summary>
     /// Position side

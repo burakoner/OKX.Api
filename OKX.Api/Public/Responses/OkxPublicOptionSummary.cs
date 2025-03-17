@@ -75,7 +75,7 @@ public record OkxPublicOptionSummary
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public decimal Leverage { get; set; }
+    public int Leverage { get; set; }
 
     /// <summary>
     /// Mark volatility

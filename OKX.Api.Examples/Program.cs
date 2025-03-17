@@ -96,25 +96,14 @@ internal class Program
         var account_24 = await api.Account.SetIsolatedMarginModeAsync(OkxInstrumentType.Futures, OkxAccountIsolatedMarginMode.AutoTransfer);
         var account_25 = await api.Account.GetMaximumWithdrawalsAsync();
         var account_26 = await api.Account.GetRiskStateAsync();
-        var account_30 = await api.Account.VipLoanBorrowAsync("USDT", 1000.0m);
-        var account_31 = await api.Account.VipLoanRepayAsync("USDT", 1000.0m, 1_000_001);
-        var account_32 = await api.Account.GetVipLoanBorrowRepayHistoryAsync();
-        var account_33 = await api.Account.GetVipLoanBorrowRepayHistoryAsync("USDT");
-        var account_34 = await api.Account.GetVipInterestAccruedDataAsync();
-        var account_35 = await api.Account.GetVipInterestAccruedDataAsync("USDT");
-        var account_36 = await api.Account.GetVipInterestDeductedDataAsync();
-        var account_37 = await api.Account.GetVipInterestDeductedDataAsync("USDT");
-        var account_38 = await api.Account.GetVipLoanOrdersAsync();
-        var account_39 = await api.Account.GetVipLoanOrderDetailsAsync();
         var account_40 = await api.Account.GetInterestLimitsAsync();
         var account_48 = await api.Account.PositionBuilderAsync();
         var account_49 = await api.Account.SetRiskOffsetAmountAsync("BTC", 1.0M);
         var account_50 = await api.Account.GetGreeksAsync();
         var account_51 = await api.Account.GetPositionTiersAsync(OkxInstrumentType.Futures);
-        var account_52 = await api.Account.SetRiskOffsetTypeAsync(OkxAccountRiskOffsetType.UsdtDerivativesUsdt);
         var account_53 = await api.Account.ActivateOptionAsync();
         var account_54 = await api.Account.SetAutoLoanAsync(true);
-        var account_55 = await api.Account.SetLevelAsync(OkxAccountLevel.Simple);
+        var account_55 = await api.Account.SetLevelAsync(OkxAccountMode.SpotAndFuturesMode);
         var account_56 = await api.Account.ResetMmpAsync("BTC-USDT");
         var account_57 = await api.Account.SetMmpAsync("BTC-USDT", 5000, 5000, 1);
         var account_58 = await api.Account.GetMmpAsync("BTC-USDT");
@@ -235,7 +224,7 @@ internal class Program
                 "ETH-USDT-SWAP",
                 "LTC-USDT-SWAP"
             ],
-            leverage: 10.0m,
+            leverage: 10,
             amount: 100.0m,
             orderType: OkxSignalBotOrderType.TradingView,
             entryParamaters: new OkxSignalBotEntryParamaters
@@ -283,8 +272,8 @@ internal class Program
         var copy_18 = await api.CopyTrading.GetCopySettingsAsync("---CODE---");
         var copy_19 = await api.CopyTrading.GetMultipleLeverages(OkxAccountMarginMode.Isolated, "---CODE---", []);
         var copy_20 = await api.CopyTrading.GetMultipleLeverages(OkxAccountMarginMode.Isolated, "---CODE---", default, "", "", "");
-        var copy_21 = await api.CopyTrading.SetMultipleLeverageAsync(OkxAccountMarginMode.Isolated, 10.0m, []);
-        var copy_22 = await api.CopyTrading.SetMultipleLeverageAsync(OkxAccountMarginMode.Isolated, 10.0m, default, "", "", "");
+        var copy_21 = await api.CopyTrading.SetMultipleLeverageAsync(OkxAccountMarginMode.Isolated, 10, []);
+        var copy_22 = await api.CopyTrading.SetMultipleLeverageAsync(OkxAccountMarginMode.Isolated, 10, default, "", "", "");
         var copy_23 = await api.CopyTrading.GetMyLeadTradersAsync();
         var copy_24 = await api.CopyTrading.GetMyLeadTradersHistoryAsync();
         var copy_25 = await api.CopyTrading.GetPublicConfigurationAsync();

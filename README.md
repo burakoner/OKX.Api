@@ -4,18 +4,6 @@ A .Net wrapper for the OKX API as described on [OKX](https://www.okx.com/docs-v5
 
 **If you think something is broken, something is missing or have any questions, please open an [Issue](https://github.com/burakoner/OKX.Api/issues)**
 
-## !!! WARNING !!!
-
-A new version architecture has been released with version 5.4.1001. You may have some issues while migrating to new version. 
-
-Here are some hints.
-  * __Rearrenged namespace structure. Removed subfolder names from namespaces.__
-  * __Removed obsolete/deprecated fields from both request and reponses.__
-  * __Renamed: OKX.Api.Public.* -> OKX.Api.Public.OkxPublic*__
-  * __Renamed: Trading -> Trade (both in Rest and WS Api)__
-
-Please take a look to [ChangeLog](https://github.com/burakoner/OKX.Api/blob/master/CHANGELOG.md) for all changes.
-
 ## Donations
 
 Donations are greatly appreciated and a motivation to keep improving.
@@ -23,6 +11,10 @@ Donations are greatly appreciated and a motivation to keep improving.
 **BTC**:  33WbRKqt7wXARVdAJSu1G1x3QnbyPtZ2bH  
 **ETH**:  0x65b02db9b67b73f5f1e983ae10796f91ded57b64  
 **USDT (TRC-20)**:  TXwqoD7doMESgitfWa8B2gHL7HuweMmNBJ  
+
+## Changes
+
+Please take a look to [ChangeLog](https://github.com/burakoner/OKX.Api/blob/master/CHANGELOG.md) for all changes.
 
 ## Installation
 
@@ -285,7 +277,7 @@ var signal_03 = await api.SignalBot.CreateSignalBotAsync(
         "ETH-USDT-SWAP",
         "LTC-USDT-SWAP"
     ],
-    leverage: 10.0m,
+    leverage: 10,
     amount: 100.0m,
     orderType: OkxSignalBotOrderType.TradingView,
     entryParamaters: new OkxSignalBotEntryParamaters
