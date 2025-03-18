@@ -1,5 +1,10 @@
 ## Change Log & Release Notes
 
+* Version 5.5.318 - 18 Mar 2025
+  * Changes in OkxTradeRestClient
+    * Removed ApplyTradesArchiveAsync
+    * Removed GetTradesArchiveAsync
+
 * Version 5.5.317 - 17 Mar 2025
   * Leverage data type converted to integer
   * OkxAccountLevel renamed to OkxAccountMode

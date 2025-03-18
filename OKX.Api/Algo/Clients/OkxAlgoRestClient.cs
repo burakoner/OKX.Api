@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using static ApiSharp.Security.Cryptology;
-
-namespace OKX.Api.Algo;
+﻿namespace OKX.Api.Algo;
 
 /// <summary>
 /// OKX Rest Api Algo Trading Client

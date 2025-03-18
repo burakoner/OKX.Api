@@ -9,5 +9,5 @@ internal record OkxAccountPositionModeContainer
     /// Position mode
     /// </summary>
     [JsonProperty("posMode")]
-    public OkxTradePositionMode Data { get; set; }
+    public OkxTradePositionMode Payload { get; set; }
 }

@@ -19,7 +19,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     private const string v5TradeOrdersHistoryArchive = "api/v5/trade/orders-history-archive";
     private const string v5TradeFills = "api/v5/trade/fills";
     private const string v5TradeFillsHistory = "api/v5/trade/fills-history";
-    private const string v5TradeFillsArchive = "api/v5/trade/fills-archive";
     private const string v5TradeEasyConvertCurrencyList = "api/v5/trade/easy-convert-currency-list";
     private const string v5TradeEasyConvert = "api/v5/trade/easy-convert";
     private const string v5TradeEasyConvertHistory = "api/v5/trade/easy-convert-history";
@@ -549,46 +548,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxTradeTransaction>(GetUri(v5TradeFillsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Apply for recently-filled transaction details in the past 2 years except for last 3 months.
-    /// </summary>
-    /// <param name="year">4 digits year</param>
-    /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxDownloadApplication>> ApplyTradesArchiveAsync(
-        int year,
-        OkxQuarter quarter,
-        CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection {
-            { "year", year.ToOkxString() },
-        };
-        parameters.AddEnum("quarter", quarter);
-
-        return ProcessOneRequestAsync<OkxDownloadApplication>(GetUri(v5TradeFillsArchive), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-    }
-
-    /// <summary>
-    /// Retrieve recently-filled transaction details in the past 2 years except for last 3 months.
-    /// </summary>
-    /// <param name="year">4 digits year</param>
-    /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxDownloadLink>> GetTradesArchiveAsync(
-        int year,
-        OkxQuarter quarter,
-        CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection {
-            {"year", year.ToOkxString() },
-        };
-        parameters.AddEnum("quarter", quarter);
-
-        return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5TradeFillsArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>

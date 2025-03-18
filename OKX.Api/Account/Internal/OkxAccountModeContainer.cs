@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Account;
+﻿namespace OKX.Api.Account.Internal;
 
 /// <summary>
 /// Account Level
@@ -9,5 +9,5 @@ internal record OkxAccountModeContainer
     /// Account level
     /// </summary>
     [JsonProperty("acctLv")]
-    public OkxAccountMode Data { get; set; }
+    public OkxAccountMode Payload { get; set; }
 }

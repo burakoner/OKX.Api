@@ -9,5 +9,5 @@ internal record OkxAccountGreeksTypeContainer
     /// Display type of Greeks.
     /// </summary>
     [JsonProperty("greeksType")]
-    public OkxAccountGreeksType Data { get; set; }
+    public OkxAccountGreeksType Payload { get; set; }
 }

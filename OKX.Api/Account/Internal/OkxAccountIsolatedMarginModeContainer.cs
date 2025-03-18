@@ -9,5 +9,5 @@ internal record OkxAccountIsolatedMarginModeContainer
     /// Isolated margin trading settings
     /// </summary>
     [JsonProperty("isoMode")]
-    public OkxAccountIsolatedMarginMode Data { get; set; }
+    public OkxAccountIsolatedMarginMode Payload { get; set; }
 }

@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-
-namespace OKX.Api.Account;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OkxPosition

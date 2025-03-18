@@ -3,11 +3,11 @@
 /// <summary>
 /// Okx Auto Repay
 /// </summary>
-internal record OkxAccountAutoRepay
+internal record OkxAccountAutoRepayContainer
 {
     /// <summary>
     /// Auto Repay
     /// </summary>
     [JsonProperty("autoLoan")]
-    public bool Data { get; set; }
+    public bool Payload { get; set; }
 }
