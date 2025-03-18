@@ -6,12 +6,12 @@
 public class OkxFinancialFlexibleLoanRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
-    // api/v5/finance/flexible-loan/borrow-currencies
-    // api/v5/finance/flexible-loan/collateral-assets
-    // api/v5/finance/flexible-loan/max-loan
-    // api/v5/finance/flexible-loan/max-collateral-redeem-amount
-    // api/v5/finance/flexible-loan/adjust-collateral
-    // api/v5/finance/flexible-loan/loan-info
-    // api/v5/finance/flexible-loan/loan-history
-    // api/v5/finance/flexible-loan/interest-accrued
+    // TODO: api/v5/finance/flexible-loan/borrow-currencies
+    // TODO: api/v5/finance/flexible-loan/collateral-assets
+    // TODO: api/v5/finance/flexible-loan/max-loan
+    // TODO: api/v5/finance/flexible-loan/max-collateral-redeem-amount
+    // TODO: api/v5/finance/flexible-loan/adjust-collateral
+    // TODO: api/v5/finance/flexible-loan/loan-info
+    // TODO: api/v5/finance/flexible-loan/loan-history
+    // TODO: api/v5/finance/flexible-loan/interest-accrued
 }

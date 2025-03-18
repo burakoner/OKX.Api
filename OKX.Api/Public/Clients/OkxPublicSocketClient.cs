@@ -10,6 +10,10 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 
     #region Market Data
 
+    // TODO: WS / All trades channel
+    // TODO: WS / Option trades channel
+    // TODO: WS / Call auction details channel
+
     /// <summary>
     /// Retrieve the last traded price, bid price, ask price and 24-hour trading volume of instruments. Data will be pushed every 100 ms.
     /// </summary>
@@ -122,7 +126,6 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    // TODO: WS / All trades channel
 
     /// <summary>
     /// Retrieve order book data.
@@ -181,8 +184,6 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, needLogin, internalHandler, ct).ConfigureAwait(false);
     }
 
-    // TODO: WS / Option trades channel
-    // TODO: WS / Call auction details channel
     #endregion
 
     #region Public Data

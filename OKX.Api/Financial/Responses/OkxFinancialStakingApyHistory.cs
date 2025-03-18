@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Financial;
 
 /// <summary>
-/// OKX Financial Eth Staking APY History
+/// OKX Financial Staking APY History
 /// </summary>
-public record OkxFinancialEthStakingApyHistory
+public record OkxFinancialStakingApyHistory
 {
     /// <summary>
     /// APY(Annual percentage yield), e.g. 0.01 represents 1%

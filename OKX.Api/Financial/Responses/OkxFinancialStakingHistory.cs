@@ -3,13 +3,13 @@
 /// <summary>
 /// OKX Financial Eth Staking Purchase-Redeem History
 /// </summary>
-public record OkxFinancialEthStakingHistory
+public record OkxFinancialStakingHistory
 {
     /// <summary>
     /// Type
     /// </summary>
     [JsonProperty("type")]
-    public OkxFinancialEthStakingType Type { get; set; }
+    public OkxFinancialStakingType Type { get; set; }
 
     /// <summary>
     /// Purchase/Redeem amount
@@ -27,7 +27,7 @@ public record OkxFinancialEthStakingHistory
     /// Status
     /// </summary>
     [JsonProperty("status")]
-    public OkxFinancialEthStakingStatus Status { get; set; }
+    public OkxFinancialStakingStatus Status { get; set; }
 
     /// <summary>
     /// Request time of make purchase/redeem, Unix timestamp format in milliseconds, e.g. 1597026383085

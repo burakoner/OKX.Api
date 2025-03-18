@@ -55,7 +55,6 @@ public class OkxAlgoSocketClient(OkxWebSocketApiClient root)
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
-
     /// <summary>
     /// Retrieve advance algo orders (includes iceberg order and twap order). Data will be pushed when first subscribed. Data will be pushed when triggered by events such as placing/canceling order.
     /// </summary>

@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Financial;
 
 /// <summary>
-/// OKX Financial Eth Staking Balance
+/// OKX Financial Staking Balance
 /// </summary>
-public record OkxFinancialEthStakingBalance
+public record OkxFinancialStakingBalance
 {
     /// <summary>
     /// Currency, e.g. BETH
@@ -33,11 +33,11 @@ public record OkxFinancialEthStakingBalance
     /// Query data time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("ts")]
-    public long Timestamp { get; set; }
+    public long? Timestamp { get; set; }
 
     /// <summary>
     /// Query data time
     /// </summary>
     [JsonIgnore]
-    public DateTime Time => Timestamp.ConvertFromMilliseconds();
+    public DateTime? Time => Timestamp?.ConvertFromMilliseconds();
 }

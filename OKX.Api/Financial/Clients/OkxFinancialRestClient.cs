@@ -30,7 +30,6 @@ public class OkxFinancialRestClient
     /// </summary>
     public OkxFinancialFlexibleLoanRestClient FlexibleLoan { get; }
 
-
     internal OkxFinancialRestClient(OkxRestApiClient root)
     {
         OnChainEarn = new OkxFinancialOnChainEarnRestClient(root);

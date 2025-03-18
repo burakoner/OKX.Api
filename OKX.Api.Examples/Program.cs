@@ -385,7 +385,7 @@ internal class Program
         var staking_01 = await api.Financial.EthStaking.PurchaseAsync(1.0m);
         var staking_02 = await api.Financial.EthStaking.RedeemAsync(1.0m);
         var staking_03 = await api.Financial.EthStaking.GetBalancesAsync();
-        var staking_04 = await api.Financial.EthStaking.GetHistoryAsync(OkxFinancialEthStakingType.Purchase);
+        var staking_04 = await api.Financial.EthStaking.GetHistoryAsync(OkxFinancialStakingType.Purchase);
         var staking_05 = await api.Financial.EthStaking.GetApyHistoryAsync(30);
 
         // Financial Product -> Simple Earn Flexible Methods (Signed)

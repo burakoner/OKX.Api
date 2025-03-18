@@ -1,5 +1,13 @@
 ## Change Log & Release Notes
 
+* Version 5.5.328 - 18 Mar 2025
+  * Changes in OkxFinancialSolStakingRestClient
+    * Added PurchaseAsync
+    * Added RedeemAsync
+    * Added GetBalancesAsync
+    * Added GetHistoryAsync
+    * Added GetApyHistoryAsync
+
 * Version 5.5.327 - 18 Mar 2025
   * Changes in OkxFinancialEthStakingRestClient
     * Added GetProductInfoAsync

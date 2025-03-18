@@ -37,7 +37,6 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     // TODO: api/v5/fiat/deposit-order-history
     // TODO: api/v5/fiat/deposit
 
-
     /// <summary>
     /// Retrieve a list of all currencies. Not all currencies can be traded. Currencies that have not been defined in ISO 4217 may use a custom symbol.
     /// </summary>

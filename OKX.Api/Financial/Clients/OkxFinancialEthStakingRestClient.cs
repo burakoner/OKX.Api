@@ -38,7 +38,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
             {"amt", amount.ToOkxString() },
         };
 
-        var result = await ProcessOneRequestAsync<OkxFinancialEthStakingPurchase>(GetUri(v5FinanceStakingDefiEthPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialStakingPurchase>(GetUri(v5FinanceStakingDefiEthPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw, result.Error);
     }
@@ -55,7 +55,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
             {"amt", amount.ToOkxString() },
         };
 
-        var result = await ProcessOneRequestAsync<OkxFinancialEthStakingRedeem>(GetUri(v5FinanceStakingDefiEthRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialStakingRedeem>(GetUri(v5FinanceStakingDefiEthRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw, result.Error);
     }
@@ -65,9 +65,9 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFinancialEthStakingBalance>>> GetBalancesAsync(CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFinancialStakingBalance>>> GetBalancesAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxFinancialEthStakingBalance>(GetUri(v5FinanceStakingDefiEthBalance), HttpMethod.Get, ct, signed: true);
+        return ProcessListRequestAsync<OkxFinancialStakingBalance>(GetUri(v5FinanceStakingDefiEthBalance), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -80,9 +80,9 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <param name="limit">Number of results per request. The default is 100. The maximum is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFinancialEthStakingHistory>>> GetHistoryAsync(
-        OkxFinancialEthStakingType? type = null,
-        OkxFinancialEthStakingStatus? status = null,
+    public Task<RestCallResult<List<OkxFinancialStakingHistory>>> GetHistoryAsync(
+        OkxFinancialStakingType? type = null,
+        OkxFinancialStakingStatus? status = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -95,7 +95,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFinancialEthStakingHistory>(GetUri(v5FinanceStakingDefiEthPurchaseRedeemHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialStakingHistory>(GetUri(v5FinanceStakingDefiEthPurchaseRedeemHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -104,12 +104,12 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <param name="days">Get the days of APY(Annual percentage yield) history record in the past. No more than 365 days</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFinancialEthStakingApyHistory>>> GetApyHistoryAsync(int days, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFinancialStakingApyHistory>>> GetApyHistoryAsync(int days, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             {"days", days.ToOkxString() },
         };
 
-        return ProcessListRequestAsync<OkxFinancialEthStakingApyHistory>(GetUri(v5FinanceStakingDefiEthApyHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialStakingApyHistory>(GetUri(v5FinanceStakingDefiEthApyHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 }
