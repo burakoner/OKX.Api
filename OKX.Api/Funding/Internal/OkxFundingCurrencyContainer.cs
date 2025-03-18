@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Convert Currency
 /// </summary>
-internal record OkxFundingConvertCurrency
+internal record OkxFundingCurrencyContainer
 {
     /// <summary>
     /// Currency, e.g. BTC
     /// </summary>
     [JsonProperty("ccy")]
-    public string Data { get; set; } = string.Empty;
+    public string Payload { get; set; } = string.Empty;
 }

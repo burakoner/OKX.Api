@@ -19,7 +19,6 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AssetWithdrawalCancel = "api/v5/asset/cancel-withdrawal";
     private const string v5AssetWithdrawalHistory = "api/v5/asset/withdrawal-history";
     private const string v5AssetDepositWithdrawStatus = "api/v5/asset/deposit-withdraw-status";
-    private const string v5AssetConvertDustAssets = "api/v5/asset/convert-dust-assets";
     private const string v5AssetExchangeList = "api/v5/asset/exchange-list";
     private const string v5AssetMonthlyStatement = "api/v5/asset/monthly-statement";
     private const string v5AssetConvertCurrencies = "api/v5/asset/convert/currencies";
@@ -27,6 +26,16 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AssetConvertEstimateQuote = "api/v5/asset/convert/estimate-quote";
     private const string v5AssetConvertTrade = "api/v5/asset/convert/trade";
     private const string v5AssetConvertHistory = "api/v5/asset/convert/history";
+
+    // Fiat Endpoints
+    // TODO: api/v5/fiat/deposit-payment-methods
+    // TODO: api/v5/fiat/withdrawal-payment-methods
+    // TODO: api/v5/fiat/create-withdrawal
+    // TODO: api/v5/fiat/cancel-withdrawal
+    // TODO: api/v5/fiat/withdrawal-order-history
+    // TODO: api/v5/fiat/withdrawal
+    // TODO: api/v5/fiat/deposit-order-history
+    // TODO: api/v5/fiat/deposit
 
 
     /// <summary>
@@ -287,9 +296,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "wdId", withdrawalId},
         };
 
-        var result = await ProcessOneRequestAsync<OkxFundingWithdrawalId>(GetUri(v5AssetWithdrawalCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFundingWithdrawalIdContainer>(GetUri(v5AssetWithdrawalCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -380,24 +389,6 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
     /// <summary>
-    /// Convert small assets in funding account to OKB. Only 5 convert is allowed within 24 hours.
-    /// </summary>
-    /// <param name="currencies">Small assets needed to be converted, e.g. ["BTC","USDT"]</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxFundingConvertDustAssets>> ConvertDustAssetsAsync(
-        IEnumerable<string> currencies,
-        CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection()
-        {
-            { "ccy", currencies },
-        };
-
-        return ProcessOneRequestAsync<OkxFundingConvertDustAssets>(GetUri(v5AssetConvertDustAssets), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-    }
-
-    /// <summary>
     /// Authentication is not required for this public endpoint.
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
@@ -446,9 +437,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public async Task<RestCallResult<List<string>>> GetConvertCurrenciesAsync(CancellationToken ct = default)
     {
-        var result = await ProcessListRequestAsync<OkxFundingConvertCurrency>(GetUri(v5AssetConvertCurrencies), HttpMethod.Get, ct, signed: true);
+        var result = await ProcessListRequestAsync<OkxFundingCurrencyContainer>(GetUri(v5AssetConvertCurrencies), HttpMethod.Get, ct, signed: true);
         if (!result) return new RestCallResult<List<string>>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<List<string>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw, result.Error);
+        return new RestCallResult<List<string>>(result.Request, result.Response, result.Data.Select(x => x.Payload).ToList(), result.Raw, result.Error);
     }
 
     /// <summary>

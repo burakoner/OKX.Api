@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Withdrawal Id
 /// </summary>
-internal record OkxFundingWithdrawalId
+internal record OkxFundingWithdrawalIdContainer
 {
     /// <summary>
     /// Withdrawal Id
     /// </summary>
     [JsonProperty("wdId")]
-    public long Data { get; set; }
+    public long Payload { get; set; }
 }

@@ -352,7 +352,6 @@ internal class Program
         var funding_16 = await api.Funding.GetWithdrawalHistoryAsync("USDT");
         var funding_17 = await api.Funding.GetDepositStatusAsync("", "", "", "");
         var funding_18 = await api.Funding.GetWithdrawalStatusAsync(1_000_000L);
-        var funding_19 = await api.Funding.ConvertDustAssetsAsync([]);
         var funding_20 = await api.Funding.GetExchangeListAsync();
         var funding_21 = await api.Funding.ApplyForMonthlyStatementAsync();
         var funding_22 = await api.Funding.GetMonthlyStatementAsync("");
