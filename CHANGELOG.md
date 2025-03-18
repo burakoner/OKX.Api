@@ -1,5 +1,10 @@
 ## Change Log & Release Notes
 
+* Version 5.5.323 - 18 Mar 2025
+  * Fixed minor bugs
+  * Changes in OkxPublicRestClient
+    * Removed GetVIPInterestRatesAsync
+
 * Version 5.5.321 - 18 Mar 2025
   * Changes in OkxPublicRestClient
     * Removed GetVIPInterestRatesAsync

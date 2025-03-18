@@ -16,11 +16,11 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5SpreadTrades = "api/v5/sprd/trades";
     private const string v5SpreadSpreads = "api/v5/sprd/spreads";
     private const string v5SpreadBooks = "api/v5/sprd/books";
-    private const string v5SpreadPublicTrades = "api/v5/sprd/public-trades";
-    private const string v5SpreadCancelAllAfter = "api/v5/sprd/cancel-all-after";
     private const string v5MarketSpreadTicker = "api/v5/market/sprd-ticker";
+    private const string v5SpreadPublicTrades = "api/v5/sprd/public-trades";
     private const string v5MarketSpreadCandles = "api/v5/market/sprd-candles";
     private const string v5MarketSpreadHistoryCandles = "api/v5/market/sprd-history-candles";
+    private const string v5SpreadCancelAllAfter = "api/v5/sprd/cancel-all-after";
 
     /// <summary>
     /// Place a new order
