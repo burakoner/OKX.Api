@@ -15,20 +15,29 @@ public class OkxFinancialRestClient
     /// </summary>
     public OkxFinancialEthStakingRestClient EthStaking { get; }
 
-    // TODO: SOL Staking
+    /// <summary>
+    /// SOL Staking Client
+    /// </summary>
+    public OkxFinancialSolStakingRestClient SolStaking { get; }
 
     /// <summary>
-    /// Flexible Simple Earn Client
+    /// Simple Earn Flexible Client
     /// </summary>
-    public OkxFinancialFlexibleSimpleEarnRestClient FlexibleSimpleEarn { get; }
+    public OkxFinancialSimpleEarnRestClient SimpleEarn { get; }
 
-    // TODO: Flexible Loan
+    /// <summary>
+    /// Flexible Loan Client
+    /// </summary>
+    public OkxFinancialFlexibleLoanRestClient FlexibleLoan { get; }
+
 
     internal OkxFinancialRestClient(OkxRestApiClient root)
     {
-        EthStaking = new OkxFinancialEthStakingRestClient(root);
         OnChainEarn = new OkxFinancialOnChainEarnRestClient(root);
-        FlexibleSimpleEarn = new OkxFinancialFlexibleSimpleEarnRestClient(root);
+        EthStaking = new OkxFinancialEthStakingRestClient(root);
+        SolStaking = new OkxFinancialSolStakingRestClient(root);
+        SimpleEarn = new OkxFinancialSimpleEarnRestClient(root);
+        FlexibleLoan = new OkxFinancialFlexibleLoanRestClient(root);
     }
 
     /// <summary>
@@ -37,8 +46,10 @@ public class OkxFinancialRestClient
     /// <param name="credentials">OkxApiCredentials Object</param>
     public void SetApiCredentials(OkxApiCredentials credentials)
     {
-        EthStaking.SetApiCredentials(credentials);
         OnChainEarn.SetApiCredentials(credentials);
-        FlexibleSimpleEarn.SetApiCredentials(credentials);
+        EthStaking.SetApiCredentials(credentials);
+        SolStaking.SetApiCredentials(credentials);
+        SimpleEarn.SetApiCredentials(credentials);
+        FlexibleLoan.SetApiCredentials(credentials);
     }
 }

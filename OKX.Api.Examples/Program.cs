@@ -389,13 +389,13 @@ internal class Program
         var staking_05 = await api.Financial.EthStaking.GetApyHistoryAsync(30);
 
         // Financial Product -> Simple Earn Flexible Methods (Signed)
-        var flexible_01 = await api.Financial.FlexibleSimpleEarn.GetBalancesAsync();
-        var flexible_02 = await api.Financial.FlexibleSimpleEarn.PurchaseAsync("", 1_000.0m, 1.0m);
-        var flexible_03 = await api.Financial.FlexibleSimpleEarn.RedeemAsync("", 1_000.0m, 1.0m);
-        var flexible_04 = await api.Financial.FlexibleSimpleEarn.SetLendingRateAsync("", 1.0m);
-        var flexible_05 = await api.Financial.FlexibleSimpleEarn.GetLendingHistoryAsync();
-        var flexible_06 = await api.Financial.FlexibleSimpleEarn.GetPublicBorrowSummaryAsync();
-        var flexible_07 = await api.Financial.FlexibleSimpleEarn.GetPublicBorrowHistoryAsync();
+        var flexible_01 = await api.Financial.SimpleEarn.GetBalancesAsync();
+        var flexible_02 = await api.Financial.SimpleEarn.PurchaseAsync("", 1_000.0m, 1.0m);
+        var flexible_03 = await api.Financial.SimpleEarn.RedeemAsync("", 1_000.0m, 1.0m);
+        var flexible_04 = await api.Financial.SimpleEarn.SetLendingRateAsync("", 1.0m);
+        var flexible_05 = await api.Financial.SimpleEarn.GetLendingHistoryAsync();
+        var flexible_06 = await api.Financial.SimpleEarn.GetPublicBorrowSummaryAsync();
+        var flexible_07 = await api.Financial.SimpleEarn.GetPublicBorrowHistoryAsync();
 
         // Affiliate Methods (Signed)
         var affiliate_01 = await api.Affiliate.GetInviteeAsync(1_000_000L);
