@@ -15,5 +15,4 @@ public class OkxBlockSocketClient(OkxWebSocketApiClient root)
     // TODO: Public structure block trades channel
     // TODO: Public block trades channel
     // TODO: Block tickers channel
-
 }

@@ -23,9 +23,9 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     private const string v5RfqRfqs = "api/v5/rfq/rfqs";
     private const string v5RfqQuotes = "api/v5/rfq/quotes";
     private const string v5RfqTrades = "api/v5/rfq/trades";
-    private const string v5RfqPublicTrades = "api/v5/rfq/public-trades";
     private const string v5MarketBlockTickers = "api/v5/market/block-tickers";
     private const string v5MarketBlockTicker = "api/v5/market/block-ticker";
+    private const string v5RfqPublicTrades = "api/v5/rfq/public-trades";
     private const string v5MarketBlockTrades = "api/v5/market/block-trades";
 
     /// <summary>
@@ -439,29 +439,6 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     }
 
     /// <summary>
-    /// Retrieves the executed block trades.
-    /// </summary>
-    /// <param name="beginId">The starting blockTdId the request to begin with. Pagination of data to return records newer than the requested blockTdId, not including beginId.</param>
-    /// <param name="endId">The last blockTdId the request to end with. Pagination of data to return records earlier than the requested blockTdId, not including endId.</param>
-    /// <param name="limit">Number of results per request. The maximum is 100 which is also the default value.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxBlockPublicExecutedTrade>>> GetPublicExecutedTradesAsync(
-        string? beginId = null,
-        string? endId = null,
-        int limit = 100,
-        CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new ParameterCollection();
-        parameters.AddOptional("beginId", beginId);
-        parameters.AddOptional("endId", endId);
-        parameters.AddOptional("limit", limit.ToOkxString());
-
-        return ProcessListRequestAsync<OkxBlockPublicExecutedTrade>(GetUri(v5RfqPublicTrades), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
     /// Get block tickers
     /// Retrieve the latest block trading volume in the last 24 hours.
     /// Rate Limit: 20 requests per 2 seconds
@@ -497,6 +474,29 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
 
         return ProcessOneRequestAsync<OkxBlockTicker>(GetUri(v5MarketBlockTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieves the executed block trades.
+    /// </summary>
+    /// <param name="beginId">The starting blockTdId the request to begin with. Pagination of data to return records newer than the requested blockTdId, not including beginId.</param>
+    /// <param name="endId">The last blockTdId the request to end with. Pagination of data to return records earlier than the requested blockTdId, not including endId.</param>
+    /// <param name="limit">Number of results per request. The maximum is 100 which is also the default value.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxBlockPublicExecutedTrade>>> GetPublicExecutedTradesAsync(
+        string? beginId = null,
+        string? endId = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("beginId", beginId);
+        parameters.AddOptional("endId", endId);
+        parameters.AddOptional("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxBlockPublicExecutedTrade>(GetUri(v5RfqPublicTrades), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
