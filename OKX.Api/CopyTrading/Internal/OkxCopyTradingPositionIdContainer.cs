@@ -3,11 +3,11 @@
 /// <summary>
 /// OkxLeadingPositionId
 /// </summary>
-internal record OkxCopyTradingPositionId
+internal record OkxCopyTradingPositionIdContainer
 {
     /// <summary>
     /// Leading position ID
     /// </summary>
     [JsonProperty("subPosId")]
-    public long? Data { get; set; }
+    public long? Payload { get; set; }
 }

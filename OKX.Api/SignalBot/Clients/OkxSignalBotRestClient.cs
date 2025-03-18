@@ -9,12 +9,12 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     private const string v5TradingBotSignalCreateSignal = "api/v5/tradingBot/signal/create-signal";
     private const string v5TradingBotSignalSignals = "api/v5/tradingBot/signal/signals";
     private const string v5TradingBotSignalOrderAlgo = "api/v5/tradingBot/signal/order-algo";
-    private const string v5TradingBotSignalOrdersAlgoPending = "api/v5/tradingBot/signal/orders-algo-pending";
     private const string v5TradingBotSignalStopOrderAlgo = "api/v5/tradingBot/signal/stop-order-algo";
     private const string v5TradingBotSignalMarginBalance = "api/v5/tradingBot/signal/margin-balance";
     private const string v5TradingBotSignalAmendTPSL = "api/v5/tradingBot/signal/amendTPSL";
     private const string v5TradingBotSignalSetInstruments = "api/v5/tradingBot/signal/set-instruments";
     private const string v5TradingBotSignalOrdersAlgoDetails = "api/v5/tradingBot/signal/orders-algo-details";
+    private const string v5TradingBotSignalOrdersAlgoPending = "api/v5/tradingBot/signal/orders-algo-pending";
     private const string v5TradingBotSignalOrdersAlgoHistory = "api/v5/tradingBot/signal/orders-algo-history";
     private const string v5TradingBotSignalPositions = "api/v5/tradingBot/signal/positions";
     private const string v5TradingBotSignalPositionsHistory = "api/v5/tradingBot/signal/positions-history";

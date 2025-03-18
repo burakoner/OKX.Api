@@ -8,6 +8,5 @@ public class OkxCopyTradingSocketClient(OkxWebSocketApiClient root)
     // Internal
     internal OkxWebSocketApiClient _ { get; } = root;
 
-    // WS / Copy trading notification channel
-    // WS / Lead trading notification channel
+    // TODO: WS / Lead trading notification channel
 }

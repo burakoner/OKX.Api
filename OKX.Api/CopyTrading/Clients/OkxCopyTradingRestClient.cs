@@ -16,18 +16,13 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     private const string v5CopyTradingTotalProfitSharing = "api/v5/copytrading/total-profit-sharing";
     private const string v5CopyTradingUnrealizedProfitSharingDetails = "api/v5/copytrading/unrealized-profit-sharing-details";
     private const string v5CopyTradingTotalUnrealizedProfitSharing = "api/v5/copytrading/total-unrealized-profit-sharing";
-    private const string v5CopyTradingApplyLeadTrading = "api/v5/copytrading/apply-lead-trading";
-    private const string v5CopyTradingStopLeadTrading = "api/v5/copytrading/stop-lead-trading";
     private const string v5CopyTradingAmendProfitSharingRatio = "api/v5/copytrading/amend-profit-sharing-ratio";
     private const string v5CopyTradingConfig = "api/v5/copytrading/config";
     private const string v5CopyTradingFirstCopySettings = "api/v5/copytrading/first-copy-settings";
     private const string v5CopyTradingAmendCopySettings = "api/v5/copytrading/amend-copy-settings";
     private const string v5CopyTradingStopCopyTrading = "api/v5/copytrading/stop-copy-trading";
     private const string v5CopyTradingCopySettings = "api/v5/copytrading/copy-settings";
-    private const string v5CopyTradingBatchLeverageInfo = "api/v5/copytrading/batch-leverage-info";
-    private const string v5CopyTradingBatchSetLeverage = "api/v5/copytrading/batch-set-leverage";
     private const string v5CopyTradingCurrentLeadTraders = "api/v5/copytrading/current-lead-traders";
-    private const string v5CopyTradingLeadTradersHistory = "api/v5/copytrading/lead-traders-history";
     private const string v5CopyTradingPublicConfig = "api/v5/copytrading/public-config";
     private const string v5CopyTradingPublicLeadTraders = "api/v5/copytrading/public-lead-traders";
     private const string v5CopyTradingPublicWeeklyPnl = "api/v5/copytrading/public-weekly-pnl";
@@ -37,14 +32,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     private const string v5CopyTradingPublicCurrentSubpositions = "api/v5/copytrading/public-current-subpositions";
     private const string v5CopyTradingPublicSubpositionsHistory = "api/v5/copytrading/public-subpositions-history";
     private const string v5CopyTradingPublicCopyTraders = "api/v5/copytrading/public-copy-traders";
-    private const string v5CopyTradingLeadTraders = "api/v5/copytrading/lead-traders";
-    private const string v5CopyTradingWeeklyPnl = "api/v5/copytrading/weekly-pnl";
-    private const string v5CopyTradingPnl = "api/v5/copytrading/pnl";
-    private const string v5CopyTradingStats = "api/v5/copytrading/stats";
-    private const string v5CopyTradingPreferenceCurrency = "api/v5/copytrading/preference-currency";
-    private const string v5CopyTradingPerformanceCurrentSubpositions = "api/v5/copytrading/performance-current-subpositions";
-    private const string v5CopyTradingPerformanceSubpositionsHistory = "api/v5/copytrading/performance-subpositions-history";
-    private const string v5CopyTradingCopyTraders = "api/v5/copytrading/copy-traders";
 
     /// <summary>
     /// The leading trader gets leading positions that are not closed.
@@ -156,9 +143,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalEnum("slTriggerPxType", stopLossTriggerPriceType);
         parameters.AddOptionalEnum("subPosType", positionType);
 
-        var result = await ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxCopyTradingPositionIdContainer>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -192,9 +179,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalEnum("ordType", orderType);
         parameters.AddOptional("px", price?.ToOkxString());
 
-        var result = await ProcessOneRequestAsync<OkxCopyTradingPositionId>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxCopyTradingPositionIdContainer>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -305,46 +292,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalEnum("instType", instrumentType);
 
         return ProcessOneRequestAsync<OkxCopyTradingProfitSharingTotalUnrealized>(GetUri(v5CopyTradingTotalUnrealizedProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Only ND broker sub-account whitelisted can apply for lead trader by this endpoint. It will be passed immediately.
-    /// Please reach out to BD for help if you want to be whitelisted.
-    /// For other accounts, e.g. ND main accounts and general main and sub-accounts, still need to apply on the web manually
-    /// </summary>
-    /// <param name="instrumentIds">The lead instrument set at the first time.
-    /// e.g. BTC-USDT-SWAP. If there are multiple instruments, separate them with commas.</param>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxBooleanResponse>> ApplyForLeadTradingAsync(
-        IEnumerable<string> instrumentIds,
-        OkxInstrumentType? instrumentType = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection
-        {
-            { "instId", string.Join(",", instrumentIds) },
-        };
-        parameters.AddOptionalEnum("instType", instrumentType);
-
-        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingApplyLeadTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-    }
-
-    /// <summary>
-    /// It is used to stop lead trading for ND broker sub-account.
-    /// </summary>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxBooleanResponse>> StopLeadTradingAsync(
-        OkxInstrumentType? instrumentType = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-
-        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingStopLeadTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -535,121 +482,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     }
 
     /// <summary>
-    /// Get multiple leverages
-    /// Retrieve leverages that belong to the lead trader and you.
-    /// </summary>
-    /// <param name="marginMode">Margin Mode</param>
-    /// <param name="uniqueCode">Lead trader unique code</param>
-    /// <param name="instrumentIds">ingle instrument ID or multiple instrument IDs (no more than 200) separated with comma</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingMultipleLeverage>> GetMultipleLeverages(
-        OkxAccountMarginMode marginMode,
-        string uniqueCode,
-        string instrumentIds,
-        CancellationToken ct = default)
-    {
-        if (string.IsNullOrEmpty(uniqueCode) || uniqueCode.Length != 16)
-            throw new ArgumentException("uniqueCode is required. If you are not a lead trader, please use OkxRestApiClient.Public.GetInstrumentsAsync method.");
-
-        if (string.IsNullOrEmpty(instrumentIds))
-            throw new ArgumentException("instrumentIds is required");
-
-        var parameters = new ParameterCollection {
-            { "uniqueCode", uniqueCode },
-            { "instId", instrumentIds },
-        };
-        parameters.AddEnum("mgnMode", marginMode);
-
-        return ProcessOneRequestAsync<OkxCopyTradingMultipleLeverage>(GetUri(v5CopyTradingBatchLeverageInfo), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Get multiple leverages
-    /// Retrieve leverages that belong to the lead trader and you.
-    /// </summary>
-    /// <param name="marginMode">Margin Mode</param>
-    /// <param name="uniqueCode">Lead trader unique code</param>
-    /// <param name="instrumentIds">ingle instrument ID or multiple instrument IDs (no more than 200) separated with comma</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingMultipleLeverage>> GetMultipleLeverages(
-        OkxAccountMarginMode marginMode,
-        string uniqueCode,
-        IEnumerable<string> instrumentIds,
-        CancellationToken ct = default)
-    {
-        if (!instrumentIds.Any())
-            throw new ArgumentException("instrumentIds is required");
-
-        if (instrumentIds.Count() > 200)
-            throw new ArgumentException("Instrument ID maximum of 200 instruments can be selected.");
-
-        return GetMultipleLeverages(marginMode, uniqueCode, string.Join(",", instrumentIds), ct);
-    }
-
-    /// <summary>
-    /// Get multiple leverages
-    /// Retrieve leverages that belong to the lead trader and you.
-    /// </summary>
-    /// <param name="marginMode">Margin Mode</param>
-    /// <param name="uniqueCode">Lead trader unique code</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <param name="instrumentIds">ingle instrument ID or multiple instrument IDs (no more than 200) separated with comma</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingMultipleLeverage>> GetMultipleLeverages(
-        OkxAccountMarginMode marginMode,
-        string uniqueCode,
-        CancellationToken ct = default,
-        params string[] instrumentIds)
-    {
-        return GetMultipleLeverages(marginMode, uniqueCode, instrumentIds, ct);
-    }
-
-    /// <summary>
-    /// Set Multiple leverages
-    /// </summary>
-    /// <param name="marginMode">Margin Mode</param>
-    /// <param name="leverage">Leverage</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <param name="instrumentIds">Instrument ID</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingMultipleOperation>> SetMultipleLeverageAsync(
-        OkxAccountMarginMode marginMode,
-        int leverage,
-        IEnumerable<string> instrumentIds,
-        CancellationToken ct = default)
-    {
-        if (leverage < 1)
-            throw new ArgumentException("Invalid Leverage");
-
-        var parameters = new ParameterCollection {
-            {"lever", leverage.ToOkxString() },
-            {"instId", string.Join(",", instrumentIds)},
-        };
-        parameters.AddEnum("mgnMode", marginMode);
-
-        return ProcessOneRequestAsync<OkxCopyTradingMultipleOperation>(GetUri(v5CopyTradingBatchSetLeverage), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-    }
-
-    /// <summary>
-    /// Set Multiple leverages
-    /// </summary>
-    /// <param name="marginMode">Margin Mode</param>
-    /// <param name="leverage">Leverage</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <param name="instrumentIds">Instrument ID</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingMultipleOperation>> SetMultipleLeverageAsync(
-        OkxAccountMarginMode marginMode,
-        int leverage,
-        CancellationToken ct = default,
-        params string[] instrumentIds)
-    {
-        return SetMultipleLeverageAsync(marginMode, leverage, instrumentIds, ct);
-    }
-
-    /// <summary>
     /// Retrieve my lead traders.
     /// </summary>
     /// <param name="instrumentType">Instrument type</param>
@@ -663,33 +495,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalEnum("instType", instrumentType);
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTrader>(GetUri(v5CopyTradingCurrentLeadTraders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Retrieve my history lead traders.
-    /// </summary>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested copyRelId.</param>
-    /// <param name="before">Pagination of data to return records newer than the requested copyRelId.</param>
-    /// <param name="limit">Number of results per request. Maximum is 100. Default is 100.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingLeadTraderHistory>>> GetMyLeadTradersHistoryAsync(
-        OkxInstrumentType? instrumentType = null,
-        long? after = null,
-        long? before = null,
-        int limit = 100,
-        CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
-
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderHistory>(GetUri(v5CopyTradingLeadTradersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -919,226 +724,5 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingCopyTrader>(GetUri(v5CopyTradingPublicCopyTraders), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Private endpoint. Retrieve lead trader ranks.
-    /// For requests from the ND sub-account, under the same ND broker, this private endpoint can return ND lead trader information that the related public endpoint can't return.
-    /// </summary>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="sortType">Sort type</param>
-    /// <param name="state">Lead trader state</param>
-    /// <param name="minLeadDays">Minimum lead days</param>
-    /// <param name="minAssets">Minimum assets in USDT</param>
-    /// <param name="maxAssets">Maximum assets in USDT</param>
-    /// <param name="minAum">Minimum assets in USDT under management.</param>
-    /// <param name="maxAum">Maximum assets in USDT under management.</param>
-    /// <param name="dataVersion">Data version. It is 14 numbers. e.g. 20231010182400. Generally, it is used for pagination
-    /// A new version will be generated every 10 minutes. Only last 5 versions are stored
-    /// The default is latest version. If it is not exist, error will not be throwed and the latest version will be used.</param>
-    /// <param name="page">Page for pagination</param>
-    /// <param name="limit">Number of results per request. The maximum is 20; the default is 10</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxCopyTradingLeadTradersRanks>> GetMyLeadTradersRanksAsync(
-        OkxInstrumentType? instrumentType = null,
-        string? sortType = null,
-        string? state = null,
-        string? minLeadDays = null,
-        decimal? minAssets = null,
-        decimal? maxAssets = null,
-        decimal? minAum = null,
-        decimal? maxAum = null,
-        string? dataVersion = null,
-        int? page = null,
-        int limit = 10,
-        CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 20);
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("sortType", sortType);
-        parameters.AddOptional("state", state);
-        parameters.AddOptional("minLeadDays", minLeadDays);
-        parameters.AddOptional("minAssets", minAssets?.ToOkxString());
-        parameters.AddOptional("maxAssets", maxAssets?.ToOkxString());
-        parameters.AddOptional("minAum", minAum?.ToOkxString());
-        parameters.AddOptional("maxAum", maxAum?.ToOkxString());
-        parameters.AddOptional("dataVer", dataVersion);
-        parameters.AddOptional("page", page?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
-
-        return ProcessOneRequestAsync<OkxCopyTradingLeadTradersRanks>(GetUri(v5CopyTradingLeadTraders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Private endpoint. Retrieve lead trader weekly pnl. Results are returned in counter chronological order.
-    /// For requests from the ND sub-account, under the same ND broker, uniqueCode is supported for ND lead trader unique code by this endpoint, but the related public endpoint does not support it.
-    /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingLeadTraderPnl>>> GetMyLeadTraderWeeklyPnlAsync(
-        string uniqueCode,
-        OkxInstrumentType? instrumentType = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uniqueCode", uniqueCode);
-
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri(v5CopyTradingWeeklyPnl), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Private endpoint. Retrieve lead trader daily pnl. Results are returned in counter chronological order.
-    /// For requests from the ND sub-account, under the same ND broker, uniqueCode is supported for ND lead trader unique code by this endpoint, but the related public endpoint does not support it.
-    /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="lastDays">Last days</param>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingLeadTraderPnl>>> GetMyLeadTraderDailyPnlAsync(
-        string uniqueCode,
-        string lastDays,
-        OkxInstrumentType? instrumentType = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uniqueCode", uniqueCode);
-        parameters.AddOptional("lastDays", lastDays);
-
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri(v5CopyTradingPnl), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Private endpoint. Key data related to lead trader performance.
-    /// For requests from the ND sub-account, under the same ND broker, uniqueCode is supported for ND lead trader unique code by this endpoint, but the related public endpoint does not support it.
-    /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="lastDays">Last days</param>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingLeadTraderStats>>> GetMyLeadTraderStatsAsync(
-        string uniqueCode,
-        string lastDays,
-        OkxInstrumentType? instrumentType = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uniqueCode", uniqueCode);
-        parameters.AddOptional("lastDays", lastDays);
-
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderStats>(GetUri(v5CopyTradingStats), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Private endpoint. The most frequently traded crypto of this lead trader. Results are sorted by ratio from large to small.
-    /// For requests from the ND sub-account, under the same ND broker, uniqueCode is supported for ND lead trader unique code by this endpoint, but the related public endpoint does not support it.
-    /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingLeadTraderCurrencyPreference>>> GetMyLeadTraderCurrencyPreferencesAsync(
-        string uniqueCode,
-        OkxInstrumentType? instrumentType = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uniqueCode", uniqueCode);
-
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderCurrencyPreference>(GetUri(v5CopyTradingPreferenceCurrency), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Private endpoint. Get current leading positions of lead trader
-    /// For requests from the ND sub-account, under the same ND broker, uniqueCode is supported for ND lead trader unique code by this endpoint, but the related public endpoint does not support it.
-    /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested subPosId.</param>
-    /// <param name="before">Pagination of data to return records newer than the requested subPosId.</param>
-    /// <param name="limit">Number of results per request. Maximum is 500. Default is 100.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingLeadTraderPosition>>> GetMyLeadTraderCurrentPositionsAsync(
-        string uniqueCode,
-        OkxInstrumentType? instrumentType = null,
-        long? after = null,
-        long? before = null,
-        int limit = 100,
-        CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uniqueCode", uniqueCode);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
-
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPosition>(GetUri(v5CopyTradingPerformanceCurrentSubpositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Private endpoint. Retrieve the lead trader completed leading position of the last 3 months.
-    /// Returns reverse chronological order with subPosId.
-    /// For requests from the ND sub-account, under the same ND broker, uniqueCode is supported for ND lead trader unique code by this endpoint, but the related public endpoint does not support it.
-    /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested subPosId.</param>
-    /// <param name="before">Pagination of data to return records newer than the requested subPosId.</param>
-    /// <param name="limit">Number of results per request. Maximum is 500. Default is 100.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingLeadTraderPositionHistory>>> GetMyLeadTraderPositionHistoryAsync(
-        string uniqueCode,
-        OkxInstrumentType? instrumentType = null,
-        long? after = null,
-        long? before = null,
-        int limit = 100,
-        CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uniqueCode", uniqueCode);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
-
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPositionHistory>(GetUri(v5CopyTradingPerformanceSubpositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Private endpoint. Retrieve copy trader coming from certain lead trader. Return according to pnl from high to low
-    /// For requests from the ND sub-account, under the same ND broker, uniqueCode is supported for ND lead trader unique code by this endpoint, but the related public endpoint does not support it.
-    /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="instrumentType">Instrument type</param>
-    /// <param name="limit">Number of results per request. Maximum is 500. Default is 100.</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingCopyTrader>>> GetMyCopyTradersAsync(
-        string uniqueCode,
-        OkxInstrumentType? instrumentType = null,
-        int limit = 100,
-        CancellationToken ct = default)
-    {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uniqueCode", uniqueCode);
-        parameters.AddOptional("limit", limit.ToOkxString());
-
-        return ProcessListRequestAsync<OkxCopyTradingCopyTrader>(GetUri(v5CopyTradingCopyTraders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 }

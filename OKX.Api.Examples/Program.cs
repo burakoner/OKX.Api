@@ -260,20 +260,13 @@ internal class Program
         var copy_08 = await api.CopyTrading.GetTotalProfitSharingAsync();
         var copy_09 = await api.CopyTrading.GetUnrealizedProfitSharingDetailsAsync();
         var copy_10 = await api.CopyTrading.GetTotalUnrealizedProfitSharingAsync();
-        var copy_11 = await api.CopyTrading.ApplyForLeadTradingAsync([]);
-        var copy_12 = await api.CopyTrading.StopLeadTradingAsync();
         var copy_13 = await api.CopyTrading.AmendProfitSharingRatioAsync(1.0m);
         var copy_14 = await api.CopyTrading.GetAccountConfigurationAsync();
         var copy_15 = await api.CopyTrading.FirstCopySettingsAsync("---CODE---", OkxCopyTradingMarginMode.Copy, OkxCopyTradingInstrumentIdType.Copy, 1000.0M, OkxCopyTradingPositionCloseType.CopyClose);
         var copy_16 = await api.CopyTrading.AmendCopySettingsAsync("---CODE---", OkxCopyTradingMarginMode.Copy, OkxCopyTradingInstrumentIdType.Copy, 1000.0M, OkxCopyTradingPositionCloseType.CopyClose);
         var copy_17 = await api.CopyTrading.StopCopyingAsync("---CODE---", OkxCopyTradingPositionCloseType.CopyClose, OkxInstrumentType.Option);
         var copy_18 = await api.CopyTrading.GetCopySettingsAsync("---CODE---");
-        var copy_19 = await api.CopyTrading.GetMultipleLeverages(OkxAccountMarginMode.Isolated, "---CODE---", []);
-        var copy_20 = await api.CopyTrading.GetMultipleLeverages(OkxAccountMarginMode.Isolated, "---CODE---", default, "", "", "");
-        var copy_21 = await api.CopyTrading.SetMultipleLeverageAsync(OkxAccountMarginMode.Isolated, 10, []);
-        var copy_22 = await api.CopyTrading.SetMultipleLeverageAsync(OkxAccountMarginMode.Isolated, 10, default, "", "", "");
         var copy_23 = await api.CopyTrading.GetMyLeadTradersAsync();
-        var copy_24 = await api.CopyTrading.GetMyLeadTradersHistoryAsync();
         var copy_25 = await api.CopyTrading.GetPublicConfigurationAsync();
         var copy_26 = await api.CopyTrading.GetLeadTradersRanksAsync();
         var copy_27 = await api.CopyTrading.GetLeadTraderWeeklyPnlAsync("---CODE---");
@@ -283,14 +276,6 @@ internal class Program
         var copy_31 = await api.CopyTrading.GetLeadTraderCurrentPositionsAsync("---CODE---");
         var copy_32 = await api.CopyTrading.GetLeadTraderPositionHistoryAsync("---CODE---");
         var copy_33 = await api.CopyTrading.GetCopyTradersAsync("---CODE---");
-        var copy_34 = await api.CopyTrading.GetMyLeadTradersRanksAsync();
-        var copy_35 = await api.CopyTrading.GetMyLeadTraderWeeklyPnlAsync("---CODE---");
-        var copy_36 = await api.CopyTrading.GetMyLeadTraderDailyPnlAsync("---CODE---", "");
-        var copy_37 = await api.CopyTrading.GetMyLeadTraderStatsAsync("---CODE---", "");
-        var copy_38 = await api.CopyTrading.GetMyLeadTraderCurrencyPreferencesAsync("---CODE---");
-        var copy_39 = await api.CopyTrading.GetMyLeadTraderCurrentPositionsAsync("---CODE---");
-        var copy_40 = await api.CopyTrading.GetMyLeadTraderPositionHistoryAsync("---CODE---");
-        var copy_41 = await api.CopyTrading.GetMyCopyTradersAsync("---CODE---");
 
         // Block Trading Methods (Unsigned)
         var block_01 = await api.Block.GetCounterpartiesAsync();
