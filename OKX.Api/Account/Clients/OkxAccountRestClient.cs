@@ -815,7 +815,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxAccountBorrowRepayHistory>(GetUri(v5AccountSpotBorrowRepayHistory), HttpMethod.Get, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountBorrowRepayHistory>(GetUri(v5AccountSpotBorrowRepayHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>

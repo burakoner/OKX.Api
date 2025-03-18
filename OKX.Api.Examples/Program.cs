@@ -122,8 +122,6 @@ internal class Program
         var trade_11 = await api.Trade.GetOrderArchiveAsync(OkxInstrumentType.Futures);
         var trade_12 = await api.Trade.GetTradesAsync();
         var trade_13 = await api.Trade.GetTradesHistoryAsync(OkxInstrumentType.Futures);
-        var trade_14 = await api.Trade.ApplyTradesArchiveAsync(2021, OkxQuarter.Quarter3);
-        var trade_15 = await api.Trade.GetTradesArchiveAsync(2021, OkxQuarter.Quarter3);
         var trade_16 = await api.Trade.GetEasyConvertCurrenciesAsync();
         var trade_17 = await api.Trade.PlaceEasyConvertOrderAsync([], "USDT");
         var trade_18 = await api.Trade.GetEasyConvertHistoryAsync();

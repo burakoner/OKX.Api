@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Grid Investment Add Response
 /// </summary>
-internal record OkxGridInvestmentAddResponse
+internal record OkxGridAlgoIdContainer
 {
     /// <summary>
     /// Algo Order Id
     /// </summary>
     [JsonProperty("algoId")]
-    public long? Data { get; set; }
+    public long? Payload { get; set; }
 }

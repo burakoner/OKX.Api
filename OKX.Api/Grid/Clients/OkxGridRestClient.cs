@@ -24,6 +24,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     private const string v5TradingBotGridAiParam = "api/v5/tradingBot/grid/ai-param";
     private const string v5TradingBotGridMinInvestment = "api/v5/tradingBot/grid/min-investment";
     private const string v5TradingBotPublicRsiBackTesting = "api/v5/tradingBot/public/rsi-back-testing";
+    private const string v5TradingBotGridGridQuantity = "api/v5/tradingBot/grid/grid-quantity";
 
     /// <summary>
     /// Place grid algo order
@@ -505,9 +506,9 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "amt", amount.ToOkxString() },
         };
 
-        var result = await ProcessOneRequestAsync<OkxGridInvestmentAddResponse>(GetUri(v5TradingBotGridAdjustInvestment), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxGridAlgoIdContainer>(GetUri(v5TradingBotGridAdjustInvestment), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -615,9 +616,44 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalEnum("triggerCond", triggerCondition);
         parameters.AddOptional("duration", duration);
 
-        var result = await ProcessOneRequestAsync<OkxGridTriggerNumber>(GetUri(v5TradingBotPublicRsiBackTesting), HttpMethod.Get, ct, signed: false, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxGridTriggerNumberContainer>(GetUri(v5TradingBotPublicRsiBackTesting), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+    }
+
+    /// <summary>
+    /// Authentication is not required for this public endpoint.
+    /// Maximum grid quantity can be retrieved from this endpoint.Minimum grid quantity always is 2.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
+    /// <param name="runType">Grid type</param>
+    /// <param name="algoOrderType">Algo order type</param>
+    /// <param name="maxPrice">Upper price of price range</param>
+    /// <param name="minPrice">Lower price of price range</param>
+    /// <param name="leverage">Leverage, it is required for contract grid</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<decimal?>> GetMaximumGridQuantityAsync(
+        string instrumentId,
+        OkxGridRunType runType,
+        OkxGridAlgoOrderType algoOrderType,
+        decimal maxPrice,
+        decimal minPrice,
+        int? leverage,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            { "instId", instrumentId },
+            { "maxPx", maxPrice.ToOkxString() },
+            { "minPx", minPrice.ToOkxString() },
+        };
+        parameters.AddEnum("runType", runType);
+        parameters.AddEnum("algoOrdType", algoOrderType);
+        parameters.AddOptional("lever", leverage);
+
+        var result = await ProcessOneRequestAsync<OkxGridMaxQuantityContainer>(GetUri(v5TradingBotGridGridQuantity), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        if (!result) return new RestCallResult<decimal?>(result.Request, result.Response, result.Raw, result.Error);
+        return new RestCallResult<decimal?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
     }
 
 }

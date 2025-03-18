@@ -1,5 +1,10 @@
 ## Change Log & Release Notes
 
+* Version 5.5.319 - 18 Mar 2025
+  * Fixed minor bugs
+  * Changes in OkxGridRestClient
+    * Added GetMaximumGridQuantityAsync
+
 * Version 5.5.318 - 18 Mar 2025
   * Changes in OkxTradeRestClient
     * Removed ApplyTradesArchiveAsync
