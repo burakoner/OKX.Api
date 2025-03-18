@@ -16,8 +16,6 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     private const string v5UsersSubaccountTransfer = "api/v5/asset/subaccount/transfer";
     private const string v5UsersSubaccountSetTransferOut = "api/v5/users/subaccount/set-transfer-out";
     private const string v5UsersEntrustSubaccountList = "api/v5/users/entrust-subaccount-list";
-    private const string v5AccountSubaccountSetLoanAllocation = "api/v5/account/subaccount/set-loan-allocation";
-    private const string v5AccountSubaccountInterestLimits = "api/v5/account/subaccount/interest-limits";
 
     /// <summary>
     /// applies to master accounts only
@@ -252,9 +250,9 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptional("loanTrans", loanTransfer);
         parameters.AddOptional("omitPosRisk", omitPositionRisk);
 
-        var result = await ProcessOneRequestAsync<OkxSubAccountTransfer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxSubAccountTransferIdContainer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -290,47 +288,6 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptional("subAcct", subAccountName);
 
         return ProcessListRequestAsync<OkxSubAccountName>(GetUri(v5UsersEntrustSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Set the VIP loan allocation of sub-accounts. Only Applicable to master account API keys with Trade access.
-    /// </summary>
-    /// <param name="enable">true or false</param>
-    /// <param name="allocations">If enable = false, this will not be validated</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public async Task<RestCallResult<bool?>> SetLoanAllocationAsync(
-        bool enable,
-        IEnumerable<OkxSubAccountLoanAllocation>? allocations = null,
-        CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection
-        {
-            { "enable", enable },
-        };
-        parameters.AddOptional("alloc", allocations);
-
-        var result = await ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5AccountSubaccountSetLoanAllocation), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw, result.Error);
-    }
-
-    /// <summary>
-    /// Only applicable to master account API keys. Only return VIP loan information
-    /// </summary>
-    /// <param name="subAccountName">Name of the sub-account. Can only put 1 sub account.</param>
-    /// <param name="currency">Loan currency, e.g. BTC</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxSubAccountInterestLimits>> GetInterestLimitsAsync(string subAccountName, string? currency = null, CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection
-        {
-            { "subAcct", subAccountName },
-        };
-        parameters.AddOptional("ccy", currency);
-
-        return ProcessOneRequestAsync<OkxSubAccountInterestLimits>(GetUri(v5AccountSubaccountInterestLimits), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
 }

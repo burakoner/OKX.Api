@@ -3,11 +3,11 @@
 /// <summary>
 /// OKX Sub Account Transfer
 /// </summary>
-internal record OkxSubAccountTransfer
+internal record OkxSubAccountTransferIdContainer
 {
     /// <summary>
     /// Transfer Id
     /// </summary>
     [JsonProperty("transId")]
-    public long? Data { get; set; }
+    public long? Payload { get; set; }
 }

@@ -1,5 +1,10 @@
 ## Change Log & Release Notes
 
+* Version 5.5.325 - 18 Mar 2025
+  * Changes in OkxSubAccountRestClient
+    * Removed SetLoanAllocationAsync
+    * Removed GetInterestLimitsAsync
+
 * Version 5.5.324 - 18 Mar 2025
   * Changes in OkxFundingRestClient
     * Removed ConvertDustAssetsAsync
