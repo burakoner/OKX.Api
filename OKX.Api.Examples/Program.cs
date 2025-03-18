@@ -45,7 +45,6 @@ internal class Program
         var public_19 = await api.Public.GetMarkPricesAsync(OkxInstrumentType.Futures);
         var public_20 = await api.Public.GetPositionTiersAsync(OkxInstrumentType.Futures, OkxAccountMarginMode.Isolated, "BTC-USD");
         var public_21 = await api.Public.GetInterestRatesAsync();
-        var public_22 = await api.Public.GetVIPInterestRatesAsync();
         var public_23 = await api.Public.GetUnderlyingAsync(OkxInstrumentType.Futures);
         var public_24 = await api.Public.GetUnderlyingAsync(OkxInstrumentType.Option);
         var public_25 = await api.Public.GetUnderlyingAsync(OkxInstrumentType.Swap);

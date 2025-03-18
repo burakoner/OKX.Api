@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Time
 /// </summary>
-public record OkxPublicTime
+public record OkxPublicTimeContainer
 {
     /// <summary>
     /// System time, Unix timestamp format in milliseconds, e.g. 1597026383085

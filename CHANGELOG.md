@@ -1,5 +1,9 @@
 ## Change Log & Release Notes
 
+* Version 5.5.321 - 18 Mar 2025
+  * Changes in OkxPublicRestClient
+    * Removed GetVIPInterestRatesAsync
+
 * Version 5.5.320 - 18 Mar 2025
   * Changes in OkxCopyTradingRestClient
     * Removed ApplyForLeadTradingAsync
@@ -15,7 +19,6 @@
     * Removed GetMyLeadTraderCurrentPositionsAsync
     * Removed GetMyLeadTraderPositionHistoryAsync
     * Removed GetMyCopyTradersAsync
-  * Removed unused models
 
 * Version 5.5.319 - 18 Mar 2025
   * Fixed minor bugs
@@ -26,7 +29,6 @@
   * Changes in OkxTradeRestClient
     * Removed ApplyTradesArchiveAsync
     * Removed GetTradesArchiveAsync
-  * Removed unused models
 
 * Version 5.5.317 - 17 Mar 2025
   * Leverage data type converted to integer
@@ -49,7 +51,6 @@
     * Removed GetVipLoanOrdersAsync
     * Removed GetVipLoanOrderDetailsAsync
     * Removed SetRiskOffsetTypeAsync
-  * Removed unused models
 
 * Version 5.5.312 - 12 Mar 2025
   * Synced endpoints & models with the latest API documentation (2025-03-12).

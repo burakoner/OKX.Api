@@ -18,22 +18,24 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5MarketOptionInstrumentFamilyTrades = "api/v5/market/option/instrument-family-trades";
     private const string v5PublicOptionTrades = "api/v5/public/option-trades";
     private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
+    // TODO: api/v5/market/call-auction-details
 
     // Public Data Endpoints
     private const string v5PublicInstruments = "api/v5/public/instruments";
+    private const string v5PublicEstimatedPrice = "api/v5/public/estimated-price";
     private const string v5PublicDeliveryExerciseHistory = "api/v5/public/delivery-exercise-history";
-    private const string v5PublicOpenInterest = "api/v5/public/open-interest";
+    // TODO: api/v5/public/estimated-settlement-info
+    // TODO: api/v5/public/settlement-history
     private const string v5PublicFundingRate = "api/v5/public/funding-rate";
     private const string v5PublicFundingRateHistory = "api/v5/public/funding-rate-history";
+    private const string v5PublicOpenInterest = "api/v5/public/open-interest";
     private const string v5PublicPriceLimit = "api/v5/public/price-limit";
     private const string v5PublicOptionSummary = "api/v5/public/opt-summary";
-    private const string v5PublicEstimatedPrice = "api/v5/public/estimated-price";
     private const string v5PublicDiscountRateInterestFreeQuota = "api/v5/public/discount-rate-interest-free-quota";
     private const string v5PublicTime = "api/v5/public/time";
     private const string v5PublicMarkPrice = "api/v5/public/mark-price";
     private const string v5PublicPositionTiers = "api/v5/public/position-tiers";
     private const string v5PublicInterestRateLoanQuota = "api/v5/public/interest-rate-loan-quota";
-    private const string v5PublicVIPInterestRateLoanQuota = "api/v5/public/vip-interest-rate-loan-quota";
     private const string v5PublicUnderlying = "api/v5/public/underlying";
     private const string v5PublicInsuranceFund = "api/v5/public/insurance-fund";
     private const string v5PublicConvertContractCoin = "api/v5/public/convert-contract-coin";
@@ -386,6 +388,22 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     }
 
     /// <summary>
+    /// Retrieve the estimated delivery price which will only have a return value one hour before the delivery/exercise.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxPublicEstimatedPrice>> GetEstimatedPriceAsync(string instrumentId, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "instId", instrumentId },
+        };
+
+        return ProcessOneRequestAsync<OkxPublicEstimatedPrice>(GetUri(v5PublicEstimatedPrice), HttpMethod.Get, ct, queryParameters: parameters);
+    }
+
+    /// <summary>
     /// Retrieve the estimated delivery price, which will only have a return value one hour before the delivery/exercise.
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
@@ -418,37 +436,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxPublicDeliveryExerciseHistory>(GetUri(v5PublicDeliveryExerciseHistory), HttpMethod.Get, ct, queryParameters: parameters);
-    }
-
-    /// <summary>
-    /// Retrieve the total open interest for contracts on OKX
-    /// </summary>
-    /// <param name="instrumentType">Instrument Type</param>
-    /// <param name="underlying">Underlying</param>
-    /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="instrumentFamily">Instrument Family</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxPublicOpenInterest>>> GetOpenInterestsAsync(
-        OkxInstrumentType instrumentType,
-        string? underlying = null,
-        string? instrumentId = null,
-        string? instrumentFamily = null,
-        CancellationToken ct = default)
-    {
-        if (instrumentType.IsNotIn(OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
-            throw new ArgumentException("Instrument Type can be only Futures, Option or Swap.");
-
-        if (instrumentType == OkxInstrumentType.Swap && string.IsNullOrEmpty(underlying))
-            throw new ArgumentException("Underlying is required for Option.");
-
-        var parameters = new ParameterCollection();
-        parameters.AddEnum("instType", instrumentType);
-        parameters.AddOptional("uly", underlying);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("instFamily", instrumentFamily);
-
-        return ProcessListRequestAsync<OkxPublicOpenInterest>(GetUri(v5PublicOpenInterest), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -491,6 +478,37 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     }
 
     /// <summary>
+    /// Retrieve the total open interest for contracts on OKX
+    /// </summary>
+    /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="underlying">Underlying</param>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicOpenInterest>>> GetOpenInterestsAsync(
+        OkxInstrumentType instrumentType,
+        string? underlying = null,
+        string? instrumentId = null,
+        string? instrumentFamily = null,
+        CancellationToken ct = default)
+    {
+        if (instrumentType.IsNotIn(OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
+            throw new ArgumentException("Instrument Type can be only Futures, Option or Swap.");
+
+        if (instrumentType == OkxInstrumentType.Swap && string.IsNullOrEmpty(underlying))
+            throw new ArgumentException("Underlying is required for Option.");
+
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("instType", instrumentType);
+        parameters.AddOptional("uly", underlying);
+        parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptional("instFamily", instrumentFamily);
+
+        return ProcessListRequestAsync<OkxPublicOpenInterest>(GetUri(v5PublicOpenInterest), HttpMethod.Get, ct, queryParameters: parameters);
+    }
+
+    /// <summary>
     /// Retrieve the highest buy limit and lowest sell limit of the instrument.
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
@@ -529,22 +547,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     }
 
     /// <summary>
-    /// Retrieve the estimated delivery price which will only have a return value one hour before the delivery/exercise.
-    /// </summary>
-    /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxPublicEstimatedPrice>> GetEstimatedPriceAsync(string instrumentId, CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection
-        {
-            { "instId", instrumentId },
-        };
-
-        return ProcessOneRequestAsync<OkxPublicEstimatedPrice>(GetUri(v5PublicEstimatedPrice), HttpMethod.Get, ct, queryParameters: parameters);
-    }
-
-    /// <summary>
     /// Retrieve discount rate level and interest-free quota.
     /// </summary>
     /// <param name="currency">Currency</param>
@@ -565,7 +567,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public async Task<RestCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
     {
-        var result = await ProcessOneRequestAsync<OkxPublicTime>(GetUri(v5PublicTime), HttpMethod.Get, ct);
+        var result = await ProcessOneRequestAsync<OkxPublicTimeContainer>(GetUri(v5PublicTime), HttpMethod.Get, ct);
         return result.As(result.Data?.Time ?? default);
     }
 
@@ -643,16 +645,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     public Task<RestCallResult<OkxPublicInterestRateLoanQuota>> GetInterestRatesAsync(CancellationToken ct = default)
     {
         return ProcessOneRequestAsync<OkxPublicInterestRateLoanQuota>(GetUri(v5PublicInterestRateLoanQuota), HttpMethod.Get, ct);
-    }
-
-    /// <summary>
-    /// Get interest rate and loan quota for VIP loans
-    /// </summary>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxPublicVipInterestRate>>> GetVIPInterestRatesAsync(CancellationToken ct = default)
-    {
-        return ProcessListRequestAsync<OkxPublicVipInterestRate>(GetUri(v5PublicVIPInterestRateLoanQuota), HttpMethod.Get, ct);
     }
 
     /// <summary>
@@ -1003,9 +995,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public async Task<RestCallResult<decimal>> GetExchangeRateAsync(CancellationToken ct = default)
     {
-        var result = await ProcessOneRequestAsync<OkxPublicExchangeRate>(GetUri(v5MarketExchangeRate), HttpMethod.Get, ct);
+        var result = await ProcessOneRequestAsync<OkxPublicExchangeRateContainer>(GetUri(v5MarketExchangeRate), HttpMethod.Get, ct);
         if (!result) return new RestCallResult<decimal>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<decimal>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        return new RestCallResult<decimal>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
     }
 
     /// <summary>
