@@ -1,13 +1,13 @@
 ﻿namespace OKX.Api.Financial;
 
 /// <summary>
-/// OKX Financial OnChainEarn Cancel
+/// OKX Financial OrderId Container
 /// </summary>
-internal record OkxFinancialOnChainEarnOrderId
+internal record OkxFinancialOrderIdContainer
 {
     /// <summary>
     /// Order Id
     /// </summary>
     [JsonProperty("ordId")]
-    public long? Data { get; set; }
+    public long? Payload { get; set; }
 }

@@ -56,9 +56,9 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         parameters.AddOptional("term", term);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        var result = await ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri(v5FinanceStakingDefiPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -82,9 +82,9 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         };
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        var result = await ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri(v5FinanceStakingDefiRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
     }
 
     /// <summary>
@@ -104,9 +104,9 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
             {"protocolType", protocolType },
         };
 
-        var result = await ProcessOneRequestAsync<OkxFinancialOnChainEarnOrderId>(GetUri(v5FinanceStakingDefiCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri(v5FinanceStakingDefiCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
     }
 
     /// <summary>
