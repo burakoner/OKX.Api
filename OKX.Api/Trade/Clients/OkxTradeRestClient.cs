@@ -25,6 +25,9 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     private const string v5TradeOneClickRepayCurrencyList = "api/v5/trade/one-click-repay-currency-list";
     private const string v5TradeOneClickRepay = "api/v5/trade/one-click-repay";
     private const string v5TradeOneClickRepayHistory = "api/v5/trade/one-click-repay-history";
+    // TODO: api/v5/trade/one-click-repay-currency-list-v2
+    // TODO: api/v5/trade/one-click-repay-v2
+    // TODO: api/v5/trade/one-click-repay-history-v2
     private const string v5TradeMassCancel = "api/v5/trade/mass-cancel";
     private const string v5TradeCancelAllAfter = "api/v5/trade/cancel-all-after";
     private const string v5TradeAccountRateLimit = "api/v5/trade/account-rate-limit";

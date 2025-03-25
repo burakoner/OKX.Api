@@ -27,5 +27,11 @@ public enum OkxGridAlgoOrderStatus
     /// NoClosePosition
     /// </summary>
     [Map("no_close_position")]
-    NoClosePosition = 4
+    NoClosePosition = 4,
+
+    /// <summary>
+    /// Stopped
+    /// </summary>
+    [Map("stopped")]
+    Stopped = 5,
 }

@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Account.Internal;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// Account Level

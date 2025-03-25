@@ -24,6 +24,22 @@ public record OkxGridTriggerParameters
     public int? DelaySeconds { get; set; }
 
     /// <summary>
+    /// Actual action triggered time, unix timestamp format in milliseconds, e.g. 1597026383085
+    /// </summary>
+    [JsonProperty("triggerTime")]
+    public long TriggerTimestamp { get; set; }
+
+    /// Actual action triggered time, unix timestamp format in milliseconds, e.g. 1597026383085
+    [JsonProperty("triggerTime")]
+    public DateTime TriggerTime => TriggerTimestamp.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Actual action triggered type
+    /// </summary>
+    [JsonProperty("triggerType")]
+    public OkxGridTriggerType? TriggerType { get; set; }
+
+    /// <summary>
     /// K-line type
     /// This field is only valid when triggerStrategy is rsi
     /// </summary>
@@ -67,22 +83,6 @@ public record OkxGridTriggerParameters
     /// </summary>
     [JsonProperty("stopType")]
     public string AlgoStopType { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Actual action triggered time, unix timestamp format in milliseconds, e.g. 1597026383085
-    /// </summary>
-    [JsonProperty("triggerTime")]
-    public long TriggerTimestamp { get; set; }
-
-    /// Actual action triggered time, unix timestamp format in milliseconds, e.g. 1597026383085
-    [JsonProperty("triggerTime")]
-    public DateTime TriggerTime => TriggerTimestamp.ConvertFromMilliseconds();
-
-    /// <summary>
-    /// Actual action triggered type
-    /// </summary>
-    [JsonProperty("triggerType")]
-    public OkxGridTriggerType? TriggerType { get; set; }
 }
 
  

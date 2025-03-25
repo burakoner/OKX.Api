@@ -119,7 +119,7 @@ public record OkxPublicInstrument
     /// Maximal leverage
     /// </summary>
     [JsonProperty("lever")]
-    public decimal? MaximumLeverage { get; set; }
+    public int? MaximumLeverage { get; set; }
 
     /// <summary>
     /// Tick size
@@ -144,6 +144,21 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonProperty("ctType")]
     public OkxContractType? ContractType { get; set; }
+
+    /// <summary>
+    /// Alias
+    /// this_week
+    /// next_week
+    /// this_month
+    /// next_month
+    /// quarter
+    /// next_quarter
+    /// third_quarter
+    /// Only applicable to FUTURES
+    /// Not recommended for use, users are encouraged to rely on the expTime field to determine the delivery time of the contract
+    /// </summary>
+    [JsonProperty("alias")]
+    public string Alias { get; set; } = string.Empty;
 
     /// <summary>
     /// State

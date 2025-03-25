@@ -57,7 +57,7 @@ public record OkxPublicPositionTier
     /// Maximum Leverage
     /// </summary>
     [JsonProperty("maxLever")]
-    public decimal? MaximumLeverage { get; set; }
+    public int? MaximumLeverage { get; set; }
 
     /// <summary>
     /// Option Margin Coefficient

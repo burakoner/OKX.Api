@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.SubAccount;
+﻿using System.Collections.Generic;
+using System.Security.Cryptography;
+
+namespace OKX.Api.SubAccount;
 
 /// <summary>
 /// OKX Sub-Account
@@ -58,7 +61,7 @@ public record OkxSubAccount
     /// flexible_loan
     /// </summary>
     [JsonProperty("frozenFunc")]
-    public List<string> FrozenFunctions { get; set; }=[];
+    public List<string> FrozenFunctions { get; set; } = [];
 
     /// <summary>
     /// Whether the sub-account has the right to transfer out.
@@ -79,4 +82,28 @@ public record OkxSubAccount
     /// </summary>
     [JsonIgnore]
     public DateTime Time => Timestamp.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Sub-account level
+    /// 1: First level sub-account
+    /// 2: Second level sub-account.
+    /// </summary>
+    [JsonProperty("subAcctLv")]
+    public int SubAccountLevel { get; set; }
+
+    /// <summary>
+    /// The first level sub-account.
+    /// For subAcctLv: 1, firstLvSubAcct is equal to subAcct
+    /// For subAcctLv: 2, subAcct belongs to firstLvSubAcct.
+    /// </summary>
+    [JsonProperty("firstLvSubAcct")]
+    public string FirstLevelSubAccount { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Whether it is dma broker sub-account.
+    /// true: Dma broker sub-account
+    /// false: It is not dma broker sub-account.
+    /// </summary>
+    [JsonProperty("ifDma")]
+    public bool IsDmaBrokerSubAccount { get; set; }
 }

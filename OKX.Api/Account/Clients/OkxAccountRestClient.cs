@@ -1,6 +1,4 @@
-﻿using OKX.Api.Account.Internal;
-
-namespace OKX.Api.Account;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OKX Trading Account Rest Api Client

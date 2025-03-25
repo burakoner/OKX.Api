@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Grid;
 
 /// <summary>
-/// OKX Grid Algo Order
+/// OKX Grid Contract Order Update
 /// </summary>
-public record OkxGridOrder
+public record OkxGridContractOrderUpdate
 {
     /// <summary>
     /// Algo ID
@@ -126,6 +126,30 @@ public record OkxGridOrder
     public decimal? ArbitrageNumber { get; set; }
 
     /// <summary>
+    ///	Amount per grid
+    /// </summary>
+    [JsonProperty("singleAmt")]
+    public decimal? AmountPerGrid { get; set; }
+
+    /// <summary>
+    /// Estimated minimum Profit margin per grid
+    /// </summary>
+    [JsonProperty("perMinProfitRate")]
+    public decimal? EstimatedMinimumProfitMarginPerGrid { get; set; }
+
+    /// <summary>
+    /// Estimated maximum Profit margin per grid
+    /// </summary>
+    [JsonProperty("perMaxProfitRate")]
+    public decimal? EstimatedMaximumProfitMarginPerGrid { get; set; }
+
+    /// <summary>
+    /// Price at launch
+    /// </summary>
+    [JsonProperty("runPx")]
+    public decimal? PriceAtLaunch { get; set; }
+
+    /// <summary>
     /// Total P&amp;L
     /// </summary>
     [JsonProperty("totalPnl")]
@@ -157,6 +181,18 @@ public record OkxGridOrder
     public decimal? FloatProfit { get; set; }
 
     /// <summary>
+    /// Total annualized rate
+    /// </summary>
+    [JsonProperty("totalAnnualizedRate")]
+    public decimal? TotalAnnualizedRate { get; set; }
+
+    /// <summary>
+    /// Grid annualized rate
+    /// </summary>
+    [JsonProperty("annualizedRate")]
+    public decimal? GridAnnualizedRate { get; set; }
+
+    /// <summary>
     /// Algo order stop reason
     /// </summary>
     [JsonProperty("cancelType")]
@@ -171,26 +207,12 @@ public record OkxGridOrder
     public string AlgoStopType { get; set; } = string.Empty;
 
     /// <summary>
-    /// Quote currency investment amount
-    /// Only applicable to Spot grid/Moon grid
-    /// </summary>
-    [JsonProperty("quoteSz")]
-    public decimal? QuoteSize { get; set; }
-
-    /// <summary>
-    /// Base currency investment amount
-    /// Only applicable to Spot grid
-    /// </summary>
-    [JsonProperty("baseSz")]
-    public decimal? BaseSize { get; set; }
-
-    /// <summary>
     /// Contract grid type
     /// long,short,neutral
     /// Only applicable to contract grid
     /// </summary>
     [JsonProperty("direction")]
-    public OkxGridContractDirection? ContractGridDirection { get; set; }
+    public OkxGridContractDirection? Direction { get; set; }
 
     /// <summary>
     /// Whether or not to open a position when the strategy is activated
@@ -225,36 +247,34 @@ public record OkxGridOrder
     /// Only applicable to contract grid
     /// </summary>
     [JsonProperty("liqPx")]
-    public decimal? LiquidationPrice { get; set; }
-
-    /// <summary>
-    /// Underlying
-    /// Only applicable to contract grid
-    /// </summary>
-    [JsonProperty("uly")]
-    public string Underlying { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Instrument family
-    /// Only applicable to FUTURES/SWAP/OPTION
-    /// Only applicable to contract grid
-    /// </summary>
-    [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; } = string.Empty;
+    public decimal? EstimatedLiquidationPrice { get; set; }
 
     /// <summary>
     /// Margin used by pending orders
     /// Only applicable to contract grid
     /// </summary>
     [JsonProperty("ordFrozen")]
-    public decimal? OrderFrozen { get; set; }
+    public decimal? MarginUsedByPendingOrders { get; set; }
 
     /// <summary>
     /// Available margin
     /// Only applicable to contract grid
+        /// </summary>
+        [JsonProperty("availEq")]
+    public decimal? AvailableMargin { get; set; }
+
+    /// <summary>
+    /// Total equity of strategy account
+    /// Only applicable to contract grid
+        /// </summary>
+        [JsonProperty("eq")]
+    public decimal? Equity { get; set; }
+
+    /// <summary>
+    /// Total count of pending sub orders
     /// </summary>
-    [JsonProperty("availEq")]
-    public decimal? AvailableEquity { get; set; }
+    [JsonProperty("activeOrdNum")]
+    public int? TotalCountOfPendingSubOrders { get; set; }
 
     /// <summary>
     /// Profit sharing ratio
@@ -293,4 +313,16 @@ public record OkxGridOrder
     /// </summary>
     [JsonProperty("fundingFee")]
     public decimal? FundingFee { get; set; }
+
+    /// <summary>
+    /// Push time of algo grid information, Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// </summary>
+    [JsonProperty("pTime")]
+    public long? PushTimestamp { get; set; }
+
+    /// <summary>
+    /// Push time of algo grid information
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? PushTimes => PushTimestamp?.ConvertFromMilliseconds();
 }

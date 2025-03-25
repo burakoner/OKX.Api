@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Grid;
 
 /// <summary>
-/// OKX Grid Algo Order
+/// OKX Grid Spot Order Update
 /// </summary>
-public record OkxGridOrder
+public record OkxGridSpotOrderUpdate
 {
     /// <summary>
     /// Algo ID
@@ -126,6 +126,30 @@ public record OkxGridOrder
     public decimal? ArbitrageNumber { get; set; }
 
     /// <summary>
+    ///	Amount per grid
+    /// </summary>
+    [JsonProperty("singleAmt")]
+    public decimal? AmountPerGrid { get; set; }
+
+    /// <summary>
+    /// Estimated minimum Profit margin per grid
+    /// </summary>
+    [JsonProperty("perMinProfitRate")]
+    public decimal? EstimatedMinimumProfitMarginPerGrid { get; set; }
+
+    /// <summary>
+    /// Estimated maximum Profit margin per grid
+    /// </summary>
+    [JsonProperty("perMaxProfitRate")]
+    public decimal? EstimatedMaximumProfitMarginPerGrid { get; set; }
+
+    /// <summary>
+    /// Price at launch
+    /// </summary>
+    [JsonProperty("runPx")]
+    public decimal? PriceAtLaunch { get; set; }
+
+    /// <summary>
     /// Total P&amp;L
     /// </summary>
     [JsonProperty("totalPnl")]
@@ -157,6 +181,18 @@ public record OkxGridOrder
     public decimal? FloatProfit { get; set; }
 
     /// <summary>
+    /// Total annualized rate
+    /// </summary>
+    [JsonProperty("totalAnnualizedRate")]
+    public decimal? TotalAnnualizedRate { get; set; }
+
+    /// <summary>
+    /// Grid annualized rate
+    /// </summary>
+    [JsonProperty("annualizedRate")]
+    public decimal? GridAnnualizedRate { get; set; }
+
+    /// <summary>
     /// Algo order stop reason
     /// </summary>
     [JsonProperty("cancelType")]
@@ -185,76 +221,39 @@ public record OkxGridOrder
     public decimal? BaseSize { get; set; }
 
     /// <summary>
-    /// Contract grid type
-    /// long,short,neutral
-    /// Only applicable to contract grid
+    /// Assets of quote currency currently held
+    /// Only applicable to Spot grid
     /// </summary>
-    [JsonProperty("direction")]
-    public OkxGridContractDirection? ContractGridDirection { get; set; }
+    [JsonProperty("curQuoteSz")]
+    public decimal? CurrentQuoteSize { get; set; }
 
     /// <summary>
-    /// Whether or not to open a position when the strategy is activated
-    /// Only applicable to contract grid
+    /// Assets of base currency currently held
+    /// Only applicable to Spot grid
     /// </summary>
-    [JsonProperty("basePos")]
-    public bool? BasePosition { get; set; }
+    [JsonProperty("curBaseSz")]
+    public decimal? CurrentBaseSize { get; set; }
 
     /// <summary>
-    /// Used margin based on USDT
-    /// Only applicable to contract grid
+    /// Current available profit based on quote currency
+    /// Only applicable to Spot grid
+        /// </summary>
+        [JsonProperty("profit")]
+    public decimal? Profit { get; set; }
+    
+    /// <summary>
+    /// Stop result
+    /// 0: default, 1: Successful selling of currency at market price, -1: Failed to sell currency at market price
+    /// Only applicable to Spot grid
     /// </summary>
-    [JsonProperty("sz")]
-    public decimal? Size { get; set; }
+    [JsonProperty("stopResult")]
+    public string StopResult { get; set; } = string.Empty;
 
     /// <summary>
-    /// Leverage
-    /// Only applicable to contract grid
+    /// Total count of pending sub orders
     /// </summary>
-    [JsonProperty("lever")]
-    public int? Leverage { get; set; }
-
-    /// <summary>
-    /// Actual Leverage
-    /// Only applicable to contract grid
-    /// </summary>
-    [JsonProperty("actualLever")]
-    public decimal? ActualLeverage { get; set; }
-
-    /// <summary>
-    /// Estimated liquidation price
-    /// Only applicable to contract grid
-    /// </summary>
-    [JsonProperty("liqPx")]
-    public decimal? LiquidationPrice { get; set; }
-
-    /// <summary>
-    /// Underlying
-    /// Only applicable to contract grid
-    /// </summary>
-    [JsonProperty("uly")]
-    public string Underlying { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Instrument family
-    /// Only applicable to FUTURES/SWAP/OPTION
-    /// Only applicable to contract grid
-    /// </summary>
-    [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Margin used by pending orders
-    /// Only applicable to contract grid
-    /// </summary>
-    [JsonProperty("ordFrozen")]
-    public decimal? OrderFrozen { get; set; }
-
-    /// <summary>
-    /// Available margin
-    /// Only applicable to contract grid
-    /// </summary>
-    [JsonProperty("availEq")]
-    public decimal? AvailableEquity { get; set; }
+    [JsonProperty("activeOrdNum")]
+    public decimal? PendingSubOrders { get; set; }
 
     /// <summary>
     /// Profit sharing ratio
@@ -271,26 +270,15 @@ public record OkxGridOrder
     public OkxProfitSharingOrderType ProfitSharingOrderType { get; set; }
 
     /// <summary>
-    /// Take profit ratio, 0.1 represents 10%
+    /// Push time of algo grid information, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
-    [JsonProperty("tpRatio")]
-    public decimal? TakeProfitRatio { get; set; }
+    [JsonProperty("pTime")]
+    public long? PushTimestamp { get; set; }
 
     /// <summary>
-    /// Stop loss ratio, 0.1 represents 10%
+    /// Push time of algo grid information
     /// </summary>
-    [JsonProperty("slRatio")]
-    public decimal? StopLossRatio { get; set; }
+    [JsonIgnore]
+    public DateTime? PushTimes => PushTimestamp?.ConvertFromMilliseconds();
 
-    /// <summary>
-    /// Accumulated fee. Only applicable to contract grid, or it will be ""
-    /// </summary>
-    [JsonProperty("fee")]
-    public decimal? Fee { get; set; }
-
-    /// <summary>
-    /// Accumulated funding fee. Only applicable to contract grid, or it will be ""
-    /// </summary>
-    [JsonProperty("fundingFee")]
-    public decimal? FundingFee { get; set; }
 }

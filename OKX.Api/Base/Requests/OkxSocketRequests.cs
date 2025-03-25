@@ -188,6 +188,11 @@ public record OkxSocketSymbolRequest
     public string? InstrumentId { get; set; }
 
     /// <summary>
+    /// Algo Order Id
+    /// </summary>
+    public string? AlgoOrderId { get; set; }
+
+    /// <summary>
     /// Constructor
     /// </summary>
     public OkxSocketSymbolRequest() { }
@@ -195,14 +200,14 @@ public record OkxSocketSymbolRequest
     /// <summary>
     /// Constructor
     /// </summary>
-    /// <param name="type"></param>
-    /// <param name="family"></param>
-    /// <param name="id"></param>
-    public OkxSocketSymbolRequest(OkxInstrumentType type, string? family, string? id)
+    /// <param name="instrumentType"></param>
+    /// <param name="instrumentFamily"></param>
+    /// <param name="instrumentId"></param>
+    public OkxSocketSymbolRequest(OkxInstrumentType instrumentType, string? instrumentFamily, string? instrumentId)
     {
-        InstrumentType = type;
-        InstrumentFamily = family;
-        InstrumentId = id;
+        InstrumentType = instrumentType;
+        InstrumentFamily = instrumentFamily;
+        InstrumentId = instrumentId;
     }
 }
 

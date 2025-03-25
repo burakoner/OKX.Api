@@ -6,7 +6,7 @@
 public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
-    private const string v5FinanceStakingDefiEthProductInfo = "api/v5/finance/staking-defi/eth/product-info"; // TODO
+    private const string v5FinanceStakingDefiEthProductInfo = "api/v5/finance/staking-defi/eth/product-info";
     private const string v5FinanceStakingDefiEthPurchase = "api/v5/finance/staking-defi/eth/purchase";
     private const string v5FinanceStakingDefiEthRedeem = "api/v5/finance/staking-defi/eth/redeem";
     private const string v5FinanceStakingDefiEthBalance = "api/v5/finance/staking-defi/eth/balance";

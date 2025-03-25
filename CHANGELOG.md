@@ -1,5 +1,17 @@
 ## Change Log & Release Notes
 
+* Version 5.5.330 - 25 Mar 2025
+  * Synced endpoints & models with the OKX Latest API Version (2025-03-21).
+  * Changes in OkxCopyTradingSocketClient
+    * Added SubscribeToLeadTradingNotificationsAsync
+  * Changes in OkxFundingSocketClient
+    * Added SubscribeToDepositsAsync
+    * Added SubscribeToWithdrawalsAsync
+  * Changes in OkxGridSocketClient
+    * Added SubscribeToContractOrdersAsync
+    * Added SubscribeToPositionsAsync
+    * Added SubscribeToSubOrdersAsync
+
 * Version 5.5.328 - 18 Mar 2025
   * Changes in OkxFinancialSolStakingRestClient
     * Added PurchaseAsync
