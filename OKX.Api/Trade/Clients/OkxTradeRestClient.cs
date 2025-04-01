@@ -25,9 +25,9 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     private const string v5TradeOneClickRepayCurrencyList = "api/v5/trade/one-click-repay-currency-list";
     private const string v5TradeOneClickRepay = "api/v5/trade/one-click-repay";
     private const string v5TradeOneClickRepayHistory = "api/v5/trade/one-click-repay-history";
-    // TODO: api/v5/trade/one-click-repay-currency-list-v2
-    // TODO: api/v5/trade/one-click-repay-v2
-    // TODO: api/v5/trade/one-click-repay-history-v2
+    private const string v5TradeOneClickRepayCurrencyListV2 = "api/v5/trade/one-click-repay-currency-list-v2";
+    private const string v5TradeOneClickRepayV2 = "api/v5/trade/one-click-repay-v2";
+    private const string v5TradeOneClickRepayHistoryV2 = "api/v5/trade/one-click-repay-history-v2";
     private const string v5TradeMassCancel = "api/v5/trade/mass-cancel";
     private const string v5TradeCancelAllAfter = "api/v5/trade/cancel-all-after";
     private const string v5TradeAccountRateLimit = "api/v5/trade/account-rate-limit";
@@ -578,8 +578,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeEasyConvertOrder>>> PlaceEasyConvertOrderAsync(
-        IEnumerable<string> fromCcy, 
-        string toCcy, 
+        IEnumerable<string> fromCcy,
+        string toCcy,
         OkxTradeEasyConvertSource? source = null,
         CancellationToken ct = default)
     {
@@ -664,6 +664,53 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     }
 
     /// <summary>
+    /// Get list of debt currency data and repay currencies. Only applicable to SPOT mode.
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTradeOneClickRepayCurrencyListV2>>> GetOneClickRepayCurrenciesV2Async(CancellationToken ct = default)
+    {
+        return ProcessListRequestAsync<OkxTradeOneClickRepayCurrencyListV2>(GetUri(v5TradeOneClickRepayCurrencyListV2), HttpMethod.Get, ct, signed: true);
+    }
+
+    /// <summary>
+    /// Trade one-click repay to repay debts. Only applicable to SPOT mode.
+    /// </summary>
+    /// <param name="debtCcy">Debt currency</param>
+    /// <param name="repayCcyList">Repay currency list, e.g. ["USDC","BTC"]. The priority of currency to repay is consistent with the order in the array. (The first item has the highest priority)</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTradeOneClickRepayOrderV2>>> PlaceOneClickRepayOrderV2Async(string debtCcy, IEnumerable<string> repayCcyList, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            {"debtCcy", debtCcy },
+            {"repayCcyList", repayCcyList },
+        };
+
+        return ProcessListRequestAsync<OkxTradeOneClickRepayOrderV2>(GetUri(v5TradeOneClickRepayV2), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get the history and status of one-click repay trades in the past 7 days. Only applicable to SPOT mode.
+    /// </summary>
+    /// <param name="after">Pagination of data to return records earlier than the requested time, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested time, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTradeOneClickRepayOrderHistoryV2>>> GetOneClickRepayHistoryV2Async(long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxTradeOneClickRepayOrderHistoryV2>(GetUri(v5TradeOneClickRepayHistoryV2), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
     /// Cancel all the MMP pending orders of an instrument family.
     /// Only applicable to Option in Portfolio Margin mode, and MMP privilege is required.
     /// </summary>
@@ -676,12 +723,12 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<RestCallResult<bool?>> MassCancelAsync(
-        OkxInstrumentType instrumentType, 
+        OkxInstrumentType instrumentType,
         string instrumentFamily,
         int? lockInterval = null,
         CancellationToken ct = default)
     {
-        if(lockInterval.HasValue)
+        if (lockInterval.HasValue)
         {
             lockInterval?.ValidateIntBetween(nameof(lockInterval), 1, 10000);
         }

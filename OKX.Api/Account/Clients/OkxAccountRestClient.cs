@@ -43,6 +43,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     private const string v5AccountAccountLevelSwitchPreset = "api/v5/account/account-level-switch-preset";
     private const string v5AccountSetAccountSwitchPrecheck = "api/v5/account/set-account-switch-precheck";
     private const string v5AccountSetAccountLevel = "api/v5/account/set-account-level";
+    private const string v5AccountSetCollateralAssets = "api/v5/account/set-collateral-assets";
+    private const string v5AccountCollateralAssets = "api/v5/account/collateral-assets";
     private const string v5AccountMmpReset = "api/v5/account/mmp-reset";
     private const string v5AccountMmpConfig = "api/v5/account/mmp-config";
 
@@ -987,6 +989,47 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var result = await ProcessOneRequestAsync<OkxAccountModeContainer>(GetUri(v5AccountSetAccountLevel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<OkxAccountMode?>(result.Request, result.Response, result.Raw, result.Error);
         return new RestCallResult<OkxAccountMode?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+    }
+
+    /// <summary>
+    /// Set collateral assets
+    /// </summary>
+    /// <param name="type">Type</param>
+    /// <param name="collateralEnabled">Whether or not set the assets to be collateral</param>
+    /// <param name="currencies">Currency list, e.g. ["BTC","ETH"]. If type = custom, the parameter is required.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxAccountCollateralAssets>> SetCollateralAssetsAsync(
+        OkxAccountCollateralAssetsMode type,
+        bool collateralEnabled,
+        IEnumerable<string>? currencies = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("type", type);
+        parameters.Add("collateralEnabled", collateralEnabled);
+        parameters.AddOptional("ccyList", currencies);
+
+        return ProcessOneRequestAsync<OkxAccountCollateralAssets>(GetUri(v5AccountSetCollateralAssets), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve collateral assets
+    /// </summary>
+    /// <param name="currency">Single currency or multiple currencies (no more than 20) separated with comma, e.g. "BTC" or "BTC,ETH".</param>
+    /// <param name="collateralEnabled">Whether or not to be a collateral asset</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountCollateralAsset>>> GetCollateralAssetsAsync(
+        string? currency = null,
+        bool? collateralEnabled = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("collateralEnabled", collateralEnabled);
+
+        return ProcessListRequestAsync<OkxAccountCollateralAsset>(GetUri(v5AccountCollateralAssets), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>

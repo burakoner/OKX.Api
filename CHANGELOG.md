@@ -1,5 +1,15 @@
 ## Change Log & Release Notes
 
+* Version 5.5.401 - 01 Apr 2025
+  * Synced endpoints & models with the OKX Latest API Version (2025-03-26).
+  * Changes in OkxAccountRestClient
+    * Added SetCollateralAssetsAsync
+    * Added GetCollateralAssetsAsync
+  * Changes in OkxTradeRestClient
+    * Added GetOneClickRepayCurrenciesV2Async
+    * Added PlaceOneClickRepayOrderV2Async
+    * Added GetOneClickRepayHistoryV2Async
+
 * Version 5.5.330 - 25 Mar 2025
   * Synced endpoints & models with the OKX Latest API Version (2025-03-21).
   * Changes in OkxCopyTradingSocketClient

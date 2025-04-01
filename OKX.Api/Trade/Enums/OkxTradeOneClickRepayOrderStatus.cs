@@ -22,4 +22,10 @@ public enum OkxTradeOneClickRepayOrderStatus
     /// </summary>
     [Map("failed")]
     Failed = 3,
+
+    /// <summary>
+    /// Canceled
+    /// </summary>
+    [Map("canceled")]
+    Canceled = 4,
 }

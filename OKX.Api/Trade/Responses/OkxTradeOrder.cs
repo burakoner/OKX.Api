@@ -60,6 +60,13 @@ public record OkxTradeOrder
     public decimal? PriceVolatility { get; set; }
 
     /// <summary>
+    /// Index price at the moment of trade execution
+    /// For cross currency spot pairs, it returns baseCcy-USDT index price.For example, for LTC-ETH, this field returns the index price of LTC-USDT.
+    /// </summary>
+    [JsonProperty("fillIdxPx")]
+    public decimal? FillIndexPrice { get; set; }
+
+    /// <summary>
     /// Price type of options
     /// px: Place an order based on price, in the unit of coin (the unit for the request parameter px is BTC or ETH)
     /// pxVol: Place an order based on pxVol
