@@ -119,7 +119,7 @@ public record OkxAccountPrecheckModeUnmatchedPosition
     /// Position ID
     /// </summary>
     [JsonProperty("lever")]
-    public int Leverage { get; set; }
+    public decimal Leverage { get; set; }
 
     /// <summary>
     /// Leverage of cross margin contract positions after switch
@@ -155,7 +155,7 @@ public record OkxAccountPrecheckModePositionTierCheck
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 
     /// <summary>
     /// If acctLv is 2/3, it refers to the maximum position size allowed at the current leverage. If acctLv is 4, it refers to the maximum position limit for cross-margin positions under the PM mode.

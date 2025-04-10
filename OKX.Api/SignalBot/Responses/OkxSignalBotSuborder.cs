@@ -156,5 +156,5 @@ public record OkxSignalBotSuborder
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 }

@@ -21,5 +21,5 @@ public record OkxAccountPresetMode
     /// The leverage user preset for cross-margin positions
     /// </summary>
     [JsonProperty("lever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 }

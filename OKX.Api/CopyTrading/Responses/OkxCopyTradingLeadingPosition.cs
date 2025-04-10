@@ -33,7 +33,7 @@ public record OkxCopyTradingLeadingPosition
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 
     /// <summary>
     /// Order ID for opening position

@@ -107,7 +107,7 @@ public record OkxGridPlaceOrderRequest
     /// Leverage
     /// </summary>
     [JsonProperty("lever", NullValueHandling = NullValueHandling.Ignore)]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 
     /// <summary>
     /// Base Position

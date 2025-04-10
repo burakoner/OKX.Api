@@ -69,7 +69,7 @@ public record OkxGridAlgoPosition
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 
     /// <summary>
     /// Liquidation price

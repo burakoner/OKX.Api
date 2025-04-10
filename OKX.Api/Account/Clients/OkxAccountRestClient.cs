@@ -347,7 +347,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountLeverage>>> SetLeverageAsync(
-        int leverage,
+        decimal leverage,
         string? currency = null,
         string? instrumentId = null,
         OkxAccountMarginMode? marginMode = null,
@@ -391,7 +391,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         OkxTradeMode tradeMode,
         string? currency = null,
         decimal? price = null,
-        int? leverage = null,
+        decimal? leverage = null,
         bool? unSpotOffset = null,
         CancellationToken ct = default)
     {
@@ -509,7 +509,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     public Task<RestCallResult<List<OkxAccountLeverageEstimatedInformation>>> GetLeverageEstimatedInformationAsync(
         OkxInstrumentType instrumentType,
         OkxAccountMarginMode marginMode,
-        int leverage,
+        decimal leverage,
         string? instrumentId = null,
         string? currency = null,
         OkxTradePositionSide? positionSide = null,
@@ -833,7 +833,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     public Task<RestCallResult<List<OkxAccountPositionBuilder>>> PositionBuilderAsync(
     OkxAccountMode? accountLevel = null,
     bool importExisting = true,
-    int? leverage = null,
+    decimal? leverage = null,
     IEnumerable<OkxAccountSimulatedPosition>? simulatedPositions = null,
     IEnumerable<OkxAccountSimulatedAsset>? simulatedAssets = null,
     OkxAccountGreeksType? greeksType = OkxAccountGreeksType.BlackScholesGreeksInDollars,
@@ -948,7 +948,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<OkxAccountPresetMode>> SwitchPresetAccountModeAsync(
         OkxAccountMode accountMode,
-        int? leverage = null,
+        decimal? leverage = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();

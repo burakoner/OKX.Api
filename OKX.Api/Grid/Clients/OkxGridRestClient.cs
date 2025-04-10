@@ -99,7 +99,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         // Contract Grid Order
         decimal? size = null,
         OkxGridContractDirection? contractGridDirection = null,
-        int? leverage = null,
+        decimal? leverage = null,
         bool? basePosition = null,
         decimal? takeProfitRatio = null,
         decimal? stopLossRatio = null,
@@ -562,7 +562,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal gridNumber,
         OkxGridRunType? gridRunType,
         OkxGridContractDirection? direction = null,
-        int? leverage = null,
+        decimal? leverage = null,
         bool? basePosition = null,
         OkxGridInvestmentType? investmentType = null,
         OkxGridTriggerStrategy? triggerStrategy = null,
@@ -639,7 +639,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxGridAlgoOrderType algoOrderType,
         decimal maxPrice,
         decimal minPrice,
-        int? leverage,
+        decimal? leverage,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {

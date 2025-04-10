@@ -87,5 +87,5 @@ public record OkxGridAiParameter
     /// Leverage
     /// </summary>
     [JsonProperty("lever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 }

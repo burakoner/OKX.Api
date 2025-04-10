@@ -119,7 +119,7 @@ public record OkxPublicInstrument
     /// Maximal leverage
     /// </summary>
     [JsonProperty("lever")]
-    public int? MaximumLeverage { get; set; }
+    public decimal? MaximumLeverage { get; set; }
 
     /// <summary>
     /// Tick size

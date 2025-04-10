@@ -211,7 +211,7 @@ public record OkxGridOrder
     /// Only applicable to contract grid
     /// </summary>
     [JsonProperty("lever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 
     /// <summary>
     /// Actual Leverage

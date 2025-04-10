@@ -98,7 +98,7 @@ public record OkxAlgoOrder
     /// Only applicable to MARGIN/FUTURES/SWAP
     /// </summary>
     [JsonProperty("lever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 
     /// <summary>
     /// Take-profit trigger price.

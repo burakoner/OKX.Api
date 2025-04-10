@@ -63,11 +63,11 @@ public record OkxAccountLeverageEstimatedInformation
     /// Maximum leverage
     /// </summary>
     [JsonProperty("maxLever")]
-    public int? MaximumLeverage { get; set; }
+    public decimal? MaximumLeverage { get; set; }
 
     /// <summary>
     /// Minimum leverage
     /// </summary>
     [JsonProperty("minLever")]
-    public int? MinimumLeverage { get; set; }
+    public decimal? MinimumLeverage { get; set; }
 }

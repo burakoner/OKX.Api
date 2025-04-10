@@ -170,7 +170,7 @@ public record OkxTradeOrder
     /// Leverage, from 0.01 to 125.
     /// </summary>
     [JsonProperty("lever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 
     /// <summary>
     /// Client-supplied Algo ID when placing order attaching TP/SL.

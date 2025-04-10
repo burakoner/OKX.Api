@@ -1,5 +1,8 @@
 ## Change Log & Release Notes
 
+* Version 5.5.410 - 10 Apr 2025
+  * Leverage data type converted to decimal again
+
 * Version 5.5.401 - 01 Apr 2025
   * Synced endpoints & models with the OKX Latest API Version (2025-03-26).
   * Changes in OkxAccountRestClient

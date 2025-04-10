@@ -34,7 +34,7 @@ public record OkxAccountMarginBalance
     /// Real leverage after the margin adjustment
     /// </summary>
     [JsonProperty("leverage")]
-    public int Leverage { get; set; }
+    public decimal Leverage { get; set; }
 
     /// <summary>
     /// Currency, only applicable to MARGIN（Manual transfers and Quick Margin Mode）

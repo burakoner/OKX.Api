@@ -185,7 +185,7 @@ public record OkxAccountBalanceDetails
     /// Applicable to Single-currency margin
     /// </summary>
     [JsonProperty("notionalLever")]
-    public int? Leverage { get; set; }
+    public decimal? Leverage { get; set; }
 
     /// <summary>
     /// Strategy equity
