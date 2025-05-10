@@ -1,9 +1,9 @@
-﻿namespace OKX.Api.Public;
+namespace OKX.Api.Public;
 
 /// <summary>
-/// OKX Trade
+/// OKX Trade All
 /// </summary>
-public record OkxPublicTrade
+public record OkxPublicTradeSingle
 {
     /// <summary>
     /// Instrument Id
@@ -46,10 +46,4 @@ public record OkxPublicTrade
     /// </summary>
     [JsonIgnore]
     public DateTime Time => Timestamp.ConvertFromMilliseconds();
-
-    /// <summary>
-    /// Count
-    /// </summary>
-    [JsonProperty("count")]
-    public int Count { get; set; }
 }
