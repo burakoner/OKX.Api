@@ -10,7 +10,6 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 
     #region Market Data
 
-    // TODO: WS / All trades channel
     // TODO: WS / Option trades channel
     // TODO: WS / Call auction details channel
 
@@ -92,25 +91,27 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     }
 
     /// <summary>
-    /// Retrieve the recent trades data. Data will be pushed whenever there is a trade.
+    /// Retrieve the recent trades data. Data will be pushed whenever there is a trade. Each push may aggregate multiple transaction data.
+    /// Messages are pushed based on the different transaction prices of each taker order, and the count field is used to indicate the number of aggregated order matches.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAsync(Action<OkxPublicTrade> onData, string instrumentId, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAsync(Action<OkxPublicTradeAggregate> onData, string instrumentId, CancellationToken ct = default)
         => await SubscribeToTradesAsync(onData, [instrumentId], ct).ConfigureAwait(false);
 
     /// <summary>
-    /// Retrieve the recent trades data. Data will be pushed whenever there is a trade.
+    /// Retrieve the recent trades data. Data will be pushed whenever there is a trade. Each push may aggregate multiple transaction data.
+    /// Messages are pushed based on the different transaction prices of each taker order, and the count field is used to indicate the number of aggregated order matches.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentIds">List of Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAsync(Action<OkxPublicTrade> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAsync(Action<OkxPublicTradeAggregate> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicTrade>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicTradeAggregate>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);
@@ -126,6 +127,42 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Retrieve the recent trades data. Data will be pushed whenever there is a trade. 
+    /// Each push contains only one transaction data.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAllAsync(Action<OkxPublicTradeSingle> onData, string instrumentId, CancellationToken ct = default)
+        => await SubscribeToTradesAllAsync(onData, [instrumentId], ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the recent trades data. Data will be pushed whenever there is a trade.
+    /// Each push contains only one transaction data.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAllAsync(Action<OkxPublicTradeSingle> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicTradeSingle>>>>(data =>
+        {
+            foreach (var d in data.Data.Data)
+                if (d is not null) onData(d);
+        });
+
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
+        {
+            Channel = "trades-all",
+            InstrumentId = instrumentId,
+        });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
 
     /// <summary>
     /// Retrieve order book data.

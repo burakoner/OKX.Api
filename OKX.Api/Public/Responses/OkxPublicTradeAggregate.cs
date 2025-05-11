@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Trade
 /// </summary>
-public record OkxPublicTrade
+public record OkxPublicTradeAggregate
 {
     /// <summary>
     /// Instrument Id
@@ -46,4 +46,10 @@ public record OkxPublicTrade
     /// </summary>
     [JsonIgnore]
     public DateTime Time => Timestamp.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Count
+    /// </summary>
+    [JsonProperty("count")]
+    public int Count { get; set; }
 }
