@@ -497,14 +497,16 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// </summary>
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="amount">The amount is going to be added</param>
+    /// <param name="allowReinvestProfit">Whether reinvesting profits, only applicable to spot grid. true or false. The default is true.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<long?>> AddInvestmentAsync(long algoOrderId, decimal amount, CancellationToken ct = default)
+    public async Task<RestCallResult<long?>> AddInvestmentAsync(long algoOrderId, decimal amount, bool? allowReinvestProfit = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             { "algoId", algoOrderId.ToOkxString() },
             { "amt", amount.ToOkxString() },
         };
+        parameters.AddOptional("allowReinvestProfit", allowReinvestProfit);
 
         var result = await ProcessOneRequestAsync<OkxGridAlgoIdContainer>(GetUri(v5TradingBotGridAdjustInvestment), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);

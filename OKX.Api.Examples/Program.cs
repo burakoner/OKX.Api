@@ -382,11 +382,20 @@ internal class Program
         var onchain_06 = await api.Financial.OnChainEarn.GetHistoryAsync();
 
         // Financial Product -> ETH Staking Methods (Signed)
-        var staking_01 = await api.Financial.EthStaking.PurchaseAsync(1.0m);
-        var staking_02 = await api.Financial.EthStaking.RedeemAsync(1.0m);
-        var staking_03 = await api.Financial.EthStaking.GetBalancesAsync();
-        var staking_04 = await api.Financial.EthStaking.GetHistoryAsync(OkxFinancialStakingType.Purchase);
-        var staking_05 = await api.Financial.EthStaking.GetApyHistoryAsync(30);
+        var ethstaking_01 = await api.Financial.EthStaking.GetProductInfoAsync();
+        var ethstaking_02 = await api.Financial.EthStaking.PurchaseAsync(1.0m);
+        var ethstaking_03 = await api.Financial.EthStaking.RedeemAsync(1.0m);
+        var ethstaking_04 = await api.Financial.EthStaking.GetBalancesAsync();
+        var ethstaking_05 = await api.Financial.EthStaking.GetHistoryAsync(OkxFinancialStakingType.Purchase);
+        var ethstaking_06 = await api.Financial.EthStaking.GetApyHistoryAsync(30);
+
+        // Financial Product -> SOL Staking Methods (Signed)
+        var solstaking_01 = await api.Financial.SolStaking.GetProductInfoAsync();
+        var solstaking_02 = await api.Financial.SolStaking.PurchaseAsync(1.0m);
+        var solstaking_03 = await api.Financial.SolStaking.RedeemAsync(1.0m);
+        var solstaking_04 = await api.Financial.SolStaking.GetBalancesAsync();
+        var solstaking_05 = await api.Financial.SolStaking.GetHistoryAsync(OkxFinancialStakingType.Purchase);
+        var solstaking_06 = await api.Financial.SolStaking.GetApyHistoryAsync(30);
 
         // Financial Product -> Simple Earn Flexible Methods (Signed)
         var flexible_01 = await api.Financial.SimpleEarn.GetBalancesAsync();

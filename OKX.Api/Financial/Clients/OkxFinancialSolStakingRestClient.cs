@@ -6,11 +6,22 @@
 public class OkxFinancialSolStakingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
+    private const string v5FinanceStakingDefiSolProductInfo = "api/v5/finance/staking-defi/sol/product-info";
     private const string v5FinanceStakingDefiSolPurchase = "api/v5/finance/staking-defi/sol/purchase";
     private const string v5FinanceStakingDefiSolRedeem = "api/v5/finance/staking-defi/sol/redeem";
     private const string v5FinanceStakingDefiSolBalance = "api/v5/finance/staking-defi/sol/balance";
     private const string v5FinanceStakingDefiSolPurchaseRedeemHistory = "api/v5/finance/staking-defi/sol/purchase-redeem-history";
     private const string v5FinanceStakingDefiSolApyHistory = "api/v5/finance/staking-defi/sol/apy-history";
+
+    /// <summary>
+    /// GET / Product info
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxFinancialProductInfo>> GetProductInfoAsync(CancellationToken ct = default)
+    {
+        return ProcessOneRequestAsync<OkxFinancialProductInfo>(GetUri(v5FinanceStakingDefiSolProductInfo), HttpMethod.Get, ct, signed: true);
+    }
 
     /// <summary>
     /// Staking SOL for OKSOL

@@ -6,6 +6,10 @@
 public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
+    // TODO: api/v5/users/subaccount/create-subaccount
+    // TODO: Create an API Key for a sub-account
+    // TODO: Query the API Key of a sub-account
+    // TODO: Delete the API Key of sub-accounts
     private const string v5UsersSubaccountList = "api/v5/users/subaccount/list";
     private const string v5UsersSubaccountResetApiKey = "api/v5/users/subaccount/modify-apikey";
     private const string v5UsersSubaccountTradingBalances = "api/v5/account/subaccount/balances";

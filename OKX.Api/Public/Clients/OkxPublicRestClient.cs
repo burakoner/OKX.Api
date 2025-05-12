@@ -262,7 +262,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPublicTradeSingle>>> GetTradesAsync(string instrumentId, int limit = 100, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicTrade>>> GetTradesAsync(string instrumentId, int limit = 100, CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 500);
         var parameters = new ParameterCollection
@@ -271,7 +271,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         };
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPublicTradeSingle>(GetUri(v5MarketTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicTrade>(GetUri(v5MarketTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -286,7 +286,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPublicTradeSingle>>> GetTradeHistoryAsync(
+    public Task<RestCallResult<List<OkxPublicTrade>>> GetTradeHistoryAsync(
         string instrumentId,
         OkxPublicTradeHistoryPaginationType? type = null,
         long? after = null,
@@ -305,7 +305,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPublicTradeSingle>(GetUri(v5MarketTradesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicTrade>(GetUri(v5MarketTradesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>

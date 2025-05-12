@@ -334,7 +334,6 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// </summary>
     /// <param name="algoOrderType">Algo Order Type</param>
     /// <param name="algoId">Algo ID</param>
-    /// <param name="algoClientOrderId">Client-supplied Algo ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
@@ -345,7 +344,6 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<List<OkxAlgoOrder>>> GetOpenOrdersAsync(
         OkxAlgoOrderType algoOrderType,
         long? algoId = null,
-        string? algoClientOrderId = null,
         OkxInstrumentType? instrumentType = null,
         string? instrumentId = null,
         long? after = null,
@@ -357,7 +355,6 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.AddEnum("ordType", algoOrderType);
         parameters.AddOptional("algoId", algoId?.ToOkxString());
-        parameters.AddOptional("algoClOrdId", algoClientOrderId);
         parameters.AddOptionalEnum("instType", instrumentType);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("after", after?.ToOkxString());

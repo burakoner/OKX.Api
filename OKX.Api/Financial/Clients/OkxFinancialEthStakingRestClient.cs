@@ -18,11 +18,9 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<decimal?>> GetProductInfoAsync(CancellationToken ct = default)
+    public Task<RestCallResult<OkxFinancialProductInfo>> GetProductInfoAsync(CancellationToken ct = default)
     {
-        var result = await ProcessOneRequestAsync<OkxFinancialDailyLimitContainer>(GetUri(v5FinanceStakingDefiEthProductInfo), HttpMethod.Get, ct, signed: true);
-        if (!result) return new RestCallResult<decimal?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<decimal?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        return ProcessOneRequestAsync<OkxFinancialProductInfo>(GetUri(v5FinanceStakingDefiEthProductInfo), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>

@@ -135,7 +135,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAllAsync(Action<OkxPublicTradeSingle> onData, string instrumentId, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAllAsync(Action<OkxPublicTrade> onData, string instrumentId, CancellationToken ct = default)
         => await SubscribeToTradesAllAsync(onData, [instrumentId], ct).ConfigureAwait(false);
 
     /// <summary>
@@ -146,9 +146,9 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <param name="instrumentIds">List of Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAllAsync(Action<OkxPublicTradeSingle> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToTradesAllAsync(Action<OkxPublicTrade> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicTradeSingle>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicTrade>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);
