@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial OnChainEarn State
 /// </summary>
-public enum OkxFinancialOnChainEarnOfferState
+public enum OkxFinancialOnChainEarnOfferState : byte
 {
     /// <summary>
     /// Purchasable

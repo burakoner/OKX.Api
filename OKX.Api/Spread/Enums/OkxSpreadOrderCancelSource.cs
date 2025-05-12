@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Spread Order Cancel Source
 /// </summary>
-public enum OkxSpreadOrderCancelSource
+public enum OkxSpreadOrderCancelSource : byte
 {
     /// <summary>
     /// Order canceled by system

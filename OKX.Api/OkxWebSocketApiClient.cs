@@ -29,12 +29,12 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
     /// Recurring Buy Client
     /// </summary>
     public OkxRecurringBuySocketClient RecurringBuy { get; }
-    
+
     /// <summary>
     /// Copy Trading Client
     /// </summary>
     public OkxCopyTradingSocketClient CopyTrading { get; }
-    
+
     /// <summary>
     /// Block Trading Client
     /// </summary>
@@ -49,7 +49,7 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
     /// Public and Market Data Client
     /// </summary>
     public OkxPublicSocketClient Public { get; }
-    
+
     /// <summary>
     /// Funding Account Client
     /// </summary>
@@ -99,7 +99,7 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
         else if (endpoint == OkxSocketEndpoint.Private) url = env.WebSocketPrivateAddress;
         else if (endpoint == OkxSocketEndpoint.Business) url = env.WebSocketBusinessAddress;
 
-        return SubscribeAsync(url, request, identifier, authenticated, dataHandler, ct);
+        return SubscribeAsync(url, request, identifier ?? "", authenticated, dataHandler, ct);
     }
 
     internal Task<CallResult<T>> RootQueryAsync<T>(OkxSocketEndpoint endpoint, object request, bool authenticated)

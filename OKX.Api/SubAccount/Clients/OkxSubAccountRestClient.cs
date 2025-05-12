@@ -255,8 +255,8 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptional("omitPosRisk", omitPositionRisk);
 
         var result = await ProcessOneRequestAsync<OkxSubAccountTransferIdContainer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>

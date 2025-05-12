@@ -144,8 +144,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalEnum("subPosType", positionType);
 
         var result = await ProcessOneRequestAsync<OkxCopyTradingPositionIdContainer>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -180,8 +180,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("px", price?.ToOkxString());
 
         var result = await ProcessOneRequestAsync<OkxCopyTradingPositionIdContainer>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -369,7 +369,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddEnum("subPosCloseType", positionCloseType);
         parameters.AddOptionalEnum("instType", instrumentType);
         parameters.AddOptionalEnum("copyMode", copyMode);
-        parameters.AddOptional("instId", string.Join(",", instrumentIds));
+        if (instrumentIds != null) parameters.AddOptional("instId", string.Join(",", instrumentIds));
         parameters.AddOptional("copyAmt", copyAmount?.ToOkxString());
         parameters.AddOptional("copyRatio", copyRatio?.ToOkxString());
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
@@ -423,7 +423,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddEnum("subPosCloseType", positionCloseType);
         parameters.AddOptionalEnum("instType", instrumentType);
         parameters.AddOptionalEnum("copyMode", copyMode);
-        parameters.AddOptional("instId", string.Join(",", instrumentIds));
+        if (instrumentIds != null) parameters.AddOptional("instId", string.Join(",", instrumentIds));
         parameters.AddOptional("copyAmt", copyAmount?.ToOkxString());
         parameters.AddOptional("copyRatio", copyRatio?.ToOkxString());
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());

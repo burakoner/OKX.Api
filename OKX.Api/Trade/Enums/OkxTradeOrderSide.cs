@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order Side
 /// </summary>
-public enum OkxTradeOrderSide
+public enum OkxTradeOrderSide : byte
 {
     /// <summary>
     /// Buy

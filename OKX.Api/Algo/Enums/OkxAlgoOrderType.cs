@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Order Type
 /// </summary>
-public enum OkxAlgoOrderType
+public enum OkxAlgoOrderType : byte
 {
     /// <summary>
     /// Conditional

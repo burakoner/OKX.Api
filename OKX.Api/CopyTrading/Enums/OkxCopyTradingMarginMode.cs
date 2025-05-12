@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Margin Mode
 /// </summary>
-public enum OkxCopyTradingMarginMode
+public enum OkxCopyTradingMarginMode : byte
 {
     /// <summary>
     /// Isolated

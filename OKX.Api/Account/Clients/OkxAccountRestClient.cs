@@ -319,8 +319,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddEnum("posMode", positionMode);
 
         var result = await ProcessOneRequestAsync<OkxAccountPositionModeContainer>(GetUri(v5AccountSetPositionMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<OkxTradePositionMode?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<OkxTradePositionMode?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<OkxTradePositionMode?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<OkxTradePositionMode?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -644,8 +644,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddEnum("greeksType", greeksType);
 
         var result = await ProcessOneRequestAsync<OkxAccountGreeksTypeContainer>(GetUri(v5AccountSetGreeks), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<OkxAccountGreeksType?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<OkxAccountGreeksType?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<OkxAccountGreeksType?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<OkxAccountGreeksType?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -664,8 +664,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddEnum("type", instrumentType);
 
         var result = await ProcessOneRequestAsync<OkxAccountIsolatedMarginModeContainer>(GetUri(v5AccountSetIsolatedMode), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<OkxAccountIsolatedMarginMode?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<OkxAccountIsolatedMarginMode?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<OkxAccountIsolatedMarginMode?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<OkxAccountIsolatedMarginMode?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -782,8 +782,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
 
         var result = await ProcessOneRequestAsync<OkxAccountAutoRepayContainer>(GetUri(v5AccountSetAutoRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -934,8 +934,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
 
         var result = await ProcessOneRequestAsync<OkxAccountAutoLoanContainer>(GetUri(v5AccountSetAutoLoan), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -987,8 +987,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalEnum("acctLv", accountLevel);
 
         var result = await ProcessOneRequestAsync<OkxAccountModeContainer>(GetUri(v5AccountSetAccountLevel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<OkxAccountMode?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<OkxAccountMode?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<OkxAccountMode?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<OkxAccountMode?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -1049,8 +1049,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
 
         var result = await ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5AccountMmpReset), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw, result.Error);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw ?? "", result.Error);
     }
 
     /// <summary>

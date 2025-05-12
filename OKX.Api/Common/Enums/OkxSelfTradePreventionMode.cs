@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Self Trade Prevention Mode
 /// </summary>
-public enum OkxSelfTradePreventionMode
+public enum OkxSelfTradePreventionMode : byte
 {
     /// <summary>
     /// CancelMaker

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Algo Trigger Type
 /// </summary>
-public enum OkxGridAlgoTriggerType
+public enum OkxGridAlgoTriggerType : byte
 {
     /// <summary>
     /// Auto

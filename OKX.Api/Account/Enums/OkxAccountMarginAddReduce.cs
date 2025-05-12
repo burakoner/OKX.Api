@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Margin Add Reduce
 /// </summary>
-public enum OkxAccountMarginAddReduce
+public enum OkxAccountMarginAddReduce : byte
 {
     /// <summary>
     /// Add

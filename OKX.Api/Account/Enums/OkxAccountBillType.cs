@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Bill Type
 /// </summary>
-public enum OkxAccountBillType
+public enum OkxAccountBillType:int
 {
     /// <summary>
     /// Transfer

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order Type
 /// </summary>
-public enum OkxTradeOrderType
+public enum OkxTradeOrderType : byte
 {
     /// <summary>
     /// LimitOrder

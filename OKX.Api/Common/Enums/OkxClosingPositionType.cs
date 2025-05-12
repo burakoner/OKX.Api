@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Closing Position Type
 /// </summary>
-public enum OkxClosingPositionType
+public enum OkxClosingPositionType : byte
 {
     /// <summary>
     /// ClosePartially

@@ -3,7 +3,7 @@
 /// <summary>
 /// Signal order type
 /// </summary>
-public enum OkxSignalBotOrderType
+public enum OkxSignalBotOrderType : byte
 {
     /// <summary>
     /// Limit Order

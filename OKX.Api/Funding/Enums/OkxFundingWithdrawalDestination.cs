@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Withdrawal Destination
 /// </summary>
-public enum OkxFundingWithdrawalDestination
+public enum OkxFundingWithdrawalDestination : byte
 {
     /// <summary>
     /// OKX

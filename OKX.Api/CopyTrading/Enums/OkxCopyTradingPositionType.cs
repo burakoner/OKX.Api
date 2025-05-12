@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Sub Position Type
 /// </summary>
-public enum OkxCopyTradingPositionType
+public enum OkxCopyTradingPositionType : byte
 {
     /// <summary>
     /// Lead

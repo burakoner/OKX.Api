@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account
 /// </summary>
-public enum OkxAccount
+public enum OkxAccount:byte
 {
     /// <summary>
     /// Funding Account

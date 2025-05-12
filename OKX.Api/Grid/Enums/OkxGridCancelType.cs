@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Cancel Type
 /// </summary>
-public enum OkxGridCancelType
+public enum OkxGridCancelType : byte
 {
     /// <summary>
     /// None

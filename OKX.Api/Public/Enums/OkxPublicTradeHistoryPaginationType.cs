@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Trade History Pagination Type
 /// </summary>
-public enum OkxPublicTradeHistoryPaginationType
+public enum OkxPublicTradeHistoryPaginationType : byte
 {
     /// <summary>
     /// TradeId

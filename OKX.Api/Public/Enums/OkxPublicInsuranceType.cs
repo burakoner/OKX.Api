@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Insurance Type
 /// </summary>
-public enum OkxPublicInsuranceType
+public enum OkxPublicInsuranceType : byte
 {
     /// <summary>
     /// All

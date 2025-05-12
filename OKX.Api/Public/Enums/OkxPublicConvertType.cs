@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Convert Type
 /// </summary>
-public enum OkxPublicConvertType
+public enum OkxPublicConvertType : byte
 {
     /// <summary>
     /// CurrencyToContract

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Contract Algo Stop Type
 /// </summary>
-public enum OkxGridContractAlgoStopType
+public enum OkxGridContractAlgoStopType : byte
 {
     /// <summary>
     /// MarketCloseAllPositions

@@ -3,13 +3,13 @@
 /// <summary>
 /// OKX Block State
 /// </summary>
-public enum OkxBlockState
+public enum OkxBlockState : byte
 {
     /// <summary>
     /// Active
     /// </summary>
     [Map("active")]
-    Active,
+    Active=1,
 
     /// <summary>
     /// Canceled

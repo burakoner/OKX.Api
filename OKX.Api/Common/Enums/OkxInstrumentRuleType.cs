@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Instrument Rule Type
 /// </summary>
-public enum OkxInstrumentRuleType
+public enum OkxInstrumentRuleType : byte
 {
     /// <summary>
     /// Normal

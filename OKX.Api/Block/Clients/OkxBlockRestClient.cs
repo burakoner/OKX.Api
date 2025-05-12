@@ -171,8 +171,8 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.SetBody(products);
 
         var result = await ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5RfqMakerInstrumentSettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw, result.Error);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw ?? "", result.Error);
     }
 
     /// <summary>

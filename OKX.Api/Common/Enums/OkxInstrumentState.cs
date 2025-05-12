@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Instrument State
 /// </summary>
-public enum OkxInstrumentState
+public enum OkxInstrumentState : byte
 {
     /// <summary>
     /// Live

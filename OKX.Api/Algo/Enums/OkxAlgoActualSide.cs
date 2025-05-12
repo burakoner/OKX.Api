@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Actual Side
 /// </summary>
-public enum OkxAlgoActualSide
+public enum OkxAlgoActualSide : byte
 {
     /// <summary>
     /// StopLoss

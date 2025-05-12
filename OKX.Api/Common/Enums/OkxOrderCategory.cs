@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order Category
 /// </summary>
-public enum OkxOrderCategory
+public enum OkxOrderCategory : byte
 {
     /// <summary>
     /// Normal

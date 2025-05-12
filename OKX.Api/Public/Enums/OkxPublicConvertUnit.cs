@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Convert Unit
 /// </summary>
-public enum OkxPublicConvertUnit
+public enum OkxPublicConvertUnit : byte
 {
     /// <summary>
     /// Coin

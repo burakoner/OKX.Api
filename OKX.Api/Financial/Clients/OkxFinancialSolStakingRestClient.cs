@@ -37,8 +37,8 @@ public class OkxFinancialSolStakingRestClient(OkxRestApiClient root) : OkxBaseRe
         };
 
         var result = await ProcessOneRequestAsync<OkxFinancialStakingPurchase>(GetUri(v5FinanceStakingDefiSolPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw, result.Error);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -54,8 +54,8 @@ public class OkxFinancialSolStakingRestClient(OkxRestApiClient root) : OkxBaseRe
         };
 
         var result = await ProcessOneRequestAsync<OkxFinancialStakingRedeem>(GetUri(v5FinanceStakingDefiSolRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw, result.Error);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw ?? "", result.Error);
     }
 
     /// <summary>

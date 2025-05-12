@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Algo Sub-Order Type
 /// </summary>
-public enum OkxGridAlgoSubOrderType
+public enum OkxGridAlgoSubOrderType : byte
 {
     /// <summary>
     /// Live

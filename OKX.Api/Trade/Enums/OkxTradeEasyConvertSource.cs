@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Easy Convert Source
 /// </summary>
-public enum OkxTradeEasyConvertSource
+public enum OkxTradeEasyConvertSource : byte
 {
     /// <summary>
     /// Trading account

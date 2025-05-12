@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Bill Sub-Type
 /// </summary>
-public enum OkxAccountBillSubType
+public enum OkxAccountBillSubType:int
 {
     /// <summary>
     /// Buy

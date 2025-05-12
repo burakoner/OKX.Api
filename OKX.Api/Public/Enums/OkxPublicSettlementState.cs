@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Settlement State
 /// </summary>
-public enum OkxPublicSettlementState
+public enum OkxPublicSettlementState : byte
 {
     /// <summary>
     /// Processing

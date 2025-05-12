@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Algo Time Frame
 /// </summary>
-public enum OkxGridAlgoTimeFrame
+public enum OkxGridAlgoTimeFrame:int
 {
     /// <summary>
     /// ThreeMinutes

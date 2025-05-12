@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Position Mode
 /// </summary>
-public enum OkxTradePositionMode
+public enum OkxTradePositionMode : byte
 {
     /// <summary>
     /// LongShortMode

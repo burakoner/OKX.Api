@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX SpotCopyTradingRole
 /// </summary>
-public enum OkxCopyTradingRole
+public enum OkxCopyTradingRole : byte
 {
     /// <summary>
     /// General user

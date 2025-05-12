@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Spread Order State
 /// </summary>
-public enum OkxSpreadOrderState
+public enum OkxSpreadOrderState : byte
 {
     /// <summary>
     /// Live

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Maintenance Service
 /// </summary>
-public enum OkxPublicMaintenanceService
+public enum OkxPublicMaintenanceService : byte
 {
     /// <summary>
     /// WebSocket

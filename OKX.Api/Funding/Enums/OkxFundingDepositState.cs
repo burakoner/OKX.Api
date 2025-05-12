@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Deposit State
 /// </summary>
-public enum OkxFundingDepositState
+public enum OkxFundingDepositState : byte
 {
     /// <summary>
     /// WaitingForConfirmation

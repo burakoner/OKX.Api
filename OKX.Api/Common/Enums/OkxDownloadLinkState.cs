@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Download Link State
 /// </summary>
-public enum OkxDownloadLinkState
+public enum OkxDownloadLinkState : byte
 {
     /// <summary>
     /// Ongoing

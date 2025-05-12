@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Economic Calendar Event Importance
 /// </summary>
-public enum OkxPublicEventImportance
+public enum OkxPublicEventImportance : byte
 {
     /// <summary>
     /// Low

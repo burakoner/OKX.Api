@@ -1,5 +1,12 @@
 ## Change Log & Release Notes
 
+* Version 5.5.513 - 12 May 2025
+  * Added OkxPublicRestClient.GetCallAuctionDetailsAsync method
+  * Added OkxPublicRestClient.GetEstimatedSettlementInfoAsync method
+  * Added OkxPublicRestClient.GetSettlementHistoryAsync method
+  * Specified the enumation data types
+  * Minor developments
+
 * Version 5.5.512 - 12 May 2025
   * Synced endpoints & models with the OKX Latest API Version (2025-05-08).
   * ApiSharp 3.5.5 Update

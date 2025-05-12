@@ -107,11 +107,11 @@ public abstract class OkxBaseRestClient : RestApiClient
         Thread.CurrentThread.CurrentUICulture = cultureUI;
 
         // Return Error
-        if (!result.Success) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
-        if (result.Data is null) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw, result.Error);
+        if (!result.Success) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        if (result.Data is null) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw ?? "", result.Error);
 
         // Return Success
-        return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data!, result.Raw, result.Error);
+        return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data!, result.Raw ?? "", result.Error);
     }
     internal async Task<RestCallResult<T>> ProcessOneRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object>? queryParameters = null, Dictionary<string, object>? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
@@ -129,13 +129,13 @@ public abstract class OkxBaseRestClient : RestApiClient
         Thread.CurrentThread.CurrentUICulture = cultureUI;
 
         // Return Error
-        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
-        if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
         if (result.Data is OkxRestApiErrorBase data && data.ErrorCode is not null && data.ErrorCode.Trim() != "" && data.ErrorCode.Trim() != "0" && !string.IsNullOrEmpty(data.ErrorMessage))
-            return new RestCallResult<T>(result.Request, result.Response, result.Raw, new ServerError(int.Parse(data.ErrorCode), data.ErrorMessage));
+            return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", new ServerError(int.Parse(data.ErrorCode), data.ErrorMessage!));
 
         // Return Success
-        return new RestCallResult<T>(result.Request, result.Response, result.Data.Data.FirstOrDefault(), result.Raw, result.Error);
+        return new RestCallResult<T>(result.Request, result.Response, result.Data.Data!.FirstOrDefault()!, result.Raw ?? "", result.Error);
     }
     internal async Task<RestCallResult<T>> ProcessArrayModelRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object>? queryParameters = null, Dictionary<string, object>? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
@@ -153,11 +153,11 @@ public abstract class OkxBaseRestClient : RestApiClient
         Thread.CurrentThread.CurrentUICulture = cultureUI;
 
         // Return Error
-        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
-        if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
 
         // Return Success
-        return new RestCallResult<T>(result.Request, result.Response, result.Data.Data!, result.Raw, result.Error);
+        return new RestCallResult<T>(result.Request, result.Response, result.Data.Data!, result.Raw ?? "", result.Error);
     }
     internal async Task<RestCallResult<T>> ProcessModelRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object>? queryParameters = null, Dictionary<string, object>? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
@@ -175,11 +175,11 @@ public abstract class OkxBaseRestClient : RestApiClient
         Thread.CurrentThread.CurrentUICulture = cultureUI;
 
         // Return Error
-        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
-        if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw, result.Error);
+        if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
 
         // Return Success
-        return new RestCallResult<T>(result.Request, result.Response, result.Data.Data!, result.Raw, result.Error);
+        return new RestCallResult<T>(result.Request, result.Response, result.Data.Data!, result.Raw ?? "", result.Error);
     }
     #endregion
 

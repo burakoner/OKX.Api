@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial Eth Staking Type
 /// </summary>
-public enum OkxFinancialStakingType
+public enum OkxFinancialStakingType : byte
 {
     /// <summary>
     /// Redeem

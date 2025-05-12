@@ -2,13 +2,13 @@
 /// <summary>
 /// Okx Multiple Operation Status
 /// </summary>
-public enum OkxCopyTradingOperationStatus
+public enum OkxCopyTradingOperationStatus : byte
 {
     /// <summary>
     /// All success
     /// </summary>
     [Map("0")]
-    AllSuccess = 1,
+    AllSuccess = 0,
 
     /// <summary>
     /// Some successes

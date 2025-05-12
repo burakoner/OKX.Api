@@ -509,8 +509,8 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("allowReinvestProfit", allowReinvestProfit);
 
         var result = await ProcessOneRequestAsync<OkxGridAlgoIdContainer>(GetUri(v5TradingBotGridAdjustInvestment), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -619,8 +619,8 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("duration", duration);
 
         var result = await ProcessOneRequestAsync<OkxGridTriggerNumberContainer>(GetUri(v5TradingBotPublicRsiBackTesting), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -654,8 +654,8 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("lever", leverage);
 
         var result = await ProcessOneRequestAsync<OkxGridMaxQuantityContainer>(GetUri(v5TradingBotGridGridQuantity), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-        if (!result) return new RestCallResult<decimal?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<decimal?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<decimal?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<decimal?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
 }

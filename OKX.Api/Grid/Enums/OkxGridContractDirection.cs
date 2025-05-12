@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Contract Direction
 /// </summary>
-public enum OkxGridContractDirection
+public enum OkxGridContractDirection : int
 {
     /// <summary>
     /// Long

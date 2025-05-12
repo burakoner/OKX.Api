@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Debt Type
 /// </summary>
-public enum OkxTradeDebtType
+public enum OkxTradeDebtType : byte
 {
     /// <summary>
     /// Cross

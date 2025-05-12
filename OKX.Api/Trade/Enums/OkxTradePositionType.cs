@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Position Type
 /// </summary>
-public enum OkxTradePositionType
+public enum OkxTradePositionType : byte
 {
     /// <summary>
     /// Contracts of pending orders and open positions for all derivatives instruments.

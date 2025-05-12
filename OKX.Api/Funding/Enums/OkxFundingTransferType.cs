@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Transfer Type
 /// </summary>
-public enum OkxFundingTransferType
+public enum OkxFundingTransferType : byte
 {
     /// <summary>
     /// TransferWithinAccount

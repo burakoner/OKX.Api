@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order State
 /// </summary>
-public enum OkxTradeOrderState
+public enum OkxTradeOrderState : byte
 {
     /// <summary>
     /// Live

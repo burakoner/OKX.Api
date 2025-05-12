@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Order State
 /// </summary>
-public enum OkxAlgoOrderState
+public enum OkxAlgoOrderState : byte
 {
     /// <summary>
     /// Live

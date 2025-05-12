@@ -101,12 +101,12 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             if (!authResponse)
             {
                 Logger.Log(LogLevel.Warning, "Authorization failed: " + authResponse.Error);
-                result = new CallResult<bool>(authResponse.Error);
+                result = new CallResult<bool>(authResponse.Error!);
                 return true;
             }
             if (!authResponse.Data.Success)
             {
-                Logger.Log(LogLevel.Warning, "Authorization failed: " + authResponse.Error.Message);
+                Logger.Log(LogLevel.Warning, "Authorization failed: " + authResponse.Error!.Message);
                 result = new CallResult<bool>(new ServerError(authResponse.Error.Code!.Value, authResponse.Error.Message));
                 return true;
             }
@@ -122,7 +122,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     }
 
     /// <inheritdoc />
-    protected override bool HandleQueryResponse<T>(WebSocketConnection connection, object request, JToken data, out CallResult<T>? callResult)
+    protected override bool HandleQueryResponse<T>(WebSocketConnection connection, object request, JToken data, out CallResult<T> callResult)
     {
         callResult = null;
 
@@ -143,14 +143,14 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             var massCancelOrderRequest = op == "mass-cancel" && request is OkxSocketRequest<OkxTradeMassCancelRequest> socRequest04 && socRequest04.RequestId == id;
             if (placeOrderRequest || amendOrderRequest || cancelOrderRequest || massCancelOrderRequest)
             {
-                var desResult = Deserialize<List<T>>(data["data"]);
+                var desResult = Deserialize<List<T>>(data["data"]!);
                 if (!desResult)
                 {
                     Logger.Log(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
                     return false;
                 }
 
-                callResult = new CallResult<T>(desResult.Data.FirstOrDefault());
+                callResult = new CallResult<T>(desResult.Data.FirstOrDefault()!);
                 return true;
             }
 
@@ -159,7 +159,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             var cancelBatchOrdersRequest = op == "batch-cancel-orders" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest07 && socRequest07.RequestId == id;
             if (placeBatchOrdersRequest || amendBatchOrdersRequest || cancelBatchOrdersRequest)
             {
-                var desResult = Deserialize<T>(data["data"]);
+                var desResult = Deserialize<T>(data["data"]!);
                 if (!desResult)
                 {
                     Logger.Log(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
@@ -197,7 +197,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     }
 
     /// <inheritdoc />
-    protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object>? callResult)
+    protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object> callResult)
     {
         callResult = null;
 

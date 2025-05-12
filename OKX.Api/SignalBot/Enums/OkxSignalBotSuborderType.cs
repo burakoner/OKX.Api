@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Bot Suborder Type
 /// </summary>
-public enum OkxSignalBotSuborderType
+public enum OkxSignalBotSuborderType : byte
 {
     /// <summary>
     /// Live

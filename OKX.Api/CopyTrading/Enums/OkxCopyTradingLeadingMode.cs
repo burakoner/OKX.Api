@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Leading Mode
 /// </summary>
-public enum OkxCopyTradingLeadingMode
+public enum OkxCopyTradingLeadingMode : byte
 {
     /// <summary>
     /// Public

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Funding Rate Formula
 /// </summary>
-public enum OkxPublicFundingRateFormula
+public enum OkxPublicFundingRateFormula : byte
 {
     /// <summary>
     /// old funding rate formula

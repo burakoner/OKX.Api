@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Algo Sub-Order Status
 /// </summary>
-public enum OkxGridAlgoSubOrderStatus
+public enum OkxGridAlgoSubOrderStatus : byte
 {
     /// <summary>
     /// Live

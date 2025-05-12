@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Recurring Buy Type
 /// </summary>
-public enum OkxRecurringBuyType
+public enum OkxRecurringBuyType : byte
 {
     /// <summary>
     /// Recurring

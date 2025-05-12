@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Liquidation State
 /// </summary>
-public enum OkxLiquidationState
+public enum OkxLiquidationState : byte
 {
     /// <summary>
     /// Unfilled

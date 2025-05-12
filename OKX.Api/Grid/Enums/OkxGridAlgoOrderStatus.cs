@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Algo Order Status
 /// </summary>
-public enum OkxGridAlgoOrderStatus
+public enum OkxGridAlgoOrderStatus : byte
 {
     /// <summary>
     /// Starting

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Discount Type
 /// </summary>
-public enum OkxAccountDiscountType
+public enum OkxAccountDiscountType : byte
 {
     /// <summary>
     /// Original discount rate rules, the default value

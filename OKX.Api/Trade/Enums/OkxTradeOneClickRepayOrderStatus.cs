@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX One Click Repay Order Status
 /// </summary>
-public enum OkxTradeOneClickRepayOrderStatus
+public enum OkxTradeOneClickRepayOrderStatus : byte
 {
     /// <summary>
     /// Running

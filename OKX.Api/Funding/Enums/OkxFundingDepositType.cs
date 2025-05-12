@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Deposit Type
 /// </summary>
-public enum OkxFundingDepositType
+public enum OkxFundingDepositType : byte
 {
     /// <summary>
     /// InternalDeposit

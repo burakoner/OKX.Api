@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Margin Copy Mode
 /// </summary>
-public enum OkxCopyTradingMode
+public enum OkxCopyTradingMode : byte
 {
     /// <summary>
     /// Fixed Amount: set the same fixed amount for each order,

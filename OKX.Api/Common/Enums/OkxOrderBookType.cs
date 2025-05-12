@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order Book Type
 /// </summary>
-public enum OkxOrderBookType
+public enum OkxOrderBookType : byte
 {
     /// <summary>
     /// OrderBook

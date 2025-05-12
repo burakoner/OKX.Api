@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Investment Type
 /// </summary>
-public enum OkxGridInvestmentType
+public enum OkxGridInvestmentType : byte
 {
     /// <summary>
     /// Grid

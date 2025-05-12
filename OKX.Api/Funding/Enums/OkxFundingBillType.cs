@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Funding Bill Type
 /// </summary>
-public enum OkxFundingBillType
+public enum OkxFundingBillType:int
 {
     /// <summary>
     /// Deposit

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Flexible Simple Earn Savings Side
 /// </summary>
-public enum OkxFinancialSimpleEarnSavingsSide
+public enum OkxFinancialSimpleEarnSavingsSide : byte
 {
     /// <summary>
     /// Purchase

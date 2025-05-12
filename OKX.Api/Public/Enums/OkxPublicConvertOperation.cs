@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Convert Operation
 /// </summary>
-public enum OkxPublicConvertOperation
+public enum OkxPublicConvertOperation : byte
 {
     /// <summary>
     /// Open

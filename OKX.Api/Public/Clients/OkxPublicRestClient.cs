@@ -18,14 +18,14 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5MarketOptionInstrumentFamilyTrades = "api/v5/market/option/instrument-family-trades";
     private const string v5PublicOptionTrades = "api/v5/public/option-trades";
     private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
-    // TODO: api/v5/market/call-auction-details
+    private const string v5MarketCallAuctionDetails = "api/v5/market/call-auction-details";
 
     // Public Data Endpoints
     private const string v5PublicInstruments = "api/v5/public/instruments";
     private const string v5PublicEstimatedPrice = "api/v5/public/estimated-price";
     private const string v5PublicDeliveryExerciseHistory = "api/v5/public/delivery-exercise-history";
-    // TODO: api/v5/public/estimated-settlement-info
-    // TODO: api/v5/public/settlement-history
+    private const string v5PublicEstimatedSettlementInfo = "api/v5/public/estimated-settlement-info";
+    private const string v5PublicSettlementHistory = "api/v5/public/settlement-history";
     private const string v5PublicFundingRate = "api/v5/public/funding-rate";
     private const string v5PublicFundingRateHistory = "api/v5/public/funding-rate-history";
     private const string v5PublicOpenInterest = "api/v5/public/open-interest";
@@ -357,6 +357,20 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     {
         return ProcessOneRequestAsync<OkxPublicVolume>(GetUri(v5MarketPlatform24Volume), HttpMethod.Get, ct);
     }
+
+    /// <summary>
+    /// Retrieve call auction details.
+    /// </summary>
+    /// <param name="instrumentId">Instrument Id</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxPublicCallAuction>> GetCallAuctionDetailsAsync(string instrumentId, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddParameter("instId", instrumentId);
+
+        return ProcessOneRequestAsync<OkxPublicCallAuction>(GetUri(v5MarketCallAuctionDetails), HttpMethod.Get, ct);
+    }
     #endregion
 
     #region Public Data Methods
@@ -436,6 +450,46 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxPublicDeliveryExerciseHistory>(GetUri(v5PublicDeliveryExerciseHistory), HttpMethod.Get, ct, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve the estimated settlement price which will only have a return value one hour before the settlement.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. XRP-USDT-250307. only applicable to FUTURES</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxPublicEstimatedSettlementInfo>> GetEstimatedSettlementInfoAsync(string instrumentId, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddParameter("instId", instrumentId);
+
+        return ProcessOneRequestAsync<OkxPublicEstimatedSettlementInfo>(GetUri(v5PublicEstimatedSettlementInfo), HttpMethod.Get, ct, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve the settlement history of the instrument family.
+    /// </summary>
+    /// <param name="instrumentFamily">Instrument family</param>
+    /// <param name="after">Pagination of data to return records earlier than (not include) the requested ts</param>
+    /// <param name="before">Pagination of data to return records newer than (not include) the requested ts</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicSettlementHistory>>> GetSettlementHistoryAsync(
+        string instrumentFamily,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new ParameterCollection();
+        parameters.AddParameter("instFamily", instrumentFamily);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxPublicSettlementHistory>(GetUri(v5PublicSettlementHistory), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -996,8 +1050,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     public async Task<RestCallResult<decimal>> GetExchangeRateAsync(CancellationToken ct = default)
     {
         var result = await ProcessOneRequestAsync<OkxPublicExchangeRateContainer>(GetUri(v5MarketExchangeRate), HttpMethod.Get, ct);
-        if (!result) return new RestCallResult<decimal>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<decimal>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<decimal>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<decimal>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>

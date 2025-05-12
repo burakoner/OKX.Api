@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Position Close Type
 /// </summary>
-public enum OkxCopyTradingPositionCloseType
+public enum OkxCopyTradingPositionCloseType : byte
 {
     /// <summary>
     /// Market Close
