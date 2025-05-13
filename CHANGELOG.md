@@ -1,5 +1,8 @@
 ## Change Log & Release Notes
 
+* Version 5.5.514 - 13 May 2025
+  * Fixed issue [#82](https://github.com/burakoner/OKX.Api/issues/82)
+
 * Version 5.5.513 - 12 May 2025
   * Added OkxPublicRestClient.GetCallAuctionDetailsAsync method
   * Added OkxPublicRestClient.GetEstimatedSettlementInfoAsync method
