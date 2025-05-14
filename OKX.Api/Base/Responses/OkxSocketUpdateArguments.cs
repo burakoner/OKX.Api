@@ -16,4 +16,10 @@ public record OkxSocketUpdateArguments
     /// </summary>
     [JsonProperty("instId")]
     public string InstrumentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// User ID
+    /// </summary>
+    [JsonProperty("uid")]
+    public string UserId { get; set; } = string.Empty;
 }

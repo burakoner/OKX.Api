@@ -1,5 +1,8 @@
 ## Change Log & Release Notes
 
+* Version 5.5.515 - 14 May 2025
+  * Fixed issue related with SubscribeToBalanceAndPositionUpdatesAsync [#83](https://github.com/burakoner/OKX.Api/issues/83)
+
 * Version 5.5.514 - 13 May 2025
   * Fixed issue [#82](https://github.com/burakoner/OKX.Api/issues/82)
 
