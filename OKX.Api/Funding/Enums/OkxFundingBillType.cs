@@ -26,12 +26,14 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// TransferToFutures
     /// </summary>
+    [Obsolete]
     [Map("18")]
     TransferToFutures = 18,
 
     /// <summary>
     /// TransferFromFutures
     /// </summary>
+    [Obsolete]
     [Map("19")]
     TransferFromFutures = 19,
 
@@ -68,36 +70,42 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// TransferToMargin
     /// </summary>
+    [Obsolete]
     [Map("33")]
     TransferToMargin = 33,
 
     /// <summary>
     /// TransferFromMargin
     /// </summary>
+    [Obsolete]
     [Map("34")]
     TransferFromMargin = 34,
 
     /// <summary>
     /// TransferToSpot
     /// </summary>
+    [Obsolete]
     [Map("37")]
     TransferToSpot = 37,
 
     /// <summary>
     /// TransferFromSpot
     /// </summary>
+    [Obsolete]
     [Map("38")]
     TransferFromSpot = 38,
 
     /// <summary>
     /// TradingFeesSettledByLoyaltyPoints
     /// </summary>
+    [Obsolete]
     [Map("41")]
     TradingFeesSettledByLoyaltyPoints = 41,
 
     /// <summary>
     /// LoyaltyPointsPurchase
     /// </summary>
+    [Obsolete]
     [Map("42")]
     LoyaltyPointsPurchase = 42,
 
@@ -122,72 +130,84 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// ReceivedFromAppointments
     /// </summary>
+    [Obsolete]
     [Map("50")]
     ReceivedFromAppointments = 50,
 
     /// <summary>
     /// DeductedFromAppointments
     /// </summary>
+    [Obsolete]
     [Map("51")]
     DeductedFromAppointments = 51,
 
     /// <summary>
     /// RedPacketSent
     /// </summary>
+    [Obsolete]
     [Map("52")]
     RedPacketSent = 52,
 
     /// <summary>
     /// RedPacketSnatched
     /// </summary>
+    [Obsolete]
     [Map("53")]
     RedPacketSnatched = 53,
 
     /// <summary>
     /// RedPacketRefunded
     /// </summary>
+    [Obsolete]
     [Map("54")]
     RedPacketRefunded = 54,
 
     /// <summary>
     /// TransferToPerpetual
     /// </summary>
+    [Obsolete]
     [Map("55")]
     TransferToPerpetual = 55,
 
     /// <summary>
     /// TransferFromPerpetual
     /// </summary>
+    [Obsolete]
     [Map("56")]
     TransferFromPerpetual = 56,
 
     /// <summary>
     /// TransferFromHedgingAccount
     /// </summary>
+    [Obsolete]
     [Map("59")]
     TransferFromHedgingAccount = 59,
 
     /// <summary>
     /// TransferToHedgingAccount
     /// </summary>
+    [Obsolete]
     [Map("60")]
     TransferToHedgingAccount = 60,
 
     /// <summary>
     /// Conversion
     /// </summary>
+    [Obsolete]
     [Map("61")]
     Conversion = 61,
 
     /// <summary>
     /// TransferFromOptions
     /// </summary>
+    [Obsolete]
     [Map("62")]
     TransferFromOptions = 62,
 
     /// <summary>
     /// TransferToOptions
     /// </summary>
+    [Obsolete]
     [Map("63")]
     TransferToOptions = 63,
 
@@ -200,6 +220,7 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// DistributeRebateCard
     /// </summary>
+    [Obsolete]
     [Map("69")]
     DistributeRebateCard = 69,
 
@@ -248,26 +269,28 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// NodeVoting
     /// </summary>
+    [Obsolete]
     [Map("79")]
     NodeVoting = 79,
 
     /// <summary>
-    /// Staking80
+    /// DEFI/Staking subscription
     /// </summary>
     [Map("80")]
-    Staking80 = 80,
+    DeFiStakingSubscription = 80,
 
     /// <summary>
     /// VoteRedemption
     /// </summary>
+    [Obsolete]
     [Map("81")]
     VoteRedemption = 81,
 
     /// <summary>
-    /// StakingRedemption82
+    /// DEFI/Staking redemption
     /// </summary>
     [Map("82")]
-    StakingRedemption82 = 82,
+    DeFiStakingRedemption = 82,
 
     /// <summary>
     /// StakingYield
@@ -284,191 +307,219 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// PowMiningYield
     /// </summary>
+    [Obsolete]
     [Map("85")]
     PowMiningYield = 85,
 
     /// <summary>
     /// CloudMiningPay
     /// </summary>
+    [Obsolete]
     [Map("86")]
     CloudMiningPay = 86,
 
     /// <summary>
     /// CloudMiningYield
     /// </summary>
+    [Obsolete]
     [Map("87")]
     CloudMiningYield = 87,
 
     /// <summary>
     /// Subsidy
     /// </summary>
+    [Obsolete]
     [Map("88")]
     Subsidy = 88,
 
     /// <summary>
-    /// Staking89
+    /// Deposit yield
     /// </summary>
     [Map("89")]
-    Staking89 = 89,
+    DepositYield = 89,
 
     /// <summary>
     /// StakingSubscription
     /// </summary>
+    [Obsolete]
     [Map("90")]
     StakingSubscription = 90,
 
     /// <summary>
     /// StakingRedemption91
     /// </summary>
+    [Obsolete]
     [Map("91")]
     StakingRedemption91 = 91,
 
     /// <summary>
     /// AddCollateral
     /// </summary>
+    [Obsolete]
     [Map("92")]
     AddCollateral = 92,
 
     /// <summary>
     /// RedeemCollateral
     /// </summary>
+    [Obsolete]
     [Map("93")]
     RedeemCollateral = 93,
 
     /// <summary>
     /// Investment
     /// </summary>
+    [Obsolete]
     [Map("94")]
     Investment = 94,
 
     /// <summary>
     /// BorrowerBorrows
     /// </summary>
+    [Obsolete]
     [Map("95")]
     BorrowerBorrows = 95,
 
     /// <summary>
     /// PrincipalTransferredIn
     /// </summary>
+    [Obsolete]
     [Map("96")]
     PrincipalTransferredIn = 96,
 
     /// <summary>
     /// BorrowerTransferredLoanOut
     /// </summary>
+    [Obsolete]
     [Map("97")]
     BorrowerTransferredLoanOut = 97,
 
     /// <summary>
     /// BorrowerTransferredInterestOut
     /// </summary>
+    [Obsolete]
     [Map("98")]
     BorrowerTransferredInterestOut = 98,
 
     /// <summary>
     /// InvestorTransferredInterestIn
     /// </summary>
+    [Obsolete]
     [Map("99")]
     InvestorTransferredInterestIn = 99,
 
     /// <summary>
     /// PrepaymentPenaltyTransferredIn
     /// </summary>
+    [Obsolete]
     [Map("102")]
     PrepaymentPenaltyTransferredIn = 102,
 
     /// <summary>
     /// PrepaymentPenaltyTransferredOut
     /// </summary>
+    [Obsolete]
     [Map("103")]
     PrepaymentPenaltyTransferredOut = 103,
 
     /// <summary>
     /// MortgageFeeTransferredIn
     /// </summary>
+    [Obsolete]
     [Map("104")]
     MortgageFeeTransferredIn = 104,
 
     /// <summary>
     /// MortgageFeeTransferredOut
     /// </summary>
+    [Obsolete]
     [Map("105")]
     MortgageFeeTransferredOut = 105,
 
     /// <summary>
     /// OverdueFeeTransferredIn
     /// </summary>
+    [Obsolete]
     [Map("106")]
     OverdueFeeTransferredIn = 106,
 
     /// <summary>
     /// OverdueFeeTransferredOut
     /// </summary>
+    [Obsolete]
     [Map("107")]
     OverdueFeeTransferredOut = 107,
 
     /// <summary>
     /// OverdueInterestTransferredOut
     /// </summary>
+    [Obsolete]
     [Map("108")]
     OverdueInterestTransferredOut = 108,
 
     /// <summary>
     /// OverdueInterestTransferredIn
     /// </summary>
+    [Obsolete]
     [Map("109")]
     OverdueInterestTransferredIn = 109,
 
     /// <summary>
     /// CollateralForClosedPositionTransferredIn
     /// </summary>
+    [Obsolete]
     [Map("110")]
     CollateralForClosedPositionTransferredIn = 110,
 
     /// <summary>
     /// CollateralForClosedPositionTransferredOut
     /// </summary>
+    [Obsolete]
     [Map("111")]
     CollateralForClosedPositionTransferredOut = 111,
 
     /// <summary>
     /// CollateralForLiquidationTransferredIn
     /// </summary>
+    [Obsolete]
     [Map("112")]
     CollateralForLiquidationTransferredIn = 112,
 
     /// <summary>
     /// CollateralForLiquidationTransferredOut
     /// </summary>
+    [Obsolete]
     [Map("113")]
     CollateralForLiquidationTransferredOut = 113,
 
     /// <summary>
     /// InsuranceFundTransferredIn
     /// </summary>
+    [Obsolete]
     [Map("114")]
     InsuranceFundTransferredIn = 114,
 
     /// <summary>
     /// InsuranceFundTransferredOut
     /// </summary>
+    [Obsolete]
     [Map("115")]
     InsuranceFundTransferredOut = 115,
 
     /// <summary>
-    /// PlaceAnOrder
+    /// [Fiat] Place an order
     /// </summary>
     [Map("116")]
     PlaceAnOrder = 116,
 
     /// <summary>
-    /// FulfillAnOrder
+    /// [Fiat] Fulfill an order
     /// </summary>
     [Map("117")]
     FulfillAnOrder = 117,
 
     /// <summary>
-    /// CancelAnOrder
+    /// [Fiat] Cancel an order
     /// </summary>
     [Map("118")]
     CancelAnOrder = 118,
@@ -476,30 +527,35 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// MerchantsUnlockDeposit
     /// </summary>
+    [Obsolete]
     [Map("119")]
     MerchantsUnlockDeposit = 119,
 
     /// <summary>
     /// MerchantsAddDeposit
     /// </summary>
+    [Obsolete]
     [Map("120")]
     MerchantsAddDeposit = 120,
 
     /// <summary>
     /// FiatgatewayPlaceAnOrder
     /// </summary>
+    [Obsolete]
     [Map("121")]
     FiatgatewayPlaceAnOrder = 121,
 
     /// <summary>
     /// FiatgatewayCancelAnOrder
     /// </summary>
+    [Obsolete]
     [Map("122")]
     FiatgatewayCancelAnOrder = 122,
 
     /// <summary>
     /// FiatgatewayFulfillAnOrder
     /// </summary>
+    [Obsolete]
     [Map("123")]
     FiatgatewayFulfillAnOrder = 123,
 
@@ -512,30 +568,35 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// ManualDeposit
     /// </summary>
+    [Obsolete]
     [Map("125")]
     ManualDeposit = 125,
 
     /// <summary>
     /// InterestDeposit
     /// </summary>
+    [Obsolete]
     [Map("126")]
     InterestDeposit = 126,
 
     /// <summary>
     /// InvestmentFeeTransferredIn
     /// </summary>
+    [Obsolete]
     [Map("127")]
     InvestmentFeeTransferredIn = 127,
 
     /// <summary>
     /// InvestmentFeeTransferredOut
     /// </summary>
+    [Obsolete]
     [Map("128")]
     InvestmentFeeTransferredOut = 128,
 
     /// <summary>
     /// RewardsTransferredIn
     /// </summary>
+    [Obsolete]
     [Map("129")]
     RewardsTransferredIn = 129,
 
@@ -578,42 +639,46 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// Convert
     /// </summary>
+    [Obsolete]
     [Map("136")]
     Convert = 136,
 
     /// <summary>
-    /// Eth20Subscription
+    /// [ETH Staking] Subscription
     /// </summary>
     [Map("137")]
-    Eth20Subscription = 137,
+    EthStakingSubscription = 137,
 
     /// <summary>
-    /// Eth20Swapping
+    /// [ETH Staking] Swapping
     /// </summary>
     [Map("138")]
-    Eth20Swapping = 138,
+    EthStakingSwapping = 138,
 
     /// <summary>
-    /// Eth20Earnings
+    /// [ETH Staking] Earnings
     /// </summary>
     [Map("139")]
-    Eth20Earnings = 139,
+    EthStakingEarnings = 139,
 
     /// <summary>
     /// SystemReverse
     /// </summary>
+    [Obsolete]
     [Map("143")]
     SystemReverse = 143,
 
     /// <summary>
     /// TransferOutOfUnifiedAccountReserve
     /// </summary>
+    [Obsolete]
     [Map("144")]
     TransferOutOfUnifiedAccountReserve = 144,
 
     /// <summary>
     /// RewardExpired
     /// </summary>
+    [Obsolete]
     [Map("145")]
     RewardExpired = 145,
 
@@ -626,6 +691,7 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// VestedSushiRewards
     /// </summary>
+    [Obsolete]
     [Map("147")]
     VestedSushiRewards = 147,
 
@@ -650,30 +716,35 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// JoinerReward
     /// </summary>
+    [Obsolete]
     [Map("153")]
     JoinerReward = 153,
 
     /// <summary>
     /// MysteryBoxReward
     /// </summary>
+    [Obsolete]
     [Map("154")]
     MysteryBoxReward = 154,
 
     /// <summary>
     /// RewardsWithdraw
     /// </summary>
+    [Obsolete]
     [Map("155")]
     RewardsWithdraw = 155,
 
     /// <summary>
     /// FeeRebate156
     /// </summary>
+    [Obsolete]
     [Map("156")]
     FeeRebate156 = 156,
 
     /// <summary>
     /// CollectedCrypto
     /// </summary>
+    [Obsolete]
     [Map("157")]
     CollectedCrypto = 157,
 
@@ -704,6 +775,7 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// NewYearRewards2022
     /// </summary>
+    [Obsolete]
     [Map("169")]
     NewYearRewards2022 = 169,
 
@@ -720,10 +792,10 @@ public enum OkxFundingBillType:int
     FeeRebate173 = 173,
 
     /// <summary>
-    /// Pay
+    /// Jumpstart Pay
     /// </summary>
     [Map("174")]
-    Pay = 174,
+    JumpstartPay = 174,
 
     /// <summary>
     /// LockedCollateral
@@ -770,18 +842,21 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// FeedbackBounty
     /// </summary>
+    [Obsolete]
     [Map("182")]
     FeedbackBounty = 182,
 
     /// <summary>
     /// InviteFriendsRewards
     /// </summary>
+    [Obsolete]
     [Map("183")]
     InviteFriendsRewards = 183,
 
     /// <summary>
     /// DivideTheRewardPool
     /// </summary>
+    [Obsolete]
     [Map("184")]
     DivideTheRewardPool = 184,
 
@@ -794,6 +869,7 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// Freeeth
     /// </summary>
+    [Obsolete]
     [Map("186")]
     Freeeth = 186,
 
@@ -806,6 +882,7 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// SlotAuctionConversion
     /// </summary>
+    [Obsolete]
     [Map("188")]
     SlotAuctionConversion = 188,
 
@@ -818,6 +895,7 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// CardPaymentBuy
     /// </summary>
+    [Obsolete]
     [Map("193")]
     CardPaymentBuy = 193,
 
@@ -908,54 +986,59 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// WinCryptoWithSatoshi
     /// </summary>
+    [Obsolete]
     [Map("211")]
     WinCryptoWithSatoshi = 211,
 
     /// <summary>
-    /// MultiCollateralLoanCollateralLocked
+    /// [Flexible loan] MultiCollateralLoanCollateralLocked
     /// </summary>
     [Map("212")]
-    MultiCollateralLoanCollateralLocked = 212,
+    FlexibleLoanMultiCollateralLoanCollateralLocked = 212,
 
     /// <summary>
     /// CollateralTransferedOutFromUserAccount
     /// </summary>
+    [Obsolete]
     [Map("213")]
     CollateralTransferedOutFromUserAccount = 213,
 
     /// <summary>
     /// CollateralReturnedToUsers
     /// </summary>
+    [Obsolete]
     [Map("214")]
     CollateralReturnedToUsers = 214,
 
     /// <summary>
-    /// MultiCollateralLoanCollateralReleased
+    /// [Flexible loan]  MultiCollateralLoanCollateralReleased
     /// </summary>
     [Map("215")]
-    MultiCollateralLoanCollateralReleased = 215,
+    FlexibleLoanMultiCollateralLoanCollateralReleased = 215,
 
     /// <summary>
     /// LoanTransferredToUserAccount
     /// </summary>
+    [Obsolete]
     [Map("216")]
     LoanTransferredToUserAccount = 216,
 
     /// <summary>
-    /// MultiCollateralLoanBorrowed
+    /// [Flexible loan] MultiCollateralLoanBorrowed
     /// </summary>
     [Map("217")]
-    MultiCollateralLoanBorrowed = 217,
+    FlexibleLoanMultiCollateralLoanBorrowed = 217,
 
     /// <summary>
-    /// MultiCollateralLoanRepaid
+    /// [Flexible loan] MultiCollateralLoanRepaid
     /// </summary>
     [Map("218")]
-    MultiCollateralLoanRepaid = 218,
+    FlexibleLoanMultiCollateralLoanRepaid = 218,
 
     /// <summary>
     /// RepaymentTransferredFromUserAccount
     /// </summary>
+    [Obsolete]
     [Map("219")]
     RepaymentTransferredFromUserAccount = 219,
 
@@ -986,6 +1069,7 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// ServiceFee
     /// </summary>
+    [Obsolete]
     [Map("224")]
     ServiceFee = 224,
 
@@ -1022,20 +1106,111 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// TokenMigrationCompleted
     /// </summary>
+    [Obsolete]
     [Map("230")]
     TokenMigrationCompleted = 230,
 
     /// <summary>
-    /// SubsidizedInterestReceived
+    /// [Flexible loan] SubsidizedInterestReceived
     /// </summary>
     [Map("232")]
-    SubsidizedInterestReceived = 232,
+    FlexibleLoanSubsidizedInterestReceived = 232,
 
     /// <summary>
     /// BrokerRebateCompensation
     /// </summary>
     [Map("233")]
     BrokerRebateCompensation = 233,
+    
+    /// <summary>
+    /// Snowball subscribe
+    /// </summary>
+    [Map("240")]
+    SnowballSubscribe = 240,
+
+    /// <summary>
+    /// Snowball refund
+    /// </summary>
+    [Map("241")]
+    SnowballRefund = 241,
+
+    /// <summary>
+    /// Snowball profit
+    /// </summary>
+    [Map("242")]
+    SnowballProfit = 242,
+
+    /// <summary>
+    /// Snowball trading failed
+    /// </summary>
+    [Map("243")]
+    SnowballTradingFailed = 243,
+
+    /// <summary>
+    /// Seagull subscribe
+    /// </summary>
+    [Map("249")]
+    SeagullSubscribe = 249,
+
+    /// <summary>
+    /// Seagull collection
+    /// </summary>
+    [Map("250")]
+    SeagullCollection = 250,
+
+    /// <summary>
+    /// Seagull profit
+    /// </summary>
+    [Map("251")]
+    SeagullProfit = 251,
+
+    /// <summary>
+    /// Seagull refund
+    /// </summary>
+    [Map("252")]
+    SeagullRefund = 252,
+
+    /// <summary>
+    /// Strategy bots profit share
+    /// </summary>
+    [Map("263")]
+    StrategyBotsProfitShare = 263,
+
+    /// <summary>
+    /// Signal revenue
+    /// </summary>
+    [Map("265")]
+    SignalRevenue = 265,
+
+    /// <summary>
+    /// SPOT lead trading profit share
+    /// </summary>
+    [Map("266")]
+    SpotLeadTradingProfitShare = 266,
+
+    /// <summary>
+    /// DCD broker transfer
+    /// </summary>
+    [Map("270")]
+    DCDBrokerTransfer = 270,
+
+    /// <summary>
+    /// DCD broker rebate
+    /// </summary>
+    [Map("271")]
+    DCDBrokerRebate = 233,
+
+    /// <summary>
+    /// [Convert] Buy Crypto/Fiat
+    /// </summary>
+    [Map("272")]
+    ConvertBuyCryptoFiat = 272,
+
+    /// <summary>
+    /// [Convert] Sell Crypto/Fiat
+    /// </summary>
+    [Map("273")]
+    ConvertSellCryptoFiat = 273,
 
     /// <summary>
     /// TransferOutTradingSubAccount
@@ -1072,4 +1247,238 @@ public enum OkxFundingBillType:int
     /// </summary>
     [Map("289")]
     CustodyFundUndelegation = 289,
+
+    /// <summary>
+    /// Affiliate recommendation commission
+    /// </summary>
+    [Map("299")]
+    AffiliateRecommendationCommission = 299,
+
+    /// <summary>
+    /// Fee discount rebate
+    /// </summary>
+    [Map("300")]
+    FeeDiscountRebate = 300,
+
+    /// <summary>
+    /// Snowball market maker transfer
+    /// </summary>
+    [Map("303")]
+    SnowballMarketMakerTransfer = 303,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Order submission
+    /// </summary>
+    [Map("304")]
+    [Obsolete]
+    ObsoleteSimpleEarnFixedOrderSubmission = 304,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Order redemption
+    /// </summary>
+    [Map("305")]
+    [Obsolete]
+    ObsoleteSimpleEarnFixedOrderRedemption = 305,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Principal distribution
+    /// </summary>
+    [Map("306")]
+    [Obsolete]
+    ObsoleteSimpleEarnFixedPrincipalDistribution = 306,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Interest distribution (early termination compensation)
+    /// </summary>
+    [Map("307")]
+    [Obsolete]
+    ObsoleteSimpleEarnFixedInterestDistributionEarlyTerminationCompensation = 307,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Interest distribution
+    /// </summary>
+    [Map("308")]
+    [Obsolete]
+    ObsoleteSimpleEarnFixedInterestDistribution = 308,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Interest distribution (extension compensation)
+    /// </summary>
+    [Map("309")]
+    [Obsolete]
+    ObsoleteSimpleEarnFixedInterestDistributionExtensionCompensation = 309,
+
+    /// <summary>
+    /// Crypto dust auto-transfer in
+    /// </summary>
+    [Map("311")]
+    CryptoDustAutoTransferIn = 311,
+
+    /// <summary>
+    /// Sent by gift
+    /// </summary>
+    [Map("313")]
+    SentByGift = 313,
+
+    /// <summary>
+    /// Received from gift
+    /// </summary>
+    [Map("314")]
+    ReceivedFromGift = 314,
+
+    /// <summary>
+    /// Refunded from gift
+    /// </summary>
+    [Map("315")]
+    RefundedFromGift = 315,
+
+    /// <summary>
+    /// [SOL staking] Send Liquidity Staking Token reward
+    /// </summary>
+    [Map("315")]
+    SolStakingSendLiquidityStakingTokenReward = 315,
+
+    /// <summary>
+    /// [SOL staking] Subscribe Liquidity Staking Token staking
+    /// </summary>
+    [Map("329")]
+    SolstakingSubscribeLiquidityStakingTokenStaking = 329,
+
+    /// <summary>
+    /// [SOL staking] Mint Liquidity Staking Token
+    /// </summary>
+    [Map("330")]
+    SolStakingMintLiquidityStakingToken = 330,
+
+    /// <summary>
+    /// [SOL staking] Redeem Liquidity Staking Token order
+    /// </summary>
+    [Map("331")]
+    SolStakingRedeemLiquidityStakingTokenOrder = 331,
+
+    /// <summary>
+    /// [SOL staking] Settle Liquidity Staking Token order
+    /// </summary>
+    [Map("332")]
+    SolStakingSettleLiquidityStakingTokenOrder = 332,
+
+    /// <summary>
+    /// Trial fund reward
+    /// </summary>
+    [Map("333")]
+    TrialFundReward = 333,
+
+    /// <summary>
+    /// [Credit line] Loan Forced Repayment
+    /// </summary>
+    [Map("336")]
+    CreditLineLoanForcedRepayment = 336,
+
+    /// <summary>
+    /// [Credit line] Forced Repayment Refund
+    /// </summary>
+    [Map("338")]
+    CreditLineForcedRepaymentRefund = 338,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Order submission
+    /// </summary>
+    [Map("339")]
+    SimpleEarnFixedOrderSubmission = 339,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Order failure refund
+    /// </summary>
+    [Map("340")]
+    SimpleEarnFixedOrderFailureRefund = 340,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Redemption
+    /// </summary>
+    [Map("341")]
+    SimpleEarnFixedRedemption = 341,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Principal
+    /// </summary>
+    [Map("342")]
+    SimpleEarnFixedPrincipal = 342,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Interest
+    /// </summary>
+    [Map("343")]
+    SimpleEarnFixedInterest = 343,
+
+    /// <summary>
+    /// [Simple Earn Fixed] Compensatory interest
+    /// </summary>
+    [Map("344")]
+    SimpleEarnFixedCompensatoryInterest = 344,
+
+    /// <summary>
+    /// [Institutional Loan] Principal repayment
+    /// </summary>
+    [Map("345")]
+    InstitutionalLoanPrincipalRepayment = 345,
+
+    /// <summary>
+    /// [Institutional Loan] Interest repayment
+    /// </summary>
+    [Map("346")]
+    InstitutionalLoanInterestRepayment = 346,
+
+    /// <summary>
+    /// [Institutional Loan] Overdue penalty
+    /// </summary>
+    [Map("347")]
+    InstitutionalLoanOverduePenalty = 347,
+
+    /// <summary>
+    /// [BTC staking] Subscription
+    /// </summary>
+    [Map("348")]
+    BtcStakingSubscription = 348,
+
+    /// <summary>
+    /// [BTC staking] Redemption
+    /// </summary>
+    [Map("349")]
+    BtcStakingRedemption = 349,
+
+    /// <summary>
+    /// [BTC staking] Earnings
+    /// </summary>
+    [Map("350")]
+    BtcStakingEarnings = 350,
+
+    /// <summary>
+    /// [Institutional Loan] Loan disbursement
+    /// </summary>
+    [Map("351")]
+    InstitutionalLoanDisbursement = 351,
+
+    /// <summary>
+    /// Copy and bot rewards
+    /// </summary>
+    [Map("354")]
+    CopyAndBotRewards = 354,
+
+    /// <summary>
+    /// Deposit from closed sub-account
+    /// </summary>
+    [Map("361")]
+    DepositFromClosedSubAccount = 361,
+
+    /// <summary>
+    /// Asset segregation
+    /// </summary>
+    [Map("372")]
+    AssetSegregation = 372,
+
+    /// <summary>
+    /// Asset release
+    /// </summary>
+    [Map("373")]
+    AssetRelease = 373,
 }

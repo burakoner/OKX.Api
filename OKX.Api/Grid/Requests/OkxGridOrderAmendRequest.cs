@@ -91,8 +91,8 @@ public record OkxGridOrderAmendRequestTriggerParameters
     {
         get
         {
-            if (SpotAlgoStopType is not null) return MapConverter.GetString(SpotAlgoStopType);
-            if (ContractAlgoStopType is not null) return MapConverter.GetString(ContractAlgoStopType);
+            if (SpotAlgoStopType is not null) return MapConverter.GetString(SpotAlgoStopType)!;
+            if (ContractAlgoStopType is not null) return MapConverter.GetString(ContractAlgoStopType)!;
             return string.Empty;
         }
     }

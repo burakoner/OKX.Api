@@ -386,7 +386,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         int limit = 100,
         CancellationToken ct = default)
     {
-        return GetCandlesticksAsync(spreadId, MapConverter.GetString(period), after, before, limit, ct);
+        return GetCandlesticksAsync(spreadId, MapConverter.GetString(period)!, after, before, limit, ct);
     }
 
     /// <summary>
@@ -443,7 +443,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         int limit = 100,
         CancellationToken ct = default)
     {
-        return GetCandlesticksHistoryAsync(spreadId, MapConverter.GetString(period), after, before, limit, ct);
+        return GetCandlesticksHistoryAsync(spreadId, MapConverter.GetString(period)!, after, before, limit, ct);
     }
 
     /// <summary>

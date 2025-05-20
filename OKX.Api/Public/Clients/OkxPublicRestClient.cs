@@ -164,7 +164,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         int limit = 100,
         CancellationToken ct = default)
     {
-        return GetCandlesticksAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
+        return GetCandlesticksAsync(instrumentId, MapConverter.GetString(period)!, after, before, limit, ct);
     }
 
     /// <summary>
@@ -220,7 +220,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public async Task<RestCallResult<List<OkxPublicCandlestick>>> GetCandlestickHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return await GetCandlestickHistoryAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
+        return await GetCandlestickHistoryAsync(instrumentId, MapConverter.GetString(period)!, after, before, limit, ct);
     }
 
     /// <summary>
@@ -878,7 +878,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicIndexCandlestick>>> GetIndexCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return GetIndexCandlesticksAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
+        return GetIndexCandlesticksAsync(instrumentId, MapConverter.GetString(period)!, after, before, limit, ct);
     }
 
     /// <summary>
@@ -922,7 +922,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicIndexCandlestick>>> GetIndexCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return GetIndexCandlesticksHistoryAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
+        return GetIndexCandlesticksHistoryAsync(instrumentId, MapConverter.GetString(period)!, after, before, limit, ct);
     }
 
     /// <summary>
@@ -966,7 +966,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicMarkCandlestick>>> GetMarkPriceCandlesticksAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return GetMarkPriceCandlesticksAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
+        return GetMarkPriceCandlesticksAsync(instrumentId, MapConverter.GetString(period)!, after, before, limit, ct);
     }
 
     /// <summary>
@@ -1010,7 +1010,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicMarkCandlestick>>> GetMarkPriceCandlesticksHistoryAsync(string instrumentId, OkxPeriod period, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
     {
-        return GetMarkPriceCandlesticksHistoryAsync(instrumentId, MapConverter.GetString(period), after, before, limit, ct);
+        return GetMarkPriceCandlesticksHistoryAsync(instrumentId, MapConverter.GetString(period)!, after, before, limit, ct);
     }
 
     /// <summary>

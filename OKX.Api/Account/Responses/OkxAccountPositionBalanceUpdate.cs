@@ -146,7 +146,7 @@ public record OkxAccountPositionBalanceUpdatePosition
     public decimal? NonSettleAveragePrice { get; set; }
 
     /// <summary>
-    /// Accumulated settled P&L (calculated by settlement price)
+    /// Accumulated settled P&amp;L (calculated by settlement price)
     /// Applicable to FUTURES cross
     /// </summary>
     [JsonProperty("settledPnl")]

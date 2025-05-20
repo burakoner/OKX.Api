@@ -1,5 +1,9 @@
 ## Change Log & Release Notes
 
+* Version 5.5.520 - 20 May 2025
+  * Synced with the OKX Latest API Version (2025-05-15).
+  * ApiSharp 3.6.5 Update
+
 * Version 5.5.515 - 14 May 2025
   * Fixed issue related with SubscribeToBalanceAndPositionUpdatesAsync [#83](https://github.com/burakoner/OKX.Api/issues/83)
 
