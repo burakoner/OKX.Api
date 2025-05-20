@@ -122,7 +122,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     }
 
     /// <inheritdoc />
-    protected override bool HandleQueryResponse<T>(WebSocketConnection connection, object request, JToken data, out CallResult<T> callResult)
+    protected override bool HandleQueryResponse<T>(WebSocketConnection connection, object request, JToken data, out CallResult<T>? callResult)
     {
         callResult = null;
 
@@ -197,7 +197,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     }
 
     /// <inheritdoc />
-    protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object> callResult)
+    protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object>? callResult)
     {
         callResult = null;
 
