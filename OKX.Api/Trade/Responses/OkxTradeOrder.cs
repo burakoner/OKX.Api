@@ -218,7 +218,7 @@ public record OkxTradeOrder
     /// TP/SL information attached when placing order
     /// </summary>
     [JsonProperty("attachAlgoOrds")]
-    public List<OkxTradeOrderAttachedAlgoOrder> AttachedAlgoOrders{ get; set; } = [];
+    public List<OkxTradeOrderAttachedAlgoOrder> AttachedAlgoOrders { get; set; } = [];
 
     /// <summary>
     /// Linked SL order detail, only applicable to the order that is placed by one-cancels-the-other (OCO) order that contains the TP limit order.
@@ -270,7 +270,7 @@ public record OkxTradeOrder
     /// </summary>
     [JsonProperty("reduceOnly")]
     public bool? ReduceOnly { get; set; }
-    
+
     /// <summary>
     /// Whether it is TP limit order. true or false
     /// </summary>
@@ -368,13 +368,13 @@ public record OkxTradeOrderAttachedAlgoOrder
     /// </summary>
     [JsonProperty("tpOrdKind")]
     public string TakeProfitOrderKind { get; set; } = string.Empty;
-    
+
     /// <summary>
     /// Take-profit trigger price.
     /// </summary>
     [JsonProperty("tpTriggerPx")]
     public string TakeProfitTriggerPrice { get; set; } = string.Empty;
-    
+
     /// <summary>
     /// Take-profit trigger price type.
     /// </summary>
@@ -398,7 +398,7 @@ public record OkxTradeOrderAttachedAlgoOrder
     /// </summary>
     [JsonProperty("slTriggerPxType")]
     public OkxAlgoPriceType? StopLossTriggerPriceType { get; set; }
-    
+
     /// <summary>
     /// Stop-loss order price.
     /// </summary>
@@ -416,14 +416,14 @@ public record OkxTradeOrderAttachedAlgoOrder
     /// </summary>
     [JsonProperty("amendPxOnTriggerType")]
     public bool? AmendPriceOnTriggerType { get; set; }
-    
+
     /// <summary>
     /// The error code when failing to place TP/SL order, e.g. 51020
     /// The default is ""
     /// </summary>
     [JsonProperty("failCode")]
     public string FailCode { get; set; } = string.Empty;
-    
+
     /// <summary>
     /// The error reason when failing to place TP/SL order.
     /// The default is ""

@@ -84,16 +84,16 @@ public enum OkxAccountBillSubType:int
     AutoMarginIncrease = 162,
 
     /// <summary>
-    /// Auto Buy
+    /// Forced Repayment Buy
     /// </summary>
     [Map("114")]
-    AutoBuy = 114,
+    ForcedRepaymentBuy = 114,
 
     /// <summary>
-    /// Auto Sell
+    /// Forced Repayment Sell
     /// </summary>
     [Map("115")]
-    AutoSell = 115,
+    ForcedRepaymentSell = 115,
 
     /// <summary>
     /// System Token Conversion Transfer In
@@ -165,6 +165,7 @@ public enum OkxAccountBillSubType:int
     /// Liquidation fees
     /// </summary>
     [Map("109")]
+    [Obsolete]
     LiquidationFees = 109,
 
     /// <summary>
@@ -415,18 +416,6 @@ public enum OkxAccountBillSubType:int
     ProfitSharingIncome = 252,
 
     /// <summary>
-    /// SPOT profit sharing expenses
-    /// </summary>
-    [Map("280")]
-    SpotProfitSharingExpenses = 280,
-
-    /// <summary>
-    /// SPOT profit sharing refund
-    /// </summary>
-    [Map("281")]
-    SpotProfitSharingRefund = 281,
-
-    /// <summary>
     /// SpreadTradingBuy
     /// </summary>
     [Map("270")]
@@ -461,6 +450,18 @@ public enum OkxAccountBillSubType:int
     /// </summary>
     [Map("275")]
     SpreadTradingCloseShort = 275,
+
+    /// <summary>
+    /// SPOT profit sharing expenses
+    /// </summary>
+    [Map("280")]
+    SpotProfitSharingExpenses = 280,
+
+    /// <summary>
+    /// SPOT profit sharing refund
+    /// </summary>
+    [Map("281")]
+    SpotProfitSharingRefund = 281,
 
     /// <summary>
     /// Copy trade automatic transfer in
@@ -589,6 +590,42 @@ public enum OkxAccountBillSubType:int
     SimpleSell = 321,
 
     /// <summary>
+    /// Move position buy
+    /// </summary>
+    [Map("324")]
+    MovePositionBuy = 324,
+
+    /// <summary>
+    /// Move position sell
+    /// </summary>
+    [Map("325")]
+    MovePositionSell = 325,
+
+    /// <summary>
+    /// Move position open long
+    /// </summary>
+    [Map("326")]
+    MovePositionOpenLong = 326,
+
+    /// <summary>
+    /// Move position open short
+    /// </summary>
+    [Map("327")]
+    MovePositionOpenShort = 327,
+
+    /// <summary>
+    /// Move position close long
+    /// </summary>
+    [Map("328")]
+    MovePositionCloseLong = 328,
+
+    /// <summary>
+    /// Move position close short
+    /// </summary>
+    [Map("329")]
+    MovePositionCloseShort = 329,
+
+    /// <summary>
     /// Margin transfer in isolated margin position
     /// </summary>
     [Map("332")]
@@ -631,12 +668,6 @@ public enum OkxAccountBillSubType:int
     CreditLineForcedRepaymentPenaltyFeePendingDeduction = 353,
 
     /// <summary>
-    /// Settlement PnL
-    /// </summary>
-    [Map("355")]
-    SettlementPnL = 355,
-
-    /// <summary>
     /// [Credit line] Auto conversion(pending deduction)
     /// </summary>
     [Map("356")]
@@ -647,6 +678,12 @@ public enum OkxAccountBillSubType:int
     /// </summary>
     [Map("357")]
     CreditLineAutoConversionTransferToFunding = 357,
+
+    /// <summary>
+    /// Settlement PnL
+    /// </summary>
+    [Map("355")]
+    SettlementPnL = 355,
 
     /// <summary>
     /// Collateralized borrowing auto conversion buy

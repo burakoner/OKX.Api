@@ -16,7 +16,6 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
     {
         // Options
         var options = (OkxRestApiOptions)apiClient.ClientOptions;
-        var credentials = (OkxApiCredentials)Credentials;
 
         // Demo Trading Flag
         if (options.DemoTradingService)
@@ -44,7 +43,7 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
         headers.Add("OK-ACCESS-KEY", Credentials.Key.GetString());
         headers.Add("OK-ACCESS-SIGN", signature);
         headers.Add("OK-ACCESS-TIMESTAMP", time);
-        headers.Add("OK-ACCESS-PASSPHRASE", credentials.PassPhrase.GetString());
+        headers.Add("OK-ACCESS-PASSPHRASE", ((OkxApiCredentials)Credentials).PassPhrase.GetString());
     }
 
     public static string Base64Encode(byte[] plainBytes) => Convert.ToBase64String(plainBytes);

@@ -24,10 +24,10 @@ public enum OkxAccountBillType:int
     Delivery = 3,
 
     /// <summary>
-    /// Auto Token Conversion
+    /// Forced Repayment
     /// </summary>
     [Map("4")]
-    AutoTokenConversion = 4,
+    ForcedRepayment = 4,
 
     /// <summary>
     /// Liquidation
@@ -96,6 +96,12 @@ public enum OkxAccountBillType:int
     QuickMargin = 15,
 
     /// <summary>
+    /// Borrowing
+    /// </summary>
+    [Map("16")]
+    Borrowing = 16,
+
+    /// <summary>
     /// Profit Sharing
     /// </summary>
     [Obsolete]
@@ -143,6 +149,12 @@ public enum OkxAccountBillType:int
     /// </summary>
     [Map("30")]
     SimpleTrade = 30,
+
+    /// <summary>
+    /// Move Position
+    /// </summary>
+    [Map("32")]
+    MovePosition = 32,
 
     /// <summary>
     /// Loans

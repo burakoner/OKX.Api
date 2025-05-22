@@ -51,17 +51,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// 
     /// <param name="quickMarginType">Quick Margin type. Only applicable to Quick Margin Mode of isolated margin. The default value is manual</param>
     /// <param name="banAmend">Whether to disallow the system from amending the size of the SPOT Market Order.</param>
-    /// 
-    /// <param name="tpTriggerPriceType">Take-profit trigger price type. The Default is last</param>
-    /// <param name="tpTriggerPrice">Take-profit trigger price. If you fill in this parameter, you should fill in the take-profit order price as well.</param>
-    /// <param name="tpOrdPrice">Take-profit order price</param>
-    /// 
-    /// <param name="slTriggerPriceType">Stop-loss trigger price type. The Default is last</param>
-    /// <param name="slTriggerPrice">Stop-loss trigger price. If you fill in this parameter, you should fill in the stop-loss order price.</param>
-    /// <param name="slOrderPrice">Stop-loss order price. If you fill in this parameter, you should fill in the stop-loss trigger price. If the price is -1, stop-loss will be executed at the market price.</param>
-    /// 
-    /// <param name="attachAlgoClientOrderOrderId">Client-supplied Algo ID when plaing order attaching TP/SL. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters. It will be posted to algoClOrdId when placing TP/SL order once the general order is filled completely.</param>
-    /// 
+
     /// <param name="selfTradePreventionId">Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.</param>
     /// <param name="selfTradePreventionMode">Self trade prevention mode. Default to cancel maker. cancel_maker,cancel_taker, cancel_both. Cancel both does not support FOK.</param>
     /// 
@@ -92,16 +82,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxQuickMarginType? quickMarginType = null,
         bool? banAmend = null,
 
-        OkxAlgoPriceType? tpTriggerPriceType = null,
-        decimal? tpTriggerPrice = null,
-        decimal? tpOrdPrice = null,
-
-        OkxAlgoPriceType? slTriggerPriceType = null,
-        decimal? slTriggerPrice = null,
-        decimal? slOrderPrice = null,
-
-        string? attachAlgoClientOrderOrderId = null,
-
         long? selfTradePreventionId = null,
         OkxSelfTradePreventionMode? selfTradePreventionMode = null,
 
@@ -127,16 +107,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 
         parameters.AddOptionalEnum("quickMgnType", quickMarginType);
         parameters.AddOptional("banAmend", banAmend);
-
-        parameters.AddOptionalEnum("tpTriggerPxType", tpTriggerPriceType);
-        parameters.AddOptional("tpTriggerPx", tpTriggerPrice?.ToOkxString());
-        parameters.AddOptional("tpOrdPx", tpOrdPrice?.ToOkxString());
-
-        parameters.AddOptionalEnum("slTriggerPxType", slTriggerPriceType);
-        parameters.AddOptional("slTriggerPx", slTriggerPrice?.ToOkxString());
-        parameters.AddOptional("slOrdPx", slOrderPrice?.ToOkxString());
-
-        parameters.AddOptional("attachAlgoClOrdId", attachAlgoClientOrderOrderId);
 
         parameters.AddOptionalEnum("stpMode", selfTradePreventionMode);
         parameters.AddOptional("stpId", selfTradePreventionId?.ToOkxString());
