@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Recurring Buy State
 /// </summary>
-public enum OkxRecurringBuyState
+public enum OkxRecurringBuyState : byte
 {
     /// <summary>
     /// Live

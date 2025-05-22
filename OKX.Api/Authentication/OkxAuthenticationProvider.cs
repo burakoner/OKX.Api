@@ -4,12 +4,12 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
 {
     private readonly HMACSHA256 encryptor;
 
-    public OkxAuthenticationProvider(OkxApiCredentials credentials) : base(credentials)
+    public OkxAuthenticationProvider(OkxApiCredentials credentials) : base(credentials ?? new OkxApiCredentials("", "", ""))
     {
-        if (credentials is null || credentials.Secret is null || credentials.PassPhrase is null)
-            throw new ArgumentException("No valid API credentials provided. Key, Secret and PassPhrase needed.");
+        //if (credentials is null || credentials.Secret is null || credentials.PassPhrase is null)
+        //    throw new ArgumentException("No valid API credentials provided. Key, Secret and PassPhrase needed.");
 
-        encryptor = new HMACSHA256(Encoding.ASCII.GetBytes(credentials.Secret.GetString()));
+        encryptor = new HMACSHA256(Encoding.ASCII.GetBytes(credentials?.Secret.GetString() ?? ""));
     }
 
     public override void AuthenticateRestApi(RestApiClient apiClient, Uri uri, HttpMethod method, bool signed, ArraySerialization serialization, SortedDictionary<string, object> query, SortedDictionary<string, object> body, string bodyContent, SortedDictionary<string, string> headers)
@@ -27,7 +27,8 @@ internal class OkxAuthenticationProvider : AuthenticationProvider
             return;
 
         // Check Point
-        if (Credentials is null || Credentials.Key is null || Credentials.Secret is null || ((OkxApiCredentials)Credentials).PassPhrase is null)
+        if (Credentials is null || Credentials.Key is null || Credentials.Secret is null || ((OkxApiCredentials)Credentials).PassPhrase is null
+            || string.IsNullOrEmpty(Credentials.Key.GetString()))
             throw new ArgumentException("No valid API credentials provided. Key/Secret/PassPhrase needed.");
 
         // Set Uri

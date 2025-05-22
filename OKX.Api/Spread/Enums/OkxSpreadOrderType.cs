@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Spread Order Type
 /// </summary>
-public enum OkxSpreadOrderType
+public enum OkxSpreadOrderType : byte
 {
     /// <summary>
     /// Market order

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Trade Role
 /// </summary>
-public enum OkxTradeOrderRole
+public enum OkxTradeOrderRole : byte
 {
     /// <summary>
     /// Taker

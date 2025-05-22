@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Api Key Permission
 /// </summary>
-public enum OkxAccountApiKeyPermission
+public enum OkxAccountApiKeyPermission : byte
 {
     /// <summary>
     /// ReadOnly

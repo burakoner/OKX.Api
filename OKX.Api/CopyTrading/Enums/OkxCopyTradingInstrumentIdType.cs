@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX CopyTrading Instrument Id Type
 /// </summary>
-public enum OkxCopyTradingInstrumentIdType
+public enum OkxCopyTradingInstrumentIdType : byte
 {
     /// <summary>
     /// custom: custom by instId which is required；

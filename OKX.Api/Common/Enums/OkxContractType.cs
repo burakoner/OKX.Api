@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Contract Type
 /// </summary>
-public enum OkxContractType
+public enum OkxContractType : byte
 {
     /// <summary>
     /// Linear

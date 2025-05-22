@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Algo Trigger Action
 /// </summary>
-public enum OkxGridAlgoTriggerAction
+public enum OkxGridAlgoTriggerAction : byte
 {
     /// <summary>
     /// Start

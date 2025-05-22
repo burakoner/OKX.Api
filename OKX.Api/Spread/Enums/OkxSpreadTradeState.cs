@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Spread Trade State
 /// </summary>
-public enum OkxSpreadTradeState
+public enum OkxSpreadTradeState : byte
 {
     /// <summary>
     /// Filled

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Bot Event Status
 /// </summary>
-public enum OkxSignalBotEventStatus
+public enum OkxSignalBotEventStatus : byte
 {
     /// <summary>
     /// Success

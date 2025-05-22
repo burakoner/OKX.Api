@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Position Direction
 /// </summary>
-public enum OkxTradePositionDirection
+public enum OkxTradePositionDirection : int
 {
     /// <summary>
     /// Long

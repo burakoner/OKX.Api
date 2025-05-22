@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Convert Order State
 /// </summary>
-public enum OkxFundingConvertOrderState
+public enum OkxFundingConvertOrderState : byte
 {
     /// <summary>
     /// fullyFilled: success

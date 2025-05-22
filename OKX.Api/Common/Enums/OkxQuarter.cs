@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Quarter
 /// </summary>
-public enum OkxQuarter
+public enum OkxQuarter : byte
 {
     /// <summary>
     /// Quarter 1

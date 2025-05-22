@@ -16,7 +16,7 @@ public record OkxPublicFundingRate
     /// </summary>
     [JsonProperty("instId")]
     public string InstrumentId { get; set; } = string.Empty;
-    
+
     /// <summary>
     /// Funding rate mechanism
     /// current_period
@@ -24,6 +24,14 @@ public record OkxPublicFundingRate
     /// </summary>
     [JsonProperty("method")]
     public OkxPublicFundingRateMethod Method { get; set; }
+
+    /// <summary>
+    /// Formula type
+    /// noRate: old funding rate formula
+    /// withRate: new funding rate formula
+    /// </summary>
+    [JsonProperty("formulaType")]
+    public OkxPublicFundingRateFormula Formula { get; set; }
 
     /// <summary>
     /// Funding Rate
@@ -92,7 +100,7 @@ public record OkxPublicFundingRate
     /// Premium between the mid price of perps market and the index price
     /// </summary>
     [JsonProperty("premium")]
-    public decimal premium { get; set; }
+    public decimal Premium { get; set; }
 
     /// <summary>
     /// Data return time, Unix timestamp format in milliseconds, e.g. 1597026383085
@@ -105,4 +113,16 @@ public record OkxPublicFundingRate
     /// </summary>
     [JsonIgnore]
     public DateTime Time => Timestamp.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Interest rate
+    /// </summary>
+    [JsonProperty("interestRate")]
+    public decimal? InterestRate { get; set; }
+
+    /// <summary>
+    /// Depth weighted amount (in the unit of quote currency)
+    /// </summary>
+    [JsonProperty("impactValue")]
+    public decimal? ImpactValue { get; set; }
 }

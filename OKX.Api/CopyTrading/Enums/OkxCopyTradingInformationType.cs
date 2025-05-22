@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Information Type
 /// </summary>
-public enum OkxCopyTradingInformationType
+public enum OkxCopyTradingInformationType : byte
 {
     /// <summary>
     /// lead trading failed due to touch max position limitation

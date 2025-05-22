@@ -84,8 +84,8 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         };
 
         var result = await  ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5SpreadMassCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw, result.Error);
+        if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -386,7 +386,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         int limit = 100,
         CancellationToken ct = default)
     {
-        return GetCandlesticksAsync(spreadId, MapConverter.GetString(period), after, before, limit, ct);
+        return GetCandlesticksAsync(spreadId, MapConverter.GetString(period)!, after, before, limit, ct);
     }
 
     /// <summary>
@@ -443,7 +443,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         int limit = 100,
         CancellationToken ct = default)
     {
-        return GetCandlesticksHistoryAsync(spreadId, MapConverter.GetString(period), after, before, limit, ct);
+        return GetCandlesticksHistoryAsync(spreadId, MapConverter.GetString(period)!, after, before, limit, ct);
     }
 
     /// <summary>

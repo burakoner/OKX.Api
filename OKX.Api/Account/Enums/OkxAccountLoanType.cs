@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Loan Type
 /// </summary>
-public enum OkxAccountLoanType
+public enum OkxAccountLoanType : byte
 {
     /// <summary>
     /// VIP Loans

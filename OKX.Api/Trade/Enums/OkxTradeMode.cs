@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Trade Mode
 /// </summary>
-public enum OkxTradeMode
+public enum OkxTradeMode : byte
 {
     /// <summary>
     /// Cash

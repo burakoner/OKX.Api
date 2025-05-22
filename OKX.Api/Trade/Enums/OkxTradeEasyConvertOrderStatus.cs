@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Easy Convert Order Status
 /// </summary>
-public enum OkxTradeEasyConvertOrderStatus
+public enum OkxTradeEasyConvertOrderStatus : byte
 {
     /// <summary>
     /// Running

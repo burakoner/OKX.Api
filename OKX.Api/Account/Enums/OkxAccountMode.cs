@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Mode
 /// </summary>
-public enum OkxAccountMode
+public enum OkxAccountMode : byte
 {
     /// <summary>
     /// Simple. Spot Mode

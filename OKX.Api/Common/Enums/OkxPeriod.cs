@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Period
 /// </summary>
-public enum OkxPeriod
+public enum OkxPeriod : int
 {
     /// <summary>
     /// 1m

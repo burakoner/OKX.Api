@@ -3,7 +3,7 @@
 /// <summary>
 /// Type of set the take-profit and stop-loss trigger price
 /// </summary>
-public enum OkxSignalBotTriggerPrice
+public enum OkxSignalBotTriggerPrice : byte
 {
     /// <summary>
     /// Based on the estimated profit and loss percentage from the entry point

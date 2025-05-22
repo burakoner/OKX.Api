@@ -124,8 +124,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         };
 
         var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw, result.Error);
+        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -155,8 +155,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptional("allowReinvest", allowReinvest);
 
         var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw, result.Error);
+        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -177,8 +177,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         };
 
         var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalAmendTPSL), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw, result.Error);
+        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -202,8 +202,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         };
 
         var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalSetInstruments), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw, result.Error);
+        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -342,8 +342,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptional("instId", instrumentId);
 
         var result = await ProcessListRequestAsync<OkxSignalBotAlgoId>(GetUri(v5TradingBotSignalClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Where(x => x.Data.HasValue).Select(x => x.Data!.Value).ToList(), result.Raw, result.Error);
+        if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Where(x => x.Data.HasValue).Select(x => x.Data!.Value).ToList(), result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -407,8 +407,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         };
 
         var result = await ProcessOneRequestAsync<OkxSignalBotSignalOrderId>(GetUri(v5TradingBotSignalCancelSubOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw ?? "", result.Error);
     }
 
     /// <summary>

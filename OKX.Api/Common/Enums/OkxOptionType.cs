@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Option Type
 /// </summary>
-public enum OkxOptionType
+public enum OkxOptionType : byte
 {
     /// <summary>
     /// Call

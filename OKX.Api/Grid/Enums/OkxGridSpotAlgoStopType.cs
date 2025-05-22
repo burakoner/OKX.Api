@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Spot Algo Stop Type
 /// </summary>
-public enum OkxGridSpotAlgoStopType
+public enum OkxGridSpotAlgoStopType : byte
 {
     /// <summary>
     /// SellBaseCurrency

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Margin Mode
 /// </summary>
-public enum OkxAccountMarginMode
+public enum OkxAccountMarginMode : byte
 {
     /// <summary>
     /// Isolated

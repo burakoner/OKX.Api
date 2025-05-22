@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub-Account Transfer Type
 /// </summary>
-public enum OkxSubAccountTransferType
+public enum OkxSubAccountTransferType : byte
 {
     /// <summary>
     /// FromMasterAccountToSubAccout

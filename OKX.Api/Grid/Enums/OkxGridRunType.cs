@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Run Type
 /// </summary>
-public enum OkxGridRunType
+public enum OkxGridRunType : byte
 {
     /// <summary>
     /// Arithmetic

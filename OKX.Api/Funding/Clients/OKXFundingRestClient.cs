@@ -296,8 +296,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
 
         var result = await ProcessOneRequestAsync<OkxFundingWithdrawalIdContainer>(GetUri(v5AssetWithdrawalCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -437,8 +437,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     public async Task<RestCallResult<List<string>>> GetConvertCurrenciesAsync(CancellationToken ct = default)
     {
         var result = await ProcessListRequestAsync<OkxFundingCurrencyContainer>(GetUri(v5AssetConvertCurrencies), HttpMethod.Get, ct, signed: true);
-        if (!result) return new RestCallResult<List<string>>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<List<string>>(result.Request, result.Response, result.Data.Select(x => x.Payload).ToList(), result.Raw, result.Error);
+        if (!result) return new RestCallResult<List<string>>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<List<string>>(result.Request, result.Response, result.Data.Select(x => x.Payload).ToList(), result.Raw ?? "", result.Error);
     }
 
     /// <summary>

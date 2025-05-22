@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Maintenance System
 /// </summary>
-public enum OkxPublicMaintenanceSystem
+public enum OkxPublicMaintenanceSystem : byte
 {
     /// <summary>
     /// Classic

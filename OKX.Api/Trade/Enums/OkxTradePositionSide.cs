@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Position Side
 /// </summary>
-public enum OkxTradePositionSide
+public enum OkxTradePositionSide : int
 {
     /// <summary>
     /// Long

@@ -1,9 +1,9 @@
 namespace OKX.Api.Public;
 
 /// <summary>
-/// OKX Trade All
+/// OKX Trade
 /// </summary>
-public record OkxPublicTradeSingle
+public record OkxPublicTrade
 {
     /// <summary>
     /// Instrument Id

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Withdrawal State
 /// </summary>
-public enum OkxFundingWithdrawalState
+public enum OkxFundingWithdrawalState:int
 {
     #region Stage 1
     /// <summary>

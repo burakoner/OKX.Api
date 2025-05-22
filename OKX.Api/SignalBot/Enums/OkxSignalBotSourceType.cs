@@ -3,7 +3,7 @@
 /// <summary>
 /// Signal source type
 /// </summary>
-public enum OkxSignalBotSourceType
+public enum OkxSignalBotSourceType : byte
 {
     /// <summary>
     /// Created by yourself

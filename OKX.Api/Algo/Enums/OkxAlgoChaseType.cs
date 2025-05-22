@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Chase Type
 /// </summary>
-public enum OkxAlgoChaseType
+public enum OkxAlgoChaseType : byte
 {
     /// <summary>
     /// Distance from best bid/ask price, the default value

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Price Variance
 /// </summary>
-public enum OkxPriceVariance
+public enum OkxPriceVariance : byte
 {
     /// <summary>
     /// Spread

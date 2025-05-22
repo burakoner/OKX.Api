@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Back Testing Duration
 /// </summary>
-public enum OkxGridBackTestingDuration
+public enum OkxGridBackTestingDuration : byte
 {
     /// <summary>
     /// OneWeek

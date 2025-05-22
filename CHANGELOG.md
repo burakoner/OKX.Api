@@ -1,5 +1,36 @@
 ## Change Log & Release Notes
 
+* Version 5.5.521 - 20 May 2025
+  * ApiSharp 3.7.0 Update
+
+* Version 5.5.520 - 20 May 2025
+  * Synced with the OKX Latest API Version (2025-05-15).
+  * ApiSharp 3.6.5 Update
+
+* Version 5.5.515 - 14 May 2025
+  * Fixed issue related with SubscribeToBalanceAndPositionUpdatesAsync [#83](https://github.com/burakoner/OKX.Api/issues/83)
+
+* Version 5.5.514 - 13 May 2025
+  * Fixed issue [#82](https://github.com/burakoner/OKX.Api/issues/82)
+
+* Version 5.5.513 - 12 May 2025
+  * Added OkxPublicRestClient.GetCallAuctionDetailsAsync method
+  * Added OkxPublicRestClient.GetEstimatedSettlementInfoAsync method
+  * Added OkxPublicRestClient.GetSettlementHistoryAsync method
+  * Specified the enumation data types
+  * Minor developments
+
+* Version 5.5.512 - 12 May 2025
+  * Synced endpoints & models with the OKX Latest API Version (2025-05-08).
+  * ApiSharp 3.5.5 Update
+  * Added SubscribeToTradesAllAsync [#80](https://github.com/burakoner/OKX.Api/pull/80)
+  * Added new fields to OkxPublicFundingRate
+  * Added allowReinvestProfit request parameter to OkxGridRestClient.AddInvestmentAsync
+  * Removed algoClOrdId request parameter from OkxAlgoRestClient.GetOpenOrdersAsync
+  * Added new bill subtypes for trading account
+  * Changed OkxFinancialEthStakingRestClient.GetProductInfoAsync return data type to OkxFinancialProductInfo
+  * Added OkxFinancialSolStakingRestClient.GetProductInfoAsync method
+
 * Version 5.5.410 - 10 Apr 2025
   * Leverage data type converted to decimal again
 

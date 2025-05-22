@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Delivery Exercise History Type
 /// </summary>
-public enum OkxPublicDeliveryExerciseStatus
+public enum OkxPublicDeliveryExerciseStatus : byte
 {
     /// <summary>
     /// Delivery

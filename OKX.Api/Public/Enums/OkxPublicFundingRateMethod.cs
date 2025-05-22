@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Funding Rate Method
 /// </summary>
-public enum OkxPublicFundingRateMethod
+public enum OkxPublicFundingRateMethod : byte
 {
     /// <summary>
     /// CurrentPeriod

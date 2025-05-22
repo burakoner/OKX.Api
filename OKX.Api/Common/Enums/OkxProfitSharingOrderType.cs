@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Profit Sharing Order Type
 /// </summary>
-public enum OkxProfitSharingOrderType
+public enum OkxProfitSharingOrderType : byte
 {
     /// <summary>
     /// Normal order

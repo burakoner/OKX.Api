@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Quantity Type
 /// </summary>
-public enum OkxTradeQuantityType
+public enum OkxTradeQuantityType : byte
 {
     /// <summary>
     /// BaseCurrency

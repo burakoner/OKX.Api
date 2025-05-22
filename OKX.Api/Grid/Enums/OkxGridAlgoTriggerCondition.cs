@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Grid Algo Trigger Condition
 /// </summary>
-public enum OkxGridAlgoTriggerCondition
+public enum OkxGridAlgoTriggerCondition : byte
 {
     /// <summary>
     /// CrossUp

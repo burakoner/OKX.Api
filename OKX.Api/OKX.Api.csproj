@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
@@ -9,10 +9,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>5.5.410</Version>
-		<FileVersion>5.5.410</FileVersion>
-		<PackageVersion>5.5.410</PackageVersion>
-		<AssemblyVersion>5.5.410</AssemblyVersion>
+		<Version>5.5.521</Version>
+		<FileVersion>5.5.521</FileVersion>
+		<PackageVersion>5.5.521</PackageVersion>
+		<AssemblyVersion>5.5.521</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -26,33 +26,15 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-	  <DebugType>embedded</DebugType>
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="ApiSharp" Version="3.3.1" />
+	  <PackageReference Include="ApiSharp" Version="3.7.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="OKX.png" Pack="true" PackagePath="" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Include="../CHANGELOG.md" Pack="true" PackagePath="\" />
 		<None Include="../README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Settlement Type
 /// </summary>
-public enum OkxPublicSettlementType
+public enum OkxPublicSettlementType : byte
 {
     /// <summary>
     /// Futures settlement

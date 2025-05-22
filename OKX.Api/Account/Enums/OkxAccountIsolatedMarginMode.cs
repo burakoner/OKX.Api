@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Isolated Margin Mode
 /// </summary>
-public enum OkxAccountIsolatedMarginMode
+public enum OkxAccountIsolatedMarginMode : byte
 {
     /// <summary>
     /// AutoTransfer

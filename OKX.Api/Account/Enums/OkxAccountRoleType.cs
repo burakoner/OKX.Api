@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Role Type
 /// </summary>
-public enum OkxAccountRoleType
+public enum OkxAccountRoleType : byte
 {
     /// <summary>
     /// General User

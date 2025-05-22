@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Bot Event Type
 /// </summary>
-public enum OkxSignalBotEventType
+public enum OkxSignalBotEventType : byte
 {
     /// <summary>
     /// SystemAction

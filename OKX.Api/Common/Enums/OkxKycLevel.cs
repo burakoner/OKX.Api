@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Kyc Level
 /// </summary>
-public enum OkxKycLevel
+public enum OkxKycLevel : byte
 {
     /// <summary>
     /// NoVerification

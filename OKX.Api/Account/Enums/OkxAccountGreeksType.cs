@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Greeks Type
 /// </summary>
-public enum OkxAccountGreeksType
+public enum OkxAccountGreeksType : byte
 {
     /// <summary>
     /// GreeksInCoins

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Bill Sub-Type
 /// </summary>
-public enum OkxAccountBillSubType
+public enum OkxAccountBillSubType:int
 {
     /// <summary>
     /// Buy
@@ -647,4 +647,16 @@ public enum OkxAccountBillSubType
     /// </summary>
     [Map("357")]
     CreditLineAutoConversionTransferToFunding = 357,
+
+    /// <summary>
+    /// Collateralized borrowing auto conversion buy
+    /// </summary>
+    [Map("376")]
+    CollateralizedBorrowingAutoConversionBuy = 376,
+
+    /// <summary>
+    /// Collateralized borrowing auto conversion sell
+    /// </summary>
+    [Map("377")]
+    CollateralizedBorrowingAutoConversionSell = 377,
 }

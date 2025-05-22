@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Instrument Type
 /// </summary>
-public enum OkxInstrumentType
+public enum OkxInstrumentType : byte
 {
     /// <summary>
     /// Any

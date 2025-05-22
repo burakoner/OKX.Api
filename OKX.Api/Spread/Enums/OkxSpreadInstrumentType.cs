@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Spread Instrument Type
 /// </summary>
-public enum OkxSpreadInstrumentType
+public enum OkxSpreadInstrumentType : byte
 {
     /// <summary>
     /// Linear

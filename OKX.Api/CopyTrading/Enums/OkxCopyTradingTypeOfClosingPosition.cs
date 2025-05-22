@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading Sub Position Type
 /// </summary>
-public enum OkxCopyTradingTypeOfClosingPosition
+public enum OkxCopyTradingTypeOfClosingPosition : byte
 {
     /// <summary>
     /// Close position partially

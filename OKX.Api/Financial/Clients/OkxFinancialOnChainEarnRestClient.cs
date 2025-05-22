@@ -57,8 +57,8 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri(v5FinanceStakingDefiPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -83,8 +83,8 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri(v5FinanceStakingDefiRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -105,8 +105,8 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         };
 
         var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri(v5FinanceStakingDefiCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>

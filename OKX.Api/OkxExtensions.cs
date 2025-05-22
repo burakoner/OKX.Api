@@ -87,7 +87,7 @@ internal static class OkxExtensions
         if (@this is int s04) return s04.ToString(OkxConstants.OkxCultureInfo);
         if (@this is long s05) return s05.ToString(OkxConstants.OkxCultureInfo);
 
-        return @this!.ToString();
+        return @this!.ToString()!;
     }
     #endregion
 

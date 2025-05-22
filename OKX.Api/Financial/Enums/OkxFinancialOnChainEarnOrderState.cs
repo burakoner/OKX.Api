@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial OnChainEarn Order State
 /// </summary>
-public enum OkxFinancialOnChainEarnOrderState
+public enum OkxFinancialOnChainEarnOrderState : byte
 {
     /// <summary>
     /// Pending

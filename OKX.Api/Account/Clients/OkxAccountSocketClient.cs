@@ -87,9 +87,9 @@ public class OkxAccountSocketClient(OkxWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToBalanceAndPositionUpdatesAsync(Action<OkxAccountPositionBalance> onData, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToBalanceAndPositionUpdatesAsync(Action<OkxAccountPositionBalanceUpdate> onData, CancellationToken ct = default)
     {
-        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountPositionBalance>>>>(data =>
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountPositionBalanceUpdate>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);

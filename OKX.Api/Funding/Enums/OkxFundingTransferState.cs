@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Transfer State
 /// </summary>
-public enum OkxFundingTransferState
+public enum OkxFundingTransferState : byte
 {
     /// <summary>
     /// Pending

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Recurring Buy Period
 /// </summary>
-public enum OkxRecurringBuyPeriod
+public enum OkxRecurringBuyPeriod : byte
 {
     /// <summary>
     /// Monthly

@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Signal Entry Type
 /// </summary>
-public enum OkxSignalBotEntryType
+public enum OkxSignalBotEntryType : byte
 {
     /// <summary>
     /// TradingView Signal

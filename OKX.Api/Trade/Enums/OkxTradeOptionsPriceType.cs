@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Options Price Type
 /// </summary>
-public enum OkxTradeOptionsPriceType
+public enum OkxTradeOptionsPriceType : byte
 {
     /// <summary>
     /// Place an order based on price, in the unit of coin (the unit for the request parameter px is BTC or ETH)

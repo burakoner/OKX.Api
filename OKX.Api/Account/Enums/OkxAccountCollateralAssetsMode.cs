@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Account Collateral Assets Mode
 /// </summary>
-public enum OkxAccountCollateralAssetsMode
+public enum OkxAccountCollateralAssetsMode : byte
 {
     /// <summary>
     /// All

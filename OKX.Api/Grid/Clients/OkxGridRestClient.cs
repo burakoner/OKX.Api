@@ -497,18 +497,20 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// </summary>
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="amount">The amount is going to be added</param>
+    /// <param name="allowReinvestProfit">Whether reinvesting profits, only applicable to spot grid. true or false. The default is true.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<long?>> AddInvestmentAsync(long algoOrderId, decimal amount, CancellationToken ct = default)
+    public async Task<RestCallResult<long?>> AddInvestmentAsync(long algoOrderId, decimal amount, bool? allowReinvestProfit = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             { "algoId", algoOrderId.ToOkxString() },
             { "amt", amount.ToOkxString() },
         };
+        parameters.AddOptional("allowReinvestProfit", allowReinvestProfit);
 
         var result = await ProcessOneRequestAsync<OkxGridAlgoIdContainer>(GetUri(v5TradingBotGridAdjustInvestment), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -617,8 +619,8 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("duration", duration);
 
         var result = await ProcessOneRequestAsync<OkxGridTriggerNumberContainer>(GetUri(v5TradingBotPublicRsiBackTesting), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -652,8 +654,8 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("lever", leverage);
 
         var result = await ProcessOneRequestAsync<OkxGridMaxQuantityContainer>(GetUri(v5TradingBotGridGridQuantity), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
-        if (!result) return new RestCallResult<decimal?>(result.Request, result.Response, result.Raw, result.Error);
-        return new RestCallResult<decimal?>(result.Request, result.Response, result.Data.Payload, result.Raw, result.Error);
+        if (!result) return new RestCallResult<decimal?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<decimal?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
 
 }

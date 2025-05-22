@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Algo Price Type
 /// </summary>
-public enum OkxAlgoPriceType
+public enum OkxAlgoPriceType : byte
 {
     /// <summary>
     /// Last

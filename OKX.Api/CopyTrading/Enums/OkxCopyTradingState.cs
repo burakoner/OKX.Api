@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Copy Trading State
 /// </summary>
-public enum OkxCopyTradingState
+public enum OkxCopyTradingState : byte
 {
     /// <summary>
     /// NonCopy

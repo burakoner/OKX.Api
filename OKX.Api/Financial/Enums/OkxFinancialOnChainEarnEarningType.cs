@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial OnChainEarning Type
 /// </summary>
-public enum OkxFinancialOnChainEarnEarningType
+public enum OkxFinancialOnChainEarnEarningType : byte
 {
     /// <summary>
     /// Estimated earning

@@ -3,7 +3,7 @@
 /// <summary>
 /// Signal order state
 /// </summary>
-public enum OkxSignalBotOrderState
+public enum OkxSignalBotOrderState : byte
 {
     /// <summary>
     /// Starting

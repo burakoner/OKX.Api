@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Socket Endpoint
 /// </summary>
-public enum OkxSocketEndpoint
+internal enum OkxSocketEndpoint
 {
     /// <summary>
     /// Public

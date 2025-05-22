@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Quick Margin Type
 /// </summary>
-public enum OkxQuickMarginType
+public enum OkxQuickMarginType : byte
 {
     /// <summary>
     /// Manual

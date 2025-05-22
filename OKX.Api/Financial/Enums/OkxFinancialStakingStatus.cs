@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Financial Eth Staking Status
 /// </summary>
-public enum OkxFinancialStakingStatus
+public enum OkxFinancialStakingStatus : byte
 {
     /// <summary>
     /// Pending

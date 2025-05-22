@@ -1,7 +1,7 @@
 ﻿namespace OKX.Api.Account;
 
 /// <summary>
-/// OkxPositionRisk
+/// OkxAccountPositionBalance
 /// </summary>
 public record OkxAccountPositionBalance
 {

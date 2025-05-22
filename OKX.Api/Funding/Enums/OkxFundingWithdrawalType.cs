@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Withdrawal Type
 /// </summary>
-public enum OkxFundingWithdrawalType
+public enum OkxFundingWithdrawalType : byte
 {
     /// <summary>
     /// InternalDeposit
