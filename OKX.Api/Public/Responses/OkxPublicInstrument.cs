@@ -15,37 +15,37 @@ public record OkxPublicInstrument
     /// Instrument ID, e.g. BTC-USD-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = string.Empty;
+    public string? InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
     /// Underlying, e.g. BTC-USD. Only applicable to FUTURES/SWAP/OPTION
     /// </summary>
     [JsonProperty("uly")]
-    public string Underlying { get; set; } = string.Empty;
+    public string? Underlying { get; set; } = string.Empty;
 
     /// <summary>
     /// Instrument family
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; } = string.Empty;
+    public string? InstrumentFamily { get; set; } = string.Empty;
 
     /// <summary>
     /// Base currency
     /// </summary>
     [JsonProperty("baseCcy")]
-    public string BaseCurrency { get; set; } = string.Empty;
+    public string? BaseCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Quote currency
     /// </summary>
     [JsonProperty("quoteCcy")]
-    public string QuoteCurrency { get; set; } = string.Empty;
+    public string? QuoteCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Settlement currency
     /// </summary>
     [JsonProperty("settleCcy")]
-    public string SettlementCurrency { get; set; } = string.Empty;
+    public string? SettlementCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Contract value
@@ -63,7 +63,7 @@ public record OkxPublicInstrument
     /// Contract value currency
     /// </summary>
     [JsonProperty("ctValCcy")]
-    public string ContractValueCurrency { get; set; } = string.Empty;
+    public string? ContractValueCurrency { get; set; } = string.Empty;
 
     /// <summary>
     /// Option type
@@ -125,19 +125,19 @@ public record OkxPublicInstrument
     /// Tick size
     /// </summary>
     [JsonProperty("tickSz")]
-    public decimal TickSize { get; set; }
+    public decimal? TickSize { get; set; }
 
     /// <summary>
     /// Lot size
     /// </summary>
     [JsonProperty("lotSz")]
-    public decimal LotSize { get; set; }
+    public decimal? LotSize { get; set; }
 
     /// <summary>
     /// Minimal order size
     /// </summary>
     [JsonProperty("minSz")]
-    public decimal MinimumOrderSize { get; set; }
+    public decimal? MinimumOrderSize { get; set; }
 
     /// <summary>
     /// Contract type
@@ -158,7 +158,7 @@ public record OkxPublicInstrument
     /// Not recommended for use, users are encouraged to rely on the expTime field to determine the delivery time of the contract
     /// </summary>
     [JsonProperty("alias")]
-    public string Alias { get; set; } = string.Empty;
+    public string? Alias { get; set; } = string.Empty;
 
     /// <summary>
     /// State
@@ -170,7 +170,7 @@ public record OkxPublicInstrument
     /// Trading rule types
     /// </summary>
     [JsonProperty("ruleType")]
-    public OkxInstrumentRuleType RuleType { get; set; }
+    public OkxInstrumentRuleType? RuleType { get; set; }
 
     /// <summary>
     /// Maximal limit order size

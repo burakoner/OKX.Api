@@ -1,5 +1,9 @@
 ## Change Log & Release Notes
 
+* Version 5.5.527 - 27 May 2025
+  * Synced with the OKX Latest API Version (2025-05-26).
+  * Fixed issue [#85](https://github.com/burakoner/OKX.Api/issues/85)
+
 * Version 5.5.522 - 22 May 2025
   * Synced with the OKX Latest API Version (2025-05-21).
   * Merged pull request [#84](https://github.com/burakoner/OKX.Api/pull/84)

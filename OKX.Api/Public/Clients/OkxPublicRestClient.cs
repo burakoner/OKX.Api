@@ -49,7 +49,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     private const string v5MarketExchangeRate = "api/v5/market/exchange-rate";
     private const string v5MarketIndexComponents = "api/v5/market/index-components";
     private const string v5PublicEconomicCalendar = "api/v5/public/economic-calendar";
-    
+
     // System Endpoints
     private const string v5SystemStatus = "api/v5/system/status";
 
@@ -498,12 +498,11 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxPublicFundingRate>>> GetFundingRatesAsync(string instrumentId, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxPublicFundingRate>>> GetFundingRatesAsync(string? instrumentId = null, CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection
-        {
-            { "instId", instrumentId },
-        };
+        var parameters = new ParameterCollection();
+        if (string.IsNullOrEmpty(instrumentId)) parameters.Add("instId", "ANY");
+        else parameters.AddOptionalParameter("instId", instrumentId);
 
         return ProcessListRequestAsync<OkxPublicFundingRate>(GetUri(v5PublicFundingRate), HttpMethod.Get, ct, queryParameters: parameters);
     }

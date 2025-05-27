@@ -8,6 +8,12 @@ internal class Program
         var api = new OkxRestApiClient();
         api.SetApiCredentials("XXXXXXXX-API-KEY-XXXXXXXX", "XXXXXXXX-API-SECRET-XXXXXXXX", "XXXXXXXX-API-PASSPHRASE-XXXXXXXX");
 
+        var public1 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Spot);
+        var public2 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Margin);
+        var public3 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Swap);
+        var public4 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Futures);
+        var public5 = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Option, "USDT");
+
         // Order Book Trading -> Market Data Methods (Signed)
         var market_01 = await api.Public.GetTickersAsync(OkxInstrumentType.Spot);
         var market_02 = await api.Public.GetTickerAsync("BTC-USDT");
