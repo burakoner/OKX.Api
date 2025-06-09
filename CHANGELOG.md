@@ -1,5 +1,11 @@
 ## Change Log & Release Notes
 
+* Version 5.5.610 - 10 Jun 2025
+  * ApiSharp 3.8.1 Update
+  * Synced with the OKX Latest API Version [2025-06-03](https://www.okx.com/docs-v5/log_en/#2025-06-03)
+  * Fixed issue [#86](https://github.com/burakoner/OKX.Api/issues/86)
+  * Fixed issue [#87](https://github.com/burakoner/OKX.Api/issues/87)
+
 * Version 5.5.527 - 27 May 2025
   * Synced with the OKX Latest API Version (2025-05-26).
   * Fixed issue [#85](https://github.com/burakoner/OKX.Api/issues/85)

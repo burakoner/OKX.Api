@@ -12,6 +12,12 @@ public record OkxPublicDiscountInfo
     public string Currency { get; set; } = string.Empty;
 
     /// <summary>
+    /// Platform level collateralized borrow restriction
+    /// </summary>
+    [JsonProperty("collateralRestrict")]
+    public bool? IsCollateralRestricted { get; set; }
+
+    /// <summary>
     /// Amount
     /// </summary>
     [JsonProperty("amt")]
@@ -24,7 +30,7 @@ public record OkxPublicDiscountInfo
     public List<OkxPublicDiscountInfoData> Info { get; set; } = [];
     
     /// <summary>
-    /// 	Minimum discount rate when it exceeds the maximum amount of the last tier.
+    /// Minimum discount rate when it exceeds the maximum amount of the last tier.
     /// </summary>
     [JsonProperty("minDiscountRate")]
     public decimal MinimumDiscountRate { get; set; }

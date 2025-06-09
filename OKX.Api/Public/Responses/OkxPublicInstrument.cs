@@ -93,6 +93,7 @@ public record OkxPublicInstrument
     /// The end time of call auction, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// Only applicable to SPOT that are listed through call auctions, return "" in other cases
     /// </summary>
+    [Obsolete]
     [JsonProperty("auctionEndTime")]
     public long? AuctionEndTimestamp { get; set; }
 
@@ -100,8 +101,33 @@ public record OkxPublicInstrument
     /// The end time of call auction, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// Only applicable to SPOT that are listed through call auctions, return "" in other cases
     /// </summary>
+    [Obsolete]
     [JsonIgnore]
     public DateTime? AuctionEndTime => AuctionEndTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Continuous trading switch time. The switch time from call auction, prequote to continuous trading, Unix timestamp format in milliseconds. e.g. 1597026383085.
+    /// Only applicable to SPOT/MARGIN that are listed through call auction or prequote, return "" in other cases.
+    /// </summary>
+    [JsonProperty("contTdSwTime")]
+    public long? ContinuousTradingSwitchTimestamp { get; set; }
+
+    /// <summary>
+    /// Continuous trading switch time. The switch time from call auction, prequote to continuous trading, Unix timestamp format in milliseconds. e.g. 1597026383085.
+    /// Only applicable to SPOT/MARGIN that are listed through call auction or prequote, return "" in other cases.
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? ContinuousTradingSwitchTime => ContinuousTradingSwitchTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Open type
+    /// fix_price: fix price opening
+    /// pre_quote: pre-quote
+    /// call_auction: call auctio
+    /// Only applicable to SPOT/MARGIN, return "" for all other business lines
+    /// </summary>
+    [JsonProperty("openType")]
+    public string? OpenType { get; set; }
 
     /// <summary>
     /// Expiry timestamp

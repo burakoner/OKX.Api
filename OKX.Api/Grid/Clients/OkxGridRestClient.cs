@@ -113,7 +113,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddEnum("algoOrdType", algoOrderType);
         parameters.AddOptionalEnum("runType", gridRunType);
-        parameters.AddOptionalEnum("triggerParams", triggerParameters);
+        parameters.AddOptional("triggerParams", triggerParameters);
         parameters.AddOptional("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
         parameters.AddOptional("slTriggerPx", stopLossTriggerPrice?.ToOkxString());
         parameters.AddOptional("algoClOrdId", algoClientOrderId);

@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Account;
+﻿using Microsoft.VisualBasic;
+
+namespace OKX.Api.Account;
 
 /// <summary>
 /// OkxAccountBalanceDetails
@@ -238,7 +240,7 @@ public record OkxAccountBalanceDetails
     /// Spot smart sync equity.
     /// The default is "0", only applicable to copy trader.
     /// </summary>
-        [JsonProperty("spotCopyTradingEq")]
+    [JsonProperty("spotCopyTradingEq")]
     public decimal? SpotCopyTradingEquity { get; set; }
 
     /// <summary>
@@ -263,19 +265,19 @@ public record OkxAccountBalanceDetails
     /// Spot unrealized profit and loss. The unit is USD.
     /// </summary>
     [JsonProperty("spotUpl")]
-    public decimal? SpotUpl{ get; set; }
+    public decimal? SpotUpl { get; set; }
 
     /// <summary>
     /// Spot unrealized profit and loss ratio. 
     /// </summary>
     [JsonProperty("spotUplRatio")]
-    public decimal? SpotUplRatio{ get; set; }
+    public decimal? SpotUplRatio { get; set; }
 
     /// <summary>
     /// Spot accumulated profit and loss. The unit is USD. 
     /// </summary>
     [JsonProperty("totalPnl")]
-    public decimal? TotalPnl{ get; set; }
+    public decimal? TotalPnl { get; set; }
 
     /// <summary>
     /// Spot accumulated profit and loss ratio.
@@ -290,4 +292,19 @@ public record OkxAccountBalanceDetails
     /// </summary>
     [JsonProperty("collateralEnabled")]
     public bool? IsCollateralEnabled { get; set; }
+
+    /// <summary>
+    /// Platform level collateralized borrow restriction
+    /// </summary>
+    [JsonProperty("collateralRestrict")]
+    public bool? IsCollateralRestricted { get; set; }
+
+    /// <summary>
+    /// Indicator of forced repayment when the collateralized borrowing on a crypto reaches the platform limit and users' trading accounts hold this crypto.
+    /// Divided into multiple levels from 1-5, the larger the number, the more likely the repayment will be triggered.
+    /// The default will be 0, indicating there is no risk currently. 5 means this user is undergoing auto conversion now.
+    /// Applicable to Spot mode/Futures mode/Multi-currency margin/Portfolio margin
+    /// </summary>
+    [JsonProperty("colBorrAutoConversion")]
+    public string? CollateralBorrowAutoConversion { get; set; }
 }
