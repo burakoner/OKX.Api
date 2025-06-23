@@ -15,7 +15,6 @@ global using Newtonsoft.Json.Serialization;
 global using OKX.Api.Account;
 global using OKX.Api.Affiliate;
 global using OKX.Api.Algo;
-global using OKX.Api.Authentication;
 global using OKX.Api.Base;
 global using OKX.Api.Block;
 global using OKX.Api.Broker;

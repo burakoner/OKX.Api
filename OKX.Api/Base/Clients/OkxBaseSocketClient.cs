@@ -62,14 +62,17 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         // if (connection.Authenticated)
         //    return new CallResult<bool>(true, null);
 
+        // Credentials
+        var creds = AuthenticationProvider.Credentials;
+
         // Check Point
-        if (ClientOptions.ApiCredentials is null || ClientOptions.ApiCredentials.Key is null || ClientOptions.ApiCredentials.Secret is null || ((OkxApiCredentials)ClientOptions.ApiCredentials).PassPhrase is null)
+        if (creds is null || creds.Key is null || creds.Secret is null || ((OkxApiCredentials)creds).PassPhrase is null)
             return new CallResult<bool>(new NoApiCredentialsError());
 
         // Get Credentials
-        var key = ClientOptions.ApiCredentials.Key.GetString();
-        var secret = ClientOptions.ApiCredentials.Secret.GetString();
-        var passphrase = ((OkxApiCredentials)ClientOptions.ApiCredentials).PassPhrase.GetString();
+        var key = creds.Key.GetString();
+        var secret = creds.Secret.GetString();
+        var passphrase = ((OkxApiCredentials)creds).PassPhrase.GetString();
 
         // Check Point
         if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(secret) || string.IsNullOrEmpty(passphrase))

@@ -696,4 +696,16 @@ public enum OkxAccountBillSubType:int
     /// </summary>
     [Map("377")]
     CollateralizedBorrowingAutoConversionSell = 377,
+
+    /// <summary>
+    /// Auto convert in
+    /// </summary>
+    [Map("379")]
+    AutoConvertIn = 379,
+
+    /// <summary>
+    /// Auto convert out
+    /// </summary>
+    [Map("380")]
+    AutoConvertOut = 380,
 }

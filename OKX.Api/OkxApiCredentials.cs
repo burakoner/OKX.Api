@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Authentication;
+﻿namespace OKX.Api;
 
 /// <summary>
 /// OKX API Credentials
