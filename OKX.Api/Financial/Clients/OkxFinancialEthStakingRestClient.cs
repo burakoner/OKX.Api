@@ -5,14 +5,6 @@
 /// </summary>
 public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5FinanceStakingDefiEthProductInfo = "api/v5/finance/staking-defi/eth/product-info";
-    private const string v5FinanceStakingDefiEthPurchase = "api/v5/finance/staking-defi/eth/purchase";
-    private const string v5FinanceStakingDefiEthRedeem = "api/v5/finance/staking-defi/eth/redeem";
-    private const string v5FinanceStakingDefiEthBalance = "api/v5/finance/staking-defi/eth/balance";
-    private const string v5FinanceStakingDefiEthPurchaseRedeemHistory = "api/v5/finance/staking-defi/eth/purchase-redeem-history";
-    private const string v5FinanceStakingDefiEthApyHistory = "api/v5/finance/staking-defi/eth/apy-history";
-
     /// <summary>
     /// GET / Product info
     /// </summary>
@@ -20,7 +12,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <returns></returns>
     public Task<RestCallResult<OkxFinancialProductInfo>> GetProductInfoAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxFinancialProductInfo>(GetUri(v5FinanceStakingDefiEthProductInfo), HttpMethod.Get, ct, signed: true);
+        return ProcessOneRequestAsync<OkxFinancialProductInfo>(GetUri("api/v5/finance/staking-defi/eth/product-info"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -36,7 +28,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
             {"amt", amount.ToOkxString() },
         };
 
-        var result = await ProcessOneRequestAsync<OkxFinancialStakingPurchase>(GetUri(v5FinanceStakingDefiEthPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialStakingPurchase>(GetUri("api/v5/finance/staking-defi/eth/purchase"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw ?? "", result.Error);
     }
@@ -53,7 +45,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
             {"amt", amount.ToOkxString() },
         };
 
-        var result = await ProcessOneRequestAsync<OkxFinancialStakingRedeem>(GetUri(v5FinanceStakingDefiEthRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialStakingRedeem>(GetUri("api/v5/finance/staking-defi/eth/redeem"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw ?? "", result.Error);
     }
@@ -65,7 +57,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFinancialStakingBalance>>> GetBalancesAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxFinancialStakingBalance>(GetUri(v5FinanceStakingDefiEthBalance), HttpMethod.Get, ct, signed: true);
+        return ProcessListRequestAsync<OkxFinancialStakingBalance>(GetUri("api/v5/finance/staking-defi/eth/balance"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -93,7 +85,7 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFinancialStakingHistory>(GetUri(v5FinanceStakingDefiEthPurchaseRedeemHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialStakingHistory>(GetUri("api/v5/finance/staking-defi/eth/purchase-redeem-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -108,6 +100,6 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
             {"days", days.ToOkxString() },
         };
 
-        return ProcessListRequestAsync<OkxFinancialStakingApyHistory>(GetUri(v5FinanceStakingDefiEthApyHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialStakingApyHistory>(GetUri("api/v5/finance/staking-defi/eth/apy-history"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 }

@@ -7,6 +7,12 @@ public enum OkxFundingWithdrawalState:int
 {
     #region Stage 1
     /// <summary>
+    /// insufficent balance in the hot wallet
+    /// </summary>
+    [Map("19")]
+    InsufficentBalanceInTheHotWallet = 19,
+
+    /// <summary>
     /// Pending response from Travel Rule vendor
     /// </summary>
     [Map("17")]

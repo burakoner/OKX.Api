@@ -64,4 +64,10 @@ public record OkxTradeFill
     /// </summary>
     [JsonProperty("count")]
     public int Count { get; set; }
+
+    /// <summary>
+    /// Sequence ID of the current message.
+    /// </summary>
+    [JsonProperty("seqId")]
+    public long? SequenceId { get; set; }
 }

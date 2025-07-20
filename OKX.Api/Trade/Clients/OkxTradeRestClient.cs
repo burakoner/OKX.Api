@@ -5,34 +5,6 @@
 /// </summary>
 public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5TradeOrder = "api/v5/trade/order";
-    private const string v5TradeBatchOrders = "api/v5/trade/batch-orders";
-    private const string v5TradeCancelOrder = "api/v5/trade/cancel-order";
-    private const string v5TradeCancelBatchOrders = "api/v5/trade/cancel-batch-orders";
-    private const string v5TradeAmendOrder = "api/v5/trade/amend-order";
-    private const string v5TradeAmendBatchOrders = "api/v5/trade/amend-batch-orders";
-    private const string v5TradeClosePosition = "api/v5/trade/close-position";
-    private const string v5TradeOrderGet = "api/v5/trade/order";
-    private const string v5TradeOrdersPending = "api/v5/trade/orders-pending";
-    private const string v5TradeOrdersHistory = "api/v5/trade/orders-history";
-    private const string v5TradeOrdersHistoryArchive = "api/v5/trade/orders-history-archive";
-    private const string v5TradeFills = "api/v5/trade/fills";
-    private const string v5TradeFillsHistory = "api/v5/trade/fills-history";
-    private const string v5TradeEasyConvertCurrencyList = "api/v5/trade/easy-convert-currency-list";
-    private const string v5TradeEasyConvert = "api/v5/trade/easy-convert";
-    private const string v5TradeEasyConvertHistory = "api/v5/trade/easy-convert-history";
-    private const string v5TradeOneClickRepayCurrencyList = "api/v5/trade/one-click-repay-currency-list";
-    private const string v5TradeOneClickRepay = "api/v5/trade/one-click-repay";
-    private const string v5TradeOneClickRepayHistory = "api/v5/trade/one-click-repay-history";
-    private const string v5TradeOneClickRepayCurrencyListV2 = "api/v5/trade/one-click-repay-currency-list-v2";
-    private const string v5TradeOneClickRepayV2 = "api/v5/trade/one-click-repay-v2";
-    private const string v5TradeOneClickRepayHistoryV2 = "api/v5/trade/one-click-repay-history-v2";
-    private const string v5TradeMassCancel = "api/v5/trade/mass-cancel";
-    private const string v5TradeCancelAllAfter = "api/v5/trade/cancel-all-after";
-    private const string v5TradeAccountRateLimit = "api/v5/trade/account-rate-limit";
-    private const string v5TradeOrderPrecheck = "api/v5/trade/order-precheck";
-
     /// <summary>
     /// You can place an order only if you have sufficient funds.
     /// For leading contracts, this endpoint supports placement, but can't close positions.
@@ -49,10 +21,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="reduceOnly">Whether to reduce position only or not, true false, the default is false.</param>
     /// <param name="quantityType">Quantity Type</param>
     /// 
-    /// <param name="quickMarginType">Quick Margin type. Only applicable to Quick Margin Mode of isolated margin. The default value is manual</param>
     /// <param name="banAmend">Whether to disallow the system from amending the size of the SPOT Market Order.</param>
 
-    /// <param name="selfTradePreventionId">Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.</param>
     /// <param name="selfTradePreventionMode">Self trade prevention mode. Default to cancel maker. cancel_maker,cancel_taker, cancel_both. Cancel both does not support FOK.</param>
     /// 
     /// <param name="priceUsd">Place options orders in USD
@@ -62,6 +32,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// Only applicable to options
     /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in</param>
     /// 
+    /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
     /// <param name="attachedAlgoOrders">TP/SL information attached when placing order</param>
     /// 
     /// <param name="ct">Cancellation Token</param>
@@ -78,15 +49,12 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? clientOrderId = null,
         bool? reduceOnly = null,
         OkxTradeQuantityType? quantityType = null,
-
-        OkxQuickMarginType? quickMarginType = null,
-        bool? banAmend = null,
-
-        long? selfTradePreventionId = null,
         OkxSelfTradePreventionMode? selfTradePreventionMode = null,
 
+        bool? banAmend = null,
         decimal? priceUsd = null,
         decimal? priceVolatility = null,
+        string? tradeQuoteCurrency = null,
 
         IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? attachedAlgoOrders = null,
         CancellationToken ct = default)
@@ -104,21 +72,18 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("clOrdId", clientOrderId);
         parameters.AddOptional("reduceOnly", reduceOnly);
         parameters.AddOptionalEnum("tgtCcy", quantityType);
-
-        parameters.AddOptionalEnum("quickMgnType", quickMarginType);
-        parameters.AddOptional("banAmend", banAmend);
-
         parameters.AddOptionalEnum("stpMode", selfTradePreventionMode);
-        parameters.AddOptional("stpId", selfTradePreventionId?.ToOkxString());
 
+        parameters.AddOptional("banAmend", banAmend);
         parameters.AddOptional("pxUsd", priceUsd);
         parameters.AddOptional("pxVol", priceVolatility);
+        parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
 
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        return ProcessOneRequestAsync<OkxTradeOrderPlaceResponse>(GetUri(v5TradeOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -133,7 +98,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.SetBody(orders);
 
-        return ProcessListRequestAsync<OkxTradeOrderPlaceResponse>(GetUri(v5TradeBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/batch-orders"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -152,7 +117,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("ordId", orderId?.ToOkxString());
         parameters.AddOptional("clOrdId", clientOrderId);
 
-        return ProcessOneRequestAsync<OkxTradeOrderCancel>(GetUri(v5TradeCancelOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxTradeOrderCancel>(GetUri("api/v5/trade/cancel-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -166,7 +131,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.SetBody(orders);
 
-        return ProcessListRequestAsync<OkxTradeOrderCancel>(GetUri(v5TradeCancelBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeOrderCancel>(GetUri("api/v5/trade/cancel-batch-orders"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -215,7 +180,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("newPxVol", newPriceVolatility?.ToOkxString());
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
-        return ProcessOneRequestAsync<OkxTradeOrderAmend>(GetUri(v5TradeAmendOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxTradeOrderAmend>(GetUri("api/v5/trade/amend-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -229,7 +194,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.SetBody(orders);
 
-        return ProcessListRequestAsync<OkxTradeOrderAmend>(GetUri(v5TradeAmendBatchOrders), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeOrderAmend>(GetUri("api/v5/trade/amend-batch-orders"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -262,7 +227,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("clOrdId", clientOrderId);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        return ProcessOneRequestAsync<OkxTradeClosePositionResponse>(GetUri(v5TradeClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxTradeClosePositionResponse>(GetUri("api/v5/trade/close-position"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -285,7 +250,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("ordId", orderId?.ToOkxString());
         parameters.AddOptional("clOrdId", clientOrderId);
 
-        return ProcessOneRequestAsync<OkxTradeOrder>(GetUri(v5TradeOrderGet), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxTradeOrder>(GetUri("api/v5/trade/order"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -326,7 +291,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxTradeOrder>(GetUri(v5TradeOrdersPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeOrder>(GetUri("api/v5/trade/orders-pending"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -376,7 +341,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("end", end?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxTradeOrder>(GetUri(v5TradeOrdersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeOrder>(GetUri("api/v5/trade/orders-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -426,7 +391,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("end", end?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxTradeOrder>(GetUri(v5TradeOrdersHistoryArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeOrder>(GetUri("api/v5/trade/orders-history-archive"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -473,7 +438,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("end", end?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxTradeTransaction>(GetUri(v5TradeFills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeTransaction>(GetUri("api/v5/trade/fills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -520,7 +485,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("end", end?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxTradeTransaction>(GetUri(v5TradeFillsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeTransaction>(GetUri("api/v5/trade/fills-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -536,7 +501,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("source", source);
 
-        return ProcessOneRequestAsync<OkxTradeEasyConvertCurrencyList>(GetUri(v5TradeEasyConvertCurrencyList), HttpMethod.Get, ct, signed: true);
+        return ProcessOneRequestAsync<OkxTradeEasyConvertCurrencyList>(GetUri("api/v5/trade/easy-convert-currency-list"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -559,7 +524,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddOptionalEnum("source", source);
 
-        return ProcessListRequestAsync<OkxTradeEasyConvertOrder>(GetUri(v5TradeEasyConvert), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeEasyConvertOrder>(GetUri("api/v5/trade/easy-convert"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -579,7 +544,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxTradeEasyConvertOrderHistory>(GetUri(v5TradeEasyConvertHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeEasyConvertOrderHistory>(GetUri("api/v5/trade/easy-convert-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -593,7 +558,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("debtType", debtType);
 
-        return ProcessListRequestAsync<OkxTradeOneClickRepayCurrencyList>(GetUri(v5TradeOneClickRepayCurrencyList), HttpMethod.Get, ct, signed: true, parameters);
+        return ProcessListRequestAsync<OkxTradeOneClickRepayCurrencyList>(GetUri("api/v5/trade/one-click-repay-currency-list"), HttpMethod.Get, ct, signed: true, parameters);
     }
 
     /// <summary>
@@ -610,7 +575,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             {"repayCcy", repayCcy },
         };
 
-        return ProcessListRequestAsync<OkxTradeOneClickRepayOrder>(GetUri(v5TradeOneClickRepay), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeOneClickRepayOrder>(GetUri("api/v5/trade/one-click-repay"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -630,7 +595,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxTradeOneClickRepayOrder>(GetUri(v5TradeOneClickRepayHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeOneClickRepayOrder>(GetUri("api/v5/trade/one-click-repay-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -640,7 +605,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeOneClickRepayCurrencyListV2>>> GetOneClickRepayCurrenciesV2Async(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxTradeOneClickRepayCurrencyListV2>(GetUri(v5TradeOneClickRepayCurrencyListV2), HttpMethod.Get, ct, signed: true);
+        return ProcessListRequestAsync<OkxTradeOneClickRepayCurrencyListV2>(GetUri("api/v5/trade/one-click-repay-currency-list-v2"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -657,7 +622,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             {"repayCcyList", repayCcyList },
         };
 
-        return ProcessListRequestAsync<OkxTradeOneClickRepayOrderV2>(GetUri(v5TradeOneClickRepayV2), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeOneClickRepayOrderV2>(GetUri("api/v5/trade/one-click-repay-v2"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -677,7 +642,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxTradeOneClickRepayOrderHistoryV2>(GetUri(v5TradeOneClickRepayHistoryV2), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxTradeOneClickRepayOrderHistoryV2>(GetUri("api/v5/trade/one-click-repay-history-v2"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -709,7 +674,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddEnum("instType", instrumentType);
         parameters.AddOptionalString("lockInterval", lockInterval);
 
-        var result = await ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5TradeMassCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxBooleanResponse>(GetUri("api/v5/trade/mass-cancel"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw ?? "", result.Error);
     }
@@ -728,7 +693,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddOptional("tag", tag);
 
-        return ProcessOneRequestAsync<OkxCancelAllAfter>(GetUri(v5TradeCancelAllAfter), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxCancelAllAfter>(GetUri("api/v5/trade/cancel-all-after"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -740,7 +705,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<OkxTradeAccountRateLimit>> GetAccountRateLimitAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxTradeAccountRateLimit>(GetUri(v5TradeAccountRateLimit), HttpMethod.Get, ct, signed: true);
+        return ProcessOneRequestAsync<OkxTradeAccountRateLimit>(GetUri("api/v5/trade/account-rate-limit"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -795,6 +760,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("reduceOnly", reduceOnly);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
-        return ProcessOneRequestAsync<OkxTradeOrderCheck>(GetUri(v5TradeOrderPrecheck), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxTradeOrderCheck>(GetUri("api/v5/trade/order-precheck"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 }

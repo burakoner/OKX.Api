@@ -5,29 +5,6 @@
 /// </summary>
 public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5RfqCounterparties = "api/v5/rfq/counterparties";
-    private const string v5RfqCreateRfq = "api/v5/rfq/create-rfq";
-    private const string v5RfqCancelRfq = "api/v5/rfq/cancel-rfq";
-    private const string v5RfqCancelBatchRfqs = "api/v5/rfq/cancel-batch-rfqs";
-    private const string v5RfqCancelAllRfqs = "api/v5/rfq/cancel-all-rfqs";
-    private const string v5RfqExecuteQuote = "api/v5/rfq/execute-quote";
-    private const string v5RfqMakerInstrumentSettings = "api/v5/rfq/maker-instrument-settings";
-    private const string v5RfqMmpReset = "api/v5/rfq/mmp-reset";
-    private const string v5RfqMmpConfig = "api/v5/rfq/mmp-config";
-    private const string v5RfqCreateQuote = "api/v5/rfq/create-quote";
-    private const string v5RfqCancelQuote = "api/v5/rfq/cancel-quote";
-    private const string v5RfqCancelBatchQuotes = "api/v5/rfq/cancel-batch-quotes";
-    private const string v5RfqCancelAllQuotes = "api/v5/rfq/cancel-all-quotes";
-    private const string v5RfqCancelAllAfter = "api/v5/rfq/cancel-all-after";
-    private const string v5RfqRfqs = "api/v5/rfq/rfqs";
-    private const string v5RfqQuotes = "api/v5/rfq/quotes";
-    private const string v5RfqTrades = "api/v5/rfq/trades";
-    private const string v5MarketBlockTickers = "api/v5/market/block-tickers";
-    private const string v5MarketBlockTicker = "api/v5/market/block-ticker";
-    private const string v5RfqPublicTrades = "api/v5/rfq/public-trades";
-    private const string v5MarketBlockTrades = "api/v5/market/block-trades";
-
     /// <summary>
     /// Retrieves the list of counterparties that the user is permitted to trade with.
     /// </summary>
@@ -35,7 +12,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBlockCounterparty>>> GetCounterpartiesAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxBlockCounterparty>(GetUri(v5RfqCounterparties), HttpMethod.Get, ct, signed: true);
+        return ProcessListRequestAsync<OkxBlockCounterparty>(GetUri("api/v5/rfq/counterparties"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -68,7 +45,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("clRfqId", clientRfqId);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        return ProcessOneRequestAsync<OkxBlockRfq>(GetUri(v5RfqCreateRfq), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBlockRfq>(GetUri("api/v5/rfq/create-rfq"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -87,7 +64,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("rfqId", rfqId);
         parameters.AddOptional("clRfqId", clientRfqId);
 
-        return ProcessOneRequestAsync<OkxBlockCancelRfqResponse>(GetUri(v5RfqCancelRfq), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBlockCancelRfqResponse>(GetUri("api/v5/rfq/cancel-rfq"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -108,7 +85,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("rfqIds", rfqIds);
         parameters.AddOptional("clRfqIds", clientRfqIds);
 
-        return ProcessListRequestAsync<OkxBlockCancelRfqResponse>(GetUri(v5RfqCancelBatchRfqs), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockCancelRfqResponse>(GetUri("api/v5/rfq/cancel-batch-rfqs"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -118,7 +95,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<OkxTimestamp>> CancelAllRfqsAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5RfqCancelAllRfqs), HttpMethod.Post, ct, signed: true);
+        return ProcessOneRequestAsync<OkxTimestamp>(GetUri("api/v5/rfq/cancel-all-rfqs"), HttpMethod.Post, ct, signed: true);
     }
 
     /// <summary>
@@ -144,7 +121,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddOptional("legs", legs);
 
-        return ProcessListRequestAsync<OkxBlockTrade>(GetUri(v5RfqExecuteQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockTrade>(GetUri("api/v5/rfq/execute-quote"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -154,7 +131,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxBlockQuoteProduct>>> GetQuoteProductsAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxBlockQuoteProduct>(GetUri(v5RfqMakerInstrumentSettings), HttpMethod.Get, ct, signed: true);
+        return ProcessListRequestAsync<OkxBlockQuoteProduct>(GetUri("api/v5/rfq/maker-instrument-settings"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -170,7 +147,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.SetBody(products);
 
-        var result = await ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5RfqMakerInstrumentSettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxBooleanResponse>(GetUri("api/v5/rfq/maker-instrument-settings"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw ?? "", result.Error);
     }
@@ -182,7 +159,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<OkxTimestamp>> ResetMmpAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5RfqMmpReset), HttpMethod.Post, ct, signed: true);
+        return ProcessOneRequestAsync<OkxTimestamp>(GetUri("api/v5/rfq/mmp-reset"), HttpMethod.Post, ct, signed: true);
     }
 
     /// <summary>
@@ -204,7 +181,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "countLimit", countLimit.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxBlockMmp>(GetUri(v5RfqMmpConfig), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBlockMmp>(GetUri("api/v5/rfq/mmp-config"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -214,7 +191,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<OkxBlockMmpConfiguration>> GetMmpAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxBlockMmpConfiguration>(GetUri(v5RfqMmpConfig), HttpMethod.Get, ct, signed: true);
+        return ProcessOneRequestAsync<OkxBlockMmpConfiguration>(GetUri("api/v5/rfq/mmp-config"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -248,7 +225,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("expiresIn", expiresIn?.ToOkxString());
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        return ProcessOneRequestAsync<OkxBlockRfq>(GetUri(v5RfqCreateQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBlockRfq>(GetUri("api/v5/rfq/create-quote"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -270,7 +247,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("clQuoteId", clientQuoteId);
         parameters.AddOptional("rfqId", rfqId);
 
-        return ProcessOneRequestAsync<OkxBlockCancelQuoteResponse>(GetUri(v5RfqCancelQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBlockCancelQuoteResponse>(GetUri("api/v5/rfq/cancel-quote"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -289,7 +266,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("quoteIds", quoteIds);
         parameters.AddOptional("clQuoteIds", clientQuoteIds);
 
-        return ProcessListRequestAsync<OkxBlockCancelQuoteResponse>(GetUri(v5RfqCancelBatchQuotes), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockCancelQuoteResponse>(GetUri("api/v5/rfq/cancel-batch-quotes"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -299,7 +276,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<OkxTimestamp>> CancelAllQuotesAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5RfqCancelAllQuotes), HttpMethod.Post, ct, signed: true);
+        return ProcessOneRequestAsync<OkxTimestamp>(GetUri("api/v5/rfq/cancel-all-quotes"), HttpMethod.Post, ct, signed: true);
     }
 
     /// <summary>
@@ -317,7 +294,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "timeOut", timeout.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxCancelAllAfter>(GetUri(v5RfqCancelAllAfter), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxCancelAllAfter>(GetUri("api/v5/rfq/cancel-all-after"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -349,7 +326,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("endId", endId);
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxBlockRfq>(GetUri(v5RfqRfqs), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockRfq>(GetUri("api/v5/rfq/rfqs"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -387,7 +364,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("endId", endId);
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxBlockQuote>(GetUri(v5RfqQuotes), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockQuote>(GetUri("api/v5/rfq/quotes"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -435,7 +412,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("endTs", endTimestamp);
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxBlockTrade>(GetUri(v5RfqTrades), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockTrade>(GetUri("api/v5/rfq/trades"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -455,7 +432,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
 
-        return ProcessListRequestAsync<OkxBlockTicker>(GetUri(v5MarketBlockTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockTicker>(GetUri("api/v5/market/block-tickers"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -473,7 +450,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "instId", instrumentId },
         };
 
-        return ProcessOneRequestAsync<OkxBlockTicker>(GetUri(v5MarketBlockTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxBlockTicker>(GetUri("api/v5/market/block-ticker"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -496,7 +473,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("endId", endId);
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxBlockPublicExecutedTrade>(GetUri(v5RfqPublicTrades), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockPublicExecutedTrade>(GetUri("api/v5/rfq/public-trades"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -514,7 +491,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "instId", instrumentId },
         };
 
-        return ProcessListRequestAsync<OkxBlockPublicRecentTrade>(GetUri(v5MarketBlockTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockPublicRecentTrade>(GetUri("api/v5/market/block-trades"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
 }

@@ -330,6 +330,12 @@ public record OkxTradeOrder
     /// </summary>
     [JsonIgnore]
     public DateTime CreateTime => CreateTimestamp.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// The quote currency used for trading.
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy")]
+    public string? TradeQuoteCurrency { get; set; }
 }
 
 /// <summary>

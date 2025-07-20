@@ -5,27 +5,6 @@
 /// </summary>
 public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5TradingBotGridOrderAlgo = "api/v5/tradingBot/grid/order-algo";
-    private const string v5TradingBotGridAmendOrderAlgo = "api/v5/tradingBot/grid/amend-order-algo";
-    private const string v5TradingBotGridStopOrderAlgo = "api/v5/tradingBot/grid/stop-order-algo";
-    private const string v5TradingBotGridClosePosition = "api/v5/tradingBot/grid/close-position";
-    private const string v5TradingBotGridCancelCloseOrder = "api/v5/tradingBot/grid/cancel-close-order";
-    private const string v5TradingBotGridOrderInstantTrigger = "api/v5/tradingBot/grid/order-instant-trigger";
-    private const string v5TradingBotGridOrdersAlgoPending = "api/v5/tradingBot/grid/orders-algo-pending";
-    private const string v5TradingBotGridOrdersAlgoHistory = "api/v5/tradingBot/grid/orders-algo-history";
-    private const string v5TradingBotGridOrdersAlgoDetails = "api/v5/tradingBot/grid/orders-algo-details";
-    private const string v5TradingBotGridSubOrders = "api/v5/tradingBot/grid/sub-orders";
-    private const string v5TradingBotGridPositions = "api/v5/tradingBot/grid/positions";
-    private const string v5TradingBotGridWithdrawIncome = "api/v5/tradingBot/grid/withdraw-income";
-    private const string v5TradingBotGridComputeMarginBalance = "api/v5/tradingBot/grid/compute-margin-balance";
-    private const string v5TradingBotGridMarginBalance = "api/v5/tradingBot/grid/margin-balance";
-    private const string v5TradingBotGridAdjustInvestment = "api/v5/tradingBot/grid/adjust-investment";
-    private const string v5TradingBotGridAiParam = "api/v5/tradingBot/grid/ai-param";
-    private const string v5TradingBotGridMinInvestment = "api/v5/tradingBot/grid/min-investment";
-    private const string v5TradingBotPublicRsiBackTesting = "api/v5/tradingBot/public/rsi-back-testing";
-    private const string v5TradingBotGridGridQuantity = "api/v5/tradingBot/grid/grid-quantity";
-
     /// <summary>
     /// Place grid algo order
     /// </summary>
@@ -134,7 +113,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         // Broker ID
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri(v5TradingBotGridOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri("api/v5/tradingBot/grid/order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -188,7 +167,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
         parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxGridOrderAmendResponse>(GetUri(v5TradingBotGridAmendOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrderAmendResponse>(GetUri("api/v5/tradingBot/grid/amend-order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -217,7 +196,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         if (spotAlgoStopType.HasValue) parameters.AddOptionalEnum("stopType", spotAlgoStopType);
         else if (contractAlgoStopType.HasValue) parameters.AddOptionalEnum("stopType", contractAlgoStopType);
 
-        return ProcessOneRequestAsync<OkxGridOrderStopResponse>(GetUri(v5TradingBotGridStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrderStopResponse>(GetUri("api/v5/tradingBot/grid/stop-order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -243,7 +222,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("sz", size?.ToOkxString());
         parameters.AddOptional("px", price?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxGridOrderCloseResponse>(GetUri(v5TradingBotGridClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrderCloseResponse>(GetUri("api/v5/tradingBot/grid/close-position"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -263,7 +242,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "ordId", orderId.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxGridOrderCloseResponse>(GetUri(v5TradingBotGridCancelCloseOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrderCloseResponse>(GetUri("api/v5/tradingBot/grid/cancel-close-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -280,7 +259,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "algoId", algoOrderId.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxGridOrderTriggerResponse>(GetUri(v5TradingBotGridOrderInstantTrigger), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrderTriggerResponse>(GetUri("api/v5/tradingBot/grid/order-instant-trigger"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -314,7 +293,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxGridOrder>(GetUri(v5TradingBotGridOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxGridOrder>(GetUri("api/v5/tradingBot/grid/orders-algo-pending"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -348,7 +327,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxGridOrder>(GetUri(v5TradingBotGridOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxGridOrder>(GetUri("api/v5/tradingBot/grid/orders-algo-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -368,7 +347,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddEnum("algoOrdType", algoOrderType);
 
-        return ProcessOneRequestAsync<OkxGridOrder>(GetUri(v5TradingBotGridOrdersAlgoDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridOrder>(GetUri("api/v5/tradingBot/grid/orders-algo-details"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -403,7 +382,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxGridAlgoSubOrder>(GetUri(v5TradingBotGridSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxGridAlgoSubOrder>(GetUri("api/v5/tradingBot/grid/sub-orders"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -423,7 +402,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddEnum("algoOrdType", algoOrderType);
 
-        return ProcessListRequestAsync<OkxGridAlgoPosition>(GetUri(v5TradingBotGridPositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxGridAlgoPosition>(GetUri("api/v5/tradingBot/grid/positions"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -440,7 +419,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "algoId", algoOrderId.ToOkxString() }
         };
 
-        return ProcessOneRequestAsync<OkxGridWithdrawIncome>(GetUri(v5TradingBotGridWithdrawIncome), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridWithdrawIncome>(GetUri("api/v5/tradingBot/grid/withdraw-income"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -463,7 +442,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddEnum("type", type);
 
-        return ProcessOneRequestAsync<OkxGridComputedMarginBalance>(GetUri(v5TradingBotGridComputeMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridComputedMarginBalance>(GetUri("api/v5/tradingBot/grid/compute-margin-balance"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -489,7 +468,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("amt", quantity?.ToOkxString());
         parameters.AddOptional("percent", percent?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxGridMarginOrderResponse>(GetUri(v5TradingBotGridMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridMarginOrderResponse>(GetUri("api/v5/tradingBot/grid/margin-balance"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -508,7 +487,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddOptional("allowReinvestProfit", allowReinvestProfit);
 
-        var result = await ProcessOneRequestAsync<OkxGridAlgoIdContainer>(GetUri(v5TradingBotGridAdjustInvestment), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxGridAlgoIdContainer>(GetUri("api/v5/tradingBot/grid/adjust-investment"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
@@ -536,7 +515,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalEnum("direction", direction);
         parameters.AddOptionalEnum("duration", duration);
 
-        return ProcessOneRequestAsync<OkxGridAiParameter>(GetUri(v5TradingBotGridAiParam), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridAiParameter>(GetUri("api/v5/tradingBot/grid/ai-param"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -586,7 +565,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("lever", leverage?.ToOkxString());
         parameters.AddOptional("basePos", basePosition);
 
-        return ProcessOneRequestAsync<OkxGridInvestment>(GetUri(v5TradingBotGridMinInvestment), HttpMethod.Post, ct, signed: false, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxGridInvestment>(GetUri("api/v5/tradingBot/grid/min-investment"), HttpMethod.Post, ct, signed: false, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -618,7 +597,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalEnum("triggerCond", triggerCondition);
         parameters.AddOptional("duration", duration);
 
-        var result = await ProcessOneRequestAsync<OkxGridTriggerNumberContainer>(GetUri(v5TradingBotPublicRsiBackTesting), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxGridTriggerNumberContainer>(GetUri("api/v5/tradingBot/public/rsi-back-testing"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
@@ -653,7 +632,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddEnum("algoOrdType", algoOrderType);
         parameters.AddOptional("lever", leverage);
 
-        var result = await ProcessOneRequestAsync<OkxGridMaxQuantityContainer>(GetUri(v5TradingBotGridGridQuantity), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxGridMaxQuantityContainer>(GetUri("api/v5/tradingBot/grid/grid-quantity"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result) return new RestCallResult<decimal?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<decimal?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }

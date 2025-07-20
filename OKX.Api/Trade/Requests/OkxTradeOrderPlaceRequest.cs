@@ -94,19 +94,11 @@ public record OkxTradeOrderPlaceRequest
     [JsonProperty("tgtCcy", NullValueHandling = NullValueHandling.Ignore)]
     public OkxTradeQuantityType? QuantityType { get; set; }
 
-
     /// <summary>
     /// Whether to disallow the system from amending the size of the SPOT Market Order.
     /// </summary>
     [JsonProperty("banAmend", NullValueHandling = NullValueHandling.Ignore)]
     public bool? BanAmend { get; set; }
-
-    /// <summary>
-    /// Self trade prevention ID. Orders from the same master account with the same ID will be prevented from self trade.
-    /// Numerical integers defined by user in the range of 1-999999999
-    /// </summary>
-    [JsonProperty("stpId", NullValueHandling = NullValueHandling.Ignore)]
-    public long? SelfTradePreventionId { get; set; }
 
     /// <summary>
     /// Self trade prevention mode
@@ -123,4 +115,10 @@ public record OkxTradeOrderPlaceRequest
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
     public IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? AttachedAlgoOrders { get; set; }
 
+    /// <summary>
+    /// The quote currency used for trading. Only applicable to SPOT.
+    /// The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy", NullValueHandling = NullValueHandling.Ignore)]
+    public string? TradeQuoteCurrency { get; set; }
 }

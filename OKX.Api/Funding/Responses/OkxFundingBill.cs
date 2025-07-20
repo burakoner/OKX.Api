@@ -42,6 +42,12 @@ public record OkxFundingBill
     public OkxFundingBillType Type { get; set; }
 
     /// <summary>
+    /// Notes
+    /// </summary>
+    [JsonProperty("notes")]
+    public string Notes { get; set; } = string.Empty;
+
+    /// <summary>
     /// Time
     /// </summary>
     [JsonProperty("ts")]

@@ -5,59 +5,6 @@
 /// </summary>
 public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    #region Endpoints
-    // Market Data Endpoints
-    private const string v5MarketTickers = "api/v5/market/tickers";
-    private const string v5MarketTicker = "api/v5/market/ticker";
-    private const string v5MarketBooks = "api/v5/market/books";
-    private const string v5MarketBooksFull = "api/v5/market/books-full";
-    private const string v5MarketCandles = "api/v5/market/candles";
-    private const string v5MarketCandlesHistory = "api/v5/market/history-candles";
-    private const string v5MarketTrades = "api/v5/market/trades";
-    private const string v5MarketTradesHistory = "api/v5/market/history-trades";
-    private const string v5MarketOptionInstrumentFamilyTrades = "api/v5/market/option/instrument-family-trades";
-    private const string v5PublicOptionTrades = "api/v5/public/option-trades";
-    private const string v5MarketPlatform24Volume = "api/v5/market/platform-24-volume";
-    private const string v5MarketCallAuctionDetails = "api/v5/market/call-auction-details";
-
-    // Public Data Endpoints
-    private const string v5PublicInstruments = "api/v5/public/instruments";
-    private const string v5PublicEstimatedPrice = "api/v5/public/estimated-price";
-    private const string v5PublicDeliveryExerciseHistory = "api/v5/public/delivery-exercise-history";
-    private const string v5PublicEstimatedSettlementInfo = "api/v5/public/estimated-settlement-info";
-    private const string v5PublicSettlementHistory = "api/v5/public/settlement-history";
-    private const string v5PublicFundingRate = "api/v5/public/funding-rate";
-    private const string v5PublicFundingRateHistory = "api/v5/public/funding-rate-history";
-    private const string v5PublicOpenInterest = "api/v5/public/open-interest";
-    private const string v5PublicPriceLimit = "api/v5/public/price-limit";
-    private const string v5PublicOptionSummary = "api/v5/public/opt-summary";
-    private const string v5PublicDiscountRateInterestFreeQuota = "api/v5/public/discount-rate-interest-free-quota";
-    private const string v5PublicTime = "api/v5/public/time";
-    private const string v5PublicMarkPrice = "api/v5/public/mark-price";
-    private const string v5PublicPositionTiers = "api/v5/public/position-tiers";
-    private const string v5PublicInterestRateLoanQuota = "api/v5/public/interest-rate-loan-quota";
-    private const string v5PublicUnderlying = "api/v5/public/underlying";
-    private const string v5PublicInsuranceFund = "api/v5/public/insurance-fund";
-    private const string v5PublicConvertContractCoin = "api/v5/public/convert-contract-coin";
-    private const string v5PublicInstrumentTickBands = "api/v5/public/instrument-tick-bands";
-    private const string v5PublicPremiumHistory = "api/v5/public/premium-history";
-    private const string v5MarketIndexTickers = "api/v5/market/index-tickers";
-    private const string v5MarketIndexCandles = "api/v5/market/index-candles";
-    private const string v5MarketIndexCandlesHistory = "api/v5/market/history-index-candles";
-    private const string v5MarketMarkPriceCandles = "api/v5/market/mark-price-candles";
-    private const string v5MarketMarkPriceCandlesHistory = "api/v5/market/history-mark-price-candles";
-    private const string v5MarketExchangeRate = "api/v5/market/exchange-rate";
-    private const string v5MarketIndexComponents = "api/v5/market/index-components";
-    private const string v5PublicEconomicCalendar = "api/v5/public/economic-calendar";
-
-    // System Endpoints
-    private const string v5SystemStatus = "api/v5/system/status";
-
-    // Announcement Endpoints
-    private const string v5SupportAnnouncements = "api/v5/support/announcements";
-    private const string v5SupportAnnouncementTypes = "api/v5/support/announcement-types";
-    #endregion
-
     #region Market Data Methods
     /// <summary>
     /// Retrieve the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
@@ -78,7 +25,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("uly", underlying);
 
-        return ProcessListRequestAsync<OkxPublicTicker>(GetUri(v5MarketTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicTicker>(GetUri("api/v5/market/tickers"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -94,7 +41,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "instId", instrumentId },
         };
 
-        return ProcessOneRequestAsync<OkxPublicTicker>(GetUri(v5MarketTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicTicker>(GetUri("api/v5/market/ticker"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -113,7 +60,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "sz", depth},
         };
 
-        var result = await ProcessOneRequestAsync<OkxPublicOrderBook>(GetUri(v5MarketBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxPublicOrderBook>(GetUri("api/v5/market/books"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         result.Data.InstrumentId = instrumentId;
@@ -136,7 +83,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "sz", depth},
         };
 
-        var result = await ProcessOneRequestAsync<OkxPublicOrderBook>(GetUri(v5MarketBooksFull), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxPublicOrderBook>(GetUri("api/v5/market/books-full"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         result.Data.InstrumentId = instrumentId;
@@ -198,7 +145,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxPublicCandlestick>(GetUri(v5MarketCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicCandlestick>(GetUri("api/v5/market/candles"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -248,7 +195,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxPublicCandlestick>(GetUri(v5MarketCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicCandlestick>(GetUri("api/v5/market/history-candles"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -271,7 +218,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         };
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPublicTrade>(GetUri(v5MarketTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicTrade>(GetUri("api/v5/market/trades"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -305,7 +252,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPublicTrade>(GetUri(v5MarketTradesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicTrade>(GetUri("api/v5/market/history-trades"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -323,7 +270,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "instFamily", instrumentFamily },
         };
 
-        return ProcessListRequestAsync<OkxPublicOptionTradeByInstrumentFamily>(GetUri(v5MarketOptionInstrumentFamilyTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicOptionTradeByInstrumentFamily>(GetUri("api/v5/market/option/instrument-family-trades"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -345,7 +292,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptionalEnum("optType", optionType);
 
-        return ProcessListRequestAsync<OkxPublicOptionTrade>(GetUri(v5PublicOptionTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicOptionTrade>(GetUri("api/v5/public/option-trades"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -355,7 +302,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<OkxPublicVolume>> Get24HourVolumeAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxPublicVolume>(GetUri(v5MarketPlatform24Volume), HttpMethod.Get, ct);
+        return ProcessOneRequestAsync<OkxPublicVolume>(GetUri("api/v5/market/platform-24-volume"), HttpMethod.Get, ct);
     }
 
     /// <summary>
@@ -369,7 +316,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         var parameters = new ParameterCollection();
         parameters.AddParameter("instId", instrumentId);
 
-        return ProcessOneRequestAsync<OkxPublicCallAuction>(GetUri(v5MarketCallAuctionDetails), HttpMethod.Get, ct);
+        return ProcessOneRequestAsync<OkxPublicCallAuction>(GetUri("api/v5/market/call-auction-details"), HttpMethod.Get, ct);
     }
     #endregion
 
@@ -398,7 +345,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
 
-        return ProcessListRequestAsync<OkxPublicInstrument>(GetUri(v5PublicInstruments), HttpMethod.Get, ct, signed: signed, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicInstrument>(GetUri("api/v5/public/instruments"), HttpMethod.Get, ct, signed: signed, queryParameters: parameters);
     }
 
     /// <summary>
@@ -414,7 +361,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "instId", instrumentId },
         };
 
-        return ProcessOneRequestAsync<OkxPublicEstimatedPrice>(GetUri(v5PublicEstimatedPrice), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicEstimatedPrice>(GetUri("api/v5/public/estimated-price"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -449,7 +396,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPublicDeliveryExerciseHistory>(GetUri(v5PublicDeliveryExerciseHistory), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicDeliveryExerciseHistory>(GetUri("api/v5/public/delivery-exercise-history"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -463,7 +410,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         var parameters = new ParameterCollection();
         parameters.AddParameter("instId", instrumentId);
 
-        return ProcessOneRequestAsync<OkxPublicEstimatedSettlementInfo>(GetUri(v5PublicEstimatedSettlementInfo), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicEstimatedSettlementInfo>(GetUri("api/v5/public/estimated-settlement-info"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -489,7 +436,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPublicSettlementHistory>(GetUri(v5PublicSettlementHistory), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicSettlementHistory>(GetUri("api/v5/public/settlement-history"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -504,7 +451,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         if (string.IsNullOrEmpty(instrumentId)) parameters.Add("instId", "ANY");
         else parameters.AddOptionalParameter("instId", instrumentId);
 
-        return ProcessListRequestAsync<OkxPublicFundingRate>(GetUri(v5PublicFundingRate), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicFundingRate>(GetUri("api/v5/public/funding-rate"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -527,7 +474,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPublicFundingRateHistory>(GetUri(v5PublicFundingRateHistory), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicFundingRateHistory>(GetUri("api/v5/public/funding-rate-history"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -558,7 +505,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
 
-        return ProcessListRequestAsync<OkxPublicOpenInterest>(GetUri(v5PublicOpenInterest), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicOpenInterest>(GetUri("api/v5/public/open-interest"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -574,7 +521,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "instId", instrumentId },
         };
 
-        return ProcessOneRequestAsync<OkxPublicLimitPrice>(GetUri(v5PublicPriceLimit), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicLimitPrice>(GetUri("api/v5/public/price-limit"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -596,7 +543,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("expTime", expiryDate?.ToString("yyMMdd"));
 
-        return ProcessListRequestAsync<OkxPublicOptionSummary>(GetUri(v5PublicOptionSummary), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicOptionSummary>(GetUri("api/v5/public/opt-summary"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -610,7 +557,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", currency);
 
-        return ProcessListRequestAsync<OkxPublicDiscountInfo>(GetUri(v5PublicDiscountRateInterestFreeQuota), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicDiscountInfo>(GetUri("api/v5/public/discount-rate-interest-free-quota"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -620,7 +567,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public async Task<RestCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
     {
-        var result = await ProcessOneRequestAsync<OkxPublicTimeContainer>(GetUri(v5PublicTime), HttpMethod.Get, ct);
+        var result = await ProcessOneRequestAsync<OkxPublicTimeContainer>(GetUri("api/v5/public/time"), HttpMethod.Get, ct);
         return result.As(result.Data?.Time ?? default);
     }
 
@@ -650,7 +597,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
 
-        return ProcessListRequestAsync<OkxPublicMarkPrice>(GetUri(v5PublicMarkPrice), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicMarkPrice>(GetUri("api/v5/public/mark-price"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -687,7 +634,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("ccy", currency);
         parameters.AddOptional("tier", tier);
 
-        return ProcessListRequestAsync<OkxPublicPositionTier>(GetUri(v5PublicPositionTiers), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicPositionTier>(GetUri("api/v5/public/position-tiers"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -697,7 +644,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<OkxPublicInterestRateLoanQuota>> GetInterestRatesAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxPublicInterestRateLoanQuota>(GetUri(v5PublicInterestRateLoanQuota), HttpMethod.Get, ct);
+        return ProcessOneRequestAsync<OkxPublicInterestRateLoanQuota>(GetUri("api/v5/public/interest-rate-loan-quota"), HttpMethod.Get, ct);
     }
 
     /// <summary>
@@ -714,7 +661,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
 
-        return ProcessOneRequestAsync<List<string>>(GetUri(v5PublicUnderlying), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessOneRequestAsync<List<string>>(GetUri("api/v5/public/underlying"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -756,7 +703,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxPublicInsuranceFund>(GetUri(v5PublicInsuranceFund), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicInsuranceFund>(GetUri("api/v5/public/insurance-fund"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -799,7 +746,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("sz", size.ToOkxString());
         parameters.AddOptional("px", price?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxPublicUnitConvert>(GetUri(v5PublicConvertContractCoin), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicUnitConvert>(GetUri("api/v5/public/convert-contract-coin"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -818,7 +765,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         };
 
         parameters.AddOptional("instFamily", instrumentFamily);
-        return ProcessListRequestAsync<OkxPublicOptionTickBands>(GetUri(v5PublicInstrumentTickBands), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicOptionTickBands>(GetUri("api/v5/public/instrument-tick-bands"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -846,7 +793,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPublicPremiumHistory>(GetUri(v5PublicPremiumHistory), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicPremiumHistory>(GetUri("api/v5/public/premium-history"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -862,7 +809,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("quoteCcy", quoteCurrency);
         parameters.AddOptional("instId", instrumentId);
 
-        return ProcessListRequestAsync<OkxPublicIndexTicker>(GetUri(v5MarketIndexTickers), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicIndexTicker>(GetUri("api/v5/market/index-tickers"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -902,7 +849,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxPublicIndexCandlestick>(GetUri(v5MarketIndexCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicIndexCandlestick>(GetUri("api/v5/market/index-candles"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -946,7 +893,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxPublicIndexCandlestick>(GetUri(v5MarketIndexCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicIndexCandlestick>(GetUri("api/v5/market/history-index-candles"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -990,7 +937,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxPublicMarkCandlestick>(GetUri(v5MarketMarkPriceCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicMarkCandlestick>(GetUri("api/v5/market/mark-price-candles"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -1034,7 +981,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        var result = await ProcessListRequestAsync<OkxPublicMarkCandlestick>(GetUri(v5MarketMarkPriceCandlesHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxPublicMarkCandlestick>(GetUri("api/v5/market/history-mark-price-candles"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
 
         foreach (var candle in result.Data) candle.InstrumentId = instrumentId;
@@ -1048,7 +995,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public async Task<RestCallResult<decimal>> GetExchangeRateAsync(CancellationToken ct = default)
     {
-        var result = await ProcessOneRequestAsync<OkxPublicExchangeRateContainer>(GetUri(v5MarketExchangeRate), HttpMethod.Get, ct);
+        var result = await ProcessOneRequestAsync<OkxPublicExchangeRateContainer>(GetUri("api/v5/market/exchange-rate"), HttpMethod.Get, ct);
         if (!result) return new RestCallResult<decimal>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<decimal>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
@@ -1066,7 +1013,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "index", index },
         };
 
-        return ProcessModelRequestAsync<OkxPublicIndexComponents>(GetUri(v5MarketIndexComponents), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessModelRequestAsync<OkxPublicIndexComponents>(GetUri("api/v5/market/index-components"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -1094,7 +1041,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPublicEconomicCalendarEvent>(GetUri(v5PublicEconomicCalendar), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicEconomicCalendarEvent>(GetUri("api/v5/public/economic-calendar"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
     #endregion
 
@@ -1114,7 +1061,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("state", state);
 
-        return ProcessListRequestAsync<OkxPublicMaintenance>(GetUri(v5SystemStatus), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicMaintenance>(GetUri("api/v5/system/status"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
     #endregion
 
@@ -1134,7 +1081,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("annType", type);
         parameters.AddOptional("page", page?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxPublicAnnouncements>(GetUri(v5SupportAnnouncements), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxPublicAnnouncements>(GetUri("api/v5/support/announcements"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -1144,7 +1091,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicAnnouncementType>>> GetAnnouncementTypesAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxPublicAnnouncementType>(GetUri(v5SupportAnnouncementTypes), HttpMethod.Get, ct, signed: false);
+        return ProcessListRequestAsync<OkxPublicAnnouncementType>(GetUri("api/v5/support/announcement-types"), HttpMethod.Get, ct, signed: false);
     }
     #endregion
 

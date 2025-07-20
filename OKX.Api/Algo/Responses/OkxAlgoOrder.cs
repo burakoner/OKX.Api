@@ -349,4 +349,10 @@ public record OkxAlgoOrder
     /// </summary>
     [JsonProperty("maxChaseVal")]
     public decimal? MaxChaseValue { get; set; }
+
+    /// <summary>
+    /// The quote currency used for trading.
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy")]
+    public string? TradeQuoteCurrency { get; set; }
 }

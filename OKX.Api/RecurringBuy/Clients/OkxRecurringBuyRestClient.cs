@@ -5,15 +5,6 @@
 /// </summary>
 public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5TradingBotRecurringOrderAlgo = "api/v5/tradingBot/recurring/order-algo";
-    private const string v5TradingBotRecurringAmendOrderAlgo = "api/v5/tradingBot/recurring/amend-order-algo";
-    private const string v5TradingBotRecurringStopOrderAlgo = "api/v5/tradingBot/recurring/stop-order-algo";
-    private const string v5TradingBotRecurringOrdersAlgoPending = "api/v5/tradingBot/recurring/orders-algo-pending";
-    private const string v5TradingBotRecurringOrdersAlgoHistory = "api/v5/tradingBot/recurring/orders-algo-history";
-    private const string v5TradingBotRecurringOrdersAlgoDetails = "api/v5/tradingBot/recurring/orders-algo-details";
-    private const string v5TradingBotRecurringSubOrders = "api/v5/tradingBot/recurring/sub-orders";
-
     /// <summary>
     /// Place recurring buy order
     /// </summary>
@@ -70,7 +61,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         parameters.AddOptional("algoClOrdId", clientOrderId);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri(v5TradingBotRecurringOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
     /// <summary>
@@ -87,7 +78,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
             {"stgyName", strategyName },
         };
 
-        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri(v5TradingBotRecurringAmendOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/amend-order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -102,7 +93,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
             {"algoId", algoOrderId.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri(v5TradingBotRecurringStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/stop-order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
     
     /// <summary>
@@ -128,7 +119,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxRecurringBuyOrder>(GetUri(v5TradingBotRecurringOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxRecurringBuyOrder>(GetUri("api/v5/tradingBot/recurring/orders-algo-pending"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     
     /// <summary>
@@ -154,7 +145,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxRecurringBuyOrder>(GetUri(v5TradingBotRecurringOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxRecurringBuyOrder>(GetUri("api/v5/tradingBot/recurring/orders-algo-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -168,7 +159,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         var parameters = new ParameterCollection();
         parameters.AddOptional("algoId", algoOrderId.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxRecurringBuyOrderDetails>(GetUri(v5TradingBotRecurringOrdersAlgoDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderDetails>(GetUri("api/v5/tradingBot/recurring/orders-algo-details"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -197,7 +188,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxRecurringBuySubOrder>(GetUri(v5TradingBotRecurringSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxRecurringBuySubOrder>(GetUri("api/v5/tradingBot/recurring/sub-orders"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
 }

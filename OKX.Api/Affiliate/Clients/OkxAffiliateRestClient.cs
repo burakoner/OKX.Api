@@ -5,10 +5,6 @@
 /// </summary>
 public class OkxAffiliateRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5AffiliateInviteeDetail = "api/v5/affiliate/invitee/detail";
-    private const string v5UsersPartnerIfRebate = "api/v5/users/partner/if-rebate";
-
     /// <summary>
     /// Get the invitee's detail
     /// </summary>
@@ -22,7 +18,7 @@ public class OkxAffiliateRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "uid", uid.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxAffiliateInvitee>(GetUri(v5AffiliateInviteeDetail), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAffiliateInvitee>(GetUri("api/v5/affiliate/invitee/detail"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -39,6 +35,6 @@ public class OkxAffiliateRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "apiKey", apiKey },
         };
 
-        return ProcessOneRequestAsync<OkxAffiliateRebateInformation>(GetUri(v5UsersPartnerIfRebate), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAffiliateRebateInformation>(GetUri("api/v5/users/partner/if-rebate"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 }

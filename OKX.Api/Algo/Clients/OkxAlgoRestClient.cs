@@ -5,14 +5,6 @@
 /// </summary>
 public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    private const string v5TradeOrderAlgo = "api/v5/trade/order-algo";
-    private const string v5TradeCancelAlgos = "api/v5/trade/cancel-algos";
-    private const string v5TradeAmendAlgos = "api/v5/trade/amend-algos";
-    private const string v5TradeCancelAdvanceAlgos = "api/v5/trade/cancel-advance-algos";
-    private const string v5TradeOrderAlgoGet = "api/v5/trade/order-algo";
-    private const string v5TradeOrdersAlgoPending = "api/v5/trade/orders-algo-pending";
-    private const string v5TradeOrdersAlgoHistory = "api/v5/trade/orders-algo-history";
-
     /// <summary>
     /// The algo order includes trigger order, oco order, conditional order,iceberg order and twap order.
     /// </summary>
@@ -81,6 +73,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// It represents maximum distance when maxChaseType is distance.
     /// It represents ratio when maxChaseType is ratio. 0.1 represents 10%.</param>
     /// 
+    /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxAlgoOrderResponse>> PlaceOrderAsync(
@@ -132,13 +125,14 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxAlgoChaseType? maxChaseType = null,
         decimal? maxChaseValue = null,
 
+        string? tradeQuoteCurrency = null,
+
         // Cancellation Token
         CancellationToken ct = default)
     {
         // Common
-        var parameters = new ParameterCollection {
-            {"instId", instrumentId },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("instId", instrumentId);
         parameters.AddEnum("tdMode", tradeMode);
         parameters.AddEnum("side", orderSide);
         parameters.AddEnum("ordType", algoOrderType);
@@ -186,11 +180,14 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalEnum("maxChaseType", maxChaseType);
         parameters.AddOptional("maxChaseVal", maxChaseValue?.ToOkxString());
 
+        // Trade Quote Currency
+        parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
+
         // Broker Id
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         // Reequest
-        return ProcessOneRequestAsync<OkxAlgoOrderResponse>(GetUri(v5TradeOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAlgoOrderResponse>(GetUri("api/v5/trade/order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -214,7 +211,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.SetBody(orders);
 
-        return ProcessListRequestAsync<OkxAlgoCancelOrderResponse>(GetUri(v5TradeCancelAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxAlgoCancelOrderResponse>(GetUri("api/v5/trade/cancel-algos"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -296,7 +293,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
         // Reequest
-        return ProcessOneRequestAsync<OkxAlgoAmendOrderResponse>(GetUri(v5TradeAmendAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxAlgoAmendOrderResponse>(GetUri("api/v5/trade/amend-algos"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -310,7 +307,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.SetBody(orders);
 
-        return ProcessListRequestAsync<OkxAlgoCancelOrderResponse>(GetUri(v5TradeCancelAdvanceAlgos), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxAlgoCancelOrderResponse>(GetUri("api/v5/trade/cancel-advance-algos"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -326,7 +323,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("algoId", algoOrderId?.ToOkxString());
         parameters.AddOptional("algoClOrdId", algoClientOrderId);
 
-        return ProcessOneRequestAsync<OkxAlgoOrder>(GetUri(v5TradeOrderAlgoGet), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxAlgoOrder>(GetUri("api/v5/trade/order-algo"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -361,7 +358,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxAlgoOrder>(GetUri(v5TradeOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAlgoOrder>(GetUri("api/v5/trade/orders-algo-pending"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -399,6 +396,6 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalEnum("state", algoOrderState);
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxAlgoOrder>(GetUri(v5TradeOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAlgoOrder>(GetUri("api/v5/trade/orders-algo-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 }

@@ -5,14 +5,6 @@
 /// </summary>
 public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5FinanceStakingDefiOffers = "api/v5/finance/staking-defi/offers";
-    private const string v5FinanceStakingDefiPurchase = "api/v5/finance/staking-defi/purchase";
-    private const string v5FinanceStakingDefiRedeem = "api/v5/finance/staking-defi/redeem";
-    private const string v5FinanceStakingDefiCancel = "api/v5/finance/staking-defi/cancel";
-    private const string v5FinanceStakingDefiOrdersActive = "api/v5/finance/staking-defi/orders-active";
-    private const string v5FinanceStakingDefiOrdersHistory = "api/v5/finance/staking-defi/orders-history";
-
     /// <summary>
     /// Get Orders
     /// </summary>
@@ -32,7 +24,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         parameters.AddOptional("productId", productId);
         parameters.AddOptional("protocolType", protocolType);
 
-        return ProcessListRequestAsync<OkxFinancialOnChainEarnOffer>(GetUri(v5FinanceStakingDefiOffers), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialOnChainEarnOffer>(GetUri("api/v5/finance/staking-defi/offers"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -56,7 +48,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         parameters.AddOptional("term", term);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri(v5FinanceStakingDefiPurchase), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri("api/v5/finance/staking-defi/purchase"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
@@ -82,7 +74,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         };
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri(v5FinanceStakingDefiRedeem), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri("api/v5/finance/staking-defi/redeem"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
@@ -104,7 +96,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
             {"protocolType", protocolType },
         };
 
-        var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri(v5FinanceStakingDefiCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFinancialOrderIdContainer>(GetUri("api/v5/finance/staking-defi/cancel"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
@@ -131,7 +123,7 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         parameters.AddOptional("protocolType", protocolType);
         parameters.AddOptionalEnum("state", state);
 
-        return ProcessListRequestAsync<OkxFinancialOnChainEarnOrder>(GetUri(v5FinanceStakingDefiOrdersActive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialOnChainEarnOrder>(GetUri("api/v5/finance/staking-defi/orders-active"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -164,6 +156,6 @@ public class OkxFinancialOnChainEarnRestClient(OkxRestApiClient root) : OkxBaseR
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFinancialOnChainEarnOrder>(GetUri(v5FinanceStakingDefiOrdersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialOnChainEarnOrder>(GetUri("api/v5/finance/staking-defi/orders-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 }

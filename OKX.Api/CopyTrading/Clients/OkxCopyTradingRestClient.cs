@@ -5,34 +5,6 @@
 /// </summary>
 public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5CopyTradingCurrentSubpositions = "api/v5/copytrading/current-subpositions";
-    private const string v5CopyTradingSubpositionsHistory = "api/v5/copytrading/subpositions-history";
-    private const string v5CopyTradingAlgoOrder = "api/v5/copytrading/algo-order";
-    private const string v5CopyTradingCloseSubposition = "api/v5/copytrading/close-subposition";
-    private const string v5CopyTradingInstruments = "api/v5/copytrading/instruments";
-    private const string v5CopyTradingSetInstruments = "api/v5/copytrading/set-instruments";
-    private const string v5CopyTradingProfitSharingDetails = "api/v5/copytrading/profit-sharing-details";
-    private const string v5CopyTradingTotalProfitSharing = "api/v5/copytrading/total-profit-sharing";
-    private const string v5CopyTradingUnrealizedProfitSharingDetails = "api/v5/copytrading/unrealized-profit-sharing-details";
-    private const string v5CopyTradingTotalUnrealizedProfitSharing = "api/v5/copytrading/total-unrealized-profit-sharing";
-    private const string v5CopyTradingAmendProfitSharingRatio = "api/v5/copytrading/amend-profit-sharing-ratio";
-    private const string v5CopyTradingConfig = "api/v5/copytrading/config";
-    private const string v5CopyTradingFirstCopySettings = "api/v5/copytrading/first-copy-settings";
-    private const string v5CopyTradingAmendCopySettings = "api/v5/copytrading/amend-copy-settings";
-    private const string v5CopyTradingStopCopyTrading = "api/v5/copytrading/stop-copy-trading";
-    private const string v5CopyTradingCopySettings = "api/v5/copytrading/copy-settings";
-    private const string v5CopyTradingCurrentLeadTraders = "api/v5/copytrading/current-lead-traders";
-    private const string v5CopyTradingPublicConfig = "api/v5/copytrading/public-config";
-    private const string v5CopyTradingPublicLeadTraders = "api/v5/copytrading/public-lead-traders";
-    private const string v5CopyTradingPublicWeeklyPnl = "api/v5/copytrading/public-weekly-pnl";
-    private const string v5CopyTradingPublicPnl = "api/v5/copytrading/public-pnl";
-    private const string v5CopyTradingPublicStats = "api/v5/copytrading/public-stats";
-    private const string v5CopyTradingPublicPreferenceCurrency = "api/v5/copytrading/public-preference-currency";
-    private const string v5CopyTradingPublicCurrentSubpositions = "api/v5/copytrading/public-current-subpositions";
-    private const string v5CopyTradingPublicSubpositionsHistory = "api/v5/copytrading/public-subpositions-history";
-    private const string v5CopyTradingPublicCopyTraders = "api/v5/copytrading/public-copy-traders";
-
     /// <summary>
     /// The leading trader gets leading positions that are not closed.
     /// Returns reverse chronological order with openTime
@@ -65,7 +37,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadingPosition>(GetUri(v5CopyTradingCurrentSubpositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadingPosition>(GetUri("api/v5/copytrading/current-subpositions"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -98,7 +70,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadingPositionHistory>(GetUri(v5CopyTradingSubpositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadingPositionHistory>(GetUri("api/v5/copytrading/subpositions-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -143,7 +115,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalEnum("slTriggerPxType", stopLossTriggerPriceType);
         parameters.AddOptionalEnum("subPosType", positionType);
 
-        var result = await ProcessOneRequestAsync<OkxCopyTradingPositionIdContainer>(GetUri(v5CopyTradingAlgoOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxCopyTradingPositionIdContainer>(GetUri("api/v5/copytrading/algo-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
@@ -179,7 +151,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptionalEnum("ordType", orderType);
         parameters.AddOptional("px", price?.ToOkxString());
 
-        var result = await ProcessOneRequestAsync<OkxCopyTradingPositionIdContainer>(GetUri(v5CopyTradingCloseSubposition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxCopyTradingPositionIdContainer>(GetUri("api/v5/copytrading/close-subposition"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
@@ -197,7 +169,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadingInstrument>(GetUri(v5CopyTradingInstruments), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadingInstrument>(GetUri("api/v5/copytrading/instruments"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -219,7 +191,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         };
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadingInstrument>(GetUri(v5CopyTradingSetInstruments), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadingInstrument>(GetUri("api/v5/copytrading/set-instruments"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -244,7 +216,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxCopyTradingProfitSharingDetails>(GetUri(v5CopyTradingProfitSharingDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingProfitSharingDetails>(GetUri("api/v5/copytrading/profit-sharing-details"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -260,7 +232,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingProfitSharingTotal>(GetUri(v5CopyTradingTotalProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingProfitSharingTotal>(GetUri("api/v5/copytrading/total-profit-sharing"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -277,7 +249,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingProfitSharingUnrealized>(GetUri(v5CopyTradingUnrealizedProfitSharingDetails), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingProfitSharingUnrealized>(GetUri("api/v5/copytrading/unrealized-profit-sharing-details"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -291,7 +263,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessOneRequestAsync<OkxCopyTradingProfitSharingTotalUnrealized>(GetUri(v5CopyTradingTotalUnrealizedProfitSharing), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxCopyTradingProfitSharingTotalUnrealized>(GetUri("api/v5/copytrading/total-unrealized-profit-sharing"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -312,7 +284,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         };
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingAmendProfitSharingRatio), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri("api/v5/copytrading/amend-profit-sharing-ratio"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -322,7 +294,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <returns></returns>
     public Task<RestCallResult<OkxCopyTradingAccount>> GetAccountConfigurationAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxCopyTradingAccount>(GetUri(v5CopyTradingConfig), HttpMethod.Get, ct, signed: true);
+        return ProcessOneRequestAsync<OkxCopyTradingAccount>(GetUri("api/v5/copytrading/config"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -376,7 +348,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
         parameters.AddOptional("slTotalAmt", stopLossTotalAmount?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingFirstCopySettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri("api/v5/copytrading/first-copy-settings"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -430,7 +402,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
         parameters.AddOptional("slTotalAmt", stopLossTotalAmount?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingAmendCopySettings), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri("api/v5/copytrading/amend-copy-settings"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -457,7 +429,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddEnum("subPosCloseType", positionCloseType);
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5CopyTradingStopCopyTrading), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri("api/v5/copytrading/stop-copy-trading"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -478,7 +450,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         };
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessOneRequestAsync<OkxCopyTradingCopySettings>(GetUri(v5CopyTradingCopySettings), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxCopyTradingCopySettings>(GetUri("api/v5/copytrading/copy-settings"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -494,7 +466,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTrader>(GetUri(v5CopyTradingCurrentLeadTraders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTrader>(GetUri("api/v5/copytrading/current-lead-traders"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -510,7 +482,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessOneRequestAsync<OkxCopyTradingPublicConfiguration>(GetUri(v5CopyTradingPublicConfig), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxCopyTradingPublicConfiguration>(GetUri("api/v5/copytrading/public-config"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -559,7 +531,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("page", page?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTradersRanks>(GetUri(v5CopyTradingPublicLeadTraders), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTradersRanks>(GetUri("api/v5/copytrading/public-lead-traders"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -578,7 +550,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("uniqueCode", uniqueCode);
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri(v5CopyTradingPublicWeeklyPnl), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri("api/v5/copytrading/public-weekly-pnl"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -600,7 +572,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("lastDays", lastDays);
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri(v5CopyTradingPublicPnl), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri("api/v5/copytrading/public-pnl"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -622,7 +594,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("lastDays", lastDays);
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderStats>(GetUri(v5CopyTradingPublicStats), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTraderStats>(GetUri("api/v5/copytrading/public-stats"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -641,7 +613,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("uniqueCode", uniqueCode);
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderCurrencyPreference>(GetUri(v5CopyTradingPublicPreferenceCurrency), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTraderCurrencyPreference>(GetUri("api/v5/copytrading/public-preference-currency"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -670,7 +642,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPosition>(GetUri(v5CopyTradingPublicCurrentSubpositions), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPosition>(GetUri("api/v5/copytrading/public-current-subpositions"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -700,7 +672,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPositionHistory>(GetUri(v5CopyTradingPublicSubpositionsHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPositionHistory>(GetUri("api/v5/copytrading/public-subpositions-history"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -723,6 +695,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("uniqueCode", uniqueCode);
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxCopyTradingCopyTrader>(GetUri(v5CopyTradingPublicCopyTraders), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingCopyTrader>(GetUri("api/v5/copytrading/public-copy-traders"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 }

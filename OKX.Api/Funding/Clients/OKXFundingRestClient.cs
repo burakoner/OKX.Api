@@ -6,26 +6,7 @@
 public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     // Endpoints
-    private const string v5AssetCurrencies = "api/v5/asset/currencies";
-    private const string v5AssetBalances = "api/v5/asset/balances";
-    private const string v5AssetNonTradableAssets = "api/v5/asset/non-tradable-assets";
-    private const string v5AssetAssetValuation = "api/v5/asset/asset-valuation";
-    private const string v5AssetTransfer = "api/v5/asset/transfer";
-    private const string v5AssetTransferState = "api/v5/asset/transfer-state";
-    private const string v5AssetBills = "api/v5/asset/bills";
-    private const string v5AssetDepositAddress = "api/v5/asset/deposit-address";
-    private const string v5AssetDepositHistory = "api/v5/asset/deposit-history";
-    private const string v5AssetWithdrawal = "api/v5/asset/withdrawal";
-    private const string v5AssetWithdrawalCancel = "api/v5/asset/cancel-withdrawal";
-    private const string v5AssetWithdrawalHistory = "api/v5/asset/withdrawal-history";
-    private const string v5AssetDepositWithdrawStatus = "api/v5/asset/deposit-withdraw-status";
-    private const string v5AssetExchangeList = "api/v5/asset/exchange-list";
-    private const string v5AssetMonthlyStatement = "api/v5/asset/monthly-statement";
-    private const string v5AssetConvertCurrencies = "api/v5/asset/convert/currencies";
-    private const string v5AssetConvertCurrencyPair = "api/v5/asset/convert/currency-pair";
-    private const string v5AssetConvertEstimateQuote = "api/v5/asset/convert/estimate-quote";
-    private const string v5AssetConvertTrade = "api/v5/asset/convert/trade";
-    private const string v5AssetConvertHistory = "api/v5/asset/convert/history";
+    // TODO: api/v5/asset/bills-history
 
     // Fiat Endpoints
     // TODO: api/v5/fiat/deposit-payment-methods
@@ -44,7 +25,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingCurrency>>> GetCurrenciesAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxFundingCurrency>(GetUri(v5AssetCurrencies), HttpMethod.Get, ct, true);
+        return ProcessListRequestAsync<OkxFundingCurrency>(GetUri("api/v5/asset/currencies"), HttpMethod.Get, ct, true);
     }
 
     /// <summary>
@@ -58,7 +39,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", currency);
 
-        return ProcessListRequestAsync<OkxFundingBalance>(GetUri(v5AssetBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFundingBalance>(GetUri("api/v5/asset/balances"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -72,7 +53,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", currency);
 
-        return ProcessListRequestAsync<OkxFundingNonTradableAssetBalance>(GetUri(v5AssetNonTradableAssets), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFundingNonTradableAssetBalance>(GetUri("api/v5/asset/non-tradable-assets"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -86,7 +67,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", currency);
 
-        return ProcessOneRequestAsync<OkxFundingAssetValuation>(GetUri(v5AssetAssetValuation), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingAssetValuation>(GetUri("api/v5/asset/asset-valuation"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -127,7 +108,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("clientId", clientOrderId);
         parameters.AddOptional("omitPosRisk", omitPositionRisk);
 
-        return ProcessOneRequestAsync<OkxFundingTransferResponse>(GetUri(v5AssetTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingTransferResponse>(GetUri("api/v5/asset/transfer"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -149,7 +130,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("clientId", clientOrderId);
         parameters.AddOptionalEnum("type", type);
 
-        return ProcessOneRequestAsync<OkxFundingTransferStateResponse>(GetUri(v5AssetTransferState), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingTransferStateResponse>(GetUri("api/v5/asset/transfer-state"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -161,6 +142,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="pagingType">PagingType. 1: Timestamp of the bill record. 2: Bill ID of the bill record. The default is 1</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingBill>>> GetFundingBillDetailsAsync(
@@ -170,6 +152,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? after = null,
         long? before = null,
         int limit = 100,
+        int pagingType = 1,
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
@@ -180,8 +163,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("pagingType", pagingType.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFundingBill>(GetUri(v5AssetBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFundingBill>(GetUri("api/v5/asset/bills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -195,7 +179,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", currency);
 
-        return ProcessListRequestAsync<OkxFundingDepositAddress>(GetUri(v5AssetDepositAddress), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFundingDepositAddress>(GetUri("api/v5/asset/deposit-address"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -237,7 +221,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFundingDepositHistory>(GetUri(v5AssetDepositHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFundingDepositHistory>(GetUri("api/v5/asset/deposit-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -278,7 +262,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("rcvrInfo", receiverInfo);
         parameters.AddOptional("clientId", clientOrderId);
 
-        return ProcessOneRequestAsync<OkxFundingWithdrawalResponse>(GetUri(v5AssetWithdrawal), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingWithdrawalResponse>(GetUri("api/v5/asset/withdrawal"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -295,7 +279,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "wdId", withdrawalId},
         };
 
-        var result = await ProcessOneRequestAsync<OkxFundingWithdrawalIdContainer>(GetUri(v5AssetWithdrawalCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxFundingWithdrawalIdContainer>(GetUri("api/v5/asset/cancel-withdrawal"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
@@ -339,7 +323,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFundingWithdrawalHistory>(GetUri(v5AssetWithdrawalHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFundingWithdrawalHistory>(GetUri("api/v5/asset/withdrawal-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -366,7 +350,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "chain", chain }
         };
 
-        return ProcessOneRequestAsync<OkxFundingDepositStatus>(GetUri(v5AssetDepositWithdrawStatus), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingDepositStatus>(GetUri("api/v5/asset/deposit-withdraw-status"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -384,7 +368,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "wdId", withdrawalId.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFundingWithdrawalStatus>(GetUri(v5AssetDepositWithdrawStatus), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingWithdrawalStatus>(GetUri("api/v5/asset/deposit-withdraw-status"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -394,7 +378,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingExchangeList>>> GetExchangeListAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxFundingExchangeList>(GetUri(v5AssetExchangeList), HttpMethod.Get, ct, signed: false);
+        return ProcessListRequestAsync<OkxFundingExchangeList>(GetUri("api/v5/asset/exchange-list"), HttpMethod.Get, ct, signed: false);
     }
 
     /// <summary>
@@ -410,7 +394,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new ParameterCollection();
         parameters.AddOptional("month", month);
 
-        return ProcessOneRequestAsync<OkxTimestamp>(GetUri(v5AssetMonthlyStatement), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxTimestamp>(GetUri("api/v5/asset/monthly-statement"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -426,7 +410,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         var parameters = new ParameterCollection();
         parameters.AddOptional("month", month);
 
-        return ProcessOneRequestAsync<OkxDownloadLink>(GetUri(v5AssetMonthlyStatement), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxDownloadLink>(GetUri("api/v5/asset/monthly-statement"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -436,7 +420,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public async Task<RestCallResult<List<string>>> GetConvertCurrenciesAsync(CancellationToken ct = default)
     {
-        var result = await ProcessListRequestAsync<OkxFundingCurrencyContainer>(GetUri(v5AssetConvertCurrencies), HttpMethod.Get, ct, signed: true);
+        var result = await ProcessListRequestAsync<OkxFundingCurrencyContainer>(GetUri("api/v5/asset/convert/currencies"), HttpMethod.Get, ct, signed: true);
         if (!result) return new RestCallResult<List<string>>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<List<string>>(result.Request, result.Response, result.Data.Select(x => x.Payload).ToList(), result.Raw ?? "", result.Error);
     }
@@ -457,7 +441,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("fromCcy", fromCurrency);
         parameters.AddOptional("toCcy", toCurrency);
 
-        return ProcessOneRequestAsync<OkxFundingConvertCurrencyPair>(GetUri(v5AssetConvertCurrencyPair), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingConvertCurrencyPair>(GetUri("api/v5/asset/convert/currency-pair"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -491,7 +475,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("clQReqId", clientOrderId);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        return ProcessOneRequestAsync<OkxFundingConvertEstimateQuote>(GetUri(v5AssetConvertEstimateQuote), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingConvertEstimateQuote>(GetUri("api/v5/asset/convert/estimate-quote"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -528,7 +512,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("clQReqId", clientOrderId);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        return ProcessOneRequestAsync<OkxFundingConvertOrder>(GetUri(v5AssetConvertTrade), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingConvertOrder>(GetUri("api/v5/asset/convert/trade"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -557,7 +541,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("limit", limit.ToOkxString());
         parameters.AddOptional("tag", tag);
 
-        return ProcessListRequestAsync<OkxFundingConvertOrderHistory>(GetUri(v5AssetConvertHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFundingConvertOrderHistory>(GetUri("api/v5/asset/convert/history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
 }

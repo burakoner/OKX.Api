@@ -496,18 +496,21 @@ public enum OkxAccountBillSubType:int
     /// <summary>
     /// Fixed loan interest deduction
     /// </summary>
+    [Obsolete]
     [Map("293")]
     FixedLoanInterestDeduction = 293,
 
     /// <summary>
     /// Fixed loan interest refund
     /// </summary>
+    [Obsolete]
     [Map("294")]
     FixedLoanInterestRefund = 294,
 
     /// <summary>
     /// Fixed loan overdue penalty
     /// </summary>
+    [Obsolete]
     [Map("295")]
     FixedLoanOverduePenalty = 295,
 
@@ -646,36 +649,42 @@ public enum OkxAccountBillSubType:int
     /// <summary>
     /// [Credit line] Forced repayment
     /// </summary>
+    [Obsolete]
     [Map("348")]
     CreditLineForcedRepayment = 348,
 
     /// <summary>
     /// [Credit line] Forced repayment refund
     /// </summary>
+    [Obsolete]
     [Map("350")]
     CreditLineForcedRepaymentRefund = 350,
 
     /// <summary>
     /// [Credit line] Forced repayment penalty fee deduction
     /// </summary>
+    [Obsolete]
     [Map("352")]
     CreditLineForcedRepaymentPenaltyFeeDeduction = 352,
 
     /// <summary>
     /// [Credit line] Forced repayment penalty fee(pending deduction)
     /// </summary>
+    [Obsolete]
     [Map("353")]
     CreditLineForcedRepaymentPenaltyFeePendingDeduction = 353,
 
     /// <summary>
     /// [Credit line] Auto conversion(pending deduction)
     /// </summary>
+    [Obsolete]
     [Map("356")]
     CreditLineAutoConversionPendingDeduction = 356,
 
     /// <summary>
     /// [Credit line] Auto Conversion Transfer to Funding
     /// </summary>
+    [Obsolete]
     [Map("357")]
     CreditLineAutoConversionTransferToFunding = 357,
 
@@ -700,12 +709,14 @@ public enum OkxAccountBillSubType:int
     /// <summary>
     /// Auto convert in
     /// </summary>
+    [Obsolete]
     [Map("379")]
     AutoConvertIn = 379,
 
     /// <summary>
     /// Auto convert out
     /// </summary>
+    [Obsolete]
     [Map("380")]
     AutoConvertOut = 380,
 }

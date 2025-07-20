@@ -5,23 +5,6 @@
 /// </summary>
 public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5SpreadOrder = "api/v5/sprd/order";
-    private const string v5SpreadCancelOrder = "api/v5/sprd/cancel-order";
-    private const string v5SpreadMassCancel = "api/v5/sprd/mass-cancel";
-    private const string v5SpreadAmendOrder = "api/v5/sprd/amend-order";
-    private const string v5SpreadOrdersPending = "api/v5/sprd/orders-pending";
-    private const string v5SpreadOrdersHistory = "api/v5/sprd/orders-history";
-    private const string v5SpreadOrdersHistoryArchive = "api/v5/sprd/orders-history-archive";
-    private const string v5SpreadTrades = "api/v5/sprd/trades";
-    private const string v5SpreadSpreads = "api/v5/sprd/spreads";
-    private const string v5SpreadBooks = "api/v5/sprd/books";
-    private const string v5MarketSpreadTicker = "api/v5/market/sprd-ticker";
-    private const string v5SpreadPublicTrades = "api/v5/sprd/public-trades";
-    private const string v5MarketSpreadCandles = "api/v5/market/sprd-candles";
-    private const string v5MarketSpreadHistoryCandles = "api/v5/market/sprd-history-candles";
-    private const string v5SpreadCancelAllAfter = "api/v5/sprd/cancel-all-after";
-
     /// <summary>
     /// Place a new order
     /// </summary>
@@ -52,7 +35,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("clOrdId", clientOrderId);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        return ProcessOneRequestAsync<OkxSpreadOrderPlace>(GetUri(v5SpreadOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSpreadOrderPlace>(GetUri("api/v5/sprd/order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -68,7 +51,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("ordId", orderId?.ToOkxString());
         parameters.AddOptional("clOrdId", clientOrderId);
 
-        return ProcessOneRequestAsync<OkxSpreadOrderCancel>(GetUri(v5SpreadCancelOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSpreadOrderCancel>(GetUri("api/v5/sprd/cancel-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -83,7 +66,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             {"sprdId", spreadId },
         };
 
-        var result = await  ProcessOneRequestAsync<OkxBooleanResponse>(GetUri(v5SpreadMassCancel), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await  ProcessOneRequestAsync<OkxBooleanResponse>(GetUri("api/v5/sprd/mass-cancel"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<bool?>(result.Request, result.Response, result.Data.Result, result.Raw ?? "", result.Error);
     }
@@ -118,7 +101,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("newSz", newQuantity?.ToOkxString());
         parameters.AddOptional("newPx", newPrice?.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxSpreadOrderAmend>(GetUri(v5SpreadAmendOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSpreadOrderAmend>(GetUri("api/v5/sprd/amend-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -137,7 +120,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("ordId", orderId?.ToOkxString());
         parameters.AddOptional("clOrdId", clientOrderId);
 
-        return ProcessOneRequestAsync<OkxSpreadOrder>(GetUri(v5SpreadOrder), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxSpreadOrder>(GetUri("api/v5/sprd/order"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -170,7 +153,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("endId", endId?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSpreadOrder>(GetUri(v5SpreadOrdersPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSpreadOrder>(GetUri("api/v5/sprd/orders-pending"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -209,7 +192,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("end", end?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSpreadOrder>(GetUri(v5SpreadOrdersHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSpreadOrder>(GetUri("api/v5/sprd/orders-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -248,7 +231,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("end", end?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSpreadOrder>(GetUri(v5SpreadOrdersHistoryArchive), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSpreadOrder>(GetUri("api/v5/sprd/orders-history-archive"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -287,7 +270,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("end", end?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSpreadTrade>(GetUri(v5SpreadTrades), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSpreadTrade>(GetUri("api/v5/sprd/trades"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -312,7 +295,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("sprdId", spreadId);
         parameters.AddOptionalEnum("state", state);
 
-        return ProcessListRequestAsync<OkxSpreadInstrument>(GetUri(v5SpreadSpreads), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSpreadInstrument>(GetUri("api/v5/sprd/spreads"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -331,7 +314,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "sz", depth},
         };
 
-        return ProcessOneRequestAsync<OkxSpreadOrderBook>(GetUri(v5SpreadBooks), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxSpreadOrderBook>(GetUri("api/v5/sprd/books"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -347,7 +330,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "sprdId", spreadId},
         };
 
-        return ProcessOneRequestAsync<OkxSpreadTicker>(GetUri(v5MarketSpreadTicker), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxSpreadTicker>(GetUri("api/v5/market/sprd-ticker"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -363,7 +346,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             { "sprdId", spreadId},
         };
 
-        return ProcessListRequestAsync<OkxSpreadPublicTrade>(GetUri(v5SpreadPublicTrades), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSpreadPublicTrade>(GetUri("api/v5/sprd/public-trades"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -420,7 +403,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSpreadCandlestick>(GetUri(v5MarketSpreadCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSpreadCandlestick>(GetUri("api/v5/market/sprd-candles"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -470,7 +453,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSpreadCandlestick>(GetUri(v5MarketSpreadHistoryCandles), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSpreadCandlestick>(GetUri("api/v5/market/sprd-history-candles"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -487,7 +470,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             {"timeOut", timeout.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxCancelAllAfter>(GetUri(v5SpreadCancelAllAfter), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxCancelAllAfter>(GetUri("api/v5/sprd/cancel-all-after"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
 }

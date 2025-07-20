@@ -10,16 +10,6 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     // TODO: Create an API Key for a sub-account
     // TODO: Query the API Key of a sub-account
     // TODO: Delete the API Key of sub-accounts
-    private const string v5UsersSubaccountList = "api/v5/users/subaccount/list";
-    private const string v5UsersSubaccountResetApiKey = "api/v5/users/subaccount/modify-apikey";
-    private const string v5UsersSubaccountTradingBalances = "api/v5/account/subaccount/balances";
-    private const string v5UsersSubaccountFundingBalances = "api/v5/asset/subaccount/balances";
-    private const string v5AccountSubaccountMaxWithdrawal = "api/v5/account/subaccount/max-withdrawal";
-    private const string v5UsersSubaccountBills = "api/v5/asset/subaccount/bills";
-    private const string v5AssetSubaccountManagedSubaccountBills = "api/v5/asset/subaccount/managed-subaccount-bills";
-    private const string v5UsersSubaccountTransfer = "api/v5/asset/subaccount/transfer";
-    private const string v5UsersSubaccountSetTransferOut = "api/v5/users/subaccount/set-transfer-out";
-    private const string v5UsersEntrustSubaccountList = "api/v5/users/entrust-subaccount-list";
 
     /// <summary>
     /// applies to master accounts only
@@ -47,7 +37,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSubAccount>(GetUri(v5UsersSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSubAccount>(GetUri("api/v5/users/subaccount/list"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -83,7 +73,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         if (tradePermission.HasValue && tradePermission.Value) permissions.Add("trade");
         if (permissions.Count > 0) parameters.AddOptional("perm", string.Join(",", permissions));
 
-        return ProcessOneRequestAsync<OkxSubAccountApiKey>(GetUri(v5UsersSubaccountResetApiKey), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSubAccountApiKey>(GetUri("api/v5/users/subaccount/modify-apikey"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -101,7 +91,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
             {"subAcct", subAccountName },
         };
 
-        return ProcessOneRequestAsync<OkxSubAccountTradingBalance>(GetUri(v5UsersSubaccountTradingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxSubAccountTradingBalance>(GetUri("api/v5/account/subaccount/balances"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -124,7 +114,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
 
         parameters.AddOptional("ccy", currency);
 
-        return ProcessOneRequestAsync<OkxSubAccountFundingBalance>(GetUri(v5UsersSubaccountFundingBalances), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxSubAccountFundingBalance>(GetUri("api/v5/asset/subaccount/balances"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -146,7 +136,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
 
         parameters.AddOptional("ccy", currency);
 
-        return ProcessListRequestAsync<OkxSubAccountMaximumWithdrawal>(GetUri(v5AccountSubaccountMaxWithdrawal), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSubAccountMaximumWithdrawal>(GetUri("api/v5/account/subaccount/max-withdrawal"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -179,7 +169,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSubAccountBill>(GetUri(v5UsersSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSubAccountBill>(GetUri("api/v5/asset/subaccount/bills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -215,7 +205,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSubAccountManagedBill>(GetUri(v5AssetSubaccountManagedSubaccountBills), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSubAccountManagedBill>(GetUri("api/v5/asset/subaccount/managed-subaccount-bills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -254,7 +244,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptional("loanTrans", loanTransfer);
         parameters.AddOptional("omitPosRisk", omitPositionRisk);
 
-        var result = await ProcessOneRequestAsync<OkxSubAccountTransferIdContainer>(GetUri(v5UsersSubaccountTransfer), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxSubAccountTransferIdContainer>(GetUri("api/v5/asset/subaccount/transfer"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
@@ -277,7 +267,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptional("subAcct", subAccountName);
         parameters.AddOptional("canTransOut", canTransferOut);
 
-        return ProcessListRequestAsync<OkxSubAccountPermissionOfTransferOut>(GetUri(v5UsersSubaccountSetTransferOut), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessListRequestAsync<OkxSubAccountPermissionOfTransferOut>(GetUri("api/v5/users/subaccount/set-transfer-out"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -291,7 +281,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         var parameters = new ParameterCollection();
         parameters.AddOptional("subAcct", subAccountName);
 
-        return ProcessListRequestAsync<OkxSubAccountName>(GetUri(v5UsersEntrustSubaccountList), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSubAccountName>(GetUri("api/v5/users/entrust-subaccount-list"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
 }

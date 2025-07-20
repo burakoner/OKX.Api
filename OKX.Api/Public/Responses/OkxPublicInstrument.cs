@@ -42,6 +42,12 @@ public record OkxPublicInstrument
     public string? QuoteCurrency { get; set; } = string.Empty;
 
     /// <summary>
+    /// List of quote currencies available for trading, e.g. ["USD", "USDC"].
+    /// </summary>
+    [JsonProperty("tradeQuoteCcyList")]
+    public List<string>? TradeQuoteCurrencyList { get; set; } = [];
+
+    /// <summary>
     /// Settlement currency
     /// </summary>
     [JsonProperty("settleCcy")]

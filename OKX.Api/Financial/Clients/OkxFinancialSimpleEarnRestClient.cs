@@ -5,14 +5,6 @@
 /// </summary>
 public class OkxFinancialSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5FinanceSavingsBalance = "api/v5/finance/savings/balance";
-    private const string v5FinanceSavingsPurchaseRedempt = "api/v5/finance/savings/purchase-redempt";
-    private const string v5FinanceSavingsSetLendingRate = "api/v5/finance/savings/set-lending-rate";
-    private const string v5FinanceSavingsLendingHistory = "api/v5/finance/savings/lending-history";
-    private const string v5FinanceSavingsLendingRateSummary = "api/v5/finance/savings/lending-rate-summary";
-    private const string v5FinanceSavingsLendingRateHistory = "api/v5/finance/savings/lending-rate-history";
-
     /// <summary>
     /// GET / Saving balance
     /// </summary>
@@ -24,7 +16,7 @@ public class OkxFinancialSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRe
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", currency);
 
-        return ProcessListRequestAsync<OkxFinancialSimpleEarnSavingsBalance>(GetUri(v5FinanceSavingsBalance), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialSimpleEarnSavingsBalance>(GetUri("api/v5/finance/savings/balance"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -44,7 +36,7 @@ public class OkxFinancialSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRe
             {"rate", rate.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFinancialSimpleEarnSavingsOrder>(GetUri(v5FinanceSavingsPurchaseRedempt), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialSimpleEarnSavingsOrder>(GetUri("api/v5/finance/savings/purchase-redempt"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
         /// <summary>
@@ -64,7 +56,7 @@ public class OkxFinancialSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRe
             {"rate", rate.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFinancialSimpleEarnSavingsOrder>(GetUri(v5FinanceSavingsPurchaseRedempt), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialSimpleEarnSavingsOrder>(GetUri("api/v5/finance/savings/purchase-redempt"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -81,7 +73,7 @@ public class OkxFinancialSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRe
             {"rate", rate.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFinancialSimpleEarnSavingsRate>(GetUri(v5FinanceSavingsSetLendingRate), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialSimpleEarnSavingsRate>(GetUri("api/v5/finance/savings/set-lending-rate"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -106,7 +98,7 @@ public class OkxFinancialSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRe
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFinancialSimpleEarnSavingsLendingHistory>(GetUri(v5FinanceSavingsLendingHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialSimpleEarnSavingsLendingHistory>(GetUri("api/v5/finance/savings/lending-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
     
     /// <summary>
@@ -120,7 +112,7 @@ public class OkxFinancialSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRe
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", currency);
 
-        return ProcessOneRequestAsync<OkxFinancialSimpleEarnSavingsBorrowSummary>(GetUri(v5FinanceSavingsLendingRateSummary), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxFinancialSimpleEarnSavingsBorrowSummary>(GetUri("api/v5/finance/savings/lending-rate-summary"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -146,6 +138,6 @@ public class OkxFinancialSimpleEarnRestClient(OkxRestApiClient root) : OkxBaseRe
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxFinancialSimpleEarnSavingsBorrowHistory>(GetUri(v5FinanceSavingsLendingRateHistory), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxFinancialSimpleEarnSavingsBorrowHistory>(GetUri("api/v5/finance/savings/lending-rate-history"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 }

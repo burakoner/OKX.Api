@@ -5,25 +5,6 @@
 /// </summary>
 public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    private const string v5TradingBotSignalCreateSignal = "api/v5/tradingBot/signal/create-signal";
-    private const string v5TradingBotSignalSignals = "api/v5/tradingBot/signal/signals";
-    private const string v5TradingBotSignalOrderAlgo = "api/v5/tradingBot/signal/order-algo";
-    private const string v5TradingBotSignalStopOrderAlgo = "api/v5/tradingBot/signal/stop-order-algo";
-    private const string v5TradingBotSignalMarginBalance = "api/v5/tradingBot/signal/margin-balance";
-    private const string v5TradingBotSignalAmendTPSL = "api/v5/tradingBot/signal/amendTPSL";
-    private const string v5TradingBotSignalSetInstruments = "api/v5/tradingBot/signal/set-instruments";
-    private const string v5TradingBotSignalOrdersAlgoDetails = "api/v5/tradingBot/signal/orders-algo-details";
-    private const string v5TradingBotSignalOrdersAlgoPending = "api/v5/tradingBot/signal/orders-algo-pending";
-    private const string v5TradingBotSignalOrdersAlgoHistory = "api/v5/tradingBot/signal/orders-algo-history";
-    private const string v5TradingBotSignalPositions = "api/v5/tradingBot/signal/positions";
-    private const string v5TradingBotSignalPositionsHistory = "api/v5/tradingBot/signal/positions-history";
-    private const string v5TradingBotSignalClosePosition = "api/v5/tradingBot/signal/close-position";
-    private const string v5TradingBotSignalSubOrder = "api/v5/tradingBot/signal/sub-order";
-    private const string v5TradingBotSignalCancelSubOrder = "api/v5/tradingBot/signal/cancel-sub-order";
-    private const string v5TradingBotSignalSubOrders = "api/v5/tradingBot/signal/sub-orders";
-    private const string v5TradingBotSignalEventHistory = "api/v5/tradingBot/signal/event-history";
-
     /// <summary>
     /// POST / Create signal
     /// </summary>
@@ -37,7 +18,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "signalChanName", name },
             { "signalChanDesc", description },
         };
-        return ProcessOneRequestAsync<OkxSignalBotChannel>(GetUri(v5TradingBotSignalCreateSignal), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSignalBotChannel>(GetUri("api/v5/tradingBot/signal/create-signal"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -65,7 +46,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSignalBotChannelInformation>(GetUri(v5TradingBotSignalSignals), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSignalBotChannelInformation>(GetUri("api/v5/tradingBot/signal/signals"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -106,7 +87,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptional("entrySettingParam", entryParamaters);
         parameters.AddOptional("exitSettingParam", exitParamaters);
 
-        return ProcessOneRequestAsync<OkxSignalBotOrderId>(GetUri(v5TradingBotSignalOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSignalBotOrderId>(GetUri("api/v5/tradingBot/signal/order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -123,7 +104,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "algoId", algoIds.Select(x => new OkxSignalBotAlgoId { Data = x }) },
         };
 
-        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalStopOrderAlgo), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri("api/v5/tradingBot/signal/stop-order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw ?? "", result.Error);
     }
@@ -154,7 +135,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddEnum("type", type);
         parameters.AddOptional("allowReinvest", allowReinvest);
 
-        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalMarginBalance), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri("api/v5/tradingBot/signal/margin-balance"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw ?? "", result.Error);
     }
@@ -176,7 +157,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "exitSettingParam", exitSettingParam },
         };
 
-        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalAmendTPSL), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri("api/v5/tradingBot/signal/amendTPSL"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw ?? "", result.Error);
     }
@@ -201,7 +182,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "includeAll", includeAll },
         };
 
-        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri(v5TradingBotSignalSetInstruments), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxSignalBotAlgoIdResponse>(GetUri("api/v5/tradingBot/signal/set-instruments"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Select(x => x.Data).ToList(), result.Raw ?? "", result.Error);
     }
@@ -221,7 +202,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "algoOrdType", "contract" },
         };
 
-        return ProcessOneRequestAsync<OkxSignalBot>(GetUri(v5TradingBotSignalOrdersAlgoDetails), HttpMethod.Get, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSignalBot>(GetUri("api/v5/tradingBot/signal/orders-algo-details"), HttpMethod.Get, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -247,7 +228,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSignalBot>(GetUri(v5TradingBotSignalOrdersAlgoPending), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSignalBot>(GetUri("api/v5/tradingBot/signal/orders-algo-pending"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -274,7 +255,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSignalBot>(GetUri(v5TradingBotSignalOrdersAlgoHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSignalBot>(GetUri("api/v5/tradingBot/signal/orders-algo-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -292,7 +273,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "algoOrdType", "contract" },
         };
 
-        return ProcessListRequestAsync<OkxSignalBotPosition>(GetUri(v5TradingBotSignalPositions), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSignalBotPosition>(GetUri("api/v5/tradingBot/signal/positions"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -321,7 +302,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSignalBotPositionHistory>(GetUri(v5TradingBotSignalPositionsHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSignalBotPositionHistory>(GetUri("api/v5/tradingBot/signal/positions-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -341,7 +322,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         };
         parameters.AddOptional("instId", instrumentId);
 
-        var result = await ProcessListRequestAsync<OkxSignalBotAlgoId>(GetUri(v5TradingBotSignalClosePosition), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<OkxSignalBotAlgoId>(GetUri("api/v5/tradingBot/signal/close-position"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result || result.Data is null) return new RestCallResult<List<long>>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<List<long>>(result.Request, result.Response, result.Data.Where(x => x.Data.HasValue).Select(x => x.Data!.Value).ToList(), result.Raw ?? "", result.Error);
     }
@@ -383,7 +364,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptional("reduceOnly", reduceOnly);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
-        return ProcessOneRequestAsync<object>(GetUri(v5TradingBotSignalSubOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<object>(GetUri("api/v5/tradingBot/signal/sub-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -406,7 +387,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "instId", instrumentId },
         };
 
-        var result = await ProcessOneRequestAsync<OkxSignalBotSignalOrderId>(GetUri(v5TradingBotSignalCancelSubOrder), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessOneRequestAsync<OkxSignalBotSignalOrderId>(GetUri("api/v5/tradingBot/signal/cancel-sub-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<long?>(result.Request, result.Response, result.Data.Data, result.Raw ?? "", result.Error);
     }
@@ -450,7 +431,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptional("end", end?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSignalBotSuborder>(GetUri(v5TradingBotSignalSubOrders), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSignalBotSuborder>(GetUri("api/v5/tradingBot/signal/sub-orders"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -476,6 +457,6 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSignalBotSuborder>(GetUri(v5TradingBotSignalEventHistory), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSignalBotSuborder>(GetUri("api/v5/tradingBot/signal/event-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 }
