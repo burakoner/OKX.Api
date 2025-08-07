@@ -75,4 +75,11 @@ public record OkxBlockLegRequest
     /// </summary>
     [JsonProperty("tgtCcy")]
     public string TargetCurrency { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The quote currency used for trading. Only applicable to SPOT.
+    /// The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy")]
+    public string TradeQuoteCurrency { get; set; } = string.Empty;
 }

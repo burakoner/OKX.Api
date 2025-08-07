@@ -15,7 +15,15 @@ public record OkxPublicInstrument
     /// Instrument ID, e.g. BTC-USD-SWAP
     /// </summary>
     [JsonProperty("instId")]
-    public string? InstrumentId { get; set; } = string.Empty;
+    public string InstrumentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Instrument ID code.
+    /// For simple binary encoding, you must use instIdCode instead of instId.
+    /// For the same instId, it's value may be different between production and demo trading.
+    /// </summary>
+        [JsonProperty("instIdCode")]
+    public int InstrumentIdCode { get; set; }
 
     /// <summary>
     /// Underlying, e.g. BTC-USD. Only applicable to FUTURES/SWAP/OPTION

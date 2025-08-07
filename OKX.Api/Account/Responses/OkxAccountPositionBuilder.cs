@@ -120,10 +120,11 @@ public record OkxAccountPositionBuilderRiskUnit
     public string RiskUnit { get; set; } = string.Empty;
 
     /// <summary>
-    /// Index USD
+    /// Risk unit MMR before volatility (USD)
+    /// Return "" if users don't pass in idxVol
     /// </summary>
-    [JsonProperty("indexUsd")]
-    public string IndexUsd { get; set; } = string.Empty;
+    [JsonProperty("mmrBf")]
+    public string RiskUnitMMRBeforeVolatility { get; set; } = string.Empty;
 
     /// <summary>
     /// MMR
@@ -132,10 +133,23 @@ public record OkxAccountPositionBuilderRiskUnit
     public decimal MMR { get; set; }
 
     /// <summary>
+    /// Risk unit IMR before volatility (USD)
+    /// Return "" if users don't pass in idxVol
+    /// </summary>
+    [JsonProperty("imrBf")]
+    public string RiskUnitIMRBeforeVolatility { get; set; } = string.Empty;
+
+    /// <summary>
     /// IMR
     /// </summary>
     [JsonProperty("imr")]
     public decimal IMR { get; set; }
+
+    /// <summary>
+    /// Risk unit UPL
+    /// </summary>
+    [JsonProperty("upl")]
+    public decimal UPL { get; set; }
 
     /// <summary>
     /// Stress testing value of spot and volatility (all derivatives, and spot trading in spot-derivatives risk offset mode)
@@ -348,6 +362,13 @@ public record OkxAccountPositionBuilderRiskUnitPortfolio
     public decimal? AverageOpenPrice { get; set; }
 
     /// <summary>
+    /// Mark price before price volatility
+    /// Return "" if users don't pass in idxVol
+    /// </summary>
+    [JsonProperty("markPxBf")]
+    public decimal? MarkPriceBeforeVolatility { get; set; }
+
+    /// <summary>
     /// Mark price
     /// </summary>
     [JsonProperty("markPx")]
@@ -432,19 +453,31 @@ public record OkxAccountPositionBuilderRiskUnitPosition
     public decimal? AverageOpenPrice { get; set; }
 
     /// <summary>
+    /// Mark price before price volatility
+    /// </summary>
+    [JsonProperty("markPxBf")]
+    public decimal? MarkPriceBeforeVolatility { get; set; }
+
+    /// <summary>
     /// Mark price
     /// </summary>
     [JsonProperty("markPx")]
     public decimal? MarkPrice { get; set; }
 
     /// <summary>
-    /// IMR
+    /// Float P&amp;L
     /// </summary>
     [JsonProperty("floatPnl")]
     public decimal? FloatPnl { get; set; }
 
     /// <summary>
-    /// Notional USD
+    /// IMR (Initial Margin Requirement) before price volatility
+    /// </summary>
+    [JsonProperty("imr")]
+    public decimal? IMRBeforeVolatility { get; set; }
+
+    /// <summary>
+    /// IMR (Initial Margin Requirement)
     /// </summary>
     [JsonProperty("imr")]
     public decimal? IMR { get; set; }

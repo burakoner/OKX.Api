@@ -66,6 +66,12 @@ public record OkxFundingWithdrawalHistory
     public string AreaCodeTo { get; set; } = string.Empty;
 
     /// <summary>
+    /// Address Type
+    /// </summary>
+    [JsonProperty("toAddrType")]
+    public OkxFundingWithdrawalAddressType ToAddressType { get; set; }
+
+    /// <summary>
     /// Tag
     /// </summary>
     [JsonProperty("tag")]

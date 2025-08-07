@@ -10,7 +10,11 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// For leading contracts, this endpoint supports placement, but can't close positions.
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="tradeMode">Trade Mode</param>
+    /// <param name="tradeMode">Trade mode
+    /// Margin mode cross isolated
+    /// Non-Margin mode cash
+    /// spot_isolated(only applicable to SPOT lead trading, tdMode should be spot_isolated for SPOT lead trading.)
+    /// Note: isolated is not available in multi-currency margin mode and portfolio margin mode.</param>
     /// <param name="orderSide">Order Side</param>
     /// <param name="positionSide">Position Side</param>
     /// <param name="orderType">Order Type</param>

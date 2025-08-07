@@ -719,4 +719,10 @@ public enum OkxAccountBillSubType:int
     [Obsolete]
     [Map("380")]
     AutoConvertOut = 380,
+
+    /// <summary>
+    /// Auto convert out
+    /// </summary>
+    [Map("381")]
+    AutoLendInterestTransferIn = 381,
 }

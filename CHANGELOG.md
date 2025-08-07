@@ -1,5 +1,9 @@
 ## Change Log & Release Notes
-
+  
+* Version 5.5.807 - 08 Aug 2025
+  * ApiSharp 4.0.1 Update
+  * Synced with the OKX Latest API Version [2025-08-05](https://www.okx.com/docs-v5/log_en/#2025-08-05)
+  
 * Version 5.5.721 - 21 Jul 2025
   * Synced with the OKX Latest API Version [2025-07-08](https://www.okx.com/docs-v5/log_en/#2025-07-08)
   

@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-
-namespace OKX.Api.Account;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OkxAccountBalanceDetails
@@ -307,4 +305,21 @@ public record OkxAccountBalanceDetails
     /// </summary>
     [JsonProperty("colBorrAutoConversion")]
     public string? CollateralBorrowAutoConversion { get; set; }
+
+    /// <summary>
+    /// Auto lend status
+    /// unsupported: auto lend is not supported by this currency
+    /// off: auto lend is supported but turned off
+    /// pending: auto lend is turned on but pending matching
+    /// active: auto lend is turned on and matched
+    /// </summary>
+    [JsonProperty("autoLendStatus")]
+    public OkxAccountAutoLendStatus AutoLendStatus { get; set; }
+
+    /// <summary>
+    /// Auto lend currency matched amount
+    /// Return "0" when autoLendStatus is unsupported/off/pending.Return matched amount when autoLendStatus is active
+    /// </summary>
+    [JsonProperty("autoLendMtAmt")]
+    public decimal? AutoLendmatchedAmount { get; set; }
 }

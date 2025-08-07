@@ -231,7 +231,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="amount">Amount</param>
     /// <param name="destination">Withdrawal destination address</param>
     /// <param name="toAddress">Verified digital currency address, email or mobile number. Some digital currency addresses are formatted as 'address+tag', e.g. 'ARDOR-7JF3-8F2E-QUWZ-CAN7F:123456'</param>
-    /// <param name="fee">Transaction fee</param>
+    /// <param name="toAddressType">Address type 1: wallet address, email, phone, or login account name 2: UID(only applicable for dest= 3)</param>
     /// <param name="chain">Chain name. There are multiple chains under some currencies, such as USDT has USDT-ERC20, USDT-TRC20, and USDT-Omni. If this parameter is not filled in because it is not available, it will default to the main chain.</param>
     /// <param name="areaCode">Area code for the phone number. If toAddr is a phone number, this parameter is required.</param>
     /// <param name="receiverInfo">Recipient information. For the specific entity users to do on-chain withdrawal/lightning withdrawal, this information is required.</param>
@@ -243,7 +243,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         decimal amount,
         OkxFundingWithdrawalDestination destination,
         string toAddress,
-        decimal fee,
+        OkxFundingWithdrawalAddressType toAddressType,
         string? chain = null,
         string? areaCode = null,
         OkxFundingWithdrawalReceiver? receiverInfo = null,
@@ -254,9 +254,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "ccy",currency},
             { "amt",amount.ToOkxString()},
             { "toAddr",toAddress},
-            { "fee",fee   .ToOkxString()},
         };
         parameters.AddEnum("dest", destination);
+        parameters.AddOptionalEnum("toAddrType", toAddressType);
         parameters.AddOptional("chain", chain);
         parameters.AddOptional("areaCode", areaCode);
         parameters.AddOptional("rcvrInfo", receiverInfo);

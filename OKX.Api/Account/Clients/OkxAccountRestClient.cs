@@ -39,7 +39,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     public Task<RestCallResult<OkxAccountBalance>> GetBalancesAsync(IEnumerable<string>? currencies = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
-        if (currencies is not null && currencies.Count() > 0)
+        if (currencies is not null && currencies.Any())
             parameters.AddOptional("ccy", string.Join(",", currencies));
 
         return ProcessOneRequestAsync<OkxAccountBalance>(GetUri("api/v5/account/balance"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
@@ -785,6 +785,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="simulatedPositions">List of simulated positions</param>
     /// <param name="simulatedAssets">List of simulated assets</param>
     /// <param name="greeksType">Greeks type</param>
+    /// <param name="volatilityPercentage">Price volatility percentage, indicating what this price change means towards each of the values. In decimal form, range -0.99 ~ 1, in 0.01 increment. Default 0</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountPositionBuilder>>> PositionBuilderAsync(
@@ -794,15 +795,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     IEnumerable<OkxAccountSimulatedPosition>? simulatedPositions = null,
     IEnumerable<OkxAccountSimulatedAsset>? simulatedAssets = null,
     OkxAccountGreeksType? greeksType = OkxAccountGreeksType.BlackScholesGreeksInDollars,
+    decimal? volatilityPercentage = null,
     CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("acctLv", accountLevel);
-        parameters.AddOptional("lever", leverage?.ToOkxString());
         parameters.AddOptional("inclRealPosAndEq", importExisting);
+        parameters.AddOptional("lever", leverage?.ToOkxString());
         parameters.AddOptional("simPos", simulatedPositions);
         parameters.AddOptional("simAsset", simulatedAssets);
         parameters.AddOptionalEnum("greeksType", greeksType);
+        parameters.AddOptional("volatilityPct", volatilityPercentage?.ToOkxString());
 
         return ProcessListRequestAsync<OkxAccountPositionBuilder>(GetUri("api/v5/account/position-builder"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
