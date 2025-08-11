@@ -106,7 +106,7 @@ public record OkxAccountConfiguration
     /// Whether the optional trading was activated
     /// </summary>
     [JsonProperty("opAuth"), JsonConverter(typeof(OkxBooleanConverter))]
-    public bool OptionalTradingActivated { get; set; }
+    public bool OptionTrading { get; set; }
 
     /// <summary>
     /// Main account KYC level
@@ -136,15 +136,6 @@ public record OkxAccountConfiguration
     public OkxAccountApiKeyPermission ApiKeyPermission { get; set; }
 
     /// <summary>
-    /// Discount rule type for current account
-    /// 0: Original discount rate rules, the default value
-    /// 1: New discount rules
-    /// After new discount rate rules are effective completely, this parameter will be removed from the endpoint. Advice you to prepare in advance.
-    /// </summary>
-    [JsonProperty("discountType")]
-    public OkxAccountDiscountType DiscountType { get; set; }
-
-    /// <summary>
     /// The margin ratio level of liquidation alert
     /// 3 means that you will get hourly liquidation alerts on app and channel "Position risk warning" when your margin level drops to or below 300%
     /// 0 means that there is not alert
@@ -167,4 +158,10 @@ public record OkxAccountConfiguration
     /// </summary>
     [JsonProperty("spotBorrowAutoRepay")]
     public bool SpotBorrowAutoRepay { get; set; }
+
+    /// <summary>
+    /// Account type
+    /// </summary>
+    [JsonProperty("type")]
+    public OkxAccountType Type { get; set; }
 }

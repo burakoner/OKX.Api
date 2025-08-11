@@ -21,25 +21,25 @@ public record OkxTradeOrderCheck
     /// Current initial margin requirement in USD
     /// </summary>
     [JsonProperty("imr")]
-    public decimal? IMR { get; set; }
+    public decimal? InitialMarginRequirement { get; set; }
     
     /// <summary>
     /// After placing order, changed quantity of initial margin requirement in USD
     /// </summary>
     [JsonProperty("imrChg")]
-    public decimal? IMRChange { get; set; }
+    public decimal? InitialMarginRequirementChange { get; set; }
 
     /// <summary>
     /// Current Maintenance margin requirement in USD
     /// </summary>
     [JsonProperty("mmr")]
-    public decimal? MMR { get; set; }
+    public decimal? MaintenanceMarginRequirement { get; set; }
 
     /// <summary>
     /// After placing order, changed quantity of maintenance margin requirement in USD
     /// </summary>
     [JsonProperty("mmrChg")]
-    public decimal? MMRChange { get; set; }
+    public decimal? MaintenanceMarginRequirementChange { get; set; }
 
     /// <summary>
     /// Current margin ratio in USD

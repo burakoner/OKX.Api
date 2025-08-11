@@ -81,13 +81,13 @@ public record OkxCopyTradingLeadTraderPositionHistory
     /// Profit and loss
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal Pnl { get; set; }
+    public decimal ProfitAndLoss { get; set; }
 
     /// <summary>
     /// P&amp;L ratio
     /// </summary>
     [JsonProperty("pnlRatio")]
-    public decimal PnlRatio { get; set; }
+    public decimal ProfitAndLossRatio { get; set; }
 
     /// <summary>
     /// Instrument type

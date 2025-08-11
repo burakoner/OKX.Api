@@ -105,25 +105,25 @@ public record OkxGridAlgoPosition
     /// Initial margin requirement
     /// </summary>
     [JsonProperty("imr")]
-    public decimal? IMR { get; set; }
+    public decimal? InitialMarginRequirement { get; set; }
 
     /// <summary>
     /// Maintenance margin requirement
     /// </summary>
     [JsonProperty("mmr")]
-    public decimal? MMR { get; set; }
+    public decimal? MaintenanceMarginRequirement { get; set; }
 
     /// <summary>
     /// Unrealized profit and loss
     /// </summary>
     [JsonProperty("upl")]
-    public decimal? UPL { get; set; }
+    public decimal? UnrealizedProfitAndLoss { get; set; }
 
     /// <summary>
     /// Unrealized profit and loss ratio
     /// </summary>
     [JsonProperty("uplRatio")]
-    public decimal? UplRatio { get; set; }
+    public decimal? UnrealizedProfitAndLossRatio { get; set; }
 
     /// <summary>
     /// Last price

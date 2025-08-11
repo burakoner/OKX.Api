@@ -75,13 +75,13 @@ public record OkxCopyTradingLeadTraderPosition
     /// Unrealized profit and loss
     /// </summary>
     [JsonProperty("upl")]
-    public decimal Upl { get; set; }
+    public decimal UnrealizedProfitAndLoss { get; set; }
 
     /// <summary>
     /// Unrealized profit and loss ratio
     /// </summary>
     [JsonProperty("uplRatio")]
-    public decimal UplRatio { get; set; }
+    public decimal UnrealizedProfitAndLossRatio { get; set; }
 
     /// <summary>
     /// Latest mark price, only applicable to contract

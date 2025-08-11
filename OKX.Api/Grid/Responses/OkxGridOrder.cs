@@ -129,13 +129,13 @@ public record OkxGridOrder
     /// Total P&amp;L
     /// </summary>
     [JsonProperty("totalPnl")]
-    public decimal? TotalProfitLoss { get; set; }
+    public decimal? TotalProfitAndLoss { get; set; }
 
     /// <summary>
     /// P&amp;L ratio
     /// </summary>
     [JsonProperty("pnlRatio")]
-    public decimal? ProfitLossRatio { get; set; }
+    public decimal? ProfitAndLossRatio { get; set; }
 
     /// <summary>
     /// Investment amount

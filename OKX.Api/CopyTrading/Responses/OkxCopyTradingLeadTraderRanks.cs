@@ -105,25 +105,25 @@ public record OkxCopyTradingLeadTraderRank
     /// Pnl (in USDT) of last 90 days.
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal Pnl { get; set; }
+    public decimal ProfitAndLoss { get; set; }
 
     /// <summary>
     /// Pnl ratio of last 90 days. 0.1 represents 10%
     /// </summary>
     [JsonProperty("pnlRatio")]
-    public decimal PnlRatio { get; set; }
+    public decimal ProfitAndLossRatio { get; set; }
 
     /// <summary>
     /// Pnl ratios
     /// </summary>
     [JsonProperty("pnlRatios")]
-    public List<OkxCopyTradingLeadTraderPnlRatio> PnlRatios { get; set; } = [];
+    public List<OkxCopyTradingLeadTraderProfitAndLossRatio> ProfitAndLossRatios { get; set; } = [];
 }
 
 /// <summary>
 /// OKX Copy Trading Lead Trader Pnl Ratio
 /// </summary>
-public record OkxCopyTradingLeadTraderPnlRatio
+public record OkxCopyTradingLeadTraderProfitAndLossRatio
 {
     /// <summary>
     /// Begin time of pnl ratio on that day
@@ -141,5 +141,5 @@ public record OkxCopyTradingLeadTraderPnlRatio
     /// Pnl ratio on that day
     /// </summary>
     [JsonProperty("pnlRatio")]
-    public decimal PnlRatio { get; set; }
+    public decimal ProfitAndLossRatio { get; set; }
 }

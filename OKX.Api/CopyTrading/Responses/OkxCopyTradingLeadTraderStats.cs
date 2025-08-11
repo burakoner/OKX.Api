@@ -24,10 +24,10 @@ public record OkxCopyTradingLeadTraderStats
     public int LossDays { get; set; }
 
     /// <summary>
-    /// Current copy trader pnl (USDT)
+    /// Current copy trader ProfitAndLoss (USDT)
     /// </summary>
     [JsonProperty("curCopyTraderPnl")]
-    public decimal CurrentCopyTraderPnl { get; set; }
+    public decimal CurrentCopyTraderProfitAndLoss { get; set; }
 
     /// <summary>
     /// Average lead position notional (USDT)

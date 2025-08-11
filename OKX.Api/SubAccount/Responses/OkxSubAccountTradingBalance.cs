@@ -45,13 +45,13 @@ public record OkxSubAccountTradingBalance
     /// Initial Margin Requirement
     /// </summary>
     [JsonProperty("imr")]
-    public decimal? IMR { get; set; }
+    public decimal? InitialMarginRequirement { get; set; }
 
     /// <summary>
     /// Maintenance Margin Requirement
     /// </summary>
     [JsonProperty("mmr")]
-    public decimal? MMR { get; set; }
+    public decimal? MaintenanceMarginRequirement { get; set; }
 
     /// <summary>
     /// Potential borrowing IMR of the account in USD
@@ -188,13 +188,13 @@ public record OkxSubAccountTradingBalanceDetails
     /// Unrealized Profit and Loss
     /// </summary>
     [JsonProperty("upl")]
-    public decimal? UPL { get; set; }
+    public decimal? UnrealizedProfitAndLoss { get; set; }
 
     /// <summary>
     /// Unrealized Profit and Loss Liabilities
     /// </summary>
     [JsonProperty("uplLiab")]
-    public decimal? UplLiability { get; set; }
+    public decimal? UnrealizedProfitAndLossLiability { get; set; }
 
     /// <summary>
     /// Cross Liabilities
@@ -219,14 +219,14 @@ public record OkxSubAccountTradingBalanceDetails
     /// Applicable to Spot and futures mode and when there is cross position
     /// </summary>
     [JsonProperty("imr")]
-    public decimal? IMR { get; set; }
+    public decimal? InitialMarginRequirement { get; set; }
 
     /// <summary>
     /// Cross maintenance margin requirement at the currency level
     /// Applicable to Spot and futures mode and when there is cross position
     /// </summary>
     [JsonProperty("mmr")]
-    public decimal? MMR { get; set; }
+    public decimal? MaintenanceMarginRequirement { get; set; }
     
     /// <summary>
     /// Interest
@@ -300,23 +300,23 @@ public record OkxSubAccountTradingBalanceDetails
     /// Spot unrealized profit and loss. The unit is USD.
     /// </summary>
     [JsonProperty("spotUpl")]
-    public decimal? SpotUpl { get; set; }
+    public decimal? SpotUnrealizedProfitAndLoss { get; set; }
 
     /// <summary>
     /// Spot unrealized profit and loss ratio.
     /// </summary>
     [JsonProperty("spotUplRatio")]
-    public decimal? SpotUplRatio { get; set; }
+    public decimal? SpotUnrealizedProfitAndLossRatio { get; set; }
 
     /// <summary>
     /// Spot accumulated profit and loss. The unit is USD.
     /// </summary>
     [JsonProperty("totalPnl")]
-    public decimal? TotalPnl { get; set; }
+    public decimal? TotalProfitAndLoss { get; set; }
 
     /// <summary>
     /// Spot accumulated profit and loss ratio.
     /// </summary>
     [JsonProperty("totalPnlRatio")]
-    public decimal? TotalPnlRatio { get; set; }
+    public decimal? TotalProfitAndLossRatio { get; set; }
 }

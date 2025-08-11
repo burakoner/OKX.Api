@@ -150,7 +150,7 @@ public record OkxAccountPositionBalanceUpdatePosition
     /// Applicable to FUTURES cross
     /// </summary>
     [JsonProperty("settledPnl")]
-    public decimal? AccumulatedSettledPnl { get; set; }
+    public decimal? AccumulatedSettledProfitAndLoss { get; set; }
 
     /// <summary>
     /// Update time, Unix timestamp format in milliseconds, e.g. 1597026383085

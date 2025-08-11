@@ -40,7 +40,7 @@ public record OkxSpreadTradeLeg
     /// Last filled profit and loss, applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
     /// </summary>
     [JsonProperty("fillPnl")]
-    public decimal? LastFilledPnl { get; set; }
+    public decimal? LastFilledProfitAndLoss { get; set; }
 
     /// <summary>
     /// Fee. Negative number represents the user transaction fee charged by the platform. Positive number represents rebate.

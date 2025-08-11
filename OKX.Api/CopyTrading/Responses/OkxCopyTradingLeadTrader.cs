@@ -33,7 +33,7 @@ public record OkxCopyTradingLeadTrader
     /// Copy total pnl
     /// </summary>
     [JsonProperty("copyTotalPnl")]
-    public decimal CopyTotalPnl { get; set; }
+    public decimal CopyTotalProfitAndLoss { get; set; }
 
     /// <summary>
     /// Lead trader unique code
@@ -75,7 +75,7 @@ public record OkxCopyTradingLeadTrader
     /// Today pnl
     /// </summary>
     [JsonProperty("todayPnl")]
-    public decimal TodayProfitLoss { get; set; }
+    public decimal TodayProfitAndLoss { get; set; }
 
     /// <summary>
     /// Lead mode public private

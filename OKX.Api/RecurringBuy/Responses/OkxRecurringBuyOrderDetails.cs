@@ -123,7 +123,7 @@ public record OkxRecurringBuyOrderDetails
     /// Total PNL
     /// </summary>
     [JsonProperty("totalPnl")]
-    public decimal TotalPnl { get; set; }
+    public decimal TotalProfitAndLoss { get; set; }
 
     /// <summary>
     /// Total annual rate
@@ -135,7 +135,7 @@ public record OkxRecurringBuyOrderDetails
     /// PNL ratio
     /// </summary>
     [JsonProperty("pnlRatio")]
-    public decimal PnlRatio { get; set; }
+    public decimal ProfitAndLossRatio { get; set; }
 
     /// <summary>
     /// Market cap

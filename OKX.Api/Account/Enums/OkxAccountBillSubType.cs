@@ -692,7 +692,7 @@ public enum OkxAccountBillSubType:int
     /// Settlement PnL
     /// </summary>
     [Map("355")]
-    SettlementPnL = 355,
+    SettlementProfitAndLoss = 355,
 
     /// <summary>
     /// Collateralized borrowing auto conversion buy

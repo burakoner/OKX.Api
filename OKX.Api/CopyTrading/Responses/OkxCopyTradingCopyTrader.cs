@@ -9,7 +9,7 @@ public record OkxCopyTradingCopyTrader
     /// Total copy trader profit and loss
     /// </summary>
     [JsonProperty("copyTotalPnl")]
-    public decimal CopyTotalPnl { get; set; }
+    public decimal CopyTotalProfitAndLoss { get; set; }
 
     /// <summary>
     /// The currency name of profit and loss
@@ -69,5 +69,5 @@ public record OkxCopyTradingCopyTraderRecord
     /// Copy trading profit and loss
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal Pnl { get; set; }
+    public decimal ProfitAndLoss { get; set; }
 }

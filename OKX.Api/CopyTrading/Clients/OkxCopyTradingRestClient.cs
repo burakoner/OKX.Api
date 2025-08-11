@@ -541,7 +541,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingLeadTraderPnl>>> GetLeadTraderWeeklyPnlAsync(
+    public Task<RestCallResult<List<OkxCopyTradingLeadTraderProfitAndLoss>>> GetLeadTraderWeeklyPnlAsync(
         string uniqueCode,
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
@@ -550,7 +550,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("uniqueCode", uniqueCode);
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri("api/v5/copytrading/public-weekly-pnl"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTraderProfitAndLoss>(GetUri("api/v5/copytrading/public-weekly-pnl"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -561,7 +561,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxCopyTradingLeadTraderPnl>>> GetLeadTraderDailyPnlAsync(
+    public Task<RestCallResult<List<OkxCopyTradingLeadTraderProfitAndLoss>>> GetLeadTraderDailyPnlAsync(
         string uniqueCode,
         string lastDays,
         OkxInstrumentType? instrumentType = null,
@@ -572,7 +572,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("lastDays", lastDays);
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxCopyTradingLeadTraderPnl>(GetUri("api/v5/copytrading/public-pnl"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxCopyTradingLeadTraderProfitAndLoss>(GetUri("api/v5/copytrading/public-pnl"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>

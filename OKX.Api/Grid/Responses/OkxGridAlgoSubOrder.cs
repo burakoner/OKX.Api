@@ -159,7 +159,7 @@ public record OkxGridAlgoSubOrder
     /// Profit and loss
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal? ProfitLoss { get; set; }
+    public decimal? ProfitAndLoss { get; set; }
 
     /// <summary>
     /// Contract value

@@ -1,5 +1,18 @@
 ## Change Log & Release Notes
   
+
+* Version 5.5.811 - 11 Aug 2025
+  * *Refactor Okx API for clarity and consistency
+    * Updated `OkxAccountRestClient` methods: removed `underlying` parameter and changed return types for instruments and position risk.
+    * Enhanced `OkxAccountBalance` with new properties like `AvailableEquity` and added `OkxAccountBalanceDetails`.
+    * Abbreviated property names in `OkxAccountPosition` for margin fields (e.g., `IMR`, `MMR`, `RealizedPNL`).
+    * Introduced `OkxAccountPositionRisk` class for tracking position risks.
+    * Renamed `ProfitLoss` to `PNL` in `OkxAccountBill` for consistency.
+    * Updated `OkxPublicInstrument` to include `IsFutureSettlement` and ensure proper definition of `TradeQuoteCurrencyList`.
+    * Aligned property names in `OkxAccountPositionHistory` with new conventions.
+    * Added `OkxAccountBalanceDetails` for detailed balance information.
+    * Removed `OkxAccountPositionBalance` and `OkxAccountPositionData` records to streamline API structure.
+
 * Version 5.5.807 - 08 Aug 2025
   * ApiSharp 4.0.1 Update
   * Synced with the OKX Latest API Version [2025-08-05](https://www.okx.com/docs-v5/log_en/#2025-08-05)

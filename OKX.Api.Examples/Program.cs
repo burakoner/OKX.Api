@@ -353,7 +353,7 @@ internal class Program
         var funding_09 = await api.Funding.GetDepositAddressAsync("BTC");
         var funding_10 = await api.Funding.GetDepositAddressAsync("USDT");
         var funding_12 = await api.Funding.GetDepositHistoryAsync("USDT");
-        var funding_13 = await api.Funding.WithdrawAsync("USDT", 100.0m, OkxFundingWithdrawalDestination.DigitalCurrencyAddress, "toAddress", 1.0m, "USDT-TRC20");
+        var funding_13 = await api.Funding.WithdrawAsync("USDT", 100.0m, OkxFundingWithdrawalDestination.DigitalCurrencyAddress, "toAddress", OkxFundingWithdrawalAddressType.AddressInfo, "USDT-TRC20");
         var funding_15 = await api.Funding.CancelWithdrawalAsync(1_000_001);
         var funding_16 = await api.Funding.GetWithdrawalHistoryAsync("USDT");
         var funding_17 = await api.Funding.GetDepositStatusAsync("", "", "", "");

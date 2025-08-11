@@ -85,7 +85,7 @@ public record OkxTradeOrder
     /// Profit and loss, Applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal? ProfitLoss { get; set; }
+    public decimal? ProfitAndLoss { get; set; }
 
     /// <summary>
     /// Order type

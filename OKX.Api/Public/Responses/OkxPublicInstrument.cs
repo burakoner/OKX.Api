@@ -22,7 +22,7 @@ public record OkxPublicInstrument
     /// For simple binary encoding, you must use instIdCode instead of instId.
     /// For the same instId, it's value may be different between production and demo trading.
     /// </summary>
-        [JsonProperty("instIdCode")]
+    [JsonProperty("instIdCode")]
     public int InstrumentIdCode { get; set; }
 
     /// <summary>
@@ -48,12 +48,6 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonProperty("quoteCcy")]
     public string? QuoteCurrency { get; set; } = string.Empty;
-
-    /// <summary>
-    /// List of quote currencies available for trading, e.g. ["USD", "USDC"].
-    /// </summary>
-    [JsonProperty("tradeQuoteCcyList")]
-    public List<string>? TradeQuoteCurrencyList { get; set; } = [];
 
     /// <summary>
     /// Settlement currency
@@ -102,22 +96,6 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonIgnore]
     public DateTime? ListingTime => ListingTimestamp?.ConvertFromMilliseconds();
-
-    /// <summary>
-    /// The end time of call auction, Unix timestamp format in milliseconds, e.g. 1597026383085
-    /// Only applicable to SPOT that are listed through call auctions, return "" in other cases
-    /// </summary>
-    [Obsolete]
-    [JsonProperty("auctionEndTime")]
-    public long? AuctionEndTimestamp { get; set; }
-
-    /// <summary>
-    /// The end time of call auction, Unix timestamp format in milliseconds, e.g. 1597026383085
-    /// Only applicable to SPOT that are listed through call auctions, return "" in other cases
-    /// </summary>
-    [Obsolete]
-    [JsonIgnore]
-    public DateTime? AuctionEndTime => AuctionEndTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Continuous trading switch time. The switch time from call auction, prequote to continuous trading, Unix timestamp format in milliseconds. e.g. 1597026383085.
@@ -266,4 +244,10 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonProperty("futureSettlement")]
     public bool? IsFutureSettlement { get; set; }
+
+    /// <summary>
+    /// List of quote currencies available for trading, e.g. ["USD", "USDC"].
+    /// </summary>
+    [JsonProperty("tradeQuoteCcyList")]
+    public List<string>? TradeQuoteCurrencyList { get; set; } = [];
 }

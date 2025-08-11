@@ -182,7 +182,7 @@ public record OkxAccountPosition
     /// Divided into 5 levels, from 1 to 5, the smaller the number, the weaker the adl intensity.
     /// </summary>
     [JsonProperty("adl")]
-    public decimal? AutoDeleveragingIndicator { get; set; }
+    public decimal? ADL { get; set; }
 
     /// <summary>
     /// Currency used for margin
@@ -306,20 +306,20 @@ public record OkxAccountPosition
     /// Realized profit and loss
     /// </summary>
     [JsonProperty("realizedPnl")]
-    public decimal? RealizedPnl { get; set; }
+    public decimal? RealizedProfitAndLoss { get; set; }
 
     /// <summary>
     /// Settled profit and loss (calculated by settlement price)
     /// Only applicable to cross FUTURES
     /// </summary>
     [JsonProperty("settledPnl")]
-    public decimal? SettledPnl { get; set; }
+    public decimal? SettledProfitAndLoss { get; set; }
 
     /// <summary>
     /// Accumulated pnl of closing order(s)
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal? Pnl { get; set; }
+    public decimal? ProfitAndLoss { get; set; }
 
     /// <summary>
     /// Accumulated fee

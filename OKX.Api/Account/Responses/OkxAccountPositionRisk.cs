@@ -1,9 +1,9 @@
 ﻿namespace OKX.Api.Account;
 
 /// <summary>
-/// OkxAccountPositionBalance
+/// OkxAccountPositionRisk
 /// </summary>
-public record OkxAccountPositionBalance
+public record OkxAccountPositionRisk
 {
     /// <summary>
     /// Update time of account information, millisecond format of Unix timestamp, e.g. 1597026383085
@@ -28,19 +28,19 @@ public record OkxAccountPositionBalance
     /// Detailed asset information in all currencies
     /// </summary>
     [JsonProperty("balData")]
-    public List<OkxAccountBalanceData> BalanceData { get; set; } = [];
+    public List<OkxAccountPositionRiskBalanceData> BalanceData { get; set; } = [];
 
     /// <summary>
     /// Detailed position information in all currencies
     /// </summary>
     [JsonProperty("posData")]
-    public List<OkxAccountPositionData> PositionData { get; set; } = [];
+    public List<OkxAccountPositionRiskPositionData> PositionData { get; set; } = [];
 }
 
 /// <summary>
 /// OkxAccountPositionRiskBalanceData
 /// </summary>
-public record OkxAccountBalanceData
+public record OkxAccountPositionRiskBalanceData
 {
     /// <summary>
     /// Currency
@@ -64,7 +64,7 @@ public record OkxAccountBalanceData
 /// <summary>
 /// OkxAccountPositionRiskPositionData
 /// </summary>
-public record OkxAccountPositionData
+public record OkxAccountPositionRiskPositionData
 {
     /// <summary>
     /// Instrument type

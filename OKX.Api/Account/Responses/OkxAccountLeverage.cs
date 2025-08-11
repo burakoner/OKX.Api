@@ -6,10 +6,10 @@
 public record OkxAccountLeverage
 {
     /// <summary>
-    /// Instrument ID
+    /// Leverage
     /// </summary>
-    [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = string.Empty;
+    [JsonProperty("lever")]
+    public decimal Leverage { get; set; }
 
     /// <summary>
     /// Margin mode
@@ -18,14 +18,14 @@ public record OkxAccountLeverage
     public OkxAccountMarginMode MarginMode { get; set; }
 
     /// <summary>
+    /// Instrument ID
+    /// </summary>
+    [JsonProperty("instId")]
+    public string InstrumentId { get; set; } = string.Empty;
+
+    /// <summary>
     /// Position side
     /// </summary>
     [JsonProperty("posSide")]
     public OkxTradePositionSide PositionSide { get; set; }
-
-    /// <summary>
-    /// Leverage
-    /// </summary>
-    [JsonProperty("lever")]
-    public decimal Leverage { get; set; }
 }

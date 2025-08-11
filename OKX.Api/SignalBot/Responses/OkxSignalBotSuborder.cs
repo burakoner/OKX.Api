@@ -144,7 +144,7 @@ public record OkxSignalBotSuborder
     /// Sub order profit and loss
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal PNL { get; set; }
+    public decimal ProfitAndLoss { get; set; }
     
     /// <summary>
     /// Contract value. Only applicable to FUTURES/SWAP

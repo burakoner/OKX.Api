@@ -94,7 +94,7 @@ public record OkxAccountBill
     /// Profit and loss
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal? ProfitLoss { get; set; }
+    public decimal? ProfitAndLoss { get; set; }
 
     /// <summary>
     /// Fee

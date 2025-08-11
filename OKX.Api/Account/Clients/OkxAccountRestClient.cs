@@ -11,21 +11,18 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="instrumentFamily">Instrument family</param>
     /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicInstrument>>> GetInstrumentsAsync(
        OkxInstrumentType instrumentType,
        string? instrumentFamily = null,
        string? instrumentId = null,
-       string? underlying = null,
        CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("uly", underlying);
 
         return ProcessListRequestAsync<OkxPublicInstrument>(GetUri("api/v5/account/instruments"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -110,12 +107,12 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxAccountPositionBalance>>> GetPositionRiskAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxAccountPositionRisk>>> GetPositionRiskAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
 
-        return ProcessListRequestAsync<OkxAccountPositionBalance>(GetUri("api/v5/account/account-position-risk"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountPositionRisk>(GetUri("api/v5/account/account-position-risk"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -516,7 +513,6 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="ruleType">Trading rule types</param>
     /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="instrumentFamily">Instrument family</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -524,7 +520,6 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         OkxInstrumentType instrumentType,
         OkxInstrumentRuleType ruleType,
         string? instrumentId = null,
-        string? underlying = null,
         string? instrumentFamily = null,
         CancellationToken ct = default)
     {
@@ -532,7 +527,6 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddEnum("instType", instrumentType);
         parameters.AddEnum("ruleType", ruleType);
         parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
 
         return ProcessOneRequestAsync<OkxAccountFeeRate>(GetUri("api/v5/account/trade-fee"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
@@ -851,19 +845,16 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// Retrieve cross position limitation of SWAP/FUTURES/OPTION under Portfolio margin mode.
     /// </summary>
     /// <param name="instrumentType">Instrument type</param>
-    /// <param name="underlying">Single underlying or multiple underlyings (no more than 3) separated with comma. Either uly or instFamily is required. If both are passed, instFamily will be used.</param>
     /// <param name="instrumentFamily">Single instrument family or instrument families (no more than 5) separated with comma. Either uly or instFamily is required. If both are passed, instFamily will be used.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxAccountPositionTiers>> GetPositionTiersAsync(
     OkxInstrumentType instrumentType,
-    string? underlying = null,
     string? instrumentFamily = null,
     CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
 
         return ProcessOneRequestAsync<OkxAccountPositionTiers>(GetUri("api/v5/account/position-tiers"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);

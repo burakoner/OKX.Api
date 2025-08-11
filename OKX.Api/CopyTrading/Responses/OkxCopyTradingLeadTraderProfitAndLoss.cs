@@ -3,19 +3,19 @@
 /// <summary>
 /// OKX Copy Trading Lead Traders Ranks
 /// </summary>
-public record OkxCopyTradingLeadTraderPnl
+public record OkxCopyTradingLeadTraderProfitAndLoss
 {
     /// <summary>
     /// Pnl
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal Pnl { get; set; }
+    public decimal ProfitAndLoss { get; set; }
     
     /// <summary>
     /// Pnl ratio
     /// </summary>
     [JsonProperty("pnlRatio")]
-    public decimal PnlRatio { get; set; }
+    public decimal ProfitAndLossRatio { get; set; }
     
     /// <summary>
     /// Begin timestamp

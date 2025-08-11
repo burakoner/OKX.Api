@@ -78,13 +78,13 @@ public record OkxSignalBot
     /// Total P&amp;L
     /// </summary>
     [JsonProperty("totalPnl")]
-    public decimal? TotalPnl { get; set; }
+    public decimal? TotalProfitAndLoss { get; set; }
     
     /// <summary>
     /// Total P&amp;L ratio
     /// </summary>
     [JsonProperty("totalPnlRatio")]
-    public decimal? TotalPnlRatio { get; set; }
+    public decimal? TotalProfitAndLossRatio { get; set; }
     
     /// <summary>
     /// Total equity of strategy account
@@ -96,13 +96,13 @@ public record OkxSignalBot
     /// Float P&amp;L
     /// </summary>
     [JsonProperty("floatPnl")]
-    public decimal? FloatPnl { get; set; }
+    public decimal? FloatProfitAndLoss { get; set; }
     
     /// <summary>
     /// Realized P&amp;L
     /// </summary>
     [JsonProperty("realizedPnl")]
-    public decimal? RealizedPnl { get; set; }
+    public decimal? RealizedProfitAndLoss { get; set; }
     
     /// <summary>
     /// Frozen balance

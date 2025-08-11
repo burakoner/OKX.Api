@@ -15,25 +15,25 @@ public record OkxAccountPositionBuilder
     /// Total MMR (USD) for the account
     /// </summary>
     [JsonProperty("totalMmr")]
-    public decimal TotalMmr { get; set; }
+    public decimal TotalMaintenanceMarginRequirement { get; set; }
 
     /// <summary>
     /// Total IMR (USD) for the account
     /// </summary>
     [JsonProperty("totalImr")]
-    public decimal TotalImr { get; set; }
+    public decimal TotalInitialMarginRequirement { get; set; }
 
     /// <summary>
     /// Borrow MMR (USD) for the account
     /// </summary>
     [JsonProperty("borrowMmr")]
-    public decimal BorrowMmr { get; set; }
+    public decimal BorrowMaintenanceMarginRequirement { get; set; }
 
     /// <summary>
     /// Derivatives MMR (USD) for the account
     /// </summary>
     [JsonProperty("derivMmr")]
-    public decimal DerivativesMmr { get; set; }
+    public decimal DerivativesMaintenanceMarginRequirement { get; set; }
 
     /// <summary>
     /// Cross margin ratio for the account
@@ -45,7 +45,7 @@ public record OkxAccountPositionBuilder
     /// UPL for the account
     /// </summary>
     [JsonProperty("upl")]
-    public decimal UPL { get; set; }
+    public decimal UnrealizedProfitAndLoss { get; set; }
 
     /// <summary>
     /// Leverage of the account
@@ -105,7 +105,7 @@ public record OkxAccountPositionBuilderAsset
     /// Borrow IMR
     /// </summary>
     [JsonProperty("borrowImr")]
-    public decimal BorrowImr { get; set; }
+    public decimal BorrowInitialMarginRequirement { get; set; }
 }
 
 /// <summary>
@@ -124,104 +124,104 @@ public record OkxAccountPositionBuilderRiskUnit
     /// Return "" if users don't pass in idxVol
     /// </summary>
     [JsonProperty("mmrBf")]
-    public string RiskUnitMMRBeforeVolatility { get; set; } = string.Empty;
+    public string RiskUnitMaintenanceMarginRequirementBeforeVolatility { get; set; } = string.Empty;
 
     /// <summary>
     /// MMR
     /// </summary>
     [JsonProperty("mmr")]
-    public decimal MMR { get; set; }
+    public decimal MaintenanceMarginRequirement { get; set; }
 
     /// <summary>
     /// Risk unit IMR before volatility (USD)
     /// Return "" if users don't pass in idxVol
     /// </summary>
     [JsonProperty("imrBf")]
-    public string RiskUnitIMRBeforeVolatility { get; set; } = string.Empty;
+    public string RiskUnitInitialMarginRequirementBeforeVolatility { get; set; } = string.Empty;
 
     /// <summary>
     /// IMR
     /// </summary>
     [JsonProperty("imr")]
-    public decimal IMR { get; set; }
+    public decimal InitialMarginRequirement { get; set; }
 
     /// <summary>
     /// Risk unit UPL
     /// </summary>
     [JsonProperty("upl")]
-    public decimal UPL { get; set; }
+    public decimal UnrealizedProfitAndLoss { get; set; }
 
     /// <summary>
     /// Stress testing value of spot and volatility (all derivatives, and spot trading in spot-derivatives risk offset mode)
     /// </summary>
     [JsonProperty("mr1")]
-    public decimal MR1 { get; set; }
+    public decimal MarginRequirement1 { get; set; }
 
     /// <summary>
     /// Stress testing value of time value of money (TVM) (for options)
     /// </summary>
     [JsonProperty("mr2")]
-    public decimal MR2 { get; set; }
+    public decimal MarginRequirement2 { get; set; }
 
     /// <summary>
     /// Stress testing value of volatility span (for options)
     /// </summary>
     [JsonProperty("mr3")]
-    public decimal MR3 { get; set; }
+    public decimal MarginRequirement3 { get; set; }
 
     /// <summary>
     /// Stress testing value of basis (for all derivatives)
     /// </summary>
     [JsonProperty("mr4")]
-    public decimal MR4 { get; set; }
+    public decimal MarginRequirement4 { get; set; }
 
     /// <summary>
     /// Stress testing value of interest rate risk (for options)
     /// </summary>
     [JsonProperty("mr5")]
-    public decimal MR5 { get; set; }
+    public decimal MarginRequirement5 { get; set; }
 
     /// <summary>
     /// Stress testing value of extremely volatile markets (for all derivatives, and spot trading in spot-derivatives risk offset mode)
     /// </summary>
     [JsonProperty("mr6")]
-    public decimal MR6 { get; set; }
+    public decimal MarginRequirement6 { get; set; }
 
     /// <summary>
     /// Stress testing value of position reduction cost (for all derivatives)
     /// </summary>
     [JsonProperty("mr7")]
-    public decimal MR7 { get; set; }
+    public decimal MarginRequirement7 { get; set; }
 
     /// <summary>
     /// Borrowing MMR/IMR
     /// </summary>
     [JsonProperty("mr8")]
-    public decimal MR8 { get; set; }
+    public decimal MarginRequirement8 { get; set; }
 
     /// <summary>
     /// USDT-USDC-USD hedge risk
     /// </summary>
     [JsonProperty("mr9")]
-    public decimal MR9 { get; set; }
+    public decimal MarginRequirement9 { get; set; }
 
     /// <summary>
     /// MR1 scenarios
     /// </summary>
     [JsonProperty("mr1Scenarios")]
-    public OkxAccountPositionBuilderRiskUnitMR1Scenarios? MR1Scenarios { get; set; }
+    public OkxAccountPositionBuilderRiskUnitMR1Scenarios? MarginRequirement1Scenarios { get; set; }
 
     /// <summary>
     /// MR1 final result
     /// </summary>
     [JsonProperty("mr1FinalResult")]
-    public OkxAccountPositionBuilderRiskUnitMR1FinalResult? MR1FinalResult { get; set; }
+    public OkxAccountPositionBuilderRiskUnitMR1FinalResult? MarginRequirement1FinalResult { get; set; }
 
     /// <summary>
     /// MR6 final result
     /// </summary>
     [JsonProperty("mr6FinalResult")]
-    public OkxAccountPositionBuilderRiskUnitMR6FinalResult? MR6FinalResult { get; set; }
+    public OkxAccountPositionBuilderRiskUnitMR6FinalResult? MarginRequirement6FinalResult { get; set; }
 
     /// <summary>
     /// Delta
@@ -293,7 +293,7 @@ public record OkxAccountPositionBuilderRiskUnitMR1FinalResult
     /// PNL
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal PNL { get; set; }
+    public decimal ProfitAndLoss { get; set; }
 
     /// <summary>
     /// Spot shock
@@ -317,7 +317,7 @@ public record OkxAccountPositionBuilderRiskUnitMR6FinalResult
     /// PNL
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal PNL { get; set; }
+    public decimal ProfitAndLoss { get; set; }
 
     /// <summary>
     /// Spot shock
@@ -378,7 +378,7 @@ public record OkxAccountPositionBuilderRiskUnitPortfolio
     /// Float P&amp;L
     /// </summary>
     [JsonProperty("floatPnl")]
-    public decimal? FloatPnl { get; set; }
+    public decimal? FloatProfitAndLoss { get; set; }
 
     /// <summary>
     /// Notional USD
@@ -468,19 +468,19 @@ public record OkxAccountPositionBuilderRiskUnitPosition
     /// Float P&amp;L
     /// </summary>
     [JsonProperty("floatPnl")]
-    public decimal? FloatPnl { get; set; }
+    public decimal? FloatProfitAndLoss { get; set; }
 
     /// <summary>
     /// IMR (Initial Margin Requirement) before price volatility
     /// </summary>
     [JsonProperty("imr")]
-    public decimal? IMRBeforeVolatility { get; set; }
+    public decimal? InitialMarginRequirementBeforeVolatility { get; set; }
 
     /// <summary>
     /// IMR (Initial Margin Requirement)
     /// </summary>
     [JsonProperty("imr")]
-    public decimal? IMR { get; set; }
+    public decimal? InitialMarginRequirement { get; set; }
 
     /// <summary>
     /// Margin ratio

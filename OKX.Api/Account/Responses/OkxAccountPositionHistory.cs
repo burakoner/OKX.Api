@@ -60,18 +60,18 @@ public record OkxAccountPositionHistory
     public decimal OpenAveragePrice { get; set; }
 
     /// <summary>
-    /// Average price of closing position
-    /// </summary>
-    [JsonProperty("closeAvgPx")]
-    public decimal CloseAveragePrice { get; set; }
-
-    /// <summary>
     /// Non-settlement entry price
     /// The non-settlement entry price only reflects the average price at which the position is opened or increased.
     /// Applicable to cross FUTURES positions.
     /// </summary>
     [JsonProperty("nonSettleAvgPx")]
     public decimal? NonSettlementAveragePrice { get; set; }
+
+    /// <summary>
+    /// Average price of closing position
+    /// </summary>
+    [JsonProperty("closeAvgPx")]
+    public decimal CloseAveragePrice { get; set; }
 
     /// <summary>
     /// Position ID
@@ -95,14 +95,20 @@ public record OkxAccountPositionHistory
     /// Realized profit and loss
     /// </summary>
     [JsonProperty("realizedPnl")]
-    public decimal RealizedProfitLoss { get; set; }
+    public decimal RealizedProfitAndLoss { get; set; }
 
     /// <summary>
     /// Settled profit and loss (calculated by settlement price)
     /// Only applicable to cross FUTURES
     /// </summary>
     [JsonProperty("settledPnl")]
-    public decimal? SettledPnl { get; set; }
+    public decimal? SettledProfitAndLoss { get; set; }
+
+    /// <summary>
+    /// P&amp;L ratio
+    /// </summary>
+    [JsonProperty("pnlRatio")]
+    public decimal ProfitAndLossRatio { get; set; }
 
     /// <summary>
     /// Accumulated fee
@@ -127,13 +133,13 @@ public record OkxAccountPositionHistory
     /// Profit and loss
     /// </summary>
     [JsonProperty("pnl")]
-    public decimal ProfitLoss { get; set; }
+    public decimal ProfitAndLoss { get; set; }
 
     /// <summary>
-    /// P&amp;L ratio
+    /// Position side
     /// </summary>
-    [JsonProperty("pnlRatio")]
-    public decimal ProfitLossRatio { get; set; }
+    [JsonProperty("posSide")]
+    public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
     /// Leverage
