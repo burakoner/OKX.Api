@@ -271,18 +271,6 @@ public record OkxGridOrder
     public OkxProfitSharingOrderType ProfitSharingOrderType { get; set; }
 
     /// <summary>
-    /// Take profit ratio, 0.1 represents 10%
-    /// </summary>
-    [JsonProperty("tpRatio")]
-    public decimal? TakeProfitRatio { get; set; }
-
-    /// <summary>
-    /// Stop loss ratio, 0.1 represents 10%
-    /// </summary>
-    [JsonProperty("slRatio")]
-    public decimal? StopLossRatio { get; set; }
-
-    /// <summary>
     /// Accumulated fee. Only applicable to contract grid, or it will be ""
     /// </summary>
     [JsonProperty("fee")]
@@ -293,4 +281,16 @@ public record OkxGridOrder
     /// </summary>
     [JsonProperty("fundingFee")]
     public decimal? FundingFee { get; set; }
+
+    /// <summary>
+    /// Take profit ratio, 0.1 represents 10%
+    /// </summary>
+    [JsonProperty("tpRatio")]
+    public decimal? TakeProfitRatio { get; set; }
+
+    /// <summary>
+    /// Stop loss ratio, 0.1 represents 10%
+    /// </summary>
+    [JsonProperty("slRatio")]
+    public decimal? StopLossRatio { get; set; }
 }

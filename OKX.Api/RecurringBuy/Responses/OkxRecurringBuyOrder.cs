@@ -93,7 +93,7 @@ public record OkxRecurringBuyOrder
     /// Recurring time
     /// </summary>
     [JsonProperty("recurringTime")]
-    public int RecurringTime { get; set; }
+    public int? RecurringTime { get; set; }
 
     /// <summary>
     /// Time zone
@@ -148,4 +148,22 @@ public record OkxRecurringBuyOrder
     /// </summary>
     [JsonProperty("cycles")]
     public int Cycles { get; set; }
+}
+
+/// <summary>
+/// Recurring Buy Item Details
+/// </summary>
+public record OkxRecurringBuyOrderList
+{
+    /// <summary>
+    /// Recurring currency, e.g. BTC
+    /// </summary>
+    [JsonProperty("ccy")]
+    public string Currency { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Proportion of recurring currency assets, e.g. "0.2" representing 20%
+    /// </summary>
+    [JsonProperty("ratio")]
+    public decimal Ratio { get; set; }
 }

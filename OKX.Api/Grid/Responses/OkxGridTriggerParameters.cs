@@ -30,7 +30,7 @@ public record OkxGridTriggerParameters
     public long TriggerTimestamp { get; set; }
 
     /// Actual action triggered time, unix timestamp format in milliseconds, e.g. 1597026383085
-    [JsonProperty("triggerTime")]
+    [JsonIgnore]
     public DateTime TriggerTime => TriggerTimestamp.ConvertFromMilliseconds();
 
     /// <summary>

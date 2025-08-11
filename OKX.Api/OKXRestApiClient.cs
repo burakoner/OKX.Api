@@ -23,32 +23,32 @@ public class OkxRestApiClient
     /// <summary>
     /// Trading Account Client
     /// </summary>
-    public OkxAccountRestClient Account { get; } // 811
+    public OkxAccountRestClient Account { get; } // 812
 
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradeRestClient Trade { get; }
+    public OkxTradeRestClient Trade { get; } // 812
 
     /// <summary>
     /// Algo Trading Client
     /// </summary>
-    public OkxAlgoRestClient Algo { get; }
+    public OkxAlgoRestClient Algo { get; } // 813
 
     /// <summary>
     /// Grid Trading Client
     /// </summary>
-    public OkxGridRestClient Grid { get; }
+    public OkxGridRestClient Grid { get; } // 813
 
     /// <summary>
     /// Signal Trading Client
     /// </summary>
-    public OkxSignalBotRestClient SignalBot { get; }
+    public OkxSignalBotRestClient SignalBot { get; } // 813
 
     /// <summary>
     /// Recurring Buy Client
     /// </summary>
-    public OkxRecurringBuyRestClient RecurringBuy { get; }
+    public OkxRecurringBuyRestClient RecurringBuy { get; } // 813
 
     /// <summary>
     /// Copy Trading Client
@@ -128,15 +128,16 @@ public class OkxRestApiClient
         _options = options;
 
         // Initialize Clients
-        Public = new OkxPublicRestClient(this);
         Account = new OkxAccountRestClient(this);
-        Funding = new OkxFundingRestClient(this);
-        SubAccount = new OkxSubAccountRestClient(this);
         Trade = new OkxTradeRestClient(this);
         Algo = new OkxAlgoRestClient(this);
         Grid = new OkxGridRestClient(this);
         SignalBot = new OkxSignalBotRestClient(this);
         RecurringBuy = new OkxRecurringBuyRestClient(this);
+
+        Public = new OkxPublicRestClient(this);
+        Funding = new OkxFundingRestClient(this);
+        SubAccount = new OkxSubAccountRestClient(this);
         CopyTrading = new OkxCopyTradingRestClient(this);
         Block = new OkxBlockRestClient(this);
         Spread = new OkxSpreadRestClient(this);
@@ -165,15 +166,16 @@ public class OkxRestApiClient
     /// <param name="credentials">OkxApiCredentials Object</param>
     public void SetApiCredentials(OkxApiCredentials credentials)
     {
-        Public.SetApiCredentials(credentials);
         Account.SetApiCredentials(credentials);
-        Funding.SetApiCredentials(credentials);
-        SubAccount.SetApiCredentials(credentials);
         Trade.SetApiCredentials(credentials);
         Algo.SetApiCredentials(credentials);
         Grid.SetApiCredentials(credentials);
         SignalBot.SetApiCredentials(credentials);
         RecurringBuy.SetApiCredentials(credentials);
+
+        Public.SetApiCredentials(credentials);
+        Funding.SetApiCredentials(credentials);
+        SubAccount.SetApiCredentials(credentials);
         Grid.SetApiCredentials(credentials);
         CopyTrading.SetApiCredentials(credentials);
         Block.SetApiCredentials(credentials);

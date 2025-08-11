@@ -89,6 +89,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxTradeQuantityType? quantityType = null,
         string? clientOrderId = null,
         decimal? closeFraction = null,
+        string? tradeQuoteCurrency = null,
 
         // Take Profit / Stop Loss
         decimal? tpTriggerPrice = null,
@@ -100,6 +101,12 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? slOrderPrice = null,
         bool? cancelOnClosePosition = null,
         bool? reduceOnly = null,
+
+        // Chase Order
+        OkxAlgoChaseType? chaseType = null,
+        decimal? chaseValue = null,
+        OkxAlgoChaseType? maxChaseType = null,
+        decimal? maxChaseValue = null,
 
         // Trigger Order
         decimal? triggerPrice = null,
@@ -119,14 +126,6 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? priceLimit = null,
         long? timeInterval = null,
 
-        // Chase Order
-        OkxAlgoChaseType? chaseType = null,
-        decimal? chaseValue = null,
-        OkxAlgoChaseType? maxChaseType = null,
-        decimal? maxChaseValue = null,
-
-        string? tradeQuoteCurrency = null,
-
         // Cancellation Token
         CancellationToken ct = default)
     {
@@ -144,6 +143,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalEnum("tgtCcy", quantityType);
         parameters.AddOptional("algoClOrdId", clientOrderId);
         parameters.AddOptional("closeFraction", closeFraction?.ToOkxString());
+        parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
 
         // Take Profit / Stop Loss
         parameters.AddOptional("tpTriggerPx", tpTriggerPrice?.ToOkxString());
@@ -156,6 +156,13 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("cxlOnClosePos", cancelOnClosePosition);
         parameters.AddOptional("reduceOnly", reduceOnly);
 
+        // Chase Order
+        parameters.AddOptionalEnum("chaseType", chaseType);
+        parameters.AddOptional("chaseVal", chaseValue?.ToOkxString());
+        parameters.AddOptionalEnum("maxChaseType", maxChaseType);
+        parameters.AddOptional("maxChaseVal", maxChaseValue?.ToOkxString());
+        // parameters.AddOptional("reduceOnly", reduceOnly);
+
         // Trigger Order
         parameters.AddOptional("triggerPx", triggerPrice?.ToOkxString());
         parameters.AddOptional("orderPx", orderPrice?.ToOkxString());
@@ -166,6 +173,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("callbackRatio", callbackRatio?.ToOkxString());
         parameters.AddOptional("callbackSpread", callbackSpread?.ToOkxString());
         parameters.AddOptional("activePx", activePrice?.ToOkxString());
+        // parameters.AddOptional("reduceOnly", reduceOnly);
 
         // TWAP Order
         parameters.AddOptionalEnum("pxVar", priceVariance);
@@ -173,15 +181,6 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("szLimit", sizeLimit?.ToOkxString());
         parameters.AddOptional("pxLimit", priceLimit?.ToOkxString());
         parameters.AddOptional("timeInterval", timeInterval?.ToOkxString());
-
-        // Chase Order
-        parameters.AddOptionalEnum("chaseType", chaseType);
-        parameters.AddOptional("chaseVal", chaseValue?.ToOkxString());
-        parameters.AddOptionalEnum("maxChaseType", maxChaseType);
-        parameters.AddOptional("maxChaseVal", maxChaseValue?.ToOkxString());
-
-        // Trade Quote Currency
-        parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
 
         // Broker Id
         parameters.AddOptional("tag", OkxConstants.BrokerId);
@@ -258,9 +257,9 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? newStopLossOrderPrice = null,
 
         // Trigger Order
+        OkxAlgoPriceType? newTriggerPriceType = null,
         decimal? newTriggerPrice = null,
         decimal? newOrderPrice = null,
-        OkxAlgoPriceType? newTriggerPriceType = null,
         IEnumerable<OkxAlgoAttachedAlgoAmendRequest>? attachedAlgoOrders = null,
 
         // Cancellation Token
@@ -287,27 +286,13 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("newSlOrdPx", newStopLossOrderPrice?.ToOkxString());
         
         // Trigger Order
+        parameters.AddOptionalEnum("newTriggerPxType", newTriggerPriceType);
         parameters.AddOptional("newTriggerPx", newTriggerPrice?.ToOkxString());
         parameters.AddOptional("newOrdPx", newOrderPrice?.ToOkxString());
-        parameters.AddOptionalEnum("newTriggerPxType", newTriggerPriceType);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
         // Reequest
         return ProcessOneRequestAsync<OkxAlgoAmendOrderResponse>(GetUri("api/v5/trade/amend-algos"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
-    }
-
-    /// <summary>
-    /// Cancel unfilled algo orders(iceberg order and twap order). A maximum of 10 orders can be canceled at a time. Request parameters should be passed in the form of an array.
-    /// </summary>
-    /// <param name="orders">Orders</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<List<OkxAlgoCancelOrderResponse>>> CancelAdvanceAsync(IEnumerable<OkxAlgoCancelOrderRequest> orders, CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection();
-        parameters.SetBody(orders);
-
-        return ProcessListRequestAsync<OkxAlgoCancelOrderResponse>(GetUri("api/v5/trade/cancel-advance-algos"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -388,13 +373,13 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
         parameters.AddEnum("ordType", algoOrderType);
+        parameters.AddOptionalEnum("state", algoOrderState);
         parameters.AddOptional("algoId", algoId?.ToOkxString());
+        parameters.AddOptionalEnum("instType", instrumentType);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
-        parameters.AddOptionalEnum("state", algoOrderState);
-        parameters.AddOptionalEnum("instType", instrumentType);
 
         return ProcessListRequestAsync<OkxAlgoOrder>(GetUri("api/v5/trade/orders-algo-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

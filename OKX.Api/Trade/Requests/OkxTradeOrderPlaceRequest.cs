@@ -33,7 +33,7 @@ public record OkxTradeOrderPlaceRequest
     /// Order tag. Used for Broker Id
     /// </summary>
     [JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
-    internal string? Tag { get; set; }
+    public string? Tag { get; set; }
 
     /// <summary>
     /// Order Side
@@ -101,6 +101,13 @@ public record OkxTradeOrderPlaceRequest
     public bool? BanAmend { get; set; }
 
     /// <summary>
+    /// The quote currency used for trading. Only applicable to SPOT.
+    /// The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy", NullValueHandling = NullValueHandling.Ignore)]
+    public string? TradeQuoteCurrency { get; set; }
+
+    /// <summary>
     /// Self trade prevention mode
     /// Default to cancel maker
     /// cancel_maker,cancel_taker, cancel_both
@@ -115,10 +122,4 @@ public record OkxTradeOrderPlaceRequest
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
     public IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? AttachedAlgoOrders { get; set; }
 
-    /// <summary>
-    /// The quote currency used for trading. Only applicable to SPOT.
-    /// The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.
-    /// </summary>
-    [JsonProperty("tradeQuoteCcy", NullValueHandling = NullValueHandling.Ignore)]
-    public string? TradeQuoteCurrency { get; set; }
 }

@@ -121,4 +121,10 @@ public record OkxRecurringBuySubOrder
     /// </summary>
     [JsonProperty("accFillSz")]
     public decimal AccumulatedFillQuantity { get; set; }
+
+    /// <summary>
+    /// Client-supplied Algo ID
+    /// </summary>
+    [JsonProperty("algoClOrdId")]
+    public string AlgoClientOrderId { get; set; } = string.Empty;
 }

@@ -60,13 +60,6 @@ public record OkxTradeOrder
     public decimal? PriceVolatility { get; set; }
 
     /// <summary>
-    /// Index price at the moment of trade execution
-    /// For cross currency spot pairs, it returns baseCcy-USDT index price.For example, for LTC-ETH, this field returns the index price of LTC-USDT.
-    /// </summary>
-    [JsonProperty("fillIdxPx")]
-    public decimal? FillIndexPrice { get; set; }
-
-    /// <summary>
     /// Price type of options
     /// px: Place an order based on price, in the unit of coin (the unit for the request parameter px is BTC or ETH)
     /// pxVol: Place an order based on pxVol
@@ -251,7 +244,7 @@ public record OkxTradeOrder
     /// 13:The generated limit order after the strategy order is triggered
     /// </summary>
     [JsonProperty("source")]
-    public string Source { get; set; } = string.Empty;
+    public string Source { get; set; } = string.Empty; // TODO: Enumerate
 
     /// <summary>
     /// Rebate amount, only applicable to spot and margin, the reward of placing orders from the platform (rebate) given to user who has reached the specified trading level. If there is no rebate, this field is "".
@@ -336,18 +329,13 @@ public record OkxTradeOrder
     /// </summary>
     [JsonProperty("tradeQuoteCcy")]
     public string? TradeQuoteCurrency { get; set; }
-}
 
-/// <summary>
-/// OKX Order Linked Algo Order
-/// </summary>
-public record OkxTradeOrderLinkedAlgoOrder
-{
     /// <summary>
-    /// Instrument type
+    /// Index price at the moment of trade execution
+    /// For cross currency spot pairs, it returns baseCcy-USDT index price.For example, for LTC-ETH, this field returns the index price of LTC-USDT.
     /// </summary>
-    [JsonProperty("algoId")]
-    public string AlgoId { get; set; } = string.Empty;
+    [JsonProperty("fillIdxPx")]
+    public decimal? FillIndexPrice { get; set; }
 }
 
 /// <summary>
@@ -438,3 +426,14 @@ public record OkxTradeOrderAttachedAlgoOrder
     public string FailReason { get; set; } = string.Empty;
 }
 
+/// <summary>
+/// OKX Order Linked Algo Order
+/// </summary>
+public record OkxTradeOrderLinkedAlgoOrder
+{
+    /// <summary>
+    /// Instrument type
+    /// </summary>
+    [JsonProperty("algoId")]
+    public string AlgoId { get; set; } = string.Empty;
+}

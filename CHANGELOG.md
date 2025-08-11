@@ -1,6 +1,29 @@
 ## Change Log & Release Notes
 
-* Version 5.5.811.001 - 11 Aug 2025
+* Version 5.5.813 - 12 Aug 2025
+  * Update API to version 5.5.812 with enhancements
+  * Replaced `CheckOrderAsync` with `OrderPrecheckAsync` in `OkxTradeRestClient`.
+  * Renamed `PositionsQuantity` to `Position` in relevant records for clarity.
+  * Added new properties, including `TradeQuoteCurrency` in `OkxTradeOrderPlaceRequest`.
+  * Enhanced `OkxAlgoRestClient` with new parameters for order chasing.
+  * Modified `OkxRecurringBuyOrder` to include nullable properties.
+  * Introduced `OkxSignalBot` class for signal bot order details.
+  * Replaced `OkxTradeOrderCheck` with `OkxTradeOrderPrecheck`.
+  * Updated `OkxTradeOrder` to include `TradeQuoteCurrency`.
+  * Reintroduced take profit and stop loss ratios in `OkxGridOrder`.
+  * Improved parameter handling in `OkxTradeRestClient`.
+
+* Version 5.5.812 - 12 Aug 2025
+  * Refactor OKX trading API methods and data models
+  * Updated method calls and renamed properties for clarity. 
+  * Replaced `CheckOrderAsync` with `OrderPrecheckAsync`. 
+  * Renamed `PositionsQuantity` to `Position` in relevant records. 
+  * Enhanced parameter handling in `OkxTradeRestClient` methods. 
+  * Introduced `OkxTradeOrderPrecheck` to replace `OkxTradeOrderCheck`. 
+  * Added `TradeQuoteCurrency` to `OkxTradeOrderPlaceRequest`. 
+  * Included new properties in `OkxTradeTransaction` for options trading.
+
+* Version 5.5.811 - 11 Aug 2025
   * Update API and enhance classes for version 5.5.811
   * Changed parameter type in `WithdrawAsync` for type safety.
   * Removed `underlying` parameter from `GetInstrumentsAsync` and `GetFeeRatesAsync`.

@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Signal Order
 /// </summary>
-public record OkxSignalBot
+public record OkxSignalBotOrder
 {
     /// <summary>
     /// Algo ID

@@ -82,7 +82,14 @@ public record OkxTradeTransaction
     /// </summary>
     [JsonProperty("fillPnl")]
     public decimal? LastFilledProfitAndLoss { get; set; }
-    
+
+    /// <summary>
+    /// Mark volatility when filled
+    /// Only applicable to options; return "" for other instrument types
+    /// </summary>
+    [JsonProperty("fillPxVol")]
+    public decimal? LastFilledPriceVolatility { get; set; }
+
     /// <summary>
     /// Options price when filled, in the unit of USD
     /// Only applicable to options; return "" for other instrument types
@@ -94,22 +101,22 @@ public record OkxTradeTransaction
     /// Mark volatility when filled
     /// Only applicable to options; return "" for other instrument types
     /// </summary>
-    [JsonProperty("fillPxVol")]
-    public decimal? LastFilledPriceVolatility { get; set; }
+    [JsonProperty("fillMarkVol")]
+    public decimal? LastFilledMarkVolatility { get; set; }
 
     /// <summary>
     /// Forward price when filled
     /// Only applicable to options; return "" for other instrument types
     /// </summary>
     [JsonProperty("fillFwdPx")]
-    public decimal? LastFilledForwardPrice{ get; set; }
+    public decimal? LastFilledForwardPrice { get; set; }
 
     /// <summary>
     /// Mark price when filled
     /// Applicable to FUTURES, SWAP, OPTION
     /// </summary>
     [JsonProperty("fillMarkPx")]
-    public decimal? LastFilledMarkPrice{ get; set; }
+    public decimal? LastFilledMarkPrice { get; set; }
 
     /// <summary>
     /// Specifies whether the order was a buy or sell.
@@ -167,4 +174,10 @@ public record OkxTradeTransaction
     /// </summary>
     [JsonIgnore]
     public DateTime? FillTime => FillTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Fee rate. This field is returned for SPOT and MARGIN only
+    /// </summary>
+    [JsonProperty("feeRate")]
+    public decimal? FeeRate { get; set; }
 }

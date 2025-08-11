@@ -136,14 +136,13 @@ internal class Program
         var trade_22 = await api.Trade.MassCancelAsync(OkxInstrumentType.Option, "USDT");
         var trade_23 = await api.Trade.CancelAllAfterAsync(30, "TAG");
         var trade_24 = await api.Trade.GetAccountRateLimitAsync();
-        var trade_25 = await api.Trade.CheckOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradePositionSide.Long, OkxTradeOrderType.MarketOrder, 0.1m);
+        var trade_25 = await api.Trade.OrderPrecheckAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradePositionSide.Long, OkxTradeOrderType.MarketOrder, 0.1m);
 
         // Order Book Trading -> Algo Trading Methods (Signed)
         var algo_01 = await api.Algo.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxTradeOrderSide.Sell, OkxAlgoOrderType.Conditional);
         var algo_02 = await api.Algo.CancelOrderAsync(1_000_001L, "BTC-USDT");
         var algo_03 = await api.Algo.CancelOrdersAsync([]);
         var algo_04 = await api.Algo.AmendOrderAsync("BTC-USDT");
-        var algo_05 = await api.Algo.CancelAdvanceAsync([]);
         var algo_06 = await api.Algo.GetOrderAsync(algoOrderId: 1_000_001);
         var algo_07 = await api.Algo.GetOpenOrdersAsync(OkxAlgoOrderType.OCO);
         var algo_08 = await api.Algo.GetOrderHistoryAsync(OkxAlgoOrderType.Conditional);

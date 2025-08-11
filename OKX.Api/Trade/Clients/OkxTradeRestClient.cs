@@ -54,7 +54,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         bool? reduceOnly = null,
         OkxTradeQuantityType? quantityType = null,
         OkxSelfTradePreventionMode? selfTradePreventionMode = null,
-
         bool? banAmend = null,
         decimal? priceUsd = null,
         decimal? priceVolatility = null,
@@ -64,25 +63,23 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
+        parameters.Add("instId", instrumentId);
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("clOrdId", clientOrderId);
         parameters.AddEnum("tdMode", tradeMode);
         parameters.AddEnum("side", orderSide);
         parameters.AddEnum("posSide", positionSide);
         parameters.AddEnum("ordType", orderType);
-        parameters.Add("instId", instrumentId);
         parameters.Add("sz", size.ToOkxString());
 
         parameters.AddOptional("px", price?.ToOkxString());
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("clOrdId", clientOrderId);
-        parameters.AddOptional("reduceOnly", reduceOnly);
-        parameters.AddOptionalEnum("tgtCcy", quantityType);
-        parameters.AddOptionalEnum("stpMode", selfTradePreventionMode);
-
-        parameters.AddOptional("banAmend", banAmend);
         parameters.AddOptional("pxUsd", priceUsd);
         parameters.AddOptional("pxVol", priceVolatility);
+        parameters.AddOptional("reduceOnly", reduceOnly);
+        parameters.AddOptionalEnum("tgtCcy", quantityType);
+        parameters.AddOptional("banAmend", banAmend);
         parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
-
+        parameters.AddOptionalEnum("stpMode", selfTradePreventionMode);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
         parameters.AddOptional("tag", OkxConstants.BrokerId);
@@ -224,8 +221,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection {
             {"instId", instrumentId },
         };
-        parameters.AddEnum("mgnMode", marginMode);
         parameters.AddOptionalEnum("posSide", positionSide);
+        parameters.AddEnum("mgnMode", marginMode);
         parameters.AddOptional("ccy", currency);
         parameters.AddOptional("autoCxl", autoCxl);
         parameters.AddOptional("clOrdId", clientOrderId);
@@ -263,7 +260,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="instrumentFamily">Instrument family</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="orderType">Order Type</param>
     /// <param name="state">State</param>
     /// <param name="after">Pagination of data to return records later than the requested ordId</param>
@@ -275,7 +271,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxInstrumentType? instrumentType = null,
         string? instrumentId = null,
         string? instrumentFamily = null,
-        string? underlying = null,
         OkxTradeOrderType? orderType = null,
         OkxTradeOrderState? state = null,
         long? after = null,
@@ -286,11 +281,10 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptionalEnum("ordType", orderType);
-        parameters.AddOptionalEnum("state", state);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptionalEnum("ordType", orderType);
+        parameters.AddOptionalEnum("state", state);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
@@ -304,7 +298,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="instrumentFamily">Instrument family</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="orderType">Order Type</param>
     /// <param name="state">State</param>
     /// <param name="category">Category</param>
@@ -319,7 +312,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxInstrumentType instrumentType,
         string? instrumentId = null,
         string? instrumentFamily = null,
-        string? underlying = null,
         OkxTradeOrderType? orderType = null,
         OkxTradeOrderState? state = null,
         OkxOrderCategory? category = null,
@@ -333,7 +325,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptionalEnum("ordType", orderType);
@@ -354,7 +345,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="instrumentFamily">Instrument family</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="orderType">Order Type</param>
     /// <param name="state">State</param>
     /// <param name="category">Category</param>
@@ -369,7 +359,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxInstrumentType instrumentType,
         string? instrumentId = null,
         string? instrumentFamily = null,
-        string? underlying = null,
         OkxTradeOrderType? orderType = null,
         OkxTradeOrderState? state = null,
         OkxOrderCategory? category = null,
@@ -383,7 +372,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptionalEnum("ordType", orderType);
@@ -404,7 +392,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="instrumentFamily">Instrument family</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="orderId">Order ID</param>
     /// <param name="transactionType">Transaction type</param>
     /// <param name="after">Pagination of data to return records later than the requested <see cref="OkxTradeTransaction.BillId"/></param>
@@ -418,7 +405,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxInstrumentType? instrumentType = null,
         string? instrumentId = null,
         string? instrumentFamily = null,
-        string? underlying = null,
         long? orderId = null,
         OkxAccountBillSubType? transactionType = null,
         long? after = null,
@@ -431,11 +417,10 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptionalEnum("subType", transactionType);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("ordId", orderId?.ToOkxString());
+        parameters.AddOptionalEnum("subType", transactionType);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("begin", begin?.ToOkxString());
@@ -451,7 +436,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="instrumentFamily">Instrument family</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="orderId">Order ID</param>
     /// <param name="transactionType">Transaction type</param>
     /// <param name="after">Pagination of data to return records later than the requested <see cref="OkxTradeTransaction.BillId"/></param>
@@ -465,7 +449,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxInstrumentType instrumentType,
         string? instrumentId = null,
         string? instrumentFamily = null,
-        string? underlying = null,
         long? orderId = null,
         OkxAccountBillSubType? transactionType = null,
         long? after = null,
@@ -478,11 +461,10 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptionalEnum("subType", transactionType);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("ordId", orderId?.ToOkxString());
+        parameters.AddOptionalEnum("subType", transactionType);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("begin", begin?.ToOkxString());
@@ -687,15 +669,13 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// Cancel all pending orders after the countdown timeout. Applicable to all trading symbols through order book (except Spread trading)
     /// </summary>
     /// <param name="timeout">The countdown for order cancellation, with second as the unit. Range of value can be 0, [10, 120]. Setting timeOut to 0 disables Cancel All After.</param>
-    /// <param name="tag">CAA order tag. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 16 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxCancelAllAfter>> CancelAllAfterAsync(int timeout, string tag, CancellationToken ct = default)
+    public Task<RestCallResult<OkxCancelAllAfter>> CancelAllAfterAsync(int timeout, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             { "timeOut", timeout.ToOkxString() },
         };
-        parameters.AddOptional("tag", tag);
 
         return ProcessOneRequestAsync<OkxCancelAllAfter>(GetUri("api/v5/trade/cancel-all-after"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -737,15 +717,15 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="attachedAlgoOrders">TP/SL information attached when placing order</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxTradeOrderCheck>> CheckOrderAsync(
+    public Task<RestCallResult<OkxTradeOrderPrecheck>> OrderPrecheckAsync(
         string instrumentId,
         OkxTradeMode tradeMode,
         OkxTradeOrderSide orderSide,
-        OkxTradePositionSide positionSide,
         OkxTradeOrderType orderType,
         decimal size,
         decimal? price = null,
         bool? reduceOnly = null,
+        OkxTradePositionSide? positionSide = null,
         OkxTradeQuantityType? quantityType = null,
         IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? attachedAlgoOrders = null,
 
@@ -755,15 +735,15 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             {"instId", instrumentId },
             {"sz", size.ToOkxString() },
         };
-        parameters.AddOptionalEnum("tdMode", tradeMode);
-        parameters.AddOptionalEnum("side", orderSide);
+        parameters.AddEnum("tdMode", tradeMode);
+        parameters.AddEnum("side", orderSide);
         parameters.AddOptionalEnum("posSide", positionSide);
-        parameters.AddOptionalEnum("ordType", orderType);
-        parameters.AddOptionalEnum("tgtCcy", quantityType);
+        parameters.AddEnum("ordType", orderType);
         parameters.AddOptional("px", price?.ToOkxString());
         parameters.AddOptional("reduceOnly", reduceOnly);
+        parameters.AddOptionalEnum("tgtCcy", quantityType);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
-        return ProcessOneRequestAsync<OkxTradeOrderCheck>(GetUri("api/v5/trade/order-precheck"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxTradeOrderPrecheck>(GetUri("api/v5/trade/order-precheck"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 }

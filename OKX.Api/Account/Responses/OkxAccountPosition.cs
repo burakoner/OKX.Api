@@ -33,7 +33,7 @@ public record OkxAccountPosition
     /// Quantity of positions. In the mode of autonomous transfer from position to position, after the deposit is transferred, a position with pos of 0 will be generated
     /// </summary>
     [JsonProperty("pos")]
-    public decimal PositionsQuantity { get; set; }
+    public decimal Position { get; set; }
 
     /// <summary>
     /// Position currency, only applicable to MARGIN positions.

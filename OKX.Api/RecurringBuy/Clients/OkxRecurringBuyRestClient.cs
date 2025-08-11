@@ -154,12 +154,12 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
     /// <param name="algoOrderId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxRecurringBuyOrderDetails>> GetOrderAsync(long algoOrderId, CancellationToken ct = default)
+    public Task<RestCallResult<OkxRecurringBuyOrder>> GetOrderAsync(long algoOrderId, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("algoId", algoOrderId.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxRecurringBuyOrderDetails>(GetUri("api/v5/tradingBot/recurring/orders-algo-details"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxRecurringBuyOrder>(GetUri("api/v5/tradingBot/recurring/orders-algo-details"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>

@@ -92,19 +92,19 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddEnum("algoOrdType", algoOrderType);
         parameters.AddOptionalEnum("runType", gridRunType);
-        parameters.AddOptional("triggerParams", triggerParameters);
         parameters.AddOptional("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
         parameters.AddOptional("slTriggerPx", stopLossTriggerPrice?.ToOkxString());
         parameters.AddOptional("algoClOrdId", algoClientOrderId);
         parameters.AddOptional("profitSharingRatio", profitSharingRatio?.ToOkxString());
+        parameters.AddOptional("triggerParams", triggerParameters);
 
         // Spot Grid Order
         parameters.AddOptional("quoteSz", quoteSize?.ToOkxString());
         parameters.AddOptional("baseSz", baseSize?.ToOkxString());
 
         // Contract Grid Order
-        parameters.AddOptionalEnum("direction", contractGridDirection);
         parameters.AddOptional("sz", size?.ToOkxString());
+        parameters.AddOptionalEnum("direction", contractGridDirection);
         parameters.AddOptional("lever", leverage?.ToOkxString());
         parameters.AddOptional("basePos", basePosition);
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
@@ -161,11 +161,11 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             { "algoId", algoOrderId.ToOkxString() },
             { "instId", instrumentId },
         };
-        parameters.AddOptionalEnum("triggerParams", triggerParameters);
         parameters.AddOptional("slTriggerPx", stopLossTriggerPrice?.ToOkxString());
         parameters.AddOptional("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
         parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
+        parameters.AddOptionalEnum("triggerParams", triggerParameters);
 
         return ProcessOneRequestAsync<OkxGridOrderAmendResponse>(GetUri("api/v5/tradingBot/grid/amend-order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -559,11 +559,11 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddEnum("algoOrdType", algoOrderType);
         parameters.AddEnum("runType", gridRunType);
         parameters.AddOptionalEnum("direction", direction);
+        parameters.AddOptional("lever", leverage?.ToOkxString());
+        parameters.AddOptional("basePos", basePosition);
         parameters.AddOptionalEnum("investmentType", investmentType);
         parameters.AddOptionalEnum("triggerStrategy", triggerStrategy);
         parameters.AddOptional("investmentData", JsonConvert.SerializeObject(investmentData));
-        parameters.AddOptional("lever", leverage?.ToOkxString());
-        parameters.AddOptional("basePos", basePosition);
 
         return ProcessOneRequestAsync<OkxGridInvestment>(GetUri("api/v5/tradingBot/grid/min-investment"), HttpMethod.Post, ct, signed: false, bodyParameters: parameters);
     }
@@ -636,5 +636,4 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         if (!result) return new RestCallResult<decimal?>(result.Request, result.Response, result.Raw ?? "", result.Error);
         return new RestCallResult<decimal?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
     }
-
 }

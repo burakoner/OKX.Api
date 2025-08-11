@@ -8,27 +8,27 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
     /// <summary>
     /// Trading Account Client
     /// </summary>
-    public OkxAccountSocketClient Account { get; }
+    public OkxAccountSocketClient Account { get; } // 812
 
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradeSocketClient Trade { get; }
+    public OkxTradeSocketClient Trade { get; } // 812
 
     /// <summary>
     /// Algo Trading Client
     /// </summary>
-    public OkxAlgoSocketClient Algo { get; }
+    public OkxAlgoSocketClient Algo { get; } // 813
 
     /// <summary>
     /// Grid Trading Client
     /// </summary>
-    public OkxGridSocketClient Grid { get; }
+    public OkxGridSocketClient Grid { get; } // 813
 
     /// <summary>
     /// Recurring Buy Client
     /// </summary>
-    public OkxRecurringBuySocketClient RecurringBuy { get; }
+    public OkxRecurringBuySocketClient RecurringBuy { get; } // 813
 
     /// <summary>
     /// Copy Trading Client
@@ -77,13 +77,14 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
     /// <param name="options">Options</param>
     public OkxWebSocketApiClient(ILogger? logger, OkxWebSocketApiOptions options) : base(logger, options)
     {
-        this.Public = new OkxPublicSocketClient(this);
         this.Account = new OkxAccountSocketClient(this);
-        this.Funding = new OkxFundingSocketClient(this);
         this.Trade = new OkxTradeSocketClient(this);
         this.Algo = new OkxAlgoSocketClient(this);
         this.Grid = new OkxGridSocketClient(this);
         this.RecurringBuy = new OkxRecurringBuySocketClient(this);
+
+        this.Public = new OkxPublicSocketClient(this);
+        this.Funding = new OkxFundingSocketClient(this);
         this.CopyTrading = new OkxCopyTradingSocketClient(this);
         this.Block = new OkxBlockSocketClient(this);
         this.Spread = new OkxSpreadSocketClient(this);

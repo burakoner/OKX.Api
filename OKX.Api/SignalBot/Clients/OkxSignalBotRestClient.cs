@@ -193,7 +193,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="algoId">Algo ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSignalBot>> GetSignalBotAsync(
+    public Task<RestCallResult<OkxSignalBotOrder>> GetSignalBotOrderAsync(
         long algoId,
         CancellationToken ct = default)
     {
@@ -202,7 +202,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "algoOrdType", "contract" },
         };
 
-        return ProcessOneRequestAsync<OkxSignalBot>(GetUri("api/v5/tradingBot/signal/orders-algo-details"), HttpMethod.Get, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSignalBotOrder>(GetUri("api/v5/tradingBot/signal/orders-algo-details"), HttpMethod.Get, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -213,7 +213,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="before">Pagination of data to return records algoId newer than the requested timestamp, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
-    public Task<RestCallResult<List<OkxSignalBot>>> GetSignalBotsAsync(
+    public Task<RestCallResult<List<OkxSignalBotOrder>>> GetActiveSignalBotOrdersAsync(
         long algoId,
         long? after = null,
         long? before = null,
@@ -221,14 +221,14 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
-            { "algoId", algoId.ToOkxString() },
             { "algoOrdType", "contract" },
+            { "algoId", algoId.ToOkxString() },
         };
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSignalBot>(GetUri("api/v5/tradingBot/signal/orders-algo-pending"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSignalBotOrder>(GetUri("api/v5/tradingBot/signal/orders-algo-pending"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -240,7 +240,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxSignalBot>>> GetSignalBotHistoryAsync(
+    public Task<RestCallResult<List<OkxSignalBotOrder>>> GetSignalBotHistoryAsync(
         long algoId,
         long? after = null,
         long? before = null,
@@ -248,14 +248,14 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
-            { "algoId", algoId.ToOkxString() },
             { "algoOrdType", "contract" },
+            { "algoId", algoId.ToOkxString() },
         };
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxSignalBot>(GetUri("api/v5/tradingBot/signal/orders-algo-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSignalBotOrder>(GetUri("api/v5/tradingBot/signal/orders-algo-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -269,8 +269,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
-            { "algoId", algoId.ToOkxString() },
             { "algoOrdType", "contract" },
+            { "algoId", algoId.ToOkxString() },
         };
 
         return ProcessListRequestAsync<OkxSignalBotPosition>(GetUri("api/v5/tradingBot/signal/positions"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
@@ -340,7 +340,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public Task<RestCallResult<object>> PlaceSuborderAsync(
+    public Task<RestCallResult<object>> PlaceSubOrderAsync(
         long algoId,
         string instrumentId,
         OkxTradeOrderSide side,
@@ -354,8 +354,8 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             throw new ArgumentException("Only market and limit orders are supported for suborders", nameof(type));
 
         var parameters = new ParameterCollection {
-            { "algoId", algoId.ToOkxString() },
             { "instId", instrumentId },
+            { "algoId", algoId.ToOkxString() },
             { "sz", size.ToOkxString() },
         };
         parameters.AddOptionalEnum("side", side);
@@ -375,7 +375,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="signalOrderId">Order ID</param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public async Task<RestCallResult<long?>> CancelSuborderAsync(
+    public async Task<RestCallResult<long?>> CancelSubOrderAsync(
         long algoId,
         string instrumentId,
         long signalOrderId,
@@ -406,7 +406,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxSignalBotSuborder>>> GetSubordersAsync(
+    public Task<RestCallResult<List<OkxSignalBotSuborder>>> GetSubOrdersAsync(
         long algoId,
         OkxSignalBotSuborderState? state = null,
         OkxSignalBotSuborderType? type = null,

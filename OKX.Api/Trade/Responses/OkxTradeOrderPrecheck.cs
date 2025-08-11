@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Order
 /// </summary>
-public record OkxTradeOrderCheck
+public record OkxTradeOrderPrecheck
 {
     /// <summary>
     /// Current adjusted / Effective equity in USD
@@ -126,5 +126,5 @@ public record OkxTradeOrderCheck
     /// 4: it is both quota currency before and after placing order
     /// </summary>
     [JsonProperty("type")]
-    public string Type  { get; set; } = string.Empty;
+    public string Type  { get; set; } = string.Empty; // TODO: Enumerate
 }

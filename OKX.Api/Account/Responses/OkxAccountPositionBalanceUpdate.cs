@@ -129,7 +129,7 @@ public record OkxAccountPositionBalanceUpdatePosition
     /// Quantity of positions contract. In the mode of autonomous transfer from position to position, after the deposit is transferred, a position with pos of 0 will be generated
     /// </summary>
     [JsonProperty("pos")]
-    public decimal Quantity { get; set; }
+    public decimal Position { get; set; }
 
     /// <summary>
     /// Position currency, only applicable to MARGIN positions.
@@ -180,5 +180,5 @@ public record OkxAccountPositionBalanceUpdateTrade
     /// Trade ID
     /// </summary>
     [JsonProperty("tradeId")]
-    public long? TradeId { get; set; }
+    public long TradeId { get; set; }
 }
