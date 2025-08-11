@@ -1,17 +1,30 @@
 ## Change Log & Release Notes
-  
 
-* Version 5.5.811 - 11 Aug 2025
-  * *Refactor Okx API for clarity and consistency
-    * Updated `OkxAccountRestClient` methods: removed `underlying` parameter and changed return types for instruments and position risk.
-    * Enhanced `OkxAccountBalance` with new properties like `AvailableEquity` and added `OkxAccountBalanceDetails`.
-    * Abbreviated property names in `OkxAccountPosition` for margin fields (e.g., `IMR`, `MMR`, `RealizedPNL`).
-    * Introduced `OkxAccountPositionRisk` class for tracking position risks.
-    * Renamed `ProfitLoss` to `PNL` in `OkxAccountBill` for consistency.
-    * Updated `OkxPublicInstrument` to include `IsFutureSettlement` and ensure proper definition of `TradeQuoteCurrencyList`.
-    * Aligned property names in `OkxAccountPositionHistory` with new conventions.
-    * Added `OkxAccountBalanceDetails` for detailed balance information.
-    * Removed `OkxAccountPositionBalance` and `OkxAccountPositionData` records to streamline API structure.
+* Version 5.5.811.001 - 11 Aug 2025
+  * Update API and enhance classes for version 5.5.811
+  * Changed parameter type in `WithdrawAsync` for type safety.
+  * Removed `underlying` parameter from `GetInstrumentsAsync` and `GetFeeRatesAsync`.
+  * Updated return type of `GetPositionRiskAsync` to `List<OkxAccountPositionRisk`.
+  * Enhanced `OkxAccountBalance` with new properties and introduced `OkxAccountBalanceDetails`.
+  * Abbreviated property names in `OkxAccountPosition` for consistency.
+  * Removed `OkxAccountPositionBalance` and `OkxAccountPositionData` records.
+  * Removed `OkxAccountDiscountType` enum.
+  * Added account type property to `OkxAccountConfiguration`.
+  * Updated `OkxCopyTrading` classes to use `ProfitAndLoss` terminology.
+  * Introduced `OkxAccountPositionRisk` class for structured risk representation.
+  * Updated `CHANGELOG.md` for new version release.
+  * Renamed `SetMarginAmountAsync` to `SetMarginBalanceAsync` in `Program.cs`.
+  * Modified `OkxAccountRestClient.cs` with new method signatures and parameters.
+  * Changed JSON property name from `autoLoan` to `autoRepay` in `OkxAccountAutoRepayContainer`.
+  * Enhanced `OkxAccountInterestAccrued` with new liability tracking properties.
+  * Updated `OkxAccountInterestLimitRecord` to remove surplus limit details and add potential borrowing properties.
+  * Changed `MmpFrozenUntil` to a timestamp format in `OkxAccountMmpConfigurationData`.
+  * Updated property name for initial margin requirement in `OkxAccountPositionBuilderRiskUnitPosition`.
+  * Changed `PositionList` type to a list of strings in `OkxAccountPrecheckModeUnmatchedInformation`.
+  * Updated `AtRiskIndex` and `AtRiskMargin` types to lists of strings in `OkxAccountRiskState`.
+  * Reintroduced `OkxAccountSimulatedAsset` and `OkxAccountSimulatedPosition` classes with relevant properties.
+  * Updated `OkxRestApiClient` to reflect the new version in the `Account` property comment.
+  * These changes aim to improve the developer experience and streamline the API structure.
 
 * Version 5.5.807 - 08 Aug 2025
   * ApiSharp 4.0.1 Update

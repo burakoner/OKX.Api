@@ -84,12 +84,6 @@ public record OkxAccountInterestLimitRecord
     public decimal SurplusLimit { get; set; }
 
     /// <summary>
-    /// Surplus Limit Details
-    /// </summary>
-    [JsonProperty("surplusLmtDetails")]
-    public OkxAccountInterestLimitRecordSurplus? SurplusLimitDetails { get; set; }
-
-    /// <summary>
     /// Used Limit
     /// </summary>
     [JsonProperty("usedLmt")]
@@ -102,51 +96,14 @@ public record OkxAccountInterestLimitRecord
     public decimal? MarketLoanInterest { get; set; }
 
     /// <summary>
-    /// VIP Position Loan
+    /// Interest-free liability for current account
     /// </summary>
-    [JsonProperty("posLoan")]
-    public decimal? VipPositionLoan { get; set; }
+    [JsonProperty("interestFreeLiab")]
+    public decimal? InterestFreeLiability { get; set; }
 
     /// <summary>
-    /// VIP Available Loan
+    /// Potential borrowing amount for current account
     /// </summary>
-    [JsonProperty("availLoan")]
-    public decimal? VipAvailableLoan { get; set; }
-
-    /// <summary>
-    /// VIP Used Loan
-    /// </summary>
-    [JsonProperty("usedLoan")]
-    public decimal? VipUsedLoan { get; set; }
-
-    /// <summary>
-    /// VIP Average Rate
-    /// </summary>
-    [JsonProperty("avgRate")]
-    public decimal? VipAverageRate { get; set; }
-
-}
-
-/// <summary>
-/// OKX Interest Limit Record Surplus Limit Details
-/// </summary>
-public record OkxAccountInterestLimitRecordSurplus
-{
-    /// <summary>
-    /// All Accounts Remaining Quota
-    /// </summary>
-    [JsonProperty("allAcctRemainingQuota")]
-    public decimal AllAccountsRemainingQuota { get; set; }
-
-    /// <summary>
-    /// Current Account Remaining Quota
-    /// </summary>
-    [JsonProperty("curAcctRemainingQuota")]
-    public decimal CurrentAccountRemainingQuota { get; set; }
-
-    /// <summary>
-    /// Platform Remaining Quota
-    /// </summary>
-    [JsonProperty("platRemainingQuota")]
-    public decimal PlatformRemainingQuota { get; set; }
+    [JsonProperty("potentialBorrowingAmt")]
+    public decimal?PotentialBorrowingAmount { get; set; }
 }

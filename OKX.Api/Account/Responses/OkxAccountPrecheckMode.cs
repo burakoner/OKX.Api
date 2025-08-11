@@ -107,7 +107,7 @@ public record OkxAccountPrecheckModeUnmatchedInformation
     /// Applicable when type is related to positions, return [] for other scenarios
     /// </summary>
     [JsonProperty("posList")]
-    public List<OkxAccountPrecheckModeUnmatchedPosition>? PositionList { get; set; } = [];
+    public List<string>? PositionList { get; set; } = [];
 }
 
 /// <summary>
@@ -116,16 +116,16 @@ public record OkxAccountPrecheckModeUnmatchedInformation
 public record OkxAccountPrecheckModeUnmatchedPosition
 {
     /// <summary>
-    /// Position ID
-    /// </summary>
-    [JsonProperty("lever")]
-    public decimal Leverage { get; set; }
-
-    /// <summary>
     /// Leverage of cross margin contract positions after switch
     /// </summary>
     [JsonProperty("posId")]
     public long PositionId { get; set; }
+
+    /// <summary>
+    /// Position ID
+    /// </summary>
+    [JsonProperty("lever")]
+    public decimal Leverage { get; set; }
 }
 
 /// <summary>

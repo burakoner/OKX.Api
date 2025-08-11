@@ -11,11 +11,17 @@ public record OkxAccountRiskState
     [JsonProperty("atRisk")]
     public bool AtRisk { get; set; }
 
-    //[JsonProperty("atRiskIdx")]
-    //public object[] AtRiskIndex { get; set; }
+    /// <summary>
+    /// derivatives risk unit list
+    /// </summary>
+    [JsonProperty("atRiskIdx")]
+    public List<string> AtRiskIndex { get; set; } = [];
 
-    //[JsonProperty("atRiskMgn")]
-    //public object[] AtRiskMargin { get; set; }
+    /// <summary>
+    /// margin risk unit list
+    /// </summary>
+    [JsonProperty("atRiskMgn")]
+    public List<string> AtRiskMargin { get; set; } = [];
 
     /// <summary>
     /// Timestamp

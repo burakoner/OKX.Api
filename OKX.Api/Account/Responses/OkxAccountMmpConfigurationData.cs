@@ -21,7 +21,13 @@ public record OkxAccountMmpConfigurationData
     /// MMP Frozen Until
     /// </summary>
     [JsonProperty("mmpFrozenUntil")]
-    public string MmpFrozenUntil { get; set; } = string.Empty;
+    public long? MmpFrozenUntilTimestamp { get; set; }
+
+    /// <summary>
+    /// MMP Frozen Until
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? MmpFrozenUntilTime => MmpFrozenUntilTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Time Interval

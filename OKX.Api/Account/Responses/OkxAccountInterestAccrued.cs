@@ -49,6 +49,18 @@ public record OkxAccountInterestAccrued
     public decimal Liability { get; set; }
 
     /// <summary>
+    /// Total liability for current account
+    /// </summary>
+    [JsonProperty("totalLiab")]
+    public decimal TotalLiability { get; set; }
+
+    /// <summary>
+    /// Interest-free liability for current account
+    /// </summary>
+    [JsonProperty("interestFreeLiab")]
+    public decimal InterestFreeLiability { get; set; }
+
+    /// <summary>
     /// Timestamp for interest accured, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("ts")]

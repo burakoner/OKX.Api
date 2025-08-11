@@ -16,4 +16,16 @@ public record OkxAccountSimulatedPosition
     /// </summary>
     [JsonProperty("pos")]
     public decimal Quantity { get; set; }
+
+    /// <summary>
+    /// Average open price
+    /// </summary>
+    [JsonProperty("avgPx")]
+    public decimal AveragePrice { get; set; }
+
+    /// <summary>
+    /// leverage
+    /// </summary>
+    [JsonProperty("lever")]
+    public decimal? Leverage { get; set; }
 }

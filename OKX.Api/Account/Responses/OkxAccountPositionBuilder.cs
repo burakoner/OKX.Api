@@ -473,7 +473,7 @@ public record OkxAccountPositionBuilderRiskUnitPosition
     /// <summary>
     /// IMR (Initial Margin Requirement) before price volatility
     /// </summary>
-    [JsonProperty("imr")]
+    [JsonProperty("imrBf")]
     public decimal? InitialMarginRequirementBeforeVolatility { get; set; }
 
     /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Account;
+﻿using System;
+
+namespace OKX.Api.Account;
 
 /// <summary>
 /// OKX Trading Account Rest Api Client
@@ -370,7 +372,6 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="currency">Currency</param>
     /// <param name="price">The available amount corresponds to price of close position. Only applicable to reduceOnly MARGIN.</param>
     /// <param name="reduceOnly">Reduce Only</param>
-    /// <param name="quickMarginType">Quick Margin type. Only applicable to Quick Margin Mode of isolated margin</param>
     /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -380,7 +381,6 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? currency = null,
         decimal? price = null,
         bool? reduceOnly = null,
-        OkxQuickMarginType? quickMarginType = null,
         string? tradeQuoteCurrency = null,
         CancellationToken ct = default)
     {
@@ -388,12 +388,11 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         {
             { "instId", instrumentId }
         };
-        parameters.AddEnum("tdMode", tradeMode);
         parameters.AddOptional("ccy", currency);
+        parameters.AddEnum("tdMode", tradeMode);
         parameters.AddOptional("reduceOnly", reduceOnly);
         parameters.AddOptional("px", price?.ToOkxString());
         parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
-        parameters.AddOptionalEnum("quickMgnType", quickMarginType);
 
         return ProcessListRequestAsync<OkxAccountMaximumAvailableAmount>(GetUri("api/v5/account/max-avail-size"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -408,7 +407,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="currency">Currency, only applicable to MARGIN（Manual transfers and Quick Margin Mode</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxAccountMarginBalance>>> SetMarginAmountAsync(
+    public Task<RestCallResult<List<OkxAccountMarginBalance>>> SetMarginBalanceAsync(
         string instrumentId,
         OkxTradePositionSide positionSide,
         OkxAccountMarginAddReduce type,
@@ -431,13 +430,15 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <summary>
     /// Get Leverage
     /// </summary>
-    /// <param name="instrumentIds">ingle instrument ID or multiple instrument IDs (no more than 20) separated with comma</param>
+    /// <param name="instrumentIds">Single instrument ID or multiple instrument IDs (no more than 20) separated with comma</param>
     /// <param name="marginMode">Margin Mode</param>
+    /// <param name="currencies">Currency，used for getting leverage of currency level. Applicable to cross MARGIN of Spot mode/Multi-currency margin/Portfolio margin. Supported single currency or multiple currencies (no more than 20) separated with comma.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountLeverage>>> GetLeverageAsync(
         string instrumentIds,
         OkxAccountMarginMode marginMode,
+        string? currencies = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
@@ -445,6 +446,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "instId", instrumentIds }
         };
         parameters.AddEnum("mgnMode", marginMode);
+        parameters.AddEnum("ccy", currencies);
 
         return ProcessListRequestAsync<OkxAccountLeverage>(GetUri("api/v5/account/leverage-info"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -525,9 +527,9 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     {
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
-        parameters.AddEnum("ruleType", ruleType);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
+        parameters.AddEnum("ruleType", ruleType);
 
         return ProcessOneRequestAsync<OkxAccountFeeRate>(GetUri("api/v5/account/trade-fee"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -556,9 +558,9 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("type", type);
         parameters.AddOptional("ccy", currency);
         parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptionalEnum("type", type);
         parameters.AddOptionalEnum("mgnMode", marginMode);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
@@ -799,10 +801,12 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("simPos", simulatedPositions);
         parameters.AddOptional("simAsset", simulatedAssets);
         parameters.AddOptionalEnum("greeksType", greeksType);
-        parameters.AddOptional("volatilityPct", volatilityPercentage?.ToOkxString());
+        parameters.AddOptional("idxVol", volatilityPercentage?.ToOkxString());
 
         return ProcessListRequestAsync<OkxAccountPositionBuilder>(GetUri("api/v5/account/position-builder"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
+
+    // TODO: POST /api/v5/account/position-builder-graph
 
     /// <summary>
     /// Set risk offset amount. This does not represent the actual spot risk offset amount. Only applicable to Portfolio Margin Mode.
@@ -1052,4 +1056,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessOneRequestAsync<OkxAccountMmpConfigurationData>(GetUri("api/v5/account/mmp-config"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    // TODO: POST /api/v5/account/move-positions
+    // GET /api/v5/account/move-positions-history
+    // POST /api/v5/account/set-auto-earn
 }
