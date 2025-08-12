@@ -10,9 +10,6 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 
     #region Market Data
 
-    // TODO: WS / Option trades channel
-    // TODO: WS / Call auction details channel
-
     /// <summary>
     /// Retrieve the last traded price, bid price, ask price and 24-hour trading volume of instruments. Data will be pushed every 100 ms.
     /// </summary>
@@ -54,10 +51,11 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="period"></param>
+    /// <param name="utc"></param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToCandlesticksAsync(Action<OkxPublicCandlestick> onData, string instrumentId, OkxPeriod period, CancellationToken ct = default)
-        => await SubscribeToCandlesticksAsync(onData, [instrumentId], period, ct).ConfigureAwait(false);
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToCandlesticksAsync(Action<OkxPublicCandlestick> onData, string instrumentId, OkxPeriod period, bool utc = false, CancellationToken ct = default)
+        => await SubscribeToCandlesticksAsync(onData, [instrumentId], period, utc, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the candlesticks data of an instrument. Data will be pushed every 500 ms.
@@ -65,9 +63,10 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentIds">List of Instrument ID</param>
     /// <param name="period"></param>
+    /// <param name="utc"></param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToCandlesticksAsync(Action<OkxPublicCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToCandlesticksAsync(Action<OkxPublicCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, bool utc = false, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicCandlestick>>>>(data =>
         {
@@ -83,7 +82,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = "candle" + MapConverter.GetString(period),
+            Channel = $"candle{MapConverter.GetString(period)}{(utc ? "utc" : "")}",
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
@@ -220,6 +219,9 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         var needLogin = orderBookType == OkxOrderBookType.OrderBook_50_l2_TBT || orderBookType == OkxOrderBookType.OrderBook_l2_TBT;
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, needLogin, internalHandler, ct).ConfigureAwait(false);
     }
+
+    // TODO: WS / Option trades channel
+    // TODO: WS / Call auction details channel
 
     #endregion
 
@@ -516,10 +518,11 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="period">Period</param>
+    /// <param name="utc">Use UTC</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToMarkPriceCandlesticksAsync(Action<OkxPublicMarkCandlestick> onData, string instrumentId, OkxPeriod period, CancellationToken ct = default)
-        => await SubscribeToMarkPriceCandlesticksAsync(onData, [instrumentId], period, ct).ConfigureAwait(false);
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToMarkPriceCandlesticksAsync(Action<OkxPublicMarkCandlestick> onData, string instrumentId, OkxPeriod period, bool utc = false, CancellationToken ct = default)
+        => await SubscribeToMarkPriceCandlesticksAsync(onData, [instrumentId], period, utc, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the candlesticks data of the mark price. Data will be pushed every 500 ms.
@@ -527,9 +530,10 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentIds">List of Instrument ID</param>
     /// <param name="period">Period</param>
+    /// <param name="utc">Use UTC</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToMarkPriceCandlesticksAsync(Action<OkxPublicMarkCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToMarkPriceCandlesticksAsync(Action<OkxPublicMarkCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, bool utc = false, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicMarkCandlestick>>>>(data =>
         {
@@ -545,7 +549,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = "mark-price-candle" + MapConverter.GetString(period),
+            Channel = $"mark-price-candle{MapConverter.GetString(period)}{(utc ? "utc" : "")}",
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
@@ -559,10 +563,11 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="period">Period</param>
+    /// <param name="utc">Use UTC</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToIndexCandlesticksAsync(Action<OkxPublicIndexCandlestick> onData, string instrumentId, OkxPeriod period, CancellationToken ct = default)
-        => await SubscribeToIndexCandlesticksAsync(onData, [instrumentId], period, ct).ConfigureAwait(false);
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToIndexCandlesticksAsync(Action<OkxPublicIndexCandlestick> onData, string instrumentId, OkxPeriod period, bool utc = false, CancellationToken ct = default)
+        => await SubscribeToIndexCandlesticksAsync(onData, [instrumentId], period, utc, ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve the candlesticks data of the index. Data will be pushed every 500 ms.
@@ -570,9 +575,10 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentIds">List of Instrument ID</param>
     /// <param name="period">Period</param>
+    /// <param name="utc">Use UTC</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToIndexCandlesticksAsync(Action<OkxPublicIndexCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToIndexCandlesticksAsync(Action<OkxPublicIndexCandlestick> onData, IEnumerable<string> instrumentIds, OkxPeriod period, bool utc = false, CancellationToken ct = default)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicIndexCandlestick>>>>(data =>
         {
@@ -588,7 +594,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         var arguments = new List<OkxSocketRequestArgument>();
         foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
         {
-            Channel = "index-candle" + MapConverter.GetString(period),
+            Channel = $"index-candle{MapConverter.GetString(period)}{(utc ? "utc" : "")}",
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);

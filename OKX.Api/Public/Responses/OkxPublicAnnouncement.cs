@@ -6,22 +6,16 @@
 public record OkxPublicAnnouncement
 {
     /// <summary>
-    /// Announcement type
-    /// </summary>
-    [JsonProperty("annType")]
-    public string AnnouncementType { get; set; } = string.Empty;
-
-    /// <summary>
     /// Announcement title
     /// </summary>
     [JsonProperty("title")]
     public string Title { get; set; } = string.Empty;
 
     /// <summary>
-    /// System maintenance status
+    /// Announcement type
     /// </summary>
-    [JsonProperty("state")]
-    public OkxPublicMaintenanceState Status { get; set; }
+    [JsonProperty("annType")]
+    public string AnnouncementType { get; set; } = string.Empty;
 
     /// <summary>
     /// Publish time. Unix timestamp format in milliseconds, e.g. 1597026383085

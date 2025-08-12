@@ -11,19 +11,16 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentFamily">Instrument Family</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicTicker>>> GetTickersAsync(
         OkxInstrumentType instrumentType,
         string? instrumentFamily = null,
-        string? underlying = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
         parameters.AddOptional("instFamily", instrumentFamily);
-        parameters.AddOptional("uly", underlying);
 
         return ProcessListRequestAsync<OkxPublicTicker>(GetUri("api/v5/market/tickers"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
@@ -51,14 +48,14 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="depth">Order book depth per side. Maximum 400, e.g. 400 bids + 400 asks. Default returns to 1 depth data</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxPublicOrderBook>> GetOrderBookAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxPublicOrderBook>> GetOrderBookAsync(string instrumentId, int? depth = null, CancellationToken ct = default)
     {
-        depth.ValidateIntBetween(nameof(depth), 1, 400);
+        depth?.ValidateIntBetween(nameof(depth), 1, 400);
         var parameters = new ParameterCollection
         {
             { "instId", instrumentId},
-            { "sz", depth},
         };
+        parameters.AddOptional("depth", depth?.ToOkxString());
 
         var result = await ProcessOneRequestAsync<OkxPublicOrderBook>(GetUri("api/v5/market/books"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
@@ -74,14 +71,14 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="depth">Order book depth per side. Maximum 5000, e.g. 5000 bids + 5000 asks. Default returns to 1 depth data.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<OkxPublicOrderBook>> GetOrderBookFullAsync(string instrumentId, int depth = 1, CancellationToken ct = default)
+    public async Task<RestCallResult<OkxPublicOrderBook>> GetOrderBookFullAsync(string instrumentId, int? depth = null, CancellationToken ct = default)
     {
-        depth.ValidateIntBetween(nameof(depth), 1, 5000);
+        depth?.ValidateIntBetween(nameof(depth), 1, 5000);
         var parameters = new ParameterCollection
         {
             { "instId", instrumentId},
-            { "sz", depth},
         };
+        parameters.AddOptional("depth", depth?.ToOkxString());
 
         var result = await ProcessOneRequestAsync<OkxPublicOrderBook>(GetUri("api/v5/market/books-full"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
         if (!result.Success) return result;
@@ -325,7 +322,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// Retrieve a list of instruments with open contracts.
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="instrumentFamily">Instrument family. Only applicable to FUTURES/SWAP/OPTION.If instType is OPTION, either uly or instFamily is required.</param>
     /// <param name="signed">Sign Request</param>
@@ -333,7 +329,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicInstrument>>> GetInstrumentsAsync(
         OkxInstrumentType instrumentType,
-        string? underlying = null,
         string? instrumentId = null,
         string? instrumentFamily = null,
         bool signed = false,
@@ -341,7 +336,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     {
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
 
@@ -368,7 +362,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// Retrieve the estimated delivery price, which will only have a return value one hour before the delivery/exercise.
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
@@ -377,7 +370,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicDeliveryExerciseHistory>>> GetDeliveryExerciseHistoryAsync(
         OkxInstrumentType instrumentType,
-        string? underlying = null,
         string? instrumentFamily = null,
         long? after = null,
         long? before = null,
@@ -390,7 +382,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
@@ -481,14 +472,12 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// Retrieve the total open interest for contracts on OKX
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicOpenInterest>>> GetOpenInterestsAsync(
         OkxInstrumentType instrumentType,
-        string? underlying = null,
         string? instrumentId = null,
         string? instrumentFamily = null,
         CancellationToken ct = default)
@@ -496,12 +485,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         if (instrumentType.IsNotIn(OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
             throw new ArgumentException("Instrument Type can be only Futures, Option or Swap.");
 
-        if (instrumentType == OkxInstrumentType.Swap && string.IsNullOrEmpty(underlying))
-            throw new ArgumentException("Underlying is required for Option.");
-
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
 
@@ -527,19 +512,16 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <summary>
     /// Retrieve option market data.
     /// </summary>
-    /// <param name="underlying">Underlying</param>
     /// <param name="instrumentFamily">Instrument family, only applicable to OPTION. Either uly or instFamily is required. If both are passed, instFamily will be used.</param>
     /// <param name="expiryDate">Contract expiry date, the format is "YYMMDD", e.g. "200527"</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicOptionSummary>>> GetOptionMarketDataAsync(
-        string? underlying = null,
-        string? instrumentFamily = null,
+        string instrumentFamily,
         DateTime? expiryDate = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("expTime", expiryDate?.ToString("yyMMdd"));
 
@@ -576,14 +558,12 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// We set the mark price based on the SPOT index and at a reasonable basis to prevent individual users from manipulating the market and causing the contract price to fluctuate.
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicMarkPrice>>> GetMarkPricesAsync(
         OkxInstrumentType instrumentType,
-        string? underlying = null,
         string? instrumentId = null,
         string? instrumentFamily = null,
         CancellationToken ct = default)
@@ -593,7 +573,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
 
@@ -605,7 +584,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="marginMode">Margin Mode</param>
-    /// <param name="underlying">Underlying</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="currency">Currency</param>
@@ -615,7 +593,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     public Task<RestCallResult<List<OkxPublicPositionTier>>> GetPositionTiersAsync(
         OkxInstrumentType instrumentType,
         OkxAccountMarginMode marginMode,
-        string underlying,
         string? instrumentId = null,
         string? instrumentFamily = null,
         string? currency = null,
@@ -628,7 +605,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
         parameters.AddEnum("tdMode", marginMode);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("ccy", currency);
@@ -671,7 +647,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="instrumentType"></param>
     /// <param name="type"></param>
-    /// <param name="underlying"></param>
     /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="currency"></param>
     /// <param name="after"></param>
@@ -682,7 +657,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     public Task<RestCallResult<OkxPublicInsuranceFund>> GetInsuranceFundAsync(
         OkxInstrumentType instrumentType,
         OkxPublicInsuranceType? type = null,
-        string? underlying = null,
         string? instrumentFamily = null,
         string? currency = null,
         long? after = null,
@@ -696,7 +670,6 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
         parameters.AddOptionalEnum("type", type);
-        parameters.AddOptional("uly", underlying);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("ccy", currency);
         parameters.AddOptional("after", after?.ToOkxString());
@@ -740,11 +713,11 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     {
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("type", type);
-        parameters.AddOptionalEnum("unit", unit);
-        parameters.AddOptionalEnum("opType", operationType);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("sz", size.ToOkxString());
         parameters.AddOptional("px", price?.ToOkxString());
+        parameters.AddOptionalEnum("unit", unit);
+        parameters.AddOptionalEnum("opType", operationType);
 
         return ProcessOneRequestAsync<OkxPublicUnitConvert>(GetUri("api/v5/public/convert-contract-coin"), HttpMethod.Get, ct, queryParameters: parameters);
     }
@@ -1030,7 +1003,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         string? region = null,
         OkxPublicEventImportance? importance = null,
         long? after = null,
-        long? before = null, int limit = 100,
+        long? before = null,
+        int limit = 100,
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);

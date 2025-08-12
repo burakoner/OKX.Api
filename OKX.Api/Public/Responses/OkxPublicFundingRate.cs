@@ -42,6 +42,7 @@ public record OkxPublicFundingRate
     /// <summary>
     /// Next Funding Rate
     /// </summary>
+    [Obsolete]
     [JsonProperty("nextFundingRate")]
     public decimal? NextFundingRate { get; set; }
 
@@ -73,14 +74,26 @@ public record OkxPublicFundingRate
     /// The lower limit of the predicted funding rate of the next cycle
     /// </summary>
     [JsonProperty("minFundingRate")]
-    public decimal MinimumFundingRate	 { get; set; }
+    public decimal MinimumFundingRate { get; set; }
 
     /// <summary>
     /// The upper limit of the predicted funding rate of the next cycle
     /// </summary>
     [JsonProperty("maxFundingRate")]
     public decimal MaximumFundingRate { get; set; }
-    
+
+    /// <summary>
+    /// Interest rate
+    /// </summary>
+    [JsonProperty("interestRate")]
+    public decimal? InterestRate { get; set; }
+
+    /// <summary>
+    /// Depth weighted amount (in the unit of quote currency)
+    /// </summary>
+    [JsonProperty("impactValue")]
+    public decimal? ImpactValue { get; set; }
+
     /// <summary>
     /// Settlement state of funding rate
     /// processing
@@ -95,7 +108,7 @@ public record OkxPublicFundingRate
     /// </summary>
     [JsonProperty("settFundingRate")]
     public decimal SettlementFundingRate { get; set; }
-    
+
     /// <summary>
     /// Premium between the mid price of perps market and the index price
     /// </summary>
@@ -114,15 +127,4 @@ public record OkxPublicFundingRate
     [JsonIgnore]
     public DateTime Time => Timestamp.ConvertFromMilliseconds();
 
-    /// <summary>
-    /// Interest rate
-    /// </summary>
-    [JsonProperty("interestRate")]
-    public decimal? InterestRate { get; set; }
-
-    /// <summary>
-    /// Depth weighted amount (in the unit of quote currency)
-    /// </summary>
-    [JsonProperty("impactValue")]
-    public decimal? ImpactValue { get; set; }
 }

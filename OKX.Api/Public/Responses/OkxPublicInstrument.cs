@@ -119,7 +119,7 @@ public record OkxPublicInstrument
     /// Only applicable to SPOT/MARGIN, return "" for all other business lines
     /// </summary>
     [JsonProperty("openType")]
-    public string? OpenType { get; set; }
+    public string? OpenType { get; set; } // TODO: Enumerate
 
     /// <summary>
     /// Expiry timestamp

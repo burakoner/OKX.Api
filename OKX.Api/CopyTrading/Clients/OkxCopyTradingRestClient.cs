@@ -11,8 +11,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// </summary>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
-    /// <param name="uniqueCode">Unique code, only applicable to copy trading. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="positionType">Data type.</param>
     /// <param name="after">Pagination of data to return records earlier than the requested subPosId.</param>
     /// <param name="before">Pagination of data to return records newer than the requested subPosId.</param>
     /// <param name="limit">Number of results per request. Maximum is 500. Default is 500.</param>
@@ -21,8 +19,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     public Task<RestCallResult<List<OkxCopyTradingLeadingPosition>>> GetLeadingPositionsAsync(
         OkxInstrumentType? instrumentType = null,
         string? instrumentId = null,
-        string? uniqueCode = null,
-        OkxCopyTradingPositionType? positionType = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -30,9 +26,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     {
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptionalEnum("subPosType", positionType);
         parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("uniqueCode", uniqueCode);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
@@ -46,7 +40,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// </summary>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
-    /// <param name="positionType">Data type.</param>
     /// <param name="after">Pagination of data to return records earlier than the requested subPosId.</param>
     /// <param name="before">Pagination of data to return records newer than the requested subPosId.</param>
     /// <param name="limit">Number of results per request. Maximum is 100. Default is 100.</param>
@@ -55,7 +48,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     public Task<RestCallResult<List<OkxCopyTradingLeadingPositionHistory>>> GetLeadingPositionsHistoryAsync(
         OkxInstrumentType? instrumentType = null,
         string? instrumentId = null,
-        OkxCopyTradingPositionType? positionType = null,
         long? after = null,
         long? before = null,
         int limit = 100,
@@ -64,7 +56,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         limit.ValidateIntBetween(nameof(limit), 1, 100);
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptionalEnum("subPosType", positionType);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
@@ -84,7 +75,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <param name="stopLossTriggerPrice">Stop-loss order price. If the price is -1, stop-loss will be executed at the market price, the default is -1. Only applicable to SPOT lead trader</param>
     /// <param name="stopLossTriggerPriceType">Stop-loss trigger price type. Default is last</param>
     /// <param name="stopLossOrderPrice">Stop-loss trigger price. Stop-loss order price will be the market price after triggering.</param>
-    /// <param name="positionType">Data type.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<RestCallResult<long?>> PlaceLeadingStopOrderAsync(
@@ -99,7 +89,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxAlgoPriceType? stopLossTriggerPriceType = null,
         decimal? stopLossOrderPrice = null,
 
-        OkxCopyTradingPositionType? positionType = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
@@ -113,7 +102,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("slOrdPx", stopLossOrderPrice?.ToOkxString());
         parameters.AddOptionalEnum("tpTriggerPxType", takeProfitTriggerPriceType);
         parameters.AddOptionalEnum("slTriggerPxType", stopLossTriggerPriceType);
-        parameters.AddOptionalEnum("subPosType", positionType);
 
         var result = await ProcessOneRequestAsync<OkxCopyTradingPositionIdContainer>(GetUri("api/v5/copytrading/algo-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
@@ -126,7 +114,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// </summary>
     /// <param name="positionId">Leading position ID</param>
     /// <param name="instrumentType">Instrument type</param>
-    /// <param name="positionType">Data type.</param>
     /// <param name="orderType">Order type</param>
     /// <param name="price">Order price. Only applicable to limit order and SPOT lead trader. If the price is 0, the pending order will be canceled. It is modifying order if you set px after placing limit order.</param>
     /// <param name="ct">Cancellation Token</param>
@@ -134,7 +121,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     public async Task<RestCallResult<long?>> CloseLeadingPositionAsync(
         long positionId,
         OkxInstrumentType? instrumentType = null,
-        OkxCopyTradingPositionType? positionType = null,
         OkxTradeOrderType? orderType = null,
         decimal? price = null,
         CancellationToken ct = default)
@@ -147,7 +133,6 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
             { "subPosId", positionId },
         };
         parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptionalEnum("subPosType", positionType);
         parameters.AddOptionalEnum("ordType", orderType);
         parameters.AddOptional("px", price?.ToOkxString());
 
@@ -218,7 +203,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
 
         return ProcessListRequestAsync<OkxCopyTradingProfitSharingDetails>(GetUri("api/v5/copytrading/profit-sharing-details"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-
+    
     /// <summary>
     /// The leading trader gets the total amount of profit shared since joining the platform.
     /// </summary>
@@ -331,22 +316,21 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         decimal? stopLossTotalAmount = null,
         CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection
-        {
-            { "uniqueCode", uniqueCode },
-            { "copyTotalAmt", copyTotalAmount.ToOkxString() },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("instType", instrumentType);
+        parameters.Add("uniqueCode", uniqueCode);
         parameters.AddEnum("copyMgnMode", copyMarginMode);
         parameters.AddEnum("copyInstIdType", copyInstrumentIdType);
-        parameters.AddEnum("subPosCloseType", positionCloseType);
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptionalEnum("copyMode", copyMode);
         if (instrumentIds != null) parameters.AddOptional("instId", string.Join(",", instrumentIds));
+        parameters.AddOptionalEnum("copyMode", copyMode);
+        parameters.Add("copyTotalAmt", copyTotalAmount.ToOkxString());
         parameters.AddOptional("copyAmt", copyAmount?.ToOkxString());
         parameters.AddOptional("copyRatio", copyRatio?.ToOkxString());
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
         parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
         parameters.AddOptional("slTotalAmt", stopLossTotalAmount?.ToOkxString());
+        parameters.AddEnum("subPosCloseType", positionCloseType);
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri("api/v5/copytrading/first-copy-settings"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -401,6 +385,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
         parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
         parameters.AddOptional("slTotalAmt", stopLossTotalAmount?.ToOkxString());
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxBooleanResponse>(GetUri("api/v5/copytrading/amend-copy-settings"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

@@ -78,6 +78,24 @@ public enum OkxPeriod : int
     OneDay = 86400,
 
     /// <summary>
+    /// 2D
+    /// </summary>
+    [Map("2D")]
+    TwoDays = 86400 * 2,
+
+    /// <summary>
+    /// 3D
+    /// </summary>
+    [Map("3D")]
+    ThreeDays = 86400 * 3,
+
+    /// <summary>
+    /// 5D
+    /// </summary>
+    [Map("5D")]
+    FiveDays = 86400 * 5,
+
+    /// <summary>
     /// 1W
     /// </summary>
     [Map("1W")]

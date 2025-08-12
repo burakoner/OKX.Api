@@ -85,6 +85,7 @@ public record OkxPublicInsuranceFundDetails
     /// Real-time insurance fund decline rate (compare balance and maxBal)
     /// Only applicable when type is adl
     /// </summary>
+    [Obsolete]
     [JsonProperty("decRate")]
     public decimal? DeclineRate { get; set; }
 

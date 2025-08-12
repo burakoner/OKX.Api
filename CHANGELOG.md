@@ -1,5 +1,17 @@
 ## Change Log & Release Notes
 
+* Version 5.5.814 - 12 Aug 2025
+  * Refactor API methods and enhance data models
+  * Added new enum values in `OkxPeriod.cs` for extended time periods.
+  * Removed `uniqueCode` and `positionType` parameters in `OkxCopyTradingRestClient.cs` for simplification.
+  * Introduced `OkxCopyTradingAccount` record with new properties.
+  * Renamed methods in `OkxPublicRestClient.cs` for clarity.
+  * Enhanced `OkxPublicFundingRate` with new properties for detailed information.
+  * Modified `OkxPublicSocketClient` to include `utc` parameter in subscription methods.
+  * Updated `OkxPublicDiscountInfo` to improve property naming.
+  * Corrected `OkxPublicAnnouncement` for proper serialization.
+  * Added `OkxPublicCollateralRestrictionStatus` enum for better usability.
+
 * Version 5.5.813 - 12 Aug 2025
   * Update API to version 5.5.812 with enhancements
   * Replaced `CheckOrderAsync` with `OrderPrecheckAsync` in `OkxTradeRestClient`.

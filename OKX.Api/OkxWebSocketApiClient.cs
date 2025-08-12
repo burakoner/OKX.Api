@@ -33,7 +33,12 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
     /// <summary>
     /// Copy Trading Client
     /// </summary>
-    public OkxCopyTradingSocketClient CopyTrading { get; }
+    public OkxCopyTradingSocketClient CopyTrading { get; } // 814
+
+    /// <summary>
+    /// Market Data Client (Alias for Public)
+    /// </summary>
+    public OkxPublicSocketClient Market { get => Public; } // 814
 
     /// <summary>
     /// Block Trading Client
@@ -48,7 +53,7 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
     /// <summary>
     /// Public and Market Data Client
     /// </summary>
-    public OkxPublicSocketClient Public { get; }
+    public OkxPublicSocketClient Public { get; } // 814
 
     /// <summary>
     /// Funding Account Client
@@ -82,10 +87,10 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
         this.Algo = new OkxAlgoSocketClient(this);
         this.Grid = new OkxGridSocketClient(this);
         this.RecurringBuy = new OkxRecurringBuySocketClient(this);
+        this.CopyTrading = new OkxCopyTradingSocketClient(this);
 
         this.Public = new OkxPublicSocketClient(this);
         this.Funding = new OkxFundingSocketClient(this);
-        this.CopyTrading = new OkxCopyTradingSocketClient(this);
         this.Block = new OkxBlockSocketClient(this);
         this.Spread = new OkxSpreadSocketClient(this);
     }

@@ -14,6 +14,7 @@ public enum OkxPublicFundingRateMethod : byte
     /// <summary>
     /// NextPeriod
     /// </summary>
+    [Obsolete]
     [Map("next_period")]
     NextPeriod = 2,
 }

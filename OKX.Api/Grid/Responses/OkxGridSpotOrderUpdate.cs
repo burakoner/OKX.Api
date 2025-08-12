@@ -279,6 +279,6 @@ public record OkxGridSpotOrderUpdate
     /// Push time of algo grid information
     /// </summary>
     [JsonIgnore]
-    public DateTime? PushTimes => PushTimestamp?.ConvertFromMilliseconds();
+    public DateTime? PushTime => PushTimestamp?.ConvertFromMilliseconds();
 
 }

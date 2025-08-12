@@ -53,7 +53,15 @@ public class OkxRestApiClient
     /// <summary>
     /// Copy Trading Client
     /// </summary>
-    public OkxCopyTradingRestClient CopyTrading { get; }
+    public OkxCopyTradingRestClient CopyTrading { get; } // 814
+
+    /// <summary>
+    /// Market Data Client (Alias for Public)
+    /// </summary>
+    public OkxPublicRestClient Market { get => Public; } // 814
+
+
+
 
     /// <summary>
     /// Block Trading Client
@@ -68,7 +76,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Public and Market Data Client
     /// </summary>
-    public OkxPublicRestClient Public { get; }
+    public OkxPublicRestClient Public { get; } // 814
 
     /// <summary>
     /// Trading Statistics Client
@@ -134,11 +142,11 @@ public class OkxRestApiClient
         Grid = new OkxGridRestClient(this);
         SignalBot = new OkxSignalBotRestClient(this);
         RecurringBuy = new OkxRecurringBuyRestClient(this);
+        CopyTrading = new OkxCopyTradingRestClient(this);
 
         Public = new OkxPublicRestClient(this);
         Funding = new OkxFundingRestClient(this);
         SubAccount = new OkxSubAccountRestClient(this);
-        CopyTrading = new OkxCopyTradingRestClient(this);
         Block = new OkxBlockRestClient(this);
         Spread = new OkxSpreadRestClient(this);
         Financial = new OkxFinancialRestClient(this);
@@ -172,12 +180,12 @@ public class OkxRestApiClient
         Grid.SetApiCredentials(credentials);
         SignalBot.SetApiCredentials(credentials);
         RecurringBuy.SetApiCredentials(credentials);
+        CopyTrading.SetApiCredentials(credentials);
 
         Public.SetApiCredentials(credentials);
         Funding.SetApiCredentials(credentials);
         SubAccount.SetApiCredentials(credentials);
         Grid.SetApiCredentials(credentials);
-        CopyTrading.SetApiCredentials(credentials);
         Block.SetApiCredentials(credentials);
         Spread.SetApiCredentials(credentials);
         Financial.SetApiCredentials(credentials);

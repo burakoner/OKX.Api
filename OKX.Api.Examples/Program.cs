@@ -134,9 +134,9 @@ internal class Program
         var trade_20 = await api.Trade.PlaceOneClickRepayOrderAsync([], "USDT");
         var trade_21 = await api.Trade.GetOneClickRepayHistoryAsync();
         var trade_22 = await api.Trade.MassCancelAsync(OkxInstrumentType.Option, "USDT");
-        var trade_23 = await api.Trade.CancelAllAfterAsync(30, "TAG");
+        var trade_23 = await api.Trade.CancelAllAfterAsync(30);
         var trade_24 = await api.Trade.GetAccountRateLimitAsync();
-        var trade_25 = await api.Trade.OrderPrecheckAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradePositionSide.Long, OkxTradeOrderType.MarketOrder, 0.1m);
+        var trade_25 = await api.Trade.OrderPrecheckAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradeOrderType.MarketOrder, 0.1m);
 
         // Order Book Trading -> Algo Trading Methods (Signed)
         var algo_01 = await api.Algo.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Isolated, OkxTradeOrderSide.Sell, OkxAlgoOrderType.Conditional);
