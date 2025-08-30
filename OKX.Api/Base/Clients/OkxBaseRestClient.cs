@@ -26,32 +26,46 @@ public abstract class OkxBaseRestClient : RestApiClient
     /// <inheritdoc />
     protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials) => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
     /// <inheritdoc />
-    protected override Error ParseErrorResponse(JToken error)
+    protected override Error ParseErrorResponse(JToken message)
     {
-        if (!error.HasValues)
-            return new ServerError(error.ToString());
+        if (!message.HasValues)
+            return new ServerError(message.ToString());
 
-        if (error["msg"] is null || error["code"] is null)
-            return new ServerError(error.ToString());
+        if (message["msg"] is null || message["code"] is null)
+            return new ServerError(message.ToString());
 
-        return new ServerError((int)error["code"]!, (string)error["msg"]!);
+        return new ServerError((int)message["code"]!, (string)message["msg"]!);
     }
     /// <inheritdoc />
-    protected override Task<ServerError> TryParseErrorAsync(JToken error)
+    protected override async Task<ServerError?> TryParseErrorAsync(JToken message)
     {
-        if (!error.HasValues)
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-            return Task.FromResult<ServerError>(null);
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+        await Task.CompletedTask;
+        if (!message.HasValues) return null;
 
-        if (error["msg"] is not null
-            && !string.IsNullOrWhiteSpace((string)error["msg"]!)
-            && error["code"] is not null)
-            return Task.FromResult(new ServerError((int)error["code"]!, (string)error["msg"]!));
+        if (message["data"] is not null && message["data"]!.Type == JTokenType.Array)
+        {
+            var data = message["data"]!.FirstOrDefault();
+            if (data is not null && data["sCode"] != null && data["sMsg"] != null)
+            {
+                if (data["sCode"]!.Type == JTokenType.String && data["sMsg"]!.Type == JTokenType.String)
+                {
+                    if (int.TryParse((string)data["sCode"]!, out int code) && !string.IsNullOrWhiteSpace((string)data["sMsg"]!))
+                        return new ServerError(code, (string)data["sMsg"]!);
+                }
+                else if (data["sCode"]!.Type == JTokenType.Integer && data["sMsg"]!.Type == JTokenType.String)
+                {
+                    if (!string.IsNullOrWhiteSpace((string)data["sMsg"]!))
+                        return new ServerError((int)data["sCode"]!, (string)data["sMsg"]!);
+                }
+            }
+        }
 
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-        return Task.FromResult<ServerError>(null);
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+        if (message["msg"] is not null
+            && !string.IsNullOrWhiteSpace((string)message["msg"]!)
+            && message["code"] is not null)
+            return new ServerError((int)message["code"]!, (string)message["msg"]!);
+
+        return null;
     }
     /// <inheritdoc />
     protected override Task<RestCallResult<DateTime>> GetServerTimestampAsync() => _.Public.GetServerTimeAsync();

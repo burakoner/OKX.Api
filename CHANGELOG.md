@@ -1,5 +1,8 @@
 ## Change Log & Release Notes
 
+* Version 5.5.830 - 30 Aug 2025
+  * Fixed issue [Error message is not clear #89](https://github.com/burakoner/OKX.Api/issues/89)
+
 * Version 5.5.814 - 12 Aug 2025
   * Refactor API methods and enhance data models
   * Added new enum values in `OkxPeriod.cs` for extended time periods.
