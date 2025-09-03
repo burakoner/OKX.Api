@@ -49,10 +49,10 @@ public abstract class OkxBaseRestClient : RestApiClient
             {
                 if (data["sCode"]!.Type == JTokenType.String && data["sMsg"]!.Type == JTokenType.String)
                 {
-                    if (int.TryParse((string)data["sCode"]!, out int code) && !string.IsNullOrWhiteSpace((string)data["sMsg"]!))
+                    if (int.TryParse((string)data["sCode"]!, out int code) && code != 0 && !string.IsNullOrWhiteSpace((string)data["sMsg"]!))
                         return new ServerError(code, (string)data["sMsg"]!);
                 }
-                else if (data["sCode"]!.Type == JTokenType.Integer && data["sMsg"]!.Type == JTokenType.String)
+                else if (data["sCode"]!.Type == JTokenType.Integer && ((int)data["sCode"]!) != 0 && data["sMsg"]!.Type == JTokenType.String)
                 {
                     if (!string.IsNullOrWhiteSpace((string)data["sMsg"]!))
                         return new ServerError((int)data["sCode"]!, (string)data["sMsg"]!);

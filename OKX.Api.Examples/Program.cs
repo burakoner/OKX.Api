@@ -114,7 +114,7 @@ internal class Program
         var account_58 = await api.Account.GetMmpAsync("BTC-USDT");
 
         // Order Book Trading -> Trade Methods (Signed)
-        var trade_01 = await api.Trade.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradePositionSide.Long, OkxTradeOrderType.MarketOrder, 0.1m);
+        var trade_01 = await api.Trade.PlaceOrderAsync("BTC-USDT", OkxTradeMode.Cash, OkxTradeOrderSide.Buy, OkxTradePositionSide.Net, OkxTradeOrderType.MarketOrder, 0.1m);
         var trade_02 = await api.Trade.PlaceOrdersAsync([]);
         var trade_03 = await api.Trade.CancelOrderAsync("BTC-USDT");
         var trade_04 = await api.Trade.CancelOrdersAsync([]);

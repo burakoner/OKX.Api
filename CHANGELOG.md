@@ -1,5 +1,8 @@
 ## Change Log & Release Notes
 
+* Version 5.5.903 - 30 Aug 2025
+  * Re-Fixed issue [Error message is not clear #89](https://github.com/burakoner/OKX.Api/issues/89)
+
 * Version 5.5.830 - 30 Aug 2025
   * Fixed issue [Error message is not clear #89](https://github.com/burakoner/OKX.Api/issues/89)
 
