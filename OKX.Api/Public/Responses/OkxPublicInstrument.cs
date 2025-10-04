@@ -112,6 +112,20 @@ public record OkxPublicInstrument
     public DateTime? ContinuousTradingSwitchTime => ContinuousTradingSwitchTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
+    /// The time premarket swap switched to normal swap, Unix timestamp format in milliseconds, e.g. 1597026383085.
+    /// Only applicable premarket SWAP
+    /// </summary>
+    [JsonProperty("preMktSwTime")]
+    public long? PreMarketSwitchTimestamp { get; set; }
+
+    /// <summary>
+    /// The time premarket swap switched to normal swap, Unix timestamp format in milliseconds, e.g. 1597026383085.
+    /// Only applicable premarket SWAP
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? PreMarketSwitchTime => PreMarketSwitchTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
     /// Open type
     /// fix_price: fix price opening
     /// pre_quote: pre-quote

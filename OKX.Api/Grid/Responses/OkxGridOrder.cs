@@ -293,4 +293,10 @@ public record OkxGridOrder
     /// </summary>
     [JsonProperty("slRatio")]
     public decimal? StopLossRatio { get; set; }
+
+    /// <summary>
+    /// Trade quote currency.
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy")]
+    public string? TradeQuoteCurrency { get; set; }
 }

@@ -281,4 +281,9 @@ public record OkxGridSpotOrderUpdate
     [JsonIgnore]
     public DateTime? PushTime => PushTimestamp?.ConvertFromMilliseconds();
 
+    /// <summary>
+    /// Trade quote currency.
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy")]
+    public string? TradeQuoteCurrency { get; set; }
 }

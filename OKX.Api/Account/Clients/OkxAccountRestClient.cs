@@ -491,6 +491,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="marginMode">Margin Mode</param>
     /// <param name="currency">Margin Currency</param>
     /// <param name="marginCurrency">Margin Currency</param>
+    /// <param name="tradeQuoteCurrency">The quote currency for trading. Only applicable to SPOT. The default value is the quote currency of instId, e.g.USD for BTC-USD.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountMaximumLoanAmount>>> GetMaximumLoanAmountAsync(
@@ -498,6 +499,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? instrumentId = null,
         string? currency = null,
         string? marginCurrency = null,
+        string? tradeQuoteCurrency = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
@@ -505,6 +507,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("ccy", currency);
         parameters.AddOptional("mgnCcy", marginCurrency);
+        parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
 
         return ProcessListRequestAsync<OkxAccountMaximumLoanAmount>(GetUri("api/v5/account/max-loan"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

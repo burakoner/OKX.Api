@@ -46,4 +46,11 @@ public record OkxPublicTrade
     /// </summary>
     [JsonIgnore]
     public DateTime Time => Timestamp.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Order source
+    /// 0: normal orders
+    /// </summary>
+    [JsonProperty("source")]
+    public string? Source { get; set; }
 }

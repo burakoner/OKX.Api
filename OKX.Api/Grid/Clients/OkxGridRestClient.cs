@@ -32,6 +32,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         request.BasePosition,
         request.TakeProfitRatio,
         request.StopLossRatio,
+        request.TradeQuoteCurrency,
         ct);
 
     /// <summary>
@@ -56,6 +57,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="basePosition">Whether or not open a position when the strategy activates. Default is false. Neutral contract grid should omit the parameter</param>
     /// <param name="takeProfitRatio">Take profit ratio, 0.1 represents 10%</param>
     /// <param name="stopLossRatio">Stop loss ratio, 0.1 represents 10%</param>
+    /// <param name="tradeQuoteCurrency">The quote currency for trading. Only applicable to SPOT. The default value is the quote currency of instId, e.g.USD for BTC-USD.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxGridPlaceOrderResponse>> PlaceOrderAsync(
@@ -82,6 +84,11 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         bool? basePosition = null,
         decimal? takeProfitRatio = null,
         decimal? stopLossRatio = null,
+
+        // Trade Quote Currency
+        string? tradeQuoteCurrency = null,
+
+        // Cancellation Token
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
@@ -109,6 +116,9 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("basePos", basePosition);
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
         parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
+
+        // Trade Quote Currency
+        parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
 
         // Broker ID
         parameters.AddOptional("tag", OkxConstants.BrokerId);

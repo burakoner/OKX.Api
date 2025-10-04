@@ -180,4 +180,10 @@ public record OkxTradeTransaction
     /// </summary>
     [JsonProperty("feeRate")]
     public decimal? FeeRate { get; set; }
+
+    /// <summary>
+    /// Trade quote currency.
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy")]
+    public string? TradeQuoteCurrency { get; set; }
 }

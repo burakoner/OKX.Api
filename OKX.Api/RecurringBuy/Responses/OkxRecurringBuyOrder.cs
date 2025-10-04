@@ -148,6 +148,12 @@ public record OkxRecurringBuyOrder
     /// </summary>
     [JsonProperty("cycles")]
     public int Cycles { get; set; }
+
+    /// <summary>
+    /// Trade quote currency.
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy")]
+    public string? TradeQuoteCurrency { get; set; }
 }
 
 /// <summary>

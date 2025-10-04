@@ -117,9 +117,15 @@ public record OkxTradeOrderPlaceRequest
     public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
 
     /// <summary>
+    /// Price Amend Type
+    /// </summary>
+    [JsonProperty("pxAmendType", NullValueHandling = NullValueHandling.Ignore)]
+    public OkxTradePriceAmendType? PriceAmendType { get; set; }
+
+    /// <summary>
     /// TP/SL information attached when placing order
     /// </summary>
-    [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
+[JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
     public IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? AttachedAlgoOrders { get; set; }
 
 }

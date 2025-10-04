@@ -30,21 +30,23 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
     /// <param name="clientOrderId">Client-supplied Algo ID
     /// There will be a value when algo order attaching algoClOrdId is triggered, or it will be "".
     /// A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="tradeQuoteCurrency">The quote currency for trading. Only applicable to SPOT. The default value is the quote currency of instId, e.g.USD for BTC-USD.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxRecurringBuyOrderResponse>> PlaceOrderAsync(
-       string strategyName,
-       IEnumerable<OkxRecurringBuyItem> recurringList,
-       OkxRecurringBuyPeriod period,
-       int? recurringDay,
-       int? recurringHour,
-       int recurringTime,
-       string timeZone,
-       decimal amount,
-       string investmentCurrency,
-       OkxTradeMode tradeMode,
-       string? clientOrderId = null,
-       CancellationToken ct = default)
+        string strategyName,
+        IEnumerable<OkxRecurringBuyItem> recurringList,
+        OkxRecurringBuyPeriod period,
+        int? recurringDay,
+        int? recurringHour,
+        int recurringTime,
+        string timeZone,
+        decimal amount,
+        string investmentCurrency,
+        OkxTradeMode tradeMode,
+        string? clientOrderId = null,
+        string? tradeQuoteCurrency = null,
+        CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
             {"stgyName", strategyName },
@@ -59,11 +61,12 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
         parameters.AddOptional("recurringHour", recurringHour?.ToOkxString());
         parameters.AddOptional("recurringTime", recurringTime.ToOkxString());
         parameters.AddOptional("algoClOrdId", clientOrderId);
+        parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
     /// <summary>
     /// Amend recurring buy order
     /// </summary>
@@ -95,7 +98,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
 
         return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/stop-order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
-    
+
     /// <summary>
     /// Recurring buy order list
     /// </summary>
@@ -121,7 +124,7 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
 
         return ProcessListRequestAsync<OkxRecurringBuyOrder>(GetUri("api/v5/tradingBot/recurring/orders-algo-pending"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-    
+
     /// <summary>
     /// Recurring buy order history
     /// </summary>

@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+﻿using static System.Net.WebRequestMethods;
 
 namespace OKX.Api.Account;
 
@@ -295,6 +295,16 @@ public record OkxAccountBalanceDetails
     /// </summary>
     [JsonProperty("twap")]
     public decimal? TWAP { get; set; }
+
+    /// <summary>
+    /// Forced repayment (FRP) type
+    /// 0: no FRP
+    /// 1: user based FRP
+    /// 2: platform based FRP
+    /// Return 1/2 when twap is >= 1, applicable to Spot mode/Multi-currency margin/Portfolio margin
+    /// </summary>
+    [JsonProperty("frpType")]
+    public OkxAccountForcedRepaymentType? ForcedRepaymentType { get; set; }
 
     /// <summary>
     /// Max loan of the currency

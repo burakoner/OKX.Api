@@ -1,6 +1,17 @@
 ## Change Log & Release Notes
 
-* Version 5.5.903 - 30 Aug 2025
+* Version 5.5.1004 - 04 Oct 2025
+  * ApiSharp 4.0.5 Update
+  * Synced with the OKX Latest API Version [2025-09-09](https://www.okx.com/docs-v5/log_en/#2025-09-09)
+  * Added tradeQuoteCurrency and priceAmendType support
+  * Enhanced API functionality by adding the `tradeQuoteCurrency` parameter to multiple methods across `OkxAccountRestClient`, `OkxGridRestClient`, `OkxRecurringBuyRestClient`, and `OkxTradeRestClient` to specify the quote currency for SPOT trading. Introduced the `priceAmendType` parameter in `OkxTradeRestClient` for better control over price amendments.
+  * Added `ForcedRepaymentType` property to `OkxAccountBalanceDetails` and defined the `OkxAccountForcedRepaymentType` enum. Introduced the `OkxTradePriceAmendType` enum to support price amendment functionality.
+  * Updated several records (`OkxGridPlaceOrderRequest`, `OkxGridOrder`, `OkxGridSpotOrderUpdate`, `OkxRecurringBuyOrder`, `OkxTradeTransaction`) to include the `tradeQuoteCurrency` property. Added new properties to `OkxPublicTrade` and `OkxPublicInstrument` for additional data representation.
+  * Performed general code cleanup, added documentation, and made minor adjustments.
+
+* Version 5.5.924 - 24 Sep 2025
+
+* Version 5.5.903 - 03 Sep 2025
   * Re-Fixed issue [Error message is not clear #89](https://github.com/burakoner/OKX.Api/issues/89)
 
 * Version 5.5.830 - 30 Aug 2025

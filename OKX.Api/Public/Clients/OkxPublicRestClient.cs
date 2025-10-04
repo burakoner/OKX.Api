@@ -1017,6 +1017,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
         return ProcessListRequestAsync<OkxPublicEconomicCalendarEvent>(GetUri("api/v5/public/economic-calendar"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
+
+    // TODO: /api/v5/public/market-data-history
     #endregion
 
     #region System Status Methods

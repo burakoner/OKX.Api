@@ -37,6 +37,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in</param>
     /// 
     /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
+    /// <param name="priceAmendType">Price Amend Type</param>
     /// <param name="attachedAlgoOrders">TP/SL information attached when placing order</param>
     /// 
     /// <param name="ct">Cancellation Token</param>
@@ -58,12 +59,13 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? priceUsd = null,
         decimal? priceVolatility = null,
         string? tradeQuoteCurrency = null,
+        OkxTradePriceAmendType? priceAmendType = null,
 
         IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? attachedAlgoOrders = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
-        parameters.Add("instId", instrumentId);
+        parameters.AddParameter("instId", instrumentId);
         parameters.AddOptional("ccy", currency);
         parameters.AddOptional("clOrdId", clientOrderId);
         parameters.AddEnum("tdMode", tradeMode);
@@ -81,6 +83,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
         parameters.AddOptionalEnum("stpMode", selfTradePreventionMode);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
+
+        parameters.AddOptionalEnum("pxAmendType", priceAmendType);
 
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
@@ -152,6 +156,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// Only applicable to options.
     /// When modifying options orders, users can only fill in one of the following: newPx, newPxUsd, or newPxVol.</param>
     /// <param name="attachedAlgoOrders">TP/SL information attached when placing order</param>
+    /// <param name="priceAmendType">Price Amend Type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxTradeOrderAmend>> AmendOrderAsync(
@@ -164,6 +169,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? newPrice = null,
         decimal? newPriceUsd = null,
         decimal? newPriceVolatility = null,
+        OkxTradePriceAmendType? priceAmendType = null,
         IEnumerable<OkxTradeOrderAmendAttachedAlgoRequest>? attachedAlgoOrders = null,
         CancellationToken ct = default)
     {
@@ -179,6 +185,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("newPx", newPrice?.ToOkxString());
         parameters.AddOptional("newPxUsd", newPriceUsd?.ToOkxString());
         parameters.AddOptional("newPxVol", newPriceVolatility?.ToOkxString());
+        parameters.AddOptionalEnum("pxAmendType", priceAmendType);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
         return ProcessOneRequestAsync<OkxTradeOrderAmend>(GetUri("api/v5/trade/amend-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);

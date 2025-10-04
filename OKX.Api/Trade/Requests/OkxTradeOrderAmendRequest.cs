@@ -64,6 +64,12 @@ public record OkxTradeOrderAmendRequest
     public decimal? NewPriceVolatility { get; set; }
 
     /// <summary>
+    /// Price Amend Type
+    /// </summary>
+    [JsonProperty("pxAmendType", NullValueHandling = NullValueHandling.Ignore)]
+    public OkxTradePriceAmendType? PriceAmendType { get; set; }
+
+    /// <summary>
     /// TP/SL information attached when placing order
     /// </summary>
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]

@@ -126,4 +126,10 @@ public record OkxGridPlaceOrderRequest
     /// </summary>
     [JsonProperty("stopLossRatio", NullValueHandling = NullValueHandling.Ignore)]
     public decimal? StopLossRatio { get; set; }
+
+    /// <summary>
+    /// Trade Quote Currency
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy", NullValueHandling = NullValueHandling.Ignore)]
+    public string? TradeQuoteCurrency { get; set; }
 }
