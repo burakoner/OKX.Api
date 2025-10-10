@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Block;
+﻿using System.Diagnostics;
+
+namespace OKX.Api.Block;
 
 /// <summary>
 /// OKX Block Execution

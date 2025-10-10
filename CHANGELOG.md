@@ -1,5 +1,13 @@
 ## Change Log & Release Notes
 
+* Version 5.5.1011 - 10 Oct 2025
+  * Added new REST and WebSocket features to OKX API wrapper
+  * Added `SetFeeTypeAsync` method to `OkxAccountRestClient` for setting account fee types.
+  * Implemented `PositionBuilder` trend graph functionality.
+  * Introduced WebSocket subscription methods in `OkxBlockSocketClient` for RFQs, quotes, block trades, and tickers.
+  * Enumerated `OpenType` and `Type` properties for improved type safety.
+  * Added new records for handling fee types, simulated MMR, position builder graphs, and block trade updates.
+
 * Version 5.5.1010 - 10 Oct 2025
   * Synced with the OKX Latest API Version [2025-09-26](https://www.okx.com/docs-v5/log_en/#2025-09-26)
   * Added support for account-level RFQ allocations

@@ -165,6 +165,20 @@ public record OkxSocketRequestArgument
     /// </summary>
     [JsonProperty("extraParams", NullValueHandling = NullValueHandling.Ignore)]
     public Dictionary<string, string>? ExtraParameters { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the OkxSocketRequestArgument record.
+    /// </summary>
+    public OkxSocketRequestArgument() { }
+
+    /// <summary>
+    /// Initializes a new instance of the OkxSocketRequestArgument class with the specified channel.
+    /// </summary>
+    /// <param name="channel">The name of the channel to subscribe to. Cannot be null or empty.</param>
+    public OkxSocketRequestArgument(string channel)
+    {
+        Channel = channel;
+    }
 }
 
 /// <summary>

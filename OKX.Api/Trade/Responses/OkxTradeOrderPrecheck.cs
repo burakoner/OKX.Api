@@ -126,5 +126,5 @@ public record OkxTradeOrderPrecheck
     /// 4: it is both quota currency before and after placing order
     /// </summary>
     [JsonProperty("type")]
-    public string Type  { get; set; } = string.Empty; // TODO: Enumerate
+    public OkxTradeOrderPrecheckType? Type  { get; set; }
 }

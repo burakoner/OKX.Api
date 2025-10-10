@@ -588,7 +588,21 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountInterestRate>(GetUri("api/v5/account/interest-rate"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
-    // TODO: POST /api/v5/account/set-fee-type
+    /// <summary>
+    /// Set the fee type.
+    /// </summary>
+    /// <param name="feeType">Fee type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<OkxAccountFeeType?>> SetFeeTypeAsync(OkxAccountFeeType feeType , CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("feeType", feeType);
+
+        var result = await ProcessOneRequestAsync<OkxAccountFeeTypeContainer>(GetUri("api/v5/account/set-fee-type"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        if (!result) return new RestCallResult<OkxAccountFeeType?>(result.Request, result.Response, result.Raw ?? "", result.Error);
+        return new RestCallResult<OkxAccountFeeType?>(result.Request, result.Response, result.Data.Payload, result.Raw ?? "", result.Error);
+    }
 
     /// <summary>
     /// Set the display type of Greeks.
@@ -790,14 +804,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountPositionBuilder>>> PositionBuilderAsync(
-    OkxAccountMode? accountLevel = null,
-    bool importExisting = true,
-    decimal? leverage = null,
-    IEnumerable<OkxAccountSimulatedPosition>? simulatedPositions = null,
-    IEnumerable<OkxAccountSimulatedAsset>? simulatedAssets = null,
-    OkxAccountGreeksType? greeksType = OkxAccountGreeksType.BlackScholesGreeksInDollars,
-    decimal? volatilityPercentage = null,
-    CancellationToken ct = default)
+        OkxAccountMode? accountLevel = null,
+        bool importExisting = true,
+        decimal? leverage = null,
+        IEnumerable<OkxAccountSimulatedPosition>? simulatedPositions = null,
+        IEnumerable<OkxAccountSimulatedAsset>? simulatedAssets = null,
+        OkxAccountGreeksType? greeksType = OkxAccountGreeksType.BlackScholesGreeksInDollars,
+        decimal? volatilityPercentage = null,
+        CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("acctLv", accountLevel);
@@ -811,7 +825,31 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountPositionBuilder>(GetUri("api/v5/account/position-builder"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
-    // TODO: POST /api/v5/account/position-builder-graph
+    /// <summary>
+    /// Position builder trend graph
+    /// </summary>
+    /// <param name="importExisting">Whether to import existing positions and assets. The default is true</param>
+    /// <param name="simulatedPositions">List of simulated positions</param>
+    /// <param name="simulatedAssets">	List of simulated assets. When inclRealPosAndEq is true, only real assets are considered and virtual assets are ignored</param>
+    /// <param name="simulatedMmr">MMR configuration</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountPositionBuilderGraph>>> PositionBuilderAsync(
+        bool? importExisting = null,
+        IEnumerable<OkxAccountSimulatedPosition>? simulatedPositions = null,
+        IEnumerable<OkxAccountSimulatedAsset>? simulatedAssets = null,
+        OkxAccountSimulatedMMR? simulatedMmr = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("inclRealPosAndEq", importExisting);
+        parameters.AddOptional("simPos", simulatedPositions);
+        parameters.AddOptional("simAsset", simulatedAssets);
+        parameters.AddOptional("type", "mmr");
+        parameters.AddOptional("mmrConfig", "simulatedMmr");
+
+        return ProcessListRequestAsync<OkxAccountPositionBuilderGraph>(GetUri("api/v5/account/position-builder-graph"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
 
     /// <summary>
     /// Set risk offset amount. This does not represent the actual spot risk offset amount. Only applicable to Portfolio Margin Mode.
@@ -1062,6 +1100,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
     // TODO: POST /api/v5/account/move-positions
-    // GET /api/v5/account/move-positions-history
-    // POST /api/v5/account/set-auto-earn
+    // TODO:  GET /api/v5/account/move-positions-history
+    // TODO: POST /api/v5/account/set-auto-earn
+    // TODO: POST /api/v5/account/set-settle-currency
 }

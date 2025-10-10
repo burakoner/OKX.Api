@@ -250,7 +250,7 @@ public record OkxTradeOrder
     /// 13:The generated limit order after the strategy order is triggered
     /// </summary>
     [JsonProperty("source")]
-    public string Source { get; set; } = string.Empty; // TODO: Enumerate
+    public string Source { get; set; } = string.Empty;
 
     /// <summary>
     /// Category

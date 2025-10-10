@@ -9,7 +9,6 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     internal OkxWebSocketApiClient _ { get; } = root;
 
     #region Market Data
-
     /// <summary>
     /// Retrieve the last traded price, bid price, ask price and 24-hour trading volume of instruments. Data will be pushed every 100 ms.
     /// </summary>
