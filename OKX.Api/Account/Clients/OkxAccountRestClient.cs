@@ -588,6 +588,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxAccountInterestRate>(GetUri("api/v5/account/interest-rate"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    // TODO: POST /api/v5/account/set-fee-type
+
     /// <summary>
     /// Set the display type of Greeks.
     /// </summary>

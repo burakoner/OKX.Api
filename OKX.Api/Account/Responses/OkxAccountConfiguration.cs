@@ -54,6 +54,14 @@ public record OkxAccountConfiguration
     public OkxAccountGreeksType GreeksType { get; set; }
 
     /// <summary>
+    /// Fee type
+    /// 0: fee is charged in the currency you receive from the trade
+    /// 1: fee is always charged in the quote currency of the trading pair
+    /// </summary>
+    [JsonProperty("feeType")]
+    public OkxAccountFeeType FeeType { get; set; }
+
+    /// <summary>
     /// The user level of the current real trading volume on the platform, e.g lv1
     /// </summary>
     [JsonProperty("level")]
@@ -164,4 +172,16 @@ public record OkxAccountConfiguration
     /// </summary>
     [JsonProperty("type")]
     public OkxAccountType Type { get; set; }
+
+    /// <summary>
+    /// Current account's USD-margined contract settle currency
+    /// </summary>
+    [JsonProperty("settleCcy")]
+    public string SettleCurrency { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Current account's USD-margined contract settle currency list, like ["USD", "USDC", "USDG"].
+    /// </summary>
+    [JsonProperty("settleCcyList")]
+    public List<string> SettleCurrencyList { get; set; } = [];
 }

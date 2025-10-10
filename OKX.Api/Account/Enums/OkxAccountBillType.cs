@@ -6,6 +6,12 @@
 public enum OkxAccountBillType:int
 {
     /// <summary>
+    /// Unknown
+    /// </summary>
+    [Map("0")]
+    Unknown = 0,
+
+    /// <summary>
     /// Transfer
     /// </summary>
     [Map("1")]

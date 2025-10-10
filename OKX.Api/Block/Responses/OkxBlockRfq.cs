@@ -88,8 +88,87 @@ public record OkxBlockRfq
     public List<OkxBlockLegResponse> Legs { get; set; } = [];
 
     /// <summary>
+    /// Group RFQ ID
+    /// Only applicable to group RFQ, return "" for normal RFQ
+    /// </summary>
+    [JsonProperty("groupId")]
+    public string GroupId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Account level allocation of the RFQ
+    /// </summary>
+    [JsonProperty("acctAlloc")]
+    public List<OkxBlockRfqAccountAllocation> AccountLevelAllocations { get; set; } = [];
+
+    /// <summary>
     /// Reasons of state. Valid values can be mmp_canceled.
     /// </summary>
     [JsonProperty("reason")]
     public string Reason { get; set; } = string.Empty;
+}
+
+/// <summary>
+/// OKX Block Account Level Allocation Response
+/// </summary>
+public record OkxBlockRfqAccountAllocation
+{
+    /// <summary>
+    /// The name of the allocated account of the RFQ.
+    /// </summary>
+    [JsonProperty("acct")]
+    public string Account { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The code of the event execution result, 0 means success
+    /// </summary>
+    [JsonProperty("sCode")]
+    public string Code { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Rejection message if the request is unsuccessful
+    /// </summary>
+    [JsonProperty("sMsg")]
+    public string Message { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The allocated legs of the account.
+    /// </summary>
+    [JsonProperty("legs")]
+    public IEnumerable<OkxBlockRfqAccountAllocationLeg> Legs { get; set; } = [];
+}
+
+/// <summary>
+/// OKX Block Account Level Allocation Leg Response
+/// </summary>
+public record OkxBlockRfqAccountAllocationLeg
+{
+    /// <summary>
+    /// The Instrument ID of each leg. Example : "BTC-USDT-SWAP"
+    /// </summary>
+    [JsonProperty("instId")]
+    public string InstrumentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The size of each leg
+    /// </summary>
+    [JsonProperty("sz")]
+    public decimal? Size { get; set; }
+
+    /// <summary>
+    /// Trade mode
+    /// </summary>
+    [JsonProperty("tdMode")]
+    public OkxTradeMode? TradeMode { get; set; }
+
+    /// <summary>
+    /// Margin currency.
+    /// </summary>
+    [JsonProperty("ccy")]
+    public string Currency { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Position side
+    /// </summary>
+    [JsonProperty("posSide")]
+    public OkxTradePositionSide? PositionSide { get; set; }
 }

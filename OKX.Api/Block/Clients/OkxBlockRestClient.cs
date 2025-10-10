@@ -25,6 +25,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// If not specified, the default value is false.
     /// When anonymous = true, the taker’s identify is not disclosed to maker even after trade execution.</param>
     /// <param name="allowPartialExecution">Whether the RFQ can be partially filled provided that the shape of legs stays the same. Valid values are true or false. false by default.</param>
+    /// <param name="accountAllocations">Account level allocation of the RFQ</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxBlockRfq>> CreateRfqAsync(
@@ -33,6 +34,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? clientRfqId = null,
         bool anonymous = false,
         bool allowPartialExecution = false,
+        IEnumerable<OkxBlockAllocationRequest>? accountAllocations = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
@@ -44,6 +46,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
         parameters.AddOptional("clRfqId", clientRfqId);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
+        parameters.AddOptional("acctAlloc", allowPartialExecution);
 
         return ProcessOneRequestAsync<OkxBlockRfq>(GetUri("api/v5/rfq/create-rfq"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

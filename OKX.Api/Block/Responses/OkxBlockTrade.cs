@@ -64,4 +64,82 @@ public record OkxBlockTrade
     /// </summary>
     [JsonProperty("legs")]
     public List<OkxBlockLegTrade> Legs { get; set; } = [];
+
+    /// <summary>
+    /// Account level allocation of the RFQ
+    /// </summary>
+    [JsonProperty("acctAlloc")]
+    public List<OkxBlockTradeAccountAllocation> AccountLevelAllocations { get; set; } = [];
+}
+
+/// <summary>
+/// OKX Block Account Level Allocation Response
+/// </summary>
+public record OkxBlockTradeAccountAllocation
+{
+    /// <summary>
+    /// The name of the allocated account of the RFQ.
+    /// </summary>
+    [JsonProperty("acct")]
+    public string Account { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Block trade ID
+    /// </summary>
+    [JsonProperty("blockTdId")]
+    public string BlockTradeId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The code of the event execution result, 0 means success
+    /// </summary>
+    [JsonProperty("sCode")]
+    public string Code { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Rejection message if the request is unsuccessful
+    /// </summary>
+    [JsonProperty("sMsg")]
+    public string Message { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The allocated legs of the account.
+    /// </summary>
+    [JsonProperty("legs")]
+    public IEnumerable<OkxBlockTradeAccountAllocationLeg> Legs { get; set; } = [];
+}
+
+/// <summary>
+/// OKX Block Account Level Allocation Leg Response
+/// </summary>
+public record OkxBlockTradeAccountAllocationLeg
+{
+    /// <summary>
+    /// The Instrument ID of each leg. Example : "BTC-USDT-SWAP"
+    /// </summary>
+    [JsonProperty("instId")]
+    public string InstrumentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The size of each leg
+    /// </summary>
+    [JsonProperty("sz")]
+    public decimal? Size { get; set; }
+
+    /// <summary>
+    /// The fee of each account level leg
+    /// </summary>
+    [JsonProperty("fee")]
+    public decimal? Fee { get; set; }
+
+    /// <summary>
+    /// Fee currency. To be read in conjunction with fee
+    /// </summary>
+    [JsonProperty("feeCcy")]
+    public string FeeCurrency { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Last traded ID of each account leg
+    /// </summary>
+    [JsonProperty("tradeId")]
+    public string TradeId { get; set; } = string.Empty;
 }

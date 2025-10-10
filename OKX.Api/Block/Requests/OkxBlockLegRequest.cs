@@ -1,9 +1,4 @@
-﻿using ApiSharp.Rest;
-using System.Diagnostics.Metrics;
-using System.Diagnostics;
-using System.Drawing;
-
-namespace OKX.Api.Block;
+﻿namespace OKX.Api.Block;
 
 /// <summary>
 /// OKX Block Leg Request

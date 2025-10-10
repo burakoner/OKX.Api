@@ -1,5 +1,18 @@
 ## Change Log & Release Notes
 
+* Version 5.5.1010 - 10 Oct 2025
+  * Synced with the OKX Latest API Version [2025-09-26](https://www.okx.com/docs-v5/log_en/#2025-09-26)
+  * Added support for account-level RFQ allocations
+  * Added account-level allocation support in RFQs and trades.
+  * Introduced `OkxAccountFeeType` enum for fee type configuration.
+  * Enhanced `OkxAccountConfiguration` with `FeeType` and settlement currency properties.
+  * Added `EarnAmount` and `EarnApr` to `OkxAccountBill` for auto-earn.
+  * Refactored `OkxAlgoCancelOrderRequest` for better property organization.
+  * Updated `OkxAccountBillSubType` and `OkxAccountBillType` enums with new values.
+  * Introduced new records for RFQ allocation (`OkxBlockAllocationRequest`).
+  * Reintroduced `Rebate` property in `OkxTradeOrder` with improved documentation.
+  * Removed obsolete values and cleaned up unused namespaces.
+
 * Version 5.5.1004 - 04 Oct 2025
   * ApiSharp 4.0.5 Update
   * Synced with the OKX Latest API Version [2025-09-09](https://www.okx.com/docs-v5/log_en/#2025-09-09)

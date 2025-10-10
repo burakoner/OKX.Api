@@ -6,6 +6,12 @@
 public enum OkxAccountBillSubType:int
 {
     /// <summary>
+    /// Unknown
+    /// </summary>
+    [Map("0")]
+    Unknown = 0,
+
+    /// <summary>
     /// Buy
     /// </summary>
     [Map("1")]
@@ -416,6 +422,30 @@ public enum OkxAccountBillSubType:int
     ProfitSharingIncome = 252,
 
     /// <summary>
+    /// SPOT profit sharing expenses
+    /// </summary>
+    [Map("280")]
+    SpotProfitSharingExpenses = 280,
+
+    /// <summary>
+    /// SPOT profit sharing refund
+    /// </summary>
+    [Map("281")]
+    SpotProfitSharingRefund = 281,
+
+    /// <summary>
+    /// SPOT profit sharing income
+    /// </summary>
+    [Map("282")]
+    SpotProfitSharingIncome = 282,
+
+    /// <summary>
+    /// Asset transfer for spot copy trading
+    /// </summary>
+    [Map("283")]
+    AssetTransferForSpotCopyTrading = 283,
+
+    /// <summary>
     /// SpreadTradingBuy
     /// </summary>
     [Map("270")]
@@ -452,18 +482,6 @@ public enum OkxAccountBillSubType:int
     SpreadTradingCloseShort = 275,
 
     /// <summary>
-    /// SPOT profit sharing expenses
-    /// </summary>
-    [Map("280")]
-    SpotProfitSharingExpenses = 280,
-
-    /// <summary>
-    /// SPOT profit sharing refund
-    /// </summary>
-    [Map("281")]
-    SpotProfitSharingRefund = 281,
-
-    /// <summary>
     /// Copy trade automatic transfer in
     /// </summary>
     [Map("284")]
@@ -496,21 +514,18 @@ public enum OkxAccountBillSubType:int
     /// <summary>
     /// Fixed loan interest deduction
     /// </summary>
-    [Obsolete]
     [Map("293")]
     FixedLoanInterestDeduction = 293,
 
     /// <summary>
     /// Fixed loan interest refund
     /// </summary>
-    [Obsolete]
     [Map("294")]
     FixedLoanInterestRefund = 294,
 
     /// <summary>
     /// Fixed loan overdue penalty
     /// </summary>
-    [Obsolete]
     [Map("295")]
     FixedLoanOverduePenalty = 295,
 
@@ -675,6 +690,12 @@ public enum OkxAccountBillSubType:int
     CreditLineForcedRepaymentPenaltyFeePendingDeduction = 353,
 
     /// <summary>
+    /// Settlement PnL
+    /// </summary>
+    [Map("355")]
+    SettlementProfitAndLoss = 355,
+
+    /// <summary>
     /// [Credit line] Auto conversion(pending deduction)
     /// </summary>
     [Obsolete]
@@ -687,12 +708,6 @@ public enum OkxAccountBillSubType:int
     [Obsolete]
     [Map("357")]
     CreditLineAutoConversionTransferToFunding = 357,
-
-    /// <summary>
-    /// Settlement PnL
-    /// </summary>
-    [Map("355")]
-    SettlementProfitAndLoss = 355,
 
     /// <summary>
     /// Collateralized borrowing auto conversion buy
@@ -724,5 +739,5 @@ public enum OkxAccountBillSubType:int
     /// Auto convert out
     /// </summary>
     [Map("381")]
-    AutoLendInterestTransferIn = 381,
+    AutoEarn = 381,
 }

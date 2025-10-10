@@ -6,14 +6,22 @@
 public record OkxAlgoCancelOrderRequest
 {
     /// <summary>
-    /// Algo Client Order ID
+    /// Instrument ID, e.g. BTC-USDT
+    /// </summary>
+    [JsonProperty("instId")]
+    public string? InstrumentId { get; set; }
+
+    /// <summary>
+    /// Algo ID
+    /// Either algoId or algoClOrdId is required. If both are passed, algoId will be used.
     /// </summary>
     [JsonProperty("algoId")]
     public string? AlgoOrderId { get; set; }
 
     /// <summary>
-    /// Instrument ID
+    /// Client-supplied Algo ID
+    /// Either algoId or algoClOrdId is required. If both are passed, algoId will be used.
     /// </summary>
-    [JsonProperty("instId")]
-    public string? InstrumentId { get; set; }
+    [JsonProperty("algoClOrdId")]
+    public string? AlgoClientOrderId { get; set; }
 }

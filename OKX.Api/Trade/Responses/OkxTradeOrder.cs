@@ -240,17 +240,17 @@ public record OkxTradeOrder
     public string RebateCurrency { get; set; } = string.Empty;
 
     /// <summary>
+    /// Rebate amount, only applicable to spot and margin, the reward of placing orders from the platform (rebate) given to user who has reached the specified trading level. If there is no rebate, this field is "".
+    /// </summary>
+    [JsonProperty("rebate")]
+    public decimal? Rebate { get; set; }
+
+    /// <summary>
     /// Order source
     /// 13:The generated limit order after the strategy order is triggered
     /// </summary>
     [JsonProperty("source")]
     public string Source { get; set; } = string.Empty; // TODO: Enumerate
-
-    /// <summary>
-    /// Rebate amount, only applicable to spot and margin, the reward of placing orders from the platform (rebate) given to user who has reached the specified trading level. If there is no rebate, this field is "".
-    /// </summary>
-    [JsonProperty("rebate")]
-    public decimal? Rebate { get; set; }
 
     /// <summary>
     /// Category
