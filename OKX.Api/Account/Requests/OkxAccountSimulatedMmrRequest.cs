@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Simulated MMR Request
 /// </summary>
-public record OkxAccountSimulatedMMR
+public record OkxAccountSimulatedMmrRequest
 {
     /// <summary>
     /// Switch to account mode

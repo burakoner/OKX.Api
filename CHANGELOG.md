@@ -1,5 +1,16 @@
 ## Change Log & Release Notes
 
+* Version 5.5.1013 - 10 Oct 2025
+  * Added new features, enums, and models
+  * Adjusted namespaces and removed unnecessary `using` directives.
+  * Updated `OkxAccountRestClient` constructor and method signatures.
+  * Added new methods: `MovePositionsAsync`, `GetMovePositionsHistoryAsync`, `SetAutoEarnAsync`, `SetSettleCurrencyAsync`, and `GetMarketDataHistoryAsync`.
+  * Introduced new enums for auto-earn, position states, and market data.
+  * Added new models for move positions, simulated requests, auto-earn, and market data history.
+  * Removed deprecated models: `OkxAccountSimulatedAsset`, `OkxAccountSimulatedMMR`, and `OkxAccountSimulatedPosition`.
+  * Enhanced XML documentation for new methods, enums, and models.
+  * Fixed formatting issues and improved code consistency.
+
 * Version 5.5.1011 - 10 Oct 2025
   * Added new REST and WebSocket features to OKX API wrapper
   * Added `SetFeeTypeAsync` method to `OkxAccountRestClient` for setting account fee types.

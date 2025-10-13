@@ -60,9 +60,6 @@ public class OkxRestApiClient
     /// </summary>
     public OkxPublicRestClient Market { get => Public; } // 814
 
-
-
-
     /// <summary>
     /// Block Trading Client
     /// </summary>

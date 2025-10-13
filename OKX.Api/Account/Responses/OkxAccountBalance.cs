@@ -1,6 +1,4 @@
-﻿using static System.Net.WebRequestMethods;
-
-namespace OKX.Api.Account;
+﻿namespace OKX.Api.Account;
 
 /// <summary>
 /// OKX Account Balance

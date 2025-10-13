@@ -6,7 +6,7 @@
 /// <param name="apiKey">API Key</param>
 /// <param name="apiSecret">API Secret</param>
 /// <param name="apiPassPhrase">Pass Phrase</param>
-public class OkxApiCredentials(string apiKey, string apiSecret, string apiPassPhrase) : ApiCredentials(apiKey, apiSecret)
+public class OkxApiCredentials(string apiKey, string apiSecret, string apiPassPhrase) : ApiCredentials(apiKey, apiSecret, ApiCredentialsType.HMAC)
 {
     /// <summary>
     /// Pass Phrase

@@ -3,7 +3,7 @@
 /// <summary>
 /// Okx Simulated Asset Request
 /// </summary>
-public record OkxAccountSimulatedAsset
+public record OkxAccountSimulatedAssetRequest
 {
     /// <summary>
     /// Currency

@@ -1,4 +1,9 @@
-﻿namespace OKX.Api.Public;
+﻿using System;
+using System.Data;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+
+namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Rest Api Public Data &amp; Market Data Client
@@ -1018,7 +1023,45 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         return ProcessListRequestAsync<OkxPublicEconomicCalendarEvent>(GetUri("api/v5/public/economic-calendar"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
-    // TODO: /api/v5/public/market-data-history
+    /// <summary>
+    /// Get historical market data
+    /// Data availability: Historical data backfill is currently in progress.Data availability may vary by module, instrument, and time period.The dataset will be continuously expanded to provide more comprehensive historical coverage.
+    /// Legacy data format notice: For module 1 (trade history), some old historical files may contain column headers with both Chinese characters along with English column names.All the Chinese characters will be removed once the data backfill is done.Please account for this when parsing the data.
+    /// Retrieve historical market data for OKX.
+    /// </summary>
+    /// <param name="module">Data module type</param>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="dateAggregationType">Date aggregation type. daily(not supported for module = 3 &amp; instFamilyList ≠ ANY). monthly(not supported for module = 6)</param>
+    /// <param name="instrumentIdList">List of instrument IDs, e.g. BTC-USDT, or ANY for all instruments (ANY is only supported for module = 1, 2, 3 &amp; dateAggrType = daily). Multiple instrument IDs should be separated by commas, e.g.BTC-USDT,ETH-USDT. Maximum length = 10. Only applicable when instType = SPOT </param>
+    /// <param name="instrumentFamilyList">List of instrument families, e.g. BTC-USDT, or ANY for all instruments (ANY is only supported for module = 1, 2, 3 &amp; dateAggrType = daily)
+    /// Multiple instrument families should be separated by commas, e.g.BTC-USDT,ETH-USDT
+    /// Maximum length = 10 (= 1when module = 6 &amp; instType = OPTION)
+    /// Only applicable when instType ≠ SPOT</param>
+    /// <param name="begin">Begin timestamp. Unix timestamp format in milliseconds (inclusive). Maximum range: 14 days for daily, 14 months for monthly</param>
+    /// <param name="end">End timestamp. Unix timestamp format in milliseconds (inclusive). When module = 6 &amp; instType = OPTION, only returns data for the day specified by end</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicMarketDataHistory>>> GetMarketDataHistoryAsync(
+        OkxPublicMarketDataHistoryModule module,
+        OkxInstrumentType instrumentType,
+        OkxPublicDateAggregationType dateAggregationType,
+        string? instrumentIdList = null,
+        string? instrumentFamilyList = null,
+        long? begin = null,
+        long? end = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("module", module);
+        parameters.AddOptionalEnum("instType", instrumentType);
+        parameters.AddOptionalEnum("dateAggrType", dateAggregationType);
+        parameters.AddOptional("instIdList", instrumentIdList);
+        parameters.AddOptional("instFamilyList", instrumentFamilyList);
+        parameters.AddOptional("begin", begin);
+        parameters.AddOptional("end", end);
+
+        return ProcessListRequestAsync<OkxPublicMarketDataHistory>(GetUri("api/v5/public/market-data-history"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
     #endregion
 
     #region System Status Methods
