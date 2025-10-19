@@ -1,5 +1,8 @@
 ## Change Log & Release Notes
 
+* Version 5.5.1019 - 19 Oct 2025
+  * Updated to ApiSharp 4.1.0
+
 * Version 5.5.1013 - 10 Oct 2025
   * Added new features, enums, and models
   * Adjusted namespaces and removed unnecessary `using` directives.
