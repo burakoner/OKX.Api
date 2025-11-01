@@ -102,7 +102,7 @@ internal class Program
         var account_25 = await api.Account.GetMaximumWithdrawalsAsync();
         var account_26 = await api.Account.GetRiskStateAsync();
         var account_40 = await api.Account.GetInterestLimitsAsync();
-        var account_48 = await api.Account.PositionBuilderAsync();
+        var account_48 = await api.Account.PositionBuilderAsync(false);
         var account_49 = await api.Account.SetRiskOffsetAmountAsync("BTC", 1.0M);
         var account_50 = await api.Account.GetGreeksAsync();
         var account_51 = await api.Account.GetPositionTiersAsync(OkxInstrumentType.Futures);

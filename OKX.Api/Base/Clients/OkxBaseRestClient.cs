@@ -40,9 +40,24 @@ public abstract class OkxBaseRestClient : RestApiClient
     protected override async Task<ServerError?> TryParseErrorAsync(JToken message)
     {
         await Task.CompletedTask;
+        var str = message.ToString();
         if (!message.HasValues) return null;
 
-        if (message["data"] is not null && message["data"]!.Type == JTokenType.Array)
+        if (message["data"] is null && message["code"] is not null && message["msg"] is not null)
+        {
+            if (message["code"]!.Type == JTokenType.String && message["msg"]!.Type == JTokenType.String)
+            {
+                if (int.TryParse((string)message["code"]!, out int code) && code != 0 && !string.IsNullOrWhiteSpace((string)message["msg"]!))
+                    return new ServerError(code, (string)message["msg"]!);
+            }
+            else if (message["code"]!.Type == JTokenType.Integer && ((int)message["code"]!) != 0 && message["msg"]!.Type == JTokenType.String)
+            {
+                if (!string.IsNullOrWhiteSpace((string)message["msg"]!))
+                    return new ServerError((int)message["code"]!, (string)message["msg"]!);
+            }
+        }
+
+        if (message["data"] is not null && message["data"]!.Type != JTokenType.Array)
         {
             var data = message["data"]!.FirstOrDefault();
             if (data is not null && data["sCode"] != null && data["sMsg"] != null)
