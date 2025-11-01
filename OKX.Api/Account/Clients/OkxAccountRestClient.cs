@@ -444,7 +444,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "instId", instrumentIds }
         };
         parameters.AddEnum("mgnMode", marginMode);
-        parameters.AddEnum("ccy", currencies);
+        parameters.AddOptional("ccy", currencies);
 
         return ProcessListRequestAsync<OkxAccountLeverage>(GetUri("api/v5/account/leverage-info"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
