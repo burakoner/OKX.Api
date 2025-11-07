@@ -205,6 +205,24 @@ public record OkxPublicInstrument
     public OkxInstrumentRuleType? RuleType { get; set; }
 
     /// <summary>
+    /// Maximum position value (USD) for this instrument at the user level, based on the notional value of all same-direction open positions and resting orders. The effective user limit is max(posLmtAmt, oiUSD × posLmtPct). Applicable to SWAP/FUTURES.
+    /// </summary>
+    [JsonProperty("posLmtAmt")]
+    public decimal? MaximumPositionValue { get; set; }
+
+    /// <summary>
+    /// Maximum position ratio (e.g., 30 for 30%) a user may hold relative to the platform’s current total position value. The effective user limit is max(posLmtAmt, oiUSD × posLmtPct). Applicable to SWAP/FUTURES.
+    /// </summary>
+    [JsonProperty("posLmtPct")]
+    public decimal? MaximumPositionRatio { get; set; }
+
+    /// <summary>
+    /// Platform-wide maximum position value (USD) for this instrument. If the global position limit switch is enabled and platform total open interest reaches or exceeds this value, all users’ new opening orders for this instrument are rejected; otherwise, orders pass.
+    /// </summary>
+    [JsonProperty("maxPlatOILmt")]
+    public decimal? PlatformWideMaximumPositionValue { get; set; }
+
+    /// <summary>
     /// Maximal limit order size
     /// </summary>
     [JsonProperty("maxLmtSz")]

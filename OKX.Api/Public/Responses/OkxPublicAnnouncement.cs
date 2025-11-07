@@ -18,13 +18,25 @@ public record OkxPublicAnnouncement
     public string AnnouncementType { get; set; } = string.Empty;
 
     /// <summary>
-    /// Publish time. Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// The time displayed on the announcement page for user reference. Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// </summary>
+    [JsonProperty("businessPTime")]
+    public long AnnouncementTimestamp { get; set; }
+
+    /// <summary>
+    /// The time displayed on the announcement page for user reference. Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// </summary>
+    [JsonIgnore]
+    public DateTime AnnouncementTime => AnnouncementTimestamp.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// The first actual publish time, Unix timestamp format in milliseconds, e.g. 1750228261
     /// </summary>
     [JsonProperty("pTime")]
     public long PublishTimestamp { get; set; }
 
     /// <summary>
-    /// Publish time. Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// The first actual publish time, Unix timestamp format in milliseconds, e.g. 1750228261
     /// </summary>
     [JsonIgnore]
     public DateTime PublishTime => PublishTimestamp.ConvertFromMilliseconds();

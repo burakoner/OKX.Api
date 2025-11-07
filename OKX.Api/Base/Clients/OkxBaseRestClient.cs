@@ -43,24 +43,30 @@ public abstract class OkxBaseRestClient : RestApiClient
         var str = message.ToString();
         if (!message.HasValues) return null;
 
-        if (message["data"] is null && message["code"] is not null && message["msg"] is not null)
+        if (message["data"] is null)
         {
-            if (message["code"]!.Type == JTokenType.String && message["msg"]!.Type == JTokenType.String)
+            if (message["code"] is not null && message["msg"] is not null)
             {
-                if (int.TryParse((string)message["code"]!, out int code) && code != 0 && !string.IsNullOrWhiteSpace((string)message["msg"]!))
-                    return new ServerError(code, (string)message["msg"]!);
-            }
-            else if (message["code"]!.Type == JTokenType.Integer && ((int)message["code"]!) != 0 && message["msg"]!.Type == JTokenType.String)
-            {
-                if (!string.IsNullOrWhiteSpace((string)message["msg"]!))
-                    return new ServerError((int)message["code"]!, (string)message["msg"]!);
+                if (message["code"]!.Type == JTokenType.String && message["msg"]!.Type == JTokenType.String)
+                {
+                    if (int.TryParse((string)message["code"]!, out int code) && code != 0 && !string.IsNullOrWhiteSpace((string)message["msg"]!))
+                        return new ServerError(code, (string)message["msg"]!);
+                }
+                else if (message["code"]!.Type == JTokenType.Integer && ((int)message["code"]!) != 0 && message["msg"]!.Type == JTokenType.String)
+                {
+                    if (!string.IsNullOrWhiteSpace((string)message["msg"]!))
+                        return new ServerError((int)message["code"]!, (string)message["msg"]!);
+                }
             }
         }
 
-        if (message["data"] is not null && message["data"]!.Type != JTokenType.Array)
+        else if (message["data"] is not null)
         {
-            var data = message["data"]!.FirstOrDefault();
-            if (data is not null && data["sCode"] != null && data["sMsg"] != null)
+            JToken? data = null;
+            if (message["data"]!.Type == JTokenType.Array) data = message["data"]!.FirstOrDefault();
+            if (message["data"]!.Type == JTokenType.Object) data = message["data"]!;
+
+            if (data is not null && data.Type == JTokenType.Object && data["sCode"] != null && data["sMsg"] != null)
             {
                 if (data["sCode"]!.Type == JTokenType.String && data["sMsg"]!.Type == JTokenType.String)
                 {
@@ -74,11 +80,6 @@ public abstract class OkxBaseRestClient : RestApiClient
                 }
             }
         }
-
-        if (message["msg"] is not null
-            && !string.IsNullOrWhiteSpace((string)message["msg"]!)
-            && message["code"] is not null)
-            return new ServerError((int)message["code"]!, (string)message["msg"]!);
 
         return null;
     }

@@ -1,5 +1,12 @@
 ## Change Log & Release Notes
 
+* Version 5.5.1107 - 07 Nov 2025
+  * Synced with the OKX Latest API Version [2025-11-06](https://www.okx.com/docs-v5/log_en/#2025-11-06)
+  * Updated to Rest Error Response Parsing Algorithm
+
+* Version 5.5.1102 - 01 Nov 2025
+  * Updated to Rest Error Response Parsing Algorithm
+
 * Version 5.5.1101 - 01 Nov 2025
   * Merged pull request [Bug Fix: NullReferenceException in GetLeverageAsync #91](https://github.com/burakoner/OKX.Api/pull/91)
   * Fixed issue [GetCandlesticksAsync throw an exception #92](https://github.com/burakoner/OKX.Api/issues/92)
