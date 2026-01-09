@@ -23,6 +23,19 @@ public record OkxPublicInterestRateLoanQuota
     [JsonProperty("regular")]
     public List<OkxPublicInterestRateRegular> Regular { get; set; } = [];
 
+    /// <summary>
+    /// Currencies that have loan quota configured using customized absolute value.
+    /// Users should refer to config to get the loan quota of a currency which is listed in configCcyList, instead of getting it from basic/vip/regular.
+    /// </summary>
+    [JsonProperty("configCcyList")]
+    public List<OkxPublicInterestRateCurrency> Currencies { get; set; } = [];
+
+    /// <summary>
+    /// The currency details of loan quota configured using customized absolute value
+    /// </summary>
+    [JsonProperty("config")]
+    public List<OkxPublicInterestRateConfiguration> Configurations { get; set; } = [];
+
 }
 
 /// <summary>
@@ -83,4 +96,55 @@ public record OkxPublicInterestRateRegular
     /// </summary>
     [JsonProperty("loanQuotaCoef")]
     public decimal LoanQuotaCoefficient { get; set; }
+}
+
+/// <summary>
+/// OKX Public Interest Rate Currency
+/// </summary>
+public record OkxPublicInterestRateCurrency
+{
+    /// <summary>
+    /// Currency
+    /// </summary>
+    [JsonProperty("ccy")]
+    public string Currency { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Daily rate
+    /// </summary>
+    [JsonProperty("rate")]
+    public decimal? DailyRate { get; set; }
+}
+
+/// <summary>
+/// OKX Public Interest Rate Configuration
+/// </summary>
+public record OkxPublicInterestRateConfiguration
+{
+    /// <summary>
+    /// Currency
+    /// </summary>
+    [JsonProperty("ccy")]
+    public string Currency { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Strategy type
+    /// 0: general strategy
+    /// 1: delta neutral strategy
+    /// If only 0 is returned for a currency, it means the loan quota is shared between accounts in general strategy and accounts in delta neutral strategy; if both 0/1 are returned for a currency, it means accounts in delta neutral strategy have separate loan quotas.
+    /// </summary>
+    [JsonProperty("ccy")]
+    public OkxAccountStrategyType? StrategyType { get; set; }
+
+    /// <summary>
+    /// Loan quota in absolute value
+    /// </summary>
+    [JsonProperty("quota")]
+    public string LoanQuota { get; set; } = "";
+
+    /// <summary>
+    /// VIP level
+    /// </summary>
+    [JsonProperty("level")]
+    public string VipLevel { get; set; } = "";
 }

@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Account;
+﻿using System.Runtime.ConstrainedExecution;
+
+namespace OKX.Api.Account;
 
 /// <summary>
 /// OKX Account Balance
@@ -126,6 +128,28 @@ public record OkxAccountBalance
     /// </summary>
     [JsonProperty("upl")]
     public decimal? UnrealizedProfitAndLoss { get; set; }
+
+    /// <summary>
+    /// Delta (USD)
+    /// </summary>
+    [JsonProperty("delta")]
+    public decimal? Delta { get; set; }
+
+    /// <summary>
+    /// Delta neutral strategy account level delta leverage
+    /// deltaLever = delta / totalEq
+    /// </summary>
+    [JsonProperty("deltaLever")]
+    public decimal? DeltaLeverage { get; set; }
+
+    /// <summary>
+    /// Delta risk statu
+    /// 0: normal
+    /// 1: transfer restricted
+    /// 2: delta reducing - cancel all pending orders if delta is greater than 5000 USD, only one delta reducing order allowed per index(spot, futures, swap)
+    /// </summary>
+    [JsonProperty("deltaNeutralStatus")]
+    public OkxAccountDeltaNeutralStatus? DeltaNeutralStatus { get; set; }
 
     /// <summary>
     /// Detailed asset information in all currencies

@@ -86,6 +86,12 @@ public record OkxAccountConfiguration
     public OkxAccountIsolatedMarginMode MarginIsolatedMarginTradingMode { get; set; }
 
     /// <summary>
+    /// Strategy type
+    /// </summary>
+    [JsonProperty("stgyType")]
+    public OkxAccountStrategyType StrategyType { get; set; }
+
+    /// <summary>
     /// Role type.
     /// </summary>
     [JsonProperty("roleType")]

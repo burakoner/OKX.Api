@@ -36,6 +36,13 @@ public record OkxAccountPosition
     public decimal Position { get; set; }
 
     /// <summary>
+    /// Hedged position size
+    /// Only return for accounts in delta neutral strategy, stgyType:1. Return "" for accounts in general strategy.
+    /// </summary>
+    [JsonProperty("hedgedPos")]
+    public decimal? HedgedPosition { get; set; }
+
+    /// <summary>
     /// Position currency, only applicable to MARGIN positions.
     /// </summary>
     [JsonProperty("posCcy")]

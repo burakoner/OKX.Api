@@ -1,4 +1,12 @@
-## Change Log & Release Notes
+﻿## Change Log & Release Notes
+
+* Version 5.6.110 - 10 Jan 2026
+  * Synced with the OKX API Version [2025-11-13](https://www.okx.com/docs-v5/log_en/#2025-11-13)
+  * Add delta neutral strategy support to OKX account models
+  * Enhanced account, position, and loan quota models to support delta neutral strategy features.
+  * Added new properties for delta, delta leverage, and hedged positions.
+  * Introduced enums for strategy type and delta neutral status, and added support for custom loan quota configurations.
+  * Made withdrawal-related fields nullable for better data handling.
 
 * Version 5.5.1107 - 07 Nov 2025
   * Synced with the OKX Latest API Version [2025-11-06](https://www.okx.com/docs-v5/log_en/#2025-11-06)
