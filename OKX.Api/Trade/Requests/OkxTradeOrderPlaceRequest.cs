@@ -6,9 +6,17 @@
 public record OkxTradeOrderPlaceRequest
 {
     /// <summary>
+    /// Instrument ID code.
+    /// If both instId and instIdCode are provided, instIdCode takes precedence.
+    /// </summary>
+    [JsonProperty("instIdCode")]
+    public int? InstrumentIdCode { get; set; }
+
+    /// <summary>
     /// Instrument ID
     /// </summary>
     [JsonProperty("instId")]
+    [Obsolete("Will be deprecated on February 2026.")]
     public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
@@ -101,6 +109,12 @@ public record OkxTradeOrderPlaceRequest
     public bool? BanAmend { get; set; }
 
     /// <summary>
+    /// Price Amend Type
+    /// </summary>
+    [JsonProperty("pxAmendType", NullValueHandling = NullValueHandling.Ignore)]
+    public OkxTradePriceAmendType? PriceAmendType { get; set; }
+
+    /// <summary>
     /// The quote currency used for trading. Only applicable to SPOT.
     /// The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.
     /// </summary>
@@ -117,15 +131,9 @@ public record OkxTradeOrderPlaceRequest
     public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
 
     /// <summary>
-    /// Price Amend Type
-    /// </summary>
-    [JsonProperty("pxAmendType", NullValueHandling = NullValueHandling.Ignore)]
-    public OkxTradePriceAmendType? PriceAmendType { get; set; }
-
-    /// <summary>
     /// TP/SL information attached when placing order
+    /// Just for Rest API order placement
     /// </summary>
-[JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
+    [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
     public IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? AttachedAlgoOrders { get; set; }
-
 }

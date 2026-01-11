@@ -58,4 +58,10 @@ public enum OkxTradeOrderType : byte
     /// </summary>
     [Map("op_fok")]
     SimpleOptionsFillOrKill = 9,
+
+    /// <summary>
+    /// Enhanced Liquidity Program Order
+    /// </summary>
+    [Map("elp")]
+    EnhancedLiquidityProgramOrder = 10,
 }

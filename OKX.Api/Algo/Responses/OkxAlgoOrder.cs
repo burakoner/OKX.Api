@@ -155,9 +155,18 @@ public record OkxAlgoOrder
     public decimal? OrderPrice { get; set; }
 
     /// <summary>
+    /// Trigger order type
+    /// fok: Fill-or-kill order
+    /// ioc: Immediate-or-cancel order
+    /// Default is "", limit or market(controlled by orderPx)
+    /// </summary>
+    [JsonProperty("advanceOrdType")]
+    public OkxAlgoPriceType? TriggerOrderType { get; set; }
+
+    /// <summary>
     /// Actual order quantity
     /// </summary>
-    [JsonProperty("actualSz")]
+[JsonProperty("actualSz")]
     public decimal? ActualOrderQuantity { get; set; }
 
     /// <summary>

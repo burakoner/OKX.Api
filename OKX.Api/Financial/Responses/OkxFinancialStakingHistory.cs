@@ -30,6 +30,12 @@ public record OkxFinancialStakingHistory
     public OkxFinancialStakingStatus Status { get; set; }
 
     /// <summary>
+    /// Order ID
+    /// </summary>
+    [JsonProperty("ordId")]
+    public string OrderId { get; set; } = "";
+
+    /// <summary>
     /// Request time of make purchase/redeem, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("requestTime")]

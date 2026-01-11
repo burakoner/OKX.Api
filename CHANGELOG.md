@@ -1,5 +1,25 @@
 ﻿## Change Log & Release Notes
 
+* Version 5.6.111 - 11 Jan 2026
+  * Synced with the OKX API Version [2026-01-07](https://www.okx.com/docs-v5/log_en/#2026-01-07)
+  * OKX API v5.6.111: Fee, order, instrument, and model updates
+  * Refactor account fee rates: add groupId/FeeGroup, remove ruleType and fiat/USDC/USDT-specific fields
+  * Instrument model: add groupId, upcoming changes, improve position limit docs
+  * Order place/amend/cancel: support instIdCode, mark instId obsolete, add PriceAmendType
+  * Algo orders: add advanceOrdType (FOK/IOC), trigger ratios, order kind, split TP/SL, cost-price SL
+  * Trade model: add source (OkxTradeOrderSource), Enhanced Liquidity Program order type
+  * Staking: add Cancelled status, OrderId to history
+  * Improve docs, update namespaces, minor .csproj reordering
+  * Add OkxAlgoTriggerOrderType.cs, OkxTradeOrderSource.cs enums
+  * Update models and endpoints for latest OKX API changes
+  * Refactor account fee rates: add groupId, FeeGroup, remove ruleType and fiat/USDC/USDT-specific fee properties
+  * Add groupId and upcoming changes to instrument model
+  * Support instIdCode for order place/amend/cancel; mark instId as obsolete
+  * Enhance TP/SL handling: add trigger ratios, order kind, split TP/SL options
+  * Add Cancelled status to staking; add OrderId to staking history
+  * Improve documentation and update namespaces
+  * Minor .csproj property reordering for clarity
+
 * Version 5.6.110 - 10 Jan 2026
   * Synced with the OKX API Version [2025-11-13](https://www.okx.com/docs-v5/log_en/#2025-11-13)
   * Add delta neutral strategy support to OKX account models

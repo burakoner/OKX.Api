@@ -22,4 +22,10 @@ public enum OkxFinancialStakingStatus : byte
     /// </summary>
     [Map("failed")]
     Failed = 3,
+
+    /// <summary>
+    /// Cancelled
+    /// </summary>
+    [Map("cancelled")]
+    Cancelled = 4,
 }

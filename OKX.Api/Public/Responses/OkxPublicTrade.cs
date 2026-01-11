@@ -1,4 +1,4 @@
-namespace OKX.Api.Public;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Trade
@@ -34,6 +34,14 @@ public record OkxPublicTrade
     /// </summary>
     [JsonProperty("side")]
     public OkxTradeOrderSide Side { get; set; }
+
+    /// <summary>
+    /// Order source
+    /// 0: normal order
+    /// 1: Enhanced Liquidity Program order
+    /// </summary>
+    [JsonProperty("source")]
+    public OkxTradeOrderSource Source { get; set; }
 
     /// <summary>
     /// Timestamp

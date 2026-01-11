@@ -6,8 +6,16 @@
 public record OkxTradeOrderCancelRequest
 {
     /// <summary>
+    /// Instrument ID code.
+    /// If both instId and instIdCode are provided, instIdCode takes precedence.
+    /// </summary>
+    [JsonProperty("instIdCode")]
+    public int? InstrumentIdCode { get; set; }
+
+    /// <summary>
     /// Instrument Id
     /// </summary>
+    [Obsolete("Will be deprecated on February 2026.")]
     [JsonProperty("instId")]
     public string? InstrumentId { get; set; }
 

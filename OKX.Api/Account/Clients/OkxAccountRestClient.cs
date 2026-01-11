@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Account;
+﻿using System.Net;
+using System.Text.RegularExpressions;
+
+namespace OKX.Api.Account;
 
 /// <summary>
 /// OKX Trading Account Rest Api Client
@@ -514,23 +517,25 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// Get Fee Rates
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
-    /// <param name="ruleType">Trading rule types</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="instrumentFamily">Instrument family</param>
+    /// <param name="groupId">Instrument trading fee group ID. 
+    /// Only one of groupId and instId/instFamily can be passed in
+    /// Users can use instruments endpoint to fetch the mapping of an instrument ID and its trading fee group ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxAccountFeeRate>> GetFeeRatesAsync(
         OkxInstrumentType instrumentType,
-        OkxInstrumentRuleType ruleType,
         string? instrumentId = null,
         string? instrumentFamily = null,
+        string? groupId = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
-        parameters.AddEnum("ruleType", ruleType);
+        parameters.AddOptional("groupId", groupId);
 
         return ProcessOneRequestAsync<OkxAccountFeeRate>(GetUri("api/v5/account/trade-fee"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

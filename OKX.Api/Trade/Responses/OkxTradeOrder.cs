@@ -370,6 +370,13 @@ public record OkxTradeOrderAttachedAlgoOrder
     public string TakeProfitTriggerPrice { get; set; } = string.Empty;
 
     /// <summary>
+    /// Take profit trigger ratio, 0.3 represents 30%
+    /// Only applicable to FUTURES and SWAP.
+    /// </summary>
+    [JsonProperty("tpTriggerRatio")]
+    public string TakeProfitTriggerRatio { get; set; } = string.Empty;
+
+    /// <summary>
     /// Take-profit trigger price type.
     /// </summary>
     [JsonProperty("tpTriggerPxType")]
@@ -386,6 +393,13 @@ public record OkxTradeOrderAttachedAlgoOrder
     /// </summary>
     [JsonProperty("slTriggerPx")]
     public string StopLossTriggerPrice { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Stop profit trigger ratio, 0.3 represents 30%
+    /// Only applicable to FUTURES and SWAP.
+    /// </summary>
+    [JsonProperty("slTriggerRatio")]
+    public string StopLossTriggerRatio { get; set; } = string.Empty;
 
     /// <summary>
     /// Stop-loss trigger price type.

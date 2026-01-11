@@ -1,4 +1,6 @@
-﻿namespace OKX.Api.Trade;
+﻿using System;
+
+namespace OKX.Api.Trade;
 
 /// <summary>
 /// OKX Order Algo Request
@@ -27,6 +29,15 @@ public record OkxTradeOrderAmendAttachedAlgoRequest
     public string? NewTakeProfitTriggerPrice { get; set; }
 
     /// <summary>
+    /// Take profit trigger ratio, 0.3 represents 30%
+    /// Only applicable to FUTURES and SWAP.
+    /// Only one of newTpTriggerPx and newTpTriggerRatio can be passed.
+    /// If the main order is a buy order, it must be greater than 0, and if the main order is a sell order, it must be bewteen -1 and 0. 0 means to delete the take-profit.
+    /// </summary>
+    [JsonProperty("newTpTriggerRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public string? NewTakeProfitTriggerRatio { get; set; }
+
+    /// <summary>
     /// Take-profit order price
     /// If the price is -1, take-profit will be executed at the market price.
     /// </summary>
@@ -37,7 +48,7 @@ public record OkxTradeOrderAmendAttachedAlgoRequest
     /// TP order kind
     /// </summary>
     [JsonProperty("newTpOrdKind", NullValueHandling = NullValueHandling.Ignore)]
-    public string? NewTakeProfitOrderKind { get; set; }
+    public OkxAlgoOrderKind? NewTakeProfitOrderKind { get; set; }
 
     /// <summary>
     /// Stop-loss trigger price
@@ -45,6 +56,16 @@ public record OkxTradeOrderAmendAttachedAlgoRequest
     /// </summary>
     [JsonProperty("newSlTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
     public string? NewStopLossTriggerPrice { get; set; }
+
+    /// <summary>
+    /// Stop profit trigger ratio, 0.3 represents 30%
+    /// Only applicable to FUTURES and SWAP.
+    /// Only one of newSlTriggerPx and newSlTriggerRatio can be passed.
+    /// If the main order is a buy order, it should be bewteen 0 and 1, and if the main order is a sell order, it must be greater than 0.
+    /// Only one of newSlTriggerPx and newSlTriggerRatio can be passed, 0 means to delete the stop-loss.
+    /// </summary>
+    [JsonProperty("newSlTriggerRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public string? NewStopLossTriggerRatio { get; set; }
 
     /// <summary>
     /// Stop-loss order price

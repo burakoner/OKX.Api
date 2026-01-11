@@ -40,6 +40,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="triggerPrice">Trigger Price</param>
     /// <param name="orderPrice">Order Price</param>
     /// <param name="triggerPriceType">Trigger Price Type</param>
+    /// <param name="triggerOrderType">Trigger order type</param>
     /// <param name="attachedAlgoOrders">Attached SL/TP orders info. Applicable to Spot and futures mode/Multi-currency margin/Portfolio margin</param>
     /// 
     /// <param name="callbackRatio">Callback price ratio , e.g. 0.01</param>
@@ -112,6 +113,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? triggerPrice = null,
         decimal? orderPrice = null,
         OkxAlgoPriceType? triggerPriceType = null,
+        OkxAlgoTriggerOrderType? triggerOrderType = null,
         IEnumerable<OkxAlgoAttachedAlgoPlaceRequest>? attachedAlgoOrders = null,
 
         // Trailing Stop Order
@@ -166,6 +168,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         // Trigger Order
         parameters.AddOptional("triggerPx", triggerPrice?.ToOkxString());
         parameters.AddOptional("orderPx", orderPrice?.ToOkxString());
+        parameters.AddOptionalEnum("advanceOrdType", triggerOrderType);
         parameters.AddOptionalEnum("triggerPxType", triggerPriceType);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
