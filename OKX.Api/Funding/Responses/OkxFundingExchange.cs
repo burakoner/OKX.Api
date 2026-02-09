@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Exchange List
 /// </summary>
-public record OkxFundingExchangeList
+public record OkxFundingExchange
 {
     /// <summary>
     /// Exchange name, e.g. 1xbet

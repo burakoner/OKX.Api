@@ -5,19 +5,6 @@
 /// </summary>
 public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    // TODO: api/v5/asset/bills-history
-
-    // Fiat Endpoints
-    // TODO: api/v5/fiat/deposit-payment-methods
-    // TODO: api/v5/fiat/withdrawal-payment-methods
-    // TODO: api/v5/fiat/create-withdrawal
-    // TODO: api/v5/fiat/cancel-withdrawal
-    // TODO: api/v5/fiat/withdrawal-order-history
-    // TODO: api/v5/fiat/withdrawal
-    // TODO: api/v5/fiat/deposit-order-history
-    // TODO: api/v5/fiat/deposit
-
     /// <summary>
     /// Retrieve a list of all currencies. Not all currencies can be traded. Currencies that have not been defined in ISO 4217 may use a custom symbol.
     /// </summary>
@@ -84,7 +71,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="clientOrderId">Client-supplied ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFundingTransferResponse>> FundTransferAsync(
+    public Task<RestCallResult<OkxFundingTransferResponse>> TransferAsync(
         OkxFundingTransferType type,
         string currency,
         decimal amount,
@@ -119,7 +106,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="type">Transfer type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFundingTransferStateResponse>> FundTransferStateAsync(
+    public Task<RestCallResult<OkxFundingTransferStateResponse>> TransferStateAsync(
         long? transferId = null,
         string? clientOrderId = null,
         OkxFundingTransferType? type = null,
@@ -145,7 +132,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="pagingType">PagingType. 1: Timestamp of the bill record. 2: Bill ID of the bill record. The default is 1</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingBill>>> GetFundingBillDetailsAsync(
+    public Task<RestCallResult<List<OkxFundingBill>>> GetBillsAsync(
         string? currency = null,
         OkxFundingBillType? type = null,
         string? clientOrderId = null,
@@ -166,6 +153,42 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("pagingType", pagingType.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingBill>(GetUri("api/v5/asset/bills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Query the billing records of all time since 1 February, 2021.
+    /// ⚠️ IMPORTANT: Data updates occur every 30 seconds.Update frequency may vary based on data volume - please be aware of potential delays during high-traffic periods.
+    /// </summary>
+    /// <param name="currency">Currency</param>
+    /// <param name="type">Bill type</param>
+    /// <param name="clientOrderId">Client-supplied ID for transfer or withdrawal. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="pagingType">PagingType. 1: Timestamp of the bill record. 2: Bill ID of the bill record. The default is 1</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxFundingBill>>> GetBillsHistoryAsync(
+        string? currency = null,
+        OkxFundingBillType? type = null,
+        string? clientOrderId = null,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        int pagingType = 1,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptionalEnum("type", type);
+        parameters.AddOptional("clientId", clientOrderId);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("pagingType", pagingType.ToOkxString());
+
+        return ProcessListRequestAsync<OkxFundingBill>(GetUri("api/v5/asset/bills-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -376,9 +399,9 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingExchangeList>>> GetExchangeListAsync(CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFundingExchange>>> GetExchangesAsync(CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxFundingExchangeList>(GetUri("api/v5/asset/exchange-list"), HttpMethod.Get, ct, signed: false);
+        return ProcessListRequestAsync<OkxFundingExchange>(GetUri("api/v5/asset/exchange-list"), HttpMethod.Get, ct, signed: false);
     }
 
     /// <summary>
@@ -557,3 +580,15 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
 }
+
+
+
+// Fiat Endpoints
+// TODO: api/v5/fiat/deposit-payment-methods
+// TODO: api/v5/fiat/withdrawal-payment-methods
+// TODO: api/v5/fiat/create-withdrawal
+// TODO: api/v5/fiat/cancel-withdrawal
+// TODO: api/v5/fiat/withdrawal-order-history
+// TODO: api/v5/fiat/withdrawal
+// TODO: api/v5/fiat/deposit-order-history
+// TODO: api/v5/fiat/deposit

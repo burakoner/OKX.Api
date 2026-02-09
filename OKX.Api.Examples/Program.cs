@@ -346,9 +346,9 @@ internal class Program
         var funding_02 = await api.Funding.GetBalancesAsync();
         var funding_03 = await api.Funding.GetNonTradableBalancesAsync();
         var funding_04 = await api.Funding.GetAssetValuationAsync();
-        var funding_05 = await api.Funding.FundTransferAsync(OkxFundingTransferType.TransferWithinAccount, "BTC", 0.5m, OkxAccount.Funding, OkxAccount.Trading);
-        var funding_06 = await api.Funding.FundTransferStateAsync();
-        var funding_07 = await api.Funding.GetFundingBillDetailsAsync("BTC");
+        var funding_05 = await api.Funding.TransferAsync(OkxFundingTransferType.TransferWithinAccount, "BTC", 0.5m, OkxAccount.Funding, OkxAccount.Trading);
+        var funding_06 = await api.Funding.TransferStateAsync();
+        var funding_07 = await api.Funding.GetBillsAsync("BTC");
         var funding_09 = await api.Funding.GetDepositAddressAsync("BTC");
         var funding_10 = await api.Funding.GetDepositAddressAsync("USDT");
         var funding_12 = await api.Funding.GetDepositHistoryAsync("USDT");
@@ -357,7 +357,7 @@ internal class Program
         var funding_16 = await api.Funding.GetWithdrawalHistoryAsync("USDT");
         var funding_17 = await api.Funding.GetDepositStatusAsync("", "", "", "");
         var funding_18 = await api.Funding.GetWithdrawalStatusAsync(1_000_000L);
-        var funding_20 = await api.Funding.GetExchangeListAsync();
+        var funding_20 = await api.Funding.GetExchangesAsync();
         var funding_21 = await api.Funding.ApplyForMonthlyStatementAsync();
         var funding_22 = await api.Funding.GetMonthlyStatementAsync("");
         var funding_23 = await api.Funding.GetConvertCurrenciesAsync();

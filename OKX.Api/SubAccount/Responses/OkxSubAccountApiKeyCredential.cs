@@ -3,7 +3,7 @@
 /// <summary>
 /// OKX Sub Account Api Key
 /// </summary>
-public record OkxSubAccountApiKey
+public record OkxSubAccountApiKeyCredential
 {
     /// <summary>
     /// Sub Account Name
@@ -22,6 +22,18 @@ public record OkxSubAccountApiKey
     /// </summary>
     [JsonProperty("apiKey")]
     public string ApiKey { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Secret Key
+    /// </summary>
+    [JsonProperty("secretKey")]
+    public string SecretKey { get; set; } = string.Empty;
+
+    /// <summary>
+    /// API Key password
+    /// </summary>
+    [JsonProperty("passphrase")]
+    public string Passphrase { get; set; } = string.Empty;
 
     /// <summary>
     /// Permissions

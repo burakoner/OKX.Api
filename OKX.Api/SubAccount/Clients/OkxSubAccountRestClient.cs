@@ -5,12 +5,6 @@
 /// </summary>
 public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
-    // Endpoints
-    // TODO: api/v5/users/subaccount/create-subaccount
-    // TODO: Create an API Key for a sub-account
-    // TODO: Query the API Key of a sub-account
-    // TODO: Delete the API Key of sub-accounts
-
     /// <summary>
     /// applies to master accounts only
     /// </summary>
@@ -38,6 +32,88 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSubAccount>(GetUri("api/v5/users/subaccount/list"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Applies to master accounts only and master accounts API Key must be linked to IP addresses.
+    /// </summary>
+    /// <param name="subAccountName">Sub-account name</param>
+    /// <param name="type">Sub-account type</param>
+    /// <param name="label">Sub-account notes. 6-32 letters (case sensitive), numbers or special characters like *.</param>
+    /// <param name="password">Sub-account login password, it is required for KYB users only.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxSubAccountSummary>> CreateSubAccountAsync(
+        string subAccountName,
+        OkxSubAccountType type,
+        string? label = null,
+        string? password = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("subAcct", subAccountName);
+        parameters.AddEnum("type", type);
+        parameters.AddOptional("label", label);
+        parameters.AddOptional("pwd", password);
+
+        return ProcessOneRequestAsync<OkxSubAccountSummary>(GetUri("api/v5/users/subaccount/create-subaccount"), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Applies to master accounts only and master accounts API Key must be linked to IP addresses.
+    /// </summary>
+    /// <param name="subAccountName">Sub Account Name</param>
+    /// <param name="label">APIKey note</param>
+    /// <param name="passphrase">API Key password, supports 8 to 32 alphanumeric characters containing at least 1 number, 1 uppercase letter, 1 lowercase letter and 1 special character.</param>
+    /// <param name="readPermission">Read Permission</param>
+    /// <param name="tradePermission">Trade Permission</param>
+    /// <param name="ipAddresses">Link IP addresses, separate with commas if more than one. Support up to 20 IP addresses.</param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxSubAccountApiKeyCredential>> CreateSubAccountApiKeyAsync(
+    string subAccountName,
+    string label,
+    string passphrase,
+    bool? readPermission = null,
+    bool? tradePermission = null,
+    string? ipAddresses = null,
+    CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddParameter("subAcct", subAccountName);
+        parameters.AddParameter("label", label);
+        parameters.AddParameter("passphrase", passphrase);
+        parameters.AddOptional("ip", ipAddresses);
+
+        var permissions = new List<string>();
+        if (readPermission.HasValue && readPermission.Value) permissions.Add("read_only");
+        if (tradePermission.HasValue && tradePermission.Value) permissions.Add("trade");
+        if (permissions.Count > 0) parameters.AddOptional("perm", string.Join(",", permissions));
+
+
+        return ProcessOneRequestAsync<OkxSubAccountApiKeyCredential>(GetUri("api/v5/users/subaccount/apikey"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Applies to master accounts only
+    /// </summary>
+    /// <param name="subAccountName">Sub-account name</param>
+    /// <param name="apiKey">API public key</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxSubAccountApiKey>>> GetSubAccountApiKeysAsync(
+        string subAccountName,
+        string? apiKey = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "subAcct", subAccountName },
+        };
+
+        parameters.AddOptional("apiKey", apiKey);
+
+        return ProcessListRequestAsync<OkxSubAccountApiKey>(GetUri("api/v5/users/subaccount/apikey"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -74,6 +150,27 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         if (permissions.Count > 0) parameters.AddOptional("perm", string.Join(",", permissions));
 
         return ProcessOneRequestAsync<OkxSubAccountApiKey>(GetUri("api/v5/users/subaccount/modify-apikey"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Applies to master accounts only and master accounts API Key must be linked to IP addresses.
+    /// </summary>
+    /// <param name="subAccountName">Sub Account Name</param>
+    /// <param name="apiKey">APIKey note</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxSubAccountName>> DeleteSubAccountApiKeyAsync(
+        string subAccountName,
+        string apiKey,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "subAcct", subAccountName },
+            { "apiKey", apiKey},
+        };
+
+        return ProcessOneRequestAsync<OkxSubAccountName>(GetUri("api/v5/users/subaccount/delete-apikey"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -283,5 +380,4 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
 
         return ProcessListRequestAsync<OkxSubAccountName>(GetUri("api/v5/users/entrust-subaccount-list"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
-
 }

@@ -1,6 +1,7 @@
 ﻿## Change Log & Release Notes
 
 - Version 5.6.209 - 09 Feb 2026
+  * Updated to ApiSharp 4.5.0
   - Synced with the OKX Latest API Version [2026-01-21](https://www.okx.com/docs-v5/log_en/#2026-01-21)
   - Enhance type safety, serialization, and ELP/convert support
   - Add useLargeOrderConvert and isElpTakerAccess params to funding/trade REST clients
@@ -10,6 +11,13 @@
   - Add overload for PlaceOrderAsync with request object
   - Remove old attached algo request records
   - Improve XML docs and code clarity throughout
+  - Refactor funding/sub-account APIs, add new endpoints/models
+  - Renamed funding methods for clarity and consistency
+  - Added GetBillsHistoryAsync and replaced OkxFundingExchangeList with OkxFundingExchange
+  - Updated usages in Program.cs and bumped ApiSharp to 4.5.0
+  - Implemented sub-account management methods: create, API key ops, query, delete
+  - Added OkxSubAccountSummary and OkxSubAccountApiKeyCredential models
+  - Cleaned up comments, TODOs, and improved documentation throughout
 
 * Version 5.6.111 - 11 Jan 2026
   * Synced with the OKX API Version [2026-01-07](https://www.okx.com/docs-v5/log_en/#2026-01-07)

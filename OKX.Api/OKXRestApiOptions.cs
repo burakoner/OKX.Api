@@ -62,6 +62,7 @@ public class OkxRestApiOptions : RestApiClientOptions
         BaseAddress = OkxAddress.Default.RestApiAddress;
 
         // Rate Limiters
+#pragma warning disable CS0612 // Type or member is obsolete
         RateLimiters =
         [
             new RateLimiter()
@@ -78,6 +79,7 @@ public class OkxRestApiOptions : RestApiClientOptions
             .AddPartialEndpointLimit("/api/v5/public/insurance-fund", 10, TimeSpan.FromSeconds(2), null, true, true)
             .AddPartialEndpointLimit("/api/v5/public/convert-contract-coin", 10, TimeSpan.FromSeconds(2), null, true, true)
         ];
+#pragma warning restore CS0612 // Type or member is obsolete
 
         // Receive Window
         ReceiveWindow = TimeSpan.FromSeconds(5);

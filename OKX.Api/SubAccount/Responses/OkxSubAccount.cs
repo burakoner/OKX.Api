@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Security.Cryptography;
-
-namespace OKX.Api.SubAccount;
+﻿namespace OKX.Api.SubAccount;
 
 /// <summary>
 /// OKX Sub-Account
