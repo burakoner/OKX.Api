@@ -430,16 +430,20 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// </summary>
     /// <param name="fromCurrency">Currency to convert from, e.g. USDT</param>
     /// <param name="toCurrency">Currency to convert to, e.g. BTC</param>
+    /// <param name="useLargeOrderConvert">0: standard convert (default). 1: large order convert for VIP</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxFundingConvertCurrencyPair>> GetConvertCurrencyPairAsync(
         string fromCurrency,
         string toCurrency,
+        bool? useLargeOrderConvert = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("fromCcy", fromCurrency);
         parameters.AddOptional("toCcy", toCurrency);
+        if (useLargeOrderConvert != null)
+            parameters.AddOptional("convertMode", useLargeOrderConvert.Value ? "1" : "0");
 
         return ProcessOneRequestAsync<OkxFundingConvertCurrencyPair>(GetUri("api/v5/asset/convert/currency-pair"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -453,6 +457,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="rfqAmount">RFQ amount</param>
     /// <param name="rfqCurrency">RFQ currency</param>
     /// <param name="clientOrderId">Client Order ID as assigned by the client. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="useLargeOrderConvert">0: standard convert (default). 1: large order convert for VIP</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxFundingConvertEstimateQuote>> EstimateQuoteAsync(
@@ -462,6 +467,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         decimal rfqAmount,
         string rfqCurrency,
         string? clientOrderId = null,
+        bool? useLargeOrderConvert = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
@@ -473,6 +479,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
         parameters.AddEnum("side", side);
         parameters.AddOptional("clQReqId", clientOrderId);
+        if (useLargeOrderConvert != null)
+            parameters.AddOptional("convertMode", useLargeOrderConvert.Value ? "1" : "0");
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxFundingConvertEstimateQuote>(GetUri("api/v5/asset/convert/estimate-quote"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -488,6 +496,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="amount">Quote amount. The quote amount should no more then RFQ amount</param>
     /// <param name="amountCurrency">Quote currency</param>
     /// <param name="clientOrderId">Client Order ID as assigned by the client. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="useLargeOrderConvert">0: standard convert (default). 1: large order convert for VIP</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxFundingConvertOrder>> PlaceConvertOrderAsync(
@@ -498,6 +507,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         decimal amount,
         string amountCurrency,
         string? clientOrderId = null,
+        bool? useLargeOrderConvert = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
@@ -510,6 +520,8 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
         parameters.AddEnum("side", side);
         parameters.AddOptional("clQReqId", clientOrderId);
+        if (useLargeOrderConvert != null)
+            parameters.AddOptional("convertMode", useLargeOrderConvert.Value ? "1" : "0");
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxFundingConvertOrder>(GetUri("api/v5/asset/convert/trade"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);

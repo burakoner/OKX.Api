@@ -1,5 +1,16 @@
 ﻿## Change Log & Release Notes
 
+- Version 5.6.209 - 09 Feb 2026
+  - Synced with the OKX Latest API Version [2026-01-21](https://www.okx.com/docs-v5/log_en/#2026-01-21)
+  - Enhance type safety, serialization, and ELP/convert support
+  - Add useLargeOrderConvert and isElpTakerAccess params to funding/trade REST clients
+  - Add ElpMakerPermission to instrument model with new enum
+  - Introduce Boolean/Decimal as string JSON converters
+  - Refactor algo order models for type safety (decimals, bools)
+  - Add overload for PlaceOrderAsync with request object
+  - Remove old attached algo request records
+  - Improve XML docs and code clarity throughout
+
 * Version 5.6.111 - 11 Jan 2026
   * Synced with the OKX API Version [2026-01-07](https://www.okx.com/docs-v5/log_en/#2026-01-07)
   * OKX API v5.6.111: Fee, order, instrument, and model updates

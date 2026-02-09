@@ -81,5 +81,5 @@ public record OkxTradeOrderAmendRequest
     /// TP/SL information attached when placing order
     /// </summary>
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
-    public IEnumerable<OkxTradeOrderAmendAttachedAlgoRequest>? AttachedAlgoOrders { get; set; }
+    public IEnumerable<OkxTradeOrderAmendRequestAttachedAlgo>? AttachedAlgoOrders { get; set; }
 }

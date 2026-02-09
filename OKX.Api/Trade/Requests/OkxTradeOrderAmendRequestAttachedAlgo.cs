@@ -5,7 +5,7 @@ namespace OKX.Api.Trade;
 /// <summary>
 /// OKX Order Algo Request
 /// </summary>
-public record OkxTradeOrderAmendAttachedAlgoRequest
+public record OkxTradeOrderAmendRequestAttachedAlgo
 {
     /// <summary>
     /// The order ID of attached TP/SL order. It can be used to identity the TP/SL order when amending. It will not be posted to algoId when placing TP/SL order after the general order is filled completely.

@@ -41,7 +41,7 @@ public record OkxTradeOrderPlaceRequest
     /// Order tag. Used for Broker Id
     /// </summary>
     [JsonProperty("tag", NullValueHandling = NullValueHandling.Ignore)]
-    public string? Tag { get; set; }
+    internal string? Tag { get; set; }
 
     /// <summary>
     /// Order Side
@@ -65,14 +65,16 @@ public record OkxTradeOrderPlaceRequest
     /// Size
     /// </summary>
     [JsonProperty("sz")]
-    public string Size { get; set; } = string.Empty;
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? Size { get; set; }
 
     /// <summary>
     /// Order price. Only applicable to limit,post_only,fok,ioc,mmp,mmp_and_post_only order.
     /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in
     /// </summary>
     [JsonProperty("px", NullValueHandling = NullValueHandling.Ignore)]
-    public string? Price { get; set; }
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? Price { get; set; }
 
     /// <summary>
     /// Place options orders in USD
@@ -80,7 +82,8 @@ public record OkxTradeOrderPlaceRequest
     /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in
     /// </summary>
     [JsonProperty("pxUsd", NullValueHandling = NullValueHandling.Ignore)]
-    public string? PriceUsd { get; set; }
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? PriceUsd { get; set; }
 
     /// <summary>
     /// Place options orders based on implied volatility, where 1 represents 100%
@@ -88,7 +91,8 @@ public record OkxTradeOrderPlaceRequest
     /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in
     /// </summary>
     [JsonProperty("pxVol", NullValueHandling = NullValueHandling.Ignore)]
-    public string? PriceVolatility { get; set; }
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? PriceVolatility { get; set; }
 
     /// <summary>
     /// Whether to reduce position only or not, true false, the default is false.
@@ -131,9 +135,18 @@ public record OkxTradeOrderPlaceRequest
     public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
 
     /// <summary>
+    /// ELP taker access
+    /// true: the request can trade with ELP orders but a speed bump will be applied
+    /// false: the request cannot trade with ELP orders and no speed bump
+    /// The default value is false while true is only applicable to ioc orders.
+    /// </summary>
+    [JsonProperty("isElpTakerAccess", NullValueHandling = NullValueHandling.Ignore)]
+    public bool? IsElpTakerAccess { get; set; }
+
+    /// <summary>
     /// TP/SL information attached when placing order
     /// Just for Rest API order placement
     /// </summary>
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
-    public IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? AttachedAlgoOrders { get; set; }
+    public IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? AttachedAlgoOrders { get; set; }
 }

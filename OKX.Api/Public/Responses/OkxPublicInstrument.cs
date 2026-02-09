@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Public;
+﻿using System.Diagnostics.Metrics;
+using System.Security;
+
+namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Instrument
@@ -178,6 +181,16 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonProperty("openType")]
     public OkxPublicOpenType? OpenType { get; set; }
+
+    /// <summary>
+    /// ELP maker permission
+    /// 0: ELP is not enabled for this symbol
+    /// 1: ELP is enabled for this symbol, but current users don't have permission to place ELP orders for it.
+    /// 2: ELP is enabled for this symbol, and current users have permission to place ELP orders for it.
+    /// It doesn't mean there will be ELP liquidity when elp is 1/2.
+    /// </summary>
+    [JsonProperty("elp")]
+    public OkxPublicElpPermission? ElpMakerPermission { get; set; }
 
     /// <summary>
     /// Expiry timestamp

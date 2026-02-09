@@ -38,6 +38,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// 
     /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
     /// <param name="priceAmendType">Price Amend Type</param>
+    /// <param name="isElpTakerAccess">ELP taker access. true: the request can trade with ELP orders but a speed bump will be applied. false: the request cannot trade with ELP orders and no speed bump. The default value is false while true is only applicable to ioc orders.</param>
     /// <param name="attachedAlgoOrders">TP/SL information attached when placing order</param>
     /// 
     /// <param name="ct">Cancellation Token</param>
@@ -61,32 +62,53 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? tradeQuoteCurrency = null,
         OkxTradePriceAmendType? priceAmendType = null,
 
-        IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? attachedAlgoOrders = null,
+        bool? isElpTakerAccess = null,
+        IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? attachedAlgoOrders = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddParameter("instId", instrumentId);
+        parameters.AddEnum("tdMode", tradeMode);
         parameters.AddOptional("ccy", currency);
         parameters.AddOptional("clOrdId", clientOrderId);
-        parameters.AddEnum("tdMode", tradeMode);
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
         parameters.AddEnum("side", orderSide);
         parameters.AddEnum("posSide", positionSide);
         parameters.AddEnum("ordType", orderType);
         parameters.Add("sz", size.ToOkxString());
-
         parameters.AddOptional("px", price?.ToOkxString());
         parameters.AddOptional("pxUsd", priceUsd);
         parameters.AddOptional("pxVol", priceVolatility);
         parameters.AddOptional("reduceOnly", reduceOnly);
         parameters.AddOptionalEnum("tgtCcy", quantityType);
         parameters.AddOptional("banAmend", banAmend);
+        parameters.AddOptionalEnum("pxAmendType", priceAmendType);
         parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
         parameters.AddOptionalEnum("stpMode", selfTradePreventionMode);
+        parameters.AddOptional("isElpTakerAccess", isElpTakerAccess);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
-        parameters.AddOptionalEnum("pxAmendType", priceAmendType);
+        return ProcessOneRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
 
-        parameters.AddOptional("tag", OkxConstants.BrokerId);
+    /// <summary>
+    /// Places a new trade order asynchronously on the OKX exchange.
+    /// </summary>
+    /// <remarks>The order will be associated with the broker identifier specified by the API. Ensure that all
+    /// required fields in the orderRequest are set according to OKX API requirements.</remarks>
+    /// <param name="orderRequest">The order details to be submitted. Cannot be null.</param>
+    /// <param name="ct">A cancellation token that can be used to cancel the operation.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a RestCallResult with the response
+    /// from the order placement request.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if orderRequest is null.</exception>
+    public Task<RestCallResult<OkxTradeOrderPlaceResponse>> PlaceOrderAsync(OkxTradeOrderPlaceRequest orderRequest, CancellationToken ct = default)
+    {
+        if (orderRequest == null) throw new ArgumentNullException(nameof(orderRequest));
+
+        orderRequest.Tag = OkxConstants.BrokerId;
+
+        var parameters = new ParameterCollection();
+        parameters.SetBody(orderRequest);
 
         return ProcessOneRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -170,7 +192,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? newPriceUsd = null,
         decimal? newPriceVolatility = null,
         OkxTradePriceAmendType? priceAmendType = null,
-        IEnumerable<OkxTradeOrderAmendAttachedAlgoRequest>? attachedAlgoOrders = null,
+        IEnumerable<OkxTradeOrderAmendRequestAttachedAlgo>? attachedAlgoOrders = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
@@ -734,7 +756,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         bool? reduceOnly = null,
         OkxTradePositionSide? positionSide = null,
         OkxTradeQuantityType? quantityType = null,
-        IEnumerable<OkxTradeOrderPlaceAttachedAlgoRequest>? attachedAlgoOrders = null,
+        IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? attachedAlgoOrders = null,
 
         CancellationToken ct = default)
     {
