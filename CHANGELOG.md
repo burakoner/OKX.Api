@@ -1,7 +1,14 @@
 ﻿## Change Log & Release Notes
 
+- Version 5.6.210 - 10 Feb 2026
+  - Added OkxPublicSocketClient.SubscribeToOptionTradesAsync() method
+  - Added OkxPublicSocketClient.SubscribeToCallAuctionsAsync() method
+  - Added OkxPublicSocketClient.SubscribeToLiquidationOrdersAsync() method
+  - Added OkxPublicSocketClient.SubscribeToAdlWarningsAsync() method
+  - Added OkxPublicSocketClient.SubscribeToEconomicCalendarEventsAsync() method
+
 - Version 5.6.209 - 09 Feb 2026
-  * Updated to ApiSharp 4.5.0
+  - Updated to ApiSharp 4.5.0
   - Synced with the OKX Latest API Version [2026-01-21](https://www.okx.com/docs-v5/log_en/#2026-01-21)
   - Enhance type safety, serialization, and ELP/convert support
   - Add useLargeOrderConvert and isElpTakerAccess params to funding/trade REST clients

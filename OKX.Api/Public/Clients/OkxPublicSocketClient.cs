@@ -1,4 +1,7 @@
-﻿namespace OKX.Api.Public;
+﻿using System;
+using System.Numerics;
+
+namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX WebSocket Api Public Market Data Client
@@ -219,9 +222,87 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, needLogin, internalHandler, ct).ConfigureAwait(false);
     }
 
-    // TODO: WS / Option trades channel
-    // TODO: WS / Call auction details channel
+    /// <summary>
+    /// Retrieve the recent trades data. Data will be pushed whenever there is a trade. Every update contain only one trade.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOptionTradesAsync(Action<OkxPublicOptionTrade> onData, string? instrumentId = null, string? instrumentFamily = null, CancellationToken ct = default)
+        => await SubscribeToOptionTradesAsync(onData, string.IsNullOrEmpty(instrumentId) ? [] : [instrumentId!], instrumentFamily, ct).ConfigureAwait(false);
 
+    /// <summary>
+    /// Retrieve the recent trades data. Data will be pushed whenever there is a trade. Every update contain only one trade.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOptionTradesAsync(Action<OkxPublicOptionTrade> onData, IEnumerable<string> instrumentIds, string? instrumentFamily = null, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicOptionTrade>>>>(data =>
+        {
+            foreach (var d in data.Data.Data)
+                if (d is not null) onData(d);
+        });
+
+        var arguments = new List<OkxSocketRequestArgument>();
+        if (!string.IsNullOrEmpty(instrumentFamily)) arguments.Add(new OkxSocketRequestArgument
+        {
+            Channel = "option-trades",
+            InstrumentFamily = instrumentFamily,
+            InstrumentType = OkxInstrumentType.Option,
+        });
+        else
+        {
+            foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
+            {
+                Channel = "option-trades",
+                InstrumentId = instrumentId,
+                InstrumentType = OkxInstrumentType.Option,
+            });
+        }
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Retrieve call auction details.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToCallAuctionsAsync(Action<OkxPublicCallAuction> onData, string instrumentId, CancellationToken ct = default)
+        => await SubscribeToCallAuctionsAsync(onData, instrumentId, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve call auction details.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToCallAuctionsAsync(Action<OkxPublicCallAuction> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicCallAuction>>>>(data =>
+        {
+            foreach (var d in data.Data.Data)
+                if (d is not null) onData(d);
+        });
+
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
+        {
+            Channel = "call-auction-details",
+            InstrumentId = instrumentId,
+        });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
     #endregion
 
     #region Public Data
@@ -600,10 +681,118 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
 
-    // TODO: Liquidation orders channel
-    // TODO: ADL warning channel
-    // TODO: Economic calendar channel
+    /// <summary>
+    /// Retrieve the candlesticks data of the index. Data will be pushed every 500 ms.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLiquidationOrdersAsync(Action<OkxPublicLiquidationOrder> onData, OkxInstrumentType instrumentType, CancellationToken ct = default)
+        => await SubscribeToLiquidationOrdersAsync(onData, [instrumentType], ct).ConfigureAwait(false);
 
+    /// <summary>
+    /// Retrieve the candlesticks data of the index. Data will be pushed every 500 ms.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentTypes">List of Instrument Type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToLiquidationOrdersAsync(Action<OkxPublicLiquidationOrder> onData, IEnumerable<OkxInstrumentType> instrumentTypes, CancellationToken ct = default)
+    {
+        if (instrumentTypes.Contains(OkxInstrumentType.Any)
+            || instrumentTypes.Contains(OkxInstrumentType.Spot)
+            || instrumentTypes.Contains(OkxInstrumentType.Contracts))
+            throw new ArgumentException("Liquidation orders channel does not support Any, Spot and Contracts instruments.", nameof(instrumentTypes));
+
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicLiquidationOrder>>>>(data =>
+        {
+            foreach (var d in data.Data.Data)
+            {
+                if (d is null) continue;
+                if (data.Data.Arguments is null) continue;
+                d.InstrumentId = data.Data.Arguments.InstrumentId;
+                onData(d);
+            }
+        });
+
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var instrumentType in instrumentTypes) arguments.Add(new OkxSocketRequestArgument
+        {
+            Channel = $"liquidation-orders",
+            InstrumentType = instrumentType,
+        });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Auto-deleveraging warning channel.
+    /// In the normal state, data will be pushed once every minute to display the balance of security fund and etc.
+    /// In the warning state or when there is ADL risk(warning/adl), data will be pushed every second to display information such as the real-time decline rate of security fund.
+    /// For more ADL details, please refer to Introduction to Auto-deleveraging
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="instrumentType">Instrument Type</param>
+    /// <param name="instrumentFamily">Instrument Family</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAdlWarningsAsync(Action<OkxPublicAdlWarning> onData, OkxInstrumentType instrumentType, string? instrumentFamily = null, CancellationToken ct = default)
+    {
+        if (instrumentType != OkxInstrumentType.Swap
+            && instrumentType != OkxInstrumentType.Futures
+            && instrumentType != OkxInstrumentType.Option)
+            throw new ArgumentException("Liquidation orders channel only support Swap, Futures and Option instruments.", nameof(instrumentType));
+
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicAdlWarning>>>>(data =>
+        {
+            foreach (var d in data.Data.Data)
+            {
+                if (d is null) continue;
+                if (data.Data.Arguments is null) continue;
+                d.InstrumentId = data.Data.Arguments.InstrumentId;
+                onData(d);
+            }
+        });
+
+        var arguments = new List<OkxSocketRequestArgument>();
+        arguments.Add(new OkxSocketRequestArgument
+        {
+            Channel = $"adl-warning",
+            InstrumentType = instrumentType,
+            InstrumentFamily = instrumentFamily,
+        });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Retrieve the most up-to-date economic calendar data. This endpoint is only applicable to VIP 1 and above users in the trading fee tier.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToEconomicCalendarEventsAsync(Action<OkxPublicEconomicCalendarEvent> onData, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicEconomicCalendarEvent>>>>(data =>
+        {
+            foreach (var d in data.Data.Data)
+            {
+                if (d is null) continue;
+                if (data.Data.Arguments is null) continue;
+                onData(d);
+            }
+        });
+
+        var arguments = new List<OkxSocketRequestArgument>();
+        arguments.Add(new OkxSocketRequestArgument
+        {
+            Channel = $"economic-calendar",
+        });
+        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
     #endregion
 
     #region Status Updates
