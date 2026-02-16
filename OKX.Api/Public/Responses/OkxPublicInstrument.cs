@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-using System.Security;
-
-namespace OKX.Api.Public;
+﻿namespace OKX.Api.Public;
 
 /// <summary>
 /// OKX Instrument
@@ -26,7 +23,7 @@ public record OkxPublicInstrument
     /// For the same instId, it's value may be different between production and demo trading.
     /// </summary>
     [JsonProperty("instIdCode")]
-    public int InstrumentIdCode { get; set; }
+    public int? InstrumentIdCode { get; set; }
 
     /// <summary>
     /// Underlying, e.g. BTC-USD. Only applicable to FUTURES/SWAP/OPTION

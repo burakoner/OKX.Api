@@ -1,5 +1,8 @@
 ﻿## Change Log & Release Notes
 
+- Version 5.6.216 - 01 Nov 2025
+  - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)
+
 - Version 5.6.210 - 10 Feb 2026
   - Added OkxPublicSocketClient.SubscribeToOptionTradesAsync() method
   - Added OkxPublicSocketClient.SubscribeToCallAuctionsAsync() method
