@@ -7,6 +7,8 @@
   - Synced with the OKX API Version [2026-02-12](https://www.okx.com/docs-v5/log_en/#2026-02-12)
   - Added `instCategory` to `OkxPublicInstrument`
   - Added `OkxPublicInstrumentCategory` enum with current `Crypto` mapping
+  - Synced with the OKX API Version [2026-02-27](https://www.okx.com/docs-v5/log_en/#2026-02-27)
+  - Added `lendingRate` to public borrow history responses
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

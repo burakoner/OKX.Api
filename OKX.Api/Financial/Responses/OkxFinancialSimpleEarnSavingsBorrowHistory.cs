@@ -22,6 +22,12 @@ public record OkxFinancialSimpleEarnSavingsBorrowHistory
     /// </summary>
     [JsonProperty("rate")]
     public decimal Rate { get; set; }
+
+    /// <summary>
+    /// Annual lending interest rate
+    /// </summary>
+    [JsonProperty("lendingRate")]
+    public decimal? LendingRate { get; set; }
     
     /// <summary>
     /// Time, Unix timestamp format in milliseconds, e.g. 1597026383085
