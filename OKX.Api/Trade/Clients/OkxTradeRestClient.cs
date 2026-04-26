@@ -614,7 +614,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     }
 
     /// <summary>
-    /// Get list of debt currency data and repay currencies. Only applicable to SPOT mode.
+    /// Get list of debt currency data and repay currencies.
+    /// Applicable to SPOT mode, Multi-currency margin mode, and Portfolio margin mode.
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -624,7 +625,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     }
 
     /// <summary>
-    /// Trade one-click repay to repay debts. Only applicable to SPOT mode.
+    /// Trade one-click repay to repay debts.
+    /// Applicable to SPOT mode, Multi-currency margin mode, and Portfolio margin mode.
     /// </summary>
     /// <param name="debtCcy">Debt currency</param>
     /// <param name="repayCcyList">Repay currency list, e.g. ["USDC","BTC"]. The priority of currency to repay is consistent with the order in the array. (The first item has the highest priority)</param>

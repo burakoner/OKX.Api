@@ -6,14 +6,21 @@
 public abstract record OkxRestApiErrorBase
 {
     /// <summary>
-    /// Error Code
+    /// Error code.
     /// </summary>
     [JsonProperty("sCode")]
     public string? ErrorCode { get; set; }
 
     /// <summary>
-    /// Error Message
+    /// Error message.
     /// </summary>
     [JsonProperty("sMsg")]
     public string? ErrorMessage { get; set; }
+
+    /// <summary>
+    /// Sub-code of <see cref="ErrorCode"/>.
+    /// Returned by order place/amend REST and WebSocket operation responses.
+    /// </summary>
+    [JsonProperty("subCode")]
+    public string? SubCode { get; set; }
 }

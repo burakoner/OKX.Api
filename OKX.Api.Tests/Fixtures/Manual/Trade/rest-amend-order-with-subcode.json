@@ -1,0 +1,17 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ordId": "123456789",
+      "clOrdId": "amend-01",
+      "reqId": "req-01",
+      "ts": "1695190491421",
+      "sCode": "51008",
+      "sMsg": "Amend failed",
+      "subCode": "54071"
+    }
+  ],
+  "inTime": "1695190491421339",
+  "outTime": "1695190491423240"
+}
