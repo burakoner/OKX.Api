@@ -10,7 +10,7 @@
   - Synced with the OKX API Version [2026-02-27](https://www.okx.com/docs-v5/log_en/#2026-02-27)
   - Added `lendingRate` to public borrow history responses
   - Synced with the OKX API Version [2026-03-02](https://www.okx.com/docs-v5/log_en/#2026-03-02)
-  - Added `Stocks` mapping to `OkxPublicInstrumentCategory`
+  - Expanded `OkxPublicInstrumentCategory` mappings to match the instruments endpoint documentation (`Stocks`, `Commodities`, `Forex`, `Bonds`; empty string continues to deserialize as `null`)
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

@@ -16,4 +16,22 @@ public enum OkxPublicInstrumentCategory : byte
     /// </summary>
     [Map("3")]
     Stocks = 3,
+
+    /// <summary>
+    /// Commodities
+    /// </summary>
+    [Map("4")]
+    Commodities = 4,
+
+    /// <summary>
+    /// Forex
+    /// </summary>
+    [Map("5")]
+    Forex = 5,
+
+    /// <summary>
+    /// Bonds
+    /// </summary>
+    [Map("6")]
+    Bonds = 6,
 }
