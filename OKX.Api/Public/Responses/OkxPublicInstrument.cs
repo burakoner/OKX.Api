@@ -338,6 +338,22 @@ public record OkxPublicInstrument
     public decimal? PlatformWideMaximumPositionValue { get; set; }
 
     /// <summary>
+    /// Remaining long position value (USD) the user is permitted to open, netting all existing long positions and resting buy orders.
+    /// Only applicable to the private instruments endpoint.
+    /// The quota is shared across the master account and all sub-accounts.
+    /// </summary>
+    [JsonProperty("longPosRemainingQuota")]
+    public decimal? LongPositionRemainingQuota { get; set; }
+
+    /// <summary>
+    /// Remaining short position value (USD) the user is permitted to open, netting all existing short positions and resting sell orders.
+    /// Only applicable to the private instruments endpoint.
+    /// The quota is shared across the master account and all sub-accounts.
+    /// </summary>
+    [JsonProperty("shortPosRemainingQuota")]
+    public decimal? ShortPositionRemainingQuota { get; set; }
+
+    /// <summary>
     /// Upcoming changes. It is [] when there is no upcoming change.
     /// </summary>
     [JsonProperty("upcChg")]
