@@ -39,6 +39,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
     /// <param name="priceAmendType">Price Amend Type</param>
     /// <param name="isElpTakerAccess">ELP taker access. true: the request can trade with ELP orders but a speed bump will be applied. false: the request cannot trade with ELP orders and no speed bump. The default value is false while true is only applicable to ioc orders.</param>
+    /// <param name="speedBump">Event contract speed bump flag. Required for non-post-only EVENTS orders.</param>
+    /// <param name="outcome">Event contract outcome side. Only applicable and required for EVENTS.</param>
     /// <param name="attachedAlgoOrders">Attached TP/SL or trailing stop order information</param>
     /// 
     /// <param name="ct">Cancellation Token</param>
@@ -63,6 +65,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxTradePriceAmendType? priceAmendType = null,
 
         bool? isElpTakerAccess = null,
+        OkxTradeEventSpeedBump? speedBump = null,
+        OkxTradeEventOutcome? outcome = null,
         IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? attachedAlgoOrders = null,
         CancellationToken ct = default)
     {
@@ -86,6 +90,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
         parameters.AddOptionalEnum("stpMode", selfTradePreventionMode);
         parameters.AddOptional("isElpTakerAccess", isElpTakerAccess);
+        parameters.AddOptionalEnum("speedBump", speedBump);
+        parameters.AddOptionalEnum("outcome", outcome);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
         return ProcessOneRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -179,6 +185,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// When modifying options orders, users can only fill in one of the following: newPx, newPxUsd, or newPxVol.</param>
     /// <param name="attachedAlgoOrders">Attached TP/SL or trailing stop order information</param>
     /// <param name="priceAmendType">Price Amend Type</param>
+    /// <param name="speedBump">Event contract speed bump flag. Required for non-post-only EVENTS amend requests.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxTradeOrderAmend>> AmendOrderAsync(
@@ -192,6 +199,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? newPriceUsd = null,
         decimal? newPriceVolatility = null,
         OkxTradePriceAmendType? priceAmendType = null,
+        OkxTradeEventSpeedBump? speedBump = null,
         IEnumerable<OkxTradeOrderAmendRequestAttachedAlgo>? attachedAlgoOrders = null,
         CancellationToken ct = default)
     {
@@ -208,6 +216,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("newPxUsd", newPriceUsd?.ToOkxString());
         parameters.AddOptional("newPxVol", newPriceVolatility?.ToOkxString());
         parameters.AddOptionalEnum("pxAmendType", priceAmendType);
+        parameters.AddOptionalEnum("speedBump", speedBump);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
         return ProcessOneRequestAsync<OkxTradeOrderAmend>(GetUri("api/v5/trade/amend-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -745,6 +754,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// base_ccy: Base currency ,quote_ccy: Quote currency
     /// Only applicable to SPOT Market Orders
     /// Default is quote_ccy for buy, base_ccy for sell</param>
+    /// <param name="outcome">Event contract outcome side. Only applicable and required for EVENTS.</param>
     /// <param name="attachedAlgoOrders">TP/SL information attached when placing order</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -758,6 +768,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         bool? reduceOnly = null,
         OkxTradePositionSide? positionSide = null,
         OkxTradeQuantityType? quantityType = null,
+        OkxTradeEventOutcome? outcome = null,
         IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? attachedAlgoOrders = null,
 
         CancellationToken ct = default)
@@ -773,6 +784,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("px", price?.ToOkxString());
         parameters.AddOptional("reduceOnly", reduceOnly);
         parameters.AddOptionalEnum("tgtCcy", quantityType);
+        parameters.AddOptionalEnum("outcome", outcome);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
         return ProcessOneRequestAsync<OkxTradeOrderPrecheck>(GetUri("api/v5/trade/order-precheck"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);

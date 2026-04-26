@@ -121,6 +121,7 @@ public class OkxPublicInstrumentContractTests
 
         Assert.NotEmpty(response.Data!);
         Assert.All(response.Data!, x => Assert.Equal(OkxInstrumentType.Events, x.InstrumentType));
+        Assert.Contains(response.Data!, x => !string.IsNullOrWhiteSpace(x.SeriesId));
     }
 
     [Fact]

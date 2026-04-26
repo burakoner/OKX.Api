@@ -259,6 +259,13 @@ public record OkxTradeOrder
     public OkxOrderCategory? Category { get; set; }
 
     /// <summary>
+    /// Event contract outcome side.
+    /// Only applicable to EVENTS.
+    /// </summary>
+    [JsonProperty("outcome")]
+    public OkxTradeEventOutcome? Outcome { get; set; }
+
+    /// <summary>
     /// Whether the order can only reduce the position size. Valid options: true or false.
     /// </summary>
     [JsonProperty("reduceOnly")]

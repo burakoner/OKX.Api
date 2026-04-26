@@ -146,6 +146,20 @@ public record OkxTradeOrderPlaceRequest
     public bool? IsElpTakerAccess { get; set; }
 
     /// <summary>
+    /// Event contract speed bump flag.
+    /// Required for non-post-only EVENTS orders.
+    /// </summary>
+    [JsonProperty("speedBump", NullValueHandling = NullValueHandling.Ignore)]
+    public OkxTradeEventSpeedBump? SpeedBump { get; set; }
+
+    /// <summary>
+    /// Event contract outcome side.
+    /// Only applicable and required for EVENTS.
+    /// </summary>
+    [JsonProperty("outcome", NullValueHandling = NullValueHandling.Ignore)]
+    public OkxTradeEventOutcome? Outcome { get; set; }
+
+    /// <summary>
     /// TP/SL information attached when placing order
     /// Just for Rest API order placement
     /// </summary>

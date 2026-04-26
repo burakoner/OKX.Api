@@ -1,0 +1,32 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "seriesId": "BTC-ABOVE-DAILY",
+      "eventId": "BTC-ABOVE-DAILY-260224-1600",
+      "instId": "BTC-ABOVE-DAILY-260224-1600-65000",
+      "listTime": "1769696000000",
+      "fixTime": "",
+      "expTime": "1769697132335",
+      "state": "live",
+      "outcome": "0",
+      "floorStrike": "65000",
+      "settleValue": "",
+      "disputed": false
+    },
+    {
+      "seriesId": "BTC-UPDOWN-FIFTEEN-MIN",
+      "eventId": "BTC-UPDOWN-FIFTEEN-MIN-260224-1615",
+      "instId": "BTC-UPDOWN-FIFTEEN-MIN-260224-1615-120000",
+      "listTime": "1769697600000",
+      "fixTime": "1769697900000",
+      "expTime": "1769697900000",
+      "state": "expired",
+      "outcome": "2",
+      "floorStrike": "120000",
+      "settleValue": "118500.5",
+      "disputed": true
+    }
+  ]
+}

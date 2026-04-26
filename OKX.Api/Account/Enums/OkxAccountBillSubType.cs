@@ -740,4 +740,40 @@ public enum OkxAccountBillSubType:int
     /// </summary>
     [Map("381")]
     AutoEarn = 381,
+
+    /// <summary>
+    /// Event buy yes.
+    /// </summary>
+    [Map("410")]
+    EventBuyYes = 410,
+
+    /// <summary>
+    /// Event buy no.
+    /// </summary>
+    [Map("411")]
+    EventBuyNo = 411,
+
+    /// <summary>
+    /// Event sell yes.
+    /// </summary>
+    [Map("412")]
+    EventSellYes = 412,
+
+    /// <summary>
+    /// Event sell no.
+    /// </summary>
+    [Map("413")]
+    EventSellNo = 413,
+
+    /// <summary>
+    /// Event yes expiry.
+    /// </summary>
+    [Map("414")]
+    EventYesExpiry = 414,
+
+    /// <summary>
+    /// Event no expiry.
+    /// </summary>
+    [Map("415")]
+    EventNoExpiry = 415,
 }

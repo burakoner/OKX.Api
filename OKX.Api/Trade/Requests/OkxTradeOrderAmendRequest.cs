@@ -81,6 +81,13 @@ public record OkxTradeOrderAmendRequest
     public OkxTradePriceAmendType? PriceAmendType { get; set; }
 
     /// <summary>
+    /// Event contract speed bump flag.
+    /// Required for non-post-only EVENTS amend requests.
+    /// </summary>
+    [JsonProperty("speedBump", NullValueHandling = NullValueHandling.Ignore)]
+    public OkxTradeEventSpeedBump? SpeedBump { get; set; }
+
+    /// <summary>
     /// TP/SL information attached when placing order
     /// </summary>
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]

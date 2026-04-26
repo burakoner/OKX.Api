@@ -6,7 +6,8 @@ internal sealed record TestConfiguration(
     string? ApiKey,
     string? ApiSecret,
     string? ApiPassphrase,
-    string PublicBorrowCurrency)
+    string PublicBorrowCurrency,
+    string PublicEventsSeriesId)
 {
     public bool HasApiCredentials =>
         !string.IsNullOrWhiteSpace(ApiKey) &&
@@ -23,7 +24,10 @@ internal sealed record TestConfiguration(
             Environment.GetEnvironmentVariable("OKX_API_KEY"),
             Environment.GetEnvironmentVariable("OKX_API_SECRET"),
             Environment.GetEnvironmentVariable("OKX_API_PASSPHRASE"),
-            Environment.GetEnvironmentVariable("OKX_PUBLIC_BORROW_CURRENCY") ?? "BTC");
+            Environment.GetEnvironmentVariable("OKX_PUBLIC_BORROW_CURRENCY") ?? "BTC",
+            Environment.GetEnvironmentVariable("OKX_PUBLIC_EVENTS_SERIES_ID")
+                ?? Environment.GetEnvironmentVariable("OKX_CAPTURE_PUBLIC_EVENTS_SERIES_ID")
+                ?? "BTC-ABOVE-DAILY");
     }
 
     private static bool ReadBool(string variableName, bool defaultValue = false)

@@ -96,6 +96,63 @@ function Save-JsonSnapshot {
     Write-Host "Saved $RelativePath"
 }
 
+function Test-OkxCredentialsConfigured {
+    return -not [string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable("OKX_API_KEY")) `
+        -and -not [string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable("OKX_API_SECRET")) `
+        -and -not [string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable("OKX_API_PASSPHRASE"))
+}
+
+function Get-OkxSignedHeaders {
+    param(
+        [string]$Method,
+        [string]$RequestPathAndQuery,
+        [hashtable]$Headers = @{}
+    )
+
+    if (-not (Test-OkxCredentialsConfigured)) {
+        throw "OKX_API_KEY, OKX_API_SECRET, and OKX_API_PASSPHRASE are required to capture authenticated public event-contract snapshots."
+    }
+
+    $apiKey = [Environment]::GetEnvironmentVariable("OKX_API_KEY")
+    $apiSecret = [Environment]::GetEnvironmentVariable("OKX_API_SECRET")
+    $apiPassphrase = [Environment]::GetEnvironmentVariable("OKX_API_PASSPHRASE")
+    $timestamp = [DateTime]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ", [System.Globalization.CultureInfo]::InvariantCulture)
+    $payload = $timestamp + $Method.ToUpperInvariant() + $RequestPathAndQuery
+
+    $hmac = [System.Security.Cryptography.HMACSHA256]::new([System.Text.Encoding]::UTF8.GetBytes($apiSecret))
+    try {
+        $signatureBytes = $hmac.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($payload))
+    }
+    finally {
+        $hmac.Dispose()
+    }
+
+    $requestHeaders = @{
+        "OK-ACCESS-KEY" = $apiKey
+        "OK-ACCESS-SIGN" = [Convert]::ToBase64String($signatureBytes)
+        "OK-ACCESS-TIMESTAMP" = $timestamp
+        "OK-ACCESS-PASSPHRASE" = $apiPassphrase
+    }
+
+    foreach ($key in $Headers.Keys) {
+        $requestHeaders[$key] = $Headers[$key]
+    }
+
+    return $requestHeaders
+}
+
+function Save-AuthenticatedJsonSnapshot {
+    param(
+        [string]$RelativePath,
+        [string]$BaseUrl,
+        [string]$RequestPathAndQuery,
+        [hashtable]$Headers = @{}
+    )
+
+    $signedHeaders = Get-OkxSignedHeaders -Method "GET" -RequestPathAndQuery $RequestPathAndQuery -Headers $Headers
+    Save-JsonSnapshot -RelativePath $RelativePath -Uri ($BaseUrl + $RequestPathAndQuery) -Headers $signedHeaders
+}
+
 function Save-PublicInstrumentSnapshots {
     param(
         [string]$EnvironmentName,
@@ -202,6 +259,58 @@ function Save-FinancialSnapshots {
         -Headers $Headers
 }
 
+function Save-EventContractSnapshots {
+    param(
+        [string]$EnvironmentName,
+        [string]$BaseUrl,
+        [string]$EventsSeriesId,
+        [hashtable]$Headers = @{}
+    )
+
+    if (-not (Test-OkxCredentialsConfigured)) {
+        Write-Warning "Skipping authenticated event-contract live snapshots because OKX API credentials are not configured."
+        return
+    }
+
+    $root = "OKX.Api.Tests/Fixtures/Live/$EnvironmentName/Public"
+    $escapedSeriesId = [Uri]::EscapeDataString($EventsSeriesId)
+    $marketsPathAndQuery = "/api/v5/public/event-contract/markets?seriesId=$escapedSeriesId&limit=20"
+    $signedHeaders = Get-OkxSignedHeaders -Method "GET" -RequestPathAndQuery $marketsPathAndQuery -Headers $Headers
+
+    Save-AuthenticatedJsonSnapshot `
+        -RelativePath "$root/get-event-contract-series-btc-above-daily.json" `
+        -BaseUrl $BaseUrl `
+        -RequestPathAndQuery "/api/v5/public/event-contract/series?seriesId=$escapedSeriesId" `
+        -Headers $Headers
+
+    Save-AuthenticatedJsonSnapshot `
+        -RelativePath "$root/get-event-contract-events-btc-above-daily.json" `
+        -BaseUrl $BaseUrl `
+        -RequestPathAndQuery "/api/v5/public/event-contract/events?seriesId=$escapedSeriesId&limit=20" `
+        -Headers $Headers
+
+    Save-AuthenticatedJsonSnapshot `
+        -RelativePath "$root/get-event-contract-markets-btc-above-daily.json" `
+        -BaseUrl $BaseUrl `
+        -RequestPathAndQuery $marketsPathAndQuery `
+        -Headers $Headers
+
+    $marketsResponse = Invoke-RestMethod -Method Get -Uri ($BaseUrl + $marketsPathAndQuery) -Headers $signedHeaders
+    $eventInstrumentId = $marketsResponse.data |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_.instId) } |
+        Select-Object -ExpandProperty instId -First 1
+
+    if (-not [string]::IsNullOrWhiteSpace($eventInstrumentId)) {
+        Save-JsonSnapshot `
+            -RelativePath "$root/get-mark-price-events-btc-above-daily.json" `
+            -Uri "$BaseUrl/api/v5/public/mark-price?instType=EVENTS&instId=$([Uri]::EscapeDataString($eventInstrumentId))"
+
+        Save-JsonSnapshot `
+            -RelativePath "$root/get-open-interest-events-btc-above-daily.json" `
+            -Uri "$BaseUrl/api/v5/public/open-interest?instType=EVENTS&instId=$([Uri]::EscapeDataString($eventInstrumentId))"
+    }
+}
+
 Load-DotEnv -Path (Join-Path $RepositoryRoot ".env")
 
 $baseUrl = Get-EnvOrDefault -Name "OKX_CAPTURE_BASE_URL" -DefaultValue "https://www.okx.com"
@@ -227,6 +336,11 @@ Save-FinancialSnapshots `
     -BaseUrl $baseUrl `
     -BorrowCurrency $borrowCurrency
 
+Save-EventContractSnapshots `
+    -EnvironmentName "Production" `
+    -BaseUrl $baseUrl `
+    -EventsSeriesId $publicEventsSeriesId
+
 if ($useDemoTrading) {
     $demoHeaders = @{
         "x-simulated-trading" = "1"
@@ -249,5 +363,11 @@ if ($useDemoTrading) {
         -EnvironmentName "Demo" `
         -BaseUrl $baseUrl `
         -BorrowCurrency $borrowCurrency `
+        -Headers $demoHeaders
+
+    Save-EventContractSnapshots `
+        -EnvironmentName "Demo" `
+        -BaseUrl $baseUrl `
+        -EventsSeriesId $publicEventsSeriesId `
         -Headers $demoHeaders
 }

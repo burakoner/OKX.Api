@@ -29,4 +29,23 @@ public enum OkxInstrumentState : byte
     /// </summary>
     [Map("preopen")]
     PreOpen = 4,
+
+    /// <summary>
+    /// Expired.
+    /// </summary>
+    [Map("expired")]
+    Expired = 5,
+
+    /// <summary>
+    /// Test.
+    /// </summary>
+    [Map("test")]
+    Test = 6,
+
+    /// <summary>
+    /// Settling.
+    /// Only applicable to EVENTS.
+    /// </summary>
+    [Map("settling")]
+    Settling = 7,
 }

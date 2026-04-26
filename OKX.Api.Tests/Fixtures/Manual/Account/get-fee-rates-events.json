@@ -1,0 +1,21 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "level": "Lv2",
+      "feeGroup": [
+        {
+          "groupId": "1",
+          "maker": "-0.0002",
+          "taker": "-0.0005"
+        }
+      ],
+      "settle": "0.0004",
+      "delivery": "0.0005",
+      "exercise": "0.0006",
+      "instType": "EVENTS",
+      "ts": "1745900000000"
+    }
+  ]
+}

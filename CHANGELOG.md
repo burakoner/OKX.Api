@@ -53,6 +53,12 @@
   - Aligned nested algo attached-order request/response models with the current endpoint docs for attached TP/SL trigger ratios
   - Fixed trade attached algo request/response serialization for `slOrdPx` and `amendPxOnTriggerType`, which the new contract tests exposed while adding trailing stop coverage
   - Added manual contract coverage for attached trailing stop serialization and response parsing without placing live orders
+  - Synced with the OKX API Version [2026-04-15](https://www.okx.com/docs-v5/log_en/#2026-04-15)
+  - Added authenticated Event Contracts public data support with `GetEventContractSeriesAsync`, `GetEventContractEventsAsync`, `GetEventContractMarketsAsync`, and `SubscribeToEventContractMarketsAsync`
+  - Added `seriesId` support to public and private instruments requests, expanded instrument state coverage with `expired`, `test`, and `settling`, and enabled `EVENTS` on public open-interest and mark-price requests
+  - Added Event Contracts order/account support with `speedBump`, `outcome`, `settle` fee rate parsing, and bills subtypes `410`-`415`
+  - Added manual and live Event Contracts contract coverage, authenticated public integration tests, and signed live fixture capture for event-contract series, events, markets, and event mark/open-interest snapshots
+  - Hardened event mark-price parsing so `markPx` now tolerates live OKX responses that return an empty string before the price is available
   - Added `OKX.Api.Tests` with manual edge-case fixtures and committed live OKX public response snapshots
   - Added optional live integration tests with local `.env` configuration kept out of git
   - Added a live fixture capture script and aligned simple earn borrow history amount parsing with current public snapshots

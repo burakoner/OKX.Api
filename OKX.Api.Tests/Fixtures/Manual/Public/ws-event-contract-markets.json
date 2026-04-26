@@ -1,0 +1,20 @@
+{
+  "arg": {
+    "channel": "event-contract-markets"
+  },
+  "data": [
+    {
+      "seriesId": "BTC-ABOVE-DAILY",
+      "eventId": "BTC-ABOVE-DAILY-260224-1600",
+      "instId": "BTC-ABOVE-DAILY-260224-1600-65000",
+      "listTime": "1769696000000",
+      "fixTime": "",
+      "expTime": "1769697132335",
+      "state": "live",
+      "outcome": "0",
+      "floorStrike": "65000",
+      "settleValue": "",
+      "disputed": false
+    }
+  ]
+}

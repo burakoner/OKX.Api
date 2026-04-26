@@ -1,0 +1,20 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "seriesId": "BTC-ABOVE-DAILY",
+      "eventId": "BTC-ABOVE-DAILY-260224-1600",
+      "fixTime": "",
+      "expTime": "1769697132335",
+      "state": "settling"
+    },
+    {
+      "seriesId": "BTC-UPDOWN-FIFTEEN-MIN",
+      "eventId": "BTC-UPDOWN-FIFTEEN-MIN-260224-1615",
+      "fixTime": "1769697000000",
+      "expTime": "1769697900000",
+      "state": "expired"
+    }
+  ]
+}

@@ -328,7 +328,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="instrumentFamily">Instrument family. Only applicable to FUTURES/SWAP/OPTION.If instType is OPTION, either uly or instFamily is required.</param>
+    /// <param name="instrumentFamily">Instrument family. Only applicable to FUTURES/SWAP/OPTION. If instType is OPTION, either uly or instFamily is required.</param>
+    /// <param name="seriesId">Series ID. Required when instType is EVENTS.</param>
     /// <param name="signed">Sign Request</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -336,6 +337,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         OkxInstrumentType instrumentType,
         string? instrumentId = null,
         string? instrumentFamily = null,
+        string? seriesId = null,
         bool signed = false,
         CancellationToken ct = default)
     {
@@ -343,8 +345,105 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddEnum("instType", instrumentType);
         parameters.AddOptional("instId", instrumentId);
         parameters.AddOptional("instFamily", instrumentFamily);
+        parameters.AddOptional("seriesId", seriesId);
 
         return ProcessListRequestAsync<OkxPublicInstrument>(GetUri("api/v5/public/instruments"), HttpMethod.Get, ct, signed: signed, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve prediction market series.
+    /// Authentication is required by OKX for this public-data endpoint.
+    /// </summary>
+    /// <param name="seriesId">Series ID. If omitted, all series are returned.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicEventContractSeries>>> GetEventContractSeriesAsync(string? seriesId = null, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("seriesId", seriesId);
+
+        return ProcessListRequestAsync<OkxPublicEventContractSeries>(GetUri("api/v5/public/event-contract/series"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve prediction market events for a series.
+    /// Authentication is required by OKX for this public-data endpoint.
+    /// </summary>
+    /// <param name="seriesId">Series ID</param>
+    /// <param name="eventId">Optional event ID filter</param>
+    /// <param name="state">Optional event state filter</param>
+    /// <param name="limit">Number of results per request. Maximum 100.</param>
+    /// <param name="before">Pagination. Returns records newer than the requested expTime, not included.</param>
+    /// <param name="after">Pagination. Returns records earlier than the requested expTime, not included.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicEventContractEvent>>> GetEventContractEventsAsync(
+        string seriesId,
+        string? eventId = null,
+        OkxInstrumentState? state = null,
+        int limit = 100,
+        long? before = null,
+        long? after = null,
+        CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(seriesId))
+            throw new ArgumentException("Series ID is required.", nameof(seriesId));
+
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+
+        var parameters = new ParameterCollection
+        {
+            { "seriesId", seriesId },
+        };
+        parameters.AddOptional("eventId", eventId);
+        parameters.AddOptionalEnum("state", state);
+        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("after", after?.ToOkxString());
+
+        return ProcessListRequestAsync<OkxPublicEventContractEvent>(GetUri("api/v5/public/event-contract/events"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve prediction market markets for a series.
+    /// Authentication is required by OKX for this public-data endpoint.
+    /// </summary>
+    /// <param name="seriesId">Series ID</param>
+    /// <param name="eventId">Optional event ID filter</param>
+    /// <param name="instrumentId">Optional instrument ID filter</param>
+    /// <param name="state">Optional market state filter</param>
+    /// <param name="limit">Number of results per request. Maximum 100.</param>
+    /// <param name="before">Pagination. Returns records newer than the requested expTime, not included.</param>
+    /// <param name="after">Pagination. Returns records earlier than the requested expTime, not included.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicEventContractMarket>>> GetEventContractMarketsAsync(
+        string seriesId,
+        string? eventId = null,
+        string? instrumentId = null,
+        OkxInstrumentState? state = null,
+        int limit = 100,
+        long? before = null,
+        long? after = null,
+        CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(seriesId))
+            throw new ArgumentException("Series ID is required.", nameof(seriesId));
+
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+
+        var parameters = new ParameterCollection
+        {
+            { "seriesId", seriesId },
+        };
+        parameters.AddOptional("eventId", eventId);
+        parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptionalEnum("state", state);
+        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("after", after?.ToOkxString());
+
+        return ProcessListRequestAsync<OkxPublicEventContractMarket>(GetUri("api/v5/public/event-contract/markets"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -491,8 +590,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         string? instrumentFamily = null,
         CancellationToken ct = default)
     {
-        if (instrumentType.IsNotIn(OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
-            throw new ArgumentException("Instrument Type can be only Futures, Option or Swap.");
+        if (instrumentType.IsNotIn(OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap, OkxInstrumentType.Events))
+            throw new ArgumentException("Instrument Type can be only Futures, Option, Swap or Events.");
 
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
@@ -577,8 +676,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         string? instrumentFamily = null,
         CancellationToken ct = default)
     {
-        if (instrumentType.IsNotIn(OkxInstrumentType.Margin, OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap))
-            throw new ArgumentException("Instrument Type can be only Margin, Futures, Option or Swap.");
+        if (instrumentType.IsNotIn(OkxInstrumentType.Margin, OkxInstrumentType.Futures, OkxInstrumentType.Option, OkxInstrumentType.Swap, OkxInstrumentType.Events))
+            throw new ArgumentException("Instrument Type can be only Margin, Futures, Option, Swap or Events.");
 
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);

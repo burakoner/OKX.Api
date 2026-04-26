@@ -28,18 +28,21 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="instrumentFamily">Instrument family</param>
     /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="seriesId">Series ID. Required when instType is EVENTS.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicInstrument>>> GetInstrumentsAsync(
        OkxInstrumentType instrumentType,
        string? instrumentFamily = null,
        string? instrumentId = null,
+       string? seriesId = null,
        CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
         parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("instId", instrumentId);
+        parameters.AddOptional("seriesId", seriesId);
 
         return ProcessListRequestAsync<OkxPublicInstrument>(GetUri("api/v5/account/instruments"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -373,6 +376,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="price">Price</param>
     /// <param name="leverage">Leverage for instrument</param>
     /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
+    /// <param name="outcome">Event contract outcome side. Only applicable to EVENTS; defaults to yes on OKX when omitted.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxAccountMaximumOrderQuantity>>> GetMaximumOrderQuantityAsync(
@@ -382,6 +386,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         decimal? price = null,
         decimal? leverage = null,
         string? tradeQuoteCurrency = null,
+        OkxTradeEventOutcome? outcome = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
@@ -393,6 +398,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("px", price?.ToOkxString());
         parameters.AddOptional("leverage", leverage?.ToOkxString());
         parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
+        parameters.AddOptionalEnum("outcome", outcome);
 
         return ProcessListRequestAsync<OkxAccountMaximumOrderQuantity>(GetUri("api/v5/account/max-size"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

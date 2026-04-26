@@ -21,7 +21,8 @@ public record OkxPublicMarkPrice
     /// Mark Price
     /// </summary>
     [JsonProperty("markPx")]
-    public decimal MarkPrice { get; set; }
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? MarkPrice { get; set; }
 
     /// <summary>
     /// Timestamp

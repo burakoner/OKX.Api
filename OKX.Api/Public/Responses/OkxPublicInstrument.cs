@@ -83,6 +83,13 @@ public record OkxPublicInstrument
     public string? InstrumentFamily { get; set; } = string.Empty;
 
     /// <summary>
+    /// Series ID, e.g. BTC-ABOVE-DAILY.
+    /// Only applicable to EVENTS.
+    /// </summary>
+    [JsonProperty("seriesId")]
+    public string? SeriesId { get; set; } = string.Empty;
+
+    /// <summary>
     /// Base currency
     /// </summary>
     [JsonProperty("baseCcy")]

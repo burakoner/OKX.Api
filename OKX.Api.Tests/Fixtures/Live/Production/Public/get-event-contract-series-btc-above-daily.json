@@ -1,0 +1,18 @@
+{
+    "code":  "0",
+    "data":  [
+                 {
+                     "category":  "Crypto",
+                     "freq":  "daily",
+                     "seriesId":  "BTC-ABOVE-DAILY",
+                     "settlement":  {
+                                        "closeEarly":  false,
+                                        "method":  "price_above",
+                                        "srcName":  "okx_index",
+                                        "underlying":  "BTC-USDT"
+                                    },
+                     "title":  "BTC Price above Daily"
+                 }
+             ],
+    "msg":  ""
+}

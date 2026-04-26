@@ -512,16 +512,29 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
                 if (d is not null) onData(d);
         });
 
-        var arguments = new List<OkxSocketRequestArgument>();
-        foreach (var symbol in symbols) arguments.Add(new OkxSocketRequestArgument
-        {
-            Channel = "estimated-price",
-            InstrumentType = symbol.InstrumentType,
-            InstrumentFamily = symbol.InstrumentFamily,
-            InstrumentId = symbol.InstrumentId,
-        });
+        var arguments = CreateEstimatedPriceSubscriptionArguments(symbols);
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    private static List<OkxSocketRequestArgument> CreateEstimatedPriceSubscriptionArguments(IEnumerable<OkxSocketSymbolRequest> symbols)
+    {
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var symbol in symbols)
+        {
+            if (symbol.InstrumentType == OkxInstrumentType.Events && string.IsNullOrWhiteSpace(symbol.InstrumentId))
+                throw new ArgumentException("instId is required when subscribing to estimated-price for EVENTS symbols.", nameof(symbols));
+
+            arguments.Add(new OkxSocketRequestArgument
+            {
+                Channel = "estimated-price",
+                InstrumentType = symbol.InstrumentType,
+                InstrumentFamily = symbol.InstrumentFamily,
+                InstrumentId = symbol.InstrumentId,
+            });
+        }
+
+        return arguments;
     }
 
     /// <summary>
@@ -794,6 +807,33 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, false, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Push event contract market status updates and floor strike generation events.
+    /// </summary>
+    /// <param name="onData">On Data Handler</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToEventContractMarketsAsync(Action<OkxPublicEventContractMarket> onData, CancellationToken ct = default)
+    {
+        var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicEventContractMarket>>>>(data =>
+        {
+            foreach (var d in data.Data.Data)
+            {
+                if (d is not null) onData(d);
+            }
+        });
+
+        var request = new OkxSocketRequest(
+            OkxSocketOperation.Subscribe,
+            new OkxSocketRequestArgument
+            {
+                Channel = "event-contract-markets",
+                InstrumentType = OkxInstrumentType.Events,
+            });
+
+        return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
     }
     #endregion
 

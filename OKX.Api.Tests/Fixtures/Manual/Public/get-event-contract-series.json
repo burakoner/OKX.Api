@@ -1,0 +1,30 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "seriesId": "BTC-ABOVE-DAILY",
+      "freq": "daily",
+      "title": "BTC price above 150k",
+      "category": "Crypto",
+      "settlement": {
+        "method": "price_above",
+        "closeEarly": false,
+        "srcName": "okx_index",
+        "underlying": "BTC-USDT"
+      }
+    },
+    {
+      "seriesId": "BTC-UPDOWN-FIFTEEN-MIN",
+      "freq": "fifteen_min",
+      "title": "BTC up or down in 15 minutes",
+      "category": "Crypto",
+      "settlement": {
+        "method": "price_up_down",
+        "closeEarly": true,
+        "srcName": "cf_benchmark_index",
+        "underlying": "BTC-USDT"
+      }
+    }
+  ]
+}

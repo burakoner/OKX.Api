@@ -31,6 +31,13 @@ public record OkxAccountFeeRate
     public decimal? Exercise { get; set; }
 
     /// <summary>
+    /// Settlement fee rate for users whose positions match the event contract settlement result.
+    /// Only applicable to EVENTS.
+    /// </summary>
+    [JsonProperty("settle")]
+    public decimal? Settlement { get; set; }
+
+    /// <summary>
     /// Instrument type
     /// </summary>
     [JsonProperty("instType")]

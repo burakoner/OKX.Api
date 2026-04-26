@@ -1,0 +1,12 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instId": "BTC-ABOVE-DAILY-260504-1600-78000",
+      "instType": "EVENTS",
+      "markPx": "",
+      "ts": "1777243682024"
+    }
+  ]
+}
