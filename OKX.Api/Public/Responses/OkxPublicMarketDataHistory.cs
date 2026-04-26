@@ -54,6 +54,12 @@ public record OkxPublicMarketDataHistoryItem
     public string InstrumentFamily { get; set; } = string.Empty;
 
     /// <summary>
+    /// Instrument type
+    /// </summary>
+    [JsonProperty("instType")]
+    public OkxInstrumentType InstrumentType { get; set; }
+
+    /// <summary>
     /// Data range start date, Unix timestamp format in milliseconds (inclusive)
     /// </summary>
     [JsonProperty("dateRangeStart")]
@@ -106,6 +112,17 @@ public record OkxPublicMarketDataHistoryItemGroupDetail
     /// </summary>
     [JsonProperty("dataTs")]
     public long Timestamp { get; set; }
+
+    // The current response example uses `dateTs` while the parameter table still documents `dataTs`.
+    [JsonProperty("dateTs")]
+    private long? TimestampAlias
+    {
+        set
+        {
+            if (value.HasValue)
+                Timestamp = value.Value;
+        }
+    }
 
     /// <summary>
     /// Data date timestamp, Unix timestamp format in milliseconds

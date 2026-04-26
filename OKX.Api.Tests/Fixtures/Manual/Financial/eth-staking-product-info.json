@@ -1,0 +1,12 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "fastRedemptionDailyLimit": "100",
+      "rate": "2.23",
+      "redemptDays": "8",
+      "minAmt": "0.001"
+    }
+  ]
+}

@@ -1036,12 +1036,12 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="module">Data module type</param>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="dateAggregationType">Date aggregation type. daily(not supported for module = 3 &amp; instFamilyList ≠ ANY). monthly(not supported for module = 6)</param>
-    /// <param name="instrumentIdList">List of instrument IDs, e.g. BTC-USDT, or ANY for all instruments (ANY is only supported for module = 1, 2, 3 &amp; dateAggrType = daily). Multiple instrument IDs should be separated by commas, e.g.BTC-USDT,ETH-USDT. Maximum length = 10. Only applicable when instType = SPOT </param>
-    /// <param name="instrumentFamilyList">List of instrument families, e.g. BTC-USDT, or ANY for all instruments (ANY is only supported for module = 1, 2, 3 &amp; dateAggrType = daily)
+    /// <param name="instrumentIdList">List of instrument IDs, e.g. BTC-USDT, or ANY for all instruments (ANY is only supported for module = 1, 2, 3, 11 &amp; dateAggrType = daily). Multiple instrument IDs should be separated by commas, e.g.BTC-USDT,ETH-USDT. Maximum length = 10. Only applicable when instType = SPOT </param>
+    /// <param name="instrumentFamilyList">List of instrument families, e.g. BTC-USDT, or ANY for all instruments (ANY is only supported for module = 1, 2, 3, 11 &amp; dateAggrType = daily)
     /// Multiple instrument families should be separated by commas, e.g.BTC-USDT,ETH-USDT
     /// Maximum length = 10 (= 1when module = 6 &amp; instType = OPTION)
     /// Only applicable when instType ≠ SPOT</param>
-    /// <param name="begin">Begin timestamp. Unix timestamp format in milliseconds (inclusive). Maximum range: 14 days for daily, 14 months for monthly</param>
+    /// <param name="begin">Begin timestamp. Unix timestamp format in milliseconds (inclusive). Maximum range: 20 days for daily, 20 months for monthly</param>
     /// <param name="end">End timestamp. Unix timestamp format in milliseconds (inclusive). When module = 6 &amp; instType = OPTION, only returns data for the day specified by end</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>

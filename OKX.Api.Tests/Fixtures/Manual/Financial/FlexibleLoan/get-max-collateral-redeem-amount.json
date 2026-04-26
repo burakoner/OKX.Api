@@ -1,0 +1,10 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ccy": "BTC",
+      "maxRedeemAmt": "0.5789"
+    }
+  ]
+}

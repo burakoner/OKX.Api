@@ -1,0 +1,29 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ts": "1760800000000",
+      "totalSizeMB": "3.27",
+      "dateAggrType": "daily",
+      "details": [
+        {
+          "instId": "BTC-USDT",
+          "instFamily": "",
+          "instType": "SPOT",
+          "dateRangeStart": "1760659200000",
+          "dateRangeEnd": "1760745600000",
+          "groupSizeMB": "1.63",
+          "groupDetails": [
+            {
+              "dateTs": "1760745600000",
+              "filename": "BTC-USDT-borrow-rate-2025-10-17.zip",
+              "sizeMB": "1.63",
+              "url": "https://static.okx.com/cdn/okex/traderecords/borrow-rate/daily/20251017/BTC-USDT-borrow-rate-2025-10-17.zip"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

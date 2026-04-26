@@ -24,8 +24,26 @@ public enum OkxPublicMarketDataHistoryModule : byte
     FundingRate = 3,
 
     /// <summary>
+    /// 400-level orderbook
+    /// </summary>
+    [Map("4")]
+    FourHundredLevelOrderBook = 4,
+
+    /// <summary>
+    /// 5000-level orderbook
+    /// </summary>
+    [Map("5")]
+    FiveThousandLevelOrderBook = 5,
+
+    /// <summary>
     /// 50-level orderbook
     /// </summary>
     [Map("6")]
     FiftyLevelOrderBook = 6,
+
+    /// <summary>
+    /// Borrowing rate
+    /// </summary>
+    [Map("11")]
+    BorrowingRate = 11,
 }

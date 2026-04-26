@@ -41,6 +41,13 @@
   - Synced with the OKX API Version [2026-04-08](https://www.okx.com/docs-v5/log_en/#2026-04-08)
   - Hardened `GET /api/v5/trade/account-rate-limit` parsing for VIP4 downgrade responses where `fillRatio`, `mainFillRatio`, and `nextAccRateLimit` may be returned as empty strings
   - Added manual contract coverage and a safe private integration test for trade account rate limit responses
+  - Synced with the OKX API Version [2026-04-10](https://www.okx.com/docs-v5/log_en/#2026-04-10)
+  - Implemented `Financial.FlexibleLoan` with flexible loan borrow currencies, collateral assets, maximum loan, maximum collateral redeem amount, collateral adjustment, loan info, loan history, and accrued interest endpoints
+  - Added `ordId` support across the flexible loan endpoint family and surfaced the new `ordId` response field on flexible loan info payloads
+  - Expanded historical market data module coverage with `4` (400-level orderbook), `5` (5000-level orderbook), and `11` (borrowing rate), and aligned the docs/comments with the current endpoint rules for `ANY` and 20-day/20-month ranges
+  - Hardened historical market data parsing for the current `dateTs` response example while keeping compatibility with the documented `dataTs` field name
+  - Added `rate`, `redemptDays`, and `minAmt` to staking product info responses and aligned SOL staking product info with its object-shaped response payload
+  - Added manual contract fixtures plus live integration coverage for historical market data borrowing-rate snapshots and ETH/SOL staking product info
   - Added `OKX.Api.Tests` with manual edge-case fixtures and committed live OKX public response snapshots
   - Added optional live integration tests with local `.env` configuration kept out of git
   - Added a live fixture capture script and aligned simple earn borrow history amount parsing with current public snapshots

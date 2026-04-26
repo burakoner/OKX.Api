@@ -1,0 +1,34 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ordId": "12345",
+      "loanNotionalUsd": "0.8661285",
+      "loanData": [
+        {
+          "ccy": "USDC",
+          "amt": "0.86590608"
+        }
+      ],
+      "collateralNotionalUsd": "1.5078763",
+      "collateralData": [
+        {
+          "ccy": "COMP",
+          "amt": "0.0000097"
+        },
+        {
+          "ccy": "STX",
+          "amt": "0.78"
+        }
+      ],
+      "riskWarningData": {
+        "instId": "",
+        "liqPx": ""
+      },
+      "curLTV": "0.5742",
+      "marginCallLTV": "0.7374",
+      "liqLTV": "0.8374"
+    }
+  ]
+}

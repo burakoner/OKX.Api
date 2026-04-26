@@ -12,7 +12,7 @@ public class OkxFinancialSolStakingRestClient(OkxRestApiClient root) : OkxBaseRe
     /// <returns></returns>
     public Task<RestCallResult<OkxFinancialProductInfo>> GetProductInfoAsync(CancellationToken ct = default)
     {
-        return ProcessOneRequestAsync<OkxFinancialProductInfo>(GetUri("api/v5/finance/staking-defi/sol/product-info"), HttpMethod.Get, ct, signed: true);
+        return ProcessModelRequestAsync<OkxFinancialProductInfo>(GetUri("api/v5/finance/staking-defi/sol/product-info"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
