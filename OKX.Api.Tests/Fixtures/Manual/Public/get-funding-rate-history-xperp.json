@@ -1,0 +1,22 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instType": "FUTURES",
+      "instId": "BTC-USD_UM_XPERP-310404",
+      "fundingRate": "0.000251",
+      "realizedRate": "0.000249",
+      "fundingTime": "1719792000000",
+      "method": "current_period"
+    },
+    {
+      "instType": "FUTURES",
+      "instId": "BTC-USD_UM_XPERP-310404",
+      "fundingRate": "0.000261",
+      "realizedRate": "0.000258",
+      "fundingTime": "1719763200000",
+      "method": "current_period"
+    }
+  ]
+}

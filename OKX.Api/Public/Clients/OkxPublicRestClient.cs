@@ -442,7 +442,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <summary>
     /// Retrieve funding rate.
     /// </summary>
-    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instrumentId">Instrument ID. Pass null or empty to request OKX's ANY aggregate across perpetual swaps and X-Perps futures contracts.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicFundingRate>>> GetFundingRatesAsync(string? instrumentId = null, CancellationToken ct = default)
@@ -457,7 +457,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <summary>
     /// Retrieve funding rate history. This endpoint can retrieve data from the last 3 months.
     /// </summary>
-    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instrumentId">Instrument ID for a perpetual swap or current X-Perps futures contract.</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>

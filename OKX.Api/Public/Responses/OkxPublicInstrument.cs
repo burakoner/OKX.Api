@@ -248,8 +248,11 @@ public record OkxPublicInstrument
     /// quarter
     /// next_quarter
     /// third_quarter
+    /// this_five_years
+    /// next_five_years
     /// Only applicable to FUTURES
-    /// Not recommended for use, users are encouraged to rely on the expTime field to determine the delivery time of the contract
+    /// Deprecated by OKX and scheduled for removal at the end of April 2026.
+    /// Users are encouraged to rely on the expTime field to determine the delivery time of the contract.
     /// </summary>
     [JsonProperty("alias")]
     public string? Alias { get; set; } = string.Empty;
@@ -261,7 +264,7 @@ public record OkxPublicInstrument
     public OkxInstrumentState State { get; set; }
 
     /// <summary>
-    /// Trading rule types
+    /// Trading rule types, e.g. normal, pre_market, rebase_contract, xperp
     /// </summary>
     [JsonProperty("ruleType")]
     public OkxInstrumentRuleType? RuleType { get; set; }

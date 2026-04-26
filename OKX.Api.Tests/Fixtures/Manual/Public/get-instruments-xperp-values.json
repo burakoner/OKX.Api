@@ -1,0 +1,26 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instType": "FUTURES",
+      "instId": "BTC-USD_UM_XPERP-310404",
+      "instFamily": "BTC-USD_UM_XPERP",
+      "uly": "BTC-USD",
+      "alias": "this_five_years",
+      "ruleType": "xperp",
+      "state": "live",
+      "expTime": "1901491200000"
+    },
+    {
+      "instType": "FUTURES",
+      "instId": "ETH-USD_UM_XPERP-310404",
+      "instFamily": "ETH-USD_UM_XPERP",
+      "uly": "ETH-USD",
+      "alias": "next_five_years",
+      "ruleType": "xperp",
+      "state": "live",
+      "expTime": "1933027200000"
+    }
+  ]
+}

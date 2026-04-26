@@ -54,6 +54,17 @@ public class OkxPublicInstrumentContractTests
     }
 
     [Fact]
+    public void ManualPublicInstrumentsFixture_ParsesXPerpRuleTypeAndFiveYearAliases()
+    {
+        var response = DeserializeManual("Public", "get-instruments-xperp-values.json");
+
+        var instruments = response.Data!.ToDictionary(x => x.InstrumentId);
+        Assert.Equal("this_five_years", instruments["BTC-USD_UM_XPERP-310404"].Alias);
+        Assert.Equal("next_five_years", instruments["ETH-USD_UM_XPERP-310404"].Alias);
+        Assert.All(instruments.Values, instrument => Assert.Equal(OkxInstrumentRuleType.XPerp, instrument.RuleType));
+    }
+
+    [Fact]
     public void LiveProductionSpotInstrumentsFixture_ParsesCurrentOkxSnapshot()
     {
         var response = DeserializeLive("Production", "Public", "get-instruments-spot.json");
@@ -90,6 +101,8 @@ public class OkxPublicInstrumentContractTests
 
         Assert.NotEmpty(response.Data!);
         Assert.All(response.Data!, x => Assert.Equal(OkxInstrumentType.Futures, x.InstrumentType));
+        Assert.Contains(response.Data!, x => x.RuleType == OkxInstrumentRuleType.XPerp);
+        Assert.Contains(response.Data!, x => x.Alias is "this_five_years" or "next_five_years");
     }
 
     [Fact]

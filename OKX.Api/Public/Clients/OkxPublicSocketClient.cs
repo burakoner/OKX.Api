@@ -380,7 +380,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// Retrieve funding rate. Data will be pushed every minute.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
-    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instrumentId">Instrument ID for a perpetual swap or X-Perps futures contract.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToFundingRatesAsync(Action<OkxPublicFundingRate> onData, string instrumentId, CancellationToken ct = default)
@@ -390,7 +390,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// Retrieve funding rate. Data will be pushed every minute.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
-    /// <param name="instrumentIds">List of Instrument ID</param>
+    /// <param name="instrumentIds">List of instrument IDs for perpetual swaps or X-Perps futures contracts.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToFundingRatesAsync(Action<OkxPublicFundingRate> onData, IEnumerable<string> instrumentIds, CancellationToken ct = default)

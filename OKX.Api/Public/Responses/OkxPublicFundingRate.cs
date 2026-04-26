@@ -6,21 +6,23 @@
 public record OkxPublicFundingRate
 {
     /// <summary>
-    /// Instrument Type
+    /// Instrument Type.
+    /// SWAP or FUTURES, where FUTURES represents X-Perps futures contracts.
     /// </summary>
     [JsonProperty("instType")]
     public OkxInstrumentType InstrumentType { get; set; }
 
     /// <summary>
-    /// Instrument ID
+    /// Instrument ID.
+    /// Can be a perpetual swap or an X-Perps futures contract.
     /// </summary>
     [JsonProperty("instId")]
     public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
-    /// Funding rate mechanism
-    /// current_period
-    /// next_period
+    /// Funding rate mechanism.
+    /// OKX currently documents current_period for this endpoint.
+    /// next_period is kept for backwards compatibility.
     /// </summary>
     [JsonProperty("method")]
     public OkxPublicFundingRateMethod Method { get; set; }
@@ -40,7 +42,8 @@ public record OkxPublicFundingRate
     public decimal FundingRate { get; set; }
 
     /// <summary>
-    /// Next Funding Rate
+    /// Next Funding Rate.
+    /// No longer documented by OKX for this endpoint.
     /// </summary>
     [Obsolete]
     [JsonProperty("nextFundingRate")]

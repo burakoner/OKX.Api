@@ -30,6 +30,10 @@
   - Synced with the OKX API Version [2026-03-26](https://www.okx.com/docs-v5/log_en/#2026-03-26)
   - Updated WebSocket place order payloads to require `instIdCode` and stop sending delisted `instId` on `WS / Place order` and `WS / Place multiple orders`
   - Added contract coverage for WebSocket place order request serialization and missing `instIdCode` validation
+  - Synced with the OKX API Version [2026-03-31](https://www.okx.com/docs-v5/log_en/#2026-03-31)
+  - Added `xperp` instrument rule type support and documented the new `this_five_years` and `next_five_years` futures alias values
+  - Expanded funding rate REST and WebSocket documentation to reflect X-Perps futures support and the live `ANY` aggregate funding-rate behavior
+  - Added manual and live contract coverage for `GET /api/v5/public/funding-rate` and `GET /api/v5/public/funding-rate-history`, plus production integration tests for X-Perps funding data
   - Added `OKX.Api.Tests` with manual edge-case fixtures and committed live OKX public response snapshots
   - Added optional live integration tests with local `.env` configuration kept out of git
   - Added a live fixture capture script and aligned simple earn borrow history amount parsing with current public snapshots

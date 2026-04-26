@@ -1,0 +1,40 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instType": "SWAP",
+      "instId": "BTC-USDT-SWAP",
+      "method": "current_period",
+      "formulaType": "withRate",
+      "fundingRate": "0.000125",
+      "fundingTime": "1719792000000",
+      "nextFundingTime": "1719820800000",
+      "minFundingRate": "-0.00375",
+      "maxFundingRate": "0.00375",
+      "interestRate": "0.000100",
+      "impactValue": "20000",
+      "settState": "settled",
+      "settFundingRate": "0.000115",
+      "premium": "0.000085",
+      "ts": "1719792060000"
+    },
+    {
+      "instType": "FUTURES",
+      "instId": "BTC-USD_UM_XPERP-310404",
+      "method": "current_period",
+      "formulaType": "noRate",
+      "fundingRate": "0.000215",
+      "fundingTime": "1719792000000",
+      "nextFundingTime": "1719820800000",
+      "minFundingRate": "-0.00375",
+      "maxFundingRate": "0.00375",
+      "interestRate": "0.000100",
+      "impactValue": "15000",
+      "settState": "processing",
+      "settFundingRate": "0.000205",
+      "premium": "0.000145",
+      "ts": "1719792060000"
+    }
+  ]
+}

@@ -138,6 +138,54 @@ function Save-PublicInstrumentSnapshots {
         -Headers $Headers
 }
 
+function Resolve-XPerpFundingHistoryInstrumentId {
+    param(
+        [string]$BaseUrl,
+        [string]$OverrideInstrumentId,
+        [hashtable]$Headers = @{}
+    )
+
+    if (-not [string]::IsNullOrWhiteSpace($OverrideInstrumentId)) {
+        return $OverrideInstrumentId
+    }
+
+    $instrumentsResponse = Invoke-RestMethod -Method Get -Uri "$BaseUrl/api/v5/public/instruments?instType=FUTURES" -Headers $Headers
+    $instrument = $instrumentsResponse.data |
+        Where-Object { $_.ruleType -eq "xperp" -and -not [string]::IsNullOrWhiteSpace($_.instId) } |
+        Sort-Object instId |
+        Select-Object -First 1
+
+    if ($null -eq $instrument) {
+        throw "Unable to resolve a live X-Perps futures instrument for funding rate history capture."
+    }
+
+    return [string]$instrument.instId
+}
+
+function Save-PublicFundingRateSnapshots {
+    param(
+        [string]$EnvironmentName,
+        [string]$BaseUrl,
+        [string]$FundingHistoryXPerpInstrumentId,
+        [hashtable]$Headers = @{}
+    )
+
+    $root = "OKX.Api.Tests/Fixtures/Live/$EnvironmentName/Public"
+    $resolvedInstrumentId = Resolve-XPerpFundingHistoryInstrumentId -BaseUrl $BaseUrl -OverrideInstrumentId $FundingHistoryXPerpInstrumentId -Headers $Headers
+
+    Write-Host "Using X-Perps funding history instrument for ${EnvironmentName}: $resolvedInstrumentId"
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-funding-rate-any.json" `
+        -Uri "$BaseUrl/api/v5/public/funding-rate?instId=ANY" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-funding-rate-history-current-xperp.json" `
+        -Uri "$BaseUrl/api/v5/public/funding-rate-history?instId=$([Uri]::EscapeDataString($resolvedInstrumentId))&limit=5" `
+        -Headers $Headers
+}
+
 function Save-FinancialSnapshots {
     param(
         [string]$EnvironmentName,
@@ -161,12 +209,18 @@ $useDemoTrading = Read-BoolEnv -Name "OKX_DEMO_TRADING" -DefaultValue $false
 $publicOptionUnderlying = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_OPTION_ULY" -DefaultValue "BTC-USD"
 $publicEventsSeriesId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_EVENTS_SERIES_ID" -DefaultValue "BTC-ABOVE-DAILY"
 $borrowCurrency = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_BORROW_CURRENCY" -DefaultValue (Get-EnvOrDefault -Name "OKX_PUBLIC_BORROW_CURRENCY" -DefaultValue "BTC")
+$fundingHistoryXPerpInstrumentId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_FUNDING_HISTORY_XPERP_INST_ID" -DefaultValue ""
 
 Save-PublicInstrumentSnapshots `
     -EnvironmentName "Production" `
     -BaseUrl $baseUrl `
     -OptionUnderlying $publicOptionUnderlying `
     -EventsSeriesId $publicEventsSeriesId
+
+Save-PublicFundingRateSnapshots `
+    -EnvironmentName "Production" `
+    -BaseUrl $baseUrl `
+    -FundingHistoryXPerpInstrumentId $fundingHistoryXPerpInstrumentId
 
 Save-FinancialSnapshots `
     -EnvironmentName "Production" `
@@ -183,6 +237,12 @@ if ($useDemoTrading) {
         -BaseUrl $baseUrl `
         -OptionUnderlying $publicOptionUnderlying `
         -EventsSeriesId $publicEventsSeriesId `
+        -Headers $demoHeaders
+
+    Save-PublicFundingRateSnapshots `
+        -EnvironmentName "Demo" `
+        -BaseUrl $baseUrl `
+        -FundingHistoryXPerpInstrumentId $fundingHistoryXPerpInstrumentId `
         -Headers $demoHeaders
 
     Save-FinancialSnapshots `

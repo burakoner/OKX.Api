@@ -23,5 +23,6 @@ Optional overrides can be placed in the local `.env` file:
 - `OKX_CAPTURE_PUBLIC_OPTION_ULY`
 - `OKX_CAPTURE_PUBLIC_EVENTS_SERIES_ID`
 - `OKX_CAPTURE_PUBLIC_BORROW_CURRENCY`
+- `OKX_CAPTURE_PUBLIC_FUNDING_HISTORY_XPERP_INST_ID`
 
 Integration tests are still opt-in and continue to use `.env`.

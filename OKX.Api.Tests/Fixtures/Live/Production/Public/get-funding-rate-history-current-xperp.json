@@ -1,0 +1,51 @@
+{
+    "code":  "0",
+    "data":  [
+                 {
+                     "formulaType":  "withRate",
+                     "fundingRate":  "0.0001",
+                     "fundingTime":  "1777219200000",
+                     "instId":  "ADA-USD_UM_XPERP-310404",
+                     "instType":  "FUTURES",
+                     "method":  "current_period",
+                     "realizedRate":  "0.0001"
+                 },
+                 {
+                     "formulaType":  "withRate",
+                     "fundingRate":  "0.0001",
+                     "fundingTime":  "1777190400000",
+                     "instId":  "ADA-USD_UM_XPERP-310404",
+                     "instType":  "FUTURES",
+                     "method":  "current_period",
+                     "realizedRate":  "0.0001"
+                 },
+                 {
+                     "formulaType":  "withRate",
+                     "fundingRate":  "0.0001",
+                     "fundingTime":  "1777161600000",
+                     "instId":  "ADA-USD_UM_XPERP-310404",
+                     "instType":  "FUTURES",
+                     "method":  "current_period",
+                     "realizedRate":  "0.0001"
+                 },
+                 {
+                     "formulaType":  "withRate",
+                     "fundingRate":  "0.0001",
+                     "fundingTime":  "1777132800000",
+                     "instId":  "ADA-USD_UM_XPERP-310404",
+                     "instType":  "FUTURES",
+                     "method":  "current_period",
+                     "realizedRate":  "0.0001"
+                 },
+                 {
+                     "formulaType":  "withRate",
+                     "fundingRate":  "0.0001",
+                     "fundingTime":  "1777104000000",
+                     "instId":  "ADA-USD_UM_XPERP-310404",
+                     "instType":  "FUTURES",
+                     "method":  "current_period",
+                     "realizedRate":  "0.0001"
+                 }
+             ],
+    "msg":  ""
+}

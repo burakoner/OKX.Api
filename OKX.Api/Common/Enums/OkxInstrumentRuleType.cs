@@ -23,4 +23,11 @@ public enum OkxInstrumentRuleType : byte
     /// </summary>
     [Map("rebase_contract")]
     RebaseContract = 3,
+
+    /// <summary>
+    /// XPerp
+    /// Perpetual-style futures contract.
+    /// </summary>
+    [Map("xperp")]
+    XPerp = 4,
 }
