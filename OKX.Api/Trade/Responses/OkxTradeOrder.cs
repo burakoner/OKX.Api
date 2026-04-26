@@ -414,6 +414,24 @@ public record OkxTradeOrderAttachedAlgoOrder
     public string StopLossOrderPrice { get; set; } = string.Empty;
 
     /// <summary>
+    /// Callback ratio, e.g. 0.05 represents 5%.
+    /// </summary>
+    [JsonProperty("callbackRatio")]
+    public string CallbackRatio { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Callback spread (price distance).
+    /// </summary>
+    [JsonProperty("callbackSpread")]
+    public string CallbackSpread { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Activation price.
+    /// </summary>
+    [JsonProperty("activePx")]
+    public string ActivePrice { get; set; } = string.Empty;
+
+    /// <summary>
     /// Size. Only applicable to TP order of split TPs
     /// </summary>
     [JsonProperty("sz")]
@@ -423,6 +441,7 @@ public record OkxTradeOrderAttachedAlgoOrder
     /// Whether to enable Cost-price SL. Only applicable to SL order of split TPs.
     /// </summary>
     [JsonProperty("amendPxOnTriggerType")]
+    [JsonConverter(typeof(BooleanAsStringNullableConverter), "1", "0")]
     public bool? AmendPriceOnTriggerType { get; set; }
 
     /// <summary>

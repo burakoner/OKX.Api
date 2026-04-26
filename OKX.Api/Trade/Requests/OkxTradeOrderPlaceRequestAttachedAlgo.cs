@@ -75,8 +75,34 @@ public record OkxTradeOrderPlaceRequestAttachedAlgo
     /// If the price is -1, stop-loss will be executed at the market price.
     /// </summary>
     [JsonProperty("slOrdPx", NullValueHandling = NullValueHandling.Ignore)]
-    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public string? StopLossOrderPrice { get; set; }
+
+    /// <summary>
+    /// Callback ratio, e.g. 0.05 represents 5%.
+    /// Either callbackRatio or callbackSpread is required. Only one can be passed.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("callbackRatio", NullValueHandling = NullValueHandling.Ignore)]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? CallbackRatio { get; set; }
+
+    /// <summary>
+    /// Callback spread (price distance).
+    /// Either callbackRatio or callbackSpread is required. Only one can be passed.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("callbackSpread", NullValueHandling = NullValueHandling.Ignore)]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? CallbackSpread { get; set; }
+
+    /// <summary>
+    /// Activation price.
+    /// If not provided, the trailing stop is activated immediately upon order placement.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("activePx", NullValueHandling = NullValueHandling.Ignore)]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? ActivePrice { get; set; }
 
     /// <summary>
     /// Take-profit trigger price type
@@ -103,6 +129,6 @@ public record OkxTradeOrderPlaceRequestAttachedAlgo
     /// 1: Enable
     /// </summary>
     [JsonProperty("amendPxOnTriggerType", NullValueHandling = NullValueHandling.Ignore)]
-    [JsonConverter(typeof(DecimalAsStringNullableConverter), "1", "0")]
+    [JsonConverter(typeof(BooleanAsStringConverter), "1", "0")]
     public bool AmendPriceOnTriggerType { get; set; }
 }

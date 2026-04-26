@@ -6,7 +6,7 @@
 public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     /// <summary>
-    /// The algo order includes trigger order, oco order, conditional order,iceberg order and twap order.
+    /// The algo order includes trigger order, oco order, chase order, conditional order, trailing order, iceberg order and twap order.
     /// </summary>
     /// 
     /// <param name="instrumentId">Instrument ID</param>
@@ -41,7 +41,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="orderPrice">Order Price</param>
     /// <param name="triggerPriceType">Trigger Price Type</param>
     /// <param name="triggerOrderType">Trigger order type</param>
-    /// <param name="attachedAlgoOrders">Attached SL/TP orders info. Applicable to Spot and futures mode/Multi-currency margin/Portfolio margin</param>
+    /// <param name="attachedAlgoOrders">Attached TP/SL or trailing stop order info. Applicable to Spot and Futures mode/Multi-currency margin/Portfolio margin</param>
     /// 
     /// <param name="callbackRatio">Callback price ratio , e.g. 0.01</param>
     /// <param name="callbackSpread">Callback price variance</param>
@@ -235,7 +235,7 @@ public class OkxAlgoRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="newTriggerPrice">New trigger price after amendment</param>
     /// <param name="newOrderPrice">New order price after amendment. If the price is -1, the order will be executed at the market price.</param>
     /// <param name="newTriggerPriceType">New trigger price type after amendment</param>
-    /// <param name="attachedAlgoOrders">Attached SL/TP orders info. Applicable to Spot and futures mode/Multi-currency margin/Portfolio margin</param>
+    /// <param name="attachedAlgoOrders">Attached TP/SL or trailing stop order info. Applicable to Spot and Futures mode/Multi-currency margin/Portfolio margin</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxAlgoAmendOrderResponse>> AmendOrderAsync(

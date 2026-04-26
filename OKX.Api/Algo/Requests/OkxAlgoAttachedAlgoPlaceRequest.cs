@@ -76,6 +76,30 @@ public record OkxAlgoAttachedAlgoPlaceRequest
     public string? StopLossOrderPrice { get; set; }
 
     /// <summary>
+    /// Callback ratio, e.g. 0.05 represents 5%.
+    /// Either callbackRatio or callbackSpread is required. Only one can be passed.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("callbackRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public string? CallbackRatio { get; set; }
+
+    /// <summary>
+    /// Callback spread (price distance).
+    /// Either callbackRatio or callbackSpread is required. Only one can be passed.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("callbackSpread", NullValueHandling = NullValueHandling.Ignore)]
+    public string? CallbackSpread { get; set; }
+
+    /// <summary>
+    /// Activation price.
+    /// If not provided, the trailing stop is activated immediately upon order placement.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("activePx", NullValueHandling = NullValueHandling.Ignore)]
+    public string? ActivePrice { get; set; }
+
+    /// <summary>
     /// Stop-loss trigger price type
     /// </summary>
     [JsonProperty("slTriggerPxType", NullValueHandling = NullValueHandling.Ignore)]

@@ -27,6 +27,15 @@ public record OkxAlgoAttachedAlgoAmendRequest
     public string? NewTakeProfitOrderPrice { get; set; }
 
     /// <summary>
+    /// Take-profit trigger ratio, 0.3 represents 30%.
+    /// Only one of newTpTriggerPx and newTpTriggerRatio can be passed.
+    /// Only applicable to FUTURES and SWAP.
+    /// 0 means to delete the take-profit.
+    /// </summary>
+    [JsonProperty("newTpTriggerRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public string? NewTakeProfitTriggerRatio { get; set; }
+
+    /// <summary>
     /// Stop-loss trigger price
     /// If you fill in this parameter, you should fill in the stop-loss order price.
     /// </summary>
@@ -46,4 +55,36 @@ public record OkxAlgoAttachedAlgoAmendRequest
     /// </summary>
     [JsonProperty("newSlOrdPx", NullValueHandling = NullValueHandling.Ignore)]
     public string? NewStopLossOrderPrice { get; set; }
+
+    /// <summary>
+    /// Stop-loss trigger ratio, 0.3 represents 30%.
+    /// Only one of newSlTriggerPx and newSlTriggerRatio can be passed.
+    /// Only applicable to FUTURES and SWAP.
+    /// 0 means to delete the stop-loss.
+    /// </summary>
+    [JsonProperty("newSlTriggerRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public string? NewStopLossTriggerRatio { get; set; }
+
+    /// <summary>
+    /// New callback ratio, e.g. 0.05 represents 5%.
+    /// Either newCallbackRatio or newCallbackSpread can be passed. Only one can be passed.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("newCallbackRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public string? NewCallbackRatio { get; set; }
+
+    /// <summary>
+    /// New callback spread (price distance).
+    /// Either newCallbackRatio or newCallbackSpread can be passed. Only one can be passed.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("newCallbackSpread", NullValueHandling = NullValueHandling.Ignore)]
+    public string? NewCallbackSpread { get; set; }
+
+    /// <summary>
+    /// New activation price.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("newActivePx", NullValueHandling = NullValueHandling.Ignore)]
+    public string? NewActivePrice { get; set; }
 }

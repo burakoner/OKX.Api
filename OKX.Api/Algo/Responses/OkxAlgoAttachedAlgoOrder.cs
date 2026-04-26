@@ -19,6 +19,13 @@ public record OkxAlgoAttachedAlgoOrder
     /// </summary>
     [JsonProperty("tpTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
     public string? TakeProfitTriggerPrice { get; set; }
+
+    /// <summary>
+    /// Take-profit trigger ratio, 0.3 represents 30%.
+    /// Only applicable to FUTURES and SWAP.
+    /// </summary>
+    [JsonProperty("tpTriggerRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public string? TakeProfitTriggerRatio { get; set; }
     
     /// <summary>
     /// Take-profit trigger price type
@@ -42,6 +49,13 @@ public record OkxAlgoAttachedAlgoOrder
     /// </summary>
     [JsonProperty("slTriggerPx", NullValueHandling = NullValueHandling.Ignore)]
     public string? StopLossTriggerPrice { get; set; }
+
+    /// <summary>
+    /// Stop-loss trigger ratio, 0.3 represents 30%.
+    /// Only applicable to FUTURES and SWAP.
+    /// </summary>
+    [JsonProperty("slTriggerRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public string? StopLossTriggerRatio { get; set; }
     
     /// <summary>
     /// Stop-loss trigger price type
@@ -56,4 +70,22 @@ public record OkxAlgoAttachedAlgoOrder
     /// </summary>
     [JsonProperty("slOrdPx", NullValueHandling = NullValueHandling.Ignore)]
     public string? StopLossOrderPrice { get; set; }
+
+    /// <summary>
+    /// Callback ratio, e.g. 0.05 represents 5%.
+    /// </summary>
+    [JsonProperty("callbackRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public string? CallbackRatio { get; set; }
+
+    /// <summary>
+    /// Callback spread (price distance).
+    /// </summary>
+    [JsonProperty("callbackSpread", NullValueHandling = NullValueHandling.Ignore)]
+    public string? CallbackSpread { get; set; }
+
+    /// <summary>
+    /// Activation price.
+    /// </summary>
+    [JsonProperty("activePx", NullValueHandling = NullValueHandling.Ignore)]
+    public string? ActivePrice { get; set; }
 }

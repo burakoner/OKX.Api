@@ -48,6 +48,11 @@
   - Hardened historical market data parsing for the current `dateTs` response example while keeping compatibility with the documented `dataTs` field name
   - Added `rate`, `redemptDays`, and `minAmt` to staking product info responses and aligned SOL staking product info with its object-shaped response payload
   - Added manual contract fixtures plus live integration coverage for historical market data borrowing-rate snapshots and ETH/SOL staking product info
+  - Synced with the OKX API Version [2026-04-13](https://www.okx.com/docs-v5/log_en/#2026-04-13)
+  - Added attached trailing stop `callbackRatio`, `callbackSpread`, and `activePx` fields to trade and algo `attachAlgoOrds` request, amend, and response models
+  - Aligned nested algo attached-order request/response models with the current endpoint docs for attached TP/SL trigger ratios
+  - Fixed trade attached algo request/response serialization for `slOrdPx` and `amendPxOnTriggerType`, which the new contract tests exposed while adding trailing stop coverage
+  - Added manual contract coverage for attached trailing stop serialization and response parsing without placing live orders
   - Added `OKX.Api.Tests` with manual edge-case fixtures and committed live OKX public response snapshots
   - Added optional live integration tests with local `.env` configuration kept out of git
   - Added a live fixture capture script and aligned simple earn borrow history amount parsing with current public snapshots

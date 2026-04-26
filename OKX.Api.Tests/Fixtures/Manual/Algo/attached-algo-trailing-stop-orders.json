@@ -1,0 +1,18 @@
+[
+  {
+    "attachAlgoClOrdId": "trail-ratio",
+    "tpTriggerRatio": "0.30",
+    "slTriggerRatio": "0.15",
+    "callbackRatio": "0.05",
+    "callbackSpread": "",
+    "activePx": "90500"
+  },
+  {
+    "attachAlgoClOrdId": "trail-spread",
+    "tpTriggerRatio": "",
+    "slTriggerRatio": "",
+    "callbackRatio": "",
+    "callbackSpread": "120.5",
+    "activePx": ""
+  }
+]

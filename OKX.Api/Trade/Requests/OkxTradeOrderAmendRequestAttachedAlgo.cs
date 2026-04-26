@@ -75,6 +75,29 @@ public record OkxTradeOrderAmendRequestAttachedAlgo
     public string? NewStopLossOrderPrice { get; set; }
 
     /// <summary>
+    /// New callback ratio, e.g. 0.05 represents 5%.
+    /// Either newCallbackRatio or newCallbackSpread can be passed. Only one can be passed.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("newCallbackRatio", NullValueHandling = NullValueHandling.Ignore)]
+    public string? NewCallbackRatio { get; set; }
+
+    /// <summary>
+    /// New callback spread (price distance).
+    /// Either newCallbackRatio or newCallbackSpread can be passed. Only one can be passed.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("newCallbackSpread", NullValueHandling = NullValueHandling.Ignore)]
+    public string? NewCallbackSpread { get; set; }
+
+    /// <summary>
+    /// New activation price.
+    /// Only applicable when ordType = move_order_stop.
+    /// </summary>
+    [JsonProperty("newActivePx", NullValueHandling = NullValueHandling.Ignore)]
+    public string? NewActivePrice { get; set; }
+
+    /// <summary>
     /// Take-profit trigger price type
     /// </summary>
     [JsonProperty("newTpTriggerPxType", NullValueHandling = NullValueHandling.Ignore)]

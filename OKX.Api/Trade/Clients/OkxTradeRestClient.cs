@@ -39,7 +39,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
     /// <param name="priceAmendType">Price Amend Type</param>
     /// <param name="isElpTakerAccess">ELP taker access. true: the request can trade with ELP orders but a speed bump will be applied. false: the request cannot trade with ELP orders and no speed bump. The default value is false while true is only applicable to ioc orders.</param>
-    /// <param name="attachedAlgoOrders">TP/SL information attached when placing order</param>
+    /// <param name="attachedAlgoOrders">Attached TP/SL or trailing stop order information</param>
     /// 
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -177,7 +177,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="newPriceVolatility">Modify options orders based on implied volatility, where 1 represents 100%
     /// Only applicable to options.
     /// When modifying options orders, users can only fill in one of the following: newPx, newPxUsd, or newPxVol.</param>
-    /// <param name="attachedAlgoOrders">TP/SL information attached when placing order</param>
+    /// <param name="attachedAlgoOrders">Attached TP/SL or trailing stop order information</param>
     /// <param name="priceAmendType">Price Amend Type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
