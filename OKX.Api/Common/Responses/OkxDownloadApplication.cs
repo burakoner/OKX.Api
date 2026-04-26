@@ -8,7 +8,8 @@ public record OkxDownloadApplication
     /// <summary>
     /// Whether there is already a download link for this section
     /// true: Existed, can check from "Get bills details (since 2021)".
-    /// false: Does not exist and is generating, can check the download link after 30 hours
+    /// false: Does not exist and is generating, can check the download link after about 2 hours.
+    /// During peak demand, generation may take longer.
     /// </summary>
     [JsonProperty("result")]
     public bool Result { get; set; }

@@ -9,6 +9,20 @@ namespace OKX.Api.Account;
 public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     /// <summary>
+    /// Get all bill types, and the mapping of bill type and sub-type.
+    /// </summary>
+    /// <param name="billTypes">Optional bill type filter. Multiple values are supported.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountBillTypeInfo>>> GetBillTypesAsync(IEnumerable<OkxAccountBillType>? billTypes = null, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("type", FormatBillTypes(billTypes));
+
+        return ProcessListRequestAsync<OkxAccountBillTypeInfo>(GetUri("api/v5/account/subtypes"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
     /// Retrieve available instruments info of current account.
     /// </summary>
     /// <param name="instrumentType">Instrument type</param>
@@ -219,19 +233,21 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
     /// <summary>
-    /// Apply for bill data since 1 February, 2021 except for the current quarter.
+    /// Get bill data since 1 February, 2021 except for the current quarter.
     /// </summary>
     /// <param name="year">4 digits year</param>
     /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
+    /// <param name="billTypes">Optional bill type filter. Multiple values are supported.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxDownloadApplication>> ApplyBillDataAsync(int year, OkxQuarter quarter, CancellationToken ct = default)
+    public Task<RestCallResult<OkxDownloadApplication>> ApplyBillDataAsync(int year, OkxQuarter quarter, IEnumerable<OkxAccountBillType>? billTypes = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
         {
             { "year", year.ToOkxString() }
         };
         parameters.AddEnum("quarter", quarter);
+        parameters.AddOptional("type", FormatBillTypes(billTypes));
 
         return ProcessOneRequestAsync<OkxDownloadApplication>(GetUri("api/v5/account/bills-history-archive"), HttpMethod.Post, ct, true, bodyParameters: parameters);
     }
@@ -241,15 +257,17 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// </summary>
     /// <param name="year">4 digits year</param>
     /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
+    /// <param name="billTypes">Optional bill type filter. Multiple values are supported.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxDownloadLink>> GetBillDataAsync(int year, OkxQuarter quarter, CancellationToken ct = default)
+    public Task<RestCallResult<OkxDownloadLink>> GetBillDataAsync(int year, OkxQuarter quarter, IEnumerable<OkxAccountBillType>? billTypes = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection
         {
             { "year", year.ToOkxString() }
         };
         parameters.AddEnum("quarter", quarter);
+        parameters.AddOptional("type", FormatBillTypes(billTypes));
 
         return ProcessOneRequestAsync<OkxDownloadLink>(GetUri("api/v5/account/bills-history-archive"), HttpMethod.Get, ct, true, queryParameters: parameters);
     }
@@ -262,6 +280,20 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     public Task<RestCallResult<OkxAccountConfiguration>> GetConfigurationAsync(CancellationToken ct = default)
     {
         return ProcessOneRequestAsync<OkxAccountConfiguration>(GetUri("api/v5/account/config"), HttpMethod.Get, ct, true);
+    }
+
+    private static string? FormatBillTypes(IEnumerable<OkxAccountBillType>? billTypes)
+    {
+        if (billTypes is null)
+            return null;
+
+        var values = billTypes
+            .Select(x => MapConverter.GetString(x) ?? Convert.ToInt32(x, CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture))
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Distinct()
+            .ToArray();
+
+        return values.Length == 0 ? null : string.Join(",", values);
     }
 
     /// <summary>

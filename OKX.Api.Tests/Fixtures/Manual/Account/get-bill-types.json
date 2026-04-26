@@ -1,0 +1,30 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "type": "1",
+      "typeDesc": "Transfer",
+      "subTypeDetails": [
+        {
+          "subType": "11",
+          "subTypeDesc": "Transfer in"
+        },
+        {
+          "subType": "12",
+          "subTypeDesc": "Transfer out"
+        }
+      ]
+    },
+    {
+      "type": "999",
+      "typeDesc": "",
+      "subTypeDetails": [
+        {
+          "subType": "9991",
+          "subTypeDesc": ""
+        }
+      ]
+    }
+  ]
+}
