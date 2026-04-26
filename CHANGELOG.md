@@ -27,6 +27,9 @@
   - Added `Account.GetBillTypesAsync` for `GET /api/v5/account/subtypes`
   - Added optional multi-value bill type filters to `ApplyBillDataAsync` and `GetBillDataAsync` for the since-2021 bills archive endpoints
   - Added account bill type contract coverage and a safe private integration test for filtered bill type lookups
+  - Synced with the OKX API Version [2026-03-26](https://www.okx.com/docs-v5/log_en/#2026-03-26)
+  - Updated WebSocket place order payloads to require `instIdCode` and stop sending delisted `instId` on `WS / Place order` and `WS / Place multiple orders`
+  - Added contract coverage for WebSocket place order request serialization and missing `instIdCode` validation
   - Added `OKX.Api.Tests` with manual edge-case fixtures and committed live OKX public response snapshots
   - Added optional live integration tests with local `.env` configuration kept out of git
   - Added a live fixture capture script and aligned simple earn borrow history amount parsing with current public snapshots

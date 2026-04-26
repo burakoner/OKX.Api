@@ -7,17 +7,19 @@ public record OkxTradeOrderPlaceRequest
 {
     /// <summary>
     /// Instrument ID code.
+    /// Required for WebSocket place order channels starting from 2026-03-26.
     /// If both instId and instIdCode are provided, instIdCode takes precedence.
     /// </summary>
     [JsonProperty("instIdCode")]
     public long? InstrumentIdCode { get; set; }
 
     /// <summary>
-    /// Instrument ID
+    /// Instrument ID.
+    /// Required for REST order placement.
+    /// Ignored by OKX for WebSocket place order channels starting from 2026-03-26; use instIdCode there.
     /// </summary>
-    [JsonProperty("instId")]
-    [Obsolete("Will be deprecated on February 2026.")]
-    public string InstrumentId { get; set; } = string.Empty;
+    [JsonProperty("instId", NullValueHandling = NullValueHandling.Ignore)]
+    public string? InstrumentId { get; set; }
 
     /// <summary>
     /// Trade Mode

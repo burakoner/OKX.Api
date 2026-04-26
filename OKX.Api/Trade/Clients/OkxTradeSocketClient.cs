@@ -101,25 +101,27 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
 
     /// <summary>
     /// You can place an order only if you have sufficient funds.
+    /// OKX delisted instId for this WebSocket channel on 2026-03-26; use InstrumentIdCode.
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
     public async Task<CallResult<OkxTradeOrderPlaceResponse>> PlaceOrderAsync(OkxTradeOrderPlaceRequest request)
     {
-        request.Tag = OkxConstants.BrokerId;
-        var req = new OkxSocketRequest<OkxTradeOrderPlaceRequest>(_.RequestId().ToString(), OkxSocketOperation.Order, [request]);
+        var socketRequest = CreateSocketPlaceOrderRequest(request);
+        var req = new OkxSocketRequest<OkxTradeOrderPlaceRequest>(_.RequestId().ToString(), OkxSocketOperation.Order, [socketRequest]);
         return await _.RootQueryAsync<OkxTradeOrderPlaceResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
     /// Place orders in a batch. Maximum 20 orders can be placed per request
+    /// OKX delisted instId for this WebSocket channel on 2026-03-26; use InstrumentIdCode for each order.
     /// </summary>
     /// <param name="requests">Requests</param>
     /// <returns></returns>
     public async Task<CallResult<IEnumerable<OkxTradeOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxTradeOrderPlaceRequest> requests)
     {
-        foreach (var order in requests) order.Tag = OkxConstants.BrokerId;
-        var req = new OkxSocketRequest<OkxTradeOrderPlaceRequest>(_.RequestId().ToString(), OkxSocketOperation.BatchOrders, requests);
+        var socketRequests = CreateSocketPlaceOrderRequests(requests);
+        var req = new OkxSocketRequest<OkxTradeOrderPlaceRequest>(_.RequestId().ToString(), OkxSocketOperation.BatchOrders, socketRequests);
         return await _.RootQueryAsync<IEnumerable<OkxTradeOrderPlaceResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
@@ -179,4 +181,25 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
         return await _.RootQueryAsync<OkxBooleanResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
+    private static OkxTradeOrderPlaceRequest CreateSocketPlaceOrderRequest(OkxTradeOrderPlaceRequest request)
+    {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+
+        if (request.InstrumentIdCode is null)
+            throw new ArgumentException("OKX delisted instId for WebSocket place order channels on 2026-03-26. Set InstrumentIdCode and map it via GetInstrumentsAsync before sending the request.", nameof(request));
+
+        return request with
+        {
+            InstrumentId = null,
+            Tag = OkxConstants.BrokerId
+        };
+    }
+
+    private static List<OkxTradeOrderPlaceRequest> CreateSocketPlaceOrderRequests(IEnumerable<OkxTradeOrderPlaceRequest> requests)
+    {
+        if (requests is null)
+            throw new ArgumentNullException(nameof(requests));
+        return requests.Select(CreateSocketPlaceOrderRequest).ToList();
+    }
 }
