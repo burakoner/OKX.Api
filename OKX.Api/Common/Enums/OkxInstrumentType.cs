@@ -46,4 +46,10 @@ public enum OkxInstrumentType : byte
     /// </summary>
     [Map("CONTRACTS")]
     Contracts = 6,
+
+    /// <summary>
+    /// Event contracts
+    /// </summary>
+    [Map("EVENTS")]
+    Events = 7,
 }

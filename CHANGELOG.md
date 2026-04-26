@@ -14,6 +14,10 @@
   - Added `OKX.Api.Tests` with manual edge-case fixtures and committed live OKX public response snapshots
   - Added optional live integration tests with local `.env` configuration kept out of git
   - Added a live fixture capture script and aligned simple earn borrow history amount parsing with current public snapshots
+  - Updated `instIdCode` handling to `long` after validating demo trading public instrument responses that exceed 32-bit integer range
+  - Split committed live snapshots into `Production` and `Demo` fixture sets to track environment-specific API behavior separately
+  - Added demo availability coverage for public borrow history, which currently returns `50038` in demo trading
+  - Fixed top-level OKX `code/msg` handling for generic REST responses so list and model endpoints no longer report API errors as successful calls
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

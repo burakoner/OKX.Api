@@ -52,10 +52,35 @@ function Get-EnvOrDefault {
     return $value
 }
 
+function Read-BoolEnv {
+    param(
+        [string]$Name,
+        [bool]$DefaultValue = $false
+    )
+
+    $value = [Environment]::GetEnvironmentVariable($Name)
+    if ([string]::IsNullOrWhiteSpace($value)) {
+        return $DefaultValue
+    }
+
+    switch ($value.Trim().ToLowerInvariant()) {
+        "1" { return $true }
+        "true" { return $true }
+        "yes" { return $true }
+        "on" { return $true }
+        "0" { return $false }
+        "false" { return $false }
+        "no" { return $false }
+        "off" { return $false }
+        default { return $DefaultValue }
+    }
+}
+
 function Save-JsonSnapshot {
     param(
         [string]$RelativePath,
-        [string]$Uri
+        [string]$Uri,
+        [hashtable]$Headers = @{}
     )
 
     $targetPath = Join-Path $RepositoryRoot $RelativePath
@@ -64,29 +89,105 @@ function Save-JsonSnapshot {
         New-Item -ItemType Directory -Path $targetDirectory -Force | Out-Null
     }
 
-    $response = Invoke-RestMethod -Method Get -Uri $Uri
+    $response = Invoke-RestMethod -Method Get -Uri $Uri -Headers $Headers
     $json = $response | ConvertTo-Json -Depth 20
     [System.IO.File]::WriteAllText($targetPath, $json + [Environment]::NewLine, [System.Text.UTF8Encoding]::new($false))
 
     Write-Host "Saved $RelativePath"
 }
 
+function Save-PublicInstrumentSnapshots {
+    param(
+        [string]$EnvironmentName,
+        [string]$BaseUrl,
+        [string]$OptionUnderlying,
+        [string]$EventsSeriesId,
+        [hashtable]$Headers = @{}
+    )
+
+    $root = "OKX.Api.Tests/Fixtures/Live/$EnvironmentName/Public"
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-instruments-spot.json" `
+        -Uri "$BaseUrl/api/v5/public/instruments?instType=SPOT" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-instruments-margin.json" `
+        -Uri "$BaseUrl/api/v5/public/instruments?instType=MARGIN" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-instruments-swap.json" `
+        -Uri "$BaseUrl/api/v5/public/instruments?instType=SWAP" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-instruments-futures.json" `
+        -Uri "$BaseUrl/api/v5/public/instruments?instType=FUTURES" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-instruments-option-btc-usd.json" `
+        -Uri "$BaseUrl/api/v5/public/instruments?instType=OPTION&uly=$([Uri]::EscapeDataString($OptionUnderlying))" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-instruments-events-btc-above-daily.json" `
+        -Uri "$BaseUrl/api/v5/public/instruments?instType=EVENTS&seriesId=$([Uri]::EscapeDataString($EventsSeriesId))" `
+        -Headers $Headers
+}
+
+function Save-FinancialSnapshots {
+    param(
+        [string]$EnvironmentName,
+        [string]$BaseUrl,
+        [string]$BorrowCurrency,
+        [hashtable]$Headers = @{}
+    )
+
+    $root = "OKX.Api.Tests/Fixtures/Live/$EnvironmentName/Financial"
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-public-borrow-history-btc.json" `
+        -Uri "$BaseUrl/api/v5/finance/savings/lending-rate-history?ccy=$([Uri]::EscapeDataString($BorrowCurrency))&limit=5" `
+        -Headers $Headers
+}
+
 Load-DotEnv -Path (Join-Path $RepositoryRoot ".env")
 
 $baseUrl = Get-EnvOrDefault -Name "OKX_CAPTURE_BASE_URL" -DefaultValue "https://www.okx.com"
-$spotInstrumentId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_SPOT_INST_ID" -DefaultValue "BTC-USDT"
-$commodityInstrumentType = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_COMMODITY_INST_TYPE" -DefaultValue "SWAP"
-$commodityInstrumentId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_COMMODITY_INST_ID" -DefaultValue "XAU-USDT-SWAP"
+$useDemoTrading = Read-BoolEnv -Name "OKX_DEMO_TRADING" -DefaultValue $false
+$publicOptionUnderlying = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_OPTION_ULY" -DefaultValue "BTC-USD"
+$publicEventsSeriesId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_EVENTS_SERIES_ID" -DefaultValue "BTC-ABOVE-DAILY"
 $borrowCurrency = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_BORROW_CURRENCY" -DefaultValue (Get-EnvOrDefault -Name "OKX_PUBLIC_BORROW_CURRENCY" -DefaultValue "BTC")
 
-Save-JsonSnapshot `
-    -RelativePath "OKX.Api.Tests/Fixtures/Live/Public/get-instruments-btc-usdt.json" `
-    -Uri "$baseUrl/api/v5/public/instruments?instType=SPOT&instId=$([Uri]::EscapeDataString($spotInstrumentId))"
+Save-PublicInstrumentSnapshots `
+    -EnvironmentName "Production" `
+    -BaseUrl $baseUrl `
+    -OptionUnderlying $publicOptionUnderlying `
+    -EventsSeriesId $publicEventsSeriesId
 
-Save-JsonSnapshot `
-    -RelativePath "OKX.Api.Tests/Fixtures/Live/Public/get-instruments-xau-usdt-swap.json" `
-    -Uri "$baseUrl/api/v5/public/instruments?instType=$([Uri]::EscapeDataString($commodityInstrumentType))&instId=$([Uri]::EscapeDataString($commodityInstrumentId))"
+Save-FinancialSnapshots `
+    -EnvironmentName "Production" `
+    -BaseUrl $baseUrl `
+    -BorrowCurrency $borrowCurrency
 
-Save-JsonSnapshot `
-    -RelativePath "OKX.Api.Tests/Fixtures/Live/Financial/get-public-borrow-history-btc.json" `
-    -Uri "$baseUrl/api/v5/finance/savings/lending-rate-history?ccy=$([Uri]::EscapeDataString($borrowCurrency))&limit=5"
+if ($useDemoTrading) {
+    $demoHeaders = @{
+        "x-simulated-trading" = "1"
+    }
+
+    Save-PublicInstrumentSnapshots `
+        -EnvironmentName "Demo" `
+        -BaseUrl $baseUrl `
+        -OptionUnderlying $publicOptionUnderlying `
+        -EventsSeriesId $publicEventsSeriesId `
+        -Headers $demoHeaders
+
+    Save-FinancialSnapshots `
+        -EnvironmentName "Demo" `
+        -BaseUrl $baseUrl `
+        -BorrowCurrency $borrowCurrency `
+        -Headers $demoHeaders
+}

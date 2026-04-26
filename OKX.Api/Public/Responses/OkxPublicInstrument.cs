@@ -21,9 +21,10 @@ public record OkxPublicInstrument
     /// Instrument ID code.
     /// For simple binary encoding, you must use instIdCode instead of instId.
     /// For the same instId, it's value may be different between production and demo trading.
+    /// Demo trading responses may return values that exceed 32-bit integer range.
     /// </summary>
     [JsonProperty("instIdCode")]
-    public int? InstrumentIdCode { get; set; }
+    public long? InstrumentIdCode { get; set; }
 
     /// <summary>
     /// Underlying, e.g. BTC-USD. Only applicable to FUTURES/SWAP/OPTION

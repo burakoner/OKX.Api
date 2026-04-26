@@ -10,7 +10,7 @@ public record OkxTradeOrderAmendRequest
     /// If both instId and instIdCode are provided, instIdCode takes precedence.
     /// </summary>
     [JsonProperty("instIdCode")]
-    public int? InstrumentIdCode { get; set; }
+    public long? InstrumentIdCode { get; set; }
 
     /// <summary>
     /// Instrument Id

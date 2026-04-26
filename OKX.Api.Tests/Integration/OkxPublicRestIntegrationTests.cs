@@ -18,6 +18,9 @@ public class OkxPublicRestIntegrationTests
         Assert.True(result.Success, result.Error?.ToString() ?? "Public instruments request should succeed.");
         Assert.NotNull(result.Data);
         Assert.NotEmpty(result.Data);
+
+        if (configuration.UseDemoTrading)
+            Assert.Contains(result.Data, x => x.InstrumentIdCode > int.MaxValue);
     }
 
     [SkippableFact]
@@ -28,6 +31,13 @@ public class OkxPublicRestIntegrationTests
 
         var client = OkxRestClientFactory.CreatePublic(configuration);
         var result = await client.Financial.SimpleEarn.GetPublicBorrowHistoryAsync(configuration.PublicBorrowCurrency, limit: 5);
+
+        if (configuration.UseDemoTrading)
+        {
+            Assert.False(result.Success);
+            Assert.Contains("50038", result.Error?.ToString() ?? string.Empty);
+            return;
+        }
 
         Assert.True(result.Success, result.Error?.ToString() ?? "Public borrow history request should succeed.");
         Assert.NotNull(result.Data);

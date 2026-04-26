@@ -149,6 +149,8 @@ public abstract class OkxBaseRestClient : RestApiClient
             // Return Error
             if (!result.Success) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw ?? "", result.Error);
             if (result.Data is null) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw ?? "", result.Error);
+            if (result.Data.ErrorCode != 0)
+                return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw ?? "", new ServerError(result.Data.ErrorCode, GetErrorMessage(result.Data.ErrorMessage, result.Raw)));
 
             // Return Success
             return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data!, result.Raw ?? "", result.Error);
@@ -186,7 +188,9 @@ public abstract class OkxBaseRestClient : RestApiClient
             // Return Error
             if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
             if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
-            if (result.Data is OkxRestApiErrorBase data && data.ErrorCode is not null && data.ErrorCode.Trim() != "" && data.ErrorCode.Trim() != "0" && !string.IsNullOrEmpty(data.ErrorMessage))
+            if (result.Data.ErrorCode != 0)
+                return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", new ServerError(result.Data.ErrorCode, GetErrorMessage(result.Data.ErrorMessage, result.Raw)));
+            if (result.Data.Data!.FirstOrDefault() is OkxRestApiErrorBase data && data.ErrorCode is not null && data.ErrorCode.Trim() != "" && data.ErrorCode.Trim() != "0" && !string.IsNullOrEmpty(data.ErrorMessage))
                 return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", new ServerError(int.Parse(data.ErrorCode), data.ErrorMessage!));
 
             // Return Success
@@ -226,6 +230,8 @@ public abstract class OkxBaseRestClient : RestApiClient
             // Return Error
             if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
             if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
+            if (result.Data.ErrorCode != 0)
+                return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", new ServerError(result.Data.ErrorCode, GetErrorMessage(result.Data.ErrorMessage, result.Raw)));
 
             // Return Success
             return new RestCallResult<T>(result.Request, result.Response, result.Data.Data!, result.Raw ?? "", result.Error);
@@ -263,6 +269,8 @@ public abstract class OkxBaseRestClient : RestApiClient
             // Return Error
             if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
             if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
+            if (result.Data.ErrorCode != 0)
+                return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", new ServerError(result.Data.ErrorCode, GetErrorMessage(result.Data.ErrorMessage, result.Raw)));
 
             // Return Success
             return new RestCallResult<T>(result.Request, result.Response, result.Data.Data!, result.Raw ?? "", result.Error);
@@ -281,6 +289,9 @@ public abstract class OkxBaseRestClient : RestApiClient
         }
 
     }
+
+    private static string GetErrorMessage(string? errorMessage, string? rawResponse)
+        => string.IsNullOrWhiteSpace(errorMessage) ? rawResponse ?? "Unknown OKX error" : errorMessage!;
     #endregion
 
 }

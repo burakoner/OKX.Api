@@ -34,12 +34,21 @@ public class OkxFinancialSimpleEarnContractTests
     [Fact]
     public void LivePublicBorrowHistoryFixture_ParsesCurrentOkxSnapshot()
     {
-        var response = DeserializeLive("Financial", "get-public-borrow-history-btc.json");
+        var response = DeserializeLive("Production", "Financial", "get-public-borrow-history-btc.json");
 
         Assert.NotEmpty(response.Data!);
         Assert.All(response.Data!, item => Assert.Equal("BTC", item.Currency));
         Assert.All(response.Data!, item => Assert.NotNull(item.LendingRate));
         Assert.Null(response.Data!.First().Amount);
+    }
+
+    [Fact]
+    public void DemoPublicBorrowHistoryFixture_ReflectsDemoAvailabilityError()
+    {
+        var response = DeserializeLiveAllowingError("Demo", "Financial", "get-public-borrow-history-btc.json");
+
+        Assert.Equal(50038, response.ErrorCode);
+        Assert.Empty(response.Data!);
     }
 
     private static OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>> DeserializeManual(params string[] fixturePath)
@@ -48,12 +57,16 @@ public class OkxFinancialSimpleEarnContractTests
     private static OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>> DeserializeLive(params string[] fixturePath)
         => Deserialize(FixtureReader.ReadLive(fixturePath));
 
-    private static OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>> Deserialize(string json)
+    private static OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>> DeserializeLiveAllowingError(params string[] fixturePath)
+        => Deserialize(FixtureReader.ReadLive(fixturePath), requireSuccess: false);
+
+    private static OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>> Deserialize(string json, bool requireSuccess = true)
     {
         var response = JsonConvert.DeserializeObject<OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>>>(json, SerializerOptions.WithConverters);
 
         Assert.NotNull(response);
-        Assert.Equal(0, response.ErrorCode);
+        if (requireSuccess)
+            Assert.Equal(0, response.ErrorCode);
         Assert.NotNull(response.Data);
         return response;
     }
