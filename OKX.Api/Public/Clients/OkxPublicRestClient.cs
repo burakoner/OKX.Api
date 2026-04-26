@@ -348,9 +348,11 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     }
 
     /// <summary>
-    /// Retrieve the estimated delivery price which will only have a return value one hour before the delivery/exercise.
+    /// Retrieve the estimated delivery/exercise price.
+    /// The estimated price only has a return value during the last 30 minutes before delivery/exercise and is calculated
+    /// from index price samples recorded approximately every 200 milliseconds during that window.
     /// </summary>
-    /// <param name="instrumentId">Instrument ID</param>
+    /// <param name="instrumentId">Instrument ID, only applicable to FUTURES, OPTION, and EVENTS</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxPublicEstimatedPrice>> GetEstimatedPriceAsync(string instrumentId, CancellationToken ct = default)
@@ -364,7 +366,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     }
 
     /// <summary>
-    /// Retrieve the estimated delivery price, which will only have a return value one hour before the delivery/exercise.
+    /// Retrieve delivery records of Futures and exercise records of Options in the last 3 months.
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentFamily">Instrument Family</param>
@@ -396,7 +398,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     }
 
     /// <summary>
-    /// Retrieve the estimated settlement price which will only have a return value one hour before the settlement.
+    /// Retrieve the estimated settlement price.
+    /// The estimated price only has a return value during the last 30 minutes before settlement and is calculated
+    /// from index price samples recorded approximately every 200 milliseconds during that window.
     /// </summary>
     /// <param name="instrumentId">Instrument ID, e.g. XRP-USDT-250307. only applicable to FUTURES</param>
     /// <param name="ct">Cancellation Token</param>

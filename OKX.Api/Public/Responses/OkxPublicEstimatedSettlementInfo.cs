@@ -24,7 +24,9 @@ public record OkxPublicEstimatedSettlementInfo
     public DateTime? NextSettlementTime => NextSettlementTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
-    /// Estimated settlement price
+    /// Estimated settlement price.
+    /// When available, the value is derived from index price samples recorded during the last 30 minutes before
+    /// settlement.
     /// </summary>
     [JsonProperty("estSettlePx")]
     public decimal EstimatedSettlementPrice { get; set; }

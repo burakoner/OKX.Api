@@ -24,7 +24,9 @@ public record OkxPublicEstimatedPrice
     public OkxPublicSettlementType? SettlementType { get; set; }
 
     /// <summary>
-    /// Estimated Price
+    /// Estimated delivery/exercise/settlement price.
+    /// When available, the value is derived from index price samples recorded during the last 30 minutes before the
+    /// relevant expiry event.
     /// </summary>
     [JsonProperty("settlePx")]
     public decimal EstimatedPrice { get; set; }

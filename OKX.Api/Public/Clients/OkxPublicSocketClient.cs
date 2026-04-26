@@ -482,8 +482,9 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     }
 
     /// <summary>
-    /// Retrieve the estimated delivery/exercise price of FUTURES contracts and OPTION.
-    /// Only the estimated delivery/exercise price will be pushed an hour before delivery/exercise, and will be pushed if there is any price change.
+    /// Retrieve the estimated delivery/exercise/settlement price of FUTURES, OPTION, SWAP, and EVENTS contracts.
+    /// The estimated price is based on index price samples recorded during the last 30 minutes before delivery,
+    /// exercise, or settlement, and updates are pushed whenever the price changes.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentType">Instrument Type</param>
@@ -495,8 +496,9 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         => await SubscribeToEstimatedPriceAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct).ConfigureAwait(false);
 
     /// <summary>
-    /// Retrieve the estimated delivery/exercise price of FUTURES contracts and OPTION.
-    /// Only the estimated delivery/exercise price will be pushed an hour before delivery/exercise, and will be pushed if there is any price change.
+    /// Retrieve the estimated delivery/exercise/settlement price of FUTURES, OPTION, SWAP, and EVENTS contracts.
+    /// The estimated price is based on index price samples recorded during the last 30 minutes before delivery,
+    /// exercise, or settlement, and updates are pushed whenever the price changes.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="symbols">Symbol List</param>
