@@ -1,5 +1,13 @@
 ﻿## Change Log & Release Notes
 
+- Version 5.6.426 - 26 Apr 2026
+  - Bumped package and assembly version to 5.6.426
+  - Synced with the OKX API Version [2026-02-05](https://www.okx.com/docs-v5/log_en/#2026-02-05)
+  - Added `longPosRemainingQuota` and `shortPosRemainingQuota` to `OkxPublicInstrument` for private instruments responses
+  - Synced with the OKX API Version [2026-02-12](https://www.okx.com/docs-v5/log_en/#2026-02-12)
+  - Added `instCategory` to `OkxPublicInstrument`
+  - Added `OkxPublicInstrumentCategory` enum with current `Crypto` mapping
+
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)
 

@@ -88,6 +88,13 @@ public record OkxPublicInstrument
     public string? BaseCurrency { get; set; } = string.Empty;
 
     /// <summary>
+    /// Category of the instrument's base currency.
+    /// For example, for BTC-USDT-SWAP, instCategory refers to the category of BTC.
+    /// </summary>
+    [JsonProperty("instCategory")]
+    public OkxPublicInstrumentCategory? InstrumentCategory { get; set; }
+
+    /// <summary>
     /// Quote currency
     /// </summary>
     [JsonProperty("quoteCcy")]
