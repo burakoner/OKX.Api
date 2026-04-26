@@ -1,0 +1,42 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instType": "SPOT",
+      "instId": "BTC-USDT",
+      "baseCcy": "BTC",
+      "instCategory": "1"
+    },
+    {
+      "instType": "SPOT",
+      "instId": "AAPL-USDT",
+      "baseCcy": "AAPL",
+      "instCategory": "3"
+    },
+    {
+      "instType": "SWAP",
+      "instId": "XAU-USDT-SWAP",
+      "baseCcy": "XAU",
+      "instCategory": "4"
+    },
+    {
+      "instType": "SPOT",
+      "instId": "EUR-USDT",
+      "baseCcy": "EUR",
+      "instCategory": "5"
+    },
+    {
+      "instType": "SPOT",
+      "instId": "US10Y-USDT",
+      "baseCcy": "US10Y",
+      "instCategory": "6"
+    },
+    {
+      "instType": "SPOT",
+      "instId": "UNKNOWN-USDT",
+      "baseCcy": "UNKNOWN",
+      "instCategory": ""
+    }
+  ]
+}

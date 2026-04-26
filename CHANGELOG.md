@@ -11,6 +11,8 @@
   - Added `lendingRate` to public borrow history responses
   - Synced with the OKX API Version [2026-03-02](https://www.okx.com/docs-v5/log_en/#2026-03-02)
   - Expanded `OkxPublicInstrumentCategory` mappings to match the instruments endpoint documentation (`Stocks`, `Commodities`, `Forex`, `Bonds`; empty string continues to deserialize as `null`)
+  - Added `OKX.Api.Tests` with fixture-based contract tests for instrument and simple earn response models
+  - Added optional live integration tests with local `.env` configuration kept out of git
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

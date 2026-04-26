@@ -1,0 +1,20 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instType": "SWAP",
+      "instId": "BTC-USDT-SWAP",
+      "instIdCode": "123456",
+      "baseCcy": "BTC",
+      "instCategory": "1",
+      "quoteCcy": "USDT",
+      "settleCcy": "USDT",
+      "groupId": "1",
+      "state": "live",
+      "ruleType": "normal",
+      "longPosRemainingQuota": "1250.50",
+      "shortPosRemainingQuota": "775.25"
+    }
+  ]
+}
