@@ -11,7 +11,6 @@
   - Added `lendingRate` to public borrow history responses
   - Synced with the OKX API Version [2026-03-02](https://www.okx.com/docs-v5/log_en/#2026-03-02)
   - Added `Stocks` mapping to `OkxPublicInstrumentCategory`
-  - Updated `SubscribeToOrderBookAsync` to require WebSocket login for `OkxOrderBookType.BBO_TBT`
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)
