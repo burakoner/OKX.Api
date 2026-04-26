@@ -16,4 +16,11 @@ public enum OkxInstrumentRuleType : byte
     /// </summary>
     [Map("pre_market")]
     PreMarket = 2,
+
+    /// <summary>
+    /// RebaseContract
+    /// Pre-market rebase contract.
+    /// </summary>
+    [Map("rebase_contract")]
+    RebaseContract = 3,
 }

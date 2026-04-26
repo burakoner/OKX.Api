@@ -1,0 +1,18 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instType": "SWAP",
+      "instId": "BTC-USDT-SWAP",
+      "state": "rebase",
+      "ruleType": "rebase_contract"
+    },
+    {
+      "instType": "FUTURES",
+      "instId": "BTC-USD-260327",
+      "state": "live",
+      "ruleType": "normal"
+    }
+  ]
+}

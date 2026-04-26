@@ -11,6 +11,8 @@
   - Added `lendingRate` to public borrow history responses
   - Synced with the OKX API Version [2026-03-02](https://www.okx.com/docs-v5/log_en/#2026-03-02)
   - Expanded `OkxPublicInstrumentCategory` mappings to match the instruments endpoint documentation (`Stocks`, `Commodities`, `Forex`, `Bonds`; empty string continues to deserialize as `null`)
+  - Synced with the OKX API Version [2026-03-04](https://www.okx.com/docs-v5/log_en/#2026-03-04)
+  - Added `rebase` instrument state and `rebase_contract` instrument rule type for instruments REST responses and channel payloads
   - Added `OKX.Api.Tests` with manual edge-case fixtures and committed live OKX public response snapshots
   - Added optional live integration tests with local `.env` configuration kept out of git
   - Added a live fixture capture script and aligned simple earn borrow history amount parsing with current public snapshots

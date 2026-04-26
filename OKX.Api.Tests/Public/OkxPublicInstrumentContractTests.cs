@@ -44,6 +44,16 @@ public class OkxPublicInstrumentContractTests
     }
 
     [Fact]
+    public void ManualPublicInstrumentsFixture_ParsesRebaseStateAndRuleType()
+    {
+        var response = DeserializeManual("Public", "get-instruments-rebase-values.json");
+
+        var rebaseInstrument = response.Data!.Single(x => x.InstrumentId == "BTC-USDT-SWAP");
+        Assert.Equal(OkxInstrumentState.Rebase, rebaseInstrument.State);
+        Assert.Equal(OkxInstrumentRuleType.RebaseContract, rebaseInstrument.RuleType);
+    }
+
+    [Fact]
     public void LiveProductionSpotInstrumentsFixture_ParsesCurrentOkxSnapshot()
     {
         var response = DeserializeLive("Production", "Public", "get-instruments-spot.json");
