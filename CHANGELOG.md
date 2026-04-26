@@ -16,6 +16,10 @@
   - Synced with the OKX API Version [2026-03-10](https://www.okx.com/docs-v5/log_en/#2026-03-10)
   - Added `subCode` parsing for place/amend order REST and WebSocket operation responses, and surfaced it through REST order error details
   - Updated one-click repay v2 method documentation to reflect support for SPOT, Multi-currency margin, and Portfolio margin modes
+  - Synced with the OKX API Version [2026-03-13](https://www.okx.com/docs-v5/log_en/#2026-03-13)
+  - Added `Financial.DualInvestment` with eight new REST endpoints for currency pairs, products, quote requests, trade confirmation, redeem quote requests, redemption, order status, and order history
+  - Added dual investment order state models and robust `GetProductsAsync` payload handling for both the documented array response and the current live `data.products` wrapper seen in production
+  - Added manual contract fixtures for all eight dual investment endpoints and safe production integration coverage for the read-only GET endpoints
   - Added `OKX.Api.Tests` with manual edge-case fixtures and committed live OKX public response snapshots
   - Added optional live integration tests with local `.env` configuration kept out of git
   - Added a live fixture capture script and aligned simple earn borrow history amount parsing with current public snapshots

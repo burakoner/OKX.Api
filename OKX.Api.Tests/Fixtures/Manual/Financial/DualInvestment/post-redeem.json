@@ -1,0 +1,10 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ordId": "987654321",
+      "state": "pending_redeem_booking"
+    }
+  ]
+}

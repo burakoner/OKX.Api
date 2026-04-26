@@ -1,0 +1,18 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "baseCcy": "BTC",
+      "quoteCcy": "USDT",
+      "optType": "C",
+      "uly": "BTC-USD"
+    },
+    {
+      "baseCcy": "BTC",
+      "quoteCcy": "USDT",
+      "optType": "P",
+      "uly": "BTC-USD"
+    }
+  ]
+}

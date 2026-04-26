@@ -1,0 +1,29 @@
+{
+  "code": 0,
+  "msg": "",
+  "data": {
+    "products": [
+      {
+        "absYield": "0.0010511",
+        "annualizedYield": "0.5416",
+        "baseCcy": "BTC",
+        "quoteCcy": "USDT",
+        "expTime": "1777276800000",
+        "interestAccrualTime": "1777215600000",
+        "listTime": "1777031599000",
+        "maxSize": "60.0000000000000000",
+        "minSize": "0.0001000000000000",
+        "notionalCcy": "BTC",
+        "optType": "C",
+        "productId": "BTC-USDT-260427-79250-C",
+        "quoteTime": "1777213750241",
+        "redeemEndTime": "1777273200000",
+        "redeemStartTime": "1777215600000",
+        "stepSz": "0.0001",
+        "strike": "79250",
+        "tradeEndTime": "1777262400000",
+        "uly": "BTC-USD"
+      }
+    ]
+  }
+}

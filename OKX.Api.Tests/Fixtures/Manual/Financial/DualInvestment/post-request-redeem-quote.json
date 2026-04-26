@@ -1,0 +1,14 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ordId": "987654321",
+      "quoteId": "quoterbcDCD-REDEEM17732116652401234",
+      "redeemCcy": "BTC",
+      "redeemSz": "1.4856",
+      "termRate": "-0.50",
+      "validUntil": "1774598400000"
+    }
+  ]
+}

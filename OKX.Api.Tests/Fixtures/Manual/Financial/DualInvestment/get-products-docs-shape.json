@@ -1,0 +1,27 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "absYield": "0.00232413",
+      "annualizedYield": "0.0541",
+      "baseCcy": "BTC",
+      "quoteCcy": "USDT",
+      "expTime": "1774598400000",
+      "interestAccrualTime": "1773244800000",
+      "listTime": "1743150759000",
+      "maxSize": "6000000",
+      "minSize": "10",
+      "notionalCcy": "USDT",
+      "optType": "P",
+      "productId": "BTC-USDT-260327-54500-P",
+      "quoteTime": "1773243808703",
+      "redeemEndTime": "1774594800000",
+      "redeemStartTime": "1773244800000",
+      "stepSz": "1",
+      "tradeEndTime": "1774584000000",
+      "strike": "54500",
+      "uly": "BTC-USD"
+    }
+  ]
+}

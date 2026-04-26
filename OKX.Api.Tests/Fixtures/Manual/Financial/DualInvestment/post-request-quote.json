@@ -1,0 +1,17 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "absYield": "0.00135182",
+      "annualizedYield": "69.65",
+      "interestAccrualTime": "1773241200000",
+      "notionalSz": "0.001",
+      "notionalCcy": "BTC",
+      "productId": "BTC-USDT-260312-72000-C",
+      "quoteId": "qtbcDCD-QUOTE17732395560537636",
+      "validUntil": "1774584000000",
+      "idxPx": "69000"
+    }
+  ]
+}
