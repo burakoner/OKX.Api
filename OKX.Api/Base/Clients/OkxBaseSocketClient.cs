@@ -222,11 +222,13 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         // Check for Success
         if (data.HasValues && data["event"] is not null && (string)data["event"]! == "subscribe" && data["arg"]!["channel"] is not null)
         {
-            if (request is OkxSocketRequest socRequest && socRequest.Arguments is not null)
+            if (request is OkxSocketRequest socRequest
+                && socRequest.Arguments is not null
+                && TryDeserializeSocketRequestArgument(data["arg"], out var responseArgument))
             {
                 foreach (var arg in socRequest.Arguments)
                 {
-                    if (arg.Channel == (string)data["arg"]!["channel"]!)
+                    if (SocketArgumentsMatch(arg, responseArgument!))
                     {
                         Logger.Log(LogLevel.Debug, "Subscription completed");
                         callResult = new CallResult<object>(true);
@@ -262,8 +264,8 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
                 return false;
 
             // Compare Request and Response Arguments
-            var resArg = JsonConvert.DeserializeObject<OkxSocketRequestArgument>(message["arg"]!.ToString());
-            if (resArg is null) return false;
+            if (!TryDeserializeSocketRequestArgument(message["arg"], out var resArg))
+                return false;
 
             // Check Data
             var data = message["data"];
@@ -273,10 +275,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
                 {
                     foreach (var arg in hRequest.Arguments)
                     {
-                        if (arg.Channel == resArg.Channel &&
-                            arg.InstrumentId == resArg.InstrumentId &&
-                            arg.InstrumentType == resArg.InstrumentType &&
-                            arg.InstrumentFamily == resArg.InstrumentFamily)
+                        if (SocketArgumentsMatch(arg, resArg!))
                         {
                             return true;
                         }
@@ -301,28 +300,80 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             return false;
 
         var request = new OkxSocketRequest(OkxSocketOperation.Unsubscribe, ((OkxSocketRequest)subscription.Request).Arguments);
+        var unsubscribed = false;
         await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(10), data =>
         {
             if (data.Type != JTokenType.Object)
                 return false;
 
-            if ((string)data["event"]! == "unsubscribe")
+            if ((string)data["event"]! == "unsubscribe" && TryDeserializeSocketRequestArgument(data["arg"], out var responseArgument))
             {
                 foreach (var arg in request.Arguments)
                 {
-                    if ((string)data["arg"]!["channel"]! == arg.Channel)
+                    if (SocketArgumentsMatch(arg, responseArgument!))
+                    {
+                        unsubscribed = true;
                         return true;
+                    }
                 }
             }
 
             return false;
         });
 
-        return false;
+        return unsubscribed;
     }
     #endregion
 
     #region Private Methods
+    private static bool SocketArgumentsMatch(OkxSocketRequestArgument requestArgument, OkxSocketRequestArgument responseArgument)
+    {
+        return requestArgument.Channel == responseArgument.Channel
+            && requestArgument.Currency == responseArgument.Currency
+            && requestArgument.AlgoOrderId == responseArgument.AlgoOrderId
+            && requestArgument.InstrumentFamily == responseArgument.InstrumentFamily
+            && requestArgument.InstrumentId == responseArgument.InstrumentId
+            && requestArgument.InstrumentType == responseArgument.InstrumentType
+            && DictionaryMatches(requestArgument.ExtraParameters, responseArgument.ExtraParameters);
+    }
+
+    private static bool DictionaryMatches(Dictionary<string, string>? left, Dictionary<string, string>? right)
+    {
+        if (ReferenceEquals(left, right))
+            return true;
+
+        if (left is null || right is null)
+            return left is null && right is null;
+
+        if (left.Count != right.Count)
+            return false;
+
+        foreach (var pair in left)
+        {
+            if (!right.TryGetValue(pair.Key, out var value) || value != pair.Value)
+                return false;
+        }
+
+        return true;
+    }
+
+    private static bool TryDeserializeSocketRequestArgument(JToken? token, out OkxSocketRequestArgument? argument)
+    {
+        argument = null;
+        if (token is null || token.Type != JTokenType.Object)
+            return false;
+
+        try
+        {
+            argument = token.ToObject<OkxSocketRequestArgument>(JsonSerializer.Create(SerializerOptions.WithConverters));
+            return argument is not null;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
     private string DecompressData(byte[] byteData)
     {
         using var decompressedStream = new MemoryStream();

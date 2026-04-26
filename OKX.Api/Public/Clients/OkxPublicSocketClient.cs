@@ -277,7 +277,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToCallAuctionsAsync(Action<OkxPublicCallAuction> onData, string instrumentId, CancellationToken ct = default)
-        => await SubscribeToCallAuctionsAsync(onData, instrumentId, ct).ConfigureAwait(false);
+        => await SubscribeToCallAuctionsAsync(onData, [instrumentId], ct).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve call auction details.
