@@ -38,6 +38,9 @@
   - Updated WebSocket amend and cancel order payloads to require `instIdCode` and stop sending deprecated `instId` on `WS / Amend order`, `WS / Amend multiple orders`, `WS / Cancel order`, and `WS / Cancel multiple orders`
   - Fixed WebSocket batch cancel to use the correct `batch-cancel-orders` operation and corrected batch amend/cancel response matching for socket query handling
   - Added request serialization and socket query-response contract coverage for WebSocket amend/cancel order flows
+  - Synced with the OKX API Version [2026-04-08](https://www.okx.com/docs-v5/log_en/#2026-04-08)
+  - Hardened `GET /api/v5/trade/account-rate-limit` parsing for VIP4 downgrade responses where `fillRatio`, `mainFillRatio`, and `nextAccRateLimit` may be returned as empty strings
+  - Added manual contract coverage and a safe private integration test for trade account rate limit responses
   - Added `OKX.Api.Tests` with manual edge-case fixtures and committed live OKX public response snapshots
   - Added optional live integration tests with local `.env` configuration kept out of git
   - Added a live fixture capture script and aligned simple earn borrow history amount parsing with current public snapshots

@@ -1,0 +1,13 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "accRateLimit": "1000",
+      "fillRatio": "",
+      "mainFillRatio": "",
+      "nextAccRateLimit": "",
+      "ts": "1775625600000"
+    }
+  ]
+}
