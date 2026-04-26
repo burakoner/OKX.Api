@@ -10,4 +10,10 @@ public enum OkxPublicInstrumentCategory : byte
     /// </summary>
     [Map("1")]
     Crypto = 1,
+
+    /// <summary>
+    /// Stocks
+    /// </summary>
+    [Map("3")]
+    Stocks = 3,
 }

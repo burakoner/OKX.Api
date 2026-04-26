@@ -167,11 +167,12 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 
     /// <summary>
     /// Retrieve order book data.
-    /// Use books for 400 depth levels, book5 for 5 depth levels, books50-l2-tbt tick-by-tick 50 depth levels, and books-l2-tbt for tick-by-tick 400 depth levels.
+    /// Use books for 400 depth levels, book5 for 5 depth levels, books50-l2-tbt tick-by-tick 50 depth levels, books-l2-tbt for tick-by-tick 400 depth levels, and bbo-tbt for tick-by-tick level 1 data.
     /// books: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed every 100 ms when there is change in order book.
     /// books5: 5 depth levels will be pushed every time.Data will be pushed every 200 ms when there is change in order book.
     /// books50-l2-tbt: 50 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed tick by tick, i.e.whenever there is change in order book.
     /// books-l2-tbt: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed tick by tick, i.e.whenever there is change in order book.
+    /// bbo-tbt: tick-by-tick best bid and offer snapshots. This channel requires login starting March 3, 2026.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentId">Instrument ID</param>
@@ -183,11 +184,12 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 
     /// <summary>
     /// Retrieve order book data.
-    /// Use books for 400 depth levels, book5 for 5 depth levels, books50-l2-tbt tick-by-tick 50 depth levels, and books-l2-tbt for tick-by-tick 400 depth levels.
+    /// Use books for 400 depth levels, book5 for 5 depth levels, books50-l2-tbt tick-by-tick 50 depth levels, books-l2-tbt for tick-by-tick 400 depth levels, and bbo-tbt for tick-by-tick level 1 data.
     /// books: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed every 100 ms when there is change in order book.
     /// books5: 5 depth levels will be pushed every time.Data will be pushed every 200 ms when there is change in order book.
     /// books50-l2-tbt: 50 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed tick by tick, i.e.whenever there is change in order book.
     /// books-l2-tbt: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed tick by tick, i.e.whenever there is change in order book.
+    /// bbo-tbt: tick-by-tick best bid and offer snapshots. This channel requires login starting March 3, 2026.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentIds">List of Instrument ID</param>
@@ -218,7 +220,9 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
             InstrumentId = instrumentId,
         });
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        var needLogin = orderBookType == OkxOrderBookType.OrderBook_50_l2_TBT || orderBookType == OkxOrderBookType.OrderBook_l2_TBT;
+        var needLogin = orderBookType == OkxOrderBookType.OrderBook_50_l2_TBT ||
+                        orderBookType == OkxOrderBookType.OrderBook_l2_TBT ||
+                        orderBookType == OkxOrderBookType.BBO_TBT;
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, needLogin, internalHandler, ct).ConfigureAwait(false);
     }
 
