@@ -7,17 +7,20 @@ public record OkxTradeOrderAmendRequest
 {
     /// <summary>
     /// Instrument ID code.
+    /// Required for WebSocket amend order channels starting from 2026-04-07.
     /// If both instId and instIdCode are provided, instIdCode takes precedence.
     /// </summary>
     [JsonProperty("instIdCode")]
     public long? InstrumentIdCode { get; set; }
 
     /// <summary>
-    /// Instrument Id
+    /// Instrument ID.
+    /// Required for REST amend order requests.
+    /// Deprecated and ignored by OKX for WebSocket amend order channels starting from 2026-04-07; use instIdCode there.
     /// </summary>
-    [Obsolete("Will be deprecated on February 2026.")]
-    [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = string.Empty;
+    [Obsolete("Deprecated and ignored by OKX for WebSocket amend order channels starting from 2026-04-07. Use InstrumentIdCode for WebSocket requests.")]
+    [JsonProperty("instId", NullValueHandling = NullValueHandling.Ignore)]
+    public string? InstrumentId { get; set; }
     
     /// <summary>
     /// Cancel on fail

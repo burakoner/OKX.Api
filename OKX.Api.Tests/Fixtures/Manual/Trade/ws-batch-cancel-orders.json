@@ -1,0 +1,17 @@
+{
+  "id": "1515",
+  "op": "batch-cancel-orders",
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ordId": "123456790",
+      "clOrdId": "cancel-batch-01",
+      "ts": "1695190491421",
+      "sCode": "0",
+      "sMsg": ""
+    }
+  ],
+  "inTime": "1695190491421339",
+  "outTime": "1695190491423240"
+}

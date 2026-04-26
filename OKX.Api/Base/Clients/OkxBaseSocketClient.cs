@@ -158,8 +158,8 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             }
 
             var placeBatchOrdersRequest = op == "batch-orders" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest05 && socRequest05.RequestId == id;
-            var amendBatchOrdersRequest = op == "batch-amend-orders" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest06 && socRequest06.RequestId == id;
-            var cancelBatchOrdersRequest = op == "batch-cancel-orders" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest07 && socRequest07.RequestId == id;
+            var amendBatchOrdersRequest = op == "batch-amend-orders" && request is OkxSocketRequest<OkxTradeOrderAmendRequest> socRequest06 && socRequest06.RequestId == id;
+            var cancelBatchOrdersRequest = op == "batch-cancel-orders" && request is OkxSocketRequest<OkxTradeOrderCancelRequest> socRequest07 && socRequest07.RequestId == id;
             if (placeBatchOrdersRequest || amendBatchOrdersRequest || cancelBatchOrdersRequest)
             {
                 var desResult = Deserialize<T>(data["data"]!);

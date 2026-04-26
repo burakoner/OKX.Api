@@ -126,46 +126,54 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     }
 
     /// <summary>
-    /// Cancel an incomplete order
+    /// Cancel an incomplete order.
+    /// OKX deprecated instId for this WebSocket channel on 2026-04-07; use InstrumentIdCode.
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
     public async Task<CallResult<OkxTradeOrderCancel>> CancelOrderAsync(OkxTradeOrderCancelRequest request)
     {
-        var req = new OkxSocketRequest<OkxTradeOrderCancelRequest>(_.RequestId().ToString(), OkxSocketOperation.CancelOrder, [request]);
+        var socketRequest = CreateSocketCancelOrderRequest(request);
+        var req = new OkxSocketRequest<OkxTradeOrderCancelRequest>(_.RequestId().ToString(), OkxSocketOperation.CancelOrder, [socketRequest]);
         return await _.RootQueryAsync<OkxTradeOrderCancel>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
     /// Cancel incomplete orders in batches. Maximum 20 orders can be canceled per request.
+    /// OKX deprecated instId for this WebSocket channel on 2026-04-07; use InstrumentIdCode for each order.
     /// </summary>
     /// <param name="requests">Requests</param>
     /// <returns></returns>
     public async Task<CallResult<IEnumerable<OkxTradeOrderCancel>>> CancelOrdersAsync(IEnumerable<OkxTradeOrderCancelRequest> requests)
     {
-        var req = new OkxSocketRequest<OkxTradeOrderCancelRequest>(_.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, requests);
+        var socketRequests = CreateSocketCancelOrderRequests(requests);
+        var req = new OkxSocketRequest<OkxTradeOrderCancelRequest>(_.RequestId().ToString(), OkxSocketOperation.BatchCancelOrders, socketRequests);
         return await _.RootQueryAsync<IEnumerable<OkxTradeOrderCancel>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
     /// Amend an incomplete order.
+    /// OKX deprecated instId for this WebSocket channel on 2026-04-07; use InstrumentIdCode.
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
     public async Task<CallResult<OkxTradeOrderAmend>> AmendOrderAsync(OkxTradeOrderAmendRequest request)
     {
-        var req = new OkxSocketRequest<OkxTradeOrderAmendRequest>(_.RequestId().ToString(), OkxSocketOperation.AmendOrder, [request]);
+        var socketRequest = CreateSocketAmendOrderRequest(request);
+        var req = new OkxSocketRequest<OkxTradeOrderAmendRequest>(_.RequestId().ToString(), OkxSocketOperation.AmendOrder, [socketRequest]);
         return await _.RootQueryAsync<OkxTradeOrderAmend>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
     /// <summary>
     /// Amend incomplete orders in batches. Maximum 20 orders can be amended per request.
+    /// OKX deprecated instId for this WebSocket channel on 2026-04-07; use InstrumentIdCode for each order.
     /// </summary>
     /// <param name="requests">Requests</param>
     /// <returns></returns>
     public async Task<CallResult<IEnumerable<OkxTradeOrderAmend>>> AmendOrdersAsync(IEnumerable<OkxTradeOrderAmendRequest> requests)
     {
-        var req = new OkxSocketRequest<OkxTradeOrderAmendRequest>(_.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, requests);
+        var socketRequests = CreateSocketAmendOrderRequests(requests);
+        var req = new OkxSocketRequest<OkxTradeOrderAmendRequest>(_.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, socketRequests);
         return await _.RootQueryAsync<IEnumerable<OkxTradeOrderAmend>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
@@ -201,5 +209,51 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
         if (requests is null)
             throw new ArgumentNullException(nameof(requests));
         return requests.Select(CreateSocketPlaceOrderRequest).ToList();
+    }
+
+    private static OkxTradeOrderAmendRequest CreateSocketAmendOrderRequest(OkxTradeOrderAmendRequest request)
+    {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+
+        if (request.InstrumentIdCode is null)
+            throw new ArgumentException("OKX deprecated instId for WebSocket amend order channels on 2026-04-07. Set InstrumentIdCode and map it via GetInstrumentsAsync before sending the request.", nameof(request));
+
+#pragma warning disable CS0618
+        return request with
+        {
+            InstrumentId = null
+        };
+#pragma warning restore CS0618
+    }
+
+    private static List<OkxTradeOrderAmendRequest> CreateSocketAmendOrderRequests(IEnumerable<OkxTradeOrderAmendRequest> requests)
+    {
+        if (requests is null)
+            throw new ArgumentNullException(nameof(requests));
+        return requests.Select(CreateSocketAmendOrderRequest).ToList();
+    }
+
+    private static OkxTradeOrderCancelRequest CreateSocketCancelOrderRequest(OkxTradeOrderCancelRequest request)
+    {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+
+        if (request.InstrumentIdCode is null)
+            throw new ArgumentException("OKX deprecated instId for WebSocket cancel order channels on 2026-04-07. Set InstrumentIdCode and map it via GetInstrumentsAsync before sending the request.", nameof(request));
+
+#pragma warning disable CS0618
+        return request with
+        {
+            InstrumentId = null
+        };
+#pragma warning restore CS0618
+    }
+
+    private static List<OkxTradeOrderCancelRequest> CreateSocketCancelOrderRequests(IEnumerable<OkxTradeOrderCancelRequest> requests)
+    {
+        if (requests is null)
+            throw new ArgumentNullException(nameof(requests));
+        return requests.Select(CreateSocketCancelOrderRequest).ToList();
     }
 }
