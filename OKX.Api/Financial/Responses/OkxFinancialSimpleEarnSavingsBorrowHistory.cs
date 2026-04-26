@@ -12,10 +12,10 @@ public record OkxFinancialSimpleEarnSavingsBorrowHistory
     public string Currency { get; set; } = string.Empty;
     
     /// <summary>
-    /// Lending amount
+    /// Lending amount. Some public snapshots may return an empty string when the amount is unavailable.
     /// </summary>
-    [JsonProperty("amt")]
-    public decimal Amount { get; set; }
+    [JsonProperty("amt"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? Amount { get; set; }
 
     /// <summary>
     /// Lending annual interest rate

@@ -9,9 +9,9 @@ namespace OKX.Api.Tests.Public;
 public class OkxPublicInstrumentContractTests
 {
     [Fact]
-    public void PrivateInstrumentsFixture_ParsesQuotaFields()
+    public void ManualPrivateInstrumentsFixture_ParsesQuotaFields()
     {
-        var response = Deserialize("Account", "get-instruments-private-with-quotas.json");
+        var response = DeserializeManual("Account", "get-instruments-private-with-quotas.json");
 
         var instrument = Assert.Single(response.Data!);
         Assert.Equal("BTC-USDT-SWAP", instrument.InstrumentId);
@@ -21,9 +21,9 @@ public class OkxPublicInstrumentContractTests
     }
 
     [Fact]
-    public void PublicInstrumentsFixture_ParsesDocumentedInstCategoryMappings()
+    public void ManualPublicInstrumentsFixture_ParsesDocumentedInstCategoryMappings()
     {
-        var response = Deserialize("Public", "get-instruments-instcategory-values.json");
+        var response = DeserializeManual("Public", "get-instruments-instcategory-values.json");
 
         var instruments = response.Data!.ToDictionary(x => x.InstrumentId);
         Assert.Equal(OkxPublicInstrumentCategory.Crypto, instruments["BTC-USDT"].InstrumentCategory);
@@ -34,17 +34,44 @@ public class OkxPublicInstrumentContractTests
     }
 
     [Fact]
-    public void PublicInstrumentsFixture_MapsEmptyInstCategoryToNull()
+    public void ManualPublicInstrumentsFixture_MapsEmptyInstCategoryToNull()
     {
-        var response = Deserialize("Public", "get-instruments-instcategory-values.json");
+        var response = DeserializeManual("Public", "get-instruments-instcategory-values.json");
 
         var unknownInstrument = response.Data!.Single(x => x.InstrumentId == "UNKNOWN-USDT");
         Assert.Null(unknownInstrument.InstrumentCategory);
     }
 
-    private static OkxRestApiResponse<List<OkxPublicInstrument>> Deserialize(params string[] fixturePath)
+    [Fact]
+    public void LiveSpotInstrumentsFixture_ParsesCurrentOkxSnapshot()
     {
-        var json = FixtureReader.Read(fixturePath);
+        var response = DeserializeLive("Public", "get-instruments-btc-usdt.json");
+
+        var instrument = Assert.Single(response.Data!);
+        Assert.Equal("BTC-USDT", instrument.InstrumentId);
+        Assert.Equal(OkxPublicInstrumentCategory.Crypto, instrument.InstrumentCategory);
+        Assert.Equal(3, instrument.InstrumentIdCode);
+    }
+
+    [Fact]
+    public void LiveCommodityInstrumentsFixture_ParsesCurrentOkxSnapshot()
+    {
+        var response = DeserializeLive("Public", "get-instruments-xau-usdt-swap.json");
+
+        var instrument = Assert.Single(response.Data!);
+        Assert.Equal("XAU-USDT-SWAP", instrument.InstrumentId);
+        Assert.Equal(OkxPublicInstrumentCategory.Commodities, instrument.InstrumentCategory);
+        Assert.Equal("XAU-USDT", instrument.InstrumentFamily);
+    }
+
+    private static OkxRestApiResponse<List<OkxPublicInstrument>> DeserializeManual(params string[] fixturePath)
+        => Deserialize(FixtureReader.ReadManual(fixturePath));
+
+    private static OkxRestApiResponse<List<OkxPublicInstrument>> DeserializeLive(params string[] fixturePath)
+        => Deserialize(FixtureReader.ReadLive(fixturePath));
+
+    private static OkxRestApiResponse<List<OkxPublicInstrument>> Deserialize(string json)
+    {
         var response = JsonConvert.DeserializeObject<OkxRestApiResponse<List<OkxPublicInstrument>>>(json, SerializerOptions.WithConverters);
 
         Assert.NotNull(response);

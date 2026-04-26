@@ -9,9 +9,9 @@ namespace OKX.Api.Tests.Financial;
 public class OkxFinancialSimpleEarnContractTests
 {
     [Fact]
-    public void PublicBorrowHistoryFixture_ParsesLendingRate()
+    public void ManualPublicBorrowHistoryFixture_ParsesLendingRate()
     {
-        var response = Deserialize("Financial", "get-public-borrow-history-with-lending-rate.json");
+        var response = DeserializeManual("Financial", "get-public-borrow-history-with-lending-rate.json");
 
         var item = Assert.Single(response.Data!);
         Assert.Equal("BTC", item.Currency);
@@ -22,18 +22,34 @@ public class OkxFinancialSimpleEarnContractTests
     }
 
     [Fact]
-    public void PublicBorrowHistoryFixture_LeavesLendingRateNullWhenMissing()
+    public void ManualPublicBorrowHistoryFixture_LeavesLendingRateNullWhenMissing()
     {
-        var response = Deserialize("Financial", "get-public-borrow-history-without-lending-rate.json");
+        var response = DeserializeManual("Financial", "get-public-borrow-history-without-lending-rate.json");
 
         var item = Assert.Single(response.Data!);
         Assert.Equal("ETH", item.Currency);
         Assert.Null(item.LendingRate);
     }
 
-    private static OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>> Deserialize(params string[] fixturePath)
+    [Fact]
+    public void LivePublicBorrowHistoryFixture_ParsesCurrentOkxSnapshot()
     {
-        var json = FixtureReader.Read(fixturePath);
+        var response = DeserializeLive("Financial", "get-public-borrow-history-btc.json");
+
+        Assert.NotEmpty(response.Data!);
+        Assert.All(response.Data!, item => Assert.Equal("BTC", item.Currency));
+        Assert.All(response.Data!, item => Assert.NotNull(item.LendingRate));
+        Assert.Null(response.Data!.First().Amount);
+    }
+
+    private static OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>> DeserializeManual(params string[] fixturePath)
+        => Deserialize(FixtureReader.ReadManual(fixturePath));
+
+    private static OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>> DeserializeLive(params string[] fixturePath)
+        => Deserialize(FixtureReader.ReadLive(fixturePath));
+
+    private static OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>> Deserialize(string json)
+    {
         var response = JsonConvert.DeserializeObject<OkxRestApiResponse<List<OkxFinancialSimpleEarnSavingsBorrowHistory>>>(json, SerializerOptions.WithConverters);
 
         Assert.NotNull(response);

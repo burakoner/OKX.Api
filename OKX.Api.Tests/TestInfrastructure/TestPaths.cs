@@ -11,6 +11,12 @@ internal static class TestPaths
     public static string Fixture(params string[] segments)
         => Path.Combine([RepositoryRoot, "OKX.Api.Tests", "Fixtures", .. segments]);
 
+    public static string ManualFixture(params string[] segments)
+        => Fixture(["Manual", .. segments]);
+
+    public static string LiveFixture(params string[] segments)
+        => Fixture(["Live", .. segments]);
+
     private static string FindRepositoryRoot()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
