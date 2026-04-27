@@ -2,6 +2,7 @@ using OKX.Api.Tests.TestInfrastructure;
 
 namespace OKX.Api.Tests.Integration;
 
+[Collection(OkxIntegrationTestCollection.Name)]
 public class OkxSubAccountIntegrationTests
 {
     [SkippableFact]

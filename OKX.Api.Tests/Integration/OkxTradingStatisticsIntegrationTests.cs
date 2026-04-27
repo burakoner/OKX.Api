@@ -4,6 +4,7 @@ using Xunit;
 
 namespace OKX.Api.Tests.Integration;
 
+[Collection(OkxIntegrationTestCollection.Name)]
 public class OkxTradingStatisticsIntegrationTests
 {
     [SkippableFact]
@@ -33,14 +34,10 @@ public class OkxTradingStatisticsIntegrationTests
         Assert.True(openInterestHistory.Success, openInterestHistory.Error?.ToString() ?? "Contract open interest history should succeed.");
         Assert.NotEmpty(openInterestHistory.Data!);
 
-        await Task.Delay(250);
-
         var takerVolume = await client.TradingStatistics.GetTakerVolumeAsync("BTC", OkxInstrumentType.Contracts, period: "1D");
         SkipIfRateLimited(takerVolume.Error?.ToString());
         Assert.True(takerVolume.Success, takerVolume.Error?.ToString() ?? "Contracts taker volume should succeed.");
         Assert.NotEmpty(takerVolume.Data!);
-
-        await Task.Delay(250);
 
         var contractTakerVolume = await client.TradingStatistics.GetContractTakerVolumeAsync("BTC-USDT-SWAP", period: "1D", limit: 5);
         SkipIfRateLimited(contractTakerVolume.Error?.ToString());
@@ -61,14 +58,10 @@ public class OkxTradingStatisticsIntegrationTests
         Assert.True(marginLending.Success, marginLending.Error?.ToString() ?? "Margin lending ratio should succeed.");
         Assert.NotEmpty(marginLending.Data!);
 
-        await Task.Delay(250);
-
         var longShort = await client.TradingStatistics.GetLongShortRatioAsync("BTC", period: "1D");
         SkipIfRateLimited(longShort.Error?.ToString());
         Assert.True(longShort.Success, longShort.Error?.ToString() ?? "Long/short ratio should succeed.");
         Assert.NotEmpty(longShort.Data!);
-
-        await Task.Delay(250);
 
         var contractSummary = await client.TradingStatistics.GetContractSummaryAsync("BTC", period: "1D");
         SkipIfRateLimited(contractSummary.Error?.ToString());
@@ -89,14 +82,10 @@ public class OkxTradingStatisticsIntegrationTests
         Assert.True(optionsSummary.Success, optionsSummary.Error?.ToString() ?? "Options summary should succeed.");
         Assert.NotEmpty(optionsSummary.Data!);
 
-        await Task.Delay(250);
-
         var putCallRatio = await client.TradingStatistics.GetPutCallRatioAsync("BTC", period: "1D");
         SkipIfRateLimited(putCallRatio.Error?.ToString());
         Assert.True(putCallRatio.Success, putCallRatio.Error?.ToString() ?? "Put/call ratio should succeed.");
         Assert.NotEmpty(putCallRatio.Data!);
-
-        await Task.Delay(250);
 
         var expiry = await client.TradingStatistics.GetInterestVolumeExpiryAsync("BTC", period: "1D");
         SkipIfRateLimited(expiry.Error?.ToString());
@@ -105,14 +94,10 @@ public class OkxTradingStatisticsIntegrationTests
         var currentExpiry = expiry.Data.FirstOrDefault()?.ExpiryDate;
         Skip.If(string.IsNullOrWhiteSpace(currentExpiry), "No current expiry was returned by OKX.");
 
-        await Task.Delay(250);
-
         var strike = await client.TradingStatistics.GetInterestVolumeStrikeAsync("BTC", currentExpiry!, period: "1D");
         SkipIfRateLimited(strike.Error?.ToString());
         Assert.True(strike.Success, strike.Error?.ToString() ?? "Interest/volume by strike should succeed.");
         Assert.NotEmpty(strike.Data!);
-
-        await Task.Delay(250);
 
         var takerFlow = await client.TradingStatistics.GetTakerFlowAsync("BTC", period: "1D");
         SkipIfRateLimited(takerFlow.Error?.ToString());

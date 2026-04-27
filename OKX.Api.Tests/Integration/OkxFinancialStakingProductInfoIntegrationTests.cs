@@ -3,6 +3,7 @@ using Xunit;
 
 namespace OKX.Api.Tests.Integration;
 
+[Collection(OkxIntegrationTestCollection.Name)]
 public class OkxFinancialStakingProductInfoIntegrationTests
 {
     [SkippableFact]

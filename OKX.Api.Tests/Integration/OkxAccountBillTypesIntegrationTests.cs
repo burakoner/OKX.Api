@@ -4,6 +4,7 @@ using Xunit;
 
 namespace OKX.Api.Tests.Integration;
 
+[Collection(OkxIntegrationTestCollection.Name)]
 public class OkxAccountBillTypesIntegrationTests
 {
     [SkippableFact]
