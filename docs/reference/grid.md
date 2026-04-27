@@ -63,6 +63,13 @@ var ai = await api.Grid.GetAIParameterAsync(OkxGridAlgoOrderType.SpotGrid, "BTC-
 - `RsiBacktestAsync`
 - `GetMaximumGridQuantityAsync`
 
+## Request-Model Overloads
+
+The following `Grid` methods have typed request-model overloads alongside their longer positional signatures:
+
+- `PlaceOrderAsync(OkxGridPlaceOrderRequest)`
+- `AmendOrderAsync(OkxGridOrderAmendRequest)`
+
 ## Tips
 
 - The grid client has both simple positional overloads and rich request-model flows.

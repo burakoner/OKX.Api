@@ -22,8 +22,6 @@ var putCall = await api.Rubik.GetPutCallRatioAsync("BTC-USD", OkxPeriod.OneDay);
 
 ## Method Catalog
 
-Overload note: many Rubik methods also support typed request models for range-based filters.
-
 ### Discovery
 
 - `GetSupportCoinAsync`
@@ -50,6 +48,25 @@ Overload note: many Rubik methods also support typed request models for range-ba
 - `GetTakerVolumeAsync`
 - `GetContractTakerVolumeAsync`
 - `GetTakerFlowAsync`
+
+## Request-Model Overloads
+
+The following `Rubik` / `TradingStatistics` methods have typed request-model overloads in addition to the shorter positional signatures:
+
+- `GetContractOpenInterestHistoryAsync(OkxRubikInstrumentPeriodRangeRequest)`
+- `GetTakerVolumeAsync(OkxRubikTakerVolumeRequest)`
+- `GetContractTakerVolumeAsync(OkxRubikContractTakerVolumeRequest)`
+- `GetMarginLendingRatioAsync(OkxRubikCurrencyPeriodRangeRequest)`
+- `GetTopTradersContractLongShortRatioAsync(OkxRubikInstrumentPeriodRangeRequest)`
+- `GetTopTradersContractLongShortRatioByPositionAsync(OkxRubikInstrumentPeriodRangeRequest)`
+- `GetContractLongShortRatioAsync(OkxRubikInstrumentPeriodRangeRequest)`
+- `GetLongShortRatioAsync(OkxRubikCurrencyPeriodRangeRequest)`
+- `GetContractSummaryAsync(OkxRubikCurrencyPeriodRangeRequest)`
+- `GetOptionsSummaryAsync(OkxRubikOptionPeriodRequest)`
+- `GetPutCallRatioAsync(OkxRubikOptionPeriodRequest)`
+- `GetInterestVolumeExpiryAsync(OkxRubikOptionPeriodRequest)`
+- `GetInterestVolumeStrikeAsync(OkxRubikOptionStrikeRequest)`
+- `GetTakerFlowAsync(OkxRubikOptionPeriodRequest)`
 
 ## Tips
 

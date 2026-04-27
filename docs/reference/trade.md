@@ -37,8 +37,6 @@ await api.Trade.CancelAllAfterAsync(30);
 
 ## Method Catalog
 
-Overload note: query-heavy methods such as open orders, order history, trades history, close position, and precheck also support typed request-model overloads.
-
 ### Order Placement and Management
 
 - `PlaceOrderAsync`
@@ -76,6 +74,18 @@ Overload note: query-heavy methods such as open orders, order history, trades hi
 - `CancelAllAfterAsync`
 - `GetAccountRateLimitAsync`
 - `OrderPrecheckAsync`
+
+## Request-Model Overloads
+
+The following `Trade` methods have typed request-model overloads in addition to the shorter positional signatures:
+
+- `ClosePositionAsync(OkxTradeClosePositionRequest)`
+- `GetOpenOrdersAsync(OkxTradeOpenOrdersRequest)`
+- `GetOrderHistoryAsync(OkxTradeOrderQueryRequest)`
+- `GetOrderArchiveAsync(OkxTradeOrderQueryRequest)`
+- `GetTradesAsync(OkxTradeTransactionQueryRequest)`
+- `GetTradesHistoryAsync(OkxTradeTransactionQueryRequest)`
+- `OrderPrecheckAsync(OkxTradeOrderPrecheckRequest)`
 
 ## Tips
 

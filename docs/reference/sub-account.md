@@ -33,8 +33,6 @@ var apiKey = await api.SubAccount.CreateSubAccountApiKeyAsync(
 
 ## Method Catalog
 
-Overload note: list, create, API-key reset, bills, managed bills, and transfer methods also expose typed request-model overloads.
-
 ### Account and API Key Management
 
 - `GetSubAccountsAsync`
@@ -57,6 +55,18 @@ Overload note: list, create, API-key reset, bills, managed bills, and transfer m
 - `TransferBetweenSubAccountsAsync`
 - `SetPermissionOfTransferOutAsync`
 - `GetCustodySubAccountsAsync`
+
+## Request-Model Overloads
+
+The following `SubAccount` methods have typed request-model overloads in addition to the shorter positional signatures:
+
+- `GetSubAccountsAsync(OkxSubAccountListRequest)`
+- `CreateSubAccountAsync(OkxSubAccountCreateRequest)`
+- `CreateSubAccountApiKeyAsync(OkxSubAccountApiKeyCreateRequest)`
+- `ResetSubAccountApiKeyAsync(OkxSubAccountApiKeyResetRequest)`
+- `GetSubAccountBillsAsync(OkxSubAccountBillQueryRequest)`
+- `GetSubAccountManagedBillsAsync(OkxSubAccountManagedBillQueryRequest)`
+- `TransferBetweenSubAccountsAsync(OkxSubAccountTransferRequest)`
 
 ## Tips
 

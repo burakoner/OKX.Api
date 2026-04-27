@@ -53,8 +53,6 @@ var markets = await api.Public.GetEventContractMarketsAsync("series-id", eventId
 
 ## Method Catalog
 
-Overload note: candle, trade-history, instruments, delivery/settlement history, insurance fund, unit convert, economic calendar, and market-data-history methods also have typed request-model overloads.
-
 ### Market Data
 
 - `GetTickersAsync`
@@ -121,6 +119,30 @@ Overload note: candle, trade-history, instruments, delivery/settlement history, 
 - `GetSystemUpgradeStatusAsync`
 - `GetAnnouncementsAsync`
 - `GetAnnouncementTypesAsync`
+
+## Request-Model Overloads
+
+The following `Public` methods have typed request-model overloads in addition to the shorter positional signatures:
+
+- `GetCandlesticksAsync(OkxPublicCandlestickRequest)`
+- `GetCandlestickHistoryAsync(OkxPublicCandlestickRequest)`
+- `GetTradeHistoryAsync(OkxPublicTradeHistoryRequest)`
+- `GetInstrumentsAsync(OkxPublicInstrumentQueryRequest)`
+- `GetEventContractEventsAsync(OkxPublicEventContractEventsRequest)`
+- `GetEventContractMarketsAsync(OkxPublicEventContractMarketsRequest)`
+- `GetDeliveryExerciseHistoryAsync(OkxPublicDeliveryExerciseHistoryRequest)`
+- `GetSettlementHistoryAsync(OkxPublicSettlementHistoryRequest)`
+- `GetFundingRateHistoryAsync(OkxPublicFundingRateHistoryRequest)`
+- `GetOpenInterestsAsync(OkxPublicOpenInterestRequest)`
+- `GetPositionTiersAsync(OkxPublicPositionTierRequest)`
+- `GetInsuranceFundsAsync(OkxPublicInsuranceFundQueryRequest)`
+- `GetUnitConvertAsync(OkxPublicUnitConvertRequest)`
+- `GetIndexCandlesticksAsync(OkxPublicCandlestickRequest)`
+- `GetIndexCandlesticksHistoryAsync(OkxPublicCandlestickRequest)`
+- `GetMarkPriceCandlesticksAsync(OkxPublicCandlestickRequest)`
+- `GetMarkPriceCandlesticksHistoryAsync(OkxPublicCandlestickRequest)`
+- `GetEconomicCalendarDataAsync(OkxPublicEconomicCalendarRequest)`
+- `GetMarketDataHistoryAsync(OkxPublicMarketDataHistoryQueryRequest)`
 
 ## Tips
 

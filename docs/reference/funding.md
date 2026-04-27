@@ -40,8 +40,6 @@ var quote = await api.Funding.EstimateQuoteAsync(
 
 ## Method Catalog
 
-Overload note: transfer, bills, deposit history, withdrawal history, convert, fiat, and buy/sell methods also expose typed request-model overloads.
-
 ### Balances and Valuation
 
 - `GetCurrenciesAsync`
@@ -100,6 +98,28 @@ Overload note: transfer, bills, deposit history, withdrawal history, convert, fi
 - `GetBuySellQuoteAsync`
 - `PlaceBuySellTradeAsync`
 - `GetBuySellTradeHistoryAsync`
+
+## Request-Model Overloads
+
+The following `Funding` methods have typed request-model overloads in addition to the shorter positional signatures:
+
+- `TransferAsync(OkxFundingTransferRequest)`
+- `TransferStateAsync(OkxFundingTransferStateRequest)`
+- `GetBillsAsync(OkxFundingBillQueryRequest)`
+- `GetBillsHistoryAsync(OkxFundingBillQueryRequest)`
+- `GetDepositHistoryAsync(OkxFundingDepositHistoryRequest)`
+- `WithdrawAsync(OkxFundingWithdrawalRequest)`
+- `GetWithdrawalHistoryAsync(OkxFundingWithdrawalHistoryRequest)`
+- `GetConvertCurrencyPairAsync(OkxFundingConvertCurrencyPairRequest)`
+- `EstimateQuoteAsync(OkxFundingConvertEstimateQuoteRequest)`
+- `PlaceConvertOrderAsync(OkxFundingConvertOrderRequest)`
+- `GetConvertHistoryAsync(OkxFundingConvertHistoryRequest)`
+- `CreateWithdrawalOrderAsync(OkxFundingFiatWithdrawalOrderRequest)`
+- `GetWithdrawalOrderHistoryAsync(OkxFundingFiatOrderHistoryRequest)`
+- `GetDepositOrderHistoryAsync(OkxFundingFiatOrderHistoryRequest)`
+- `GetBuySellQuoteAsync(OkxFundingBuySellQuoteRequest)`
+- `PlaceBuySellTradeAsync(OkxFundingBuySellTradeRequest)`
+- `GetBuySellTradeHistoryAsync(OkxFundingBuySellHistoryRequest)`
 
 ## Tips
 

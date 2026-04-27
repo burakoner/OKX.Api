@@ -43,8 +43,6 @@ await api.Account.SetTradingConfigAsync(OkxAccountStrategyType.DeltaNeutral);
 
 ## Method Catalog
 
-Overload note: long filter-heavy methods such as bills, positions history, loan queries, and account reports also support typed request-model overloads.
-
 ### Bills, Balances, and Positions
 
 - `GetBillTypesAsync`
@@ -111,6 +109,18 @@ Overload note: long filter-heavy methods such as bills, positions history, loan 
 - `GetMmpAsync`
 - `MovePositionsAsync`
 - `SetAutoEarnAsync`
+
+## Request-Model Overloads
+
+The following `Account` methods have typed request-model overloads in addition to the shorter positional signatures:
+
+- `GetPositionsHistoryAsync(OkxAccountPositionsHistoryRequest)`
+- `GetBillHistoryAsync(OkxAccountBillQueryRequest)`
+- `GetBillArchiveAsync(OkxAccountBillQueryRequest)`
+- `SetLeverageAsync(OkxAccountSetLeverageRequest)`
+- `GetMaximumLoanAmountAsync(OkxAccountMaximumLoanAmountRequest)`
+- `GetInterestAccruedAsync(OkxAccountInterestAccruedRequest)`
+- `GetBorrowRepayHistoryAsync(OkxAccountBorrowRepayHistoryRequest)`
 
 ## Tips
 

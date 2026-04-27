@@ -41,6 +41,13 @@ var cycles = await api.DCA.GetCyclesAsync(123456789);
 - `AddMarginAsync`
 - `ReduceMarginAsync`
 
+## Request-Model Overloads
+
+The following `DCA` methods have typed request-model overloads alongside their longer positional signatures:
+
+- `PlaceOrderAsync(OkxDcaCreateOrderRequest)`
+- `AmendOrderAsync(OkxDcaAmendOrderRequest)`
+
 ## Tips
 
 - DCA strategies are account-changing operations; do not treat examples as safe read-only calls.

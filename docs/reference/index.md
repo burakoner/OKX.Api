@@ -18,7 +18,7 @@ var funding = await api.Funding.GetBalancesAsync();
 ## Notes
 
 - The pages document functional methods once.
-- If a method also has a typed request-model overload, that is mentioned on the page instead of being listed as a separate endpoint.
+- If a method also has a typed request-model overload, the section page lists it explicitly under `Request-Model Overloads`.
 - Authentication requirements are called out per section.
 
 ## Section Pages

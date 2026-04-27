@@ -40,8 +40,6 @@ var trades = await api.Spread.GetTradesAsync("BTC-USDT_BTC-USD-SWAP");
 
 ## Method Catalog
 
-Overload note: open-order, order-history, order-archive, private-trade, spread-list, and candlestick queries also support typed request-model overloads.
-
 ### Private Trading
 
 - `PlaceOrderAsync`
@@ -63,6 +61,20 @@ Overload note: open-order, order-history, order-archive, private-trade, spread-l
 - `GetTradesAsync`
 - `GetCandlesticksAsync`
 - `GetCandlesticksHistoryAsync`
+
+## Request-Model Overloads
+
+The following `Spread` methods have typed request-model overloads in addition to the shorter positional signatures:
+
+- `PlaceOrderAsync(OkxSpreadRestOrderPlaceRequest)`
+- `AmendOrderAsync(OkxSpreadRestOrderAmendRequest)`
+- `GetOpenOrdersAsync(OkxSpreadOrderQueryRequest)`
+- `GetOrderHistoryAsync(OkxSpreadOrderQueryRequest)`
+- `GetOrderArchiveAsync(OkxSpreadOrderQueryRequest)`
+- `GetTradesAsync(OkxSpreadTradeQueryRequest)` for private spread trade history
+- `GetSpreadsAsync(OkxSpreadInstrumentQueryRequest)`
+- `GetCandlesticksAsync(OkxSpreadCandlestickRequest)`
+- `GetCandlesticksHistoryAsync(OkxSpreadCandlestickRequest)`
 
 ## Tips
 
