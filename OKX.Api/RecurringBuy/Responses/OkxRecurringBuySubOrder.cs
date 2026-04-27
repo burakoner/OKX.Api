@@ -65,13 +65,33 @@ public record OkxRecurringBuySubOrder
     /// Non-Margin mode : cash
     /// </summary>
     [JsonProperty("tdMode")]
-    public OkxTradeMode TradeMode { get; set; }
+    public OkxTradeMode? TradeMode { get; set; }
     
     /// <summary>
     /// Sub order type
     /// </summary>
     [JsonProperty("ordType")]
-    public OkxTradeOrderType OrderType { get; set; }
+    public string OrderTypeLabel { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Standard trade order type when the recurring buy sub-order uses a normal exchange order label.
+    /// Returns null for recurring-buy-specific values such as manual_add_order.
+    /// </summary>
+    [JsonIgnore]
+    public OkxTradeOrderType? OrderType
+    {
+        get
+        {
+            foreach (OkxTradeOrderType item in Enum.GetValues(typeof(OkxTradeOrderType)))
+            {
+                var label = MapConverter.GetString(item);
+                if (label != null && label.Equals(OrderTypeLabel, StringComparison.OrdinalIgnoreCase))
+                    return item;
+            }
+
+            return null;
+        }
+    }
 
     /// <summary>
     /// Sub order quantity to buy or sell
@@ -83,7 +103,7 @@ public record OkxRecurringBuySubOrder
     /// State
     /// </summary>
     [JsonProperty("state")]
-    public OkxRecurringBuyState State { get; set; }
+    public OkxRecurringBuySubOrderState State { get; set; }
     
     /// <summary>
     /// Sub order side
@@ -127,4 +147,16 @@ public record OkxRecurringBuySubOrder
     /// </summary>
     [JsonProperty("algoClOrdId")]
     public string AlgoClientOrderId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Order tag
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The quote currency for trading.
+    /// </summary>
+    [JsonProperty("tradeQuoteCcy")]
+    public string? TradeQuoteCurrency { get; set; }
 }

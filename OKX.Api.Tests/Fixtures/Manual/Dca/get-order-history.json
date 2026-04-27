@@ -1,0 +1,44 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "algoId": "124",
+      "algoOrdType": "contract_dca",
+      "instId": "ETH-USDT-SWAP",
+      "copyType": "0",
+      "state": "stopped",
+      "cancelType": "manual_stop",
+      "direction": "short",
+      "lever": "3",
+      "initOrdAmt": "80",
+      "safetyOrdAmt": "20",
+      "maxSafetyOrds": "1",
+      "pxSteps": "0.015",
+      "pxStepsMult": "1.1",
+      "volMult": "1.4",
+      "tpPct": "0.04",
+      "slPct": "0.03",
+      "slMode": "limit",
+      "allowReinvest": false,
+      "totalPnl": "7.25",
+      "pnlRatio": "0.09",
+      "fundingFee": "0.85",
+      "investmentAmt": "100",
+      "investmentCcy": "USDT",
+      "arbitragePnL": "2.5",
+      "transferInMargin": "5",
+      "profitSharingRatio": "0.1",
+      "trackingMode": "async",
+      "triggerParams": [
+        {
+          "triggerAction": "start",
+          "triggerStrategy": "webhook"
+        }
+      ],
+      "ctVal": "0.1",
+      "cTime": "1714100000000",
+      "uTime": "1714180000000"
+    }
+  ]
+}

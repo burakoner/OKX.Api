@@ -1,0 +1,29 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "algoId": "123",
+      "algoClOrdId": "position-01",
+      "algoOrdType": "contract_dca",
+      "instId": "BTC-USDT-SWAP",
+      "curCycleld": "88",
+      "startTime": "1714200000000",
+      "fillManualOrds": "2",
+      "fillSafetyOrds": "1",
+      "fundingFee": "0.25",
+      "initPx": "42000",
+      "notionalUsd": "250",
+      "avgPx": "42120",
+      "upl": "8.5",
+      "liqPx": "",
+      "sz": "3",
+      "baseSz": "",
+      "quoteSz": "120",
+      "slPx": "41000",
+      "tpPx": "43000",
+      "fee": "0.05",
+      "tradeQuoteCcy": "USDT"
+    }
+  ]
+}

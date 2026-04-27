@@ -1,0 +1,28 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "cycleId": "88",
+      "ordId": "9001",
+      "avgFillPx": "42050",
+      "direction": "long",
+      "side": "sell",
+      "ordType": "manual_close_position",
+      "px": "42000",
+      "sz": "2",
+      "filledSz": "2",
+      "state": "filled",
+      "fee": "0.03",
+      "rebate": "0",
+      "rebateCcy": "USDT",
+      "lever": "5",
+      "instId": "BTC-USDT-SWAP",
+      "ctVal": "0.01",
+      "fillTime": "1714210000000",
+      "cTime": "1714209000000",
+      "uTime": "1714210000001",
+      "tradeQuoteCcy": "USDT"
+    }
+  ]
+}

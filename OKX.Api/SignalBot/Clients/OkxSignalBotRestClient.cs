@@ -12,6 +12,16 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     /// <param name="description">Signal channel description</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
+    public Task<RestCallResult<OkxSignalBotChannel>> CreateSignalAsync(string name, string description = "", CancellationToken ct = default)
+        => CreateChannelAsync(name, description, ct);
+
+    /// <summary>
+    /// POST / Create signal
+    /// </summary>
+    /// <param name="name">Signal channel name</param>
+    /// <param name="description">Signal channel description</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
     public Task<RestCallResult<OkxSignalBotChannel>> CreateChannelAsync(string name, string description = "", CancellationToken ct = default)
     {
         var parameters = new ParameterCollection {
@@ -20,6 +30,25 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         };
         return ProcessOneRequestAsync<OkxSignalBotChannel>(GetUri("api/v5/tradingBot/signal/create-signal"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
+
+    /// <summary>
+    /// GET / Signals
+    /// </summary>
+    /// <param name="signalSourceType">Signal source type</param>
+    /// <param name="signalChannelId">Signal channel id</param>
+    /// <param name="after">Pagination of data to return records signalChanId earlier than the requested timestamp, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="before">Pagination of data to return records signalChanId newer than the requested timestamp, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxSignalBotChannelInformation>>> GetSignalsAsync(
+        OkxSignalBotSourceType signalSourceType,
+        long? signalChannelId = null,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+        => GetChannelsAsync(signalSourceType, signalChannelId, after, before, limit, ct);
 
     /// <summary>
     /// GET / Signals
@@ -202,7 +231,7 @@ public class OkxSignalBotRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
             { "algoOrdType", "contract" },
         };
 
-        return ProcessOneRequestAsync<OkxSignalBotOrder>(GetUri("api/v5/tradingBot/signal/orders-algo-details"), HttpMethod.Get, ct, signed: true, bodyParameters: parameters);
+        return ProcessOneRequestAsync<OkxSignalBotOrder>(GetUri("api/v5/tradingBot/signal/orders-algo-details"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>

@@ -175,9 +175,38 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("tpTriggerPx", takeProfitTriggerPrice?.ToOkxString());
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
         parameters.AddOptional("slRatio", stopLossRatio?.ToOkxString());
-        parameters.AddOptionalEnum("triggerParams", triggerParameters);
+        parameters.AddOptional("triggerParams", triggerParameters);
 
         return ProcessOneRequestAsync<OkxGridOrderAmendResponse>(GetUri("api/v5/tradingBot/grid/amend-order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Amend grid algo order basic parameters.
+    /// </summary>
+    /// <param name="algoOrderId">Algo ID</param>
+    /// <param name="minimumPrice">Minimum price range</param>
+    /// <param name="maximumPrice">Maximum price range</param>
+    /// <param name="gridNumber">Grid quantity</param>
+    /// <param name="topupAmount">Optional client-supplied top up investment amount. Only applicable to contract grid.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxGridBasicParameterAmendResponse>> AmendBasicParametersAsync(
+        long algoOrderId,
+        decimal minimumPrice,
+        decimal maximumPrice,
+        int gridNumber,
+        decimal? topupAmount = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            { "algoId", algoOrderId.ToOkxString() },
+            { "minPx", minimumPrice.ToOkxString() },
+            { "maxPx", maximumPrice.ToOkxString() },
+            { "gridNum", gridNumber.ToOkxString() },
+        };
+        parameters.AddOptional("topupAmount", topupAmount?.ToOkxString());
+
+        return ProcessOneRequestAsync<OkxGridBasicParameterAmendResponse>(GetUri("api/v5/tradingBot/grid/amend-algo-basic-param"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -227,7 +256,7 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     {
         var parameters = new ParameterCollection {
             { "algoId", algoOrderId.ToOkxString() },
-            { "instId", marketClose },
+            { "mktClose", marketClose },
         };
         parameters.AddOptional("sz", size?.ToOkxString());
         parameters.AddOptional("px", price?.ToOkxString());
@@ -253,6 +282,51 @@ public class OkxGridRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         };
 
         return ProcessOneRequestAsync<OkxGridOrderCloseResponse>(GetUri("api/v5/tradingBot/grid/cancel-close-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Copy grid algo order.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
+    /// <param name="algoOrderType">Algo order type</param>
+    /// <param name="sourceAlgoOrderId">Lead algo order ID to follow and copy from</param>
+    /// <param name="quoteSize">Quote currency investment amount. Only applicable to spot grid.</param>
+    /// <param name="leverage">Leverage. Only applicable to contract grid.</param>
+    /// <param name="autoReserve">Whether to auto-reserve margin. Only applicable to contract grid.</param>
+    /// <param name="size">Total investment amount in USDT. Required when autoReserve is true. Only applicable to contract grid.</param>
+    /// <param name="actualMarginSize">Actual margin. Required when autoReserve is false. Only applicable to contract grid.</param>
+    /// <param name="extraMarginSize">Extra margin reserved. Only applicable to contract grid.</param>
+    /// <param name="algoClientOrderId">Client-supplied Algo ID.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxGridPlaceOrderResponse>> CopyOrderAsync(
+        string instrumentId,
+        OkxGridAlgoOrderType algoOrderType,
+        long sourceAlgoOrderId,
+        decimal? quoteSize = null,
+        decimal? leverage = null,
+        bool? autoReserve = null,
+        decimal? size = null,
+        decimal? actualMarginSize = null,
+        decimal? extraMarginSize = null,
+        string? algoClientOrderId = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            { "instId", instrumentId },
+            { "sourceAlgoId", sourceAlgoOrderId.ToOkxString() },
+        };
+        parameters.AddEnum("algoOrdType", algoOrderType);
+        parameters.AddOptional("quoteSz", quoteSize?.ToOkxString());
+        parameters.AddOptional("lever", leverage?.ToOkxString());
+        parameters.AddOptional("autoReserve", autoReserve);
+        parameters.AddOptional("sz", size?.ToOkxString());
+        parameters.AddOptional("actualMarginSz", actualMarginSize?.ToOkxString());
+        parameters.AddOptional("extraMarginSz", extraMarginSize?.ToOkxString());
+        parameters.AddOptional("algoClOrdId", algoClientOrderId);
+        parameters.AddOptional("tag", OkxConstants.BrokerId);
+
+        return ProcessOneRequestAsync<OkxGridPlaceOrderResponse>(GetUri("api/v5/tradingBot/grid/copy-order-algo"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>

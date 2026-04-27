@@ -100,6 +100,131 @@ public class OkxRecurringBuyRestClient(OkxRestApiClient root) : OkxBaseRestClien
     }
 
     /// <summary>
+    /// Amend recurring buy time.
+    /// </summary>
+    /// <param name="algoOrderId">Algo ID</param>
+    /// <param name="recurringTimeType">Recurring buy time type</param>
+    /// <param name="period">Period</param>
+    /// <param name="timeZone">UTC time zone, the value range is an integer of [-12,14]</param>
+    /// <param name="recurringHour">Required when period is hourly</param>
+    /// <param name="recurringDay">Only required when recurringTimeType is custom time</param>
+    /// <param name="recurringTime">Only required when recurringTimeType is custom time</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxRecurringBuyOrderResponse>> AmendRecurringTimeAsync(
+        long algoOrderId,
+        OkxRecurringBuyTimeType recurringTimeType,
+        OkxRecurringBuyPeriod period,
+        string timeZone,
+        int? recurringHour = null,
+        int? recurringDay = null,
+        int? recurringTime = null,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            { "algoId", algoOrderId.ToOkxString() },
+            { "timeZone", timeZone },
+        };
+        parameters.AddEnum("recurringTimeType", recurringTimeType);
+        parameters.AddEnum("period", period);
+        parameters.AddOptional("recurringHour", recurringHour?.ToOkxString());
+        parameters.AddOptional("recurringDay", recurringDay?.ToOkxString());
+        parameters.AddOptional("recurringTime", recurringTime?.ToOkxString());
+
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/amend-recurring-time"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Amend recurring buy amount.
+    /// </summary>
+    /// <param name="algoOrderId">Algo ID</param>
+    /// <param name="amount">Amended recurring buy amount</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxRecurringBuyOrderResponse>> AmendRecurringAmountAsync(
+        long algoOrderId,
+        decimal amount,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            { "algoId", algoOrderId.ToOkxString() },
+            { "amount", amount.ToOkxString() },
+        };
+
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/amend-recurring-amount"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Add recurring buy investment.
+    /// </summary>
+    /// <param name="algoOrderId">Algo ID</param>
+    /// <param name="amount">Additional investment amount</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxRecurringBuyOrderResponse>> AddInvestmentAsync(
+        long algoOrderId,
+        decimal amount,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            { "algoId", algoOrderId.ToOkxString() },
+            { "amount", amount.ToOkxString() },
+        };
+
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/add-investment"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Pause recurring buy.
+    /// </summary>
+    /// <param name="algoOrderId">Algo ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxRecurringBuyOrderResponse>> PauseAsync(long algoOrderId, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            { "algoId", algoOrderId.ToOkxString() },
+        };
+
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/pause"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Restart recurring buy.
+    /// </summary>
+    /// <param name="algoOrderId">Algo ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxRecurringBuyOrderResponse>> RestartAsync(long algoOrderId, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            { "algoId", algoOrderId.ToOkxString() },
+        };
+
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/restart"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Amend recurring buy price range settings.
+    /// </summary>
+    /// <param name="algoOrderId">Algo ID</param>
+    /// <param name="recurringList">Price range settings</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxRecurringBuyOrderResponse>> AmendPriceRangeAsync(
+        long algoOrderId,
+        IEnumerable<OkxRecurringBuyPriceRange> recurringList,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            { "algoId", algoOrderId.ToOkxString() },
+            { "recurringList", recurringList },
+        };
+
+        return ProcessOneRequestAsync<OkxRecurringBuyOrderResponse>(GetUri("api/v5/tradingBot/recurring/amend-price-range"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
     /// Recurring buy order list
     /// </summary>
     /// <param name="algoOrderId">Algo ID</param>

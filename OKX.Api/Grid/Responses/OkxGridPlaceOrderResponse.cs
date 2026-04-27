@@ -16,4 +16,10 @@ public record OkxGridPlaceOrderResponse : OkxRestApiErrorBase
     /// </summary>
     [JsonProperty("algoClOrdId")]
     public string AlgoClientOrderId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Order tag
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
 }

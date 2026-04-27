@@ -41,6 +41,11 @@ public class OkxRestApiClient
     public OkxGridRestClient Grid { get; } // 813
 
     /// <summary>
+    /// DCA Trading Client
+    /// </summary>
+    public OkxDcaRestClient Dca { get; } // 813
+
+    /// <summary>
     /// Signal Trading Client
     /// </summary>
     public OkxSignalBotRestClient SignalBot { get; } // 813
@@ -137,6 +142,7 @@ public class OkxRestApiClient
         Trade = new OkxTradeRestClient(this);
         Algo = new OkxAlgoRestClient(this);
         Grid = new OkxGridRestClient(this);
+        Dca = new OkxDcaRestClient(this);
         SignalBot = new OkxSignalBotRestClient(this);
         RecurringBuy = new OkxRecurringBuyRestClient(this);
         CopyTrading = new OkxCopyTradingRestClient(this);
@@ -175,6 +181,7 @@ public class OkxRestApiClient
         Trade.SetApiCredentials(credentials);
         Algo.SetApiCredentials(credentials);
         Grid.SetApiCredentials(credentials);
+        Dca.SetApiCredentials(credentials);
         SignalBot.SetApiCredentials(credentials);
         RecurringBuy.SetApiCredentials(credentials);
         CopyTrading.SetApiCredentials(credentials);

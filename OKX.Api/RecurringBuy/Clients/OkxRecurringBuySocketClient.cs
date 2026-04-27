@@ -25,20 +25,29 @@ public class OkxRecurringBuySocketClient(OkxWebSocketApiClient root)
         long? algoOrderId = null,
         CancellationToken ct = default)
     {
-        var args = new OkxSocketRequestArgument
-        {
-            Channel = "algo-recurring-buy",
-            InstrumentType = instrumentType,
-        };
-        if(algoOrderId.HasValue)args.AlgoOrderId = algoOrderId.ToOkxString();
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, args);
-
+        var subscription = CreateOrderUpdatesSubscription(instrumentType, algoOrderId);
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxRecurringBuyOrder>>>>(data =>
         {
             foreach (var d in data.Data.Data)
                 if (d is not null) onData(d);
         });
 
-        return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await _.RootSubscribeAsync(subscription.Endpoint, subscription.Request, null, subscription.Authenticated, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    private static (OkxSocketEndpoint Endpoint, bool Authenticated, OkxSocketRequest Request) CreateOrderUpdatesSubscription(OkxInstrumentType instrumentType, long? algoOrderId)
+    {
+        if (instrumentType is not OkxInstrumentType.Spot and not OkxInstrumentType.Any)
+            throw new ArgumentException("Recurring buy orders channel only supports SPOT or ANY instrument types.", nameof(instrumentType));
+
+        var args = new OkxSocketRequestArgument
+        {
+            Channel = "algo-recurring-buy",
+            InstrumentType = instrumentType,
+        };
+        if (algoOrderId.HasValue)
+            args.AlgoOrderId = algoOrderId.ToOkxString();
+
+        return (OkxSocketEndpoint.Business, true, new OkxSocketRequest(OkxSocketOperation.Subscribe, args));
     }
 }

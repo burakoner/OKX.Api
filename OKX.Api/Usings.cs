@@ -20,6 +20,7 @@ global using OKX.Api.Block;
 global using OKX.Api.Broker;
 global using OKX.Api.Common;
 global using OKX.Api.CopyTrading;
+global using OKX.Api.Dca;
 global using OKX.Api.Financial;
 global using OKX.Api.Funding;
 global using OKX.Api.Grid;

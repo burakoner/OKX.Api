@@ -1,0 +1,59 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "algoId": "2837428373700509696",
+      "algoClOrdId": "recurring-01",
+      "instType": "SPOT",
+      "cTime": "1714200000000",
+      "uTime": "1714203600000",
+      "algoOrdType": "recurring",
+      "state": "running",
+      "stgyName": "Weekly accumulation",
+      "recurringList": [
+        {
+          "ccy": "BTC",
+          "ratio": "0.6",
+          "minPx": "30000",
+          "maxPx": "60000",
+          "totalAmt": "0.12",
+          "profit": "25.5",
+          "avgPx": "42000",
+          "px": "43000"
+        },
+        {
+          "ccy": "ETH",
+          "ratio": "0.4",
+          "minPx": "",
+          "maxPx": "",
+          "totalAmt": "1.5",
+          "profit": "10",
+          "avgPx": "2200",
+          "px": "2300"
+        }
+      ],
+      "period": "weekly",
+      "recurringDay": "3",
+      "recurringTime": "12",
+      "timeZone": "3",
+      "amt": "20",
+      "investmentAmt": "120",
+      "investmentCcy": "USDT",
+      "nextInvestTime": "1714286400000",
+      "tag": "broker-tag",
+      "source": [
+        "1",
+        "3"
+      ],
+      "recurringTimeType": "1",
+      "recurringTimeMinutes": "45",
+      "totalPnl": "35.5",
+      "totalAnnRate": "0.12",
+      "pnlRatio": "0.08",
+      "mktCap": "155.3",
+      "cycles": "6",
+      "tradeQuoteCcy": "USDT"
+    }
+  ]
+}

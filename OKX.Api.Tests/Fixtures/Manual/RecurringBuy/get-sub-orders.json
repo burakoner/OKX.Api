@@ -1,0 +1,50 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "accFillSz": "0.045315",
+      "algoClOrdId": "",
+      "algoId": "560516615079727104",
+      "algoOrdType": "recurring",
+      "avgPx": "1765.4",
+      "cTime": "1679911222200",
+      "fee": "-0.0000317205",
+      "feeCcy": "ETH",
+      "instId": "ETH-USDC",
+      "instType": "SPOT",
+      "ordId": "560523524230717440",
+      "ordType": "market",
+      "px": "-1",
+      "side": "buy",
+      "state": "filled",
+      "sz": "80",
+      "tag": "",
+      "tdMode": "",
+      "uTime": "1679911222207",
+      "tradeQuoteCcy": "USDC"
+    },
+    {
+      "accFillSz": "0",
+      "algoClOrdId": "manual-add-01",
+      "algoId": "560516615079727104",
+      "algoOrdType": "recurring",
+      "avgPx": "0",
+      "cTime": "1679911223200",
+      "fee": "0",
+      "feeCcy": "USDT",
+      "instId": "BTC-USDT",
+      "instType": "SPOT",
+      "ordId": "560523524230717441",
+      "ordType": "manual_add_order",
+      "px": "42000",
+      "side": "buy",
+      "state": "canceled",
+      "sz": "20",
+      "tag": "broker-tag",
+      "tdMode": "cash",
+      "uTime": "1679911223207",
+      "tradeQuoteCcy": "USDT"
+    }
+  ]
+}

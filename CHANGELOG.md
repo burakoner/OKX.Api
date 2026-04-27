@@ -78,6 +78,11 @@
   - Fixed funding withdrawal receiver serialization so `rcvrStreetName` is emitted with the correct JSON key and aligned convert quote parsing so `rfqSzCcy` stays a currency code string
   - Added detailed funding status and convert-currency metadata models, required the documented `ccy` filter on deposit-address requests, and exposed the optional `ccy` filter on currencies requests
   - Hardened Funding Account response parsing for live `addrEx` attachments and empty-string numeric/timestamp fields in currency metadata
+  - Added `Dca` REST client coverage for the documented DCA Trading surface, including place/amend/stop/order-history flows, manual buy, reinvestment/take-profit settings, position details, cycle history, and margin adjustment endpoints
+  - Fixed Grid Trading request parity by sending `mktClose` on contract-grid close requests, serializing `triggerParams` as structured payloads, and adding the documented `copy-order-algo` and `amend-algo-basic-param` endpoints
+  - Fixed Signal Bot order-details requests to use GET query parameters and added docs-aligned `CreateSignalAsync` and `GetSignalsAsync` aliases alongside the existing channel-centric methods
+  - Expanded Recurring Buy with the six missing management endpoints, corrected its private order-updates channel to use the authenticated `/ws/v5/business` socket, and aligned recurring-order models with current docs fields and states
+  - Added Order Book Trading contract and local client-behavior test coverage for DCA, Grid, Signal Bot, and Recurring Buy request/response parity
   - Added Funding Account contract, local client-behavior, and safe live integration coverage, with rate-limited live endpoints now skipping instead of failing the suite on OKX `50011` responses
 
 - Version 5.6.216 - 16 Feb 2026

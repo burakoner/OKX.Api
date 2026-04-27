@@ -1,0 +1,47 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "algoId": "123",
+      "algoOrdType": "contract_dca",
+      "instId": "BTC-USDT-SWAP",
+      "copyType": "3",
+      "state": "running",
+      "cancelType": "",
+      "direction": "long",
+      "lever": "5",
+      "initOrdAmt": "50",
+      "safetyOrdAmt": "25",
+      "maxSafetyOrds": "2",
+      "pxSteps": "0.01",
+      "pxStepsMult": "1.2",
+      "volMult": "1.5",
+      "tpPct": "0.05",
+      "tpPxRange": "0.01",
+      "slPct": "0.02",
+      "slMode": "market",
+      "allowReinvest": true,
+      "totalPnl": "5.5",
+      "pnlRatio": "0.11",
+      "totalFundingFee": "1.25",
+      "investmentAmt": "150",
+      "investmentCcy": "USDT",
+      "arbitragePnL": "4.5",
+      "transferInMargin": "10",
+      "profitSharingRatio": "",
+      "trackingMode": "sync",
+      "triggerParams": [
+        {
+          "triggerAction": "start",
+          "triggerStrategy": "price",
+          "triggerPx": "45000"
+        }
+      ],
+      "ctVal": "0.01",
+      "cTime": "1714200000000",
+      "uTime": "1714203600000",
+      "tradeQuoteCcy": "USDT"
+    }
+  ]
+}

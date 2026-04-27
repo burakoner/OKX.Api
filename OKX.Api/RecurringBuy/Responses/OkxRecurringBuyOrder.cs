@@ -120,6 +120,45 @@ public record OkxRecurringBuyOrder
     public string InvestmentCurrency { get; set; } = string.Empty;
 
     /// <summary>
+    /// Next invest time, Unix timestamp format in milliseconds
+    /// </summary>
+    [JsonProperty("nextInvestTime"), JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? NextInvestmentTimestamp { get; set; }
+
+    /// <summary>
+    /// Next invest time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? NextInvestmentTime => NextInvestmentTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Order tag
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Funding source codes
+    /// 1: Trading account
+    /// 2: Funding account
+    /// 3: Simple earn account
+    /// </summary>
+    [JsonProperty("source")]
+    public List<string> SourceCodes { get; set; } = [];
+
+    /// <summary>
+    /// Recurring buy time type
+    /// </summary>
+    [JsonProperty("recurringTimeType")]
+    public OkxRecurringBuyTimeType? RecurringTimeType { get; set; }
+
+    /// <summary>
+    /// Recurring buy time in minutes
+    /// </summary>
+    [JsonProperty("recurringTimeMinutes")]
+    public int? RecurringTimeMinutes { get; set; }
+
+    /// <summary>
     /// Total PNL
     /// </summary>
     [JsonProperty("totalPnl")]
@@ -172,4 +211,40 @@ public record OkxRecurringBuyOrderList
     /// </summary>
     [JsonProperty("ratio")]
     public decimal Ratio { get; set; }
+
+    /// <summary>
+    /// Minimum price of price range. Null means no limit
+    /// </summary>
+    [JsonProperty("minPx"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? MinimumPrice { get; set; }
+
+    /// <summary>
+    /// Maximum price of price range. Null means no limit
+    /// </summary>
+    [JsonProperty("maxPx"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? MaximumPrice { get; set; }
+
+    /// <summary>
+    /// Accumulated quantity in unit of recurring buy currency
+    /// </summary>
+    [JsonProperty("totalAmt"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? TotalAmount { get; set; }
+
+    /// <summary>
+    /// Profit in unit of investment currency
+    /// </summary>
+    [JsonProperty("profit"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? Profit { get; set; }
+
+    /// <summary>
+    /// Average recurring buy price
+    /// </summary>
+    [JsonProperty("avgPx"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? AveragePrice { get; set; }
+
+    /// <summary>
+    /// Current market price
+    /// </summary>
+    [JsonProperty("px"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? CurrentPrice { get; set; }
 }

@@ -6,32 +6,26 @@
 public enum OkxRecurringBuyState : byte
 {
     /// <summary>
-    /// Live
+    /// Running
     /// </summary>
-    [Map("canceled")]
-    Live = 1,
+    [Map("running")]
+    Running = 1,
 
     /// <summary>
-    /// Filled
+    /// Stopping
     /// </summary>
-    [Map("live")]
-    Filled = 2,
+    [Map("stopping")]
+    Stopping = 2,
 
     /// <summary>
-    /// PartiallyFilled
+    /// Stopped
     /// </summary>
-    [Map("partially_filled")]
-    PartiallyFilled = 3,
+    [Map("stopped")]
+    Stopped = 3,
 
     /// <summary>
-    /// Cancelling
+    /// Paused
     /// </summary>
-    [Map("filled")]
-    Cancelling = 4,
-
-    /// <summary>
-    /// Canceled
-    /// </summary>
-    [Map("cancelling")]
-    Canceled = 5
+    [Map("pause")]
+    Paused = 4
 }
