@@ -109,8 +109,8 @@ public record OkxPublicFundingRate
     /// If settState = processing, it is the funding rate that is being used for current settlement cycle.
     /// If settState = settled, it is the funding rate that is being used for previous settlement cycle
     /// </summary>
-    [JsonProperty("settFundingRate")]
-    public decimal SettlementFundingRate { get; set; }
+    [JsonProperty("settFundingRate"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? SettlementFundingRate { get; set; }
 
     /// <summary>
     /// Premium between the mid price of perps market and the index price

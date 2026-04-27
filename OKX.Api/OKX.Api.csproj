@@ -21,7 +21,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageReleaseNotes>Please refer to changelog at Github https://github.com/burakoner/OKX.Api/blob/master/CHANGELOG.md</PackageReleaseNotes>
+		<PackageReleaseNotes>Please refer to changelog at Github https://github.com/burakoner/OKX.Api/blob/master/docs/changelog/index.md</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/burakoner/OKX.Api</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/burakoner/OKX.Api</RepositoryUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
