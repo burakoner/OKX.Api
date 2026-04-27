@@ -23,47 +23,47 @@ public class OkxRestApiClient
     /// <summary>
     /// Trading Account Client
     /// </summary>
-    public OkxAccountRestClient Account { get; } // 812
+    public OkxAccountRestClient Account { get; }
 
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradeRestClient Trade { get; } // 812
+    public OkxTradeRestClient Trade { get; }
 
     /// <summary>
     /// Algo Trading Client
     /// </summary>
-    public OkxAlgoRestClient Algo { get; } // 813
+    public OkxAlgoRestClient Algo { get; }
 
     /// <summary>
     /// Grid Trading Client
     /// </summary>
-    public OkxGridRestClient Grid { get; } // 813
+    public OkxGridRestClient Grid { get; }
 
     /// <summary>
     /// DCA Trading Client
     /// </summary>
-    public OkxDcaRestClient Dca { get; } // 813
+    public OkxDcaRestClient DCA { get; }
 
     /// <summary>
     /// Signal Trading Client
     /// </summary>
-    public OkxSignalBotRestClient SignalBot { get; } // 813
+    public OkxSignalBotRestClient SignalBot { get; }
 
     /// <summary>
     /// Recurring Buy Client
     /// </summary>
-    public OkxRecurringBuyRestClient RecurringBuy { get; } // 813
+    public OkxRecurringBuyRestClient RecurringBuy { get; }
 
     /// <summary>
     /// Copy Trading Client
     /// </summary>
-    public OkxCopyTradingRestClient CopyTrading { get; } // 814
+    public OkxCopyTradingRestClient CopyTrading { get; }
 
     /// <summary>
     /// Market Data Client (Alias for Public)
     /// </summary>
-    public OkxPublicRestClient Market { get => Public; } // 814
+    public OkxPublicRestClient Market { get => Public; }
 
     /// <summary>
     /// Block Trading Client
@@ -78,7 +78,7 @@ public class OkxRestApiClient
     /// <summary>
     /// Public and Market Data Client
     /// </summary>
-    public OkxPublicRestClient Public { get; } // 814
+    public OkxPublicRestClient Public { get; }
 
     /// <summary>
     /// Trading Statistics Client
@@ -147,7 +147,7 @@ public class OkxRestApiClient
         Trade = new OkxTradeRestClient(this);
         Algo = new OkxAlgoRestClient(this);
         Grid = new OkxGridRestClient(this);
-        Dca = new OkxDcaRestClient(this);
+        DCA = new OkxDcaRestClient(this);
         SignalBot = new OkxSignalBotRestClient(this);
         RecurringBuy = new OkxRecurringBuyRestClient(this);
         CopyTrading = new OkxCopyTradingRestClient(this);
@@ -186,7 +186,7 @@ public class OkxRestApiClient
         Trade.SetApiCredentials(credentials);
         Algo.SetApiCredentials(credentials);
         Grid.SetApiCredentials(credentials);
-        Dca.SetApiCredentials(credentials);
+        DCA.SetApiCredentials(credentials);
         SignalBot.SetApiCredentials(credentials);
         RecurringBuy.SetApiCredentials(credentials);
         CopyTrading.SetApiCredentials(credentials);

@@ -1,4 +1,4 @@
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using OKX.Api.Dca;
 using OKX.Api.Grid;
 using OKX.Api.Tests.TestInfrastructure;
@@ -14,7 +14,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/create", "order-response.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.PlaceOrderAsync(new OkxDcaCreateOrderRequest
+        var result = await client.DCA.PlaceOrderAsync(new OkxDcaCreateOrderRequest
         {
             InstrumentId = "BTC-USDT-SWAP",
             AlgoOrderType = OkxDcaAlgoOrderType.ContractDca,
@@ -83,7 +83,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/amend-order-algo", "order-response.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.AmendOrderAsync(new OkxDcaAmendOrderRequest
+        var result = await client.DCA.AmendOrderAsync(new OkxDcaAmendOrderRequest
         {
             AlgoOrderId = 123,
             PriceStepRatio = 0.02m,
@@ -131,7 +131,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/stop", "order-response.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.StopOrderAsync(321, OkxDcaAlgoOrderType.ContractDca, OkxDcaStopType.Keep);
+        var result = await client.DCA.StopOrderAsync(321, OkxDcaAlgoOrderType.ContractDca, OkxDcaStopType.Keep);
 
         Assert.True(result.Success);
         var body = ParseBody(server);
@@ -146,7 +146,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/ongoing-list", "get-ongoing-orders.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.GetOrderAsync(123, OkxDcaAlgoOrderType.ContractDca);
+        var result = await client.DCA.GetOrderAsync(123, OkxDcaAlgoOrderType.ContractDca);
 
         Assert.True(result.Success);
         var request = Assert.Single(server.Requests);
@@ -160,7 +160,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/history-list", "get-order-history.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.GetOrderHistoryAsync(OkxDcaAlgoOrderType.ContractDca, 321, after: 100, before: 50, limit: 10);
+        var result = await client.DCA.GetOrderHistoryAsync(OkxDcaAlgoOrderType.ContractDca, 321, after: 100, before: 50, limit: 10);
 
         Assert.True(result.Success);
         var request = Assert.Single(server.Requests);
@@ -177,7 +177,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/orders", "get-sub-orders.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.GetSubOrdersAsync(123, OkxDcaAlgoOrderType.ContractDca, cycleId: 88, after: 10, before: 5, limit: 20);
+        var result = await client.DCA.GetSubOrdersAsync(123, OkxDcaAlgoOrderType.ContractDca, cycleId: 88, after: 10, before: 5, limit: 20);
 
         Assert.True(result.Success);
         var request = Assert.Single(server.Requests);
@@ -195,7 +195,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/orders/manual-buy", "manual-buy-response.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.ManualBuyAsync(456, OkxDcaAlgoOrderType.SpotDca, 42000m, 100m, OkxTradeOrderType.MarketOrder, "USDT");
+        var result = await client.DCA.ManualBuyAsync(456, OkxDcaAlgoOrderType.SpotDca, 42000m, 100m, OkxTradeOrderType.MarketOrder, "USDT");
 
         Assert.True(result.Success);
         var body = ParseBody(server);
@@ -214,7 +214,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/settings/reinvestment", "order-response.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.AmendReinvestmentAsync(654, OkxDcaAlgoOrderType.ContractDca, true);
+        var result = await client.DCA.AmendReinvestmentAsync(654, OkxDcaAlgoOrderType.ContractDca, true);
 
         Assert.True(result.Success);
         var body = ParseBody(server);
@@ -229,7 +229,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/settings/take-profit", "order-response.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.AmendTakeProfitAsync(654, OkxDcaAlgoOrderType.ContractDca, 52000m);
+        var result = await client.DCA.AmendTakeProfitAsync(654, OkxDcaAlgoOrderType.ContractDca, 52000m);
 
         Assert.True(result.Success);
         var body = ParseBody(server);
@@ -244,7 +244,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/position-details", "get-position-details.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.GetPositionDetailsAsync(987, OkxDcaAlgoOrderType.ContractDca);
+        var result = await client.DCA.GetPositionDetailsAsync(987, OkxDcaAlgoOrderType.ContractDca);
 
         Assert.True(result.Success);
         var request = Assert.Single(server.Requests);
@@ -258,7 +258,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/cycle-list", "get-cycle-list.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.GetCyclesAsync(777, OkxDcaAlgoOrderType.ContractDca, "BTC-USDT-SWAP", after: 9, before: 3, limit: 25);
+        var result = await client.DCA.GetCyclesAsync(777, OkxDcaAlgoOrderType.ContractDca, "BTC-USDT-SWAP", after: 9, before: 3, limit: 25);
 
         Assert.True(result.Success);
         var request = Assert.Single(server.Requests);
@@ -276,7 +276,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/margin/add", "order-response.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.AddMarginAsync(888, 25m);
+        var result = await client.DCA.AddMarginAsync(888, 25m);
 
         Assert.True(result.Success);
         var body = ParseBody(server);
@@ -290,7 +290,7 @@ public class OkxDcaClientBehaviorTests
         using var server = CreateServer("/api/v5/tradingBot/dca/margin/reduce", "order-response.json");
         var client = CreateClient(server);
 
-        var result = await client.Dca.ReduceMarginAsync(999, 10m);
+        var result = await client.DCA.ReduceMarginAsync(999, 10m);
 
         Assert.True(result.Success);
         var body = ParseBody(server);

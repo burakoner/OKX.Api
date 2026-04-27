@@ -1,5 +1,44 @@
 ﻿## Change Log & Release Notes
 
+- Version 5.6.427 - 27 Apr 2026
+  - Fixed Block Trading request serialization for `CreateRfqAsync` account allocations and `CreateQuoteAsync` client quote IDs, and aligned create-quote responses with the documented `Quote` model
+  - Expanded Block Trading RFQ, quote, trade, and public trade models with current documented metadata such as `tag`, `flowType`, `groupId`, `isSuccessful`, and `errorCode`
+  - Made `GET /api/v5/rfq/public-trades` a true public request, hardened empty-string block trade identifiers for parent-level public group RFQ responses, and added Block Trading contract plus public integration coverage
+  - Added `Financial.EthStaking.CancelRedeemAsync` for `POST /api/v5/finance/staking-defi/eth/cancel-redeem`
+  - Fixed ETH and SOL staking purchase/redeem helpers so documented `code=0, data=[]` responses now report success instead of `false`
+  - Extended on-chain earn response coverage with `tag`, completed history state `3`, `redeemedTime`, `realizedEarnings`, and nullable empty-string timestamp/amount handling
+  - Replaced on-chain earn purchase/redeem/cancel helpers with full `OkxFinancialOrderReference` responses so `ordId` and echoed `tag` are both preserved
+  - Added Financial Product contract and local client-behavior tests for staking, on-chain earn, and deprecated `redemptAmt` balance coverage
+  - Expanded Funding Account coverage with the 13 missing fiat deposit/withdrawal and buy/sell endpoints, including fiat payment methods, fiat order history/detail flows, and buy/sell quotes and trade history
+  - Fixed funding withdrawal receiver serialization so `rcvrStreetName` is emitted with the correct JSON key and aligned convert quote parsing so `rfqSzCcy` stays a currency code string
+  - Added detailed funding status and convert-currency metadata models, required the documented `ccy` filter on deposit-address requests, and exposed the optional `ccy` filter on currencies requests
+  - Hardened Funding Account response parsing for live `addrEx` attachments and empty-string numeric/timestamp fields in currency metadata
+  - Added `Dca` REST client coverage for the documented DCA Trading surface, including place/amend/stop/order-history flows, manual buy, reinvestment/take-profit settings, position details, cycle history, and margin adjustment endpoints
+  - Fixed Grid Trading request parity by sending `mktClose` on contract-grid close requests, serializing `triggerParams` as structured payloads, and adding the documented `copy-order-algo` and `amend-algo-basic-param` endpoints
+  - Fixed Signal Bot order-details requests to use GET query parameters and added docs-aligned `CreateSignalAsync` and `GetSignalsAsync` aliases alongside the existing channel-centric methods
+  - Expanded Recurring Buy with the six missing management endpoints, corrected its private order-updates channel to use the authenticated `/ws/v5/business` socket, and aligned recurring-order models with current docs fields and states
+  - Added Order Book Trading contract and local client-behavior test coverage for DCA, Grid, Signal Bot, and Recurring Buy request/response parity
+  - Added Funding Account contract, local client-behavior, and safe live integration coverage, with rate-limited live endpoints now skipping instead of failing the suite on OKX `50011` responses
+  - Fixed Public Data parity for security fund, interest-rate-loan-quota, discount-rate-interest-free-quota, economic calendar, liquidation orders, ADL warning, and live open-interest payloads
+  - Added `GetInsuranceFundsAsync` and `GetInterestRateLoanQuotaAsync`, kept the legacy single-item security fund helper for compatibility, and aligned economic-calendar REST and WebSocket flows with OKX's authenticated business-socket requirement
+  - Hardened Public Data models for empty-string numeric/timestamp fields, added current documented deprecated fields, corrected liquidation size and ADL `maxBalTs` mappings, and updated public open-interest parsing so `oi` supports fractional live values
+  - Added manual docs fixtures plus committed live production snapshots for discount info, interest-rate-loan-quota, security fund, underlying, option tick bands, open interest, index components, and authenticated economic calendar data, with new contract, client-behavior, and public integration coverage
+  - Aligned Spread Trading REST filters with current docs by making mass-cancel `sprdId` optional, adding `instType` and `instFamily` support to order-archive queries, and validating spread-only order state/type filters before requests are sent
+  - Implemented the Spread Trading WebSocket surface for place/amend/cancel/mass-cancel, private `sprd-orders` and `sprd-trades`, and public business-socket subscriptions for spread order books, public trades, tickers, and candlesticks
+  - Hardened Spread Trading models for documented empty-string fields such as `expTime`, `fillPx`, `tradeId`, `fillPnl`, `fee`, and `szCont`, added spread `tag` coverage, and expanded cancel-source handling with the latest `44` code
+  - Added manual docs fixtures plus committed live production spread snapshots for spread list, order book, ticker, public trades, and candlesticks, with new spread contract, socket, client-behavior, and live public integration coverage
+  - Aligned Sub Account request contracts by sending `CreateSubAccountAsync` as a documented JSON body, validating that only the OKX-supported sub-account types (`1`, `5`, `12`) are accepted there, making `SetPermissionOfTransferOutAsync` reflect the documented optional flag default, and making custody sub-account filtering optional
+  - Fixed Sub Account response fidelity by returning all rows from `GetSubAccountFundingBalancesAsync`, hardening maximum-withdrawal parsing for documented empty-string extended fields, correcting `canTransOut` to a boolean response, and expanding trading-balance coverage with current OKX delta, collateral, copy-trading, and auto-lend fields
+  - Added Sub Account manual contract fixtures, local client-behavior tests, and a safe live read-only integration test for sub-account list, trading balance, funding balance, and maximum withdrawal flows
+  - Fixed Trading Account parity by sending `position-builder-graph` `mmrConfig` as the documented object payload, returning every row from `GetPositionTiersAsync`, and handling empty-string `posType` values as nullable
+  - Added the missing `Account.SetTradingConfigAsync` and `Account.PrecheckSetDeltaNeutralAsync` endpoints with docs-aligned strategy response models and delta-neutral precheck coverage for `deltaLever`, `ordList`, and `posList`
+  - Updated Trading Account private WebSocket subscriptions so `account` and `positions` now send stringified `extraParams.updateInterval`, `liquidation-warning` accepts optional `instFamily` and `instId`, and `account-greeks` accepts optional `ccy`
+  - Added Trading Account manual contract fixtures, local client-behavior tests, socket contract coverage for private subscription payloads, and a safe live read-only delta-neutral precheck integration test
+  - Aligned Trading Statistics with current OKX docs by validating endpoint-specific period values, enforcing `SPOT`/`CONTRACTS` only for taker-volume requests, and adding a `TradingStatistics` alias on the root REST client for discoverability
+  - Corrected `GET /api/v5/rubik/stat/option/open-interest-volume-expiry` expiry handling so `expTime` is exposed as a `YYYYMMdd` date token with parsed `ExpiryDate`/`ExpiryDateTime` helpers instead of being treated as Unix milliseconds
+  - Added full Trading Statistics docs-shape fixtures plus committed live production snapshots for all 15 public endpoints, alongside new Rubik contract, client-behavior, and public integration coverage
+  - Hardened the live fixture capture script to save raw OKX JSON payloads instead of PowerShell re-serialized objects, and aligned the existing trade account-rate-limit live integration test with rate-limit skip behavior
+
 - Version 5.6.426 - 26 Apr 2026
   - Bumped package and assembly version to 5.6.426
   - Synced with the OKX API Version [2026-02-05](https://www.okx.com/docs-v5/log_en/#2026-02-05)
@@ -66,43 +105,6 @@
   - Split committed live snapshots into `Production` and `Demo` fixture sets to track environment-specific API behavior separately
   - Added demo availability coverage for public borrow history, which currently returns `50038` in demo trading
   - Fixed top-level OKX `code/msg` handling for generic REST responses so list and model endpoints no longer report API errors as successful calls
-  - Fixed Block Trading request serialization for `CreateRfqAsync` account allocations and `CreateQuoteAsync` client quote IDs, and aligned create-quote responses with the documented `Quote` model
-  - Expanded Block Trading RFQ, quote, trade, and public trade models with current documented metadata such as `tag`, `flowType`, `groupId`, `isSuccessful`, and `errorCode`
-  - Made `GET /api/v5/rfq/public-trades` a true public request, hardened empty-string block trade identifiers for parent-level public group RFQ responses, and added Block Trading contract plus public integration coverage
-  - Added `Financial.EthStaking.CancelRedeemAsync` for `POST /api/v5/finance/staking-defi/eth/cancel-redeem`
-  - Fixed ETH and SOL staking purchase/redeem helpers so documented `code=0, data=[]` responses now report success instead of `false`
-  - Extended on-chain earn response coverage with `tag`, completed history state `3`, `redeemedTime`, `realizedEarnings`, and nullable empty-string timestamp/amount handling
-  - Replaced on-chain earn purchase/redeem/cancel helpers with full `OkxFinancialOrderReference` responses so `ordId` and echoed `tag` are both preserved
-  - Added Financial Product contract and local client-behavior tests for staking, on-chain earn, and deprecated `redemptAmt` balance coverage
-  - Expanded Funding Account coverage with the 13 missing fiat deposit/withdrawal and buy/sell endpoints, including fiat payment methods, fiat order history/detail flows, and buy/sell quotes and trade history
-  - Fixed funding withdrawal receiver serialization so `rcvrStreetName` is emitted with the correct JSON key and aligned convert quote parsing so `rfqSzCcy` stays a currency code string
-  - Added detailed funding status and convert-currency metadata models, required the documented `ccy` filter on deposit-address requests, and exposed the optional `ccy` filter on currencies requests
-  - Hardened Funding Account response parsing for live `addrEx` attachments and empty-string numeric/timestamp fields in currency metadata
-  - Added `Dca` REST client coverage for the documented DCA Trading surface, including place/amend/stop/order-history flows, manual buy, reinvestment/take-profit settings, position details, cycle history, and margin adjustment endpoints
-  - Fixed Grid Trading request parity by sending `mktClose` on contract-grid close requests, serializing `triggerParams` as structured payloads, and adding the documented `copy-order-algo` and `amend-algo-basic-param` endpoints
-  - Fixed Signal Bot order-details requests to use GET query parameters and added docs-aligned `CreateSignalAsync` and `GetSignalsAsync` aliases alongside the existing channel-centric methods
-  - Expanded Recurring Buy with the six missing management endpoints, corrected its private order-updates channel to use the authenticated `/ws/v5/business` socket, and aligned recurring-order models with current docs fields and states
-  - Added Order Book Trading contract and local client-behavior test coverage for DCA, Grid, Signal Bot, and Recurring Buy request/response parity
-  - Added Funding Account contract, local client-behavior, and safe live integration coverage, with rate-limited live endpoints now skipping instead of failing the suite on OKX `50011` responses
-  - Fixed Public Data parity for security fund, interest-rate-loan-quota, discount-rate-interest-free-quota, economic calendar, liquidation orders, ADL warning, and live open-interest payloads
-  - Added `GetInsuranceFundsAsync` and `GetInterestRateLoanQuotaAsync`, kept the legacy single-item security fund helper for compatibility, and aligned economic-calendar REST and WebSocket flows with OKX's authenticated business-socket requirement
-  - Hardened Public Data models for empty-string numeric/timestamp fields, added current documented deprecated fields, corrected liquidation size and ADL `maxBalTs` mappings, and updated public open-interest parsing so `oi` supports fractional live values
-  - Added manual docs fixtures plus committed live production snapshots for discount info, interest-rate-loan-quota, security fund, underlying, option tick bands, open interest, index components, and authenticated economic calendar data, with new contract, client-behavior, and public integration coverage
-  - Aligned Spread Trading REST filters with current docs by making mass-cancel `sprdId` optional, adding `instType` and `instFamily` support to order-archive queries, and validating spread-only order state/type filters before requests are sent
-  - Implemented the Spread Trading WebSocket surface for place/amend/cancel/mass-cancel, private `sprd-orders` and `sprd-trades`, and public business-socket subscriptions for spread order books, public trades, tickers, and candlesticks
-  - Hardened Spread Trading models for documented empty-string fields such as `expTime`, `fillPx`, `tradeId`, `fillPnl`, `fee`, and `szCont`, added spread `tag` coverage, and expanded cancel-source handling with the latest `44` code
-  - Added manual docs fixtures plus committed live production spread snapshots for spread list, order book, ticker, public trades, and candlesticks, with new spread contract, socket, client-behavior, and live public integration coverage
-  - Aligned Sub Account request contracts by sending `CreateSubAccountAsync` as a documented JSON body, validating that only the OKX-supported sub-account types (`1`, `5`, `12`) are accepted there, making `SetPermissionOfTransferOutAsync` reflect the documented optional flag default, and making custody sub-account filtering optional
-  - Fixed Sub Account response fidelity by returning all rows from `GetSubAccountFundingBalancesAsync`, hardening maximum-withdrawal parsing for documented empty-string extended fields, correcting `canTransOut` to a boolean response, and expanding trading-balance coverage with current OKX delta, collateral, copy-trading, and auto-lend fields
-  - Added Sub Account manual contract fixtures, local client-behavior tests, and a safe live read-only integration test for sub-account list, trading balance, funding balance, and maximum withdrawal flows
-  - Fixed Trading Account parity by sending `position-builder-graph` `mmrConfig` as the documented object payload, returning every row from `GetPositionTiersAsync`, and handling empty-string `posType` values as nullable
-  - Added the missing `Account.SetTradingConfigAsync` and `Account.PrecheckSetDeltaNeutralAsync` endpoints with docs-aligned strategy response models and delta-neutral precheck coverage for `deltaLever`, `ordList`, and `posList`
-  - Updated Trading Account private WebSocket subscriptions so `account` and `positions` now send stringified `extraParams.updateInterval`, `liquidation-warning` accepts optional `instFamily` and `instId`, and `account-greeks` accepts optional `ccy`
-  - Added Trading Account manual contract fixtures, local client-behavior tests, socket contract coverage for private subscription payloads, and a safe live read-only delta-neutral precheck integration test
-  - Aligned Trading Statistics with current OKX docs by validating endpoint-specific period values, enforcing `SPOT`/`CONTRACTS` only for taker-volume requests, and adding a `TradingStatistics` alias on the root REST client for discoverability
-  - Corrected `GET /api/v5/rubik/stat/option/open-interest-volume-expiry` expiry handling so `expTime` is exposed as a `YYYYMMdd` date token with parsed `ExpiryDate`/`ExpiryDateTime` helpers instead of being treated as Unix milliseconds
-  - Added full Trading Statistics docs-shape fixtures plus committed live production snapshots for all 15 public endpoints, alongside new Rubik contract, client-behavior, and public integration coverage
-  - Hardened the live fixture capture script to save raw OKX JSON payloads instead of PowerShell re-serialized objects, and aligned the existing trade account-rate-limit live integration test with rate-limit skip behavior
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

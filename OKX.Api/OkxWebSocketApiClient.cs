@@ -8,37 +8,37 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
     /// <summary>
     /// Trading Account Client
     /// </summary>
-    public OkxAccountSocketClient Account { get; } // 812
+    public OkxAccountSocketClient Account { get; }
 
     /// <summary>
     /// Trading Client
     /// </summary>
-    public OkxTradeSocketClient Trade { get; } // 812
+    public OkxTradeSocketClient Trade { get; }
 
     /// <summary>
     /// Algo Trading Client
     /// </summary>
-    public OkxAlgoSocketClient Algo { get; } // 813
+    public OkxAlgoSocketClient Algo { get; }
 
     /// <summary>
     /// Grid Trading Client
     /// </summary>
-    public OkxGridSocketClient Grid { get; } // 813
+    public OkxGridSocketClient Grid { get; }
 
     /// <summary>
     /// Recurring Buy Client
     /// </summary>
-    public OkxRecurringBuySocketClient RecurringBuy { get; } // 813
+    public OkxRecurringBuySocketClient RecurringBuy { get; }
 
     /// <summary>
     /// Copy Trading Client
     /// </summary>
-    public OkxCopyTradingSocketClient CopyTrading { get; } // 814
+    public OkxCopyTradingSocketClient CopyTrading { get; }
 
     /// <summary>
     /// Market Data Client (Alias for Public)
     /// </summary>
-    public OkxPublicSocketClient Market { get => Public; } // 814
+    public OkxPublicSocketClient Market { get => Public; }
 
     /// <summary>
     /// Block Trading Client
@@ -53,7 +53,7 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
     /// <summary>
     /// Public and Market Data Client
     /// </summary>
-    public OkxPublicSocketClient Public { get; } // 814
+    public OkxPublicSocketClient Public { get; }
 
     /// <summary>
     /// Funding Account Client
