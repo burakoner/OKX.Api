@@ -77,6 +77,17 @@ public class OkxPublicDataContractTests
     }
 
     [Fact]
+    public void ManualEconomicCalendarFixture_AllowsEmptyReferenceDate()
+    {
+        var response = DeserializeRest<OkxPublicEconomicCalendarEvent>("Public", "get-economic-calendar-empty-refdate.json");
+
+        var item = Assert.Single(response.Data!);
+        Assert.Equal(419900L, item.CalendarId);
+        Assert.Null(item.ReferenceDatestamp);
+        Assert.Null(item.ReferenceDate);
+    }
+
+    [Fact]
     public void ManualOpenInterestFixture_ParsesFractionalOi()
     {
         var response = DeserializeRest<OkxPublicOpenInterest>("Public", "get-open-interest-fractional.json");

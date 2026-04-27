@@ -1,0 +1,23 @@
+{
+  "code": "0",
+  "data": [
+    {
+      "actual": "",
+      "calendarId": "419900",
+      "category": "Calendar",
+      "ccy": "",
+      "date": "1777299600000",
+      "dateSpan": "0",
+      "event": "NY Fed Bill Purchases 4 to 12 months",
+      "forecast": "$5.058 billion",
+      "importance": "1",
+      "prevInitial": "",
+      "previous": "",
+      "refDate": "",
+      "region": "United States",
+      "uTime": "1776438280937",
+      "unit": ""
+    }
+  ],
+  "msg": ""
+}

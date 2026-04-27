@@ -45,13 +45,14 @@ public record OkxPublicEconomicCalendarEvent
     /// Reference Date
     /// </summary>
     [JsonProperty("refDate")]
-    public long ReferenceDatestamp { get; set; }
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? ReferenceDatestamp { get; set; }
 
     /// <summary>
     /// Reference Date
     /// </summary>
     [JsonIgnore]
-    public DateTime ReferenceDate => ReferenceDatestamp.ConvertFromMilliseconds();
+    public DateTime? ReferenceDate => ReferenceDatestamp?.ConvertFromMilliseconds();
 
     /// <summary>
     /// Actual
