@@ -887,7 +887,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("simPos", simulatedPositions);
         parameters.AddOptional("simAsset", simulatedAssets);
         parameters.AddOptional("type", "mmr");
-        parameters.AddOptional("mmrConfig", "simulatedMmr");
+        parameters.AddOptional("mmrConfig", simulatedMmr);
 
         return ProcessListRequestAsync<OkxAccountPositionBuilderGraph>(GetUri("api/v5/account/position-builder-graph"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -936,7 +936,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="instrumentFamily">Single instrument family or instrument families (no more than 5) separated with comma. Either uly or instFamily is required. If both are passed, instFamily will be used.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxAccountPositionTiers>> GetPositionTiersAsync(
+    public Task<RestCallResult<List<OkxAccountPositionTiers>>> GetPositionTiersAsync(
     OkxInstrumentType instrumentType,
     string? instrumentFamily = null,
     CancellationToken ct = default)
@@ -945,7 +945,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptionalEnum("instType", instrumentType);
         parameters.AddOptional("instFamily", instrumentFamily);
 
-        return ProcessOneRequestAsync<OkxAccountPositionTiers>(GetUri("api/v5/account/position-tiers"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxAccountPositionTiers>(GetUri("api/v5/account/position-tiers"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -1226,5 +1226,36 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
 
         return ProcessOneRequestAsync<OkxAccountSettleCurrency>(GetUri("api/v5/account/set-settle-currency"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Set trading config
+    /// </summary>
+    /// <param name="strategyType">Strategy type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxAccountTradingConfig>> SetTradingConfigAsync(OkxAccountStrategyType strategyType, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "type", "stgyType" }
+        };
+        parameters.AddEnum("stgyType", strategyType);
+
+        return ProcessOneRequestAsync<OkxAccountTradingConfig>(GetUri("api/v5/account/set-trading-config"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Retrieve precheck information for setting delta neutral strategy.
+    /// </summary>
+    /// <param name="strategyType">Strategy type</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxAccountPrecheckSetDeltaNeutral>> PrecheckSetDeltaNeutralAsync(OkxAccountStrategyType strategyType, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("stgyType", strategyType);
+
+        return ProcessOneRequestAsync<OkxAccountPrecheckSetDeltaNeutral>(GetUri("api/v5/account/precheck-set-delta-neutral"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 }

@@ -1,0 +1,18 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "uly": "BTC-USDT",
+      "instFamily": "BTC-USDT",
+      "maxSz": "10000",
+      "posType": ""
+    },
+    {
+      "uly": "ETH-USDT",
+      "instFamily": "ETH-USDT",
+      "maxSz": "20000",
+      "posType": "1"
+    }
+  ]
+}

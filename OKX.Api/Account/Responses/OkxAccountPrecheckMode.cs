@@ -99,8 +99,22 @@ public record OkxAccountPrecheckModeUnmatchedInformation
     /// Total assets
     /// Only applicable when type is asset_validation, return "" for other scenarios
     /// </summary>
-    [JsonProperty("totalAsset")]
+    [JsonProperty("totalAsset"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? TotalAsset { get; set; }
+
+    /// <summary>
+    /// Delta leverage
+    /// Applicable when type is delta_risk
+    /// </summary>
+    [JsonProperty("deltaLever"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? DeltaLeverage { get; set; }
+
+    /// <summary>
+    /// Unmatched order list (ordId)
+    /// Applicable when type is related to pending orders, return [] for other scenarios
+    /// </summary>
+    [JsonProperty("ordList")]
+    public List<string>? OrderList { get; set; } = [];
 
     /// <summary>
     /// Unmatched position list (posId)
@@ -148,19 +162,19 @@ public record OkxAccountPrecheckModePositionTierCheck
     /// <summary>
     /// Quantity of position
     /// </summary>
-    [JsonProperty("pos")]
+    [JsonProperty("pos"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? Quantity { get; set; }
 
     /// <summary>
     /// Leverage
     /// </summary>
-    [JsonProperty("lever")]
+    [JsonProperty("lever"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? Leverage { get; set; }
 
     /// <summary>
     /// If acctLv is 2/3, it refers to the maximum position size allowed at the current leverage. If acctLv is 4, it refers to the maximum position limit for cross-margin positions under the PM mode.
     /// </summary>
-    [JsonProperty("maxSz")]
+    [JsonProperty("maxSz"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? MaximumSize { get; set; }
 }
 
@@ -173,14 +187,14 @@ public record OkxAccountPrecheckModeMargin
     /// Account available equity in USD
     /// Applicable when acctLv is 3/4, return "" for other scenarios
     /// </summary>
-    [JsonProperty("acctAvailEq")]
+    [JsonProperty("acctAvailEq"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? AvailableEquity { get; set; }
 
     /// <summary>
     /// Margin ratio in USD
     /// Applicable when acctLv is 3/4, return "" for other scenarios
     /// </summary>
-    [JsonProperty("mgnRatio")]
+    [JsonProperty("mgnRatio"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? MarginRatio { get; set; }
 
     /// <summary>
@@ -205,13 +219,13 @@ public record OkxAccountPrecheckModeMarginDetail
     /// <summary>
     /// Available equity of currency
     /// </summary>
-    [JsonProperty("availEq")]
+    [JsonProperty("availEq"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? AvailableEquity { get; set; }
 
     /// <summary>
     /// Margin ratio of currency
     /// </summary>
-    [JsonProperty("mgnRatio")]
+    [JsonProperty("mgnRatio"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? MarginRatio { get; set; }
 
 }

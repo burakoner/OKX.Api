@@ -169,7 +169,7 @@ public record OkxSocketRequestArgument
     /// <summary>
     /// Additional configuration
     /// </summary>
-    [JsonProperty("extraParams", NullValueHandling = NullValueHandling.Ignore)]
+    [JsonProperty("extraParams", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(OkxSocketExtraParametersConverter))]
     public Dictionary<string, string>? ExtraParameters { get; set; }
 
     /// <summary>

@@ -19,7 +19,7 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
             {
                 Channel = "account",
                 Currency = "BTC",
-                ExtraParameters = new Dictionary<string, string> { ["interval"] = "0" }
+                ExtraParameters = new Dictionary<string, string> { ["updateInterval"] = "0" }
             });
 
         var handled = client.InvokeHandleSubscriptionResponse(
@@ -27,12 +27,10 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
             JObject.Parse("""
             {
               "event": "subscribe",
-              "arg": {
+                "arg": {
                 "channel": "account",
                 "ccy": "BTC",
-                "extraParams": {
-                  "interval": "0"
-                }
+                "extraParams": "{\"updateInterval\":\"0\"}"
               }
             }
             """),
@@ -53,7 +51,7 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
             {
                 Channel = "account",
                 Currency = "BTC",
-                ExtraParameters = new Dictionary<string, string> { ["interval"] = "0" }
+                ExtraParameters = new Dictionary<string, string> { ["updateInterval"] = "0" }
             });
 
         var handled = client.InvokeHandleSubscriptionResponse(
@@ -61,12 +59,10 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
             JObject.Parse("""
             {
               "event": "subscribe",
-              "arg": {
+                "arg": {
                 "channel": "account",
                 "ccy": "ETH",
-                "extraParams": {
-                  "interval": "0"
-                }
+                "extraParams": "{\"updateInterval\":\"0\"}"
               }
             }
             """),
@@ -86,7 +82,7 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
             {
                 Channel = "account",
                 Currency = "BTC",
-                ExtraParameters = new Dictionary<string, string> { ["interval"] = "0" }
+                ExtraParameters = new Dictionary<string, string> { ["updateInterval"] = "0" }
             });
 
         var matchingMessage = JObject.Parse("""
@@ -94,9 +90,7 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
           "arg": {
             "channel": "account",
             "ccy": "BTC",
-            "extraParams": {
-              "interval": "0"
-            }
+            "extraParams": "{\"updateInterval\":\"0\"}"
           },
           "data": [
             {
@@ -111,9 +105,7 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
           "arg": {
             "channel": "account",
             "ccy": "BTC",
-            "extraParams": {
-              "interval": "1000"
-            }
+            "extraParams": "{\"updateInterval\":\"1000\"}"
           },
           "data": [
             {
@@ -168,7 +160,7 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
             {
                 Channel = "account",
                 Currency = "BTC",
-                ExtraParameters = new Dictionary<string, string> { ["interval"] = "0" }
+                ExtraParameters = new Dictionary<string, string> { ["updateInterval"] = "0" }
             });
 
         var subscription = WebSocketSubscription.CreateForRequest(1, request, true, false, _ => { });
@@ -178,12 +170,10 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
             JObject.Parse("""
             {
               "event": "unsubscribe",
-              "arg": {
+                "arg": {
                 "channel": "account",
                 "ccy": "BTC",
-                "extraParams": {
-                  "interval": "0"
-                }
+                "extraParams": "{\"updateInterval\":\"0\"}"
               }
             }
             """));
@@ -193,12 +183,10 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
             JObject.Parse("""
             {
               "event": "unsubscribe",
-              "arg": {
+                "arg": {
                 "channel": "account",
                 "ccy": "ETH",
-                "extraParams": {
-                  "interval": "0"
-                }
+                "extraParams": "{\"updateInterval\":\"0\"}"
               }
             }
             """));

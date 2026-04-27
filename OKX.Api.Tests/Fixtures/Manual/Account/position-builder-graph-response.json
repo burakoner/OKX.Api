@@ -1,0 +1,16 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "type": "mmr",
+      "mmrData": [
+        {
+          "shockFactor": "-0.1",
+          "mmr": "1200.5",
+          "mmrRatio": "0.25"
+        }
+      ]
+    }
+  ]
+}

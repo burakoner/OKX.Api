@@ -30,14 +30,7 @@ public class OkxAccountSocketClient(OkxWebSocketApiClient root)
                 if (d is not null) onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
-        {
-            Channel = "account",
-            Currency = currency,
-            ExtraParameters = updateInterval.HasValue 
-                ? new Dictionary<string, string> { { "interval", updateInterval.Value.ToOkxString() } }
-                : null
-        });
+        var request = CreateAccountSubscriptionRequest(currency, updateInterval);
 
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
@@ -50,9 +43,10 @@ public class OkxAccountSocketClient(OkxWebSocketApiClient root)
     /// <param name="instrumentFamily">Instrument Family</param>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="ct">Cancellation Token</param>
+    /// <param name="updateInterval">Push interval override. `0` only pushes position events; otherwise OKX uses its documented regular interval behavior.</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxAccountPosition> onData, OkxInstrumentType instrumentType, string? instrumentFamily = null, string? instrumentId = null, CancellationToken ct = default)
-        => await SubscribeToPositionUpdatesAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct).ConfigureAwait(false);
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxAccountPosition> onData, OkxInstrumentType instrumentType, string? instrumentFamily = null, string? instrumentId = null, CancellationToken ct = default, int? updateInterval = null)
+        => await SubscribeToPositionUpdatesAsync(onData, [new(instrumentType, instrumentFamily, instrumentId)], ct, updateInterval).ConfigureAwait(false);
 
     /// <summary>
     /// Retrieve position information. Initial snapshot will be pushed according to subscription granularity. Data will be pushed when triggered by events such as placing/canceling order, and will also be pushed in regular interval according to subscription granularity.
@@ -60,8 +54,9 @@ public class OkxAccountSocketClient(OkxWebSocketApiClient root)
     /// <param name="onData">On Data Handler</param>
     /// <param name="symbols">Symbols to subscribe</param>
     /// <param name="ct">Cancellation Token</param>
+    /// <param name="updateInterval">Push interval override. `0` only pushes position events; otherwise OKX uses its documented regular interval behavior.</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxAccountPosition> onData, IEnumerable<OkxSocketSymbolRequest> symbols, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<OkxAccountPosition> onData, IEnumerable<OkxSocketSymbolRequest> symbols, CancellationToken ct = default, int? updateInterval = null)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountPosition>>>>(data =>
         {
@@ -69,15 +64,7 @@ public class OkxAccountSocketClient(OkxWebSocketApiClient root)
                 if (d is not null) onData(d);
         });
 
-        var arguments = new List<OkxSocketRequestArgument>();
-        foreach (var symbol in symbols) arguments.Add(new OkxSocketRequestArgument
-        {
-            Channel = "positions",
-            InstrumentId = symbol.InstrumentId,
-            InstrumentType = symbol.InstrumentType,
-            InstrumentFamily = symbol.InstrumentFamily,
-        });
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
+        var request = CreatePositionSubscriptionRequest(symbols, updateInterval);
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -112,8 +99,10 @@ public class OkxAccountSocketClient(OkxWebSocketApiClient root)
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
+    /// <param name="instrumentFamily">Instrument family filter. Applicable to FUTURES, SWAP, and OPTION.</param>
+    /// <param name="instrumentId">Instrument ID filter.</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionRiskUpdatesAsync(OkxInstrumentType instrumentType, Action<OkxAccountPosition> onData, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToPositionRiskUpdatesAsync(OkxInstrumentType instrumentType, Action<OkxAccountPosition> onData, CancellationToken ct = default, string? instrumentFamily = null, string? instrumentId = null)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountPosition>>>>(data =>
         {
@@ -121,11 +110,7 @@ public class OkxAccountSocketClient(OkxWebSocketApiClient root)
                 if (d is not null) onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
-        {
-            Channel = "liquidation-warning",
-            InstrumentType = instrumentType
-        });
+        var request = CreatePositionRiskSubscriptionRequest(instrumentType, instrumentFamily, instrumentId);
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
 
@@ -135,8 +120,9 @@ public class OkxAccountSocketClient(OkxWebSocketApiClient root)
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
+    /// <param name="currency">Settlement currency filter.</param>
     /// <returns></returns>
-    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAccountGreeksUpdatesAsync(Action<OkxAccountGreeks> onData, CancellationToken ct = default)
+    public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToAccountGreeksUpdatesAsync(Action<OkxAccountGreeks> onData, CancellationToken ct = default, string? currency = null)
     {
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAccountGreeks>>>>(data =>
         {
@@ -144,10 +130,54 @@ public class OkxAccountSocketClient(OkxWebSocketApiClient root)
                 if (d is not null) onData(d);
         });
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
-        {
-            Channel = "account-greeks",
-        });
+        var request = CreateAccountGreeksSubscriptionRequest(currency);
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Private, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }
+
+    private static OkxSocketRequest CreateAccountSubscriptionRequest(string? currency, int? updateInterval)
+        => new(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        {
+            Channel = "account",
+            Currency = currency,
+            ExtraParameters = CreateUpdateIntervalParameters(updateInterval)
+        });
+
+    private static OkxSocketRequest CreatePositionSubscriptionRequest(IEnumerable<OkxSocketSymbolRequest> symbols, int? updateInterval)
+    {
+        var arguments = new List<OkxSocketRequestArgument>();
+        foreach (var symbol in symbols)
+        {
+            arguments.Add(new OkxSocketRequestArgument
+            {
+                Channel = "positions",
+                InstrumentId = symbol.InstrumentId,
+                InstrumentType = symbol.InstrumentType,
+                InstrumentFamily = symbol.InstrumentFamily,
+                ExtraParameters = CreateUpdateIntervalParameters(updateInterval),
+            });
+        }
+
+        return new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
+    }
+
+    private static OkxSocketRequest CreatePositionRiskSubscriptionRequest(OkxInstrumentType instrumentType, string? instrumentFamily, string? instrumentId)
+        => new(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        {
+            Channel = "liquidation-warning",
+            InstrumentType = instrumentType,
+            InstrumentFamily = instrumentFamily,
+            InstrumentId = instrumentId,
+        });
+
+    private static OkxSocketRequest CreateAccountGreeksSubscriptionRequest(string? currency)
+        => new(OkxSocketOperation.Subscribe, new OkxSocketRequestArgument
+        {
+            Channel = "account-greeks",
+            Currency = currency,
+        });
+
+    private static Dictionary<string, string>? CreateUpdateIntervalParameters(int? updateInterval)
+        => updateInterval.HasValue
+            ? new Dictionary<string, string> { { "updateInterval", updateInterval.Value.ToOkxString() } }
+            : null;
 }

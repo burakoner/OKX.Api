@@ -27,5 +27,5 @@ public record OkxAccountPositionTiers
     /// Position Type
     /// </summary>
     [JsonProperty("posType")]
-    public OkxTradePositionType PositionType { get; set; }
+    public OkxTradePositionType? PositionType { get; set; }
 }
