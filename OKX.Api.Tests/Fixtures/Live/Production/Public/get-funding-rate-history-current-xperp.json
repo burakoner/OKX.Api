@@ -3,6 +3,24 @@
     "data":  [
                  {
                      "formulaType":  "withRate",
+                     "fundingRate":  "-0.0001143515677237",
+                     "fundingTime":  "1777276800000",
+                     "instId":  "ADA-USD_UM_XPERP-310404",
+                     "instType":  "FUTURES",
+                     "method":  "current_period",
+                     "realizedRate":  "-0.0001143515677237"
+                 },
+                 {
+                     "formulaType":  "withRate",
+                     "fundingRate":  "0.0001",
+                     "fundingTime":  "1777248000000",
+                     "instId":  "ADA-USD_UM_XPERP-310404",
+                     "instType":  "FUTURES",
+                     "method":  "current_period",
+                     "realizedRate":  "0.0001"
+                 },
+                 {
+                     "formulaType":  "withRate",
                      "fundingRate":  "0.0001",
                      "fundingTime":  "1777219200000",
                      "instId":  "ADA-USD_UM_XPERP-310404",
@@ -23,24 +41,6 @@
                      "formulaType":  "withRate",
                      "fundingRate":  "0.0001",
                      "fundingTime":  "1777161600000",
-                     "instId":  "ADA-USD_UM_XPERP-310404",
-                     "instType":  "FUTURES",
-                     "method":  "current_period",
-                     "realizedRate":  "0.0001"
-                 },
-                 {
-                     "formulaType":  "withRate",
-                     "fundingRate":  "0.0001",
-                     "fundingTime":  "1777132800000",
-                     "instId":  "ADA-USD_UM_XPERP-310404",
-                     "instType":  "FUTURES",
-                     "method":  "current_period",
-                     "realizedRate":  "0.0001"
-                 },
-                 {
-                     "formulaType":  "withRate",
-                     "fundingRate":  "0.0001",
-                     "fundingTime":  "1777104000000",
                      "instId":  "ADA-USD_UM_XPERP-310404",
                      "instType":  "FUTURES",
                      "method":  "current_period",

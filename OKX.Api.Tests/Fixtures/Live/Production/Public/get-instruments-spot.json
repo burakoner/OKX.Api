@@ -17103,7 +17103,11 @@
                                            ],
                      "uly":  "",
                      "upcChg":  [
-
+                                    {
+                                        "effTime":  "1777860000000",
+                                        "newValue":  "10",
+                                        "param":  "minSz"
+                                    }
                                 ]
                  },
                  {
@@ -17708,7 +17712,11 @@
                                            ],
                      "uly":  "",
                      "upcChg":  [
-
+                                    {
+                                        "effTime":  "1777860240000",
+                                        "newValue":  "1",
+                                        "param":  "minSz"
+                                    }
                                 ]
                  },
                  {

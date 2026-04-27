@@ -2,11 +2,18 @@
     "code":  "0",
     "data":  [
                  {
+                     "eventId":  "BTC-ABOVE-DAILY-260505-1600",
+                     "expTime":  "1777968000000",
+                     "fixTime":  "",
+                     "seriesId":  "BTC-ABOVE-DAILY",
+                     "state":  "preopen"
+                 },
+                 {
                      "eventId":  "BTC-ABOVE-DAILY-260504-1600",
                      "expTime":  "1777881600000",
                      "fixTime":  "",
                      "seriesId":  "BTC-ABOVE-DAILY",
-                     "state":  "preopen"
+                     "state":  "live"
                  },
                  {
                      "eventId":  "BTC-ABOVE-DAILY-260503-1600",
@@ -55,7 +62,7 @@
                      "expTime":  "1777276800000",
                      "fixTime":  "",
                      "seriesId":  "BTC-ABOVE-DAILY",
-                     "state":  "live"
+                     "state":  "expired"
                  },
                  {
                      "eventId":  "BTC-ABOVE-DAILY-260426-1600",
@@ -130,13 +137,6 @@
                  {
                      "eventId":  "BTC-ABOVE-DAILY-260416-1600",
                      "expTime":  "1776326400000",
-                     "fixTime":  "",
-                     "seriesId":  "BTC-ABOVE-DAILY",
-                     "state":  "expired"
-                 },
-                 {
-                     "eventId":  "BTC-ABOVE-DAILY-260415-1600",
-                     "expTime":  "1776240000000",
                      "fixTime":  "",
                      "seriesId":  "BTC-ABOVE-DAILY",
                      "state":  "expired"

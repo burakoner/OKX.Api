@@ -1183,9 +1183,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "59000",
+                     "maxMktSz":  "75000",
                      "maxPlatOILmt":  "10000000000000",
-                     "maxStopSz":  "59000",
+                     "maxStopSz":  "75000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -1208,11 +1208,7 @@
                                            ],
                      "uly":  "OKB-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777261200000",
-                                        "newValue":  "75000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -1572,9 +1568,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "80000",
+                     "maxMktSz":  "65000",
                      "maxPlatOILmt":  "4500000",
-                     "maxStopSz":  "80000",
+                     "maxStopSz":  "65000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -1597,11 +1593,7 @@
                                            ],
                      "uly":  "LINEA-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777279200000",
-                                        "newValue":  "65000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -1632,7 +1624,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "30000",
-                     "maxPlatOILmt":  "4200000",
+                     "maxPlatOILmt":  "3900000",
                      "maxStopSz":  "30000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -1741,9 +1733,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "11000",
+                     "maxMktSz":  "8900",
                      "maxPlatOILmt":  "3200000",
-                     "maxStopSz":  "11000",
+                     "maxStopSz":  "8900",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -1766,11 +1758,7 @@
                                            ],
                      "uly":  "2Z-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777280160000",
-                                        "newValue":  "8900",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -2240,9 +2228,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "120000",
+                     "maxMktSz":  "100000",
                      "maxPlatOILmt":  "2000000",
-                     "maxStopSz":  "120000",
+                     "maxStopSz":  "100000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -2265,11 +2253,7 @@
                                            ],
                      "uly":  "AEVO-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777258080000",
-                                        "newValue":  "100000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -2409,9 +2393,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "47000",
+                     "maxMktSz":  "37000",
                      "maxPlatOILmt":  "13300000",
-                     "maxStopSz":  "47000",
+                     "maxStopSz":  "37000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -2434,11 +2418,7 @@
                                            ],
                      "uly":  "ALGO-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777271280000",
-                                        "newValue":  "37000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -2633,9 +2613,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "530000",
-                     "maxPlatOILmt":  "3800000",
-                     "maxStopSz":  "530000",
+                     "maxMktSz":  "420000",
+                     "maxPlatOILmt":  "3500000",
+                     "maxStopSz":  "420000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -2658,11 +2638,7 @@
                                            ],
                      "uly":  "ANIME-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777255920000",
-                                        "newValue":  "420000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -2747,9 +2723,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "33000",
-                     "maxPlatOILmt":  "8000000",
-                     "maxStopSz":  "33000",
+                     "maxMktSz":  "42000",
+                     "maxPlatOILmt":  "6500000",
+                     "maxStopSz":  "42000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -2772,11 +2748,7 @@
                                            ],
                      "uly":  "API3-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777255800000",
-                                        "newValue":  "42000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -2917,7 +2889,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "44000",
-                     "maxPlatOILmt":  "6500000",
+                     "maxPlatOILmt":  "6300000",
                      "maxStopSz":  "44000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -3411,9 +3383,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "170000",
-                     "maxPlatOILmt":  "6300000",
-                     "maxStopSz":  "170000",
+                     "maxMktSz":  "140000",
+                     "maxPlatOILmt":  "8200000",
+                     "maxStopSz":  "140000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -3436,11 +3408,7 @@
                                            ],
                      "uly":  "AVNT-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777272840000",
-                                        "newValue":  "140000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -3690,9 +3658,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "60000",
+                     "maxMktSz":  "40000",
                      "maxPlatOILmt":  "11500000",
-                     "maxStopSz":  "60000",
+                     "maxStopSz":  "40000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -3715,11 +3683,7 @@
                                            ],
                      "uly":  "BARD-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777284600000",
-                                        "newValue":  "40000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -3750,7 +3714,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "27000",
-                     "maxPlatOILmt":  "20300000",
+                     "maxPlatOILmt":  "23200000",
                      "maxStopSz":  "27000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -3914,9 +3878,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "740000",
+                     "maxMktSz":  "930000",
                      "maxPlatOILmt":  "9500000",
-                     "maxStopSz":  "740000",
+                     "maxStopSz":  "930000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -3939,11 +3903,7 @@
                                            ],
                      "uly":  "BERA-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777282800000",
-                                        "newValue":  "930000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -4138,9 +4098,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "90000",
+                     "maxMktSz":  "120000",
                      "maxPlatOILmt":  "10800000",
-                     "maxStopSz":  "90000",
+                     "maxStopSz":  "120000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -4163,11 +4123,7 @@
                                            ],
                      "uly":  "BLUR-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777260360000",
-                                        "newValue":  "120000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -4252,9 +4208,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "22000",
+                     "maxMktSz":  "36000",
                      "maxPlatOILmt":  "4200000",
-                     "maxStopSz":  "22000",
+                     "maxStopSz":  "36000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -4277,11 +4233,7 @@
                                            ],
                      "uly":  "BOME-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777283040000",
-                                        "newValue":  "36000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -4366,9 +4318,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "4000",
+                     "maxMktSz":  "6400",
                      "maxPlatOILmt":  "2000000",
-                     "maxStopSz":  "4000",
+                     "maxStopSz":  "6400",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -4391,11 +4343,7 @@
                                            ],
                      "uly":  "BRETT-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777282080000",
-                                        "newValue":  "6400",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -4535,9 +4483,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "200000",
+                     "maxMktSz":  "150000",
                      "maxPlatOILmt":  "10000000000000",
-                     "maxStopSz":  "200000",
+                     "maxStopSz":  "150000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -4560,11 +4508,7 @@
                                            ],
                      "uly":  "BZ-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777263480000",
-                                        "newValue":  "150000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -4594,9 +4538,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "13000",
+                     "maxMktSz":  "16000",
                      "maxPlatOILmt":  "8500000",
-                     "maxStopSz":  "13000",
+                     "maxStopSz":  "16000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -4619,11 +4563,7 @@
                                            ],
                      "uly":  "CC-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777284960000",
-                                        "newValue":  "16000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -4763,9 +4703,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "20000",
+                     "maxMktSz":  "2000",
                      "maxPlatOILmt":  "10000000000000",
-                     "maxStopSz":  "20000",
+                     "maxStopSz":  "2000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -4788,11 +4728,7 @@
                                            ],
                      "uly":  "CHIP-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777277160000",
-                                        "newValue":  "2000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -5043,7 +4979,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "7200",
-                     "maxPlatOILmt":  "9500000",
+                     "maxPlatOILmt":  "9000000",
                      "maxStopSz":  "7200",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -5097,9 +5033,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "380000",
+                     "maxMktSz":  "270000",
                      "maxPlatOILmt":  "12100000",
-                     "maxStopSz":  "380000",
+                     "maxStopSz":  "270000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -5122,11 +5058,7 @@
                                            ],
                      "uly":  "CORE-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777282560000",
-                                        "newValue":  "270000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -5761,9 +5693,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "19000",
-                     "maxPlatOILmt":  "2800000",
-                     "maxStopSz":  "19000",
+                     "maxMktSz":  "26000",
+                     "maxPlatOILmt":  "2700000",
+                     "maxStopSz":  "26000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -5786,11 +5718,7 @@
                                            ],
                      "uly":  "EGLD-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777271040000",
-                                        "newValue":  "26000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -5930,9 +5858,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "44000",
+                     "maxMktSz":  "33000",
                      "maxPlatOILmt":  "12800000",
-                     "maxStopSz":  "44000",
+                     "maxStopSz":  "33000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -5955,11 +5883,7 @@
                                            ],
                      "uly":  "ENJ-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777260840000",
-                                        "newValue":  "33000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -6100,7 +6024,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "1900",
-                     "maxPlatOILmt":  "3300000",
+                     "maxPlatOILmt":  "3100000",
                      "maxStopSz":  "1900",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -6209,9 +6133,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "160000",
+                     "maxMktSz":  "220000",
                      "maxPlatOILmt":  "2800000",
-                     "maxStopSz":  "160000",
+                     "maxStopSz":  "220000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -6234,11 +6158,7 @@
                                            ],
                      "uly":  "ETHW-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777271280000",
-                                        "newValue":  "220000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -6819,7 +6739,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "8200",
-                     "maxPlatOILmt":  "4000000",
+                     "maxPlatOILmt":  "3900000",
                      "maxStopSz":  "8200",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -7203,9 +7123,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "58000",
+                     "maxMktSz":  "47000",
                      "maxPlatOILmt":  "5500000",
-                     "maxStopSz":  "58000",
+                     "maxStopSz":  "47000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -7228,11 +7148,7 @@
                                            ],
                      "uly":  "GRASS-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777274280000",
-                                        "newValue":  "47000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -7262,9 +7178,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "27000",
-                     "maxPlatOILmt":  "3300000",
-                     "maxStopSz":  "27000",
+                     "maxMktSz":  "21000",
+                     "maxPlatOILmt":  "3000000",
+                     "maxStopSz":  "21000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -7287,11 +7203,7 @@
                                            ],
                      "uly":  "GRT-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777272240000",
-                                        "newValue":  "21000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -7431,9 +7343,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "270000",
+                     "maxMktSz":  "370000",
                      "maxPlatOILmt":  "2100000",
-                     "maxStopSz":  "270000",
+                     "maxStopSz":  "370000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -7456,11 +7368,7 @@
                                            ],
                      "uly":  "HMSTR-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777279560000",
-                                        "newValue":  "370000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -7710,9 +7618,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "2500000",
+                     "maxMktSz":  "2000000",
                      "maxPlatOILmt":  "10000000000000",
-                     "maxStopSz":  "2500000",
+                     "maxStopSz":  "2000000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -7735,11 +7643,7 @@
                                            ],
                      "uly":  "ICP-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777255200000",
-                                        "newValue":  "2000000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -7824,9 +7728,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "48000",
-                     "maxPlatOILmt":  "3900000",
-                     "maxStopSz":  "48000",
+                     "maxMktSz":  "39000",
+                     "maxPlatOILmt":  "3600000",
+                     "maxStopSz":  "39000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -7849,11 +7753,7 @@
                                            ],
                      "uly":  "IMX-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777271760000",
-                                        "newValue":  "39000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -7883,9 +7783,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "2800",
+                     "maxMktSz":  "3500",
                      "maxPlatOILmt":  "2000000",
-                     "maxStopSz":  "2800",
+                     "maxStopSz":  "3500",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -7908,11 +7808,7 @@
                                            ],
                      "uly":  "INIT-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777281600000",
-                                        "newValue":  "3500",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -8383,7 +8279,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "19000",
-                     "maxPlatOILmt":  "9100000",
+                     "maxPlatOILmt":  "9700000",
                      "maxStopSz":  "19000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -8717,7 +8613,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "22000",
-                     "maxPlatOILmt":  "3000000",
+                     "maxPlatOILmt":  "2900000",
                      "maxStopSz":  "22000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -8995,9 +8891,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "29000",
-                     "maxPlatOILmt":  "4200000",
-                     "maxStopSz":  "29000",
+                     "maxMktSz":  "37000",
+                     "maxPlatOILmt":  "4500000",
+                     "maxStopSz":  "37000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -9020,11 +8916,7 @@
                                            ],
                      "uly":  "LIGHT-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777273320000",
-                                        "newValue":  "37000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -9165,7 +9057,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "72000",
-                     "maxPlatOILmt":  "8000000",
+                     "maxPlatOILmt":  "7600000",
                      "maxStopSz":  "72000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -9275,7 +9167,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "22000",
-                     "maxPlatOILmt":  "2200000",
+                     "maxPlatOILmt":  "2000000",
                      "maxStopSz":  "22000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -9495,7 +9387,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "23000",
-                     "maxPlatOILmt":  "3000000",
+                     "maxPlatOILmt":  "2900000",
                      "maxStopSz":  "23000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -9605,7 +9497,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "150000",
-                     "maxPlatOILmt":  "3700000",
+                     "maxPlatOILmt":  "3300000",
                      "maxStopSz":  "150000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -9769,9 +9661,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "12000",
+                     "maxMktSz":  "17000",
                      "maxPlatOILmt":  "2300000",
-                     "maxStopSz":  "12000",
+                     "maxStopSz":  "17000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -9794,11 +9686,7 @@
                                            ],
                      "uly":  "METIS-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777280040000",
-                                        "newValue":  "17000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -9829,7 +9717,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "81000",
-                     "maxPlatOILmt":  "4100000",
+                     "maxPlatOILmt":  "3600000",
                      "maxStopSz":  "81000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -9938,9 +9826,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "9300",
+                     "maxMktSz":  "14000",
                      "maxPlatOILmt":  "2800000",
-                     "maxStopSz":  "9300",
+                     "maxStopSz":  "14000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -9963,11 +9851,7 @@
                                            ],
                      "uly":  "MEW-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777274520000",
-                                        "newValue":  "14000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -9997,9 +9881,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "170000",
-                     "maxPlatOILmt":  "2400000",
-                     "maxStopSz":  "170000",
+                     "maxMktSz":  "140000",
+                     "maxPlatOILmt":  "2900000",
+                     "maxStopSz":  "140000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -10022,11 +9906,7 @@
                                            ],
                      "uly":  "MINA-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777255320000",
-                                        "newValue":  "140000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -10056,9 +9936,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "16000",
+                     "maxMktSz":  "13000",
                      "maxPlatOILmt":  "3900000",
-                     "maxStopSz":  "16000",
+                     "maxStopSz":  "13000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -10081,11 +9961,7 @@
                                            ],
                      "uly":  "MMT-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777267080000",
-                                        "newValue":  "13000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -10280,9 +10156,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "58000",
+                     "maxMktSz":  "81000",
                      "maxPlatOILmt":  "5200000",
-                     "maxStopSz":  "58000",
+                     "maxStopSz":  "81000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -10305,11 +10181,7 @@
                                            ],
                      "uly":  "MOVE-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777283880000",
-                                        "newValue":  "81000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -10615,7 +10487,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "170000",
-                     "maxPlatOILmt":  "3400000",
+                     "maxPlatOILmt":  "3200000",
                      "maxStopSz":  "170000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -10669,9 +10541,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "7300",
+                     "maxMktSz":  "6000",
                      "maxPlatOILmt":  "2600000",
-                     "maxStopSz":  "7300",
+                     "maxStopSz":  "6000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -10694,11 +10566,7 @@
                                            ],
                      "uly":  "NEO-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777270560000",
-                                        "newValue":  "6000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -10897,9 +10765,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "9200",
-                     "maxPlatOILmt":  "2900000",
-                     "maxStopSz":  "9200",
+                     "maxMktSz":  "7600",
+                     "maxPlatOILmt":  "2800000",
+                     "maxStopSz":  "7600",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -10922,11 +10790,7 @@
                                            ],
                      "uly":  "NMR-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777273920000",
-                                        "newValue":  "7600",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -11176,9 +11040,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "26000",
+                     "maxMktSz":  "33000",
                      "maxPlatOILmt":  "10000000000000",
-                     "maxStopSz":  "26000",
+                     "maxStopSz":  "33000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -11201,11 +11065,7 @@
                                            ],
                      "uly":  "ONDO-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777275360000",
-                                        "newValue":  "33000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -11400,9 +11260,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "20000",
+                     "maxMktSz":  "5100",
                      "maxPlatOILmt":  "10000000000000",
-                     "maxStopSz":  "20000",
+                     "maxStopSz":  "5100",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -11425,11 +11285,7 @@
                                            ],
                      "uly":  "OPG-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777269600000",
-                                        "newValue":  "5100",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -12009,9 +11865,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "1500",
+                     "maxMktSz":  "2400",
                      "maxPlatOILmt":  "15500000",
-                     "maxStopSz":  "1500",
+                     "maxStopSz":  "2400",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -12034,11 +11890,7 @@
                                            ],
                      "uly":  "PIEVERSE-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777284840000",
-                                        "newValue":  "2400",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -12343,9 +12195,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "12000",
+                     "maxMktSz":  "17000",
                      "maxPlatOILmt":  "4200000",
-                     "maxStopSz":  "12000",
+                     "maxStopSz":  "17000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -12368,11 +12220,7 @@
                                            ],
                      "uly":  "POPCAT-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777275960000",
-                                        "newValue":  "17000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -12457,9 +12305,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "43000",
-                     "maxPlatOILmt":  "4700000",
-                     "maxStopSz":  "43000",
+                     "maxMktSz":  "34000",
+                     "maxPlatOILmt":  "4200000",
+                     "maxStopSz":  "34000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -12482,11 +12330,7 @@
                                            ],
                      "uly":  "PYTH-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777269960000",
-                                        "newValue":  "34000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -12516,9 +12360,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "110",
+                     "maxMktSz":  "89",
                      "maxPlatOILmt":  "10000000000000",
-                     "maxStopSz":  "110",
+                     "maxStopSz":  "89",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -12541,11 +12385,7 @@
                                            ],
                      "uly":  "QQQ-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777278960000",
-                                        "newValue":  "89",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -13019,9 +12859,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "9400",
+                     "maxMktSz":  "7700",
                      "maxPlatOILmt":  "100000000000000",
-                     "maxStopSz":  "9400",
+                     "maxStopSz":  "7700",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -13044,11 +12884,7 @@
                                            ],
                      "uly":  "ROBO-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777277520000",
-                                        "newValue":  "7700",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -13134,7 +12970,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "110000",
-                     "maxPlatOILmt":  "2400000",
+                     "maxPlatOILmt":  "2300000",
                      "maxStopSz":  "110000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -13244,7 +13080,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "89000",
-                     "maxPlatOILmt":  "16100000",
+                     "maxPlatOILmt":  "14300000",
                      "maxStopSz":  "89000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -13298,9 +13134,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "33000",
+                     "maxMktSz":  "27000",
                      "maxPlatOILmt":  "8500000",
-                     "maxStopSz":  "33000",
+                     "maxStopSz":  "27000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -13323,11 +13159,7 @@
                                            ],
                      "uly":  "SAND-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777269480000",
-                                        "newValue":  "27000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -13468,7 +13300,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "110000",
-                     "maxPlatOILmt":  "5900000",
+                     "maxPlatOILmt":  "5700000",
                      "maxStopSz":  "110000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -14072,9 +13904,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "1700",
-                     "maxPlatOILmt":  "17100000",
-                     "maxStopSz":  "1700",
+                     "maxMktSz":  "2300",
+                     "maxPlatOILmt":  "14000000",
+                     "maxStopSz":  "2300",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -14097,11 +13929,7 @@
                                            ],
                      "uly":  "SPK-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777255440000",
-                                        "newValue":  "2300",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -14241,9 +14069,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "21000",
+                     "maxMktSz":  "29000",
                      "maxPlatOILmt":  "3500000",
-                     "maxStopSz":  "21000",
+                     "maxStopSz":  "29000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -14266,11 +14094,7 @@
                                            ],
                      "uly":  "SSV-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777280280000",
-                                        "newValue":  "29000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -14300,9 +14124,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "5000",
+                     "maxMktSz":  "4100",
                      "maxPlatOILmt":  "100000000000000",
-                     "maxStopSz":  "5000",
+                     "maxStopSz":  "4100",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -14325,11 +14149,7 @@
                                            ],
                      "uly":  "STABLE-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777264320000",
-                                        "newValue":  "4100",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -14359,9 +14179,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "630000",
+                     "maxMktSz":  "450000",
                      "maxPlatOILmt":  "8700000",
-                     "maxStopSz":  "630000",
+                     "maxStopSz":  "450000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -14384,11 +14204,7 @@
                                            ],
                      "uly":  "STRK-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777275240000",
-                                        "newValue":  "450000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -14803,9 +14619,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "79000",
+                     "maxMktSz":  "100000",
                      "maxPlatOILmt":  "9400000",
-                     "maxStopSz":  "79000",
+                     "maxStopSz":  "100000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -14828,11 +14644,7 @@
                                            ],
                      "uly":  "TIA-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777280400000",
-                                        "newValue":  "100000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -15306,9 +15118,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "110",
+                     "maxMktSz":  "91",
                      "maxPlatOILmt":  "10000000000000",
-                     "maxStopSz":  "110",
+                     "maxStopSz":  "91",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -15331,11 +15143,7 @@
                                            ],
                      "uly":  "TSM-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777255560000",
-                                        "newValue":  "91",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -15366,7 +15174,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "1800",
-                     "maxPlatOILmt":  "6900000",
+                     "maxPlatOILmt":  "6100000",
                      "maxStopSz":  "1800",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
@@ -15695,9 +15503,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "58000",
+                     "maxMktSz":  "74000",
                      "maxPlatOILmt":  "2300000",
-                     "maxStopSz":  "58000",
+                     "maxStopSz":  "74000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -15720,11 +15528,7 @@
                                            ],
                      "uly":  "VANA-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777276440000",
-                                        "newValue":  "74000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -15974,9 +15778,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "15000",
-                     "maxPlatOILmt":  "4700000",
-                     "maxStopSz":  "15000",
+                     "maxMktSz":  "11000",
+                     "maxPlatOILmt":  "4300000",
+                     "maxStopSz":  "11000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -15999,11 +15803,7 @@
                                            ],
                      "uly":  "WET-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777256520000",
-                                        "newValue":  "11000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -16308,9 +16108,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "9100",
+                     "maxMktSz":  "7200",
                      "maxPlatOILmt":  "2000000",
-                     "maxStopSz":  "9100",
+                     "maxStopSz":  "7200",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -16333,11 +16133,7 @@
                                            ],
                      "uly":  "XCU-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777284480000",
-                                        "newValue":  "7200",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -16807,9 +16603,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "39000",
+                     "maxMktSz":  "55000",
                      "maxPlatOILmt":  "8200000",
-                     "maxStopSz":  "39000",
+                     "maxStopSz":  "55000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -16832,11 +16628,7 @@
                                            ],
                      "uly":  "ZBT-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777280880000",
-                                        "newValue":  "55000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -16866,9 +16658,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "180000",
+                     "maxMktSz":  "140000",
                      "maxPlatOILmt":  "100000000000000",
-                     "maxStopSz":  "180000",
+                     "maxStopSz":  "140000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -16891,11 +16683,7 @@
                                            ],
                      "uly":  "ZEC-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777270440000",
-                                        "newValue":  "140000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -16925,9 +16713,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "44000",
+                     "maxMktSz":  "35000",
                      "maxPlatOILmt":  "4700000",
-                     "maxStopSz":  "44000",
+                     "maxStopSz":  "35000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -16950,11 +16738,7 @@
                                            ],
                      "uly":  "ZEN-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777268640000",
-                                        "newValue":  "35000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -16984,9 +16768,9 @@
                      "maxLmtAmt":  "20000000",
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
-                     "maxMktSz":  "28000",
-                     "maxPlatOILmt":  "2900000",
-                     "maxStopSz":  "28000",
+                     "maxMktSz":  "36000",
+                     "maxPlatOILmt":  "2600000",
+                     "maxStopSz":  "36000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
                      "method":  "",
@@ -17009,11 +16793,7 @@
                                            ],
                      "uly":  "ZETA-USDT",
                      "upcChg":  [
-                                    {
-                                        "effTime":  "1777272720000",
-                                        "newValue":  "36000",
-                                        "param":  "maxMktSz"
-                                    }
+
                                 ]
                  },
                  {
@@ -17209,7 +16989,7 @@
                      "maxLmtSz":  "100000000",
                      "maxMktAmt":  "",
                      "maxMktSz":  "29000",
-                     "maxPlatOILmt":  "3100000",
+                     "maxPlatOILmt":  "2900000",
                      "maxStopSz":  "29000",
                      "maxTriggerSz":  "100000000.0000000000000000",
                      "maxTwapSz":  "100000000.0000000000000000",
