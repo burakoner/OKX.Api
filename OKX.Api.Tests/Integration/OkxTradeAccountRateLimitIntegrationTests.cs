@@ -14,9 +14,16 @@ public class OkxTradeAccountRateLimitIntegrationTests
 
         var client = OkxRestClientFactory.CreatePrivate(configuration);
         var result = await client.Trade.GetAccountRateLimitAsync();
+        SkipIfRateLimited(result.Error?.ToString());
 
         Assert.True(result.Success, result.Error?.ToString() ?? "Account rate limit request should succeed.");
         Assert.NotNull(result.Data);
         Assert.True(result.Data.AccountRateLimit > 0);
+    }
+
+    private static void SkipIfRateLimited(string? errorText)
+    {
+        if (!string.IsNullOrEmpty(errorText) && errorText.Contains("50011", StringComparison.Ordinal))
+            Skip.If(true, "OKX rate-limited the live trade account rate limit request (50011).");
     }
 }

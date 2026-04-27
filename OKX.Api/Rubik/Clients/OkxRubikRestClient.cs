@@ -5,6 +5,47 @@
 /// </summary>
 public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
+    private static readonly HashSet<string> ContractStatisticPeriods = new(StringComparer.Ordinal)
+    {
+        "5m",
+        "15m",
+        "30m",
+        "1H",
+        "2H",
+        "4H",
+        "6H",
+        "12H",
+        "1D",
+        "2D",
+        "3D",
+        "5D",
+        "1W",
+        "1M",
+        "3M",
+        "6Hutc",
+        "12Hutc",
+        "1Dutc",
+        "2Dutc",
+        "3Dutc",
+        "5Dutc",
+        "1Wutc",
+        "1Mutc",
+        "3Mutc",
+    };
+
+    private static readonly HashSet<string> SimpleStatisticPeriods = new(StringComparer.Ordinal)
+    {
+        "5m",
+        "1H",
+        "1D",
+    };
+
+    private static readonly HashSet<string> OptionStatisticPeriods = new(StringComparer.Ordinal)
+    {
+        "8H",
+        "1D",
+    };
+
     /// <summary>
     /// Get the currency supported by the transaction big data interface
     /// </summary>
@@ -36,6 +77,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "contract open interest history");
 
         var parameters = new ParameterCollection {
             { "instId", instrumentId},
@@ -68,6 +110,9 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         CancellationToken ct = default)
     {
+        ValidateTakerVolumeInstrumentType(instrumentType);
+        ValidatePeriod(period, SimpleStatisticPeriods, nameof(period), "taker volume");
+
         var parameters = new ParameterCollection {
             { "ccy", currency},
         };
@@ -102,6 +147,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "contract taker volume");
 
         var parameters = new ParameterCollection {
             { "instId", instrumentId},
@@ -133,6 +179,8 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         CancellationToken ct = default)
     {
+        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "margin lending ratio");
+
         var parameters = new ParameterCollection {
             { "ccy", currency},
         };
@@ -164,6 +212,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "top traders contract long/short ratio");
 
         var parameters = new ParameterCollection {
             { "instId", instrumentId},
@@ -197,6 +246,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "top traders contract long/short ratio by position");
 
         var parameters = new ParameterCollection {
             { "instId", instrumentId},
@@ -230,6 +280,7 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "contract long/short ratio");
 
         var parameters = new ParameterCollection {
             { "instId", instrumentId},
@@ -261,6 +312,8 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         CancellationToken ct = default)
     {
+        ValidatePeriod(period, SimpleStatisticPeriods, nameof(period), "long/short ratio");
+
         var parameters = new ParameterCollection {
             { "ccy", currency},
         };
@@ -287,6 +340,8 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         CancellationToken ct = default)
     {
+        ValidatePeriod(period, SimpleStatisticPeriods, nameof(period), "contracts open interest and volume");
+
         var parameters = new ParameterCollection {
             { "ccy", currency},
         };
@@ -309,6 +364,8 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? period = null,
         CancellationToken ct = default)
     {
+        ValidatePeriod(period, OptionStatisticPeriods, nameof(period), "options open interest and volume");
+
         var parameters = new ParameterCollection {
             { "ccy", currency},
         };
@@ -329,6 +386,8 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? period = null,
         CancellationToken ct = default)
     {
+        ValidatePeriod(period, OptionStatisticPeriods, nameof(period), "put/call ratio");
+
         var parameters = new ParameterCollection {
             { "ccy", currency},
         };
@@ -349,6 +408,8 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? period = null,
         CancellationToken ct = default)
     {
+        ValidatePeriod(period, OptionStatisticPeriods, nameof(period), "open interest and volume by expiry");
+
         var parameters = new ParameterCollection {
             { "ccy", currency},
         };
@@ -371,6 +432,8 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? period = null,
         CancellationToken ct = default)
     {
+        ValidatePeriod(period, OptionStatisticPeriods, nameof(period), "open interest and volume by strike");
+
         var parameters = new ParameterCollection {
             { "ccy", currency},
             { "expTime", expiryTime},
@@ -392,6 +455,8 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string? period = null,
         CancellationToken ct = default)
     {
+        ValidatePeriod(period, OptionStatisticPeriods, nameof(period), "taker flow");
+
         var parameters = new ParameterCollection {
             { "ccy", currency},
         };
@@ -400,4 +465,22 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         return await ProcessArrayModelRequestAsync<OkxRubikTakerFlow>(GetUri("api/v5/rubik/stat/option/taker-block-volume"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
 
+    private static void ValidateTakerVolumeInstrumentType(OkxInstrumentType instrumentType)
+    {
+        if (instrumentType is OkxInstrumentType.Spot or OkxInstrumentType.Contracts)
+            return;
+
+        throw new ArgumentException("Trading Statistics taker volume only supports SPOT or CONTRACTS.", nameof(instrumentType));
+    }
+
+    private static void ValidatePeriod(string? period, ISet<string> allowedValues, string parameterName, string endpointName)
+    {
+        if (string.IsNullOrWhiteSpace(period))
+            return;
+
+        if (allowedValues.Contains(period!))
+            return;
+
+        throw new ArgumentException($"Invalid period '{period}' for {endpointName}. Allowed values: {string.Join(", ", allowedValues)}", parameterName);
+    }
 }

@@ -86,6 +86,11 @@ public class OkxRestApiClient
     public OkxRubikRestClient Rubik { get; }
 
     /// <summary>
+    /// Trading Statistics Client (alias for Rubik)
+    /// </summary>
+    public OkxRubikRestClient TradingStatistics => Rubik;
+
+    /// <summary>
     /// Funding Account Client
     /// </summary>
     public OkxFundingRestClient Funding { get; }

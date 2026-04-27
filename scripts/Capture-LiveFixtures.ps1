@@ -89,8 +89,18 @@ function Save-JsonSnapshot {
         New-Item -ItemType Directory -Path $targetDirectory -Force | Out-Null
     }
 
-    $response = Invoke-RestMethod -Method Get -Uri $Uri -Headers $Headers
-    $json = $response | ConvertTo-Json -Depth 20
+    $client = New-Object System.Net.WebClient
+    try {
+        foreach ($key in $Headers.Keys) {
+            $client.Headers.Remove($key)
+            $client.Headers.Add($key, [string]$Headers[$key])
+        }
+
+        $json = $client.DownloadString($Uri).TrimEnd()
+    }
+    finally {
+        $client.Dispose()
+    }
     [System.IO.File]::WriteAllText($targetPath, $json + [Environment]::NewLine, [System.Text.UTF8Encoding]::new($false))
 
     Write-Host "Saved $RelativePath"
@@ -397,6 +407,121 @@ function Save-PublicDataSnapshots {
     }
 }
 
+function Resolve-TradingStatisticsExpiry {
+    param(
+        [string]$BaseUrl,
+        [string]$Currency,
+        [hashtable]$Headers = @{}
+    )
+
+    $response = Invoke-RestMethod -Method Get -Uri "$BaseUrl/api/v5/rubik/stat/option/open-interest-volume-expiry?ccy=$([Uri]::EscapeDataString($Currency))" -Headers $Headers
+    $currentExpiry = $response.data |
+        Select-Object -First 1 |
+        ForEach-Object { $_[1] }
+
+    if ([string]::IsNullOrWhiteSpace($currentExpiry)) {
+        throw "Unable to resolve a live Trading Statistics expiry for $Currency."
+    }
+
+    return [string]$currentExpiry
+}
+
+function Save-TradingStatisticsSnapshots {
+    param(
+        [string]$EnvironmentName,
+        [string]$BaseUrl,
+        [string]$Currency,
+        [string]$ContractInstrumentId,
+        [hashtable]$Headers = @{}
+    )
+
+    $root = "OKX.Api.Tests/Fixtures/Live/$EnvironmentName/Rubik"
+    $escapedCurrency = [Uri]::EscapeDataString($Currency)
+    $escapedInstrumentId = [Uri]::EscapeDataString($ContractInstrumentId)
+    $currentExpiry = Resolve-TradingStatisticsExpiry -BaseUrl $BaseUrl -Currency $Currency -Headers $Headers
+    $escapedExpiry = [Uri]::EscapeDataString($currentExpiry)
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-support-coin.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/trading-data/support-coin" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-contract-open-interest-history-btc-usdt-swap.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/contracts/open-interest-history?instId=$escapedInstrumentId&period=1D&limit=5" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-taker-volume-btc-spot.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/taker-volume?ccy=$escapedCurrency&instType=SPOT&period=1D" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-taker-volume-btc-contracts.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/taker-volume?ccy=$escapedCurrency&instType=CONTRACTS&period=1D" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-contract-taker-volume-btc-usdt-swap.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/taker-volume-contract?instId=$escapedInstrumentId&period=1D&limit=5" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-margin-lending-ratio-btc.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/margin/loan-ratio?ccy=$escapedCurrency&period=1D" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-top-traders-contract-long-short-account-ratio-btc-usdt-swap.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/contracts/long-short-account-ratio-contract-top-trader?instId=$escapedInstrumentId&period=1D&limit=5" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-top-traders-contract-long-short-position-ratio-btc-usdt-swap.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/contracts/long-short-position-ratio-contract-top-trader?instId=$escapedInstrumentId&period=1D&limit=5" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-contract-long-short-ratio-btc-usdt-swap.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/contracts/long-short-account-ratio-contract?instId=$escapedInstrumentId&period=1D&limit=5" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-long-short-ratio-btc.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/contracts/long-short-account-ratio?ccy=$escapedCurrency&period=1D" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-contract-summary-btc.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/contracts/open-interest-volume?ccy=$escapedCurrency&period=1D" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-options-summary-btc.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/option/open-interest-volume?ccy=$escapedCurrency&period=1D" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-put-call-ratio-btc.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/option/open-interest-volume-ratio?ccy=$escapedCurrency&period=1D" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-interest-volume-expiry-btc.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/option/open-interest-volume-expiry?ccy=$escapedCurrency&period=1D" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-interest-volume-strike-btc-current.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/option/open-interest-volume-strike?ccy=$escapedCurrency&expTime=$escapedExpiry&period=1D" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-taker-flow-btc.json" `
+        -Uri "$BaseUrl/api/v5/rubik/stat/option/taker-block-volume?ccy=$escapedCurrency&period=1D" `
+        -Headers $Headers
+}
+
 function Save-EventContractSnapshots {
     param(
         [string]$EnvironmentName,
@@ -468,6 +593,8 @@ $publicOpenInterestInstrumentType = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_O
 $publicOpenInterestInstrumentId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_OPEN_INTEREST_INST_ID" -DefaultValue "BTC-USDT-SWAP"
 $publicIndexId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_INDEX_ID" -DefaultValue "BTC-USD"
 $publicEconomicCalendarRegion = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_ECONOMIC_REGION" -DefaultValue "united_states"
+$tradingStatisticsCurrency = Get-EnvOrDefault -Name "OKX_CAPTURE_TRADING_STATS_CURRENCY" -DefaultValue "BTC"
+$tradingStatisticsContractInstrumentId = Get-EnvOrDefault -Name "OKX_CAPTURE_TRADING_STATS_CONTRACT_INST_ID" -DefaultValue "BTC-USDT-SWAP"
 
 Save-PublicInstrumentSnapshots `
     -EnvironmentName "Production" `
@@ -499,6 +626,12 @@ Save-PublicDataSnapshots `
     -OpenInterestInstrumentId $publicOpenInterestInstrumentId `
     -IndexId $publicIndexId `
     -EconomicCalendarRegion $publicEconomicCalendarRegion
+
+Save-TradingStatisticsSnapshots `
+    -EnvironmentName "Production" `
+    -BaseUrl $baseUrl `
+    -Currency $tradingStatisticsCurrency `
+    -ContractInstrumentId $tradingStatisticsContractInstrumentId
 
 Save-EventContractSnapshots `
     -EnvironmentName "Production" `
@@ -544,6 +677,13 @@ if ($useDemoTrading) {
         -OpenInterestInstrumentId $publicOpenInterestInstrumentId `
         -IndexId $publicIndexId `
         -EconomicCalendarRegion $publicEconomicCalendarRegion `
+        -Headers $demoHeaders
+
+    Save-TradingStatisticsSnapshots `
+        -EnvironmentName "Demo" `
+        -BaseUrl $baseUrl `
+        -Currency $tradingStatisticsCurrency `
+        -ContractInstrumentId $tradingStatisticsContractInstrumentId `
         -Headers $demoHeaders
 
     Save-EventContractSnapshots `

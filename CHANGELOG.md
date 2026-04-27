@@ -99,6 +99,10 @@
   - Added the missing `Account.SetTradingConfigAsync` and `Account.PrecheckSetDeltaNeutralAsync` endpoints with docs-aligned strategy response models and delta-neutral precheck coverage for `deltaLever`, `ordList`, and `posList`
   - Updated Trading Account private WebSocket subscriptions so `account` and `positions` now send stringified `extraParams.updateInterval`, `liquidation-warning` accepts optional `instFamily` and `instId`, and `account-greeks` accepts optional `ccy`
   - Added Trading Account manual contract fixtures, local client-behavior tests, socket contract coverage for private subscription payloads, and a safe live read-only delta-neutral precheck integration test
+  - Aligned Trading Statistics with current OKX docs by validating endpoint-specific period values, enforcing `SPOT`/`CONTRACTS` only for taker-volume requests, and adding a `TradingStatistics` alias on the root REST client for discoverability
+  - Corrected `GET /api/v5/rubik/stat/option/open-interest-volume-expiry` expiry handling so `expTime` is exposed as a `YYYYMMdd` date token with parsed `ExpiryDate`/`ExpiryDateTime` helpers instead of being treated as Unix milliseconds
+  - Added full Trading Statistics docs-shape fixtures plus committed live production snapshots for all 15 public endpoints, alongside new Rubik contract, client-behavior, and public integration coverage
+  - Hardened the live fixture capture script to save raw OKX JSON payloads instead of PowerShell re-serialized objects, and aligned the existing trade account-rate-limit live integration test with rate-limit skip behavior
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

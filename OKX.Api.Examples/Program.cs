@@ -325,21 +325,21 @@ internal class Program
         var spread_16 = await api.Spread.CancelAllAfterAsync(30);
 
         // Trading Statistics Methods (Unsigned)
-        var rubik_01 = await api.Rubik.GetSupportCoinAsync();
-        var rubik_02 = await api.Rubik.GetContractOpenInterestHistoryAsync("");
-        var rubik_03 = await api.Rubik.GetTakerVolumeAsync("BTC", OkxInstrumentType.Spot);
-        var rubik_04 = await api.Rubik.GetContractTakerVolumeAsync("");
-        var rubik_05 = await api.Rubik.GetMarginLendingRatioAsync("BTC", "1D");
-        var rubik_06 = await api.Rubik.GetTopTradersContractLongShortRatioAsync("");
-        var rubik_07 = await api.Rubik.GetTopTradersContractLongShortRatioByPositionAsync("");
-        var rubik_08 = await api.Rubik.GetContractLongShortRatioAsync("");
-        var rubik_09 = await api.Rubik.GetLongShortRatioAsync("BTC", "1D");
-        var rubik_10 = await api.Rubik.GetContractSummaryAsync("BTC", "1D");
-        var rubik_11 = await api.Rubik.GetOptionsSummaryAsync("BTC", "1D");
-        var rubik_12 = await api.Rubik.GetPutCallRatioAsync("BTC", "1D");
-        var rubik_13 = await api.Rubik.GetInterestVolumeExpiryAsync("BTC", "1D");
-        var rubik_14 = await api.Rubik.GetInterestVolumeStrikeAsync("BTC", "20210623", "1D");
-        var rubik_15 = await api.Rubik.GetTakerFlowAsync("BTC", "1D");
+        var rubik_01 = await api.TradingStatistics.GetSupportCoinAsync();
+        var rubik_02 = await api.TradingStatistics.GetContractOpenInterestHistoryAsync("");
+        var rubik_03 = await api.TradingStatistics.GetTakerVolumeAsync("BTC", OkxInstrumentType.Spot);
+        var rubik_04 = await api.TradingStatistics.GetContractTakerVolumeAsync("");
+        var rubik_05 = await api.TradingStatistics.GetMarginLendingRatioAsync("BTC", "1D");
+        var rubik_06 = await api.TradingStatistics.GetTopTradersContractLongShortRatioAsync("");
+        var rubik_07 = await api.TradingStatistics.GetTopTradersContractLongShortRatioByPositionAsync("");
+        var rubik_08 = await api.TradingStatistics.GetContractLongShortRatioAsync("");
+        var rubik_09 = await api.TradingStatistics.GetLongShortRatioAsync("BTC", "1D");
+        var rubik_10 = await api.TradingStatistics.GetContractSummaryAsync("BTC", "1D");
+        var rubik_11 = await api.TradingStatistics.GetOptionsSummaryAsync("BTC", "1D");
+        var rubik_12 = await api.TradingStatistics.GetPutCallRatioAsync("BTC", "1D");
+        var rubik_13 = await api.TradingStatistics.GetInterestVolumeExpiryAsync("BTC", "1D");
+        var rubik_14 = await api.TradingStatistics.GetInterestVolumeStrikeAsync("BTC", "20210623", "1D");
+        var rubik_15 = await api.TradingStatistics.GetTakerFlowAsync("BTC", "1D");
 
         // Funding Account Methods (Signed)
         var funding_01 = await api.Funding.GetCurrenciesAsync();
