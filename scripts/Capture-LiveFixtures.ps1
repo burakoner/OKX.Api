@@ -259,6 +259,70 @@ function Save-FinancialSnapshots {
         -Headers $Headers
 }
 
+function Save-PublicDataSnapshots {
+    param(
+        [string]$EnvironmentName,
+        [string]$BaseUrl,
+        [string]$InsuranceInstrumentType,
+        [string]$InsuranceInstrumentFamily,
+        [string]$OpenInterestInstrumentType,
+        [string]$OpenInterestInstrumentId,
+        [string]$IndexId,
+        [string]$EconomicCalendarRegion,
+        [hashtable]$Headers = @{}
+    )
+
+    $root = "OKX.Api.Tests/Fixtures/Live/$EnvironmentName/Public"
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-discount-rate-interest-free-quota-btc.json" `
+        -Uri "$BaseUrl/api/v5/public/discount-rate-interest-free-quota?ccy=BTC" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-interest-rate-loan-quota.json" `
+        -Uri "$BaseUrl/api/v5/public/interest-rate-loan-quota" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-insurance-fund-swap-btc-usd.json" `
+        -Uri "$BaseUrl/api/v5/public/insurance-fund?instType=$([Uri]::EscapeDataString($InsuranceInstrumentType))&instFamily=$([Uri]::EscapeDataString($InsuranceInstrumentFamily))&limit=5" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-underlying-futures.json" `
+        -Uri "$BaseUrl/api/v5/public/underlying?instType=FUTURES" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-option-tick-bands-option.json" `
+        -Uri "$BaseUrl/api/v5/public/instrument-tick-bands?instType=OPTION" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-open-interest-btc-usdt-swap.json" `
+        -Uri "$BaseUrl/api/v5/public/open-interest?instType=$([Uri]::EscapeDataString($OpenInterestInstrumentType))&instId=$([Uri]::EscapeDataString($OpenInterestInstrumentId))" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-index-components-btc-usd.json" `
+        -Uri "$BaseUrl/api/v5/market/index-components?index=$([Uri]::EscapeDataString($IndexId))" `
+        -Headers $Headers
+
+    if ($EnvironmentName -eq "Production") {
+        if (-not (Test-OkxCredentialsConfigured)) {
+            Write-Warning "Skipping authenticated economic calendar live snapshot because OKX API credentials are not configured."
+        }
+        else {
+            Save-AuthenticatedJsonSnapshot `
+                -RelativePath "$root/get-economic-calendar-united-states.json" `
+                -BaseUrl $BaseUrl `
+                -RequestPathAndQuery "/api/v5/public/economic-calendar?region=$([Uri]::EscapeDataString($EconomicCalendarRegion))&limit=5" `
+                -Headers $Headers
+        }
+    }
+}
+
 function Save-EventContractSnapshots {
     param(
         [string]$EnvironmentName,
@@ -311,6 +375,10 @@ function Save-EventContractSnapshots {
     }
 }
 
+if ($MyInvocation.InvocationName -eq ".") {
+    return
+}
+
 Load-DotEnv -Path (Join-Path $RepositoryRoot ".env")
 
 $baseUrl = Get-EnvOrDefault -Name "OKX_CAPTURE_BASE_URL" -DefaultValue "https://www.okx.com"
@@ -319,6 +387,12 @@ $publicOptionUnderlying = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_OPTION_ULY"
 $publicEventsSeriesId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_EVENTS_SERIES_ID" -DefaultValue "BTC-ABOVE-DAILY"
 $borrowCurrency = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_BORROW_CURRENCY" -DefaultValue (Get-EnvOrDefault -Name "OKX_PUBLIC_BORROW_CURRENCY" -DefaultValue "BTC")
 $fundingHistoryXPerpInstrumentId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_FUNDING_HISTORY_XPERP_INST_ID" -DefaultValue ""
+$publicInsuranceInstrumentType = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_INSURANCE_INST_TYPE" -DefaultValue "SWAP"
+$publicInsuranceInstrumentFamily = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_INSURANCE_INST_FAMILY" -DefaultValue "BTC-USD"
+$publicOpenInterestInstrumentType = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_OPEN_INTEREST_INST_TYPE" -DefaultValue "SWAP"
+$publicOpenInterestInstrumentId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_OPEN_INTEREST_INST_ID" -DefaultValue "BTC-USDT-SWAP"
+$publicIndexId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_INDEX_ID" -DefaultValue "BTC-USD"
+$publicEconomicCalendarRegion = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_ECONOMIC_REGION" -DefaultValue "united_states"
 
 Save-PublicInstrumentSnapshots `
     -EnvironmentName "Production" `
@@ -335,6 +409,16 @@ Save-FinancialSnapshots `
     -EnvironmentName "Production" `
     -BaseUrl $baseUrl `
     -BorrowCurrency $borrowCurrency
+
+Save-PublicDataSnapshots `
+    -EnvironmentName "Production" `
+    -BaseUrl $baseUrl `
+    -InsuranceInstrumentType $publicInsuranceInstrumentType `
+    -InsuranceInstrumentFamily $publicInsuranceInstrumentFamily `
+    -OpenInterestInstrumentType $publicOpenInterestInstrumentType `
+    -OpenInterestInstrumentId $publicOpenInterestInstrumentId `
+    -IndexId $publicIndexId `
+    -EconomicCalendarRegion $publicEconomicCalendarRegion
 
 Save-EventContractSnapshots `
     -EnvironmentName "Production" `
@@ -363,6 +447,17 @@ if ($useDemoTrading) {
         -EnvironmentName "Demo" `
         -BaseUrl $baseUrl `
         -BorrowCurrency $borrowCurrency `
+        -Headers $demoHeaders
+
+    Save-PublicDataSnapshots `
+        -EnvironmentName "Demo" `
+        -BaseUrl $baseUrl `
+        -InsuranceInstrumentType $publicInsuranceInstrumentType `
+        -InsuranceInstrumentFamily $publicInsuranceInstrumentFamily `
+        -OpenInterestInstrumentType $publicOpenInterestInstrumentType `
+        -OpenInterestInstrumentId $publicOpenInterestInstrumentId `
+        -IndexId $publicIndexId `
+        -EconomicCalendarRegion $publicEconomicCalendarRegion `
         -Headers $demoHeaders
 
     Save-EventContractSnapshots `

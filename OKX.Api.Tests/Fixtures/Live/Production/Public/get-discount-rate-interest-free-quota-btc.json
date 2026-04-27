@@ -1,0 +1,680 @@
+{
+    "code":  "0",
+    "data":  [
+                 {
+                     "amt":  "0.23",
+                     "ccy":  "BTC",
+                     "colRes":  "0",
+                     "collateralRestrict":  false,
+                     "details":  [
+                                     {
+                                         "disCcyEq":  "19.6",
+                                         "discountRate":  "0.98",
+                                         "liqPenaltyRate":  "0.02",
+                                         "maxAmt":  "20",
+                                         "minAmt":  "0",
+                                         "tier":  "1"
+                                     },
+                                     {
+                                         "disCcyEq":  "24.4875",
+                                         "discountRate":  "0.9775",
+                                         "liqPenaltyRate":  "0.0225",
+                                         "maxAmt":  "25",
+                                         "minAmt":  "20",
+                                         "tier":  "2"
+                                     },
+                                     {
+                                         "disCcyEq":  "29.3625",
+                                         "discountRate":  "0.975",
+                                         "liqPenaltyRate":  "0.025",
+                                         "maxAmt":  "30",
+                                         "minAmt":  "25",
+                                         "tier":  "3"
+                                     },
+                                     {
+                                         "disCcyEq":  "48.7625",
+                                         "discountRate":  "0.97",
+                                         "liqPenaltyRate":  "0.03",
+                                         "maxAmt":  "50",
+                                         "minAmt":  "30",
+                                         "tier":  "4"
+                                     },
+                                     {
+                                         "disCcyEq":  "68.0625",
+                                         "discountRate":  "0.965",
+                                         "liqPenaltyRate":  "0.035",
+                                         "maxAmt":  "70",
+                                         "minAmt":  "50",
+                                         "tier":  "5"
+                                     },
+                                     {
+                                         "disCcyEq":  "87.2625",
+                                         "discountRate":  "0.96",
+                                         "liqPenaltyRate":  "0.04",
+                                         "maxAmt":  "90",
+                                         "minAmt":  "70",
+                                         "tier":  "6"
+                                     },
+                                     {
+                                         "disCcyEq":  "106.3625",
+                                         "discountRate":  "0.955",
+                                         "liqPenaltyRate":  "0.045",
+                                         "maxAmt":  "110",
+                                         "minAmt":  "90",
+                                         "tier":  "7"
+                                     },
+                                     {
+                                         "disCcyEq":  "125.3625",
+                                         "discountRate":  "0.95",
+                                         "liqPenaltyRate":  "0.05",
+                                         "maxAmt":  "130",
+                                         "minAmt":  "110",
+                                         "tier":  "8"
+                                     },
+                                     {
+                                         "disCcyEq":  "144.2625",
+                                         "discountRate":  "0.945",
+                                         "liqPenaltyRate":  "0.055",
+                                         "maxAmt":  "150",
+                                         "minAmt":  "130",
+                                         "tier":  "9"
+                                     },
+                                     {
+                                         "disCcyEq":  "163.0625",
+                                         "discountRate":  "0.94",
+                                         "liqPenaltyRate":  "0.06",
+                                         "maxAmt":  "170",
+                                         "minAmt":  "150",
+                                         "tier":  "10"
+                                     },
+                                     {
+                                         "disCcyEq":  "181.7625",
+                                         "discountRate":  "0.935",
+                                         "liqPenaltyRate":  "0.065",
+                                         "maxAmt":  "190",
+                                         "minAmt":  "170",
+                                         "tier":  "11"
+                                     },
+                                     {
+                                         "disCcyEq":  "200.3625",
+                                         "discountRate":  "0.93",
+                                         "liqPenaltyRate":  "0.07",
+                                         "maxAmt":  "210",
+                                         "minAmt":  "190",
+                                         "tier":  "12"
+                                     },
+                                     {
+                                         "disCcyEq":  "218.8625",
+                                         "discountRate":  "0.925",
+                                         "liqPenaltyRate":  "0.075",
+                                         "maxAmt":  "230",
+                                         "minAmt":  "210",
+                                         "tier":  "13"
+                                     },
+                                     {
+                                         "disCcyEq":  "237.2625",
+                                         "discountRate":  "0.92",
+                                         "liqPenaltyRate":  "0.08",
+                                         "maxAmt":  "250",
+                                         "minAmt":  "230",
+                                         "tier":  "14"
+                                     },
+                                     {
+                                         "disCcyEq":  "255.5625",
+                                         "discountRate":  "0.915",
+                                         "liqPenaltyRate":  "0.085",
+                                         "maxAmt":  "270",
+                                         "minAmt":  "250",
+                                         "tier":  "15"
+                                     },
+                                     {
+                                         "disCcyEq":  "273.7625",
+                                         "discountRate":  "0.91",
+                                         "liqPenaltyRate":  "0.09",
+                                         "maxAmt":  "290",
+                                         "minAmt":  "270",
+                                         "tier":  "16"
+                                     },
+                                     {
+                                         "disCcyEq":  "291.8625",
+                                         "discountRate":  "0.905",
+                                         "liqPenaltyRate":  "0.095",
+                                         "maxAmt":  "310",
+                                         "minAmt":  "290",
+                                         "tier":  "17"
+                                     },
+                                     {
+                                         "disCcyEq":  "309.8625",
+                                         "discountRate":  "0.9",
+                                         "liqPenaltyRate":  "0.1",
+                                         "maxAmt":  "330",
+                                         "minAmt":  "310",
+                                         "tier":  "18"
+                                     },
+                                     {
+                                         "disCcyEq":  "327.7625",
+                                         "discountRate":  "0.895",
+                                         "liqPenaltyRate":  "0.105",
+                                         "maxAmt":  "350",
+                                         "minAmt":  "330",
+                                         "tier":  "19"
+                                     },
+                                     {
+                                         "disCcyEq":  "345.5625",
+                                         "discountRate":  "0.89",
+                                         "liqPenaltyRate":  "0.11",
+                                         "maxAmt":  "370",
+                                         "minAmt":  "350",
+                                         "tier":  "20"
+                                     },
+                                     {
+                                         "disCcyEq":  "363.2625",
+                                         "discountRate":  "0.885",
+                                         "liqPenaltyRate":  "0.115",
+                                         "maxAmt":  "390",
+                                         "minAmt":  "370",
+                                         "tier":  "21"
+                                     },
+                                     {
+                                         "disCcyEq":  "380.8625",
+                                         "discountRate":  "0.88",
+                                         "liqPenaltyRate":  "0.12",
+                                         "maxAmt":  "410",
+                                         "minAmt":  "390",
+                                         "tier":  "22"
+                                     },
+                                     {
+                                         "disCcyEq":  "398.3625",
+                                         "discountRate":  "0.875",
+                                         "liqPenaltyRate":  "0.125",
+                                         "maxAmt":  "430",
+                                         "minAmt":  "410",
+                                         "tier":  "23"
+                                     },
+                                     {
+                                         "disCcyEq":  "415.7625",
+                                         "discountRate":  "0.87",
+                                         "liqPenaltyRate":  "0.13",
+                                         "maxAmt":  "450",
+                                         "minAmt":  "430",
+                                         "tier":  "24"
+                                     },
+                                     {
+                                         "disCcyEq":  "433.0625",
+                                         "discountRate":  "0.865",
+                                         "liqPenaltyRate":  "0.135",
+                                         "maxAmt":  "470",
+                                         "minAmt":  "450",
+                                         "tier":  "25"
+                                     },
+                                     {
+                                         "disCcyEq":  "450.2625",
+                                         "discountRate":  "0.86",
+                                         "liqPenaltyRate":  "0.14",
+                                         "maxAmt":  "490",
+                                         "minAmt":  "470",
+                                         "tier":  "26"
+                                     },
+                                     {
+                                         "disCcyEq":  "467.3625",
+                                         "discountRate":  "0.855",
+                                         "liqPenaltyRate":  "0.145",
+                                         "maxAmt":  "510",
+                                         "minAmt":  "490",
+                                         "tier":  "27"
+                                     },
+                                     {
+                                         "disCcyEq":  "484.3625",
+                                         "discountRate":  "0.85",
+                                         "liqPenaltyRate":  "0.15",
+                                         "maxAmt":  "530",
+                                         "minAmt":  "510",
+                                         "tier":  "28"
+                                     },
+                                     {
+                                         "disCcyEq":  "501.2625",
+                                         "discountRate":  "0.845",
+                                         "liqPenaltyRate":  "0.155",
+                                         "maxAmt":  "550",
+                                         "minAmt":  "530",
+                                         "tier":  "29"
+                                     },
+                                     {
+                                         "disCcyEq":  "518.0625",
+                                         "discountRate":  "0.84",
+                                         "liqPenaltyRate":  "0.16",
+                                         "maxAmt":  "570",
+                                         "minAmt":  "550",
+                                         "tier":  "30"
+                                     },
+                                     {
+                                         "disCcyEq":  "534.7625",
+                                         "discountRate":  "0.835",
+                                         "liqPenaltyRate":  "0.165",
+                                         "maxAmt":  "590",
+                                         "minAmt":  "570",
+                                         "tier":  "31"
+                                     },
+                                     {
+                                         "disCcyEq":  "551.3625",
+                                         "discountRate":  "0.83",
+                                         "liqPenaltyRate":  "0.17",
+                                         "maxAmt":  "610",
+                                         "minAmt":  "590",
+                                         "tier":  "32"
+                                     },
+                                     {
+                                         "disCcyEq":  "567.8625",
+                                         "discountRate":  "0.825",
+                                         "liqPenaltyRate":  "0.175",
+                                         "maxAmt":  "630",
+                                         "minAmt":  "610",
+                                         "tier":  "33"
+                                     },
+                                     {
+                                         "disCcyEq":  "584.2625",
+                                         "discountRate":  "0.82",
+                                         "liqPenaltyRate":  "0.18",
+                                         "maxAmt":  "650",
+                                         "minAmt":  "630",
+                                         "tier":  "34"
+                                     },
+                                     {
+                                         "disCcyEq":  "600.5625",
+                                         "discountRate":  "0.815",
+                                         "liqPenaltyRate":  "0.185",
+                                         "maxAmt":  "670",
+                                         "minAmt":  "650",
+                                         "tier":  "35"
+                                     },
+                                     {
+                                         "disCcyEq":  "616.7625",
+                                         "discountRate":  "0.81",
+                                         "liqPenaltyRate":  "0.19",
+                                         "maxAmt":  "690",
+                                         "minAmt":  "670",
+                                         "tier":  "36"
+                                     },
+                                     {
+                                         "disCcyEq":  "632.8625",
+                                         "discountRate":  "0.805",
+                                         "liqPenaltyRate":  "0.195",
+                                         "maxAmt":  "710",
+                                         "minAmt":  "690",
+                                         "tier":  "37"
+                                     },
+                                     {
+                                         "disCcyEq":  "648.8625",
+                                         "discountRate":  "0.8",
+                                         "liqPenaltyRate":  "0.2",
+                                         "maxAmt":  "730",
+                                         "minAmt":  "710",
+                                         "tier":  "38"
+                                     },
+                                     {
+                                         "disCcyEq":  "664.7625",
+                                         "discountRate":  "0.795",
+                                         "liqPenaltyRate":  "0.205",
+                                         "maxAmt":  "750",
+                                         "minAmt":  "730",
+                                         "tier":  "39"
+                                     },
+                                     {
+                                         "disCcyEq":  "680.5625",
+                                         "discountRate":  "0.79",
+                                         "liqPenaltyRate":  "0.21",
+                                         "maxAmt":  "770",
+                                         "minAmt":  "750",
+                                         "tier":  "40"
+                                     },
+                                     {
+                                         "disCcyEq":  "696.2625",
+                                         "discountRate":  "0.785",
+                                         "liqPenaltyRate":  "0.215",
+                                         "maxAmt":  "790",
+                                         "minAmt":  "770",
+                                         "tier":  "41"
+                                     },
+                                     {
+                                         "disCcyEq":  "711.8625",
+                                         "discountRate":  "0.78",
+                                         "liqPenaltyRate":  "0.22",
+                                         "maxAmt":  "810",
+                                         "minAmt":  "790",
+                                         "tier":  "42"
+                                     },
+                                     {
+                                         "disCcyEq":  "727.3625",
+                                         "discountRate":  "0.775",
+                                         "liqPenaltyRate":  "0.225",
+                                         "maxAmt":  "830",
+                                         "minAmt":  "810",
+                                         "tier":  "43"
+                                     },
+                                     {
+                                         "disCcyEq":  "742.7625",
+                                         "discountRate":  "0.77",
+                                         "liqPenaltyRate":  "0.23",
+                                         "maxAmt":  "850",
+                                         "minAmt":  "830",
+                                         "tier":  "44"
+                                     },
+                                     {
+                                         "disCcyEq":  "758.0625",
+                                         "discountRate":  "0.765",
+                                         "liqPenaltyRate":  "0.235",
+                                         "maxAmt":  "870",
+                                         "minAmt":  "850",
+                                         "tier":  "45"
+                                     },
+                                     {
+                                         "disCcyEq":  "773.2625",
+                                         "discountRate":  "0.76",
+                                         "liqPenaltyRate":  "0.24",
+                                         "maxAmt":  "890",
+                                         "minAmt":  "870",
+                                         "tier":  "46"
+                                     },
+                                     {
+                                         "disCcyEq":  "788.3625",
+                                         "discountRate":  "0.755",
+                                         "liqPenaltyRate":  "0.245",
+                                         "maxAmt":  "910",
+                                         "minAmt":  "890",
+                                         "tier":  "47"
+                                     },
+                                     {
+                                         "disCcyEq":  "803.3625",
+                                         "discountRate":  "0.75",
+                                         "liqPenaltyRate":  "0.25",
+                                         "maxAmt":  "930",
+                                         "minAmt":  "910",
+                                         "tier":  "48"
+                                     },
+                                     {
+                                         "disCcyEq":  "818.2625",
+                                         "discountRate":  "0.745",
+                                         "liqPenaltyRate":  "0.255",
+                                         "maxAmt":  "950",
+                                         "minAmt":  "930",
+                                         "tier":  "49"
+                                     },
+                                     {
+                                         "disCcyEq":  "833.0625",
+                                         "discountRate":  "0.74",
+                                         "liqPenaltyRate":  "0.26",
+                                         "maxAmt":  "970",
+                                         "minAmt":  "950",
+                                         "tier":  "50"
+                                     },
+                                     {
+                                         "disCcyEq":  "847.7625",
+                                         "discountRate":  "0.735",
+                                         "liqPenaltyRate":  "0.265",
+                                         "maxAmt":  "990",
+                                         "minAmt":  "970",
+                                         "tier":  "51"
+                                     },
+                                     {
+                                         "disCcyEq":  "862.3625",
+                                         "discountRate":  "0.73",
+                                         "liqPenaltyRate":  "0.27",
+                                         "maxAmt":  "1010",
+                                         "minAmt":  "990",
+                                         "tier":  "52"
+                                     },
+                                     {
+                                         "disCcyEq":  "876.8625",
+                                         "discountRate":  "0.725",
+                                         "liqPenaltyRate":  "0.275",
+                                         "maxAmt":  "1030",
+                                         "minAmt":  "1010",
+                                         "tier":  "53"
+                                     },
+                                     {
+                                         "disCcyEq":  "891.2625",
+                                         "discountRate":  "0.72",
+                                         "liqPenaltyRate":  "0.28",
+                                         "maxAmt":  "1050",
+                                         "minAmt":  "1030",
+                                         "tier":  "54"
+                                     },
+                                     {
+                                         "disCcyEq":  "905.5625",
+                                         "discountRate":  "0.715",
+                                         "liqPenaltyRate":  "0.285",
+                                         "maxAmt":  "1070",
+                                         "minAmt":  "1050",
+                                         "tier":  "55"
+                                     },
+                                     {
+                                         "disCcyEq":  "919.7625",
+                                         "discountRate":  "0.71",
+                                         "liqPenaltyRate":  "0.29",
+                                         "maxAmt":  "1090",
+                                         "minAmt":  "1070",
+                                         "tier":  "56"
+                                     },
+                                     {
+                                         "disCcyEq":  "933.8625",
+                                         "discountRate":  "0.705",
+                                         "liqPenaltyRate":  "0.295",
+                                         "maxAmt":  "1110",
+                                         "minAmt":  "1090",
+                                         "tier":  "57"
+                                     },
+                                     {
+                                         "disCcyEq":  "947.8625",
+                                         "discountRate":  "0.7",
+                                         "liqPenaltyRate":  "0.3",
+                                         "maxAmt":  "1130",
+                                         "minAmt":  "1110",
+                                         "tier":  "58"
+                                     },
+                                     {
+                                         "disCcyEq":  "961.7625",
+                                         "discountRate":  "0.695",
+                                         "liqPenaltyRate":  "0.305",
+                                         "maxAmt":  "1150",
+                                         "minAmt":  "1130",
+                                         "tier":  "59"
+                                     },
+                                     {
+                                         "disCcyEq":  "975.5625",
+                                         "discountRate":  "0.69",
+                                         "liqPenaltyRate":  "0.31",
+                                         "maxAmt":  "1170",
+                                         "minAmt":  "1150",
+                                         "tier":  "60"
+                                     },
+                                     {
+                                         "disCcyEq":  "989.2625",
+                                         "discountRate":  "0.685",
+                                         "liqPenaltyRate":  "0.315",
+                                         "maxAmt":  "1190",
+                                         "minAmt":  "1170",
+                                         "tier":  "61"
+                                     },
+                                     {
+                                         "disCcyEq":  "1002.8625",
+                                         "discountRate":  "0.68",
+                                         "liqPenaltyRate":  "0.32",
+                                         "maxAmt":  "1210",
+                                         "minAmt":  "1190",
+                                         "tier":  "62"
+                                     },
+                                     {
+                                         "disCcyEq":  "1016.3625",
+                                         "discountRate":  "0.675",
+                                         "liqPenaltyRate":  "0.325",
+                                         "maxAmt":  "1230",
+                                         "minAmt":  "1210",
+                                         "tier":  "63"
+                                     },
+                                     {
+                                         "disCcyEq":  "1029.7625",
+                                         "discountRate":  "0.67",
+                                         "liqPenaltyRate":  "0.33",
+                                         "maxAmt":  "1250",
+                                         "minAmt":  "1230",
+                                         "tier":  "64"
+                                     },
+                                     {
+                                         "disCcyEq":  "1043.0625",
+                                         "discountRate":  "0.665",
+                                         "liqPenaltyRate":  "0.335",
+                                         "maxAmt":  "1270",
+                                         "minAmt":  "1250",
+                                         "tier":  "65"
+                                     },
+                                     {
+                                         "disCcyEq":  "1056.2625",
+                                         "discountRate":  "0.66",
+                                         "liqPenaltyRate":  "0.34",
+                                         "maxAmt":  "1290",
+                                         "minAmt":  "1270",
+                                         "tier":  "66"
+                                     },
+                                     {
+                                         "disCcyEq":  "1069.3625",
+                                         "discountRate":  "0.655",
+                                         "liqPenaltyRate":  "0.345",
+                                         "maxAmt":  "1310",
+                                         "minAmt":  "1290",
+                                         "tier":  "67"
+                                     },
+                                     {
+                                         "disCcyEq":  "1082.3625",
+                                         "discountRate":  "0.65",
+                                         "liqPenaltyRate":  "0.35",
+                                         "maxAmt":  "1330",
+                                         "minAmt":  "1310",
+                                         "tier":  "68"
+                                     },
+                                     {
+                                         "disCcyEq":  "1095.2625",
+                                         "discountRate":  "0.645",
+                                         "liqPenaltyRate":  "0.355",
+                                         "maxAmt":  "1350",
+                                         "minAmt":  "1330",
+                                         "tier":  "69"
+                                     },
+                                     {
+                                         "disCcyEq":  "1108.0625",
+                                         "discountRate":  "0.64",
+                                         "liqPenaltyRate":  "0.36",
+                                         "maxAmt":  "1370",
+                                         "minAmt":  "1350",
+                                         "tier":  "70"
+                                     },
+                                     {
+                                         "disCcyEq":  "1120.7625",
+                                         "discountRate":  "0.635",
+                                         "liqPenaltyRate":  "0.365",
+                                         "maxAmt":  "1390",
+                                         "minAmt":  "1370",
+                                         "tier":  "71"
+                                     },
+                                     {
+                                         "disCcyEq":  "1133.3625",
+                                         "discountRate":  "0.63",
+                                         "liqPenaltyRate":  "0.37",
+                                         "maxAmt":  "1410",
+                                         "minAmt":  "1390",
+                                         "tier":  "72"
+                                     },
+                                     {
+                                         "disCcyEq":  "1145.8625",
+                                         "discountRate":  "0.625",
+                                         "liqPenaltyRate":  "0.375",
+                                         "maxAmt":  "1430",
+                                         "minAmt":  "1410",
+                                         "tier":  "73"
+                                     },
+                                     {
+                                         "disCcyEq":  "1158.2625",
+                                         "discountRate":  "0.62",
+                                         "liqPenaltyRate":  "0.38",
+                                         "maxAmt":  "1450",
+                                         "minAmt":  "1430",
+                                         "tier":  "74"
+                                     },
+                                     {
+                                         "disCcyEq":  "1170.5625",
+                                         "discountRate":  "0.615",
+                                         "liqPenaltyRate":  "0.385",
+                                         "maxAmt":  "1470",
+                                         "minAmt":  "1450",
+                                         "tier":  "75"
+                                     },
+                                     {
+                                         "disCcyEq":  "1182.7625",
+                                         "discountRate":  "0.61",
+                                         "liqPenaltyRate":  "0.39",
+                                         "maxAmt":  "1490",
+                                         "minAmt":  "1470",
+                                         "tier":  "76"
+                                     },
+                                     {
+                                         "disCcyEq":  "1194.8625",
+                                         "discountRate":  "0.605",
+                                         "liqPenaltyRate":  "0.395",
+                                         "maxAmt":  "1510",
+                                         "minAmt":  "1490",
+                                         "tier":  "77"
+                                     },
+                                     {
+                                         "disCcyEq":  "1206.8625",
+                                         "discountRate":  "0.6",
+                                         "liqPenaltyRate":  "0.4",
+                                         "maxAmt":  "1530",
+                                         "minAmt":  "1510",
+                                         "tier":  "78"
+                                     },
+                                     {
+                                         "disCcyEq":  "1218.7625",
+                                         "discountRate":  "0.595",
+                                         "liqPenaltyRate":  "0.405",
+                                         "maxAmt":  "1550",
+                                         "minAmt":  "1530",
+                                         "tier":  "79"
+                                     },
+                                     {
+                                         "disCcyEq":  "1230.5625",
+                                         "discountRate":  "0.59",
+                                         "liqPenaltyRate":  "0.41",
+                                         "maxAmt":  "1570",
+                                         "minAmt":  "1550",
+                                         "tier":  "80"
+                                     },
+                                     {
+                                         "disCcyEq":  "1242.2625",
+                                         "discountRate":  "0.585",
+                                         "liqPenaltyRate":  "0.415",
+                                         "maxAmt":  "1590",
+                                         "minAmt":  "1570",
+                                         "tier":  "81"
+                                     },
+                                     {
+                                         "disCcyEq":  "1253.8625",
+                                         "discountRate":  "0.58",
+                                         "liqPenaltyRate":  "0.42",
+                                         "maxAmt":  "1610",
+                                         "minAmt":  "1590",
+                                         "tier":  "82"
+                                     },
+                                     {
+                                         "disCcyEq":  "1265.3625",
+                                         "discountRate":  "0.575",
+                                         "liqPenaltyRate":  "0.425",
+                                         "maxAmt":  "1630",
+                                         "minAmt":  "1610",
+                                         "tier":  "83"
+                                     }
+                                 ],
+                     "discountLv":  "",
+                     "minDiscountRate":  "0"
+                 }
+             ],
+    "msg":  ""
+}

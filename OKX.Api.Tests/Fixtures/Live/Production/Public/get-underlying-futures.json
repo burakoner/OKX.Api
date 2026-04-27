@@ -1,0 +1,36 @@
+{
+    "code":  "0",
+    "data":  [
+                 [
+                     "BSV-USDT",
+                     "LINK-USD",
+                     "BTC-USDT",
+                     "EOS-USD",
+                     "FIL-USD",
+                     "XRP-USDT",
+                     "ETH-USDC",
+                     "SUI-USD",
+                     "PEPE-USD",
+                     "EOS-USDT",
+                     "ETC-USDT",
+                     "TRX-USD",
+                     "AVAX-USD",
+                     "LTC-USDT",
+                     "XRP-USD",
+                     "LTC-USD",
+                     "ETH-USD",
+                     "DOGE-USD",
+                     "ETC-USD",
+                     "TRX-USDT",
+                     "PUMP-USD",
+                     "BSV-USD",
+                     "SOL-USD",
+                     "BTC-USD",
+                     "BTC-USDC",
+                     "XAU-USD",
+                     "ETH-USDT",
+                     "ADA-USD"
+                 ]
+             ],
+    "msg":  ""
+}

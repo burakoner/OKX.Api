@@ -1,0 +1,39 @@
+{
+    "code":  "0",
+    "msg":  "",
+    "data":  {
+                 "components":  [
+                                    {
+                                        "symbol":  "BTC/USD",
+                                        "symPx":  "77832.4",
+                                        "wgt":  "0.273",
+                                        "cnvPx":  "77832.4",
+                                        "exch":  "Kraken"
+                                    },
+                                    {
+                                        "symbol":  "BTC/USD",
+                                        "symPx":  "77827",
+                                        "wgt":  "0.182",
+                                        "cnvPx":  "77827",
+                                        "exch":  "Bitstamp"
+                                    },
+                                    {
+                                        "symbol":  "BTC/USD",
+                                        "symPx":  "77834.44",
+                                        "wgt":  "0.273",
+                                        "cnvPx":  "77834.44",
+                                        "exch":  "Crypto"
+                                    },
+                                    {
+                                        "symbol":  "BTC/USD",
+                                        "symPx":  "77826.91",
+                                        "wgt":  "0.273",
+                                        "cnvPx":  "77826.91",
+                                        "exch":  "Coinbase"
+                                    }
+                                ],
+                 "last":  "77830.4",
+                 "index":  "BTC-USD",
+                 "ts":  "1777284904811"
+             }
+}

@@ -790,6 +790,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToEconomicCalendarEventsAsync(Action<OkxPublicEconomicCalendarEvent> onData, CancellationToken ct = default)
     {
+        var subscription = CreateEconomicCalendarSubscription();
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicEconomicCalendarEvent>>>>(data =>
         {
             foreach (var d in data.Data.Data)
@@ -800,13 +801,19 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
             }
         });
 
-        var arguments = new List<OkxSocketRequestArgument>();
-        arguments.Add(new OkxSocketRequestArgument
-        {
-            Channel = $"economic-calendar",
-        });
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        return await _.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, false, internalHandler, ct).ConfigureAwait(false);
+        return await _.RootSubscribeAsync(subscription.Endpoint, subscription.Request, null, subscription.Authenticated, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    private static (OkxSocketEndpoint Endpoint, bool Authenticated, OkxSocketRequest Request) CreateEconomicCalendarSubscription()
+    {
+        var request = new OkxSocketRequest(
+            OkxSocketOperation.Subscribe,
+            new OkxSocketRequestArgument
+            {
+                Channel = "economic-calendar",
+            });
+
+        return (OkxSocketEndpoint.Business, true, request);
     }
 
     /// <summary>

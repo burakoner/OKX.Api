@@ -10,18 +10,21 @@ public record OkxPublicAdlWarning
     /// Applicable when state is warning or adl
     /// </summary>
     [JsonProperty("maxBal")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? MaximumBalance { get; set; }
 
     /// <summary>
     /// security fund balance that turns off ADL
     /// </summary>
     [JsonProperty("adlRecBal")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? AdlRecordBalance { get; set; }
 
     /// <summary>
     /// Real-time security fund balance
     /// </summary>
     [JsonProperty("bal")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? Balance { get; set; }
 
     /// <summary>
@@ -51,7 +54,8 @@ public record OkxPublicAdlWarning
     /// <summary>
     /// Timestamp when security fund balance reached maximum in the past eight hours, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
-    [JsonProperty("ts")]
+    [JsonProperty("maxBalTs")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? MaximumBalanceTimestamp { get; set; }
 
     /// <summary>
@@ -76,6 +80,7 @@ public record OkxPublicAdlWarning
     /// security fund balance that triggers ADL
     /// </summary>
     [JsonProperty("adlBal")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? AdlBalance { get; set; }
 
     /// <summary>
@@ -83,6 +88,30 @@ public record OkxPublicAdlWarning
     /// </summary>
     [JsonProperty("ts")]
     public long Timestamp { get; set; }
+
+    /// <summary>
+    /// Real-time security fund decline rate (deprecated)
+    /// </summary>
+    [Obsolete]
+    [JsonProperty("decRate")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? DeclineRate { get; set; }
+
+    /// <summary>
+    /// Security fund decline rate that triggers ADL (deprecated)
+    /// </summary>
+    [Obsolete]
+    [JsonProperty("adlRate")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? AdlRate { get; set; }
+
+    /// <summary>
+    /// Security fund decline rate that turns off ADL (deprecated)
+    /// </summary>
+    [Obsolete]
+    [JsonProperty("adlRecRate")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? AdlRecoveryRate { get; set; }
 
     /// <summary>
     /// Data push time

@@ -84,6 +84,10 @@
   - Expanded Recurring Buy with the six missing management endpoints, corrected its private order-updates channel to use the authenticated `/ws/v5/business` socket, and aligned recurring-order models with current docs fields and states
   - Added Order Book Trading contract and local client-behavior test coverage for DCA, Grid, Signal Bot, and Recurring Buy request/response parity
   - Added Funding Account contract, local client-behavior, and safe live integration coverage, with rate-limited live endpoints now skipping instead of failing the suite on OKX `50011` responses
+  - Fixed Public Data parity for security fund, interest-rate-loan-quota, discount-rate-interest-free-quota, economic calendar, liquidation orders, ADL warning, and live open-interest payloads
+  - Added `GetInsuranceFundsAsync` and `GetInterestRateLoanQuotaAsync`, kept the legacy single-item security fund helper for compatibility, and aligned economic-calendar REST and WebSocket flows with OKX's authenticated business-socket requirement
+  - Hardened Public Data models for empty-string numeric/timestamp fields, added current documented deprecated fields, corrected liquidation size and ADL `maxBalTs` mappings, and updated public open-interest parsing so `oi` supports fractional live values
+  - Added manual docs fixtures plus committed live production snapshots for discount info, interest-rate-loan-quota, security fund, underlying, option tick bands, open interest, index components, and authenticated economic calendar data, with new contract, client-behavior, and public integration coverage
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

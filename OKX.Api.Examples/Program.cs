@@ -50,11 +50,11 @@ internal class Program
         var public_18 = await api.Public.GetServerTimeAsync();
         var public_19 = await api.Public.GetMarkPricesAsync(OkxInstrumentType.Futures);
         var public_20 = await api.Public.GetPositionTiersAsync(OkxInstrumentType.Futures, OkxAccountMarginMode.Isolated, "BTC-USD");
-        var public_21 = await api.Public.GetInterestRatesAsync();
+        var public_21 = await api.Public.GetInterestRateLoanQuotaAsync();
         var public_23 = await api.Public.GetUnderlyingAsync(OkxInstrumentType.Futures);
         var public_24 = await api.Public.GetUnderlyingAsync(OkxInstrumentType.Option);
         var public_25 = await api.Public.GetUnderlyingAsync(OkxInstrumentType.Swap);
-        var public_26 = await api.Public.GetInsuranceFundAsync(OkxInstrumentType.Margin, currency: "BTC");
+        var public_26 = await api.Public.GetInsuranceFundsAsync(OkxInstrumentType.Margin, currency: "BTC");
         var public_27 = await api.Public.GetUnitConvertAsync("BTC-USD-SWAP", price: 35000, size: 0.888m);
         var public_28 = await api.Public.GetOptionTickBandsAsync();
         var public_29 = await api.Public.GetPremiumHistoryAsync(instrumentId: "BTC-USDT");
@@ -69,7 +69,7 @@ internal class Program
         var public_38 = await api.Public.GetMarkPriceCandlesticksHistoryAsync("BTC-USDT", OkxPeriod.OneHour);
         var public_40 = await api.Public.GetExchangeRateAsync();
         var public_41 = await api.Public.GetIndexComponentsAsync("BTC-USDT");
-        var public_42 = await api.Public.GetEconomicCalendarDataAsync("BTC-USDT");
+        var public_42 = await api.Public.GetEconomicCalendarDataAsync("united_states");
         var public_43 = await api.Public.GetAnnouncementTypesAsync();
         var public_44 = await api.Public.GetAnnouncementsAsync();
         var public_45 = await api.Public.GetSystemUpgradeStatusAsync();

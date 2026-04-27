@@ -75,6 +75,7 @@ public record OkxPublicEconomicCalendarEvent
     /// Has exact time
     /// </summary>
     [JsonProperty("dateSpan")]
+    [JsonConverter(typeof(EconomicCalendarDateSpanConverter))]
     public bool HasExactTime { get; set; }
 
     /// <summary>

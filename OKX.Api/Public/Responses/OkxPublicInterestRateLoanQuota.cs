@@ -78,6 +78,14 @@ public record OkxPublicInterestRateVip
     /// </summary>
     [JsonProperty("loanQuotaCoef")]
     public decimal LoanQuotaCoefficient { get; set; }
+
+    /// <summary>
+    /// Interest rate discount (deprecated)
+    /// </summary>
+    [Obsolete]
+    [JsonProperty("irDiscount")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? InterestRateDiscount { get; set; }
 }
 
 /// <summary>
@@ -96,6 +104,14 @@ public record OkxPublicInterestRateRegular
     /// </summary>
     [JsonProperty("loanQuotaCoef")]
     public decimal LoanQuotaCoefficient { get; set; }
+
+    /// <summary>
+    /// Interest rate discount (deprecated)
+    /// </summary>
+    [Obsolete]
+    [JsonProperty("irDiscount")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? InterestRateDiscount { get; set; }
 }
 
 /// <summary>
@@ -133,7 +149,7 @@ public record OkxPublicInterestRateConfiguration
     /// 1: delta neutral strategy
     /// If only 0 is returned for a currency, it means the loan quota is shared between accounts in general strategy and accounts in delta neutral strategy; if both 0/1 are returned for a currency, it means accounts in delta neutral strategy have separate loan quotas.
     /// </summary>
-    [JsonProperty("ccy")]
+    [JsonProperty("stgyType")]
     public OkxAccountStrategyType? StrategyType { get; set; }
 
     /// <summary>

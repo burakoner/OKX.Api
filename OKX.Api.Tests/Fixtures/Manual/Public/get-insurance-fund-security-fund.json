@@ -1,0 +1,42 @@
+{
+  "code": "0",
+  "data": [
+    {
+      "details": [
+        {
+          "adlType": "",
+          "amt": "",
+          "balance": "1343.1308",
+          "ccy": "ETH",
+          "decRate": "",
+          "maxBal": "",
+          "maxBalTs": "",
+          "ts": "1704883083000",
+          "type": "regular_update"
+        }
+      ],
+      "instFamily": "ETH-USD",
+      "instType": "OPTION",
+      "total": "1369179138.7489"
+    },
+    {
+      "details": [
+        {
+          "adlType": "rate_adl_start",
+          "amt": "",
+          "balance": "3858.499",
+          "ccy": "BTC",
+          "decRate": "0.035",
+          "maxBal": "4000",
+          "maxBalTs": "1777283890000",
+          "ts": "1777284130000",
+          "type": "adl"
+        }
+      ],
+      "instFamily": "BTC-USD",
+      "instType": "SWAP",
+      "total": "2580357003.5972"
+    }
+  ],
+  "msg": ""
+}

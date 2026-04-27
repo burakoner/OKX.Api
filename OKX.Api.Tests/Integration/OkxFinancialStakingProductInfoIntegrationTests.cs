@@ -15,6 +15,7 @@ public class OkxFinancialStakingProductInfoIntegrationTests
 
         var client = OkxRestClientFactory.CreatePrivate(configuration);
         var result = await client.Financial.EthStaking.GetProductInfoAsync();
+        SkipIfRateLimited(result.Error?.ToString());
 
         Assert.True(result.Success, result.Error?.ToString() ?? "ETH staking product info request should succeed.");
         Assert.NotNull(result.Data);
@@ -33,11 +34,18 @@ public class OkxFinancialStakingProductInfoIntegrationTests
 
         var client = OkxRestClientFactory.CreatePrivate(configuration);
         var result = await client.Financial.SolStaking.GetProductInfoAsync();
+        SkipIfRateLimited(result.Error?.ToString());
 
         Assert.True(result.Success, result.Error?.ToString() ?? "SOL staking product info request should succeed.");
         Assert.NotNull(result.Data);
         Assert.NotNull(result.Data.Rate);
         Assert.NotNull(result.Data.RedemptionDays);
         Assert.NotNull(result.Data.MinimumAmount);
+    }
+
+    private static void SkipIfRateLimited(string? errorText)
+    {
+        if (!string.IsNullOrEmpty(errorText) && errorText.Contains("50011", StringComparison.Ordinal))
+            Skip.If(true, "OKX rate-limited the live staking product info request (50011).");
     }
 }

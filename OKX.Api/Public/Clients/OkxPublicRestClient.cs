@@ -727,6 +727,14 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxPublicInterestRateLoanQuota>> GetInterestRatesAsync(CancellationToken ct = default)
+        => GetInterestRateLoanQuotaAsync(ct);
+
+    /// <summary>
+    /// Retrieve the public interest-rate and loan-quota snapshot.
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxPublicInterestRateLoanQuota>> GetInterestRateLoanQuotaAsync(CancellationToken ct = default)
     {
         return ProcessOneRequestAsync<OkxPublicInterestRateLoanQuota>(GetUri("api/v5/public/interest-rate-loan-quota"), HttpMethod.Get, ct);
     }
@@ -762,7 +770,42 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="limit"></param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxPublicInsuranceFund>> GetInsuranceFundAsync(
+    [Obsolete("Use GetInsuranceFundsAsync to avoid narrowing the documented array response to a single item.")]
+    public async Task<RestCallResult<OkxPublicInsuranceFund>> GetInsuranceFundAsync(
+        OkxInstrumentType instrumentType,
+        OkxPublicInsuranceType? type = null,
+        string? instrumentFamily = null,
+        string? currency = null,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        var result = await GetInsuranceFundsAsync(instrumentType, type, instrumentFamily, currency, after, before, limit, ct).ConfigureAwait(false);
+        if (!result.Success)
+            return new RestCallResult<OkxPublicInsuranceFund>(result.Request, result.Response, result.Raw ?? string.Empty, result.Error);
+
+        return new RestCallResult<OkxPublicInsuranceFund>(
+            result.Request,
+            result.Response,
+            result.Data?.FirstOrDefault()!,
+            result.Raw ?? string.Empty,
+            result.Error);
+    }
+
+    /// <summary>
+    /// Get security fund balance information.
+    /// </summary>
+    /// <param name="instrumentType">Instrument type</param>
+    /// <param name="type">Security fund entry type filter</param>
+    /// <param name="instrumentFamily">Instrument family. Required for FUTURES, SWAP, and OPTION.</param>
+    /// <param name="currency">Currency. Only applicable to MARGIN.</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts</param>
+    /// <param name="before">Pagination of data to return records newer than the requested ts</param>
+    /// <param name="limit">Number of results per request. Maximum 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicInsuranceFund>>> GetInsuranceFundsAsync(
         OkxInstrumentType instrumentType,
         OkxPublicInsuranceType? type = null,
         string? instrumentFamily = null,
@@ -774,6 +817,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     {
         if (instrumentType.IsNotIn(OkxInstrumentType.Margin, OkxInstrumentType.Swap, OkxInstrumentType.Futures, OkxInstrumentType.Option))
             throw new ArgumentException("Instrument Type can be only Margin, Swap, Futures or Option.");
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
 
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
@@ -784,7 +828,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessOneRequestAsync<OkxPublicInsuranceFund>(GetUri("api/v5/public/insurance-fund"), HttpMethod.Get, ct, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicInsuranceFund>(GetUri("api/v5/public/insurance-fund"), HttpMethod.Get, ct, queryParameters: parameters);
     }
 
     /// <summary>
@@ -1098,7 +1142,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     }
 
     /// <summary>
-    /// Get the macro-economic calendar data within 3 months. Historical data from 3 months ago is only available to users with trading fee tier VIP1 and above.
+    /// Get the macro-economic calendar data within 3 months.
+    /// Authentication is required by OKX for this public-data endpoint, and the endpoint is only supported in production.
+    /// Historical data from 3 months ago is only available to users with trading fee tier VIP1 and above.
     /// </summary>
     /// <param name="region">Country, region or entity</param>
     /// <param name="importance">Level of importance</param>
@@ -1123,7 +1169,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxPublicEconomicCalendarEvent>(GetUri("api/v5/public/economic-calendar"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxPublicEconomicCalendarEvent>(GetUri("api/v5/public/economic-calendar"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>

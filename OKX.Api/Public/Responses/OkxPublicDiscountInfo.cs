@@ -22,10 +22,24 @@ public record OkxPublicDiscountInfo
     public OkxPublicCollateralRestrictionStatus CollateralRestrictionStatus { get; set; }
 
     /// <summary>
+    /// Platform level collateralized borrow restriction (deprecated)
+    /// </summary>
+    [Obsolete]
+    [JsonProperty("collateralRestrict")]
+    public bool? CollateralRestricted { get; set; }
+
+    /// <summary>
     /// Amount
     /// </summary>
     [JsonProperty("amt")]
     public decimal Amount { get; set; }
+
+    /// <summary>
+    /// Discount rate level (deprecated)
+    /// </summary>
+    [Obsolete]
+    [JsonProperty("discountLv")]
+    public string DiscountLevel { get; set; } = string.Empty;
 
     /// <summary>
     /// Minimum discount rate when it exceeds the maximum amount of the last tier.
@@ -55,7 +69,14 @@ public record OkxPublicDiscountInfoDetails
     /// Tier - upper bound, "" means positive infinity
     /// </summary>
     [JsonProperty("maxAmt")]
-    public decimal MaximumAmount { get; set; }
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? MaximumAmount { get; set; }
+
+    /// <summary>
+    /// Indicates that the maximum amount is positive infinity.
+    /// </summary>
+    [JsonIgnore]
+    public bool MaximumAmountIsPositiveInfinity => !MaximumAmount.HasValue;
 
     /// <summary>
     /// Tier - lower bound, the minimum is 0

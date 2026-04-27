@@ -1,0 +1,26 @@
+{
+  "arg": {
+    "channel": "adl-warning",
+    "instType": "FUTURES",
+    "instFamily": "BTC-USDT"
+  },
+  "data": [
+    {
+      "maxBal": "1000",
+      "adlRecBal": "800",
+      "bal": "900",
+      "instType": "FUTURES",
+      "ccy": "USDT",
+      "instFamily": "BTC-USDT",
+      "instId": "BTC-USDT-260626",
+      "maxBalTs": "1777284100000",
+      "adlType": "rate_adl_start",
+      "state": "warning",
+      "adlBal": "750",
+      "ts": "1777284161402",
+      "decRate": "0.1",
+      "adlRate": "0.2",
+      "adlRecRate": "0.05"
+    }
+  ]
+}

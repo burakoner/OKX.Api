@@ -70,7 +70,7 @@ public record OkxPublicLiquidationOrderDetail
     /// For MARGIN, the unit is base currency.
     /// For FUTURES/SWAP, the unit is contract.
     /// </summary>
-    [JsonProperty("size")]
+    [JsonProperty("sz")]
     public decimal? Size { get; set; }
 
     /// <summary>

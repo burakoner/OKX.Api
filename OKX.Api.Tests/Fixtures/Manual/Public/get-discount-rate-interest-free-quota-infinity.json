@@ -1,0 +1,24 @@
+{
+  "code": "0",
+  "data": [
+    {
+      "amt": "0",
+      "ccy": "BTC",
+      "colRes": "0",
+      "collateralRestrict": false,
+      "details": [
+        {
+          "discountRate": "0.98",
+          "liqPenaltyRate": "0.02",
+          "maxAmt": "",
+          "minAmt": "20",
+          "tier": "2",
+          "disCcyEq": "2000"
+        }
+      ],
+      "discountLv": "1",
+      "minDiscountRate": "0"
+    }
+  ],
+  "msg": ""
+}

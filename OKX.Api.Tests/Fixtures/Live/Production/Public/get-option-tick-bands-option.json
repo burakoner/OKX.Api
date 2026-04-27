@@ -1,0 +1,54 @@
+{
+    "code":  "0",
+    "data":  [
+                 {
+                     "instFamily":  "BTC-USD_UM",
+                     "instType":  "OPTION",
+                     "tickBand":  [
+                                      {
+                                          "maxPx":  "5",
+                                          "minPx":  "0",
+                                          "tickSz":  "1"
+                                      },
+                                      {
+                                          "maxPx":  "150000",
+                                          "minPx":  "0.005",
+                                          "tickSz":  "5"
+                                      }
+                                  ]
+                 },
+                 {
+                     "instFamily":  "BTC-USD",
+                     "instType":  "OPTION",
+                     "tickBand":  [
+                                      {
+                                          "maxPx":  "0.005",
+                                          "minPx":  "0",
+                                          "tickSz":  "0.0001"
+                                      },
+                                      {
+                                          "maxPx":  "10000000",
+                                          "minPx":  "0.005",
+                                          "tickSz":  "0.0005"
+                                      }
+                                  ]
+                 },
+                 {
+                     "instFamily":  "ETH-USD",
+                     "instType":  "OPTION",
+                     "tickBand":  [
+                                      {
+                                          "maxPx":  "0.005",
+                                          "minPx":  "0",
+                                          "tickSz":  "0.0001"
+                                      },
+                                      {
+                                          "maxPx":  "10000000",
+                                          "minPx":  "0.005",
+                                          "tickSz":  "0.0005"
+                                      }
+                                  ]
+                 }
+             ],
+    "msg":  ""
+}

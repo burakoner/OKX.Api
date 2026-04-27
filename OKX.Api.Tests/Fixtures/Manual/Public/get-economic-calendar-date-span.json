@@ -1,0 +1,40 @@
+{
+  "code": "0",
+  "data": [
+    {
+      "actual": "7.8%",
+      "calendarId": "330631",
+      "category": "Harmonised Inflation Rate YoY",
+      "ccy": "",
+      "date": "1700121600000",
+      "dateSpan": "0",
+      "event": "Harmonised Inflation Rate YoY",
+      "forecast": "7.8%",
+      "importance": "1",
+      "prevInitial": "",
+      "previous": "9%",
+      "refDate": "1698710400000",
+      "region": "Slovakia",
+      "uTime": "1700121605007",
+      "unit": "%"
+    },
+    {
+      "actual": "",
+      "calendarId": "330632",
+      "category": "Retail Sales",
+      "ccy": "",
+      "date": "1700208000000",
+      "dateSpan": "1",
+      "event": "Retail Sales",
+      "forecast": "",
+      "importance": "3",
+      "prevInitial": "",
+      "previous": "1.2%",
+      "refDate": "1698796800000",
+      "region": "United States",
+      "uTime": "1700208001000",
+      "unit": "%"
+    }
+  ],
+  "msg": ""
+}

@@ -1,0 +1,49 @@
+{
+  "code": "0",
+  "data": [
+    {
+      "configCcyList": [
+        {
+          "ccy": "USDT",
+          "rate": "0.00043728"
+        }
+      ],
+      "basic": [
+        {
+          "ccy": "USDT",
+          "quota": "500000",
+          "rate": "0.00043728"
+        }
+      ],
+      "vip": [
+        {
+          "irDiscount": "",
+          "loanQuotaCoef": "6",
+          "level": "VIP1"
+        }
+      ],
+      "config": [
+        {
+          "ccy": "USDT",
+          "stgyType": "0",
+          "quota": "1000000",
+          "level": "VIP 8"
+        },
+        {
+          "ccy": "USDT",
+          "stgyType": "1",
+          "quota": "",
+          "level": "Lv1"
+        }
+      ],
+      "regular": [
+        {
+          "irDiscount": "",
+          "loanQuotaCoef": "1",
+          "level": "Lv1"
+        }
+      ]
+    }
+  ],
+  "msg": ""
+}

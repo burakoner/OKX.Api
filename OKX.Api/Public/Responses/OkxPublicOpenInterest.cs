@@ -21,7 +21,7 @@ public record OkxPublicOpenInterest
     /// Open Interest Cont
     /// </summary>
     [JsonProperty("oi")]
-    public long OpenInterestCount { get; set; }
+    public decimal OpenInterestCount { get; set; }
     
     /// <summary>
     /// Open Interest Coin

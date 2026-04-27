@@ -1,36 +1,36 @@
-﻿namespace OKX.Api.Public;
+namespace OKX.Api.Public;
 
 /// <summary>
-/// OKX Insurance Type
+/// Security fund detail type
 /// </summary>
-public enum OkxPublicInsuranceType : byte
+public enum OkxPublicInsuranceFundDetailType : byte
 {
     /// <summary>
-    /// All
+    /// Real-time security fund snapshot row
     /// </summary>
-    [Map("all")]
-    All = 1,
+    [Map("regular_update")]
+    RegularUpdate = 1,
 
     /// <summary>
-    /// LiquidationBalanceDeposit
+    /// Liquidation balance deposit
     /// </summary>
     [Map("liquidation_balance_deposit")]
     LiquidationBalanceDeposit = 2,
 
     /// <summary>
-    /// BankruptcyLoss
+    /// Bankruptcy loss
     /// </summary>
     [Map("bankruptcy_loss")]
     BankruptcyLoss = 3,
 
     /// <summary>
-    /// PlatformRevenue
+    /// Platform revenue
     /// </summary>
     [Map("platform_revenue")]
     PlatformRevenue = 4,
 
     /// <summary>
-    /// ADL history
+    /// ADL historical row
     /// </summary>
     [Map("adl")]
     Adl = 5,

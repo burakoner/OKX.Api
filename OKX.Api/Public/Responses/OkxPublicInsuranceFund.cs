@@ -46,7 +46,8 @@ public record OkxPublicInsuranceFundDetails
     /// Amount
     /// </summary>
     [JsonProperty("amt")]
-    public decimal Amount { get; set; }
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? Amount { get; set; }
 
     /// <summary>
     /// Currency
@@ -58,13 +59,14 @@ public record OkxPublicInsuranceFundDetails
     /// Type
     /// </summary>
     [JsonProperty("type")]
-    public OkxPublicInsuranceType Type { get; set; }
+    public OkxPublicInsuranceFundDetailType Type { get; set; }
 
     /// <summary>
     /// Maximum insurance fund balance in the past eight hours
     /// Only applicable when type is adl
     /// </summary>
     [JsonProperty("maxBal")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? MaximumBalance { get; set; }
 
     /// <summary>
@@ -72,6 +74,7 @@ public record OkxPublicInsuranceFundDetails
     /// Only applicable when type is adl
     /// </summary>
     [JsonProperty("maxBalTs")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? MaximumBalanceTimestamp { get; set; }
     
     /// <summary>
@@ -87,6 +90,7 @@ public record OkxPublicInsuranceFundDetails
     /// </summary>
     [Obsolete]
     [JsonProperty("decRate")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? DeclineRate { get; set; }
 
     /// <summary>

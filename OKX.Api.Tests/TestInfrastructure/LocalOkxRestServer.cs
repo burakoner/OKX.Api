@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Linq;
 
 namespace OKX.Api.Tests.TestInfrastructure;
 
@@ -73,7 +74,10 @@ internal sealed class LocalOkxRestServer : IDisposable
             context.Request.HttpMethod,
             context.Request.Url?.AbsolutePath ?? string.Empty,
             context.Request.Url?.Query ?? string.Empty,
-            body));
+            body,
+            context.Request.Headers.AllKeys
+                .Where(x => x is not null)
+                .ToDictionary(x => x!, x => context.Request.Headers[x!] ?? string.Empty, StringComparer.OrdinalIgnoreCase)));
 
         var responseKey = $"{context.Request.HttpMethod} {context.Request.Url?.AbsolutePath}";
         if (!_responses.TryGetValue(responseKey, out var payload))
@@ -95,4 +99,9 @@ internal sealed class LocalOkxRestServer : IDisposable
     }
 }
 
-internal sealed record CapturedRestRequest(string Method, string Path, string Query, string Body);
+internal sealed record CapturedRestRequest(
+    string Method,
+    string Path,
+    string Query,
+    string Body,
+    IReadOnlyDictionary<string, string> Headers);
