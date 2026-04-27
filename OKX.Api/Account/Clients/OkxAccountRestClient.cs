@@ -107,16 +107,37 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetPositionsHistoryAsync(new OkxAccountPositionsHistoryRequest
+        {
+            InstrumentType = instrumentType,
+            InstrumentId = instrumentId,
+            MarginMode = marginMode,
+            Type = type,
+            PositionId = positionId,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve positions history using a request model.
+    /// </summary>
+    /// <param name="request">Positions history request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountPositionHistory>>> GetPositionsHistoryAsync(OkxAccountPositionsHistoryRequest request, CancellationToken ct = default)
     {
+        if (request == null) throw new ArgumentNullException(nameof(request));
+
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptionalEnum("mgnMode", marginMode);
-        parameters.AddOptionalEnum("type", type);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("posId", positionId);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("instType", request.InstrumentType);
+        parameters.AddOptionalEnum("mgnMode", request.MarginMode);
+        parameters.AddOptionalEnum("type", request.Type);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptional("posId", request.PositionId);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxAccountPositionHistory>(GetUri("api/v5/account/positions-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -166,21 +187,46 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetBillHistoryAsync(new OkxAccountBillQueryRequest
+        {
+            InstrumentType = instrumentType,
+            InstrumentId = instrumentId,
+            Currency = currency,
+            MarginMode = marginMode,
+            ContractType = contractType,
+            BillType = billType,
+            BillSubType = billSubType,
+            After = after,
+            Before = before,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve bill history using a request model.
+    /// </summary>
+    /// <param name="request">Bill history request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountBill>>> GetBillHistoryAsync(OkxAccountBillQueryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request == null) throw new ArgumentNullException(nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptionalEnum("mgnMode", marginMode);
-        parameters.AddOptionalEnum("ctType", contractType);
-        parameters.AddOptionalEnum("type", billType);
-        parameters.AddOptionalEnum("subType", billSubType);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("instType", request.InstrumentType);
+        parameters.AddOptionalEnum("mgnMode", request.MarginMode);
+        parameters.AddOptionalEnum("ctType", request.ContractType);
+        parameters.AddOptionalEnum("type", request.BillType);
+        parameters.AddOptionalEnum("subType", request.BillSubType);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxAccountBill>(GetUri("api/v5/account/bills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -216,21 +262,46 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetBillArchiveAsync(new OkxAccountBillQueryRequest
+        {
+            InstrumentType = instrumentType,
+            InstrumentId = instrumentId,
+            Currency = currency,
+            MarginMode = marginMode,
+            ContractType = contractType,
+            BillType = billType,
+            BillSubType = billSubType,
+            After = after,
+            Before = before,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve archived bills using a request model.
+    /// </summary>
+    /// <param name="request">Bill archive request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountBill>>> GetBillArchiveAsync(OkxAccountBillQueryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request == null) throw new ArgumentNullException(nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptionalEnum("mgnMode", marginMode);
-        parameters.AddOptionalEnum("ctType", contractType);
-        parameters.AddOptionalEnum("type", billType);
-        parameters.AddOptionalEnum("subType", billSubType);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("instType", request.InstrumentType);
+        parameters.AddOptionalEnum("mgnMode", request.MarginMode);
+        parameters.AddOptionalEnum("ctType", request.ContractType);
+        parameters.AddOptionalEnum("type", request.BillType);
+        parameters.AddOptionalEnum("subType", request.BillSubType);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxAccountBill>(GetUri("api/v5/account/bills-archive"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -345,24 +416,41 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         OkxAccountMarginMode? marginMode = null,
         OkxTradePositionSide? positionSide = null,
         CancellationToken ct = default)
+        => SetLeverageAsync(new OkxAccountSetLeverageRequest
+        {
+            Leverage = leverage,
+            Currency = currency,
+            InstrumentId = instrumentId,
+            MarginMode = marginMode,
+            PositionSide = positionSide
+        }, ct);
+
+    /// <summary>
+    /// Set leverage using a request model.
+    /// </summary>
+    /// <param name="request">Set leverage request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountLeverage>>> SetLeverageAsync(OkxAccountSetLeverageRequest request, CancellationToken ct = default)
     {
-        if (leverage < 1)
-            throw new ArgumentException("Invalid Leverage");
+        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (!request.Leverage.HasValue || request.Leverage.Value < 1)
+            throw new ArgumentException("Invalid Leverage", nameof(request));
 
-        if (string.IsNullOrEmpty(currency) && string.IsNullOrEmpty(instrumentId))
-            throw new ArgumentException("Either instId or ccy is required; if both are passed, instId will be used by default.");
+        if (string.IsNullOrEmpty(request.Currency) && string.IsNullOrEmpty(request.InstrumentId))
+            throw new ArgumentException("Either instId or ccy is required; if both are passed, instId will be used by default.", nameof(request));
 
-        if (marginMode is null)
-            throw new ArgumentException("marginMode is required");
+        if (!request.MarginMode.HasValue)
+            throw new ArgumentException("marginMode is required", nameof(request));
 
         var parameters = new ParameterCollection
         {
-            { "lever", leverage.ToOkxString() }
+            { "lever", request.Leverage.Value.ToOkxString() }
         };
-        parameters.AddEnum("mgnMode", marginMode);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptionalEnum("posSide", positionSide);
+        parameters.AddEnum("mgnMode", request.MarginMode.Value);
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptionalEnum("posSide", request.PositionSide);
 
         return ProcessListRequestAsync<OkxAccountLeverage>(GetUri("api/v5/account/set-leverage"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -540,13 +628,32 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? marginCurrency = null,
         string? tradeQuoteCurrency = null,
         CancellationToken ct = default)
+        => GetMaximumLoanAmountAsync(new OkxAccountMaximumLoanAmountRequest
+        {
+            MarginMode = marginMode,
+            InstrumentId = instrumentId,
+            Currency = currency,
+            MarginCurrency = marginCurrency,
+            TradeQuoteCurrency = tradeQuoteCurrency
+        }, ct);
+
+    /// <summary>
+    /// Get maximum loan amount using a request model.
+    /// </summary>
+    /// <param name="request">Maximum loan amount request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountMaximumLoanAmount>>> GetMaximumLoanAmountAsync(OkxAccountMaximumLoanAmountRequest request, CancellationToken ct = default)
     {
+        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (!request.MarginMode.HasValue) throw new ArgumentException("MarginMode is required.", nameof(request));
+
         var parameters = new ParameterCollection();
-        parameters.AddEnum("mgnMode", marginMode);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("mgnCcy", marginCurrency);
-        parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
+        parameters.AddEnum("mgnMode", request.MarginMode.Value);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("mgnCcy", request.MarginCurrency);
+        parameters.AddOptional("tradeQuoteCcy", request.TradeQuoteCurrency);
 
         return ProcessListRequestAsync<OkxAccountMaximumLoanAmount>(GetUri("api/v5/account/max-loan"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -599,16 +706,36 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetInterestAccruedAsync(new OkxAccountInterestAccruedRequest
+        {
+            Type = type,
+            Currency = currency,
+            InstrumentId = instrumentId,
+            MarginMode = marginMode,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Get interest accrued using a request model.
+    /// </summary>
+    /// <param name="request">Interest accrued request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountInterestAccrued>>> GetInterestAccruedAsync(OkxAccountInterestAccruedRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request == null) throw new ArgumentNullException(nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("type", type);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptionalEnum("mgnMode", marginMode);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("type", request.Type);
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptionalEnum("mgnMode", request.MarginMode);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxAccountInterestAccrued>(GetUri("api/v5/account/interest-accrued"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -820,13 +947,33 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetBorrowRepayHistoryAsync(new OkxAccountBorrowRepayHistoryRequest
+        {
+            Currency = currency,
+            Type = type,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve borrow/repay history using a request model.
+    /// </summary>
+    /// <param name="request">Borrow/repay history request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountBorrowRepayHistory>>> GetBorrowRepayHistoryAsync(OkxAccountBorrowRepayHistoryRequest request, CancellationToken ct = default)
     {
+        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency)) throw new ArgumentException("Currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Type)) throw new ArgumentException("Type is required.", nameof(request));
+
         var parameters = new ParameterCollection();
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("type", type);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("type", request.Type);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxAccountBorrowRepayHistory>(GetUri("api/v5/account/spot-borrow-repay-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }

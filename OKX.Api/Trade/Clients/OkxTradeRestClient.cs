@@ -255,15 +255,37 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         bool? autoCxl = null,
         string? clientOrderId = null,
         CancellationToken ct = default)
+        => ClosePositionAsync(new OkxTradeClosePositionRequest
+        {
+            InstrumentId = instrumentId,
+            MarginMode = marginMode,
+            PositionSide = positionSide,
+            Currency = currency,
+            AutoCancel = autoCxl,
+            ClientOrderId = clientOrderId
+        }, ct);
+
+    /// <summary>
+    /// Close all positions of an instrument via a request model.
+    /// </summary>
+    /// <param name="request">Close position request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxTradeClosePositionResponse>> ClosePositionAsync(OkxTradeClosePositionRequest request, CancellationToken ct = default)
     {
+        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.InstrumentId)) throw new ArgumentException("InstrumentId is required.", nameof(request));
+        if (!request.MarginMode.HasValue) throw new ArgumentException("MarginMode is required.", nameof(request));
+        var instrumentId = request.InstrumentId!;
+
         var parameters = new ParameterCollection {
             {"instId", instrumentId },
         };
-        parameters.AddOptionalEnum("posSide", positionSide);
-        parameters.AddEnum("mgnMode", marginMode);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("autoCxl", autoCxl);
-        parameters.AddOptional("clOrdId", clientOrderId);
+        parameters.AddOptionalEnum("posSide", request.PositionSide);
+        parameters.AddEnum("mgnMode", request.MarginMode.Value);
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("autoCxl", request.AutoCancel);
+        parameters.AddOptional("clOrdId", request.ClientOrderId);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxTradeClosePositionResponse>(GetUri("api/v5/trade/close-position"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -315,17 +337,38 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetOpenOrdersAsync(new OkxTradeOpenOrdersRequest
+        {
+            InstrumentType = instrumentType,
+            InstrumentId = instrumentId,
+            InstrumentFamily = instrumentFamily,
+            OrderType = orderType,
+            State = state,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve open orders using a request model.
+    /// </summary>
+    /// <param name="request">Open orders request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTradeOrder>>> GetOpenOrdersAsync(OkxTradeOpenOrdersRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request == null) throw new ArgumentNullException(nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("instFamily", instrumentFamily);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptionalEnum("ordType", orderType);
-        parameters.AddOptionalEnum("state", state);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("instType", request.InstrumentType);
+        parameters.AddOptional("instFamily", request.InstrumentFamily);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptionalEnum("ordType", request.OrderType);
+        parameters.AddOptionalEnum("state", request.State);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxTradeOrder>(GetUri("api/v5/trade/orders-pending"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -359,20 +402,45 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetOrderHistoryAsync(new OkxTradeOrderQueryRequest
+        {
+            InstrumentType = instrumentType,
+            InstrumentId = instrumentId,
+            InstrumentFamily = instrumentFamily,
+            OrderType = orderType,
+            State = state,
+            Category = category,
+            After = after,
+            Before = before,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve historical orders using a request model.
+    /// </summary>
+    /// <param name="request">Order history request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTradeOrder>>> GetOrderHistoryAsync(OkxTradeOrderQueryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (!request.InstrumentType.HasValue) throw new ArgumentException("InstrumentType is required.", nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddEnum("instType", instrumentType);
-        parameters.AddOptional("instFamily", instrumentFamily);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptionalEnum("ordType", orderType);
-        parameters.AddOptionalEnum("state", state);
-        parameters.AddOptionalEnum("category", category);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddEnum("instType", request.InstrumentType.Value);
+        parameters.AddOptional("instFamily", request.InstrumentFamily);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptionalEnum("ordType", request.OrderType);
+        parameters.AddOptionalEnum("state", request.State);
+        parameters.AddOptionalEnum("category", request.Category);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxTradeOrder>(GetUri("api/v5/trade/orders-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -406,20 +474,45 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetOrderArchiveAsync(new OkxTradeOrderQueryRequest
+        {
+            InstrumentType = instrumentType,
+            InstrumentId = instrumentId,
+            InstrumentFamily = instrumentFamily,
+            OrderType = orderType,
+            State = state,
+            Category = category,
+            After = after,
+            Before = before,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve archived historical orders using a request model.
+    /// </summary>
+    /// <param name="request">Order archive request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTradeOrder>>> GetOrderArchiveAsync(OkxTradeOrderQueryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (!request.InstrumentType.HasValue) throw new ArgumentException("InstrumentType is required.", nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddEnum("instType", instrumentType);
-        parameters.AddOptional("instFamily", instrumentFamily);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptionalEnum("ordType", orderType);
-        parameters.AddOptionalEnum("state", state);
-        parameters.AddOptionalEnum("category", category);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddEnum("instType", request.InstrumentType.Value);
+        parameters.AddOptional("instFamily", request.InstrumentFamily);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptionalEnum("ordType", request.OrderType);
+        parameters.AddOptionalEnum("state", request.State);
+        parameters.AddOptionalEnum("category", request.Category);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxTradeOrder>(GetUri("api/v5/trade/orders-history-archive"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -451,19 +544,42 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetTradesAsync(new OkxTradeTransactionQueryRequest
+        {
+            InstrumentType = instrumentType,
+            InstrumentId = instrumentId,
+            InstrumentFamily = instrumentFamily,
+            OrderId = orderId,
+            TransactionType = transactionType,
+            After = after,
+            Before = before,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve recent trades using a request model.
+    /// </summary>
+    /// <param name="request">Trades query request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTradeTransaction>>> GetTradesAsync(OkxTradeTransactionQueryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request == null) throw new ArgumentNullException(nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("instFamily", instrumentFamily);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("ordId", orderId?.ToOkxString());
-        parameters.AddOptionalEnum("subType", transactionType);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("instType", request.InstrumentType);
+        parameters.AddOptional("instFamily", request.InstrumentFamily);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptional("ordId", request.OrderId?.ToOkxString());
+        parameters.AddOptionalEnum("subType", request.TransactionType);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxTradeTransaction>(GetUri("api/v5/trade/fills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -495,19 +611,43 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetTradesHistoryAsync(new OkxTradeTransactionQueryRequest
+        {
+            InstrumentType = instrumentType,
+            InstrumentId = instrumentId,
+            InstrumentFamily = instrumentFamily,
+            OrderId = orderId,
+            TransactionType = transactionType,
+            After = after,
+            Before = before,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve trade history using a request model.
+    /// </summary>
+    /// <param name="request">Trade history request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxTradeTransaction>>> GetTradesHistoryAsync(OkxTradeTransactionQueryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (!request.InstrumentType.HasValue) throw new ArgumentException("InstrumentType is required.", nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("instFamily", instrumentFamily);
-        parameters.AddOptional("instId", instrumentId);
-        parameters.AddOptional("ordId", orderId?.ToOkxString());
-        parameters.AddOptionalEnum("subType", transactionType);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddEnum("instType", request.InstrumentType.Value);
+        parameters.AddOptional("instFamily", request.InstrumentFamily);
+        parameters.AddOptional("instId", request.InstrumentId);
+        parameters.AddOptional("ordId", request.OrderId?.ToOkxString());
+        parameters.AddOptionalEnum("subType", request.TransactionType);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxTradeTransaction>(GetUri("api/v5/trade/fills-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -772,20 +912,50 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? attachedAlgoOrders = null,
 
         CancellationToken ct = default)
+        => OrderPrecheckAsync(new OkxTradeOrderPrecheckRequest
+        {
+            InstrumentId = instrumentId,
+            TradeMode = tradeMode,
+            OrderSide = orderSide,
+            OrderType = orderType,
+            Size = size,
+            Price = price,
+            ReduceOnly = reduceOnly,
+            PositionSide = positionSide,
+            QuantityType = quantityType,
+            Outcome = outcome,
+            AttachedAlgoOrders = attachedAlgoOrders
+        }, ct);
+
+    /// <summary>
+    /// Precheck an order using a request model.
+    /// </summary>
+    /// <param name="request">Order precheck request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxTradeOrderPrecheck>> OrderPrecheckAsync(OkxTradeOrderPrecheckRequest request, CancellationToken ct = default)
     {
+        if (request == null) throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.InstrumentId)) throw new ArgumentException("InstrumentId is required.", nameof(request));
+        if (!request.TradeMode.HasValue) throw new ArgumentException("TradeMode is required.", nameof(request));
+        if (!request.OrderSide.HasValue) throw new ArgumentException("OrderSide is required.", nameof(request));
+        if (!request.OrderType.HasValue) throw new ArgumentException("OrderType is required.", nameof(request));
+        if (!request.Size.HasValue) throw new ArgumentException("Size is required.", nameof(request));
+        var instrumentId = request.InstrumentId!;
+
         var parameters = new ParameterCollection {
             {"instId", instrumentId },
-            {"sz", size.ToOkxString() },
+            {"sz", request.Size.Value.ToOkxString() },
         };
-        parameters.AddEnum("tdMode", tradeMode);
-        parameters.AddEnum("side", orderSide);
-        parameters.AddOptionalEnum("posSide", positionSide);
-        parameters.AddEnum("ordType", orderType);
-        parameters.AddOptional("px", price?.ToOkxString());
-        parameters.AddOptional("reduceOnly", reduceOnly);
-        parameters.AddOptionalEnum("tgtCcy", quantityType);
-        parameters.AddOptionalEnum("outcome", outcome);
-        parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
+        parameters.AddEnum("tdMode", request.TradeMode.Value);
+        parameters.AddEnum("side", request.OrderSide.Value);
+        parameters.AddOptionalEnum("posSide", request.PositionSide);
+        parameters.AddEnum("ordType", request.OrderType.Value);
+        parameters.AddOptional("px", request.Price?.ToOkxString());
+        parameters.AddOptional("reduceOnly", request.ReduceOnly);
+        parameters.AddOptionalEnum("tgtCcy", request.QuantityType);
+        parameters.AddOptionalEnum("outcome", request.Outcome);
+        parameters.AddOptional("attachAlgoOrds", request.AttachedAlgoOrders);
 
         return ProcessOneRequestAsync<OkxTradeOrderPrecheck>(GetUri("api/v5/trade/order-precheck"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
