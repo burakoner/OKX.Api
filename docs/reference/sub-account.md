@@ -68,6 +68,61 @@ The following `SubAccount` methods have typed request-model overloads in additio
 - `GetSubAccountManagedBillsAsync(OkxSubAccountManagedBillQueryRequest)`
 - `TransferBetweenSubAccountsAsync(OkxSubAccountTransferRequest)`
 
+## Request-Model Examples
+
+```csharp
+var subs = await api.SubAccount.GetSubAccountsAsync(new OkxSubAccountListRequest
+{
+    Enable = true,
+    Limit = 50
+});
+
+var created = await api.SubAccount.CreateSubAccountAsync(new OkxSubAccountCreateRequest
+{
+    SubAccountName = "new-sub-account",
+    Type = OkxSubAccountType.StandardSubAccount
+});
+
+var apiKey = await api.SubAccount.CreateSubAccountApiKeyAsync(new OkxSubAccountApiKeyCreateRequest
+{
+    SubAccountName = "new-sub-account",
+    Label = "automation",
+    Passphrase = "strong-passphrase",
+    ReadPermission = true,
+    TradePermission = true
+});
+
+await api.SubAccount.ResetSubAccountApiKeyAsync(new OkxSubAccountApiKeyResetRequest
+{
+    SubAccountName = "new-sub-account",
+    ApiKey = "existing-api-key",
+    TradePermission = true
+});
+
+var subBills = await api.SubAccount.GetSubAccountBillsAsync(new OkxSubAccountBillQueryRequest
+{
+    SubAccountName = "new-sub-account",
+    Currency = "USDT",
+    Limit = 100
+});
+
+var managedBills = await api.SubAccount.GetSubAccountManagedBillsAsync(new OkxSubAccountManagedBillQueryRequest
+{
+    Currency = "USDT",
+    Limit = 100
+});
+
+await api.SubAccount.TransferBetweenSubAccountsAsync(new OkxSubAccountTransferRequest
+{
+    Currency = "USDT",
+    Amount = 25m,
+    FromAccount = OkxAccount.Funding,
+    ToAccount = OkxAccount.Trading,
+    FromSubAccountName = "source-sub",
+    ToSubAccountName = "target-sub"
+});
+```
+
 ## Tips
 
 - Sub-account administration is sensitive; make sure your API key actually has the required account-level permissions before assuming a wrapper issue.

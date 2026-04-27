@@ -70,6 +70,29 @@ The following `Grid` methods have typed request-model overloads alongside their 
 - `PlaceOrderAsync(OkxGridPlaceOrderRequest)`
 - `AmendOrderAsync(OkxGridOrderAmendRequest)`
 
+## Request-Model Examples
+
+```csharp
+var place = await api.Grid.PlaceOrderAsync(new OkxGridPlaceOrderRequest
+{
+    InstrumentId = "BTC-USDT",
+    AlgoOrderType = OkxGridAlgoOrderType.SpotGrid,
+    MaximumPrice = 50000m,
+    MinimumPrice = 40000m,
+    GridNumber = 10,
+    GridRunType = OkxGridRunType.Arithmetic,
+    QuoteSize = 25m
+});
+
+var amend = await api.Grid.AmendOrderAsync(new OkxGridOrderAmendRequest
+{
+    AlgoOrderId = 123456789,
+    InstrumentId = "BTC-USDT",
+    TakeProfitTriggerPrice = 52000m,
+    StopLossTriggerPrice = 39000m
+});
+```
+
 ## Tips
 
 - The grid client has both simple positional overloads and rich request-model flows.

@@ -21,7 +21,7 @@ api.SetApiCredentials("YOUR-API-KEY", "YOUR-API-SECRET", "YOUR-API-PASSPHRASE");
 var place = await api.Spread.PlaceOrderAsync(
     spreadId: "BTC-USDT_BTC-USD-SWAP",
     side: OkxTradeOrderSide.Buy,
-    type: OkxSpreadOrderType.Limit,
+    type: OkxSpreadOrderType.LimitOrder,
     size: 1m,
     price: 10m);
 
@@ -75,6 +75,61 @@ The following `Spread` methods have typed request-model overloads in addition to
 - `GetSpreadsAsync(OkxSpreadInstrumentQueryRequest)`
 - `GetCandlesticksAsync(OkxSpreadCandlestickRequest)`
 - `GetCandlesticksHistoryAsync(OkxSpreadCandlestickRequest)`
+
+## Request-Model Examples
+
+```csharp
+await api.Spread.PlaceOrderAsync(new OkxSpreadRestOrderPlaceRequest
+{
+    SpreadId = "BTC-USDT_BTC-USD-SWAP",
+    Side = OkxTradeOrderSide.Buy,
+    Type = OkxSpreadOrderType.LimitOrder,
+    Size = 1m,
+    Price = 10m,
+    ClientOrderId = "spread-order-1"
+});
+
+await api.Spread.AmendOrderAsync(new OkxSpreadRestOrderAmendRequest
+{
+    ClientOrderId = "spread-order-1",
+    NewPrice = 11m
+});
+
+var orderQuery = new OkxSpreadOrderQueryRequest
+{
+    SpreadId = "BTC-USDT_BTC-USD-SWAP",
+    Limit = 50
+};
+
+var openOrders = await api.Spread.GetOpenOrdersAsync(orderQuery);
+var orderHistory = await api.Spread.GetOrderHistoryAsync(orderQuery);
+var orderArchive = await api.Spread.GetOrderArchiveAsync(orderQuery);
+
+var spreadTrades = await api.Spread.GetTradesAsync(new OkxSpreadTradeQueryRequest
+{
+    SpreadId = "BTC-USDT_BTC-USD-SWAP",
+    Limit = 50
+});
+
+var spreads = await api.Spread.GetSpreadsAsync(new OkxSpreadInstrumentQueryRequest
+{
+    BaseCurrency = "BTC"
+});
+
+var spreadCandles = await api.Spread.GetCandlesticksAsync(new OkxSpreadCandlestickRequest
+{
+    SpreadId = "BTC-USDT_BTC-USD-SWAP",
+    Period = "1H",
+    Limit = 100
+});
+
+var spreadCandleHistory = await api.Spread.GetCandlesticksHistoryAsync(new OkxSpreadCandlestickRequest
+{
+    SpreadId = "BTC-USDT_BTC-USD-SWAP",
+    Period = "1H",
+    Limit = 100
+});
+```
 
 ## Tips
 

@@ -68,6 +68,64 @@ The following `Rubik` / `TradingStatistics` methods have typed request-model ove
 - `GetInterestVolumeStrikeAsync(OkxRubikOptionStrikeRequest)`
 - `GetTakerFlowAsync(OkxRubikOptionPeriodRequest)`
 
+## Request-Model Examples
+
+```csharp
+var instrumentRange = new OkxRubikInstrumentPeriodRangeRequest
+{
+    InstrumentId = "BTC-USDT-SWAP",
+    Period = "1D",
+    Limit = 100
+};
+
+var contractOpenInterest = await api.Rubik.GetContractOpenInterestHistoryAsync(instrumentRange);
+var topTraderAccountRatio = await api.Rubik.GetTopTradersContractLongShortRatioAsync(instrumentRange);
+var topTraderPositionRatio = await api.Rubik.GetTopTradersContractLongShortRatioByPositionAsync(instrumentRange);
+var contractLongShortRatio = await api.Rubik.GetContractLongShortRatioAsync(instrumentRange);
+
+var takerVolume = await api.Rubik.GetTakerVolumeAsync(new OkxRubikTakerVolumeRequest
+{
+    Currency = "BTC",
+    InstrumentType = OkxInstrumentType.Spot,
+    Period = "1D"
+});
+
+var contractTakerVolume = await api.Rubik.GetContractTakerVolumeAsync(new OkxRubikContractTakerVolumeRequest
+{
+    InstrumentId = "BTC-USDT-SWAP",
+    Period = "1D",
+    Unit = "contract"
+});
+
+var currencyRange = new OkxRubikCurrencyPeriodRangeRequest
+{
+    Currency = "BTC",
+    Period = "1D"
+};
+
+var marginLendingRatio = await api.Rubik.GetMarginLendingRatioAsync(currencyRange);
+var longShortRatio = await api.Rubik.GetLongShortRatioAsync(currencyRange);
+var contractSummary = await api.Rubik.GetContractSummaryAsync(currencyRange);
+
+var optionPeriod = new OkxRubikOptionPeriodRequest
+{
+    Currency = "BTC-USD",
+    Period = "1D"
+};
+
+var optionsSummary = await api.Rubik.GetOptionsSummaryAsync(optionPeriod);
+var putCallRatio = await api.Rubik.GetPutCallRatioAsync(optionPeriod);
+var interestVolumeExpiry = await api.Rubik.GetInterestVolumeExpiryAsync(optionPeriod);
+var takerFlow = await api.Rubik.GetTakerFlowAsync(optionPeriod);
+
+var interestVolumeStrike = await api.Rubik.GetInterestVolumeStrikeAsync(new OkxRubikOptionStrikeRequest
+{
+    Currency = "BTC-USD",
+    ExpiryTime = "20240628",
+    Period = "1D"
+});
+```
+
 ## Tips
 
 - These endpoints are excellent for dashboards, signal generation, and analytics jobs.

@@ -122,6 +122,58 @@ The following `Account` methods have typed request-model overloads in addition t
 - `GetInterestAccruedAsync(OkxAccountInterestAccruedRequest)`
 - `GetBorrowRepayHistoryAsync(OkxAccountBorrowRepayHistoryRequest)`
 
+## Request-Model Examples
+
+```csharp
+var positionHistoryRequest = new OkxAccountPositionsHistoryRequest
+{
+    InstrumentType = OkxInstrumentType.Swap,
+    InstrumentId = "BTC-USDT-SWAP",
+    MarginMode = OkxAccountMarginMode.Cross,
+    Limit = 50
+};
+
+var positionHistory = await api.Account.GetPositionsHistoryAsync(positionHistoryRequest);
+
+var billQuery = new OkxAccountBillQueryRequest
+{
+    Currency = "USDT",
+    Begin = DateTimeOffset.UtcNow.AddDays(-7).ToUnixTimeMilliseconds(),
+    Limit = 100
+};
+
+var billHistory = await api.Account.GetBillHistoryAsync(billQuery);
+var billArchive = await api.Account.GetBillArchiveAsync(billQuery);
+
+var leverageRequest = new OkxAccountSetLeverageRequest
+{
+    Leverage = 3,
+    InstrumentId = "BTC-USDT-SWAP",
+    MarginMode = OkxAccountMarginMode.Cross
+};
+
+await api.Account.SetLeverageAsync(leverageRequest);
+
+var maximumLoan = await api.Account.GetMaximumLoanAmountAsync(new OkxAccountMaximumLoanAmountRequest
+{
+    MarginMode = OkxAccountMarginMode.Cross,
+    InstrumentId = "BTC-USDT",
+    MarginCurrency = "USDT"
+});
+
+var interestAccrued = await api.Account.GetInterestAccruedAsync(new OkxAccountInterestAccruedRequest
+{
+    Currency = "USDT",
+    Limit = 20
+});
+
+var borrowRepayHistory = await api.Account.GetBorrowRepayHistoryAsync(new OkxAccountBorrowRepayHistoryRequest
+{
+    Currency = "USDT",
+    Limit = 20
+});
+```
+
 ## Tips
 
 - Prefer request-model overloads when a call takes many optional filters.

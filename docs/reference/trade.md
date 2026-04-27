@@ -87,6 +87,56 @@ The following `Trade` methods have typed request-model overloads in addition to 
 - `GetTradesHistoryAsync(OkxTradeTransactionQueryRequest)`
 - `OrderPrecheckAsync(OkxTradeOrderPrecheckRequest)`
 
+## Request-Model Examples
+
+```csharp
+await api.Trade.ClosePositionAsync(new OkxTradeClosePositionRequest
+{
+    InstrumentId = "BTC-USDT-SWAP",
+    MarginMode = OkxAccountMarginMode.Cross,
+    PositionSide = OkxTradePositionSide.Net,
+    AutoCancel = true
+});
+
+var openOrders = await api.Trade.GetOpenOrdersAsync(new OkxTradeOpenOrdersRequest
+{
+    InstrumentType = OkxInstrumentType.Swap,
+    InstrumentFamily = "BTC-USDT",
+    Limit = 50
+});
+
+var orderQuery = new OkxTradeOrderQueryRequest
+{
+    InstrumentType = OkxInstrumentType.Spot,
+    InstrumentId = "BTC-USDT",
+    Begin = DateTimeOffset.UtcNow.AddDays(-7).ToUnixTimeMilliseconds(),
+    Limit = 100
+};
+
+var orderHistory = await api.Trade.GetOrderHistoryAsync(orderQuery);
+var orderArchive = await api.Trade.GetOrderArchiveAsync(orderQuery);
+
+var tradeQuery = new OkxTradeTransactionQueryRequest
+{
+    InstrumentType = OkxInstrumentType.Spot,
+    InstrumentId = "BTC-USDT",
+    Limit = 100
+};
+
+var fills = await api.Trade.GetTradesAsync(tradeQuery);
+var tradeHistory = await api.Trade.GetTradesHistoryAsync(tradeQuery);
+
+var precheck = await api.Trade.OrderPrecheckAsync(new OkxTradeOrderPrecheckRequest
+{
+    InstrumentId = "BTC-USDT",
+    TradeMode = OkxTradeMode.Cash,
+    OrderSide = OkxTradeOrderSide.Buy,
+    OrderType = OkxTradeOrderType.LimitOrder,
+    Size = 0.01m,
+    Price = 50000m
+});
+```
+
 ## Tips
 
 - Use typed request overloads when you need many filters or optional flags.

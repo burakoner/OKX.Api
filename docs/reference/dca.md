@@ -48,6 +48,41 @@ The following `DCA` methods have typed request-model overloads alongside their l
 - `PlaceOrderAsync(OkxDcaCreateOrderRequest)`
 - `AmendOrderAsync(OkxDcaAmendOrderRequest)`
 
+## Request-Model Examples
+
+```csharp
+var place = await api.DCA.PlaceOrderAsync(new OkxDcaCreateOrderRequest
+{
+    InstrumentId = "BTC-USDT",
+    AlgoOrderType = OkxDcaAlgoOrderType.SpotDca,
+    InitialOrderAmount = 25m,
+    MaximumSafetyOrders = 3,
+    TakeProfitTarget = 0.05m,
+    TriggerParameters =
+    [
+        new OkxDcaTriggerParametersRequest
+        {
+            TriggerAction = OkxDcaTriggerAction.Start,
+            TriggerStrategy = OkxDcaTriggerStrategy.Instant
+        }
+    ]
+});
+
+var amend = await api.DCA.AmendOrderAsync(new OkxDcaAmendOrderRequest
+{
+    AlgoOrderId = 123456789,
+    PriceStepRatio = 0.01m,
+    PriceStepMultiplier = 1.2m,
+    VolumeMultiplier = 1.1m,
+    TakeProfitTarget = 0.05m,
+    StopLossTarget = 0.03m,
+    InitialOrderAmount = 25m,
+    SafetyOrderAmount = 15m,
+    MaximumSafetyOrders = 3,
+    ReserveFunds = true
+});
+```
+
 ## Tips
 
 - DCA strategies are account-changing operations; do not treat examples as safe read-only calls.

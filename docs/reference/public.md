@@ -144,6 +144,111 @@ The following `Public` methods have typed request-model overloads in addition to
 - `GetEconomicCalendarDataAsync(OkxPublicEconomicCalendarRequest)`
 - `GetMarketDataHistoryAsync(OkxPublicMarketDataHistoryQueryRequest)`
 
+## Request-Model Examples
+
+```csharp
+var candleRequest = new OkxPublicCandlestickRequest
+{
+    InstrumentId = "BTC-USDT",
+    Period = "1H",
+    Limit = 100
+};
+
+var candles = await api.Public.GetCandlesticksAsync(candleRequest);
+var candleHistory = await api.Public.GetCandlestickHistoryAsync(candleRequest);
+var indexCandles = await api.Public.GetIndexCandlesticksAsync(candleRequest);
+var markPriceCandles = await api.Public.GetMarkPriceCandlesticksAsync(candleRequest);
+
+var tradeHistory = await api.Public.GetTradeHistoryAsync(new OkxPublicTradeHistoryRequest
+{
+    InstrumentId = "BTC-USDT",
+    Limit = 100
+});
+
+var instruments = await api.Public.GetInstrumentsAsync(new OkxPublicInstrumentQueryRequest
+{
+    InstrumentType = OkxInstrumentType.Swap,
+    InstrumentFamily = "BTC-USDT"
+});
+
+var eventRequest = new OkxPublicEventContractEventsRequest
+{
+    SeriesId = "series-id",
+    Limit = 20
+};
+
+var events = await api.Public.GetEventContractEventsAsync(eventRequest);
+var markets = await api.Public.GetEventContractMarketsAsync(new OkxPublicEventContractMarketsRequest
+{
+    SeriesId = "series-id",
+    EventId = "event-id",
+    Limit = 20
+});
+
+var deliveryHistory = await api.Public.GetDeliveryExerciseHistoryAsync(new OkxPublicDeliveryExerciseHistoryRequest
+{
+    InstrumentType = OkxInstrumentType.Futures,
+    InstrumentFamily = "BTC-USD",
+    Limit = 20
+});
+
+var settlementHistory = await api.Public.GetSettlementHistoryAsync(new OkxPublicSettlementHistoryRequest
+{
+    InstrumentFamily = "BTC-USD",
+    Limit = 20
+});
+
+var fundingRateHistory = await api.Public.GetFundingRateHistoryAsync(new OkxPublicFundingRateHistoryRequest
+{
+    InstrumentId = "BTC-USD-SWAP",
+    Limit = 20
+});
+
+var openInterests = await api.Public.GetOpenInterestsAsync(new OkxPublicOpenInterestRequest
+{
+    InstrumentType = OkxInstrumentType.Swap,
+    InstrumentFamily = "BTC-USDT"
+});
+
+var positionTiers = await api.Public.GetPositionTiersAsync(new OkxPublicPositionTierRequest
+{
+    InstrumentType = OkxInstrumentType.Futures,
+    MarginMode = OkxAccountMarginMode.Isolated,
+    InstrumentFamily = "BTC-USD"
+});
+
+var insuranceFunds = await api.Public.GetInsuranceFundsAsync(new OkxPublicInsuranceFundQueryRequest
+{
+    InstrumentType = OkxInstrumentType.Margin,
+    Currency = "BTC",
+    Limit = 20
+});
+
+var unitConvert = await api.Public.GetUnitConvertAsync(new OkxPublicUnitConvertRequest
+{
+    InstrumentId = "BTC-USDT-SWAP",
+    Size = 100,
+    Price = 65000m,
+    Type = OkxPublicConvertType.CurrencyToContract,
+    Unit = OkxPublicConvertUnit.Coin,
+    OperationType = OkxPublicConvertOperation.Open
+});
+
+var calendar = await api.Public.GetEconomicCalendarDataAsync(new OkxPublicEconomicCalendarRequest
+{
+    Region = "US",
+    Limit = 20
+});
+
+var marketDataHistory = await api.Public.GetMarketDataHistoryAsync(new OkxPublicMarketDataHistoryQueryRequest
+{
+    Module = OkxPublicMarketDataHistoryModule.BorrowingRate,
+    InstrumentType = OkxInstrumentType.Margin,
+    DateAggregationType = OkxPublicDateAggregationType.Daily,
+    InstrumentIdList = "BTC-USDT"
+});
+```
+
 ## Tips
 
 - For public trading dashboards, `api.Public` and `api.Rubik` are usually the two most important read-only clients.
