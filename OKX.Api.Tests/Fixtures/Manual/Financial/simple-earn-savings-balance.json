@@ -1,0 +1,15 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ccy": "BTC",
+      "amt": "1.25",
+      "earnings": "0.015",
+      "rate": "0.021",
+      "loanAmt": "0.8",
+      "pendingAmt": "0.1",
+      "redemptAmt": "0.05"
+    }
+  ]
+}

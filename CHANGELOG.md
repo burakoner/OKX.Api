@@ -69,6 +69,11 @@
   - Fixed Block Trading request serialization for `CreateRfqAsync` account allocations and `CreateQuoteAsync` client quote IDs, and aligned create-quote responses with the documented `Quote` model
   - Expanded Block Trading RFQ, quote, trade, and public trade models with current documented metadata such as `tag`, `flowType`, `groupId`, `isSuccessful`, and `errorCode`
   - Made `GET /api/v5/rfq/public-trades` a true public request, hardened empty-string block trade identifiers for parent-level public group RFQ responses, and added Block Trading contract plus public integration coverage
+  - Added `Financial.EthStaking.CancelRedeemAsync` for `POST /api/v5/finance/staking-defi/eth/cancel-redeem`
+  - Fixed ETH and SOL staking purchase/redeem helpers so documented `code=0, data=[]` responses now report success instead of `false`
+  - Extended on-chain earn response coverage with `tag`, completed history state `3`, `redeemedTime`, `realizedEarnings`, and nullable empty-string timestamp/amount handling
+  - Replaced on-chain earn purchase/redeem/cancel helpers with full `OkxFinancialOrderReference` responses so `ordId` and echoed `tag` are both preserved
+  - Added Financial Product contract and local client-behavior tests for staking, on-chain earn, and deprecated `redemptAmt` balance coverage
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

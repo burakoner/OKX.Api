@@ -34,4 +34,10 @@ public enum OkxFinancialOnChainEarnOrderState : byte
     /// </summary>
     [Map("2")]
     Redeeming = 2,
+
+    /// <summary>
+    /// Completed
+    /// </summary>
+    [Map("3")]
+    Completed = 3,
 }

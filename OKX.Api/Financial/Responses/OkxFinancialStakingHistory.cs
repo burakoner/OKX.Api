@@ -21,7 +21,8 @@ public record OkxFinancialStakingHistory
     /// Redeeming amount
     /// </summary>
     [JsonProperty("redeemingAmt")]
-    public decimal RedeemingAmount { get; set; }
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? RedeemingAmount { get; set; }
 
     /// <summary>
     /// Status
@@ -51,6 +52,7 @@ public record OkxFinancialStakingHistory
     /// Completed time of redeem settlement, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("completedTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? CompletedTimestamp { get; set; }
 
     /// <summary>
@@ -63,6 +65,7 @@ public record OkxFinancialStakingHistory
     /// Estimated completed time of redeem settlement, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("estCompletedTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? EstimatedCompletedTimestamp { get; set; }
 
     /// <summary>

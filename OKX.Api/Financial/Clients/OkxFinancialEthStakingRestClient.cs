@@ -28,9 +28,9 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
             {"amt", amount.ToOkxString() },
         };
 
-        var result = await ProcessOneRequestAsync<OkxFinancialStakingPurchase>(GetUri("api/v5/finance/staking-defi/eth/purchase"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<JToken>(GetUri("api/v5/finance/staking-defi/eth/purchase"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, true, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -45,9 +45,24 @@ public class OkxFinancialEthStakingRestClient(OkxRestApiClient root) : OkxBaseRe
             {"amt", amount.ToOkxString() },
         };
 
-        var result = await ProcessOneRequestAsync<OkxFinancialStakingRedeem>(GetUri("api/v5/finance/staking-defi/eth/redeem"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<JToken>(GetUri("api/v5/finance/staking-defi/eth/redeem"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, true, result.Raw ?? "", result.Error);
+    }
+
+    /// <summary>
+    /// Cancel an ETH staking redemption request
+    /// </summary>
+    /// <param name="orderId">Order ID</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxFinancialOrderReference>> CancelRedeemAsync(string orderId, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection {
+            {"ordId", orderId },
+        };
+
+        return ProcessOneRequestAsync<OkxFinancialOrderReference>(GetUri("api/v5/finance/staking-defi/eth/cancel-redeem"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>

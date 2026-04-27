@@ -1,0 +1,16 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "amt": "0.62666630",
+      "completedTime": "1683413171000",
+      "estCompletedTime": "",
+      "ordId": "123456789",
+      "redeemingAmt": "",
+      "requestTime": "1683413171000",
+      "status": "success",
+      "type": "purchase"
+    }
+  ]
+}

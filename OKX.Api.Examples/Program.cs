@@ -393,6 +393,7 @@ internal class Program
         var ethstaking_04 = await api.Financial.EthStaking.GetBalancesAsync();
         var ethstaking_05 = await api.Financial.EthStaking.GetHistoryAsync(OkxFinancialStakingType.Purchase);
         var ethstaking_06 = await api.Financial.EthStaking.GetApyHistoryAsync(30);
+        var ethstaking_07 = await api.Financial.EthStaking.CancelRedeemAsync("");
 
         // Financial Product -> SOL Staking Methods (Signed)
         var solstaking_01 = await api.Financial.SolStaking.GetProductInfoAsync();

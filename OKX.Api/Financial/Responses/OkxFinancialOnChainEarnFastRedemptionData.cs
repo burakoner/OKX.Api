@@ -15,5 +15,6 @@ public record OkxFinancialOnChainEarnFastRedemptionData
     /// Redeeming amount
     /// </summary>
     [JsonProperty("redeemingAmt")]
-    public decimal RedeemingAmount { get; set; }
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? RedeemingAmount { get; set; }
 }

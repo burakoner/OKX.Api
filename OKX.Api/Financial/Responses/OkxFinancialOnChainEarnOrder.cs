@@ -78,6 +78,7 @@ public record OkxFinancialOnChainEarnOrder
     /// Order purchased time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("purchasedTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? PurchasedTimestamp { get; set; }
 
     /// <summary>
@@ -90,6 +91,7 @@ public record OkxFinancialOnChainEarnOrder
     /// Estimated redemption settlement time
     /// </summary>
     [JsonProperty("estSettlementTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? EstimatedSettlementTimestamp { get; set; }
 
     /// <summary>
@@ -102,6 +104,7 @@ public record OkxFinancialOnChainEarnOrder
     /// Deadline for cancellation of redemption application
     /// </summary>
     [JsonProperty("cancelRedemptionDeadline")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? CancelRedemptionDeadlineTimestamp { get; set; }
 
     /// <summary>
@@ -109,4 +112,23 @@ public record OkxFinancialOnChainEarnOrder
     /// </summary>
     [JsonIgnore]
     public DateTime? CancelRedemptionDeadlineTime => CancelRedemptionDeadlineTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Redemption completion time
+    /// </summary>
+    [JsonProperty("redeemedTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? RedeemedTimestamp { get; set; }
+
+    /// <summary>
+    /// Redemption completion time
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? RedeemedTime => RedeemedTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Order tag
+    /// </summary>
+    [JsonProperty("tag")]
+    public string? Tag { get; set; }
 }

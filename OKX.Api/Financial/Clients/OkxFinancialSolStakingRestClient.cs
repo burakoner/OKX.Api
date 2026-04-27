@@ -28,9 +28,9 @@ public class OkxFinancialSolStakingRestClient(OkxRestApiClient root) : OkxBaseRe
             {"amt", amount.ToOkxString() },
         };
 
-        var result = await ProcessOneRequestAsync<OkxFinancialStakingPurchase>(GetUri("api/v5/finance/staking-defi/sol/purchase"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<JToken>(GetUri("api/v5/finance/staking-defi/sol/purchase"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, true, result.Raw ?? "", result.Error);
     }
 
     /// <summary>
@@ -45,9 +45,9 @@ public class OkxFinancialSolStakingRestClient(OkxRestApiClient root) : OkxBaseRe
             {"amt", amount.ToOkxString() },
         };
 
-        var result = await ProcessOneRequestAsync<OkxFinancialStakingRedeem>(GetUri("api/v5/finance/staking-defi/sol/redeem"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        var result = await ProcessListRequestAsync<JToken>(GetUri("api/v5/finance/staking-defi/sol/redeem"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
-        return new RestCallResult<bool?>(result.Request, result.Response, result.Data is not null, result.Raw ?? "", result.Error);
+        return new RestCallResult<bool?>(result.Request, result.Response, true, result.Raw ?? "", result.Error);
     }
 
     /// <summary>

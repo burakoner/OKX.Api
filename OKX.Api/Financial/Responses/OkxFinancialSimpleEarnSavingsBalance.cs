@@ -40,4 +40,11 @@ public record OkxFinancialSimpleEarnSavingsBalance
     /// </summary>
     [JsonProperty("pendingAmt")]
     public decimal PendingAmount { get; set; }
+
+    /// <summary>
+    /// Deprecated redemption amount field still returned by some docs payloads
+    /// </summary>
+    [JsonProperty("redemptAmt")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? RedemptionAmount { get; set; }
 }

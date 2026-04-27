@@ -21,5 +21,13 @@ public record OkxFinancialOnChainEarnEarningData
     /// Earning amount
     /// </summary>
     [JsonProperty("earnings")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? Earnings { get; set; }
+
+    /// <summary>
+    /// Realized earning amount
+    /// </summary>
+    [JsonProperty("realizedEarnings")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? RealizedEarnings { get; set; }
 }

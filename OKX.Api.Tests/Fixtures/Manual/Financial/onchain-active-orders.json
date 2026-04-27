@@ -1,0 +1,39 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ordId": "1579252",
+      "ccy": "DOT",
+      "productId": "101",
+      "state": "2",
+      "protocol": "Polkadot",
+      "protocolType": "defi",
+      "term": "0",
+      "apy": "0.1704",
+      "investData": [
+        {
+          "ccy": "DOT",
+          "amt": "2"
+        }
+      ],
+      "earningData": [
+        {
+          "ccy": "DOT",
+          "earningType": "0",
+          "earnings": "0.25"
+        }
+      ],
+      "fastRedemptionData": [
+        {
+          "ccy": "DOT",
+          "redeemingAmt": "0.5"
+        }
+      ],
+      "purchasedTime": "1712908001000",
+      "estSettlementTime": "",
+      "cancelRedemptionDeadline": "",
+      "tag": "desk-01"
+    }
+  ]
+}
