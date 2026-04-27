@@ -92,6 +92,9 @@
   - Implemented the Spread Trading WebSocket surface for place/amend/cancel/mass-cancel, private `sprd-orders` and `sprd-trades`, and public business-socket subscriptions for spread order books, public trades, tickers, and candlesticks
   - Hardened Spread Trading models for documented empty-string fields such as `expTime`, `fillPx`, `tradeId`, `fillPnl`, `fee`, and `szCont`, added spread `tag` coverage, and expanded cancel-source handling with the latest `44` code
   - Added manual docs fixtures plus committed live production spread snapshots for spread list, order book, ticker, public trades, and candlesticks, with new spread contract, socket, client-behavior, and live public integration coverage
+  - Aligned Sub Account request contracts by sending `CreateSubAccountAsync` as a documented JSON body, validating that only the OKX-supported sub-account types (`1`, `5`, `12`) are accepted there, making `SetPermissionOfTransferOutAsync` reflect the documented optional flag default, and making custody sub-account filtering optional
+  - Fixed Sub Account response fidelity by returning all rows from `GetSubAccountFundingBalancesAsync`, hardening maximum-withdrawal parsing for documented empty-string extended fields, correcting `canTransOut` to a boolean response, and expanding trading-balance coverage with current OKX delta, collateral, copy-trading, and auto-lend fields
+  - Added Sub Account manual contract fixtures, local client-behavior tests, and a safe live read-only integration test for sub-account list, trading balance, funding balance, and maximum withdrawal flows
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

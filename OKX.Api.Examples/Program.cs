@@ -376,7 +376,7 @@ internal class Program
         var subaccount_07 = await api.SubAccount.GetSubAccountManagedBillsAsync();
         var subaccount_08 = await api.SubAccount.TransferBetweenSubAccountsAsync("BTC", 0.5m, OkxAccount.Funding, OkxAccount.Trading, "fromSubAccountName", "toSubAccountName");
         var subaccount_09 = await api.SubAccount.SetPermissionOfTransferOutAsync("", true);
-        var subaccount_10 = await api.SubAccount.GetCustodySubAccountsAsync("");
+        var subaccount_10 = await api.SubAccount.GetCustodySubAccountsAsync();
 
         // Financial Product -> On-Chain Earn Methods (Signed)
         var onchain_01 = await api.Financial.OnChainEarn.GetOffersAsync();

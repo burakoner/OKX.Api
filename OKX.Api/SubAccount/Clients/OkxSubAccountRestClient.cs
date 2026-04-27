@@ -50,13 +50,15 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         string? password = null,
         CancellationToken ct = default)
     {
+        ValidateCreateSubAccountType(type);
+
         var parameters = new ParameterCollection();
         parameters.AddOptional("subAcct", subAccountName);
         parameters.AddEnum("type", type);
         parameters.AddOptional("label", label);
         parameters.AddOptional("pwd", password);
 
-        return ProcessOneRequestAsync<OkxSubAccountSummary>(GetUri("api/v5/users/subaccount/create-subaccount"), HttpMethod.Post, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxSubAccountSummary>(GetUri("api/v5/users/subaccount/create-subaccount"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -199,7 +201,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <param name="currency">Single currency or multiple currencies (no more than 20) separated with comma, e.g. BTC or BTC,ETH.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxSubAccountFundingBalance>> GetSubAccountFundingBalancesAsync(
+    public Task<RestCallResult<List<OkxSubAccountFundingBalance>>> GetSubAccountFundingBalancesAsync(
         string subAccountName,
         string? currency = null,
         CancellationToken ct = default)
@@ -211,7 +213,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
 
         parameters.AddOptional("ccy", currency);
 
-        return ProcessOneRequestAsync<OkxSubAccountFundingBalance>(GetUri("api/v5/asset/subaccount/balances"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxSubAccountFundingBalance>(GetUri("api/v5/asset/subaccount/balances"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -357,7 +359,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSubAccountPermissionOfTransferOut>>> SetPermissionOfTransferOutAsync(
         string subAccountName,
-        bool canTransferOut,
+        bool? canTransferOut = null,
         CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
@@ -373,11 +375,23 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <param name="subAccountName">Sub-account name</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxSubAccountName>>> GetCustodySubAccountsAsync(string subAccountName, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxSubAccountName>>> GetCustodySubAccountsAsync(string? subAccountName = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddOptional("subAcct", subAccountName);
 
         return ProcessListRequestAsync<OkxSubAccountName>(GetUri("api/v5/users/entrust-subaccount-list"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    private static void ValidateCreateSubAccountType(OkxSubAccountType type)
+    {
+        if (type is OkxSubAccountType.StandardSubAccount
+            or OkxSubAccountType.CopperCustodyTradingSubAccount
+            or OkxSubAccountType.KomainuCustodyTradingSubAccount)
+            return;
+
+        throw new ArgumentException(
+            "Create sub-account only supports Standard, Copper custody, and Komainu custody sub-account types.",
+            nameof(type));
     }
 }

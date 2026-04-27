@@ -17,5 +17,5 @@ public record OkxSubAccountPermissionOfTransferOut
     /// true: can transfer out
     /// </summary>
     [JsonProperty("canTransOut")]
-    public string CanTransferOut { get; set; } = string.Empty;
+    public bool CanTransferOut { get; set; }
 }

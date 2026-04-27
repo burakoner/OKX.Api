@@ -1,0 +1,20 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ccy": "BTC",
+      "maxWd": "3",
+      "maxWdEx": "",
+      "spotOffsetMaxWd": "3",
+      "spotOffsetMaxWdEx": ""
+    },
+    {
+      "ccy": "ETH",
+      "maxWd": "15",
+      "maxWdEx": "",
+      "spotOffsetMaxWd": "15",
+      "spotOffsetMaxWdEx": ""
+    }
+  ]
+}
