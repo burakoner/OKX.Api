@@ -1,10 +1,10 @@
-using ApiSharp.Throttling;
+﻿using ApiSharp.Throttling;
 
 namespace OKX.Api.Tests.TestInfrastructure;
 
 internal static class OkxRestClientFactory
 {
-    private const int MaxIntegrationRequestsPerSecond = 5;
+    private const int MaxIntegrationRequestsPerSecond = 10;
     private static readonly TimeSpan IntegrationRateLimitWindow = TimeSpan.FromSeconds(1);
 
     public static OkxRestApiClient CreatePublic(TestConfiguration configuration)
