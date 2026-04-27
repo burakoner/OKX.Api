@@ -1,0 +1,30 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "sprdId": "BTC-USDT_BTC-USDT-SWAP",
+      "sprdType": "linear",
+      "state": "live",
+      "baseCcy": "BTC",
+      "szCcy": "BTC",
+      "quoteCcy": "USDT",
+      "tickSz": "0.1",
+      "minSz": "0.0001",
+      "lotSz": "0.0001",
+      "listTime": "1606468572000",
+      "expTime": "",
+      "uTime": "1776135005820",
+      "legs": [
+        {
+          "instId": "BTC-USDT",
+          "side": "sell"
+        },
+        {
+          "instId": "BTC-USDT-SWAP",
+          "side": "buy"
+        }
+      ]
+    }
+  ]
+}

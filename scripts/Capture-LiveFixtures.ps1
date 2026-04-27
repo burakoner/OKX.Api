@@ -243,6 +243,80 @@ function Save-PublicFundingRateSnapshots {
         -Headers $Headers
 }
 
+function Resolve-SpreadTradingSpreadId {
+    param(
+        [string]$BaseUrl,
+        [string]$OverrideSpreadId,
+        [hashtable]$Headers = @{}
+    )
+
+    if (-not [string]::IsNullOrWhiteSpace($OverrideSpreadId)) {
+        return $OverrideSpreadId
+    }
+
+    $preferredSpreadId = "BTC-USDT_BTC-USDT-SWAP"
+    $preferredResponse = Invoke-RestMethod -Method Get -Uri "$BaseUrl/api/v5/sprd/spreads?sprdId=$([Uri]::EscapeDataString($preferredSpreadId))" -Headers $Headers
+    if ($preferredResponse.data -and $preferredResponse.data.Count -gt 0) {
+        return $preferredSpreadId
+    }
+
+    $spreadsResponse = Invoke-RestMethod -Method Get -Uri "$BaseUrl/api/v5/sprd/spreads?baseCcy=BTC" -Headers $Headers
+    $spread = $spreadsResponse.data |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_.sprdId) } |
+        Select-Object -First 1
+
+    if ($null -eq $spread) {
+        throw "Unable to resolve a live spread ID for spread trading snapshot capture."
+    }
+
+    return [string]$spread.sprdId
+}
+
+function Save-SpreadSnapshots {
+    param(
+        [string]$EnvironmentName,
+        [string]$BaseUrl,
+        [string]$SpreadId,
+        [hashtable]$Headers = @{}
+    )
+
+    $root = "OKX.Api.Tests/Fixtures/Live/$EnvironmentName/Spread"
+    $resolvedSpreadId = Resolve-SpreadTradingSpreadId -BaseUrl $BaseUrl -OverrideSpreadId $SpreadId -Headers $Headers
+    $escapedSpreadId = [Uri]::EscapeDataString($resolvedSpreadId)
+
+    Write-Host "Using spread trading snapshot spread for ${EnvironmentName}: $resolvedSpreadId"
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-spreads-btc.json" `
+        -Uri "$BaseUrl/api/v5/sprd/spreads?baseCcy=BTC" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-order-book.json" `
+        -Uri "$BaseUrl/api/v5/sprd/books?sprdId=$escapedSpreadId&sz=5" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-ticker.json" `
+        -Uri "$BaseUrl/api/v5/market/sprd-ticker?sprdId=$escapedSpreadId" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-public-trades.json" `
+        -Uri "$BaseUrl/api/v5/sprd/public-trades?sprdId=$escapedSpreadId" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-candlesticks.json" `
+        -Uri "$BaseUrl/api/v5/market/sprd-candles?sprdId=$escapedSpreadId&bar=1D&limit=5" `
+        -Headers $Headers
+
+    Save-JsonSnapshot `
+        -RelativePath "$root/get-candlesticks-history.json" `
+        -Uri "$BaseUrl/api/v5/market/sprd-history-candles?sprdId=$escapedSpreadId&bar=1D&limit=5" `
+        -Headers $Headers
+}
+
 function Save-FinancialSnapshots {
     param(
         [string]$EnvironmentName,
@@ -387,6 +461,7 @@ $publicOptionUnderlying = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_OPTION_ULY"
 $publicEventsSeriesId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_EVENTS_SERIES_ID" -DefaultValue "BTC-ABOVE-DAILY"
 $borrowCurrency = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_BORROW_CURRENCY" -DefaultValue (Get-EnvOrDefault -Name "OKX_PUBLIC_BORROW_CURRENCY" -DefaultValue "BTC")
 $fundingHistoryXPerpInstrumentId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_FUNDING_HISTORY_XPERP_INST_ID" -DefaultValue ""
+$publicSpreadId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_SPREAD_ID" -DefaultValue ""
 $publicInsuranceInstrumentType = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_INSURANCE_INST_TYPE" -DefaultValue "SWAP"
 $publicInsuranceInstrumentFamily = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_INSURANCE_INST_FAMILY" -DefaultValue "BTC-USD"
 $publicOpenInterestInstrumentType = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_OPEN_INTEREST_INST_TYPE" -DefaultValue "SWAP"
@@ -404,6 +479,11 @@ Save-PublicFundingRateSnapshots `
     -EnvironmentName "Production" `
     -BaseUrl $baseUrl `
     -FundingHistoryXPerpInstrumentId $fundingHistoryXPerpInstrumentId
+
+Save-SpreadSnapshots `
+    -EnvironmentName "Production" `
+    -BaseUrl $baseUrl `
+    -SpreadId $publicSpreadId
 
 Save-FinancialSnapshots `
     -EnvironmentName "Production" `
@@ -441,6 +521,12 @@ if ($useDemoTrading) {
         -EnvironmentName "Demo" `
         -BaseUrl $baseUrl `
         -FundingHistoryXPerpInstrumentId $fundingHistoryXPerpInstrumentId `
+        -Headers $demoHeaders
+
+    Save-SpreadSnapshots `
+        -EnvironmentName "Demo" `
+        -BaseUrl $baseUrl `
+        -SpreadId $publicSpreadId `
         -Headers $demoHeaders
 
     Save-FinancialSnapshots `

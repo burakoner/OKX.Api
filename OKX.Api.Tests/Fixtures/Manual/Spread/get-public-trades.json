@@ -1,0 +1,14 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "sprdId": "BTC-USDT_BTC-USDT-SWAP",
+      "tradeId": "3340531963110211584",
+      "px": "-79",
+      "sz": "100",
+      "side": "sell",
+      "ts": "1776948021058"
+    }
+  ]
+}

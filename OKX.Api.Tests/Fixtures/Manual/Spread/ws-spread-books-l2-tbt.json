@@ -1,0 +1,21 @@
+{
+  "arg": {
+    "channel": "sprd-books-l2-tbt",
+    "sprdId": "BTC-USDT_BTC-USDT-SWAP"
+  },
+  "action": "snapshot",
+  "data": [
+    {
+      "asks": [
+        ["-8.8", "1.8922", "1"]
+      ],
+      "bids": [
+        ["-78.9", "0.4353", "1"]
+      ],
+      "ts": "1777285828289",
+      "checksum": "123456",
+      "prevSeqId": "-1",
+      "seqId": "10"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "sprdId": "BTC-USDT_BTC-USDT-SWAP",
+      "last": "-79",
+      "lastSz": "100",
+      "askPx": "-8.8",
+      "askSz": "1.8922",
+      "bidPx": "-78.9",
+      "bidSz": "0.4353",
+      "open24h": "-79",
+      "high24h": "-79",
+      "low24h": "-79",
+      "vol24h": "0",
+      "ts": "1777285802831"
+    }
+  ]
+}

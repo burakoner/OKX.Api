@@ -88,6 +88,10 @@
   - Added `GetInsuranceFundsAsync` and `GetInterestRateLoanQuotaAsync`, kept the legacy single-item security fund helper for compatibility, and aligned economic-calendar REST and WebSocket flows with OKX's authenticated business-socket requirement
   - Hardened Public Data models for empty-string numeric/timestamp fields, added current documented deprecated fields, corrected liquidation size and ADL `maxBalTs` mappings, and updated public open-interest parsing so `oi` supports fractional live values
   - Added manual docs fixtures plus committed live production snapshots for discount info, interest-rate-loan-quota, security fund, underlying, option tick bands, open interest, index components, and authenticated economic calendar data, with new contract, client-behavior, and public integration coverage
+  - Aligned Spread Trading REST filters with current docs by making mass-cancel `sprdId` optional, adding `instType` and `instFamily` support to order-archive queries, and validating spread-only order state/type filters before requests are sent
+  - Implemented the Spread Trading WebSocket surface for place/amend/cancel/mass-cancel, private `sprd-orders` and `sprd-trades`, and public business-socket subscriptions for spread order books, public trades, tickers, and candlesticks
+  - Hardened Spread Trading models for documented empty-string fields such as `expTime`, `fillPx`, `tradeId`, `fillPnl`, `fee`, and `szCont`, added spread `tag` coverage, and expanded cancel-source handling with the latest `44` code
+  - Added manual docs fixtures plus committed live production spread snapshots for spread list, order book, ticker, public trades, and candlesticks, with new spread contract, socket, client-behavior, and live public integration coverage
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

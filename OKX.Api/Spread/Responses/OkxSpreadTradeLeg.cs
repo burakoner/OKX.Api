@@ -27,7 +27,8 @@ public record OkxSpreadTradeLeg
     /// Filled amount of the contract
     /// Only applicable to contracts, return "" for spot
         /// </summary>
-        [JsonProperty("szCont")]
+    [JsonProperty("szCont")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? ContractQuantity { get; set; }
 
     /// <summary>
@@ -40,13 +41,15 @@ public record OkxSpreadTradeLeg
     /// Last filled profit and loss, applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
     /// </summary>
     [JsonProperty("fillPnl")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? LastFilledProfitAndLoss { get; set; }
 
     /// <summary>
     /// Fee. Negative number represents the user transaction fee charged by the platform. Positive number represents rebate.
     /// </summary>
     [JsonProperty("fee")]
-    public decimal FeeQuantity { get; set; }
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? FeeQuantity { get; set; }
 
     /// <summary>
     /// Fee currency

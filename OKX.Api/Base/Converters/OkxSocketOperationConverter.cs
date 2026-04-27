@@ -19,5 +19,10 @@ internal class OkxSocketOperationConverter : BaseConverter<OkxSocketOperation>
         new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.BatchCancelOrders, "batch-cancel-orders"),
 
         new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.MassCancel, "mass-cancel"),
+
+        new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.SpreadOrder, "sprd-order"),
+        new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.SpreadAmendOrder, "sprd-amend-order"),
+        new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.SpreadCancelOrder, "sprd-cancel-order"),
+        new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.SpreadMassCancel, "sprd-mass-cancel"),
     ];
 }

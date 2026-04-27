@@ -6,6 +6,12 @@
 public enum OkxSpreadOrderCancelSource : byte
 {
     /// <summary>
+    /// Cancel source not available.
+    /// </summary>
+    [Map("")]
+    None = 255,
+
+    /// <summary>
     /// Order canceled by system
     /// </summary>
     [Map("0")]
@@ -57,5 +63,11 @@ public enum OkxSpreadOrderCancelSource : byte
     /// Order cancellation due to insufficient margin from another order
     /// </summary>
     [Map("35")]
-    InsufficientMarginFromAnotherOrder = 35
+    InsufficientMarginFromAnotherOrder = 35,
+
+    /// <summary>
+    /// Order cancellation due to insufficient balance for auto conversion.
+    /// </summary>
+    [Map("44")]
+    InsufficientBalanceForAutoConversion = 44
 }

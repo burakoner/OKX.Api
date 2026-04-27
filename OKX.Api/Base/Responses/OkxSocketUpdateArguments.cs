@@ -18,6 +18,12 @@ public record OkxSocketUpdateArguments
     public string InstrumentId { get; set; } = string.Empty;
 
     /// <summary>
+    /// Spread Id
+    /// </summary>
+    [JsonProperty("sprdId")]
+    public string SpreadId { get; set; } = string.Empty;
+
+    /// <summary>
     /// User ID
     /// </summary>
     [JsonProperty("uid")]

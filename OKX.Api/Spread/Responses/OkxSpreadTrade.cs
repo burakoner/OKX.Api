@@ -30,6 +30,12 @@ public record OkxSpreadTrade
     public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
+    /// Order tag.
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
+
+    /// <summary>
     /// Filled price
     /// </summary>
     [JsonProperty("fillPx")]

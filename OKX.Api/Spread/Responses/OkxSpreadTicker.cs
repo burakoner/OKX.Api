@@ -27,24 +27,28 @@ public record OkxSpreadTicker
     /// Ask Price
     /// </summary>
     [JsonProperty("askPx")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? AskPrice { get; set; }
 
     /// <summary>
     /// Ask Size
     /// </summary>
     [JsonProperty("askSz")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? AskSize { get; set; }
     
     /// <summary>
     /// Bid Price
     /// </summary>
     [JsonProperty("bidPx")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? BidPrice { get; set; }
 
     /// <summary>
     /// Bid Size
     /// </summary>
     [JsonProperty("bidSz")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? BidSize { get; set; }
     
     /// <summary>

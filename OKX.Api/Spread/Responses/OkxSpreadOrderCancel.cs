@@ -9,6 +9,7 @@ public record OkxSpreadOrderCancel : OkxRestApiErrorBase
     /// Order Id
     /// </summary>
     [JsonProperty("ordId")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? OrderId { get; set; }
 
     /// <summary>

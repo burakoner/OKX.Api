@@ -1,0 +1,45 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "sprdId": "BTC-USDT-SWAP_BTC-USDT-200329",
+      "tradeId": "123",
+      "ordId": "123445",
+      "clOrdId": "b16",
+      "tag": "",
+      "fillPx": "999",
+      "fillSz": "3",
+      "state": "filled",
+      "side": "buy",
+      "execType": "M",
+      "ts": "1597026383085",
+      "legs": [
+        {
+          "instId": "BTC-USDT-SWAP",
+          "px": "20000",
+          "sz": "3",
+          "szCont": "0.03",
+          "side": "buy",
+          "fillPnl": "",
+          "fee": "",
+          "feeCcy": "",
+          "tradeId": "1232342342"
+        },
+        {
+          "instId": "BTC-USDT",
+          "px": "21000",
+          "sz": "3",
+          "szCont": "",
+          "side": "sell",
+          "fillPnl": "",
+          "fee": "",
+          "feeCcy": "",
+          "tradeId": "5345646634"
+        }
+      ],
+      "code": "",
+      "msg": ""
+    }
+  ]
+}

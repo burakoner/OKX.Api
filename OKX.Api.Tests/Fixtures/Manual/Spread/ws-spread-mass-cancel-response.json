@@ -1,0 +1,11 @@
+{
+  "id": "1515",
+  "op": "sprd-mass-cancel",
+  "data": [
+    {
+      "result": true
+    }
+  ],
+  "code": "0",
+  "msg": ""
+}

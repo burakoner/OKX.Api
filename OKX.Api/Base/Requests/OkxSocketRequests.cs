@@ -155,6 +155,12 @@ public record OkxSocketRequestArgument
     public string? InstrumentId { get; set; }
 
     /// <summary>
+    /// Spread Id
+    /// </summary>
+    [JsonProperty("sprdId", NullValueHandling = NullValueHandling.Ignore)]
+    public string? SpreadId { get; set; }
+
+    /// <summary>
     /// Instrument Type
     /// </summary>
     [JsonProperty("instType", NullValueHandling = NullValueHandling.Ignore)]
@@ -356,4 +362,24 @@ public enum OkxSocketOperation
     /// Mass Cancel
     /// </summary>
     MassCancel,
+
+    /// <summary>
+    /// Spread Place Order
+    /// </summary>
+    SpreadOrder,
+
+    /// <summary>
+    /// Spread Amend Order
+    /// </summary>
+    SpreadAmendOrder,
+
+    /// <summary>
+    /// Spread Cancel Order
+    /// </summary>
+    SpreadCancelOrder,
+
+    /// <summary>
+    /// Spread Mass Cancel
+    /// </summary>
+    SpreadMassCancel,
 }

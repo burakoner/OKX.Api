@@ -7,6 +7,12 @@
 public record OkxSpreadCandlestick
 {
     /// <summary>
+    /// Spread ID for websocket subscriptions.
+    /// </summary>
+    [JsonIgnore]
+    public string SpreadId { get; set; } = string.Empty;
+
+    /// <summary>
     /// Timestamp
     /// </summary>
     [ArrayProperty(0)]

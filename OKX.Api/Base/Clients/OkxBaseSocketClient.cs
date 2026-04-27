@@ -140,11 +140,24 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         {
             var id = (string)data["id"]!;
             var op = (string)data["op"]!;
+
+            if (data["code"] is not null && (string?)data["code"] != "0")
+            {
+                var message = (string?)data["msg"] ?? "Unknown websocket query error";
+                callResult = new CallResult<T>(new ServerError($"{(string)data["code"]!}, {message}"));
+                return true;
+            }
+
             var placeOrderRequest = op == "order" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest01 && socRequest01.RequestId == id;
             var amendOrderRequest = op == "amend-order" && request is OkxSocketRequest<OkxTradeOrderAmendRequest> socRequest02 && socRequest02.RequestId == id;
             var cancelOrderRequest = op == "cancel-order" && request is OkxSocketRequest<OkxTradeOrderCancelRequest> socRequest03 && socRequest03.RequestId == id;
             var massCancelOrderRequest = op == "mass-cancel" && request is OkxSocketRequest<OkxTradeMassCancelRequest> socRequest04 && socRequest04.RequestId == id;
-            if (placeOrderRequest || amendOrderRequest || cancelOrderRequest || massCancelOrderRequest)
+            var spreadPlaceOrderRequest = op == "sprd-order" && request is OkxSocketRequest<OkxSpreadOrderPlaceRequest> socRequest08 && socRequest08.RequestId == id;
+            var spreadAmendOrderRequest = op == "sprd-amend-order" && request is OkxSocketRequest<OkxSpreadOrderAmendRequest> socRequest09 && socRequest09.RequestId == id;
+            var spreadCancelOrderRequest = op == "sprd-cancel-order" && request is OkxSocketRequest<OkxSpreadOrderCancelRequest> socRequest10 && socRequest10.RequestId == id;
+            var spreadMassCancelOrderRequest = op == "sprd-mass-cancel" && request is OkxSocketRequest<OkxSpreadMassCancelRequest> socRequest11 && socRequest11.RequestId == id;
+            if (placeOrderRequest || amendOrderRequest || cancelOrderRequest || massCancelOrderRequest
+                || spreadPlaceOrderRequest || spreadAmendOrderRequest || spreadCancelOrderRequest || spreadMassCancelOrderRequest)
             {
                 var desResult = Deserialize<List<T>>(data["data"]!);
                 if (!desResult)
@@ -333,6 +346,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             && requestArgument.AlgoOrderId == responseArgument.AlgoOrderId
             && requestArgument.InstrumentFamily == responseArgument.InstrumentFamily
             && requestArgument.InstrumentId == responseArgument.InstrumentId
+            && requestArgument.SpreadId == responseArgument.SpreadId
             && requestArgument.InstrumentType == responseArgument.InstrumentType
             && DictionaryMatches(requestArgument.ExtraParameters, responseArgument.ExtraParameters);
     }

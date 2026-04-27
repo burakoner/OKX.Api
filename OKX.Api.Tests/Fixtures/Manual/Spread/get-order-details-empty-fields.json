@@ -1,0 +1,28 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "sprdId": "BTC-USDT_BTC-USDT-SWAP",
+      "ordId": "312269865356374016",
+      "clOrdId": "b1",
+      "tag": "",
+      "px": "999",
+      "sz": "3",
+      "ordType": "limit",
+      "side": "buy",
+      "fillSz": "0",
+      "fillPx": "",
+      "tradeId": "",
+      "accFillSz": "0",
+      "pendingFillSz": "2",
+      "pendingSettleSz": "1",
+      "canceledSz": "1",
+      "state": "live",
+      "avgPx": "0",
+      "cancelSource": "",
+      "uTime": "1597026383085",
+      "cTime": "1597026383085"
+    }
+  ]
+}

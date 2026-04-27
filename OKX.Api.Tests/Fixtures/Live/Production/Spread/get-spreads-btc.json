@@ -1,0 +1,582 @@
+{
+    "code":  "0",
+    "msg":  "",
+    "data":  [
+                 {
+                     "sprdId":  "BTC-USD-SWAP_BTC-USD-260925",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1768551000461",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-SWAP",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260925",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1790323200000",
+                     "uTime":  "1776135005636"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-260626",
+                     "sprdType":  "linear",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "BTC",
+                     "quoteCcy":  "USDT",
+                     "tickSz":  "0.5",
+                     "minSz":  "0.0001",
+                     "lotSz":  "0.0001",
+                     "listTime":  "1760688600280",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USDT",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USDT-260626",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1782460800000",
+                     "uTime":  "1776135005650"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-SWAP_BTC-USD-261225",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1775808600859",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-SWAP",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-261225",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1798185600000",
+                     "uTime":  "1776135005662"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260501_BTC-USD-260529",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1776413400253",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260501",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260529",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1777622400000",
+                     "uTime":  "1776413400335"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260529_BTC-USD-260925",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1773389400365",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260529",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260925",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1780041600000",
+                     "uTime":  "1776135005702"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260508_BTC-USD-260529",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1777018200773",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260508",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260529",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1778227200000",
+                     "uTime":  "1777018200961"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260501_BTC-USD-260626",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1776413400253",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260501",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260626",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1777622400000",
+                     "uTime":  "1776413400355"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260501_BTC-USD-260508",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1777018200773",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260501",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260508",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1777622400000",
+                     "uTime":  "1777018200910"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT-SWAP_BTC-USDT-260626",
+                     "sprdType":  "linear",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "BTC",
+                     "quoteCcy":  "USDT",
+                     "tickSz":  "0.5",
+                     "minSz":  "0.0001",
+                     "lotSz":  "0.0001",
+                     "listTime":  "1760688600280",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USDT-SWAP",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USDT-260626",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1782460800000",
+                     "uTime":  "1776135005740"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260508_BTC-USD-260626",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1777018200773",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260508",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260626",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1778227200000",
+                     "uTime":  "1777018200781"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260529_BTC-USD-261225",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1775808600859",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260529",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-261225",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1780041600000",
+                     "uTime":  "1776135005760"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-SWAP_BTC-USD-260501",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1776413400253",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-SWAP",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260501",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1777622400000",
+                     "uTime":  "1776413400312"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-SWAP_BTC-USD-260508",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1777018200773",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-SWAP",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260508",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1778227200000",
+                     "uTime":  "1777018201000"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-SWAP_BTC-USD-260626",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1752221400087",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-SWAP",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260626",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1782460800000",
+                     "uTime":  "1776135005774"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "sprdType":  "linear",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "BTC",
+                     "quoteCcy":  "USDT",
+                     "tickSz":  "0.1",
+                     "minSz":  "0.0001",
+                     "lotSz":  "0.0001",
+                     "listTime":  "1606468572000",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USDT",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USDT-SWAP",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "",
+                     "uTime":  "1776135005820"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260626_BTC-USD-260925",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1768551000461",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260626",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260925",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1782460800000",
+                     "uTime":  "1776135005828"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-SWAP_BTC-USD-260529",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1773389400365",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-SWAP",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260529",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1780041600000",
+                     "uTime":  "1776135005835"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260626_BTC-USD-261225",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1775808600859",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260626",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-261225",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1782460800000",
+                     "uTime":  "1776135005849"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260529_BTC-USD-260626",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1773389400365",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260529",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260626",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1780041600000",
+                     "uTime":  "1776135005863"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260501_BTC-USD-260925",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1776413400253",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260501",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260925",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1777622400000",
+                     "uTime":  "1776413400269"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260501_BTC-USD-261225",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1776413400253",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260501",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-261225",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1777622400000",
+                     "uTime":  "1776413400369"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260508_BTC-USD-260925",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1777018200773",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260508",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-260925",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1778227200000",
+                     "uTime":  "1777018200822"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260508_BTC-USD-261225",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1777018200773",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260508",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-261225",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1778227200000",
+                     "uTime":  "1777018200860"
+                 },
+                 {
+                     "sprdId":  "BTC-USD-260925_BTC-USD-261225",
+                     "sprdType":  "inverse",
+                     "state":  "live",
+                     "baseCcy":  "BTC",
+                     "szCcy":  "USD",
+                     "quoteCcy":  "USD",
+                     "tickSz":  "0.5",
+                     "minSz":  "10",
+                     "lotSz":  "10",
+                     "listTime":  "1775808600859",
+                     "legs":  [
+                                  {
+                                      "instId":  "BTC-USD-260925",
+                                      "side":  "sell"
+                                  },
+                                  {
+                                      "instId":  "BTC-USD-261225",
+                                      "side":  "buy"
+                                  }
+                              ],
+                     "expTime":  "1790323200000",
+                     "uTime":  "1776135005968"
+                 }
+             ]
+}

@@ -63,6 +63,7 @@ public record OkxSpreadInstrument
     /// The timestamp the spread was created. Unix timestamp format in milliseconds, , e.g. 1597026383085
     /// </summary>
     [JsonProperty("listTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? ListTimestamp { get; set; }
 
     /// <summary>
@@ -75,6 +76,7 @@ public record OkxSpreadInstrument
     /// Expiry time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("expTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? ExpiryTimestamp { get; set; }
 
     /// <summary>
@@ -87,6 +89,7 @@ public record OkxSpreadInstrument
     /// Expiry time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("uTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? UpdateTimestamp { get; set; }
 
     /// <summary>

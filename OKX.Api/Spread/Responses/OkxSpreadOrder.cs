@@ -24,9 +24,16 @@ public record OkxSpreadOrder
     public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
+    /// Order tag.
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
+
+    /// <summary>
     /// Price
     /// </summary>
     [JsonProperty("px")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? Price { get; set; }
 
     /// <summary>
@@ -51,48 +58,56 @@ public record OkxSpreadOrder
     /// Last fill quantity
     /// </summary>
     [JsonProperty("fillSz")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? FillQuantity { get; set; }
     
     /// <summary>
     /// Last fill price
     /// </summary>
     [JsonProperty("fillPx")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? FillPrice { get; set; }
     
     /// <summary>
     /// Last trade ID
     /// </summary>
     [JsonProperty("tradeId")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? TradeId { get; set; }
     
     /// <summary>
     /// Accumulated fill quantity
     /// </summary>
     [JsonProperty("accFillSz")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? AccumulatedFillQuantity { get; set; }
     
     /// <summary>
     /// Live quantity
     /// </summary>
     [JsonProperty("pendingFillSz")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? PendingFillQuantity { get; set; }
     
     /// <summary>
     /// Quantity that's pending settlement
     /// </summary>
     [JsonProperty("pendingSettleSz")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? PendingSettleQuantity { get; set; }
 
     /// <summary>
     /// Quantity canceled due order cancellations or trade rejections
     /// </summary>
     [JsonProperty("canceledSz")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? CanceledQuantity { get; set; }
     
     /// <summary>
     /// Average filled price. If none is filled, it will return "0".
     /// </summary>
     [JsonProperty("avgPx")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? AveragePrice { get; set; }
     
     /// <summary>
@@ -105,12 +120,13 @@ public record OkxSpreadOrder
     /// Source of the order cancellation.
     /// </summary>
     [JsonProperty("cancelSource")]
-    public OkxSpreadOrderCancelSource OrderCancelSource { get; set; }
+    public OkxSpreadOrderCancelSource? OrderCancelSource { get; set; }
 
     /// <summary>
     /// Update time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("uTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? UpdateTimestamp { get; set; }
 
     /// <summary>

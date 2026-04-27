@@ -9,6 +9,7 @@ public record OkxSpreadOrderPlace : OkxRestApiErrorBase
     /// Order Id
     /// </summary>
     [JsonProperty("ordId")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? OrderId { get; set; }
 
     /// <summary>
@@ -16,4 +17,10 @@ public record OkxSpreadOrderPlace : OkxRestApiErrorBase
     /// </summary>
     [JsonProperty("clOrdId")]
     public string ClientOrderId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Order tag.
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
 }

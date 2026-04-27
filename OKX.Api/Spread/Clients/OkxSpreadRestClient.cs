@@ -60,11 +60,10 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="spreadId">spread ID</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<RestCallResult<bool?>> CancelOrdersAsync(string spreadId, CancellationToken ct = default)
+    public async Task<RestCallResult<bool?>> CancelOrdersAsync(string? spreadId = null, CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection {
-            {"sprdId", spreadId },
-        };
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("sprdId", spreadId);
 
         var result = await  ProcessOneRequestAsync<OkxBooleanResponse>(GetUri("api/v5/sprd/mass-cancel"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<bool?>(result.Request, result.Response, result.Raw ?? "", result.Error);
@@ -144,6 +143,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidateOpenOrdersFilter(type, state);
 
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("ordType", type);
@@ -181,6 +181,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidateClosedOrdersFilter(type, state, "Spread order-history");
 
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("ordType", type);
@@ -207,6 +208,8 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <param name="end">Filter with an end timestamp. Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100. The default is 100</param>
     /// <param name="ct">Cancellation Token</param>
+    /// <param name="instrumentType">Instrument type. Any orders with spreads containing the specified instrument type in any legs will be returned.</param>
+    /// <param name="instrumentFamily">Instrument family. Any orders with spreads containing the specified instrument family in any legs will be returned.</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSpreadOrder>>> GetOrderArchiveAsync(
         string? spreadId = null,
@@ -217,14 +220,19 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         long? begin = null,
         long? end = null,
         int limit = 100,
-        CancellationToken ct = default)
+        CancellationToken ct = default,
+        OkxInstrumentType? instrumentType = null,
+        string? instrumentFamily = null)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidateClosedOrdersFilter(type, state, "Spread order-history-archive");
 
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("ordType", type);
         parameters.AddOptionalEnum("state", state);
         parameters.AddOptional("sprdId", spreadId);
+        parameters.AddOptionalEnum("instType", instrumentType);
+        parameters.AddOptional("instFamily", instrumentFamily);
         parameters.AddOptional("beginId", beginId?.ToOkxString());
         parameters.AddOptional("endId", endId?.ToOkxString());
         parameters.AddOptional("begin", begin?.ToOkxString());
@@ -358,7 +366,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// UTC time opening price k-line:[/6Hutc/12Hutc/1Dutc/2Dutc/3Dutc/1Wutc/1Mutc/3Mutc]</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts. The latest data will be returned when using before individually</param>
-    /// <param name="limit">Number of results per request. The maximum is 300. The default is 100.</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSpreadCandlestick>>> GetCandlesticksAsync(
@@ -381,7 +389,7 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// UTC time opening price k-line:[/6Hutc/12Hutc/1Dutc/2Dutc/3Dutc/1Wutc/1Mutc/3Mutc]</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts. The latest data will be returned when using before individually</param>
-    /// <param name="limit">Number of results per request. The maximum is 300. The default is 100.</param>
+    /// <param name="limit">Number of results per request. The maximum is 100. The default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxSpreadCandlestick>>> GetCandlesticksAsync(
@@ -471,6 +479,36 @@ public class OkxSpreadRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
         };
 
         return ProcessOneRequestAsync<OkxCancelAllAfter>(GetUri("api/v5/sprd/cancel-all-after"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    private static void ValidateOpenOrdersFilter(OkxTradeOrderType? type, OkxTradeOrderState? state)
+    {
+        ValidateSupportedOrderType(type, "Spread open-orders");
+
+        if (state.HasValue && state is not OkxTradeOrderState.Live and not OkxTradeOrderState.PartiallyFilled)
+            throw new ArgumentException("Spread open-orders only supports live and partially_filled states.", nameof(state));
+    }
+
+    private static void ValidateClosedOrdersFilter(OkxTradeOrderType? type, OkxTradeOrderState? state, string operationName)
+    {
+        ValidateSupportedOrderType(type, operationName);
+
+        if (state.HasValue && state is not OkxTradeOrderState.Canceled and not OkxTradeOrderState.Filled)
+            throw new ArgumentException($"{operationName} only supports canceled and filled states.", nameof(state));
+    }
+
+    private static void ValidateSupportedOrderType(OkxTradeOrderType? type, string operationName)
+    {
+        if (!type.HasValue)
+            return;
+
+        if (type is OkxTradeOrderType.MarketOrder
+            or OkxTradeOrderType.LimitOrder
+            or OkxTradeOrderType.PostOnly
+            or OkxTradeOrderType.ImmediateOrCancel)
+            return;
+
+        throw new ArgumentException($"{operationName} only supports market, limit, post_only, and ioc order types.", nameof(type));
     }
 
 }

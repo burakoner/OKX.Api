@@ -1,0 +1,4006 @@
+{
+    "code":  "0",
+    "msg":  "",
+    "data":  [
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3340531963110211584",
+                     "px":  "-79",
+                     "sz":  "100",
+                     "side":  "sell",
+                     "ts":  "1776948021058"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3340531078934151168",
+                     "px":  "-58.7",
+                     "sz":  "0.1844",
+                     "side":  "sell",
+                     "ts":  "1776947968337"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3338056935609319424",
+                     "px":  "-26.5",
+                     "sz":  "2.2936",
+                     "side":  "buy",
+                     "ts":  "1776800497901"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3338056412764160000",
+                     "px":  "-26.5",
+                     "sz":  "0.1",
+                     "side":  "buy",
+                     "ts":  "1776800466762"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3338054835370311680",
+                     "px":  "-26.5",
+                     "sz":  "2.3936",
+                     "side":  "buy",
+                     "ts":  "1776800372735"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3336201348927832064",
+                     "px":  "27",
+                     "sz":  "0.9879",
+                     "side":  "buy",
+                     "ts":  "1776689896316"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3336198066062868481",
+                     "px":  "-22",
+                     "sz":  "2.2945",
+                     "side":  "buy",
+                     "ts":  "1776689700643"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3336198066062868480",
+                     "px":  "-25.4",
+                     "sz":  "0.0003",
+                     "side":  "buy",
+                     "ts":  "1776689700654"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3333713812838006785",
+                     "px":  "-25.4",
+                     "sz":  "0.1287",
+                     "side":  "buy",
+                     "ts":  "1776541627626"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3333713812838006784",
+                     "px":  "-26.5",
+                     "sz":  "2.4013",
+                     "side":  "buy",
+                     "ts":  "1776541627615"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3333434921502228480",
+                     "px":  "-57.5",
+                     "sz":  "0.0907",
+                     "side":  "sell",
+                     "ts":  "1776525004394"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3333434737640718336",
+                     "px":  "-57.5",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1776524993434"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315714832673931264",
+                     "px":  "-7.6",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468804790"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315714717968105472",
+                     "px":  "-8.4",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468797954"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315714595695755264",
+                     "px":  "-9.3",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468790667"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315714421682470912",
+                     "px":  "-10.1",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468780306"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315710767051177984",
+                     "px":  "-11",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468562458"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315710653368762368",
+                     "px":  "-11.8",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468555683"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315710533998870528",
+                     "px":  "-12.6",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468548570"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315710351160770560",
+                     "px":  "-13.5",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468537674"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315709108707262464",
+                     "px":  "-14.3",
+                     "sz":  "0.142",
+                     "side":  "buy",
+                     "ts":  "1775468463618"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315708988045524992",
+                     "px":  "-15.2",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468456425"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315708895619842048",
+                     "px":  "-16",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468450916"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315708784755998720",
+                     "px":  "-16.8",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468444306"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315708652736086016",
+                     "px":  "-17.7",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468436438"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315708516337319936",
+                     "px":  "-18.5",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468428309"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3315708275114508288",
+                     "px":  "-19.3",
+                     "sz":  "0.143",
+                     "side":  "buy",
+                     "ts":  "1775468413929"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497060140580864",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731640"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497059201056768",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731583"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497058378973184",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731531"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497057506557952",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731480"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497056718028800",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731432"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497055812059136",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731377"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497054973198336",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731329"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497054117560320",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731280"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497053329031168",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731234"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497052372729856",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731177"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295497051751972864",
+                     "px":  "8.9",
+                     "sz":  "0.146",
+                     "side":  "sell",
+                     "ts":  "1774263731140"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295496435810041856",
+                     "px":  "-20.1",
+                     "sz":  "0.146",
+                     "side":  "buy",
+                     "ts":  "1774263694439"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3295496435793264640",
+                     "px":  "-20.6",
+                     "sz":  "2.5695",
+                     "side":  "buy",
+                     "ts":  "1774263694427"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3279765217068056576",
+                     "px":  "-21.7",
+                     "sz":  "0.015",
+                     "side":  "buy",
+                     "ts":  "1773326040731"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3278956113093328896",
+                     "px":  "-24",
+                     "sz":  "0.01",
+                     "side":  "buy",
+                     "ts":  "1773277814373"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3275006877863641088",
+                     "px":  "-21.8",
+                     "sz":  "1.5",
+                     "side":  "buy",
+                     "ts":  "1773042421605"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3271099261303259136",
+                     "px":  "-30",
+                     "sz":  "10",
+                     "side":  "sell",
+                     "ts":  "1772809509508"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3271099208136261632",
+                     "px":  "-30",
+                     "sz":  "10",
+                     "side":  "sell",
+                     "ts":  "1772809506340"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3271099107758178304",
+                     "px":  "-30",
+                     "sz":  "10",
+                     "side":  "sell",
+                     "ts":  "1772809500357"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3271099007413649408",
+                     "px":  "-30",
+                     "sz":  "10",
+                     "side":  "sell",
+                     "ts":  "1772809494371"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3271098618702331904",
+                     "px":  "-30",
+                     "sz":  "10",
+                     "side":  "sell",
+                     "ts":  "1772809471201"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3270895616519438336",
+                     "px":  "-21.9",
+                     "sz":  "0.14",
+                     "side":  "buy",
+                     "ts":  "1772797371330"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3270794040173789184",
+                     "px":  "-22.7",
+                     "sz":  "0.139",
+                     "side":  "buy",
+                     "ts":  "1772791316912"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3270792916368752640",
+                     "px":  "-23.6",
+                     "sz":  "0.1402",
+                     "side":  "buy",
+                     "ts":  "1772791249925"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3270465151207604224",
+                     "px":  "-24.3",
+                     "sz":  "0.1",
+                     "side":  "buy",
+                     "ts":  "1772771713598"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3269625570631483392",
+                     "px":  "-35",
+                     "sz":  "8",
+                     "side":  "sell",
+                     "ts":  "1772721670701"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3269625185325940736",
+                     "px":  "-35",
+                     "sz":  "30",
+                     "side":  "sell",
+                     "ts":  "1772721647730"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3269624701303259136",
+                     "px":  "-35",
+                     "sz":  "10",
+                     "side":  "sell",
+                     "ts":  "1772721618879"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3269623948106924032",
+                     "px":  "-35",
+                     "sz":  "1",
+                     "side":  "sell",
+                     "ts":  "1772721573990"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3267669566591205376",
+                     "px":  "-29.7",
+                     "sz":  "0.0205",
+                     "side":  "buy",
+                     "ts":  "1772605083771"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3265495632622010368",
+                     "px":  "-35",
+                     "sz":  "0.87",
+                     "side":  "sell",
+                     "ts":  "1772475507209"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3265424346566770688",
+                     "px":  "-31.6",
+                     "sz":  "0.144",
+                     "side":  "buy",
+                     "ts":  "1772471258227"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3265424318800478208",
+                     "px":  "-32.5",
+                     "sz":  "0.144",
+                     "side":  "buy",
+                     "ts":  "1772471256576"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3265424290245656576",
+                     "px":  "-33.3",
+                     "sz":  "0.144",
+                     "side":  "buy",
+                     "ts":  "1772471254868"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3265421458805243904",
+                     "px":  "-34.2",
+                     "sz":  "0.144",
+                     "side":  "buy",
+                     "ts":  "1772471086103"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3265421375103713280",
+                     "px":  "-34.9",
+                     "sz":  "0.144",
+                     "side":  "buy",
+                     "ts":  "1772471081115"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3265421304941395968",
+                     "px":  "-34.9",
+                     "sz":  "0.15",
+                     "side":  "buy",
+                     "ts":  "1772471076935"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3259806592694370304",
+                     "px":  "-30",
+                     "sz":  "0.148",
+                     "side":  "sell",
+                     "ts":  "1772136414002"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3259806592241385472",
+                     "px":  "-30",
+                     "sz":  "0.148",
+                     "side":  "sell",
+                     "ts":  "1772136413974"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3259806589909352448",
+                     "px":  "-30",
+                     "sz":  "0.148",
+                     "side":  "sell",
+                     "ts":  "1772136413857"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3256283695195504641",
+                     "px":  "-20",
+                     "sz":  "50",
+                     "side":  "buy",
+                     "ts":  "1771926432951"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3256283695195504640",
+                     "px":  "-25.9",
+                     "sz":  "0.159",
+                     "side":  "buy",
+                     "ts":  "1771926432952"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3256275441610539008",
+                     "px":  "-38.6",
+                     "sz":  "40",
+                     "side":  "buy",
+                     "ts":  "1771925941010"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3255632324515479552",
+                     "px":  "-26.6",
+                     "sz":  "0.155",
+                     "side":  "buy",
+                     "ts":  "1771887608233"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3255632204692602880",
+                     "px":  "-26.9",
+                     "sz":  "0.155",
+                     "side":  "buy",
+                     "ts":  "1771887601097"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3244737619439271936",
+                     "px":  "-37.7",
+                     "sz":  "4",
+                     "side":  "sell",
+                     "ts":  "1771238233209"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3244733757626138624",
+                     "px":  "-37.7",
+                     "sz":  "2",
+                     "side":  "sell",
+                     "ts":  "1771238003023"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240518116044062720",
+                     "px":  "-39.2",
+                     "sz":  "0.14",
+                     "side":  "sell",
+                     "ts":  "1770986731204"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240517942668312576",
+                     "px":  "-39",
+                     "sz":  "0.14",
+                     "side":  "sell",
+                     "ts":  "1770986720873"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240517702552797184",
+                     "px":  "-38.7",
+                     "sz":  "0.14",
+                     "side":  "sell",
+                     "ts":  "1770986706569"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240289451414798337",
+                     "px":  "-40.3",
+                     "sz":  "0.7624",
+                     "side":  "sell",
+                     "ts":  "1770973101743"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240289451414798336",
+                     "px":  "-38.2",
+                     "sz":  "0.15",
+                     "side":  "sell",
+                     "ts":  "1770973101733"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240289451398021120",
+                     "px":  "-37.7",
+                     "sz":  "0.0876",
+                     "side":  "sell",
+                     "ts":  "1770973101746"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240272376470323200",
+                     "px":  "-37.8",
+                     "sz":  "0.15",
+                     "side":  "sell",
+                     "ts":  "1770972084009"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240271709173334017",
+                     "px":  "-37.7",
+                     "sz":  "0.1434",
+                     "side":  "sell",
+                     "ts":  "1770972044210"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240271709173334016",
+                     "px":  "-37.7",
+                     "sz":  "0.0066",
+                     "side":  "sell",
+                     "ts":  "1770972044211"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240271072813531136",
+                     "px":  "-37.7",
+                     "sz":  "0.081",
+                     "side":  "sell",
+                     "ts":  "1770972006282"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3240271072796753920",
+                     "px":  "-37.7",
+                     "sz":  "0.149",
+                     "side":  "sell",
+                     "ts":  "1770972006312"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3231492195563749376",
+                     "px":  "-24.7",
+                     "sz":  "0.147",
+                     "side":  "buy",
+                     "ts":  "1770448744424"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3231492188819308544",
+                     "px":  "-24.9",
+                     "sz":  "0.147",
+                     "side":  "buy",
+                     "ts":  "1770448744017"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3231492182024536064",
+                     "px":  "-25.2",
+                     "sz":  "0.147",
+                     "side":  "buy",
+                     "ts":  "1770448743619"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3231492165767413760",
+                     "px":  "-25.4",
+                     "sz":  "0.148",
+                     "side":  "buy",
+                     "ts":  "1770448742644"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3231491722983129088",
+                     "px":  "-25.6",
+                     "sz":  "0.148",
+                     "side":  "buy",
+                     "ts":  "1770448716251"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3231491419550400512",
+                     "px":  "-25.8",
+                     "sz":  "0.148",
+                     "side":  "buy",
+                     "ts":  "1770448698171"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230724988659449856",
+                     "px":  "-26.7",
+                     "sz":  "0.0142",
+                     "side":  "buy",
+                     "ts":  "1770403015330"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230724814662942720",
+                     "px":  "-26.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770403004960"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230723777780662272",
+                     "px":  "-29.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402943156"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230723725049872384",
+                     "px":  "-29.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402940007"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230723635526647808",
+                     "px":  "-30.1",
+                     "sz":  "0.0177",
+                     "side":  "buy",
+                     "ts":  "1770402934673"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230723595110334464",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402932267"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230723548972990464",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402929518"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230723504882466816",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402926890"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230723451832909824",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402923723"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230723411785695232",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402921341"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230723374523498496",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402919116"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230723333889081344",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402916706"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722484911620096",
+                     "px":  "-30",
+                     "sz":  "0.018",
+                     "side":  "buy",
+                     "ts":  "1770402866095"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722449612357632",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402863990"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722379785584640",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402859822"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722345090301952",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402857757"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722309187059712",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402855621"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722273569030144",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402853493"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722237464461312",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402851346"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722197870231552",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402848986"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722131415678976",
+                     "px":  "-30",
+                     "sz":  "0.018",
+                     "side":  "buy",
+                     "ts":  "1770402845025"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722102709862400",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402843314"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722063333736448",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402840967"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230722025098461184",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402838683"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230721991778910208",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402836702"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230721948997009408",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402834147"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230721897088303104",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402831058"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230721850028212224",
+                     "px":  "-30",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402828247"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230721285743329280",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402794618"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230720676478730240",
+                     "px":  "-30.1",
+                     "sz":  "0.018",
+                     "side":  "buy",
+                     "ts":  "1770402758299"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230720640273498112",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402756146"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230720601048367104",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402753803"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230720560833380352",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402751406"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230720517732712448",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402748838"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230720476443983872",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402746380"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230720435356581888",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402743931"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230720392574681088",
+                     "px":  "-30.1",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402741377"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230716811595366400",
+                     "px":  "-29.9",
+                     "sz":  "0.018",
+                     "side":  "buy",
+                     "ts":  "1770402527940"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230716755760791552",
+                     "px":  "-29.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402524611"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230716712861450240",
+                     "px":  "-29.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402522054"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230716675012050944",
+                     "px":  "-29.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402519793"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230716602551255040",
+                     "px":  "-29.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402515474"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230716563946881024",
+                     "px":  "-29.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402513177"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230716523715117056",
+                     "px":  "-29.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402510780"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230716470699114496",
+                     "px":  "-29.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402507615"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230716416391266304",
+                     "px":  "-26.6",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402504377"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230716357134139392",
+                     "px":  "-26.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402500845"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230714996350926848",
+                     "px":  "-30.6",
+                     "sz":  "0.0184",
+                     "side":  "buy",
+                     "ts":  "1770402419742"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230714905300975616",
+                     "px":  "-30.6",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402414310"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230714836698939392",
+                     "px":  "-30.6",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402410221"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230714799050866688",
+                     "px":  "-30.6",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402407982"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230714751286132736",
+                     "px":  "-30.6",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402405134"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230714712681758720",
+                     "px":  "-30.6",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402402829"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230714669899857920",
+                     "px":  "-30.6",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402400284"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230714615071916032",
+                     "px":  "-30.6",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402397012"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230712944245751808",
+                     "px":  "-26.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402297439"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230712889988235264",
+                     "px":  "-26.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402294193"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230712831569969152",
+                     "px":  "-26.8",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402290710"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230712768420528128",
+                     "px":  "-26.8",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402286946"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230712716679593984",
+                     "px":  "-26.8",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402283863"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230712673780252672",
+                     "px":  "-26.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402281300"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230712626854379520",
+                     "px":  "-26.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402278509"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230712573267951616",
+                     "px":  "-26.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402275315"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230712513222295552",
+                     "px":  "-27",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402271731"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230712430493843456",
+                     "px":  "-27",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402266804"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230708555829362688",
+                     "px":  "-30.8",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402035852"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230708467379879936",
+                     "px":  "-30.8",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402030584"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230708359233945600",
+                     "px":  "-30.9",
+                     "sz":  "0.017",
+                     "side":  "buy",
+                     "ts":  "1770402024135"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230708315982282752",
+                     "px":  "-30.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402021560"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230708273200381952",
+                     "px":  "-30.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402019006"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230708220939354112",
+                     "px":  "-30.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402015891"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230708162873409536",
+                     "px":  "-30.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402012430"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230708116652179456",
+                     "px":  "-30.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402009675"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230708064827359232",
+                     "px":  "-30.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402006585"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230707990000975872",
+                     "px":  "-30.9",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770402002141"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230706566420643840",
+                     "px":  "-31",
+                     "sz":  "0.0152",
+                     "side":  "buy",
+                     "ts":  "1770401917273"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230706500117086208",
+                     "px":  "-31",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401913327"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230706450221645824",
+                     "px":  "-31",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401910348"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230706386820546560",
+                     "px":  "-31",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401906569"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230706333821321216",
+                     "px":  "-31",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401903415"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230706278741721088",
+                     "px":  "-31",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401900127"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230706213730009088",
+                     "px":  "-31",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401896256"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230706138752630784",
+                     "px":  "-31",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401891787"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230705393038934016",
+                     "px":  "-27.3",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401847340"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230705335694409728",
+                     "px":  "-27.3",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401843922"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230705285345984512",
+                     "px":  "-27.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401840920"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230705218757214208",
+                     "px":  "-27.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401836946"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230705158761889792",
+                     "px":  "-27.5",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401833376"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230705109990522880",
+                     "px":  "-27.5",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401830465"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230705059658874880",
+                     "px":  "-27.5",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401827466"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704999697104896",
+                     "px":  "-27.5",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401823888"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704922505134080",
+                     "px":  "-27.6",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401819288"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704870512541696",
+                     "px":  "-27.6",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401816189"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704806272581632",
+                     "px":  "-27.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401812366"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704740069687296",
+                     "px":  "-27.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401808415"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704503779377152",
+                     "px":  "-31.4",
+                     "sz":  "0.0152",
+                     "side":  "buy",
+                     "ts":  "1770401794330"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704437542928384",
+                     "px":  "-31.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401790387"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704382077452288",
+                     "px":  "-31.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401787075"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704313408307200",
+                     "px":  "-31.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401782989"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704230059098112",
+                     "px":  "-31.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401778021"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704179710672896",
+                     "px":  "-31.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401775020"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230704092636921856",
+                     "px":  "-31.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401769826"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230703984172220416",
+                     "px":  "-31.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401763360"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230700074342694912",
+                     "px":  "-29.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401530315"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230699957137063936",
+                     "px":  "-29.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401523334"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230699789683671040",
+                     "px":  "-29.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401513347"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230699674222870528",
+                     "px":  "-29.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401506466"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230699520409354240",
+                     "px":  "-29.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401497304"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230699375051554816",
+                     "px":  "-29.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401488640"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230697192553857024",
+                     "px":  "-29.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401358548"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230696975876112384",
+                     "px":  "-27.7",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401345638"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230696431774220288",
+                     "px":  "-29.4",
+                     "sz":  "0.02",
+                     "side":  "buy",
+                     "ts":  "1770401313201"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3230688944589258752",
+                     "px":  "-28.1",
+                     "sz":  "0.009",
+                     "side":  "buy",
+                     "ts":  "1770400866936"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502841303744512",
+                     "px":  "-10.6",
+                     "sz":  "0.0212",
+                     "side":  "sell",
+                     "ts":  "1770330169666"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502840582324224",
+                     "px":  "-10.6",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330169628"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502476432850944",
+                     "px":  "-12.5",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147918"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502475744985088",
+                     "px":  "-12.5",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147881"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502475292000256",
+                     "px":  "-12.5",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147848"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502474755129344",
+                     "px":  "-12.5",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147821"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502474016931840",
+                     "px":  "-12.5",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147778"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502473480060928",
+                     "px":  "-12.5",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147742"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502473043853312",
+                     "px":  "-12.5",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147720"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502472372764672",
+                     "px":  "-12.5",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147673"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502471768784896",
+                     "px":  "-12.5",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147639"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502471399686144",
+                     "px":  "-12.5",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147617"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502470661488640",
+                     "px":  "-10.6",
+                     "sz":  "0.0216",
+                     "side":  "sell",
+                     "ts":  "1770330147574"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502469889736704",
+                     "px":  "-10.6",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330147532"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502469604524032",
+                     "px":  "-19.3",
+                     "sz":  "0.159",
+                     "side":  "buy",
+                     "ts":  "1770330147511"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502422863200256",
+                     "px":  "-19.3",
+                     "sz":  "0.159",
+                     "side":  "buy",
+                     "ts":  "1770330144730"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229502420044627968",
+                     "px":  "-19.3",
+                     "sz":  "0.159",
+                     "side":  "buy",
+                     "ts":  "1770330144562"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229501699010215936",
+                     "px":  "-11.6",
+                     "sz":  "0.0216",
+                     "side":  "sell",
+                     "ts":  "1770330101584"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229501698590785536",
+                     "px":  "-11.6",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770330101556"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229487737128501248",
+                     "px":  "-9.8",
+                     "sz":  "0.0206",
+                     "side":  "sell",
+                     "ts":  "1770329269391"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229487736658739200",
+                     "px":  "-9.8",
+                     "sz":  "0.159",
+                     "side":  "sell",
+                     "ts":  "1770329269363"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229485500658499584",
+                     "px":  "-29.4",
+                     "sz":  "0.158",
+                     "side":  "buy",
+                     "ts":  "1770329136083"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229456896880951296",
+                     "px":  "-31.5",
+                     "sz":  "5",
+                     "side":  "sell",
+                     "ts":  "1770327431169"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3229456208981540864",
+                     "px":  "-31.5",
+                     "sz":  "5",
+                     "side":  "sell",
+                     "ts":  "1770327390172"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226350396243329024",
+                     "px":  "-31.5",
+                     "sz":  "0.134",
+                     "side":  "buy",
+                     "ts":  "1770142269314"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337976305205248",
+                     "px":  "-31.8",
+                     "sz":  "0.133",
+                     "side":  "buy",
+                     "ts":  "1770141529014"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337944613044224",
+                     "px":  "-32.1",
+                     "sz":  "0.133",
+                     "side":  "buy",
+                     "ts":  "1770141527127"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337901680148480",
+                     "px":  "-32.4",
+                     "sz":  "0.133",
+                     "side":  "buy",
+                     "ts":  "1770141524569"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337853328211968",
+                     "px":  "-32.7",
+                     "sz":  "0.133",
+                     "side":  "buy",
+                     "ts":  "1770141521687"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337766153797633",
+                     "px":  "56.8",
+                     "sz":  "0.2005",
+                     "side":  "buy",
+                     "ts":  "1770141516491"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337766153797632",
+                     "px":  "-33",
+                     "sz":  "0.133",
+                     "side":  "buy",
+                     "ts":  "1770141516488"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337508355096578",
+                     "px":  "-2.4",
+                     "sz":  "1.5028",
+                     "side":  "buy",
+                     "ts":  "1770141501128"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337508355096577",
+                     "px":  "-26.5",
+                     "sz":  "1.5028",
+                     "side":  "buy",
+                     "ts":  "1770141501124"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337508355096576",
+                     "px":  "-33.3",
+                     "sz":  "0.134",
+                     "side":  "buy",
+                     "ts":  "1770141501122"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337508338319360",
+                     "px":  "-34.1",
+                     "sz":  "0.1352",
+                     "side":  "buy",
+                     "ts":  "1770141501125"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337475807297540",
+                     "px":  "-2.3",
+                     "sz":  "1.4991",
+                     "side":  "buy",
+                     "ts":  "1770141499184"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337475807297539",
+                     "px":  "-19.7",
+                     "sz":  "2.3181",
+                     "side":  "buy",
+                     "ts":  "1770141499184"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337475807297538",
+                     "px":  "-26.5",
+                     "sz":  "1.4991",
+                     "side":  "buy",
+                     "ts":  "1770141499186"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337475807297537",
+                     "px":  "-33.6",
+                     "sz":  "0.134",
+                     "side":  "buy",
+                     "ts":  "1770141499186"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3226337475807297536",
+                     "px":  "-33.9",
+                     "sz":  "0.1349",
+                     "side":  "buy",
+                     "ts":  "1770141499183"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3221821338398670848",
+                     "px":  "-51.2",
+                     "sz":  "0.0001",
+                     "side":  "sell",
+                     "ts":  "1769872316419"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3214424661836611584",
+                     "px":  "-36.5",
+                     "sz":  "0.12",
+                     "side":  "sell",
+                     "ts":  "1769431440134"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3214424318910316545",
+                     "px":  "-40",
+                     "sz":  "1.2653",
+                     "side":  "sell",
+                     "ts":  "1769431419739"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3214424318910316544",
+                     "px":  "-36.5",
+                     "sz":  "0.0047",
+                     "side":  "sell",
+                     "ts":  "1769431419699"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3214422702912094208",
+                     "px":  "-36.5",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1769431323378"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3211236575476629504",
+                     "px":  "-36.9",
+                     "sz":  "1",
+                     "side":  "buy",
+                     "ts":  "1769241415384"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3211233053200793600",
+                     "px":  "-35.3",
+                     "sz":  "0.0641",
+                     "side":  "buy",
+                     "ts":  "1769241205452"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3210555849131343873",
+                     "px":  "-35.5",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1769200840931"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3210555849131343872",
+                     "px":  "-35.6",
+                     "sz":  "0.1141",
+                     "side":  "buy",
+                     "ts":  "1769200840930"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3210306091397595136",
+                     "px":  "-53.2",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1769185954211"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3202762664426536960",
+                     "px":  "-42",
+                     "sz":  "0.0002",
+                     "side":  "sell",
+                     "ts":  "1768736330940"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3201481519772663808",
+                     "px":  "-42",
+                     "sz":  "0.0001",
+                     "side":  "sell",
+                     "ts":  "1768659968764"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3201474232538562560",
+                     "px":  "-40",
+                     "sz":  "0.0001",
+                     "side":  "buy",
+                     "ts":  "1768659534452"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3201473249293041664",
+                     "px":  "-42",
+                     "sz":  "0.0001",
+                     "side":  "sell",
+                     "ts":  "1768659475804"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3201465454011285504",
+                     "px":  "-39.4",
+                     "sz":  "0.0001",
+                     "side":  "buy",
+                     "ts":  "1768659011162"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3201464077893697536",
+                     "px":  "-42",
+                     "sz":  "0.0001",
+                     "side":  "sell",
+                     "ts":  "1768658929141"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3201463902185914368",
+                     "px":  "-39.4",
+                     "sz":  "0.0001",
+                     "side":  "buy",
+                     "ts":  "1768658918668"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3201463005158506496",
+                     "px":  "-42",
+                     "sz":  "0.0001",
+                     "side":  "sell",
+                     "ts":  "1768658865201"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3201462164636762112",
+                     "px":  "-42",
+                     "sz":  "0.0001",
+                     "side":  "sell",
+                     "ts":  "1768658815112"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196643729796956160",
+                     "px":  "-17.2",
+                     "sz":  "0.0001",
+                     "side":  "sell",
+                     "ts":  "1768371614014"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196411579801731072",
+                     "px":  "-15.8",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768357776797"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196380999718469632",
+                     "px":  "-15.4",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768355954069"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196356704111886336",
+                     "px":  "-15",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768354505937"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196343847697711104",
+                     "px":  "-14.6",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768353739634"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196334258965118976",
+                     "px":  "-14.3",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768353168102"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196317497670696960",
+                     "px":  "-13.9",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768352169052"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196316164200792064",
+                     "px":  "-13.5",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768352089569"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196311393951744000",
+                     "px":  "-13.2",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768351805242"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196306694334775296",
+                     "px":  "-12.8",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768351525122"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196302501876269056",
+                     "px":  "-12.4",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768351275232"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196297885021306880",
+                     "px":  "-11.9",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768351000045"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196296460954435584",
+                     "px":  "-11.5",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768350915166"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196295392161890304",
+                     "px":  "-11.1",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768350851459"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196295311010496512",
+                     "px":  "-10.7",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768350846624"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196295308493914112",
+                     "px":  "-10.3",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768350846474"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196151159862001664",
+                     "px":  "26.5",
+                     "sz":  "0.0827",
+                     "side":  "sell",
+                     "ts":  "1768342254545"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150949509267456",
+                     "px":  "27.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342242019"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150947378561024",
+                     "px":  "27.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342241878"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150946858467328",
+                     "px":  "27.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342241847"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150945331740672",
+                     "px":  "27.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342241759"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150944257998848",
+                     "px":  "27.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342241692"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150943536578560",
+                     "px":  "27.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342241652"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150942882267136",
+                     "px":  "27.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342241611"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150942295064576",
+                     "px":  "27.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342241575"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150941741416448",
+                     "px":  "27.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342241547"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150941003218944",
+                     "px":  "78.5",
+                     "sz":  "0.0851",
+                     "side":  "sell",
+                     "ts":  "1768342241509"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150906039500800",
+                     "px":  "38.1",
+                     "sz":  "0.0647",
+                     "side":  "sell",
+                     "ts":  "1768342239416"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150905620070400",
+                     "px":  "38.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342239389"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150905133531136",
+                     "px":  "38.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342239364"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150904479219712",
+                     "px":  "38.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342239322"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150903992680448",
+                     "px":  "38.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342239293"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150903103488000",
+                     "px":  "38.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342239242"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150902314958848",
+                     "px":  "38.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342239194"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150901811642368",
+                     "px":  "38.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342239165"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150900922449920",
+                     "px":  "38.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342239112"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150900452687872",
+                     "px":  "38.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342239082"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150897181130752",
+                     "px":  "49.1",
+                     "sz":  "0.09",
+                     "side":  "sell",
+                     "ts":  "1768342238890"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150896593928192",
+                     "px":  "27.2",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342238855"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150895922839552",
+                     "px":  "31.7",
+                     "sz":  "0.0835",
+                     "side":  "sell",
+                     "ts":  "1768342238812"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150895453077504",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342238786"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150892080857088",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342238585"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150891661426688",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342238557"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150874179567616",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342237517"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150873424592896",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342237472"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150873089048576",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342237450"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150872636063744",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342237422"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150871881089024",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342237379"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150870891233280",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342237322"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150870136258560",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342237276"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150868844412928",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342237198"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150868223655936",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342237161"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150851278667776",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342236152"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150850221703168",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342236087"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150849701609472",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342236058"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150849147961344",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342236026"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150848359432192",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342235979"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150847872892928",
+                     "px":  "31.7",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342235947"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150847050809344",
+                     "px":  "40.6",
+                     "sz":  "0.09",
+                     "side":  "sell",
+                     "ts":  "1768342235899"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150825022324736",
+                     "px":  "26.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342234586"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150824351236096",
+                     "px":  "26.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342234545"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150823898251264",
+                     "px":  "26.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342234521"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150822908395520",
+                     "px":  "26.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342234461"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150822186975232",
+                     "px":  "26.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342234421"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150821281005568",
+                     "px":  "26.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342234365"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150820542808064",
+                     "px":  "26.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342234320"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150819552952320",
+                     "px":  "26.1",
+                     "sz":  "0.104",
+                     "side":  "sell",
+                     "ts":  "1768342234261"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150818948972544",
+                     "px":  "34.9",
+                     "sz":  "0.1024",
+                     "side":  "sell",
+                     "ts":  "1768342234224"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150667299717120",
+                     "px":  "-4.4",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768342225187"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150666829955072",
+                     "px":  "-4.4",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768342225156"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150666259529728",
+                     "px":  "-4.4",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768342225125"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150665605218304",
+                     "px":  "-4.4",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768342225086"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150664900575232",
+                     "px":  "1.5",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768342225042"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150664397258752",
+                     "px":  "1.5",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768342225012"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150663591952384",
+                     "px":  "1.5",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768342224964"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150662820200448",
+                     "px":  "1.5",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768342224917"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150661847121920",
+                     "px":  "1.5",
+                     "sz":  "0.105",
+                     "side":  "sell",
+                     "ts":  "1768342224863"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3196150661159256064",
+                     "px":  "10",
+                     "sz":  "0.1028",
+                     "side":  "sell",
+                     "ts":  "1768342224820"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3182240663152820224",
+                     "px":  "-56.7",
+                     "sz":  "0.0001",
+                     "side":  "sell",
+                     "ts":  "1767513124325"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179552937177710592",
+                     "px":  "-42.5",
+                     "sz":  "0.104",
+                     "side":  "buy",
+                     "ts":  "1767352923374"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179552826817183744",
+                     "px":  "-42.8",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352916795"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179552683338432512",
+                     "px":  "-43.2",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352908245"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179552581098078208",
+                     "px":  "-43.5",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352902152"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179552449346600960",
+                     "px":  "-43.9",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352894296"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179552299140186112",
+                     "px":  "-44.3",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352885347"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179552167556481024",
+                     "px":  "-44.6",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352877505"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179552019631767552",
+                     "px":  "-45",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352868684"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179551843018014720",
+                     "px":  "-45.3",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352858158"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179550977347223552",
+                     "px":  "-45.7",
+                     "sz":  "0.104",
+                     "side":  "buy",
+                     "ts":  "1767352806561"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179550823433043968",
+                     "px":  "-46",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352797385"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179550681749454848",
+                     "px":  "-46.4",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352788942"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179550567714717696",
+                     "px":  "-46.7",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352782142"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179550422658908160",
+                     "px":  "-47.1",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352773499"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179550325753708544",
+                     "px":  "-47.4",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352767725"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179550212054515712",
+                     "px":  "-47.8",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352760943"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179550055070105600",
+                     "px":  "-48.1",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352751586"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179549797523062784",
+                     "px":  "-48.4",
+                     "sz":  "0.112",
+                     "side":  "buy",
+                     "ts":  "1767352736237"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179350354223890432",
+                     "px":  "-51.7",
+                     "sz":  "0.0001",
+                     "side":  "buy",
+                     "ts":  "1767340848492"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179341213845618688",
+                     "px":  "-52",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340303683"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179341135244361728",
+                     "px":  "-52.4",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340298998"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179341044714504192",
+                     "px":  "-52.8",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340293602"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179340975760146432",
+                     "px":  "-53.1",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340289491"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179340898702393344",
+                     "px":  "-53.5",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340284906"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179340282240368640",
+                     "px":  "-53.8",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340248156"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179339026482528256",
+                     "px":  "-54.2",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340173303"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179338955179360256",
+                     "px":  "-54.5",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340169056"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179338875688910848",
+                     "px":  "-54.9",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340164321"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179338807707631616",
+                     "px":  "-55.3",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340160266"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179338588932734976",
+                     "px":  "-55.6",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340147225"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179338509475840000",
+                     "px":  "-56",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340142486"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179338449681842176",
+                     "px":  "-56.3",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340138923"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179338381029474304",
+                     "px":  "-56.7",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340134832"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179338322074337280",
+                     "px":  "-57.1",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340131321"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179338278101254144",
+                     "px":  "-57.4",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340128695"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179338221159383040",
+                     "px":  "-57.8",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767340125306"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179166767021228032",
+                     "px":  "-100",
+                     "sz":  "2.1555",
+                     "side":  "sell",
+                     "ts":  "1767329905858"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179166767004450816",
+                     "px":  "-75",
+                     "sz":  "0.113",
+                     "side":  "sell",
+                     "ts":  "1767329905839"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118898889293824",
+                     "px":  "-75",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327052677"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118823358267392",
+                     "px":  "-74.6",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327048177"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118765812416512",
+                     "px":  "-74.3",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327044747"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118689576747008",
+                     "px":  "-73.9",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327040201"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118645150679040",
+                     "px":  "-73.6",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327037556"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118601345368064",
+                     "px":  "-73.2",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327034940"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118543531081728",
+                     "px":  "-72.9",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327031496"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118500799512576",
+                     "px":  "-72.5",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327028950"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118456071454720",
+                     "px":  "-72.2",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327026283"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118406343786496",
+                     "px":  "-71.8",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327023318"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118358679715840",
+                     "px":  "-71.5",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327020477"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118310747209728",
+                     "px":  "-71.1",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327017624"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179118229579038720",
+                     "px":  "-70.8",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767327012782"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179117937219272704",
+                     "px":  "-70.4",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326995356"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179117745237590016",
+                     "px":  "-70.1",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326983925"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179115294992302080",
+                     "px":  "-69.8",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326837867"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179115246355152896",
+                     "px":  "-69.4",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326834970"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179115203204153344",
+                     "px":  "-69.1",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326832400"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179115160489361408",
+                     "px":  "-68.7",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326829852"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179115079438630912",
+                     "px":  "-68.4",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326825022"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179115030902145024",
+                     "px":  "-68",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326822126"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114992784310272",
+                     "px":  "-67.7",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326819854"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114945875214336",
+                     "px":  "-67.3",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326817059"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114894855700480",
+                     "px":  "-67",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326814019"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114852208017408",
+                     "px":  "-66.6",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326811475"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114807865835520",
+                     "px":  "-66.3",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326808834"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114760117878784",
+                     "px":  "-65.9",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326805987"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114688982482944",
+                     "px":  "-65.6",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326801745"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114646519349248",
+                     "px":  "-65.2",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326799215"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114472304738304",
+                     "px":  "-64.9",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326788832"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114429841604608",
+                     "px":  "-64.6",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326786301"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114385230987264",
+                     "px":  "-64.2",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326783644"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114350602813440",
+                     "px":  "-63.9",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326781578"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114306646507520",
+                     "px":  "-63.5",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326778961"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114269703077888",
+                     "px":  "-63.2",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326776758"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179114229622308864",
+                     "px":  "-62.8",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326774367"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179112758294020096",
+                     "px":  "-62.4",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326686671"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179112711485587456",
+                     "px":  "-62.1",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326683880"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179112627968606208",
+                     "px":  "-61.8",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326678902"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179112566228451328",
+                     "px":  "-61.4",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326675220"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179109522170380288",
+                     "px":  "-61.1",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326493783"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179109470613995520",
+                     "px":  "-60.8",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326490709"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179109397616328704",
+                     "px":  "-60.4",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326486355"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179109320692793344",
+                     "px":  "-60.1",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326481770"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179109222982287360",
+                     "px":  "-59.7",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326475950"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179109172331872256",
+                     "px":  "-59.4",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326472931"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179109127083720704",
+                     "px":  "-59",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326470230"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179109058783674368",
+                     "px":  "-58.7",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326466163"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179108955217920000",
+                     "px":  "-58.3",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326459990"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179108703173804032",
+                     "px":  "-58",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326444966"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179108653311918080",
+                     "px":  "-57.6",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326441994"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179108588669304833",
+                     "px":  "-57.3",
+                     "sz":  "0.1045",
+                     "side":  "sell",
+                     "ts":  "1767326438139"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179108588669304832",
+                     "px":  "-51.1",
+                     "sz":  "0.0055",
+                     "side":  "sell",
+                     "ts":  "1767326438140"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179108113622433792",
+                     "px":  "-51.1",
+                     "sz":  "0.11",
+                     "side":  "sell",
+                     "ts":  "1767326409825"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107967677431809",
+                     "px":  "-61.2",
+                     "sz":  "1.278",
+                     "side":  "sell",
+                     "ts":  "1767326401127"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107967677431808",
+                     "px":  "-56.9",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1767326401126"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107755361763328",
+                     "px":  "-56.6",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326388469"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107691205689345",
+                     "px":  "-56.4",
+                     "sz":  "0.0845",
+                     "side":  "sell",
+                     "ts":  "1767326384648"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107691205689344",
+                     "px":  "-50.6",
+                     "sz":  "0.0155",
+                     "side":  "sell",
+                     "ts":  "1767326384646"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107613074194432",
+                     "px":  "-50.6",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326379989"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107557625495552",
+                     "px":  "-56",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326376687"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107502797553664",
+                     "px":  "-55.7",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326373416"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107440621191168",
+                     "px":  "-55.4",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326369712"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107384987942912",
+                     "px":  "-55.1",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326366394"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107162119405568",
+                     "px":  "-54.8",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326353110"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107087813115904",
+                     "px":  "-54.4",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326348684"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179107014312132608",
+                     "px":  "-54.1",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326344301"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179106700863406080",
+                     "px":  "-53.8",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326325620"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179106615853252608",
+                     "px":  "-53.5",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326320549"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179106336982368256",
+                     "px":  "-53.2",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326303929"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179106205801316352",
+                     "px":  "-52.9",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326296110"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179106013098213377",
+                     "px":  "-58.9",
+                     "sz":  "0.008",
+                     "side":  "sell",
+                     "ts":  "1767326284623"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179106013098213376",
+                     "px":  "-52.5",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1767326284623"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105873176231937",
+                     "px":  "-52.2",
+                     "sz":  "0.1045",
+                     "side":  "sell",
+                     "ts":  "1767326276295"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105873176231936",
+                     "px":  "-50.8",
+                     "sz":  "0.1155",
+                     "side":  "sell",
+                     "ts":  "1767326276287"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105663461031938",
+                     "px":  "-58.9",
+                     "sz":  "1.2725",
+                     "side":  "sell",
+                     "ts":  "1767326263786"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105663461031937",
+                     "px":  "-51.9",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1767326263786"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105663461031936",
+                     "px":  "-49",
+                     "sz":  "0.0155",
+                     "side":  "sell",
+                     "ts":  "1767326263785"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105440659603456",
+                     "px":  "-49",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326250507"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105388633456640",
+                     "px":  "-51.6",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326247404"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105335835557888",
+                     "px":  "-51.3",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326244258"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105275823456256",
+                     "px":  "-50.9",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326240677"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105211398946816",
+                     "px":  "-50.6",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326236839"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179105136203464704",
+                     "px":  "-50.3",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326232357"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179104324723081216",
+                     "px":  "-50",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326183989"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179104258268528640",
+                     "px":  "-49.7",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326180029"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179104177385570304",
+                     "px":  "-49.4",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326175209"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179103927858036736",
+                     "px":  "-49.1",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326160332"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179103765639135232",
+                     "px":  "-48.7",
+                     "sz":  "0.1",
+                     "side":  "sell",
+                     "ts":  "1767326150666"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179103242206773249",
+                     "px":  "-48.5",
+                     "sz":  "0.1155",
+                     "side":  "sell",
+                     "ts":  "1767326119468"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179103242206773248",
+                     "px":  "-48.5",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1767326119468"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179102772344061954",
+                     "px":  "-57.1",
+                     "sz":  "1.2835",
+                     "side":  "sell",
+                     "ts":  "1767326091462"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179102772344061953",
+                     "px":  "-48.5",
+                     "sz":  "0.1155",
+                     "side":  "sell",
+                     "ts":  "1767326091460"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179102772344061952",
+                     "px":  "-48.5",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1767326091459"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179101874377129985",
+                     "px":  "-68.2",
+                     "sz":  "0.1496",
+                     "side":  "sell",
+                     "ts":  "1767326037937"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179101874377129984",
+                     "px":  "-54.9",
+                     "sz":  "0.0159",
+                     "side":  "sell",
+                     "ts":  "1767326037936"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179101874360352769",
+                     "px":  "-48.5",
+                     "sz":  "0.1155",
+                     "side":  "sell",
+                     "ts":  "1767326037936"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179101874360352768",
+                     "px":  "-48.5",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1767326037939"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179101148812869634",
+                     "px":  "-54.9",
+                     "sz":  "1.2703",
+                     "side":  "sell",
+                     "ts":  "1767325994691"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179101148812869633",
+                     "px":  "-48.5",
+                     "sz":  "0.1157",
+                     "side":  "sell",
+                     "ts":  "1767325994691"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3179101148812869632",
+                     "px":  "-48.5",
+                     "sz":  "0.114",
+                     "side":  "sell",
+                     "ts":  "1767325994692"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3178387044582227969",
+                     "px":  "-48.4",
+                     "sz":  "0.1169",
+                     "side":  "sell",
+                     "ts":  "1767283430773"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3178387044582227968",
+                     "px":  "-46.5",
+                     "sz":  "0.114",
+                     "side":  "sell",
+                     "ts":  "1767283430773"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3175930487034544130",
+                     "px":  "-29",
+                     "sz":  "0.3383",
+                     "side":  "buy",
+                     "ts":  "1767137008535"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3175930487034544129",
+                     "px":  "-29.2",
+                     "sz":  "0.113",
+                     "side":  "buy",
+                     "ts":  "1767137008524"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3175930487034544128",
+                     "px":  "-38.3",
+                     "sz":  "0.1162",
+                     "side":  "buy",
+                     "ts":  "1767137008533"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3175929736640004096",
+                     "px":  "-40",
+                     "sz":  "9",
+                     "side":  "buy",
+                     "ts":  "1767136963812"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3175915294023942144",
+                     "px":  "-40",
+                     "sz":  "5",
+                     "side":  "buy",
+                     "ts":  "1767136102946"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3175914915748052992",
+                     "px":  "-40",
+                     "sz":  "1",
+                     "side":  "buy",
+                     "ts":  "1767136080419"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3169132067103899648",
+                     "px":  "-40",
+                     "sz":  "0.0203",
+                     "side":  "buy",
+                     "ts":  "1766731791117"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3169129526278422528",
+                     "px":  "-40",
+                     "sz":  "4.5",
+                     "side":  "buy",
+                     "ts":  "1766731639685"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3169119753751429120",
+                     "px":  "-47.1",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1766731057184"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3169119665436164096",
+                     "px":  "-46.7",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1766731051922"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3169119602890702848",
+                     "px":  "-46.4",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1766731048206"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3169117816352079872",
+                     "px":  "-46",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1766730941704"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3169117652791001088",
+                     "px":  "-45.7",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1766730931955"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3169117555298598912",
+                     "px":  "-45.3",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1766730926147"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3169117486746894336",
+                     "px":  "-45",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1766730922062"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3169117420007129088",
+                     "px":  "-44.6",
+                     "sz":  "0.112",
+                     "side":  "sell",
+                     "ts":  "1766730918083"
+                 },
+                 {
+                     "sprdId":  "BTC-USDT_BTC-USDT-SWAP",
+                     "tradeId":  "3168935051534991360",
+                     "px":  "-40",
+                     "sz":  "0.643",
+                     "side":  "buy",
+                     "ts":  "1766720048073"
+                 }
+             ]
+}
