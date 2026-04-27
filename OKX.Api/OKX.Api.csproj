@@ -10,10 +10,10 @@
 	<PropertyGroup>
 		<PackageId>OKX.Api</PackageId>
 		<Authors>Burak Öner</Authors>
-		<Version>5.6.426</Version>
-		<FileVersion>5.6.426</FileVersion>
-		<PackageVersion>5.6.426</PackageVersion>
-		<AssemblyVersion>5.6.426</AssemblyVersion>
+		<Version>5.6.427</Version>
+		<FileVersion>5.6.427</FileVersion>
+		<PackageVersion>5.6.427</PackageVersion>
+		<AssemblyVersion>5.6.427</AssemblyVersion>
 		<Description>OKX V5 Api Wrapper. Up-to-date, most-complete, well-organized, well-documented, easy-to-use, multi-task and multi-thread compatible OKX Cryptocurrency Exchange Rest and Websocket Api Wrapper</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>OKX;OKEX;Binance;BNB;BTC;Api;Client;Rest;Web;Websocket;Socket;Wrapper;Crypto;Currency;Cryptocurrency;Exchange;Trade;Trading;Bitcoin;Spot;Margin;Futures;Derivates;Stock;Options;Swap;</PackageTags>
@@ -21,12 +21,12 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<NeutralLanguage>en</NeutralLanguage>
-		<PackageIcon>OKX.png</PackageIcon>
 		<PackageReleaseNotes>Please refer to changelog at Github https://github.com/burakoner/OKX.Api/blob/master/CHANGELOG.md</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/burakoner/OKX.Api</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/burakoner/OKX.Api</RepositoryUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageIcon>OKX.png</PackageIcon>
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
