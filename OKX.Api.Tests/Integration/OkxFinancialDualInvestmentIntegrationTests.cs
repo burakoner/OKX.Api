@@ -16,6 +16,7 @@ public class OkxFinancialDualInvestmentIntegrationTests
         var client = OkxRestClientFactory.CreatePrivate(configuration);
         var result = await client.Financial.DualInvestment.GetCurrencyPairsAsync();
 
+        Skip.If(result.Error?.Code == 50011, "OKX rate-limited the live dual investment currency pairs request.");
         Assert.True(result.Success, result.Error?.ToString() ?? "Dual investment currency pairs request should succeed.");
         Assert.NotNull(result.Data);
         Assert.NotEmpty(result.Data);
@@ -32,6 +33,7 @@ public class OkxFinancialDualInvestmentIntegrationTests
         var client = OkxRestClientFactory.CreatePrivate(configuration);
         var products = await client.Financial.DualInvestment.GetProductsAsync("BTC", "USDT", OKX.Api.Common.OkxOptionType.Call);
 
+        Skip.If(products.Error?.Code == 50011, "OKX rate-limited the live dual investment products request.");
         Assert.True(products.Success, products.Error?.ToString() ?? "Dual investment products request should succeed.");
         Assert.NotNull(products.Data);
         Assert.NotEmpty(products.Data);
@@ -54,6 +56,7 @@ public class OkxFinancialDualInvestmentIntegrationTests
         var client = OkxRestClientFactory.CreatePrivate(configuration);
         var result = await client.Financial.DualInvestment.GetOrderHistoryAsync(limit: 1);
 
+        Skip.If(result.Error?.Code == 50011, "OKX rate-limited the live dual investment order history request.");
         Assert.True(result.Success, result.Error?.ToString() ?? "Dual investment order history request should succeed.");
         Assert.NotNull(result.Data);
     }

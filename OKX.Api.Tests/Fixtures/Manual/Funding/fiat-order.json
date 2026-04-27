@@ -1,0 +1,18 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "cTime": "1707429385000",
+      "uTime": "1707429385000",
+      "ordId": "024041201450544699",
+      "paymentMethod": "TR_BANKS",
+      "paymentAcctId": "20",
+      "amt": "100",
+      "fee": "0",
+      "ccy": "TRY",
+      "state": "completed",
+      "clientId": "194a6975e98246538faeb0fab0d502df"
+    }
+  ]
+}

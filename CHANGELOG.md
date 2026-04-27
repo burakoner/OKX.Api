@@ -74,6 +74,11 @@
   - Extended on-chain earn response coverage with `tag`, completed history state `3`, `redeemedTime`, `realizedEarnings`, and nullable empty-string timestamp/amount handling
   - Replaced on-chain earn purchase/redeem/cancel helpers with full `OkxFinancialOrderReference` responses so `ordId` and echoed `tag` are both preserved
   - Added Financial Product contract and local client-behavior tests for staking, on-chain earn, and deprecated `redemptAmt` balance coverage
+  - Expanded Funding Account coverage with the 13 missing fiat deposit/withdrawal and buy/sell endpoints, including fiat payment methods, fiat order history/detail flows, and buy/sell quotes and trade history
+  - Fixed funding withdrawal receiver serialization so `rcvrStreetName` is emitted with the correct JSON key and aligned convert quote parsing so `rfqSzCcy` stays a currency code string
+  - Added detailed funding status and convert-currency metadata models, required the documented `ccy` filter on deposit-address requests, and exposed the optional `ccy` filter on currencies requests
+  - Hardened Funding Account response parsing for live `addrEx` attachments and empty-string numeric/timestamp fields in currency metadata
+  - Added Funding Account contract, local client-behavior, and safe live integration coverage, with rate-limited live endpoints now skipping instead of failing the suite on OKX `50011` responses
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

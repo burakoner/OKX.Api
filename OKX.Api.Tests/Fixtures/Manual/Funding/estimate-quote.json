@@ -1,0 +1,21 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "baseCcy": "ETH",
+      "baseSz": "0.01023052",
+      "clQReqId": "",
+      "cnvtPx": "2932.40104429",
+      "origRfqSz": "30",
+      "quoteCcy": "USDT",
+      "quoteId": "quoterETH-USDT16461885104612381",
+      "quoteSz": "30",
+      "quoteTime": "1646188510461",
+      "rfqSz": "30",
+      "rfqSzCcy": "USDT",
+      "side": "buy",
+      "ttlMs": "10000"
+    }
+  ]
+}

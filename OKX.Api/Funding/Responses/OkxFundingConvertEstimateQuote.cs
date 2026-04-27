@@ -69,7 +69,7 @@ public record OkxFundingConvertEstimateQuote
     /// RFQ currency
     /// </summary>
     [JsonProperty("rfqSzCcy")]
-    public decimal RfqAmountCurrency { get; set; }
+    public string RfqAmountCurrency { get; set; } = string.Empty;
     
     /// <summary>
     /// Convert price based on quote currency

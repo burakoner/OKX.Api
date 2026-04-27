@@ -1,0 +1,12 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "wdId": "200045249",
+      "txId": "16f3638329xxxxxx42d988f97",
+      "state": "Pending withdrawal: Wallet is under maintenance, please wait.",
+      "estCompleteTime": "01/09/2023, 8:10:48 PM"
+    }
+  ]
+}

@@ -89,8 +89,11 @@ public record OkxFundingWithdrawalHistory
     [JsonProperty("memo")]
     public string Memo { get; set; } = string.Empty;
 
-    //[JsonProperty("addrEx")]
-    //public addrEx addrEx { get; set; }
+    /// <summary>
+    /// Additional address attachment fields such as memo-style structured metadata.
+    /// </summary>
+    [JsonProperty("addrEx")]
+    public Dictionary<string, string>? AddressAttachment { get; set; }
 
     /// <summary>
     /// Transaction Id

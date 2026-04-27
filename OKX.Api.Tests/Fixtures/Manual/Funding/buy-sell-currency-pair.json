@@ -1,0 +1,16 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "side": "buy",
+      "fromCcy": "USD",
+      "toCcy": "BTC",
+      "singleTradeMax": "1",
+      "singleTradeMin": "0.01",
+      "fixedPxRemainingDailyQuota": "",
+      "fixedPxDailyLimit": "",
+      "paymentMethods": ["balance"]
+    }
+  ]
+}

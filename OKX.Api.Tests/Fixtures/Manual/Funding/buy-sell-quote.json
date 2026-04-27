@@ -1,0 +1,19 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "quoteId": "quoterBTC-USD16461885104612381",
+      "fromCcy": "USD",
+      "toCcy": "BTC",
+      "rfqAmt": "30",
+      "rfqCcy": "USD",
+      "quotePx": "2932.40104429",
+      "quoteCcy": "USD",
+      "quoteFromAmt": "30",
+      "quoteToAmt": "0.01",
+      "quoteTime": "1646188510461",
+      "ttlMs": "10000"
+    }
+  ]
+}

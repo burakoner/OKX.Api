@@ -72,6 +72,7 @@ internal sealed class LocalOkxRestServer : IDisposable
         Requests.Add(new CapturedRestRequest(
             context.Request.HttpMethod,
             context.Request.Url?.AbsolutePath ?? string.Empty,
+            context.Request.Url?.Query ?? string.Empty,
             body));
 
         var responseKey = $"{context.Request.HttpMethod} {context.Request.Url?.AbsolutePath}";
@@ -94,4 +95,4 @@ internal sealed class LocalOkxRestServer : IDisposable
     }
 }
 
-internal sealed record CapturedRestRequest(string Method, string Path, string Body);
+internal sealed record CapturedRestRequest(string Method, string Path, string Query, string Body);

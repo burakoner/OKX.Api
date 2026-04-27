@@ -1,0 +1,33 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ccy": "TRY",
+      "paymentMethod": "TR_BANKS",
+      "feeRate": "0",
+      "minFee": "0",
+      "limits": {
+        "dailyLimit": "2147483647",
+        "dailyLimitRemaining": "2147483647",
+        "weeklyLimit": "2147483647",
+        "weeklyLimitRemaining": "2147483647",
+        "monthlyLimit": "",
+        "monthlyLimitRemaining": "",
+        "maxAmt": "1000000",
+        "minAmt": "1",
+        "lifetimeLimit": "2147483647"
+      },
+      "accounts": [
+        {
+          "paymentAcctId": "1",
+          "acctNum": "TR740001592093703829602611",
+          "recipientName": "John Doe",
+          "bankName": "VakifBank",
+          "bankCode": "TVBATR2AXXX",
+          "state": "active"
+        }
+      ]
+    }
+  ]
+}

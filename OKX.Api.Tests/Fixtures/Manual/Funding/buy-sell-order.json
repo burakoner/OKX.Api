@@ -1,0 +1,23 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ordId": "1234",
+      "clOrdId": "123456",
+      "quoteId": "quoterBTC-USD16461885104612381",
+      "state": "completed",
+      "side": "buy",
+      "fromCcy": "USD",
+      "toCcy": "BTC",
+      "rfqAmt": "30",
+      "rfqCcy": "USD",
+      "fillPx": "2932.40104429",
+      "fillQuoteCcy": "USD",
+      "fillFromAmt": "30",
+      "fillToAmt": "0.01",
+      "cTime": "1646188510461",
+      "uTime": "1646188510461"
+    }
+  ]
+}

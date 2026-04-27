@@ -51,6 +51,7 @@ public record OkxFundingCurrency
     /// Estimated opening time for deposit, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("depEstOpenTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? DepositEstimatedOpenTimestamp { get; set; }
 
     /// <summary>
@@ -63,6 +64,7 @@ public record OkxFundingCurrency
     /// Estimated opening time for withdraw, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("wdEstOpenTime")]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? WithdrawalEstimatedOpenTimestamp { get; set; }
 
     /// <summary>
@@ -114,6 +116,7 @@ public record OkxFundingCurrency
     /// The amount of currency withdrawal used in the past 24 hours, unit in USD
     /// </summary>
     [JsonProperty("usedWdQuota")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? UsedWithdrawalQuota { get; set; }
 
     /// <summary>
@@ -121,6 +124,7 @@ public record OkxFundingCurrency
     /// Apply to on-chain withdrawal
     /// </summary>
     [JsonProperty("fee")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? Fee { get; set; }
 
     /// <summary>
@@ -142,6 +146,7 @@ public record OkxFundingCurrency
     /// </summary>
     [Obsolete]
     [JsonProperty("minFeeForCtAddr")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? MinimumWithdrawalFeeForContractAddress { get; set; }
 
     /// <summary>
@@ -149,6 +154,7 @@ public record OkxFundingCurrency
     /// </summary>
     [Obsolete]
     [JsonProperty("maxFeeForCtAddr")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? MaximumWithdrawalFeeForContractAddress { get; set; }
 
     /// <summary>
@@ -157,6 +163,7 @@ public record OkxFundingCurrency
     /// Apply to on-chain withdrawal
     /// </summary>
     [JsonProperty("burningFeeRate")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? BurningFeeRate { get; set; }
 
     /// <summary>
@@ -189,6 +196,7 @@ public record OkxFundingCurrency
     /// Return empty string if there is no deposit limit
     /// </summary>
     [JsonProperty("depQuotaFixed")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? FixedDepositLimit { get; set; }
 
     /// <summary>
@@ -196,11 +204,13 @@ public record OkxFundingCurrency
     /// Return empty string if there is no deposit limit
     /// </summary>
     [JsonProperty("usedDepQuotaFixed")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? UsedFixedDepositLimit { get; set; }
 
     /// <summary>
     /// The layer2 network daily deposit limit
     /// </summary>
     [JsonProperty("depQuoteDailyLayer2")]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? DepositQuoteDailyLayer2 { get; set; }
 }

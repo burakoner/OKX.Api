@@ -1,0 +1,16 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "fiatCcyList": [
+        { "ccy": "USD" },
+        { "ccy": "EUR" }
+      ],
+      "cryptoCcyList": [
+        { "ccy": "BTC" },
+        { "ccy": "ETH" }
+      ]
+    }
+  ]
+}

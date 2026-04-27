@@ -50,6 +50,6 @@ public record OkxFundingWithdrawalReceiver
     /// <summary>
     /// Client Order Id
     /// </summary>
-    [JsonProperty("rcvrTownName")]
+    [JsonProperty("rcvrStreetName")]
     public string ReceiverStreetName { get; set; } = string.Empty;
 }

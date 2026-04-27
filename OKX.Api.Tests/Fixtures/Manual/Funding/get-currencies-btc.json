@@ -1,0 +1,37 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ccy": "BTC",
+      "name": "Bitcoin",
+      "logoLink": "https://example.com/btc.png",
+      "chain": "BTC-Bitcoin",
+      "canDep": true,
+      "canWd": true,
+      "canInternal": true,
+      "depEstOpenTime": "",
+      "wdEstOpenTime": "",
+      "minDep": "0.0001",
+      "minWd": "0.0002",
+      "minInternal": "0.00000001",
+      "maxWd": "100",
+      "wdTickSz": "0.00000001",
+      "wdQuota": "1000000",
+      "usedWdQuota": "0",
+      "fee": "0.00001",
+      "minFee": "0.00001",
+      "maxFee": "0.0001",
+      "minFeeForCtAddr": "",
+      "maxFeeForCtAddr": "",
+      "burningFeeRate": "",
+      "mainNet": true,
+      "needTag": false,
+      "minDepArrivalConfirm": 1,
+      "minWdUnlockConfirm": 1,
+      "depQuotaFixed": "",
+      "usedDepQuotaFixed": "",
+      "depQuoteDailyLayer2": ""
+    }
+  ]
+}

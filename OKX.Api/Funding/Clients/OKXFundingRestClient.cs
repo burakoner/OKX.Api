@@ -8,11 +8,15 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <summary>
     /// Retrieve a list of all currencies. Not all currencies can be traded. Currencies that have not been defined in ISO 4217 may use a custom symbol.
     /// </summary>
+    /// <param name="currency">Single currency or multiple currencies separated by comma, e.g. BTC or BTC,ETH.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingCurrency>>> GetCurrenciesAsync(CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFundingCurrency>>> GetCurrenciesAsync(string? currency = null, CancellationToken ct = default)
     {
-        return ProcessListRequestAsync<OkxFundingCurrency>(GetUri("api/v5/asset/currencies"), HttpMethod.Get, ct, true);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+
+        return ProcessListRequestAsync<OkxFundingCurrency>(GetUri("api/v5/asset/currencies"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -58,7 +62,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
     /// <summary>
-    /// This endpoint supports the transfer of funds between your funding account and trading account, and from the master account to sub-accounts. Direct transfers between sub-accounts are not allowed.
+    /// This endpoint supports transfers between funding and trading accounts, master and sub-accounts, and sub-account to sub-account transfers when permitted by OKX.
     /// </summary>
     /// <param name="currency">Currency</param>
     /// <param name="amount">Amount</param>
@@ -197,10 +201,10 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="currency">Currency</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<List<OkxFundingDepositAddress>>> GetDepositAddressAsync(string? currency = null, CancellationToken ct = default)
+    public Task<RestCallResult<List<OkxFundingDepositAddress>>> GetDepositAddressAsync(string currency, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
-        parameters.AddOptional("ccy", currency);
+        parameters.Add("ccy", currency);
 
         return ProcessListRequestAsync<OkxFundingDepositAddress>(GetUri("api/v5/asset/deposit-address"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -358,7 +362,63 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="chain">Currency chain infomation, e.g. USDT-ERC20. Required when retrieving deposit status with txId</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxFundingDepositStatus>> GetDepositStatusAsync(
+    public async Task<RestCallResult<OkxFundingDepositStatus>> GetDepositStatusAsync(
+        string currency,
+        string txId,
+        string to,
+        string chain,
+        CancellationToken ct = default)
+    {
+        var result = await GetDepositWithdrawStatusAsync(currency, txId, to, chain, ct).ConfigureAwait(false);
+        if (!result)
+            return new RestCallResult<OkxFundingDepositStatus>(result.Request, result.Response, result.Raw ?? "", result.Error);
+
+        var data = result.Data!;
+        return new RestCallResult<OkxFundingDepositStatus>(
+            result.Request,
+            result.Response,
+            new OkxFundingDepositStatus
+            {
+                TransactionId = data.TransactionId,
+                State = data.State,
+                EstimatedCompleteTime = data.EstimatedCompleteTime,
+            },
+            result.Raw ?? "",
+            result.Error);
+    }
+
+    /// <summary>
+    /// Retrieve withdrawal's detailed status and estimated complete time.
+    /// </summary>
+    /// <param name="withdrawalId">Withdrawl ID, use to retrieve withdrawal status. Required to input one and only one of wdId and txId</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<OkxFundingWithdrawalStatus>> GetWithdrawalStatusAsync(
+        long withdrawalId,
+        CancellationToken ct = default)
+    {
+        var result = await GetDepositWithdrawStatusAsync(withdrawalId, ct).ConfigureAwait(false);
+        if (!result)
+            return new RestCallResult<OkxFundingWithdrawalStatus>(result.Request, result.Response, result.Raw ?? "", result.Error);
+
+        var data = result.Data!;
+        return new RestCallResult<OkxFundingWithdrawalStatus>(
+            result.Request,
+            result.Response,
+            new OkxFundingWithdrawalStatus
+            {
+                WithdrawalId = data.WithdrawalId,
+                State = data.State,
+                EstimatedCompleteTime = data.EstimatedCompleteTime,
+            },
+            result.Raw ?? "",
+            result.Error);
+    }
+
+    /// <summary>
+    /// Retrieve deposit or withdrawal status by deposit hash.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingDepositWithdrawStatus>> GetDepositWithdrawStatusAsync(
         string currency,
         string txId,
         string to,
@@ -373,16 +433,13 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "chain", chain }
         };
 
-        return ProcessOneRequestAsync<OkxFundingDepositStatus>(GetUri("api/v5/asset/deposit-withdraw-status"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingDepositWithdrawStatus>(GetUri("api/v5/asset/deposit-withdraw-status"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
-    /// Retrieve withdrawal's detailed status and estimated complete time.
+    /// Retrieve deposit or withdrawal status by withdrawal ID.
     /// </summary>
-    /// <param name="withdrawalId">Withdrawl ID, use to retrieve withdrawal status. Required to input one and only one of wdId and txId</param>
-    /// <param name="ct">Cancellation Token</param>
-    /// <returns></returns>
-    public Task<RestCallResult<OkxFundingWithdrawalStatus>> GetWithdrawalStatusAsync(
+    public Task<RestCallResult<OkxFundingDepositWithdrawStatus>> GetDepositWithdrawStatusAsync(
         long withdrawalId,
         CancellationToken ct = default)
     {
@@ -391,7 +448,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             { "wdId", withdrawalId.ToOkxString() },
         };
 
-        return ProcessOneRequestAsync<OkxFundingWithdrawalStatus>(GetUri("api/v5/asset/deposit-withdraw-status"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessOneRequestAsync<OkxFundingDepositWithdrawStatus>(GetUri("api/v5/asset/deposit-withdraw-status"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
@@ -443,9 +500,17 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public async Task<RestCallResult<List<string>>> GetConvertCurrenciesAsync(CancellationToken ct = default)
     {
-        var result = await ProcessListRequestAsync<OkxFundingCurrencyContainer>(GetUri("api/v5/asset/convert/currencies"), HttpMethod.Get, ct, signed: true);
+        var result = await GetConvertCurrencyDetailsAsync(ct).ConfigureAwait(false);
         if (!result) return new RestCallResult<List<string>>(result.Request, result.Response, result.Raw ?? "", result.Error);
-        return new RestCallResult<List<string>>(result.Request, result.Response, result.Data.Select(x => x.Payload).ToList(), result.Raw ?? "", result.Error);
+        return new RestCallResult<List<string>>(result.Request, result.Response, result.Data.Select(x => x.Currency).ToList(), result.Raw ?? "", result.Error);
+    }
+
+    /// <summary>
+    /// Get convert currencies with all currently documented response fields.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingConvertCurrency>>> GetConvertCurrencyDetailsAsync(CancellationToken ct = default)
+    {
+        return ProcessListRequestAsync<OkxFundingConvertCurrency>(GetUri("api/v5/asset/convert/currencies"), HttpMethod.Get, ct, signed: true);
     }
 
     /// <summary>
@@ -579,16 +644,238 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         return ProcessListRequestAsync<OkxFundingConvertOrderHistory>(GetUri("api/v5/asset/convert/history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
+    /// <summary>
+    /// Get available fiat deposit payment methods.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingFiatPaymentMethod>>> GetDepositPaymentMethodsAsync(string currency, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "ccy", currency },
+        };
+
+        return ProcessListRequestAsync<OkxFundingFiatPaymentMethod>(GetUri("api/v5/fiat/deposit-payment-methods"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get available fiat withdrawal payment methods.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingFiatPaymentMethod>>> GetWithdrawalPaymentMethodsAsync(string currency, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "ccy", currency },
+        };
+
+        return ProcessListRequestAsync<OkxFundingFiatPaymentMethod>(GetUri("api/v5/fiat/withdrawal-payment-methods"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Create a fiat withdrawal order.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingFiatOrder>> CreateWithdrawalOrderAsync(
+        string paymentAccountId,
+        string currency,
+        decimal amount,
+        string paymentMethod,
+        string clientOrderId,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "paymentAcctId", paymentAccountId },
+            { "ccy", currency },
+            { "amt", amount.ToOkxString() },
+            { "paymentMethod", paymentMethod },
+            { "clientId", clientOrderId },
+        };
+
+        return ProcessOneRequestAsync<OkxFundingFiatOrder>(GetUri("api/v5/fiat/create-withdrawal"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Cancel a fiat withdrawal order.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingFiatOrder>> CancelWithdrawalOrderAsync(string orderId, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "ordId", orderId },
+        };
+
+        return ProcessOneRequestAsync<OkxFundingFiatOrder>(GetUri("api/v5/fiat/cancel-withdrawal"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get fiat withdrawal order history.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingFiatOrder>>> GetWithdrawalOrderHistoryAsync(
+        string? currency = null,
+        string? paymentMethod = null,
+        string? state = null,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("paymentMethod", paymentMethod);
+        parameters.AddOptional("state", state);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxFundingFiatOrder>(GetUri("api/v5/fiat/withdrawal-order-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get fiat withdrawal order detail.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingFiatOrder>> GetWithdrawalOrderDetailAsync(string orderId, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "ordId", orderId },
+        };
+
+        return ProcessOneRequestAsync<OkxFundingFiatOrder>(GetUri("api/v5/fiat/withdrawal"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get fiat deposit order history.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingFiatOrder>>> GetDepositOrderHistoryAsync(
+        string? currency = null,
+        string? paymentMethod = null,
+        string? state = null,
+        long? after = null,
+        long? before = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+        parameters.AddOptional("paymentMethod", paymentMethod);
+        parameters.AddOptional("state", state);
+        parameters.AddOptional("after", after?.ToOkxString());
+        parameters.AddOptional("before", before?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxFundingFiatOrder>(GetUri("api/v5/fiat/deposit-order-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get fiat deposit order detail.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingFiatOrder>> GetDepositOrderDetailAsync(string orderId, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "ordId", orderId },
+        };
+
+        return ProcessOneRequestAsync<OkxFundingFiatOrder>(GetUri("api/v5/fiat/deposit"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get available buy/sell fiat and crypto currencies.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingBuySellCurrencies>> GetBuySellCurrenciesAsync(CancellationToken ct = default)
+    {
+        return ProcessOneRequestAsync<OkxFundingBuySellCurrencies>(GetUri("api/v5/fiat/buy-sell/currencies"), HttpMethod.Get, ct, signed: true);
+    }
+
+    /// <summary>
+    /// Get buy/sell pair constraints.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingBuySellCurrencyPair>> GetBuySellCurrencyPairAsync(string fromCurrency, string toCurrency, CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "fromCcy", fromCurrency },
+            { "toCcy", toCurrency },
+        };
+
+        return ProcessOneRequestAsync<OkxFundingBuySellCurrencyPair>(GetUri("api/v5/fiat/buy-sell/currency-pair"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get a buy/sell quote.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingBuySellQuote>> GetBuySellQuoteAsync(
+        OkxTradeOrderSide side,
+        string fromCurrency,
+        string toCurrency,
+        decimal rfqAmount,
+        string rfqCurrency,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "fromCcy", fromCurrency },
+            { "toCcy", toCurrency },
+            { "rfqAmt", rfqAmount.ToOkxString() },
+            { "rfqCcy", rfqCurrency },
+        };
+        parameters.AddEnum("side", side);
+
+        return ProcessOneRequestAsync<OkxFundingBuySellQuote>(GetUri("api/v5/fiat/buy-sell/quote"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Execute a buy/sell trade from a quote.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingBuySellOrder>> PlaceBuySellTradeAsync(
+        string quoteId,
+        OkxTradeOrderSide side,
+        string fromCurrency,
+        string toCurrency,
+        decimal rfqAmount,
+        string rfqCurrency,
+        string paymentMethod,
+        string clientOrderId,
+        CancellationToken ct = default)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "quoteId", quoteId },
+            { "fromCcy", fromCurrency },
+            { "toCcy", toCurrency },
+            { "rfqAmt", rfqAmount.ToOkxString() },
+            { "rfqCcy", rfqCurrency },
+            { "paymentMethod", paymentMethod },
+            { "clOrdId", clientOrderId },
+        };
+        parameters.AddEnum("side", side);
+
+        return ProcessOneRequestAsync<OkxFundingBuySellOrder>(GetUri("api/v5/fiat/buy-sell/trade"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    }
+
+    /// <summary>
+    /// Get buy/sell trade history.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingBuySellOrder>>> GetBuySellTradeHistoryAsync(
+        string? orderId = null,
+        string? clientOrderId = null,
+        string? state = null,
+        long? begin = null,
+        long? end = null,
+        int limit = 100,
+        CancellationToken ct = default)
+    {
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ordId", orderId);
+        parameters.AddOptional("clOrdId", clientOrderId);
+        parameters.AddOptional("state", state);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxFundingBuySellOrder>(GetUri("api/v5/fiat/buy-sell/history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
 }
-
-
-
-// Fiat Endpoints
-// TODO: api/v5/fiat/deposit-payment-methods
-// TODO: api/v5/fiat/withdrawal-payment-methods
-// TODO: api/v5/fiat/create-withdrawal
-// TODO: api/v5/fiat/cancel-withdrawal
-// TODO: api/v5/fiat/withdrawal-order-history
-// TODO: api/v5/fiat/withdrawal
-// TODO: api/v5/fiat/deposit-order-history
-// TODO: api/v5/fiat/deposit

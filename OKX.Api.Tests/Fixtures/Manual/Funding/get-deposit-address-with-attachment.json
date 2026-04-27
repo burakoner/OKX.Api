@@ -1,0 +1,21 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "addr": "UQDc....",
+      "tag": "",
+      "memo": "",
+      "pmtId": "",
+      "addrEx": {
+        "comment": "123456"
+      },
+      "ccy": "TONCOIN",
+      "chain": "TONCOIN-TON",
+      "to": "6",
+      "verifiedName": "John Corner",
+      "selected": true,
+      "ctAddr": ""
+    }
+  ]
+}
