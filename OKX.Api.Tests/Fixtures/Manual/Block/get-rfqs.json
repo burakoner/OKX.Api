@@ -1,0 +1,36 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "cTime": "1611033737572",
+      "uTime": "1611033737572",
+      "state": "active",
+      "counterparties": [
+        "Trader1"
+      ],
+      "validUntil": "1611033857557",
+      "clRfqId": "",
+      "tag": "maker-tag",
+      "flowType": "maker_rfq",
+      "traderCode": "",
+      "rfqId": "22535",
+      "allowPartialExecution": false,
+      "legs": [
+        {
+          "instId": "BTC-USDT-SWAP",
+          "tdMode": "cross",
+          "ccy": "USDT",
+          "sz": "5",
+          "side": "sell",
+          "posSide": "",
+          "tgtCcy": "",
+          "tradeQuoteCcy": ""
+        }
+      ],
+      "groupId": "grp-200",
+      "acctAlloc": [],
+      "reason": ""
+    }
+  ]
+}

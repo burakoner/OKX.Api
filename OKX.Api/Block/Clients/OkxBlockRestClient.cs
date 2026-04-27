@@ -36,17 +36,33 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         bool allowPartialExecution = false,
         IEnumerable<OkxBlockAllocationRequest>? accountAllocations = null,
         CancellationToken ct = default)
+        => CreateRfqAsync(counterparties, legs, clientRfqId, anonymous, allowPartialExecution, accountAllocations, null, ct);
+
+    /// <summary>
+    /// Creates a new RFQ
+    /// </summary>
+    /// <param name="counterparties">The trader code(s) of the counterparties who receive the RFQ. Can be found via /api/v5/rfq/counterparties/</param>
+    /// <param name="legs">An Array of objects containing each leg of the RFQ. Maximum 15 legs can be placed per request</param>
+    /// <param name="clientRfqId">Client-supplied RFQ ID. A combination of case-sensitive alpha-numeric, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="anonymous">Submit RFQ on a disclosed or anonymous basis. Valid values are true or false.
+    /// If not specified, the default value is false.
+    /// When anonymous = true, the taker’s identify is not disclosed to maker even after trade execution.</param>
+    /// <param name="allowPartialExecution">Whether the RFQ can be partially filled provided that the shape of legs stays the same. Valid values are true or false. false by default.</param>
+    /// <param name="accountAllocations">Account level allocation of the RFQ</param>
+    /// <param name="tag">RFQ tag. When omitted, the wrapper broker tag is used.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxBlockRfq>> CreateRfqAsync(
+        IEnumerable<string> counterparties,
+        IEnumerable<OkxBlockLegRequest> legs,
+        string? clientRfqId,
+        bool anonymous,
+        bool allowPartialExecution,
+        IEnumerable<OkxBlockAllocationRequest>? accountAllocations,
+        string? tag,
+        CancellationToken ct = default)
     {
-        var parameters = new ParameterCollection
-        {
-            { "counterparties", counterparties },
-            { "legs", legs },
-            { "anonymous", anonymous },
-            { "allowPartialExecution", allowPartialExecution },
-        };
-        parameters.AddOptional("clRfqId", clientRfqId);
-        parameters.AddOptional("tag", OkxConstants.BrokerId);
-        parameters.AddOptional("acctAlloc", allowPartialExecution);
+        var parameters = CreateRfqRequestParameters(counterparties, legs, clientRfqId, anonymous, allowPartialExecution, accountAllocations, tag);
 
         return ProcessOneRequestAsync<OkxBlockRfq>(GetUri("api/v5/rfq/create-rfq"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -208,7 +224,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="expiresIn">Seconds that a quote expires in. Must be an integer between 10-120. Default is 60.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public Task<RestCallResult<OkxBlockRfq>> CreateQuoteAsync(
+    public Task<RestCallResult<OkxBlockQuote>> CreateQuoteAsync(
         string rfqId,
         OkxTradeOrderSide quoteSide,
         IEnumerable<OkxBlockLegQuote> legs,
@@ -216,19 +232,33 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         bool anonymous = false,
         int? expiresIn = null,
         CancellationToken ct = default)
-    {
-        var parameters = new ParameterCollection
-        {
-            { "rfqId", rfqId },
-            { "legs", legs },
-            { "anonymous", anonymous },
-        };
-        parameters.AddEnum("quoteSide", quoteSide);
-        parameters.AddOptional("clRfqId", clientQuoteId);
-        parameters.AddOptional("expiresIn", expiresIn?.ToOkxString());
-        parameters.AddOptional("tag", OkxConstants.BrokerId);
+        => CreateQuoteAsync(rfqId, quoteSide, legs, clientQuoteId, anonymous, expiresIn, null, ct);
 
-        return ProcessOneRequestAsync<OkxBlockRfq>(GetUri("api/v5/rfq/create-quote"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+    /// <summary>
+    /// Allows the user to Quote an RFQ that they are a counterparty to. The user MUST quote the entire RFQ and not part of the legs or part of the quantity. Partial quoting is not allowed.
+    /// </summary>
+    /// <param name="rfqId">RFQ ID .</param>
+    /// <param name="quoteSide">The trading direction of the Quote. Its value can be buy or sell. For example, if quoteSide is buy, all the legs are executed in their leg sides; otherwise, all the legs are executed in the opposite of their leg sides.</param>
+    /// <param name="legs">The legs of the Quote.</param>
+    /// <param name="clientQuoteId">Client-supplied Quote ID. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
+    /// <param name="anonymous">Submit Quote on a disclosed or anonymous basis. Valid value is true or false. false by default.</param>
+    /// <param name="expiresIn">Seconds that a quote expires in. Must be an integer between 10-120. Default is 60.</param>
+    /// <param name="tag">Quote tag. When omitted, the wrapper broker tag is used.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxBlockQuote>> CreateQuoteAsync(
+        string rfqId,
+        OkxTradeOrderSide quoteSide,
+        IEnumerable<OkxBlockLegQuote> legs,
+        string? clientQuoteId,
+        bool anonymous,
+        int? expiresIn,
+        string? tag,
+        CancellationToken ct = default)
+    {
+        var parameters = CreateQuoteRequestParameters(rfqId, quoteSide, legs, clientQuoteId, anonymous, expiresIn, tag);
+
+        return ProcessOneRequestAsync<OkxBlockQuote>(GetUri("api/v5/rfq/create-quote"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 
     /// <summary>
@@ -476,7 +506,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("endId", endId);
         parameters.AddOptional("limit", limit.ToOkxString());
 
-        return ProcessListRequestAsync<OkxBlockPublicExecutedTrade>(GetUri("api/v5/rfq/public-trades"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+        return ProcessListRequestAsync<OkxBlockPublicExecutedTrade>(GetUri("api/v5/rfq/public-trades"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
@@ -497,4 +527,47 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         return ProcessListRequestAsync<OkxBlockPublicRecentTrade>(GetUri("api/v5/market/block-trades"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
+    private static ParameterCollection CreateRfqRequestParameters(
+        IEnumerable<string> counterparties,
+        IEnumerable<OkxBlockLegRequest> legs,
+        string? clientRfqId,
+        bool anonymous,
+        bool allowPartialExecution,
+        IEnumerable<OkxBlockAllocationRequest>? accountAllocations,
+        string? tag)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "counterparties", counterparties },
+            { "legs", legs },
+            { "anonymous", anonymous },
+            { "allowPartialExecution", allowPartialExecution },
+        };
+        parameters.AddOptional("clRfqId", clientRfqId);
+        parameters.AddOptional("tag", tag ?? OkxConstants.BrokerId);
+        parameters.AddOptional("acctAlloc", accountAllocations);
+        return parameters;
+    }
+
+    private static ParameterCollection CreateQuoteRequestParameters(
+        string rfqId,
+        OkxTradeOrderSide quoteSide,
+        IEnumerable<OkxBlockLegQuote> legs,
+        string? clientQuoteId,
+        bool anonymous,
+        int? expiresIn,
+        string? tag)
+    {
+        var parameters = new ParameterCollection
+        {
+            { "rfqId", rfqId },
+            { "legs", legs },
+            { "anonymous", anonymous },
+        };
+        parameters.AddEnum("quoteSide", quoteSide);
+        parameters.AddOptional("clQuoteId", clientQuoteId);
+        parameters.AddOptional("expiresIn", expiresIn?.ToOkxString());
+        parameters.AddOptional("tag", tag ?? OkxConstants.BrokerId);
+        return parameters;
+    }
 }

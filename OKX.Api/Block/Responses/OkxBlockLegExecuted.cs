@@ -32,8 +32,8 @@ public record OkxBlockLegExecuted
     /// <summary>
     /// Last traded ID.
     /// </summary>
-    [JsonProperty("tradeId")]
-    public long TradeId { get; set; }
+    [JsonProperty("tradeId"), JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? TradeId { get; set; }
 
     /// <summary>
     /// The quote currency used for trading. Only applicable to SPOT.

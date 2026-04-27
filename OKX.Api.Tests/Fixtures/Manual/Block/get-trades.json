@@ -1,0 +1,47 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "cTime": "1608267227834",
+      "rfqId": "18753",
+      "clRfqId": "rfq01",
+      "quoteId": "25092",
+      "clQuoteId": "q001",
+      "blockTdId": "180184",
+      "tag": "trade-tag",
+      "tTraderCode": "ANAND",
+      "mTraderCode": "WAGMI",
+      "isSuccessful": false,
+      "errorCode": "54001",
+      "legs": [
+        {
+          "instId": "BTC-USDT-SWAP",
+          "px": "39450.0",
+          "sz": "200000",
+          "side": "sell",
+          "fee": "-1.25",
+          "feeCcy": "USDT",
+          "tradeId": "10211",
+          "tradeQuoteCcy": "USDT"
+        }
+      ],
+      "acctAlloc": [
+        {
+          "blockTdId": "180184",
+          "errorCode": "51000",
+          "acct": "sub-1",
+          "legs": [
+            {
+              "instId": "BTC-USDT-SWAP",
+              "sz": "100000",
+              "tradeId": "10211",
+              "fee": "-0.5",
+              "feeCcy": "USDT"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

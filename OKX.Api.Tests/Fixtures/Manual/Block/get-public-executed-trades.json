@@ -1,0 +1,22 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "strategy": "CALL_CALENDAR_SPREAD",
+      "cTime": "1697181568974",
+      "blockTdId": "",
+      "groupId": "grp-300",
+      "legs": [
+        {
+          "instId": "BTC-USD-231013-22000-P",
+          "px": "0.0026",
+          "sz": "1",
+          "side": "buy",
+          "tradeId": "",
+          "tradeQuoteCcy": "USD"
+        }
+      ]
+    }
+  ]
+}

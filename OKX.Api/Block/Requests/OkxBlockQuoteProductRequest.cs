@@ -15,7 +15,7 @@ public record OkxBlockQuoteProductRequest
     /// Receive all instruments or not under specific instType setting.
     /// Valid value can be boolean (True/False). By default, the value will be false.
     /// </summary>
-    [JsonProperty("includeALL")]
+    [JsonProperty("includeAll")]
     public bool IncludeAll { get; set; }
 
     /// <summary>
@@ -31,17 +31,23 @@ public record OkxBlockQuoteProductRequest
 public record OkxBlockQuoteProductRequestData
 {
     /// <summary>
+    /// Instrument family. Required for FUTURES, OPTION and SWAP only.
+    /// </summary>
+    [JsonProperty("instFamily", NullValueHandling = NullValueHandling.Ignore)]
+    public string? InstrumentFamily { get; set; }
+
+    /// <summary>
     /// Instrument ID. Required for SPOT only.
     /// </summary>
-    [JsonProperty("instId")]
-    public string InstrumentId { get; set; } = string.Empty;
+    [JsonProperty("instId", NullValueHandling = NullValueHandling.Ignore)]
+    public string? InstrumentId { get; set; }
 
     /// <summary>
     /// Max trade quantity for the product(s).
     /// For FUTURES, OPTION and SWAP, the max quantity of the RFQ/Quote is in unit of contracts. For SPOT, this parameter is in base currency.
     /// </summary>
-    [JsonProperty("maxBlockSz")]
-    public string MaximumBlockSize { get; set; } = string.Empty;
+    [JsonProperty("maxBlockSz", NullValueHandling = NullValueHandling.Ignore)]
+    public string? MaximumBlockSize { get; set; }
 
     /// <summary>
     /// Price bands in unit of ticks, measured against mark price.
@@ -49,6 +55,6 @@ public record OkxBlockQuoteProductRequestData
     /// If Bid price &gt; Mark + 1 tick, it will be stopped
     /// If Ask price &lt; Mark - 1 tick, It will be stopped
     /// </summary>
-    [JsonProperty("makerPxBand")]
-    public string MakerPriceBand { get; set; } = string.Empty;
+    [JsonProperty("makerPxBand", NullValueHandling = NullValueHandling.Ignore)]
+    public string? MakerPriceBand { get; set; }
 }

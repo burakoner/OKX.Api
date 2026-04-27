@@ -26,8 +26,14 @@ public record OkxBlockPublicExecutedTrade
     /// <summary>
     /// Block trade ID.
     /// </summary>
-    [JsonProperty("blockTdId")]
-    public long BlockTradeId { get; set; }
+    [JsonProperty("blockTdId"), JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? BlockTradeId { get; set; }
+
+    /// <summary>
+    /// Group RFQ ID. Only applicable to group RFQ, return "" for normal RFQ.
+    /// </summary>
+    [JsonProperty("groupId")]
+    public string GroupId { get; set; } = string.Empty;
 
     /// <summary>
     /// Legs of trade

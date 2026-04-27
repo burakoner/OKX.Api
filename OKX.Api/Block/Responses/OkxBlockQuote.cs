@@ -82,6 +82,12 @@ public record OkxBlockQuote
     public string ClientQuoteId { get; set; } = string.Empty;
 
     /// <summary>
+    /// Quote tag. The block trade associated with the Quote will have the same tag.
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
+
+    /// <summary>
     /// A unique identifier of maker. Empty If the anonymous parameter of the Quote is set to be true.
     /// </summary>
     [JsonProperty("traderCode")]

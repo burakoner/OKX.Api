@@ -64,6 +64,12 @@ public record OkxBlockPublicRecentTrade
     public decimal? MarkPrice { get; set; }
 
     /// <summary>
+    /// Group RFQ ID. Only applicable to group RFQ, return "" for normal RFQ.
+    /// </summary>
+    [JsonProperty("groupId")]
+    public string GroupId { get; set; } = string.Empty;
+
+    /// <summary>
     /// Timestamp
     /// </summary>
     [JsonProperty("ts")]

@@ -64,6 +64,18 @@ public record OkxBlockRfq
     public string ClientRfqId { get; set; } = string.Empty;
 
     /// <summary>
+    /// RFQ tag. The block trade associated with the RFQ will have the same tag.
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Identify the type of the RFQ. Only applicable to Makers, return "" for Takers.
+    /// </summary>
+    [JsonProperty("flowType")]
+    public string FlowType { get; set; } = string.Empty;
+
+    /// <summary>
     /// Whether the RFQ can be partially filled provided that the shape of legs stays the same.
     /// </summary>
     [JsonProperty("allowPartialExecution")]

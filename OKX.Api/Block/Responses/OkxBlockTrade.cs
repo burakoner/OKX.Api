@@ -50,6 +50,12 @@ public record OkxBlockTrade
     public long BlockTradeId { get; set; }
 
     /// <summary>
+    /// Trade tag. The block trade will have the tag of the RFQ or Quote it corresponds to.
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
+
+    /// <summary>
     /// A unique identifier of the taker. Empty if the anonymous parameter of the RFQ is set to be true.
     /// </summary>
     [JsonProperty("tTraderCode")]
@@ -60,6 +66,18 @@ public record OkxBlockTrade
     /// </summary>
     [JsonProperty("mTraderCode")]
     public string MakerTraderCode { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Whether the trade is filled successfully.
+    /// </summary>
+    [JsonProperty("isSuccessful")]
+    public bool IsSuccessful { get; set; }
+
+    /// <summary>
+    /// Error code for unsuccessful trades. It is "" for successful trade.
+    /// </summary>
+    [JsonProperty("errorCode")]
+    public string ErrorCode { get; set; } = string.Empty;
 
     /// <summary>
     /// Legs of trade
@@ -94,7 +112,7 @@ public record OkxBlockTradeAccountAllocation
     /// <summary>
     /// The code of the event execution result, 0 means success
     /// </summary>
-    [JsonProperty("sCode")]
+    [JsonProperty("errorCode")]
     public string Code { get; set; } = string.Empty;
 
     /// <summary>

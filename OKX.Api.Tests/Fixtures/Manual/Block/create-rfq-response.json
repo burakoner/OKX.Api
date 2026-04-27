@@ -1,0 +1,50 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "cTime": "1611033737572",
+      "uTime": "1611033737572",
+      "state": "active",
+      "counterparties": [
+        "Trader1",
+        "Trader2"
+      ],
+      "validUntil": "1611033857557",
+      "clRfqId": "rfq01",
+      "tag": "rfq-tag",
+      "allowPartialExecution": true,
+      "traderCode": "SATOSHI",
+      "rfqId": "22534",
+      "legs": [
+        {
+          "instId": "BTC-USDT-SWAP",
+          "tdMode": "cross",
+          "ccy": "USDT",
+          "sz": "25",
+          "side": "buy",
+          "posSide": "long",
+          "tgtCcy": ""
+        }
+      ],
+      "groupId": "grp-100",
+      "acctAlloc": [
+        {
+          "acct": "sub-1",
+          "sCode": "0",
+          "sMsg": "",
+          "legs": [
+            {
+              "instId": "BTC-USDT-SWAP",
+              "sz": "25",
+              "tdMode": "cross",
+              "ccy": "USDT",
+              "posSide": "long"
+            }
+          ]
+        }
+      ],
+      "reason": ""
+    }
+  ]
+}

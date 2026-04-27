@@ -66,6 +66,9 @@
   - Split committed live snapshots into `Production` and `Demo` fixture sets to track environment-specific API behavior separately
   - Added demo availability coverage for public borrow history, which currently returns `50038` in demo trading
   - Fixed top-level OKX `code/msg` handling for generic REST responses so list and model endpoints no longer report API errors as successful calls
+  - Fixed Block Trading request serialization for `CreateRfqAsync` account allocations and `CreateQuoteAsync` client quote IDs, and aligned create-quote responses with the documented `Quote` model
+  - Expanded Block Trading RFQ, quote, trade, and public trade models with current documented metadata such as `tag`, `flowType`, `groupId`, `isSuccessful`, and `errorCode`
+  - Made `GET /api/v5/rfq/public-trades` a true public request, hardened empty-string block trade identifiers for parent-level public group RFQ responses, and added Block Trading contract plus public integration coverage
 
 - Version 5.6.216 - 16 Feb 2026
   - Fixed issue [GetInstrumentsAsync fails #93](https://github.com/burakoner/OKX.Api/issues/93)

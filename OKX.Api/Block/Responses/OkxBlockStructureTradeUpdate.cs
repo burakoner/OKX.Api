@@ -6,19 +6,6 @@
 public record OkxBlockStructureTradeUpdate : OkxBlockTrade
 {
     /// <summary>
-    /// Whether the trade is filled successfully
-    /// </summary>
-    [JsonProperty("isSuccessful")]
-    public bool IsSuccessful { get; set; }
-
-    /// <summary>
-    /// Error code for unsuccessful trades.
-    /// It is "" for successful trade.
-    /// </summary>
-    [JsonProperty("errorCode")]
-    public string ErrorCode { get; set; } = string.Empty;
-
-    /// <summary>
     /// Legs of trade
     /// </summary>
     [JsonProperty("legs")]

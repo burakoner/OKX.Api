@@ -1,0 +1,33 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "cTime": "1608267227834",
+      "uTime": "1608267227834",
+      "state": "active",
+      "reason": "",
+      "validUntil": "1608267287834",
+      "rfqId": "22539",
+      "clRfqId": "",
+      "quoteId": "25092",
+      "clQuoteId": "q001",
+      "tag": "quote-tag",
+      "traderCode": "WAGMI",
+      "quoteSide": "buy",
+      "legs": [
+        {
+          "instId": "BTC-USDT-SWAP",
+          "tdMode": "cross",
+          "ccy": "USDT",
+          "sz": "200000",
+          "px": "39450.0",
+          "side": "buy",
+          "posSide": "long",
+          "tgtCcy": "",
+          "tradeQuoteCcy": ""
+        }
+      ]
+    }
+  ]
+}
