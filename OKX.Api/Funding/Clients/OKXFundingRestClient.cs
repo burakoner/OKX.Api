@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Funding;
+namespace OKX.Api.Funding;
 
 /// <summary>
 /// OKX Rest Api Funding Account Client
@@ -86,18 +86,40 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         bool? omitPositionRisk = null,
         string? clientOrderId = null,
         CancellationToken ct = default)
+        => TransferAsync(new OkxFundingTransferRequest
+        {
+            Type = type,
+            Currency = currency,
+            Amount = amount,
+            FromAccount = fromAccount,
+            ToAccount = toAccount,
+            SubAccountName = subAccountName,
+            LoanTransfer = loanTransfer,
+            OmitPositionRisk = omitPositionRisk,
+            ClientOrderId = clientOrderId
+        }, ct);
+
+    /// <summary>
+    /// This endpoint supports transfers between funding and trading accounts, master and sub-accounts, and sub-account to sub-account transfers when permitted by OKX.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingTransferResponse>> TransferAsync(OkxFundingTransferRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+
         var parameters = new ParameterCollection {
-            { "ccy",currency},
-            { "amt",amount.ToOkxString()},
+            { "ccy",request.Currency!},
+            { "amt",request.Amount.ToOkxString()},
         };
-        parameters.AddEnum("type", type);
-        parameters.AddEnum("from", fromAccount);
-        parameters.AddEnum("to", toAccount);
-        parameters.AddOptional("subAcct", subAccountName);
-        parameters.AddOptional("loanTrans", loanTransfer);
-        parameters.AddOptional("clientId", clientOrderId);
-        parameters.AddOptional("omitPosRisk", omitPositionRisk);
+        parameters.AddEnum("type", request.Type);
+        parameters.AddEnum("from", request.FromAccount);
+        parameters.AddEnum("to", request.ToAccount);
+        parameters.AddOptional("subAcct", request.SubAccountName);
+        parameters.AddOptional("loanTrans", request.LoanTransfer);
+        parameters.AddOptional("clientId", request.ClientOrderId);
+        parameters.AddOptional("omitPosRisk", request.OmitPositionRisk);
 
         return ProcessOneRequestAsync<OkxFundingTransferResponse>(GetUri("api/v5/asset/transfer"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -115,11 +137,24 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? clientOrderId = null,
         OkxFundingTransferType? type = null,
         CancellationToken ct = default)
+        => TransferStateAsync(new OkxFundingTransferStateRequest
+        {
+            TransferId = transferId,
+            ClientOrderId = clientOrderId,
+            Type = type
+        }, ct);
+
+    /// <summary>
+    /// Retrieve the transfer state data of the last 2 weeks.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingTransferStateResponse>> TransferStateAsync(OkxFundingTransferStateRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
         var parameters = new ParameterCollection();
-        parameters.AddOptional("transId", transferId?.ToOkxString());
-        parameters.AddOptional("clientId", clientOrderId);
-        parameters.AddOptionalEnum("type", type);
+        parameters.AddOptional("transId", request.TransferId?.ToOkxString());
+        parameters.AddOptional("clientId", request.ClientOrderId);
+        parameters.AddOptionalEnum("type", request.Type);
 
         return ProcessOneRequestAsync<OkxFundingTransferStateResponse>(GetUri("api/v5/asset/transfer-state"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -145,23 +180,40 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         int limit = 100,
         int pagingType = 1,
         CancellationToken ct = default)
+        => GetBillsAsync(new OkxFundingBillQueryRequest
+        {
+            Currency = currency,
+            Type = type,
+            ClientOrderId = clientOrderId,
+            After = after,
+            Before = before,
+            Limit = limit,
+            PagingType = pagingType
+        }, ct);
+
+    /// <summary>
+    /// Query the billing record, you can get the latest 1 month historical data
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingBill>>> GetBillsAsync(OkxFundingBillQueryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptionalEnum("type", type);
-        parameters.AddOptional("clientId", clientOrderId);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
-        parameters.AddOptional("pagingType", pagingType.ToOkxString());
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptionalEnum("type", request.Type);
+        parameters.AddOptional("clientId", request.ClientOrderId);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
+        parameters.AddOptional("pagingType", request.PagingType.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingBill>(GetUri("api/v5/asset/bills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
     /// Query the billing records of all time since 1 February, 2021.
-    /// ⚠️ IMPORTANT: Data updates occur every 30 seconds.Update frequency may vary based on data volume - please be aware of potential delays during high-traffic periods.
+    /// ?? IMPORTANT: Data updates occur every 30 seconds.Update frequency may vary based on data volume - please be aware of potential delays during high-traffic periods.
     /// </summary>
     /// <param name="currency">Currency</param>
     /// <param name="type">Bill type</param>
@@ -181,16 +233,33 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         int limit = 100,
         int pagingType = 1,
         CancellationToken ct = default)
+        => GetBillsHistoryAsync(new OkxFundingBillQueryRequest
+        {
+            Currency = currency,
+            Type = type,
+            ClientOrderId = clientOrderId,
+            After = after,
+            Before = before,
+            Limit = limit,
+            PagingType = pagingType
+        }, ct);
+
+    /// <summary>
+    /// Query the billing records of all time since 1 February, 2021.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingBill>>> GetBillsHistoryAsync(OkxFundingBillQueryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptionalEnum("type", type);
-        parameters.AddOptional("clientId", clientOrderId);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
-        parameters.AddOptional("pagingType", pagingType.ToOkxString());
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptionalEnum("type", request.Type);
+        parameters.AddOptional("clientId", request.ClientOrderId);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
+        parameters.AddOptional("pagingType", request.PagingType.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingBill>(GetUri("api/v5/asset/bills-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -234,19 +303,38 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetDepositHistoryAsync(new OkxFundingDepositHistoryRequest
+        {
+            Currency = currency,
+            DepositId = depositId,
+            FromWithdrawalId = fromWithdrawalId,
+            TransactionId = transactionId,
+            Type = type,
+            State = state,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve the deposit history of all currencies, up to 100 recent records in a year.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingDepositHistory>>> GetDepositHistoryAsync(OkxFundingDepositHistoryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
 
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("type", type);
-        parameters.AddOptionalEnum("state", state);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("depId", depositId);
-        parameters.AddOptional("fromWdId", fromWithdrawalId);
-        parameters.AddOptional("txId", transactionId);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("type", request.Type);
+        parameters.AddOptionalEnum("state", request.State);
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("depId", request.DepositId);
+        parameters.AddOptional("fromWdId", request.FromWithdrawalId);
+        parameters.AddOptional("txId", request.TransactionId);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingDepositHistory>(GetUri("api/v5/asset/deposit-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -276,18 +364,42 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         OkxFundingWithdrawalReceiver? receiverInfo = null,
         string? clientOrderId = null,
         CancellationToken ct = default)
+        => WithdrawAsync(new OkxFundingWithdrawalRequest
+        {
+            Currency = currency,
+            Amount = amount,
+            Destination = destination,
+            ToAddress = toAddress,
+            ToAddressType = toAddressType,
+            Chain = chain,
+            AreaCode = areaCode,
+            ReceiverInfo = receiverInfo,
+            ClientOrderId = clientOrderId
+        }, ct);
+
+    /// <summary>
+    /// Withdrawal of tokens.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingWithdrawalResponse>> WithdrawAsync(OkxFundingWithdrawalRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.ToAddress))
+            throw new ArgumentException("To address is required.", nameof(request));
+
         var parameters = new ParameterCollection {
-            { "ccy",currency},
-            { "amt",amount.ToOkxString()},
-            { "toAddr",toAddress},
+            { "ccy",request.Currency!},
+            { "amt",request.Amount.ToOkxString()},
+            { "toAddr",request.ToAddress!},
         };
-        parameters.AddEnum("dest", destination);
-        parameters.AddOptionalEnum("toAddrType", toAddressType);
-        parameters.AddOptional("chain", chain);
-        parameters.AddOptional("areaCode", areaCode);
-        parameters.AddOptional("rcvrInfo", receiverInfo);
-        parameters.AddOptional("clientId", clientOrderId);
+        parameters.AddEnum("dest", request.Destination);
+        parameters.AddOptionalEnum("toAddrType", request.ToAddressType);
+        parameters.AddOptional("chain", request.Chain);
+        parameters.AddOptional("areaCode", request.AreaCode);
+        parameters.AddOptional("rcvrInfo", request.ReceiverInfo);
+        parameters.AddOptional("clientId", request.ClientOrderId);
 
         return ProcessOneRequestAsync<OkxFundingWithdrawalResponse>(GetUri("api/v5/asset/withdrawal"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -336,19 +448,38 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetWithdrawalHistoryAsync(new OkxFundingWithdrawalHistoryRequest
+        {
+            Currency = currency,
+            WithdrawalId = withdrawalId,
+            ClientOrderId = clientOrderId,
+            TransactionId = transactionId,
+            Type = type,
+            State = state,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Retrieve the withdrawal records according to the currency, withdrawal status, and time range in reverse chronological order.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingWithdrawalHistory>>> GetWithdrawalHistoryAsync(OkxFundingWithdrawalHistoryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
 
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("type", type);
-        parameters.AddOptionalEnum("state", state);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("wdId", withdrawalId);
-        parameters.AddOptional("clientId", clientOrderId);
-        parameters.AddOptional("txId", transactionId);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("type", request.Type);
+        parameters.AddOptionalEnum("state", request.State);
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("wdId", request.WithdrawalId);
+        parameters.AddOptional("clientId", request.ClientOrderId);
+        parameters.AddOptional("txId", request.TransactionId);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingWithdrawalHistory>(GetUri("api/v5/asset/withdrawal-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -526,12 +657,25 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string toCurrency,
         bool? useLargeOrderConvert = null,
         CancellationToken ct = default)
+        => GetConvertCurrencyPairAsync(new OkxFundingConvertCurrencyPairRequest
+        {
+            FromCurrency = fromCurrency,
+            ToCurrency = toCurrency,
+            UseLargeOrderConvert = useLargeOrderConvert
+        }, ct);
+
+    /// <summary>
+    /// Get convert currency pair
+    /// </summary>
+    public Task<RestCallResult<OkxFundingConvertCurrencyPair>> GetConvertCurrencyPairAsync(OkxFundingConvertCurrencyPairRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
         var parameters = new ParameterCollection();
-        parameters.AddOptional("fromCcy", fromCurrency);
-        parameters.AddOptional("toCcy", toCurrency);
-        if (useLargeOrderConvert != null)
-            parameters.AddOptional("convertMode", useLargeOrderConvert.Value ? "1" : "0");
+        parameters.AddOptional("fromCcy", request.FromCurrency);
+        parameters.AddOptional("toCcy", request.ToCurrency);
+        if (request.UseLargeOrderConvert != null)
+            parameters.AddOptional("convertMode", request.UseLargeOrderConvert.Value ? "1" : "0");
 
         return ProcessOneRequestAsync<OkxFundingConvertCurrencyPair>(GetUri("api/v5/asset/convert/currency-pair"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -557,18 +701,42 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? clientOrderId = null,
         bool? useLargeOrderConvert = null,
         CancellationToken ct = default)
+        => EstimateQuoteAsync(new OkxFundingConvertEstimateQuoteRequest
+        {
+            BaseCurrency = baseCurrency,
+            QuoteCurrency = quoteCurrency,
+            Side = side,
+            RfqAmount = rfqAmount,
+            RfqCurrency = rfqCurrency,
+            ClientOrderId = clientOrderId,
+            UseLargeOrderConvert = useLargeOrderConvert
+        }, ct);
+
+    /// <summary>
+    /// Estimate quote
+    /// </summary>
+    public Task<RestCallResult<OkxFundingConvertEstimateQuote>> EstimateQuoteAsync(OkxFundingConvertEstimateQuoteRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.BaseCurrency))
+            throw new ArgumentException("Base currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.QuoteCurrency))
+            throw new ArgumentException("Quote currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.RfqCurrency))
+            throw new ArgumentException("RFQ currency is required.", nameof(request));
+
         var parameters = new ParameterCollection
         {
-            { "baseCcy", baseCurrency },
-            { "quoteCcy", quoteCurrency },
-            { "rfqSz", rfqAmount.ToOkxString() },
-            { "rfqSzCcy", rfqCurrency },
+            { "baseCcy", request.BaseCurrency! },
+            { "quoteCcy", request.QuoteCurrency! },
+            { "rfqSz", request.RfqAmount.ToOkxString() },
+            { "rfqSzCcy", request.RfqCurrency! },
         };
-        parameters.AddEnum("side", side);
-        parameters.AddOptional("clQReqId", clientOrderId);
-        if (useLargeOrderConvert != null)
-            parameters.AddOptional("convertMode", useLargeOrderConvert.Value ? "1" : "0");
+        parameters.AddEnum("side", request.Side);
+        parameters.AddOptional("clQReqId", request.ClientOrderId);
+        if (request.UseLargeOrderConvert != null)
+            parameters.AddOptional("convertMode", request.UseLargeOrderConvert.Value ? "1" : "0");
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxFundingConvertEstimateQuote>(GetUri("api/v5/asset/convert/estimate-quote"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -597,19 +765,46 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? clientOrderId = null,
         bool? useLargeOrderConvert = null,
         CancellationToken ct = default)
+        => PlaceConvertOrderAsync(new OkxFundingConvertOrderRequest
+        {
+            QuoteId = quoteId,
+            BaseCurrency = baseCurrency,
+            QuoteCurrency = quoteCurrency,
+            Side = side,
+            Amount = amount,
+            AmountCurrency = amountCurrency,
+            ClientOrderId = clientOrderId,
+            UseLargeOrderConvert = useLargeOrderConvert
+        }, ct);
+
+    /// <summary>
+    /// You should make estimate quote before convert trade.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingConvertOrder>> PlaceConvertOrderAsync(OkxFundingConvertOrderRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.QuoteId))
+            throw new ArgumentException("Quote ID is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.BaseCurrency))
+            throw new ArgumentException("Base currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.QuoteCurrency))
+            throw new ArgumentException("Quote currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.AmountCurrency))
+            throw new ArgumentException("Amount currency is required.", nameof(request));
+
         var parameters = new ParameterCollection
         {
-            { "quoteId", quoteId },
-            { "baseCcy", baseCurrency },
-            { "quoteCcy", quoteCurrency },
-            { "sz", amount.ToOkxString() },
-            { "szCcy", amountCurrency },
+            { "quoteId", request.QuoteId! },
+            { "baseCcy", request.BaseCurrency! },
+            { "quoteCcy", request.QuoteCurrency! },
+            { "sz", request.Amount.ToOkxString() },
+            { "szCcy", request.AmountCurrency! },
         };
-        parameters.AddEnum("side", side);
-        parameters.AddOptional("clQReqId", clientOrderId);
-        if (useLargeOrderConvert != null)
-            parameters.AddOptional("convertMode", useLargeOrderConvert.Value ? "1" : "0");
+        parameters.AddEnum("side", request.Side);
+        parameters.AddOptional("clQReqId", request.ClientOrderId);
+        if (request.UseLargeOrderConvert != null)
+            parameters.AddOptional("convertMode", request.UseLargeOrderConvert.Value ? "1" : "0");
         parameters.AddOptional("tag", OkxConstants.BrokerId);
 
         return ProcessOneRequestAsync<OkxFundingConvertOrder>(GetUri("api/v5/asset/convert/trade"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -632,14 +827,29 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         int limit = 100,
         string? tag = null,
         CancellationToken ct = default)
+        => GetConvertHistoryAsync(new OkxFundingConvertHistoryRequest
+        {
+            ClientOrderId = clientOrderId,
+            After = after,
+            Before = before,
+            Limit = limit,
+            Tag = tag
+        }, ct);
+
+    /// <summary>
+    /// Get convert history
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingConvertOrderHistory>>> GetConvertHistoryAsync(OkxFundingConvertHistoryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptional("clTReqId", clientOrderId);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
-        parameters.AddOptional("tag", tag);
+        parameters.AddOptional("clTReqId", request.ClientOrderId);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
+        parameters.AddOptional("tag", request.Tag);
 
         return ProcessListRequestAsync<OkxFundingConvertOrderHistory>(GetUri("api/v5/asset/convert/history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -680,14 +890,38 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string paymentMethod,
         string clientOrderId,
         CancellationToken ct = default)
+        => CreateWithdrawalOrderAsync(new OkxFundingFiatWithdrawalOrderRequest
+        {
+            PaymentAccountId = paymentAccountId,
+            Currency = currency,
+            Amount = amount,
+            PaymentMethod = paymentMethod,
+            ClientOrderId = clientOrderId
+        }, ct);
+
+    /// <summary>
+    /// Create a fiat withdrawal order.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingFiatOrder>> CreateWithdrawalOrderAsync(OkxFundingFiatWithdrawalOrderRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.PaymentAccountId))
+            throw new ArgumentException("Payment account ID is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.PaymentMethod))
+            throw new ArgumentException("Payment method is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.ClientOrderId))
+            throw new ArgumentException("Client order ID is required.", nameof(request));
+
         var parameters = new ParameterCollection
         {
-            { "paymentAcctId", paymentAccountId },
-            { "ccy", currency },
-            { "amt", amount.ToOkxString() },
-            { "paymentMethod", paymentMethod },
-            { "clientId", clientOrderId },
+            { "paymentAcctId", request.PaymentAccountId! },
+            { "ccy", request.Currency! },
+            { "amt", request.Amount.ToOkxString() },
+            { "paymentMethod", request.PaymentMethod! },
+            { "clientId", request.ClientOrderId! },
         };
 
         return ProcessOneRequestAsync<OkxFundingFiatOrder>(GetUri("api/v5/fiat/create-withdrawal"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -717,15 +951,31 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetWithdrawalOrderHistoryAsync(new OkxFundingFiatOrderHistoryRequest
+        {
+            Currency = currency,
+            PaymentMethod = paymentMethod,
+            State = state,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Get fiat withdrawal order history.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingFiatOrder>>> GetWithdrawalOrderHistoryAsync(OkxFundingFiatOrderHistoryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("paymentMethod", paymentMethod);
-        parameters.AddOptional("state", state);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("paymentMethod", request.PaymentMethod);
+        parameters.AddOptional("state", request.State);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingFiatOrder>(GetUri("api/v5/fiat/withdrawal-order-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -754,15 +1004,31 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetDepositOrderHistoryAsync(new OkxFundingFiatOrderHistoryRequest
+        {
+            Currency = currency,
+            PaymentMethod = paymentMethod,
+            State = state,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Get fiat deposit order history.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingFiatOrder>>> GetDepositOrderHistoryAsync(OkxFundingFiatOrderHistoryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("paymentMethod", paymentMethod);
-        parameters.AddOptional("state", state);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("paymentMethod", request.PaymentMethod);
+        parameters.AddOptional("state", request.State);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingFiatOrder>(GetUri("api/v5/fiat/deposit-order-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -812,15 +1078,37 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         decimal rfqAmount,
         string rfqCurrency,
         CancellationToken ct = default)
+        => GetBuySellQuoteAsync(new OkxFundingBuySellQuoteRequest
+        {
+            Side = side,
+            FromCurrency = fromCurrency,
+            ToCurrency = toCurrency,
+            RfqAmount = rfqAmount,
+            RfqCurrency = rfqCurrency
+        }, ct);
+
+    /// <summary>
+    /// Get a buy/sell quote.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingBuySellQuote>> GetBuySellQuoteAsync(OkxFundingBuySellQuoteRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.FromCurrency))
+            throw new ArgumentException("From currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.ToCurrency))
+            throw new ArgumentException("To currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.RfqCurrency))
+            throw new ArgumentException("RFQ currency is required.", nameof(request));
+
         var parameters = new ParameterCollection
         {
-            { "fromCcy", fromCurrency },
-            { "toCcy", toCurrency },
-            { "rfqAmt", rfqAmount.ToOkxString() },
-            { "rfqCcy", rfqCurrency },
+            { "fromCcy", request.FromCurrency! },
+            { "toCcy", request.ToCurrency! },
+            { "rfqAmt", request.RfqAmount.ToOkxString() },
+            { "rfqCcy", request.RfqCurrency! },
         };
-        parameters.AddEnum("side", side);
+        parameters.AddEnum("side", request.Side);
 
         return ProcessOneRequestAsync<OkxFundingBuySellQuote>(GetUri("api/v5/fiat/buy-sell/quote"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -838,18 +1126,49 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string paymentMethod,
         string clientOrderId,
         CancellationToken ct = default)
+        => PlaceBuySellTradeAsync(new OkxFundingBuySellTradeRequest
+        {
+            QuoteId = quoteId,
+            Side = side,
+            FromCurrency = fromCurrency,
+            ToCurrency = toCurrency,
+            RfqAmount = rfqAmount,
+            RfqCurrency = rfqCurrency,
+            PaymentMethod = paymentMethod,
+            ClientOrderId = clientOrderId
+        }, ct);
+
+    /// <summary>
+    /// Execute a buy/sell trade from a quote.
+    /// </summary>
+    public Task<RestCallResult<OkxFundingBuySellOrder>> PlaceBuySellTradeAsync(OkxFundingBuySellTradeRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.QuoteId))
+            throw new ArgumentException("Quote ID is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.FromCurrency))
+            throw new ArgumentException("From currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.ToCurrency))
+            throw new ArgumentException("To currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.RfqCurrency))
+            throw new ArgumentException("RFQ currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.PaymentMethod))
+            throw new ArgumentException("Payment method is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.ClientOrderId))
+            throw new ArgumentException("Client order ID is required.", nameof(request));
+
         var parameters = new ParameterCollection
         {
-            { "quoteId", quoteId },
-            { "fromCcy", fromCurrency },
-            { "toCcy", toCurrency },
-            { "rfqAmt", rfqAmount.ToOkxString() },
-            { "rfqCcy", rfqCurrency },
-            { "paymentMethod", paymentMethod },
-            { "clOrdId", clientOrderId },
+            { "quoteId", request.QuoteId! },
+            { "fromCcy", request.FromCurrency! },
+            { "toCcy", request.ToCurrency! },
+            { "rfqAmt", request.RfqAmount.ToOkxString() },
+            { "rfqCcy", request.RfqCurrency! },
+            { "paymentMethod", request.PaymentMethod! },
+            { "clOrdId", request.ClientOrderId! },
         };
-        parameters.AddEnum("side", side);
+        parameters.AddEnum("side", request.Side);
 
         return ProcessOneRequestAsync<OkxFundingBuySellOrder>(GetUri("api/v5/fiat/buy-sell/trade"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -865,17 +1184,35 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetBuySellTradeHistoryAsync(new OkxFundingBuySellHistoryRequest
+        {
+            OrderId = orderId,
+            ClientOrderId = clientOrderId,
+            State = state,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Get buy/sell trade history.
+    /// </summary>
+    public Task<RestCallResult<List<OkxFundingBuySellOrder>>> GetBuySellTradeHistoryAsync(OkxFundingBuySellHistoryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptional("ordId", orderId);
-        parameters.AddOptional("clOrdId", clientOrderId);
-        parameters.AddOptional("state", state);
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("ordId", request.OrderId);
+        parameters.AddOptional("clOrdId", request.ClientOrderId);
+        parameters.AddOptional("state", request.State);
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingBuySellOrder>(GetUri("api/v5/fiat/buy-sell/history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
 }
+
+

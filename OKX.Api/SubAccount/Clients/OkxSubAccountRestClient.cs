@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.SubAccount;
+namespace OKX.Api.SubAccount;
 
 /// <summary>
 /// OKX Rest Api Sub Account Client
@@ -8,7 +8,7 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     /// <summary>
     /// applies to master accounts only
     /// </summary>
-    /// <param name="enable">Sub-account status，true: Normal ; false: Frozen</param>
+    /// <param name="enable">Sub-account status,true: Normal ; false: Frozen</param>
     /// <param name="subAccountName">Sub Account Name</param>
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
@@ -22,14 +22,29 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetSubAccountsAsync(new OkxSubAccountListRequest
+        {
+            Enable = enable,
+            SubAccountName = subAccountName,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// applies to master accounts only
+    /// </summary>
+    public Task<RestCallResult<List<OkxSubAccount>>> GetSubAccountsAsync(OkxSubAccountListRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
         var parameters = new ParameterCollection();
-        parameters.AddOptional("enable", enable);
-        parameters.AddOptional("subAcct", subAccountName);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("enable", request.Enable);
+        parameters.AddOptional("subAcct", request.SubAccountName);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSubAccount>(GetUri("api/v5/users/subaccount/list"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -49,14 +64,30 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         string? label = null,
         string? password = null,
         CancellationToken ct = default)
+        => CreateSubAccountAsync(new OkxSubAccountCreateRequest
+        {
+            SubAccountName = subAccountName,
+            Type = type,
+            Label = label,
+            Password = password
+        }, ct);
+
+    /// <summary>
+    /// Applies to master accounts only and master accounts API Key must be linked to IP addresses.
+    /// </summary>
+    public Task<RestCallResult<OkxSubAccountSummary>> CreateSubAccountAsync(OkxSubAccountCreateRequest request, CancellationToken ct = default)
     {
-        ValidateCreateSubAccountType(type);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.SubAccountName))
+            throw new ArgumentException("Sub-account name is required.", nameof(request));
+        ValidateCreateSubAccountType(request.Type);
 
         var parameters = new ParameterCollection();
-        parameters.AddOptional("subAcct", subAccountName);
-        parameters.AddEnum("type", type);
-        parameters.AddOptional("label", label);
-        parameters.AddOptional("pwd", password);
+        parameters.AddOptional("subAcct", request.SubAccountName);
+        parameters.AddEnum("type", request.Type);
+        parameters.AddOptional("label", request.Label);
+        parameters.AddOptional("pwd", request.Password);
 
         return ProcessOneRequestAsync<OkxSubAccountSummary>(GetUri("api/v5/users/subaccount/create-subaccount"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -80,16 +111,39 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
     bool? tradePermission = null,
     string? ipAddresses = null,
     CancellationToken ct = default)
+        => CreateSubAccountApiKeyAsync(new OkxSubAccountApiKeyCreateRequest
+        {
+            SubAccountName = subAccountName,
+            Label = label,
+            Passphrase = passphrase,
+            ReadPermission = readPermission,
+            TradePermission = tradePermission,
+            IpAddresses = ipAddresses
+        }, ct);
+
+    /// <summary>
+    /// Applies to master accounts only and master accounts API Key must be linked to IP addresses.
+    /// </summary>
+    public Task<RestCallResult<OkxSubAccountApiKeyCredential>> CreateSubAccountApiKeyAsync(OkxSubAccountApiKeyCreateRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.SubAccountName))
+            throw new ArgumentException("Sub-account name is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Label))
+            throw new ArgumentException("Label is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Passphrase))
+            throw new ArgumentException("Passphrase is required.", nameof(request));
+
         var parameters = new ParameterCollection();
-        parameters.AddParameter("subAcct", subAccountName);
-        parameters.AddParameter("label", label);
-        parameters.AddParameter("passphrase", passphrase);
-        parameters.AddOptional("ip", ipAddresses);
+        parameters.AddParameter("subAcct", request.SubAccountName!);
+        parameters.AddParameter("label", request.Label!);
+        parameters.AddParameter("passphrase", request.Passphrase!);
+        parameters.AddOptional("ip", request.IpAddresses);
 
         var permissions = new List<string>();
-        if (readPermission.HasValue && readPermission.Value) permissions.Add("read_only");
-        if (tradePermission.HasValue && tradePermission.Value) permissions.Add("trade");
+        if (request.ReadPermission is true) permissions.Add("read_only");
+        if (request.TradePermission is true) permissions.Add("trade");
         if (permissions.Count > 0) parameters.AddOptional("perm", string.Join(",", permissions));
 
 
@@ -137,18 +191,39 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         bool? tradePermission = null,
         string? ipAddresses = null,
         CancellationToken ct = default)
+        => ResetSubAccountApiKeyAsync(new OkxSubAccountApiKeyResetRequest
+        {
+            SubAccountName = subAccountName,
+            ApiKey = apiKey,
+            ApiLabel = apiLabel,
+            ReadPermission = readPermission,
+            TradePermission = tradePermission,
+            IpAddresses = ipAddresses
+        }, ct);
+
+    /// <summary>
+    /// applies to master accounts only
+    /// </summary>
+    public Task<RestCallResult<OkxSubAccountApiKey>> ResetSubAccountApiKeyAsync(OkxSubAccountApiKeyResetRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.SubAccountName))
+            throw new ArgumentException("Sub-account name is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.ApiKey))
+            throw new ArgumentException("API key is required.", nameof(request));
+
         var parameters = new ParameterCollection
         {
-            { "subAcct", subAccountName },
-            { "apiKey", apiKey},
+            { "subAcct", request.SubAccountName! },
+            { "apiKey", request.ApiKey!},
         };
-        parameters.AddOptional("label", apiLabel);
-        parameters.AddOptional("ip", ipAddresses);
+        parameters.AddOptional("label", request.ApiLabel);
+        parameters.AddOptional("ip", request.IpAddresses);
 
         var permissions = new List<string>();
-        if (readPermission.HasValue && readPermission.Value) permissions.Add("read_only");
-        if (tradePermission.HasValue && tradePermission.Value) permissions.Add("trade");
+        if (request.ReadPermission is true) permissions.Add("read_only");
+        if (request.TradePermission is true) permissions.Add("trade");
         if (permissions.Count > 0) parameters.AddOptional("perm", string.Join(",", permissions));
 
         return ProcessOneRequestAsync<OkxSubAccountApiKey>(GetUri("api/v5/users/subaccount/modify-apikey"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
@@ -257,16 +332,32 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetSubAccountBillsAsync(new OkxSubAccountBillQueryRequest
+        {
+            SubAccountName = subAccountName,
+            Currency = currency,
+            Type = type,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// applies to master accounts only
+    /// </summary>
+    public Task<RestCallResult<List<OkxSubAccountBill>>> GetSubAccountBillsAsync(OkxSubAccountBillQueryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
 
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("type", type);
-        parameters.AddOptional("subAcct", subAccountName);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("type", request.Type);
+        parameters.AddOptional("subAcct", request.SubAccountName);
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSubAccountBill>(GetUri("api/v5/asset/subaccount/bills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -292,17 +383,34 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         long? before = null,
         int limit = 100,
         CancellationToken ct = default)
+        => GetSubAccountManagedBillsAsync(new OkxSubAccountManagedBillQueryRequest
+        {
+            Currency = currency,
+            Type = type,
+            SubAccountName = subAccountName,
+            SubAccountId = subAccountId,
+            After = after,
+            Before = before,
+            Limit = limit
+        }, ct);
+
+    /// <summary>
+    /// Only applicable to the trading team's master account to getting transfer records of managed sub accounts entrusted to oneself.
+    /// </summary>
+    public Task<RestCallResult<List<OkxSubAccountManagedBill>>> GetSubAccountManagedBillsAsync(OkxSubAccountManagedBillQueryRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
 
         var parameters = new ParameterCollection();
-        parameters.AddOptionalEnum("type", type);
-        parameters.AddOptional("ccy", currency);
-        parameters.AddOptional("subAcct", subAccountName);
-        parameters.AddOptional("subUid", subAccountId?.ToOkxString());
-        parameters.AddOptional("after", after?.ToOkxString());
-        parameters.AddOptional("before", before?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptionalEnum("type", request.Type);
+        parameters.AddOptional("ccy", request.Currency);
+        parameters.AddOptional("subAcct", request.SubAccountName);
+        parameters.AddOptional("subUid", request.SubAccountId?.ToOkxString());
+        parameters.AddOptional("after", request.After?.ToOkxString());
+        parameters.AddOptional("before", request.Before?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxSubAccountManagedBill>(GetUri("api/v5/asset/subaccount/managed-subaccount-bills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
@@ -330,18 +438,43 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
         bool? loanTransfer = null,
         bool? omitPositionRisk = null,
         CancellationToken ct = default)
+        => await TransferBetweenSubAccountsAsync(new OkxSubAccountTransferRequest
+        {
+            Currency = currency,
+            Amount = amount,
+            FromAccount = fromAccount,
+            ToAccount = toAccount,
+            FromSubAccountName = fromSubAccountName,
+            ToSubAccountName = toSubAccountName,
+            LoanTransfer = loanTransfer,
+            OmitPositionRisk = omitPositionRisk
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Applies to master accounts only
+    /// </summary>
+    public async Task<RestCallResult<long?>> TransferBetweenSubAccountsAsync(OkxSubAccountTransferRequest request, CancellationToken ct = default)
     {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.FromSubAccountName))
+            throw new ArgumentException("From sub-account name is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.ToSubAccountName))
+            throw new ArgumentException("To sub-account name is required.", nameof(request));
+
         var parameters = new ParameterCollection
         {
-            {"ccy", currency },
-            {"amt", amount.ToOkxString() },
-            {"fromSubAccount", fromSubAccountName },
-            {"toSubAccount", toSubAccountName },
+            {"ccy", request.Currency! },
+            {"amt", request.Amount.ToOkxString() },
+            {"fromSubAccount", request.FromSubAccountName! },
+            {"toSubAccount", request.ToSubAccountName! },
         };
-        parameters.AddEnum("from", fromAccount);
-        parameters.AddEnum("to", toAccount);
-        parameters.AddOptional("loanTrans", loanTransfer);
-        parameters.AddOptional("omitPosRisk", omitPositionRisk);
+        parameters.AddEnum("from", request.FromAccount);
+        parameters.AddEnum("to", request.ToAccount);
+        parameters.AddOptional("loanTrans", request.LoanTransfer);
+        parameters.AddOptional("omitPosRisk", request.OmitPositionRisk);
 
         var result = await ProcessOneRequestAsync<OkxSubAccountTransferIdContainer>(GetUri("api/v5/asset/subaccount/transfer"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
         if (!result) return new RestCallResult<long?>(result.Request, result.Response, result.Raw ?? "", result.Error);
@@ -395,3 +528,5 @@ public class OkxSubAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(
             nameof(type));
     }
 }
+
+

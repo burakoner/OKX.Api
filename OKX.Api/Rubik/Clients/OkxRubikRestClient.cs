@@ -1,4 +1,4 @@
-﻿namespace OKX.Api.Rubik;
+namespace OKX.Api.Rubik;
 
 /// <summary>
 /// OKX Rest Api Trading Statistics Client
@@ -75,17 +75,35 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => await GetContractOpenInterestHistoryAsync(new OkxRubikInstrumentPeriodRangeRequest
+        {
+            InstrumentId = instrumentId,
+            Period = period,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the contract open interest statistics of futures and perp. This endpoint returns a maximum of 1440 records.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikContractOpenInterestHistory>>> GetContractOpenInterestHistoryAsync(OkxRubikInstrumentPeriodRangeRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "contract open interest history");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.InstrumentId))
+            throw new ArgumentException("Instrument ID is required.", nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
+        ValidatePeriod(request.Period, ContractStatisticPeriods, nameof(request.Period), "contract open interest history");
 
         var parameters = new ParameterCollection {
-            { "instId", instrumentId},
+            { "instId", request.InstrumentId!},
         };
-        parameters.AddOptional("period", period);
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("period", request.Period);
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikContractOpenInterestHistory>(GetUri("api/v5/rubik/stat/contracts/open-interest-history"), HttpMethod.Get, ct, false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -109,17 +127,35 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
+        => await GetTakerVolumeAsync(new OkxRubikTakerVolumeRequest
+        {
+            Currency = currency,
+            InstrumentType = instrumentType,
+            Period = period,
+            Begin = begin,
+            End = end
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// This is the taker volume for both buyers and sellers.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikTakerVolume>>> GetTakerVolumeAsync(OkxRubikTakerVolumeRequest request, CancellationToken ct = default)
     {
-        ValidateTakerVolumeInstrumentType(instrumentType);
-        ValidatePeriod(period, SimpleStatisticPeriods, nameof(period), "taker volume");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+
+        ValidateTakerVolumeInstrumentType(request.InstrumentType);
+        ValidatePeriod(request.Period, SimpleStatisticPeriods, nameof(request.Period), "taker volume");
 
         var parameters = new ParameterCollection {
-            { "ccy", currency},
+            { "ccy", request.Currency!},
         };
-        parameters.AddEnum("instType", instrumentType);
-        parameters.AddOptional("period", period);
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddEnum("instType", request.InstrumentType);
+        parameters.AddOptional("period", request.Period);
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikTakerVolume>(GetUri("api/v5/rubik/stat/taker-volume"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -145,18 +181,37 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => await GetContractTakerVolumeAsync(new OkxRubikContractTakerVolumeRequest
+        {
+            InstrumentId = instrumentId,
+            Period = period,
+            Unit = unit,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the contract taker volume for both buyers and sellers. This endpoint returns a maximum of 1440 records.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikContractTakerVolume>>> GetContractTakerVolumeAsync(OkxRubikContractTakerVolumeRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "contract taker volume");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.InstrumentId))
+            throw new ArgumentException("Instrument ID is required.", nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
+        ValidatePeriod(request.Period, ContractStatisticPeriods, nameof(request.Period), "contract taker volume");
 
         var parameters = new ParameterCollection {
-            { "instId", instrumentId},
+            { "instId", request.InstrumentId!},
         };
-        parameters.AddOptional("period", period);
-        parameters.AddOptional("unit", unit);
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("period", request.Period);
+        parameters.AddOptional("unit", request.Unit);
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikContractTakerVolume>(GetUri("api/v5/rubik/stat/taker-volume-contract"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -178,15 +233,32 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
+        => await GetMarginLendingRatioAsync(new OkxRubikCurrencyPeriodRangeRequest
+        {
+            Currency = currency,
+            Period = period,
+            Begin = begin,
+            End = end
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// This indicator shows the ratio of cumulative data value between currency pair leverage quote currency and underlying asset over a given period of time.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikRatio>>> GetMarginLendingRatioAsync(OkxRubikCurrencyPeriodRangeRequest request, CancellationToken ct = default)
     {
-        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "margin lending ratio");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+
+        ValidatePeriod(request.Period, ContractStatisticPeriods, nameof(request.Period), "margin lending ratio");
 
         var parameters = new ParameterCollection {
-            { "ccy", currency},
+            { "ccy", request.Currency!},
         };
-        parameters.AddOptional("period", period);
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("period", request.Period);
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikRatio>(GetUri("api/v5/rubik/stat/margin/loan-ratio"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -210,17 +282,35 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => await GetTopTradersContractLongShortRatioAsync(new OkxRubikInstrumentPeriodRangeRequest
+        {
+            InstrumentId = instrumentId,
+            Period = period,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the account net long/short ratio of a contract for top traders.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikRatio>>> GetTopTradersContractLongShortRatioAsync(OkxRubikInstrumentPeriodRangeRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "top traders contract long/short ratio");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.InstrumentId))
+            throw new ArgumentException("Instrument ID is required.", nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
+        ValidatePeriod(request.Period, ContractStatisticPeriods, nameof(request.Period), "top traders contract long/short ratio");
 
         var parameters = new ParameterCollection {
-            { "instId", instrumentId},
+            { "instId", request.InstrumentId!},
         };
-        parameters.AddOptional("period", period);
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("period", request.Period);
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikRatio>(GetUri("api/v5/rubik/stat/contracts/long-short-account-ratio-contract-top-trader"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -244,17 +334,35 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => await GetTopTradersContractLongShortRatioByPositionAsync(new OkxRubikInstrumentPeriodRangeRequest
+        {
+            InstrumentId = instrumentId,
+            Period = period,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the position long/short ratio of a contract for top traders.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikRatio>>> GetTopTradersContractLongShortRatioByPositionAsync(OkxRubikInstrumentPeriodRangeRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "top traders contract long/short ratio by position");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.InstrumentId))
+            throw new ArgumentException("Instrument ID is required.", nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
+        ValidatePeriod(request.Period, ContractStatisticPeriods, nameof(request.Period), "top traders contract long/short ratio by position");
 
         var parameters = new ParameterCollection {
-            { "instId", instrumentId},
+            { "instId", request.InstrumentId!},
         };
-        parameters.AddOptional("period", period);
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("period", request.Period);
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikRatio>(GetUri("api/v5/rubik/stat/contracts/long-short-position-ratio-contract-top-trader"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -278,17 +386,35 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? end = null,
         int limit = 100,
         CancellationToken ct = default)
+        => await GetContractLongShortRatioAsync(new OkxRubikInstrumentPeriodRangeRequest
+        {
+            InstrumentId = instrumentId,
+            Period = period,
+            Begin = begin,
+            End = end,
+            Limit = limit
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Retrieve the position long/short ratio of a contract for top traders.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikRatio>>> GetContractLongShortRatioAsync(OkxRubikInstrumentPeriodRangeRequest request, CancellationToken ct = default)
     {
-        limit.ValidateIntBetween(nameof(limit), 1, 100);
-        ValidatePeriod(period, ContractStatisticPeriods, nameof(period), "contract long/short ratio");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.InstrumentId))
+            throw new ArgumentException("Instrument ID is required.", nameof(request));
+
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
+        ValidatePeriod(request.Period, ContractStatisticPeriods, nameof(request.Period), "contract long/short ratio");
 
         var parameters = new ParameterCollection {
-            { "instId", instrumentId},
+            { "instId", request.InstrumentId!},
         };
-        parameters.AddOptional("period", period);
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
-        parameters.AddOptional("limit", limit.ToOkxString());
+        parameters.AddOptional("period", request.Period);
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
+        parameters.AddOptional("limit", request.Limit.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikRatio>(GetUri("api/v5/rubik/stat/contracts/long-short-account-ratio-contract"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -311,15 +437,32 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
+        => await GetLongShortRatioAsync(new OkxRubikCurrencyPeriodRangeRequest
+        {
+            Currency = currency,
+            Period = period,
+            Begin = begin,
+            End = end
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// This is the ratio of users with net long vs short positions.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikRatio>>> GetLongShortRatioAsync(OkxRubikCurrencyPeriodRangeRequest request, CancellationToken ct = default)
     {
-        ValidatePeriod(period, SimpleStatisticPeriods, nameof(period), "long/short ratio");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+
+        ValidatePeriod(request.Period, SimpleStatisticPeriods, nameof(request.Period), "long/short ratio");
 
         var parameters = new ParameterCollection {
-            { "ccy", currency},
+            { "ccy", request.Currency!},
         };
-        parameters.AddOptional("period", period);
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("period", request.Period);
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikRatio>(GetUri("api/v5/rubik/stat/contracts/long-short-account-ratio"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -339,15 +482,32 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         long? begin = null,
         long? end = null,
         CancellationToken ct = default)
+        => await GetContractSummaryAsync(new OkxRubikCurrencyPeriodRangeRequest
+        {
+            Currency = currency,
+            Period = period,
+            Begin = begin,
+            End = end
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// Open interest is the sum of all long and short futures and perpetual swap positions.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikInterestVolume>>> GetContractSummaryAsync(OkxRubikCurrencyPeriodRangeRequest request, CancellationToken ct = default)
     {
-        ValidatePeriod(period, SimpleStatisticPeriods, nameof(period), "contracts open interest and volume");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+
+        ValidatePeriod(request.Period, SimpleStatisticPeriods, nameof(request.Period), "contracts open interest and volume");
 
         var parameters = new ParameterCollection {
-            { "ccy", currency},
+            { "ccy", request.Currency!},
         };
-        parameters.AddOptional("period", period);
-        parameters.AddOptional("begin", begin?.ToOkxString());
-        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("period", request.Period);
+        parameters.AddOptional("begin", request.Begin?.ToOkxString());
+        parameters.AddOptional("end", request.End?.ToOkxString());
 
         return await ProcessListRequestAsync<OkxRubikInterestVolume>(GetUri("api/v5/rubik/stat/contracts/open-interest-volume"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -363,13 +523,28 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string currency,
         string? period = null,
         CancellationToken ct = default)
+        => await GetOptionsSummaryAsync(new OkxRubikOptionPeriodRequest
+        {
+            Currency = currency,
+            Period = period
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// This shows the sum of all open positions and how much total trading volume has taken place.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikInterestVolume>>> GetOptionsSummaryAsync(OkxRubikOptionPeriodRequest request, CancellationToken ct = default)
     {
-        ValidatePeriod(period, OptionStatisticPeriods, nameof(period), "options open interest and volume");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+
+        ValidatePeriod(request.Period, OptionStatisticPeriods, nameof(request.Period), "options open interest and volume");
 
         var parameters = new ParameterCollection {
-            { "ccy", currency},
+            { "ccy", request.Currency!},
         };
-        parameters.AddOptional("period", period);
+        parameters.AddOptional("period", request.Period);
 
         return await ProcessListRequestAsync<OkxRubikInterestVolume>(GetUri("api/v5/rubik/stat/option/open-interest-volume"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -385,13 +560,28 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string currency,
         string? period = null,
         CancellationToken ct = default)
+        => await GetPutCallRatioAsync(new OkxRubikOptionPeriodRequest
+        {
+            Currency = currency,
+            Period = period
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// This shows the relative buy/sell volume for calls and puts.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikPutCallRatio>>> GetPutCallRatioAsync(OkxRubikOptionPeriodRequest request, CancellationToken ct = default)
     {
-        ValidatePeriod(period, OptionStatisticPeriods, nameof(period), "put/call ratio");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+
+        ValidatePeriod(request.Period, OptionStatisticPeriods, nameof(request.Period), "put/call ratio");
 
         var parameters = new ParameterCollection {
-            { "ccy", currency},
+            { "ccy", request.Currency!},
         };
-        parameters.AddOptional("period", period);
+        parameters.AddOptional("period", request.Period);
 
         return await ProcessListRequestAsync<OkxRubikPutCallRatio>(GetUri("api/v5/rubik/stat/option/open-interest-volume-ratio"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -407,13 +597,28 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string currency,
         string? period = null,
         CancellationToken ct = default)
+        => await GetInterestVolumeExpiryAsync(new OkxRubikOptionPeriodRequest
+        {
+            Currency = currency,
+            Period = period
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// This shows the volume and open interest for each upcoming expiration.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikInterestVolumeExpiry>>> GetInterestVolumeExpiryAsync(OkxRubikOptionPeriodRequest request, CancellationToken ct = default)
     {
-        ValidatePeriod(period, OptionStatisticPeriods, nameof(period), "open interest and volume by expiry");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+
+        ValidatePeriod(request.Period, OptionStatisticPeriods, nameof(request.Period), "open interest and volume by expiry");
 
         var parameters = new ParameterCollection {
-            { "ccy", currency},
+            { "ccy", request.Currency!},
         };
-        parameters.AddOptional("period", period);
+        parameters.AddOptional("period", request.Period);
 
         return await ProcessListRequestAsync<OkxRubikInterestVolumeExpiry>(GetUri("api/v5/rubik/stat/option/open-interest-volume-expiry"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -431,14 +636,32 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string expiryTime,
         string? period = null,
         CancellationToken ct = default)
+        => await GetInterestVolumeStrikeAsync(new OkxRubikOptionStrikeRequest
+        {
+            Currency = currency,
+            ExpiryTime = expiryTime,
+            Period = period
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// This shows what option strikes are the most popular for each expiration.
+    /// </summary>
+    public async Task<RestCallResult<List<OkxRubikInterestVolumeStrike>>> GetInterestVolumeStrikeAsync(OkxRubikOptionStrikeRequest request, CancellationToken ct = default)
     {
-        ValidatePeriod(period, OptionStatisticPeriods, nameof(period), "open interest and volume by strike");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.ExpiryTime))
+            throw new ArgumentException("Expiry time is required.", nameof(request));
+
+        ValidatePeriod(request.Period, OptionStatisticPeriods, nameof(request.Period), "open interest and volume by strike");
 
         var parameters = new ParameterCollection {
-            { "ccy", currency},
-            { "expTime", expiryTime},
+            { "ccy", request.Currency!},
+            { "expTime", request.ExpiryTime!},
         };
-        parameters.AddOptional("period", period);
+        parameters.AddOptional("period", request.Period);
 
         return await ProcessListRequestAsync<OkxRubikInterestVolumeStrike>(GetUri("api/v5/rubik/stat/option/open-interest-volume-strike"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -454,13 +677,28 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         string currency,
         string? period = null,
         CancellationToken ct = default)
+        => await GetTakerFlowAsync(new OkxRubikOptionPeriodRequest
+        {
+            Currency = currency,
+            Period = period
+        }, ct).ConfigureAwait(false);
+
+    /// <summary>
+    /// This shows the relative buy/sell volume for calls and puts.
+    /// </summary>
+    public async Task<RestCallResult<OkxRubikTakerFlow>> GetTakerFlowAsync(OkxRubikOptionPeriodRequest request, CancellationToken ct = default)
     {
-        ValidatePeriod(period, OptionStatisticPeriods, nameof(period), "taker flow");
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.IsNullOrWhiteSpace(request.Currency))
+            throw new ArgumentException("Currency is required.", nameof(request));
+
+        ValidatePeriod(request.Period, OptionStatisticPeriods, nameof(request.Period), "taker flow");
 
         var parameters = new ParameterCollection {
-            { "ccy", currency},
+            { "ccy", request.Currency!},
         };
-        parameters.AddOptional("period", period);
+        parameters.AddOptional("period", request.Period);
 
         return await ProcessArrayModelRequestAsync<OkxRubikTakerFlow>(GetUri("api/v5/rubik/stat/option/taker-block-volume"), HttpMethod.Get, ct, signed: false, queryParameters: parameters).ConfigureAwait(false);
     }
@@ -484,3 +722,5 @@ public class OkxRubikRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         throw new ArgumentException($"Invalid period '{period}' for {endpointName}. Allowed values: {string.Join(", ", allowedValues)}", parameterName);
     }
 }
+
+
