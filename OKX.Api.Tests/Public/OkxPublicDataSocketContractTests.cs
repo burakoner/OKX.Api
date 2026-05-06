@@ -37,6 +37,16 @@ public class OkxPublicDataSocketContractTests
     }
 
     [Fact]
+    public void ManualInstrumentsSocketFixture_ParsesPostOnlyState()
+    {
+        var response = DeserializeSocket<OkxPublicInstrument>("Public", "ws-instruments-post-only-state.json");
+
+        var instrument = Assert.Single(response);
+        Assert.Equal("BTC-USDT-SWAP", instrument.InstrumentId);
+        Assert.Equal(OkxInstrumentState.PostOnly, instrument.State);
+    }
+
+    [Fact]
     public void EconomicCalendarSubscription_UsesAuthenticatedBusinessSocket()
     {
         var method = typeof(OkxPublicSocketClient).GetMethod("CreateEconomicCalendarSubscription", BindingFlags.NonPublic | BindingFlags.Static);

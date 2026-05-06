@@ -54,6 +54,16 @@ public class OkxPublicInstrumentContractTests
     }
 
     [Fact]
+    public void ManualPublicInstrumentsFixture_ParsesPostOnlyState()
+    {
+        var response = DeserializeManual("Public", "get-instruments-post-only-state.json");
+
+        var instrument = Assert.Single(response.Data!);
+        Assert.Equal("BTC-USDT-SWAP", instrument.InstrumentId);
+        Assert.Equal(OkxInstrumentState.PostOnly, instrument.State);
+    }
+
+    [Fact]
     public void ManualPublicInstrumentsFixture_ParsesXPerpRuleTypeAndFiveYearAliases()
     {
         var response = DeserializeManual("Public", "get-instruments-xperp-values.json");

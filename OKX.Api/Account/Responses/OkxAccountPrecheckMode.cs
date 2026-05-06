@@ -91,6 +91,7 @@ public record OkxAccountPrecheckModeUnmatchedInformation
     /// repay_borrowings: borrowings
     /// compliance_restriction: due to compliance restrictions, margin trading services are unavailable
     /// compliance_kyc2: Due to compliance restrictions, margin trading services are unavailable.If you are not a resident of this region, please complete kyc2 identity verification.
+    /// risk_unit_type: the account is part of a delta neutral risk unit and cannot be switched to general mode
     /// </summary>
     [JsonProperty("type")]
     public string Type { get; set; } = "";

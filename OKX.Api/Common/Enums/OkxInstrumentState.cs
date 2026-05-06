@@ -48,4 +48,11 @@ public enum OkxInstrumentState : byte
     /// </summary>
     [Map("settling")]
     Settling = 7,
+
+    /// <summary>
+    /// Post only.
+    /// Only post-only orders are accepted. Only applicable to SWAP.
+    /// </summary>
+    [Map("post_only")]
+    PostOnly = 8,
 }

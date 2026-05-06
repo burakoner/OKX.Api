@@ -50,6 +50,10 @@ public class OkxTradingAccountContractTests
 
         var isolatedMargin = Assert.Single(data.UnmatchedInformationList, x => x.Type == "isolated_margin");
         Assert.Equal("998877", Assert.Single(isolatedMargin.PositionList!));
+
+        var riskUnitType = Assert.Single(data.UnmatchedInformationList, x => x.Type == "risk_unit_type");
+        Assert.Empty(riskUnitType.OrderList!);
+        Assert.Empty(riskUnitType.PositionList!);
     }
 
     private static OkxRestApiResponse<List<T>> DeserializeRest<T>(params string[] fixturePath) where T : class

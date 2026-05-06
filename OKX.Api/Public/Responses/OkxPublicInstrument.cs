@@ -265,7 +265,8 @@ public record OkxPublicInstrument
     public string? Alias { get; set; } = string.Empty;
 
     /// <summary>
-    /// State
+    /// Instrument status, e.g. live, suspend, rebase, post_only, preopen, expired, test, settling.
+    /// post_only is only applicable to SWAP and only accepts post-only orders.
     /// </summary>
     [JsonProperty("state")]
     public OkxInstrumentState State { get; set; }
