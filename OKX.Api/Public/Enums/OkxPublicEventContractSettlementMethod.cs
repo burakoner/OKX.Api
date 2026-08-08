@@ -16,4 +16,16 @@ public enum OkxPublicEventContractSettlementMethod : byte
     /// </summary>
     [Map("price_above")]
     PriceAbove = 2,
+
+    /// <summary>
+    /// Settles when the price touches the strike level.
+    /// </summary>
+    [Map("hit")]
+    Hit = 3,
+
+    /// <summary>
+    /// Settles when the price is within the documented strike range.
+    /// </summary>
+    [Map("between")]
+    Between = 4,
 }

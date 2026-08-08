@@ -8,13 +8,11 @@ namespace OKX.Api.Tests.Integration;
 public class OkxPublicEventContractIntegrationTests
 {
     [SkippableFact]
-    public async Task AuthenticatedEventContractEndpoints_ReturnCurrentEventData()
+    public async Task PublicEventContractEndpoints_ReturnCurrentEventData()
     {
         var configuration = TestConfiguration.Load();
         Skip.IfNot(configuration.RunIntegrationTests, "Set OKX_RUN_INTEGRATION_TESTS=true in .env to enable live integration tests.");
-        Skip.IfNot(configuration.HasApiCredentials, "Set OKX_API_KEY, OKX_API_SECRET, and OKX_API_PASSPHRASE in .env to enable authenticated public event-contract integration tests.");
-
-        var client = OkxRestClientFactory.CreatePrivate(configuration);
+        var client = OkxRestClientFactory.CreatePublic(configuration);
 
         var seriesResult = await client.Public.GetEventContractSeriesAsync(configuration.PublicEventsSeriesId);
         Skip.If(seriesResult.Error?.Code == 50011, "OKX rate-limited the live event contract series request.");
@@ -37,9 +35,9 @@ public class OkxPublicEventContractIntegrationTests
         Assert.NotEmpty(marketsResult.Data);
         Assert.All(marketsResult.Data, x => Assert.Equal(configuration.PublicEventsSeriesId, x.SeriesId));
 
-        var instrumentsResult = await client.Public.GetInstrumentsAsync(OkxInstrumentType.Events, seriesId: configuration.PublicEventsSeriesId, signed: true);
-        Skip.If(instrumentsResult.Error?.Code == 50011, "OKX rate-limited the live authenticated event instruments request.");
-        Assert.True(instrumentsResult.Success, instrumentsResult.Error?.ToString() ?? "Authenticated event instruments request should succeed.");
+        var instrumentsResult = await client.Public.GetInstrumentsAsync(OkxInstrumentType.Events, seriesId: configuration.PublicEventsSeriesId);
+        Skip.If(instrumentsResult.Error?.Code == 50011, "OKX rate-limited the live event instruments request.");
+        Assert.True(instrumentsResult.Success, instrumentsResult.Error?.ToString() ?? "Event instruments request should succeed.");
         Assert.NotNull(instrumentsResult.Data);
         Assert.NotEmpty(instrumentsResult.Data);
         Assert.All(instrumentsResult.Data, x => Assert.Equal(OkxInstrumentType.Events, x.InstrumentType));

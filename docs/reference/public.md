@@ -41,14 +41,13 @@ var insuranceFunds = await api.Public.GetInsuranceFundsAsync(OkxInstrumentType.M
 var serverTime = await api.Public.GetServerTimeAsync();
 ```
 
-Event-contract examples:
+Event-contract endpoints are public and do not require API credentials:
 
 ```csharp
-api.SetApiCredentials("YOUR-API-KEY", "YOUR-API-SECRET", "YOUR-API-PASSPHRASE");
-
 var series = await api.Public.GetEventContractSeriesAsync();
 var events = await api.Public.GetEventContractEventsAsync("series-id");
 var markets = await api.Public.GetEventContractMarketsAsync("series-id", eventId: "event-id");
+var eventTickBands = await api.Public.GetInstrumentTickBandsAsync(OkxInstrumentType.Events);
 ```
 
 ## Method Catalog
@@ -100,6 +99,7 @@ var markets = await api.Public.GetEventContractMarketsAsync("series-id", eventId
 - `GetInsuranceFundAsync`
 - `GetInsuranceFundsAsync`
 - `GetUnitConvertAsync`
+- `GetInstrumentTickBandsAsync`
 - `GetOptionTickBandsAsync`
 - `GetExchangeRateAsync`
 - `GetIndexComponentsAsync`
@@ -253,6 +253,8 @@ var marketDataHistory = await api.Public.GetMarketDataHistoryAsync(new OkxPublic
 
 - For public trading dashboards, `api.Public` and `api.Rubik` are usually the two most important read-only clients.
 - Use typed request overloads when you need many optional filters or when you want future additions to be easier to absorb.
-- Event-contract endpoints may require signed access depending on the route and OKX environment.
+- Event-contract series, events, and markets REST endpoints are unsigned public requests. Series responses support `five_min`, `fifteen_min`, `hourly`, `daily`, and `monthly` frequencies plus `price_up_down`, `price_above`, `hit`, and `between` settlement methods.
+- `GetInstrumentsAsync` requires `seriesId` for EVENTS and `instFamily` for OPTION. For OPTION/EVENTS, the returned `tickSz` is only the minimum across the tick bands; use `GetInstrumentTickBandsAsync` for the exact price-range increment.
+- Instrument responses preserve the current price-limit percentages, RPI spacing, deprecated auction/category fields, and upcoming-change metadata.
 
 

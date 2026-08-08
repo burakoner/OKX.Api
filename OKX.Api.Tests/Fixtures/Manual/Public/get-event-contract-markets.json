@@ -12,7 +12,9 @@
       "state": "live",
       "outcome": "0",
       "floorStrike": "65000",
+      "capStrike": "",
       "settleValue": "",
+      "hitDir": "",
       "disputed": false
     },
     {
@@ -25,8 +27,25 @@
       "state": "expired",
       "outcome": "2",
       "floorStrike": "120000",
+      "capStrike": "",
       "settleValue": "118500.5",
+      "hitDir": "",
       "disputed": true
+    },
+    {
+      "seriesId": "BTC-HIT-FIVE-MIN",
+      "eventId": "BTC-HIT-FIVE-MIN-260224-1620",
+      "instId": "BTC-HIT-FIVE-MIN-260224-1620-65000",
+      "listTime": "1769698000000",
+      "fixTime": "",
+      "expTime": "1769698200000",
+      "state": "expired",
+      "outcome": "1",
+      "floorStrike": "65000",
+      "capStrike": "INF",
+      "settleValue": "65001.5",
+      "hitDir": "up",
+      "disputed": false
     }
   ]
 }

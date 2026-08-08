@@ -17,8 +17,30 @@ public class OkxPublicInstrumentContractTests
         var instrument = Assert.Single(response.Data!);
         Assert.Equal("BTC-USDT-SWAP", instrument.InstrumentId);
         Assert.Equal(OkxPublicInstrumentCategory.Crypto, instrument.InstrumentCategory);
+        Assert.Equal(1000000000m, instrument.PlatformWideMaximumPositionValue);
+        Assert.Equal(25000.5m, instrument.PlatformWideMaximumPositionValueInCoins);
         Assert.Equal(1250.50m, instrument.LongPositionRemainingQuota);
         Assert.Equal(775.25m, instrument.ShortPositionRemainingQuota);
+        Assert.Equal(OkxPublicElpPermission.NoUserPermission, instrument.ElpMakerPermission);
+        Assert.Equal(OkxPublicRpiPermission.Allowed, instrument.RpiMakerPermission);
+        Assert.Equal(0.05m, instrument.InitialPriceLimitPercentage);
+        Assert.Equal(0.03m, instrument.FloatingPriceLimitPercentage);
+        Assert.Equal(0.15m, instrument.MaximumPriceLimitPercentage);
+    }
+
+    [Fact]
+    public void ManualPublicInstrumentsFixture_ParsesCurrentLimitAndRpiSpacingFields()
+    {
+        var response = DeserializeManual("Public", "get-instruments-current-fields.json");
+
+        var instrument = Assert.Single(response.Data!);
+        Assert.Equal("1", instrument.DeprecatedCategory);
+        Assert.Null(instrument.AuctionEndTimestamp);
+        Assert.Equal(0.05m, instrument.InitialPriceLimitPercentage);
+        Assert.Equal(0.03m, instrument.FloatingPriceLimitPercentage);
+        Assert.Equal(0.15m, instrument.MaximumPriceLimitPercentage);
+        Assert.Equal(4, instrument.RpiMinimumLevel);
+        Assert.Equal(20m, instrument.RpiMinimumPriceBand);
     }
 
     [Fact]

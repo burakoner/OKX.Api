@@ -128,6 +128,7 @@ internal static class Program
         _ = await api.Public.GetOptionMarketDataAsync(ExampleOptionFamily);
         _ = await api.Public.GetEstimatedPriceAsync("BTC-USD-240628-50000-C");
         _ = await api.Public.GetOptionTickBandsAsync();
+        _ = await api.Public.GetInstrumentTickBandsAsync(OkxInstrumentType.Events);
         _ = await api.Public.GetUnderlyingAsync(OkxInstrumentType.Option);
         _ = await api.Public.GetIndexTickersAsync("BTC-USDT");
         _ = await api.Public.GetIndexCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);

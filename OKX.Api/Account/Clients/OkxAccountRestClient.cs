@@ -47,6 +47,22 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
        string? seriesId = null,
        CancellationToken ct = default)
     {
+        if (instrumentType.IsNotIn(
+            OkxInstrumentType.Spot,
+            OkxInstrumentType.Margin,
+            OkxInstrumentType.Swap,
+            OkxInstrumentType.Futures,
+            OkxInstrumentType.Option,
+            OkxInstrumentType.Events))
+            throw new ArgumentException("Unsupported instrument type.", nameof(instrumentType));
+        if (instrumentType == OkxInstrumentType.Events && string.IsNullOrWhiteSpace(seriesId))
+            throw new ArgumentException("Series ID is required for Events instruments.", nameof(seriesId));
+        if (instrumentType == OkxInstrumentType.Option && string.IsNullOrWhiteSpace(instrumentFamily))
+            throw new ArgumentException("Instrument family is required for Option instruments.", nameof(instrumentFamily));
+        if (!string.IsNullOrWhiteSpace(instrumentFamily) &&
+            instrumentType.IsNotIn(OkxInstrumentType.Swap, OkxInstrumentType.Futures, OkxInstrumentType.Option))
+            throw new ArgumentException("Instrument family is only applicable to Swap, Futures, or Option instruments.", nameof(instrumentFamily));
+
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
         parameters.AddOptional("instFamily", instrumentFamily);

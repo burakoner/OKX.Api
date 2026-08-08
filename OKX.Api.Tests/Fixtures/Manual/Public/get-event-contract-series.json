@@ -25,6 +25,42 @@
         "srcName": "cf_benchmark_index",
         "underlying": "BTC-USDT"
       }
+    },
+    {
+      "seriesId": "BTC-HIT-FIVE-MIN",
+      "freq": "five_min",
+      "title": "BTC touches strike in five minutes",
+      "category": "Crypto",
+      "settlement": {
+        "method": "hit",
+        "closeEarly": true,
+        "srcName": "okx_index",
+        "underlying": "BTC-USDT"
+      }
+    },
+    {
+      "seriesId": "BTC-BETWEEN-HOURLY",
+      "freq": "hourly",
+      "title": "BTC hourly range",
+      "category": "Crypto",
+      "settlement": {
+        "method": "between",
+        "closeEarly": false,
+        "srcName": "okx_index",
+        "underlying": "BTC-USDT"
+      }
+    },
+    {
+      "seriesId": "BTC-ABOVE-MONTHLY",
+      "freq": "monthly",
+      "title": "BTC monthly close",
+      "category": "Crypto",
+      "settlement": {
+        "method": "price_above",
+        "closeEarly": false,
+        "srcName": "okx_index",
+        "underlying": "BTC-USDT"
+      }
     }
   ]
 }

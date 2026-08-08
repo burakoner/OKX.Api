@@ -1,0 +1,27 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instType": "EVENTS",
+      "instFamily": "",
+      "tickBand": [
+        {
+          "minPx": "0",
+          "maxPx": "0.1",
+          "tickSz": "0.001"
+        },
+        {
+          "minPx": "0.1",
+          "maxPx": "0.9",
+          "tickSz": "0.005"
+        },
+        {
+          "minPx": "0.9",
+          "maxPx": "1",
+          "tickSz": "0.001"
+        }
+      ]
+    }
+  ]
+}

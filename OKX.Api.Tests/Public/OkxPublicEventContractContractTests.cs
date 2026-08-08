@@ -15,7 +15,7 @@ public class OkxPublicEventContractContractTests
     {
         var response = DeserializeRest<OkxPublicEventContractSeries>("Public", "get-event-contract-series.json");
 
-        Assert.Equal(2, response.Data!.Count);
+        Assert.Equal(5, response.Data!.Count);
 
         var daily = response.Data.Single(x => x.SeriesId == "BTC-ABOVE-DAILY");
         Assert.Equal(OkxPublicEventContractFrequency.Daily, daily.Frequency);
@@ -30,6 +30,17 @@ public class OkxPublicEventContractContractTests
         Assert.Equal(OkxPublicEventContractFrequency.FifteenMinute, fifteenMinute.Frequency);
         Assert.Equal(OkxPublicEventContractSettlementMethod.PriceUpDown, fifteenMinute.Settlement.Method);
         Assert.True(fifteenMinute.Settlement.CloseEarly);
+
+        var fiveMinute = response.Data.Single(x => x.SeriesId == "BTC-HIT-FIVE-MIN");
+        Assert.Equal(OkxPublicEventContractFrequency.FiveMinute, fiveMinute.Frequency);
+        Assert.Equal(OkxPublicEventContractSettlementMethod.Hit, fiveMinute.Settlement.Method);
+
+        var hourly = response.Data.Single(x => x.SeriesId == "BTC-BETWEEN-HOURLY");
+        Assert.Equal(OkxPublicEventContractFrequency.Hourly, hourly.Frequency);
+        Assert.Equal(OkxPublicEventContractSettlementMethod.Between, hourly.Settlement.Method);
+
+        var monthly = response.Data.Single(x => x.SeriesId == "BTC-ABOVE-MONTHLY");
+        Assert.Equal(OkxPublicEventContractFrequency.Monthly, monthly.Frequency);
     }
 
     [Fact]
@@ -54,7 +65,7 @@ public class OkxPublicEventContractContractTests
     {
         var response = DeserializeRest<OkxPublicEventContractMarket>("Public", "get-event-contract-markets.json");
 
-        Assert.Equal(2, response.Data!.Count);
+        Assert.Equal(3, response.Data!.Count);
 
         var live = response.Data.Single(x => x.InstrumentId == "BTC-ABOVE-DAILY-260224-1600-65000");
         Assert.Equal(OkxInstrumentState.Live, live.State);
@@ -68,6 +79,10 @@ public class OkxPublicEventContractContractTests
         Assert.Equal(OkxPublicEventContractMarketOutcome.No, expired.Outcome);
         Assert.Equal(118500.5m, expired.SettlementValue);
         Assert.True(expired.IsDisputed);
+
+        var hit = response.Data.Single(x => x.InstrumentId == "BTC-HIT-FIVE-MIN-260224-1620-65000");
+        Assert.Equal("INF", hit.CapStrike);
+        Assert.Equal(OkxPublicEventContractHitDirection.Up, hit.HitDirection);
     }
 
     [Fact]

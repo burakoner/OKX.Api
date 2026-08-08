@@ -88,9 +88,22 @@ public record OkxPublicEventContractMarket
     public decimal? FloorStrike { get; set; }
 
     /// <summary>
+    /// Maximum expiration value that leads to YES for between settlement.
+    /// The value can be INF for the topmost bracket and is empty for other settlement methods.
+    /// </summary>
+    [JsonProperty("capStrike")]
+    public string CapStrike { get; set; } = string.Empty;
+
+    /// <summary>
     /// Settlement value.
     /// </summary>
     [JsonProperty("settleValue")]
     [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? SettlementValue { get; set; }
+
+    /// <summary>
+    /// Hit direction. Only applicable to the hit settlement method.
+    /// </summary>
+    [JsonProperty("hitDir")]
+    public OkxPublicEventContractHitDirection? HitDirection { get; set; }
 }

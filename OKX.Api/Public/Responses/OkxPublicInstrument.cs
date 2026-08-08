@@ -83,6 +83,12 @@ public record OkxPublicInstrument
     public string? InstrumentFamily { get; set; } = string.Empty;
 
     /// <summary>
+    /// Deprecated currency category returned by the public REST endpoint and instruments channel.
+    /// </summary>
+    [JsonProperty("category")]
+    public string? DeprecatedCategory { get; set; }
+
+    /// <summary>
     /// Series ID, e.g. BTC-ABOVE-DAILY.
     /// Only applicable to EVENTS.
     /// </summary>
@@ -157,6 +163,18 @@ public record OkxPublicInstrument
     public DateTime? ListingTime => ListingTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
+    /// Deprecated call-auction end timestamp. Use ContinuousTradingSwitchTimestamp instead.
+    /// </summary>
+    [JsonProperty("auctionEndTime")]
+    public long? AuctionEndTimestamp { get; set; }
+
+    /// <summary>
+    /// Deprecated call-auction end time.
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? AuctionEndTime => AuctionEndTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
     /// Continuous trading switch time. The switch time from call auction, prequote to continuous trading, Unix timestamp format in milliseconds. e.g. 1597026383085.
     /// Only applicable to SPOT/MARGIN that are listed through call auction or prequote, return "" in other cases.
     /// </summary>
@@ -203,6 +221,12 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonProperty("elp")]
     public OkxPublicElpPermission? ElpMakerPermission { get; set; }
+
+    /// <summary>
+    /// RPI maker permission. Only returned by the private instruments endpoint.
+    /// </summary>
+    [JsonProperty("rpi")]
+    public OkxPublicRpiPermission? RpiMakerPermission { get; set; }
 
     /// <summary>
     /// Expiry timestamp
@@ -357,6 +381,13 @@ public record OkxPublicInstrument
     public decimal? PlatformWideMaximumPositionValue { get; set; }
 
     /// <summary>
+    /// Platform-wide maximum position value in coins for this instrument.
+    /// Only applicable to SWAP/FUTURES on the private instruments endpoint.
+    /// </summary>
+    [JsonProperty("maxPlatOICoinLmt")]
+    public decimal? PlatformWideMaximumPositionValueInCoins { get; set; }
+
+    /// <summary>
     /// Remaining long position value (USD) the user is permitted to open, netting all existing long positions and resting buy orders.
     /// Only applicable to the private instruments endpoint.
     /// The quota is shared across the master account and all sub-accounts.
@@ -371,6 +402,38 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonProperty("shortPosRemainingQuota")]
     public decimal? ShortPositionRemainingQuota { get; set; }
+
+    /// <summary>
+    /// Initial price-limit band applied during the first ten minutes after listing.
+    /// </summary>
+    [JsonProperty("initPxLmtPct")]
+    public decimal? InitialPriceLimitPercentage { get; set; }
+
+    /// <summary>
+    /// Floating price-limit band applied during normal trading.
+    /// </summary>
+    [JsonProperty("floatPxLmtPct")]
+    public decimal? FloatingPriceLimitPercentage { get; set; }
+
+    /// <summary>
+    /// Maximum price-limit deviation cap.
+    /// </summary>
+    [JsonProperty("maxPxLmtPct")]
+    public decimal? MaximumPriceLimitPercentage { get; set; }
+
+    /// <summary>
+    /// Minimum spacing between RPI bid and ask prices in organic price levels.
+    /// Only returned by the public instruments endpoint.
+    /// </summary>
+    [JsonProperty("rpiMinLevel")]
+    public int? RpiMinimumLevel { get; set; }
+
+    /// <summary>
+    /// Minimum distance from the opposite organic best price in basis points.
+    /// Only returned by the public instruments endpoint.
+    /// </summary>
+    [JsonProperty("rpiMinPxBand")]
+    public decimal? RpiMinimumPriceBand { get; set; }
 
     /// <summary>
     /// Upcoming changes. It is [] when there is no upcoming change.

@@ -11,10 +11,18 @@
       "quoteCcy": "USDT",
       "settleCcy": "USDT",
       "groupId": "1",
+      "auctionEndTime": "",
       "state": "live",
       "ruleType": "normal",
+      "elp": "1",
+      "rpi": "2",
+      "maxPlatOILmt": "1000000000",
+      "maxPlatOICoinLmt": "25000.5",
       "longPosRemainingQuota": "1250.50",
-      "shortPosRemainingQuota": "775.25"
+      "shortPosRemainingQuota": "775.25",
+      "initPxLmtPct": "0.05",
+      "floatPxLmtPct": "0.03",
+      "maxPxLmtPct": "0.15"
     }
   ]
 }

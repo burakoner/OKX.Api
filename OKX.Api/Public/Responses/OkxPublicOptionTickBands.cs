@@ -1,7 +1,7 @@
 ﻿namespace OKX.Api.Public;
 
 /// <summary>
-/// Option Tick Bands
+/// Instrument tick bands for OPTION or EVENTS instruments.
 /// </summary>
 public record OkxPublicOptionTickBands
 {
@@ -12,13 +12,13 @@ public record OkxPublicOptionTickBands
     public OkxInstrumentType InstrumentType { get; set; }
     
     /// <summary>
-    /// Instrument family
+    /// Instrument family. Only applicable to OPTION.
     /// </summary>
     [JsonProperty("instFamily")]
-    public string InstrumentFamily { get; set; } = string.Empty;
+    public string? InstrumentFamily { get; set; }
 
     /// <summary>
-    /// Tick size band
+    /// Tick size bands. EVENTS returns unified bands for all event contracts.
     /// </summary>
     [JsonProperty("tickBand")]
     public List<OkxPublicOptionTickBand> TickBands { get; set; } = [];

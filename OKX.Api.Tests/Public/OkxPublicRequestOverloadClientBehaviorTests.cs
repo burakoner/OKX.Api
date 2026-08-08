@@ -32,12 +32,11 @@ public class OkxPublicRequestOverloadClientBehaviorTests
         using var server = CreateServer("/api/v5/public/instruments", "{\"code\":\"0\",\"msg\":\"\",\"data\":[{}]}");
         var client = CreateClient(server);
 
-        await client.Public.GetInstrumentsAsync(OkxInstrumentType.Events, "EVENT-1", "BTC-USD", "series-1", true);
+        await client.Public.GetInstrumentsAsync(OkxInstrumentType.Events, "EVENT-1", seriesId: "series-1", signed: true);
         await client.Public.GetInstrumentsAsync(new OkxPublicInstrumentQueryRequest
         {
             InstrumentType = OkxInstrumentType.Events,
             InstrumentId = "EVENT-1",
-            InstrumentFamily = "BTC-USD",
             SeriesId = "series-1",
             Signed = true
         });

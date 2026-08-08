@@ -1,0 +1,25 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instType": "SWAP",
+      "instId": "BTC-USDT-SWAP",
+      "groupId": "4",
+      "category": "1",
+      "listTime": "1778800000000",
+      "auctionEndTime": "",
+      "contTdSwTime": "",
+      "preMktSwTime": "",
+      "tickSz": "0.1",
+      "state": "live",
+      "ruleType": "normal",
+      "initPxLmtPct": "0.05",
+      "floatPxLmtPct": "0.03",
+      "maxPxLmtPct": "0.15",
+      "rpiMinLevel": "4",
+      "rpiMinPxBand": "20",
+      "upcChg": []
+    }
+  ]
+}

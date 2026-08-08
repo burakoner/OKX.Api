@@ -196,7 +196,7 @@ function Save-PublicInstrumentSnapshots {
 
     Save-JsonSnapshot `
         -RelativePath "$root/get-instruments-option-btc-usd.json" `
-        -Uri "$BaseUrl/api/v5/public/instruments?instType=OPTION&uly=$([Uri]::EscapeDataString($OptionUnderlying))" `
+        -Uri "$BaseUrl/api/v5/public/instruments?instType=OPTION&instFamily=$([Uri]::EscapeDataString($OptionUnderlying))" `
         -Headers $Headers
 
     Save-JsonSnapshot `
