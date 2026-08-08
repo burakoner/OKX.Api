@@ -35,6 +35,11 @@ public class OkxFinancialRestClient
     /// </summary>
     public OkxFinancialDualInvestmentRestClient DualInvestment { get; }
 
+    /// <summary>
+    /// OKUSD Client
+    /// </summary>
+    public OkxFinancialOkusdRestClient Okusd { get; }
+
     internal OkxFinancialRestClient(OkxRestApiClient root)
     {
         OnChainEarn = new OkxFinancialOnChainEarnRestClient(root);
@@ -43,6 +48,7 @@ public class OkxFinancialRestClient
         SimpleEarn = new OkxFinancialSimpleEarnRestClient(root);
         FlexibleLoan = new OkxFinancialFlexibleLoanRestClient(root);
         DualInvestment = new OkxFinancialDualInvestmentRestClient(root);
+        Okusd = new OkxFinancialOkusdRestClient(root);
     }
 
     /// <summary>
@@ -57,5 +63,6 @@ public class OkxFinancialRestClient
         SimpleEarn.SetApiCredentials(credentials);
         FlexibleLoan.SetApiCredentials(credentials);
         DualInvestment.SetApiCredentials(credentials);
+        Okusd.SetApiCredentials(credentials);
     }
 }

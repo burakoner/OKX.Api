@@ -398,6 +398,30 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
     #region Public Data Methods
     /// <summary>
+    /// Retrieve Market Maker Program classifications for spot and swap instruments.
+    /// </summary>
+    /// <param name="instrumentType">Optional instrument type. Only Spot and Swap are supported.</param>
+    /// <param name="instrumentId">Optional instrument ID. When specified, OKX returns at most one record.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicMarketMakerInstrumentType>>> GetMarketMakerInstrumentTypesAsync(
+        OkxInstrumentType? instrumentType = null,
+        string? instrumentId = null,
+        CancellationToken ct = default)
+    {
+        if (instrumentType.HasValue && instrumentType.Value != OkxInstrumentType.Spot && instrumentType.Value != OkxInstrumentType.Swap)
+            throw new ArgumentOutOfRangeException(nameof(instrumentType), instrumentType, "Market Maker instrument classifications support only Spot and Swap.");
+        if (instrumentId is not null && string.IsNullOrWhiteSpace(instrumentId))
+            throw new ArgumentException("Instrument ID cannot be empty when provided.", nameof(instrumentId));
+
+        var parameters = new ParameterCollection();
+        parameters.AddOptionalEnum("instType", instrumentType);
+        parameters.AddOptional("instId", instrumentId);
+
+        return ProcessListRequestAsync<OkxPublicMarketMakerInstrumentType>(GetUri("api/v5/public/mm-instrument-types"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    /// <summary>
     /// Retrieve a list of instruments with open contracts.
     /// </summary>
     /// <param name="instrumentType">Instrument Type</param>

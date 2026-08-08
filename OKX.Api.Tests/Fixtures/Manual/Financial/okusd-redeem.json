@@ -1,0 +1,30 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ordId": "680012345678905678",
+      "clOrdId": "my-redeem-001",
+      "ccy": "OKUSD",
+      "amt": "1000.00000000",
+      "fee": "1.00000000",
+      "usdtAmt": "999.00000000",
+      "redeemType": "1",
+      "state": "success",
+      "estSettlementTime": "1718500010000",
+      "ts": "1718500000000"
+    },
+    {
+      "ordId": "680012345678906789",
+      "clOrdId": "my-redeem-002",
+      "ccy": "OKUSD",
+      "amt": "50000.00000000",
+      "fee": "12.50000000",
+      "usdtAmt": "49987.50000000",
+      "redeemType": "2",
+      "state": "processing",
+      "estSettlementTime": "1718932800000",
+      "ts": "1718500000000"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "subLimit": {
+        "maxSubAmt": "45000000",
+        "personalDailyLimit": "5000000",
+        "personalUsedAmt": "500000",
+        "platformDailyLimit": "50000000",
+        "platformUsedAmt": "5000000"
+      },
+      "fastRedeemLimit": {
+        "personalDailyLimit": "10000",
+        "personalUsedAmt": "0",
+        "platformDailyLimit": "5000000",
+        "platformUsedAmt": "1000000",
+        "feeRate": "0.001"
+      },
+      "stdRedeemLimit": {
+        "personalDailyLimit": "1000000",
+        "personalUsedAmt": "0",
+        "platformDailyLimit": "40000000",
+        "platformUsedAmt": "0",
+        "feeRate": "0.00025"
+      },
+      "ts": "1718500000000"
+    }
+  ]
+}

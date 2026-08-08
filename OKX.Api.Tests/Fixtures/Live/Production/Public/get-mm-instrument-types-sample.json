@@ -1,0 +1,21 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instId": "BTC-USD-SWAP",
+      "instType": "SWAP",
+      "pairType": "Type A"
+    },
+    {
+      "instId": "XRP-USD-SWAP",
+      "instType": "SWAP",
+      "pairType": "Type B-Crypto"
+    },
+    {
+      "instId": "AAOI-USDT-SWAP",
+      "instType": "SWAP",
+      "pairType": "Type B-TradFi"
+    }
+  ]
+}

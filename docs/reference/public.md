@@ -31,6 +31,7 @@ Reference-data examples:
 
 ```csharp
 var instruments = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Spot);
+var marketMakerPairs = await api.Public.GetMarketMakerInstrumentTypesAsync(OkxInstrumentType.Swap);
 var fundingRates = await api.Public.GetFundingRatesAsync("BTC-USD-SWAP");
 var positionTiers = await api.Public.GetPositionTiersAsync(
     OkxInstrumentType.Futures,
@@ -112,9 +113,14 @@ Do not reject an update merely because `SequenceId` equals or is lower than `Pre
 ### Instruments and Event Contracts
 
 - `GetInstrumentsAsync`
+- `GetMarketMakerInstrumentTypesAsync`
 - `GetEventContractSeriesAsync`
 - `GetEventContractEventsAsync`
 - `GetEventContractMarketsAsync`
+
+`GetMarketMakerInstrumentTypesAsync` is an unsigned, IP-limited public read for SPOT and SWAP instruments. It returns the current MM Program classifications `A`, `B-Crypto`, and the SWAP-only `B-TradFi`; an optional instrument ID narrows the response to at most one record.
+
+The official response table currently documents those three values without a prefix. A read-only production check on 08 Aug 2026 returned `Type A`, `Type B-Crypto`, and `Type B-TradFi` instead. The client accepts both representations and maps them to the same enum values; the documented unprefixed value remains the canonical serialization label.
 
 ### Pricing, Delivery, Settlement, and Funding
 
