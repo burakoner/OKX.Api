@@ -42,6 +42,12 @@ public record OkxTradeOrder
     public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
+    /// Order tag.
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
+
+    /// <summary>
     /// Price
     /// </summary>
     [JsonProperty("px")]
@@ -73,6 +79,12 @@ public record OkxTradeOrder
     /// </summary>
     [JsonProperty("sz")]
     public decimal? Quantity { get; set; }
+
+    /// <summary>
+    /// Estimated notional value of the order in USD.
+    /// </summary>
+    [JsonProperty("notionalUsd"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? NotionalUsd { get; set; }
 
     /// <summary>
     /// Profit and loss, Applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
@@ -129,6 +141,12 @@ public record OkxTradeOrder
     public decimal? FillQuantity { get; set; }
 
     /// <summary>
+    /// Filled profit and loss for the current update.
+    /// </summary>
+    [JsonProperty("fillPnl"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? FillProfitAndLoss { get; set; }
+
+    /// <summary>
     /// Last filled time
     /// </summary>
     [JsonProperty("fillTime")]
@@ -141,10 +159,64 @@ public record OkxTradeOrder
     public DateTime? FillTime => FillTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
+    /// Fee or rebate for the current update. A negative value is a fee and a positive value is a rebate.
+    /// </summary>
+    [JsonProperty("fillFee"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? FillFee { get; set; }
+
+    /// <summary>
+    /// Fee or rebate currency for the current update.
+    /// </summary>
+    [JsonProperty("fillFeeCcy")]
+    public string FillFeeCurrency { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Implied volatility when the option order was filled.
+    /// </summary>
+    [JsonProperty("fillPxVol"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? FillPriceVolatility { get; set; }
+
+    /// <summary>
+    /// Option fill price in USD.
+    /// </summary>
+    [JsonProperty("fillPxUsd"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? FillPriceUsd { get; set; }
+
+    /// <summary>
+    /// Mark volatility when the option order was filled.
+    /// </summary>
+    [JsonProperty("fillMarkVol"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? FillMarkVolatility { get; set; }
+
+    /// <summary>
+    /// Forward price when the option order was filled.
+    /// </summary>
+    [JsonProperty("fillFwdPx"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? FillForwardPrice { get; set; }
+
+    /// <summary>
+    /// Mark price when the order was filled.
+    /// </summary>
+    [JsonProperty("fillMarkPx"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? FillMarkPrice { get; set; }
+
+    /// <summary>
+    /// Liquidity role for the current update.
+    /// </summary>
+    [JsonProperty("execType")]
+    public OkxTradeOrderRole? ExecutionType { get; set; }
+
+    /// <summary>
     /// Average filled price. If none is filled, it will return "".
     /// </summary>
     [JsonProperty("avgPx")]
     public decimal? AveragePrice { get; set; }
+
+    /// <summary>
+    /// Filled notional value of the order in USD.
+    /// </summary>
+    [JsonProperty("fillNotionalUsd"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? FillNotionalUsd { get; set; }
 
     /// <summary>
     /// State
@@ -158,6 +230,13 @@ public record OkxTradeOrder
     /// </summary>
     [JsonProperty("stpMode")]
     public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
+
+    /// <summary>
+    /// Deprecated self-trade prevention ID returned by OKX.
+    /// </summary>
+    [Obsolete("OKX deprecated stpId. Use SelfTradePreventionMode for current integrations.")]
+    [JsonProperty("stpId")]
+    public string SelfTradePreventionId { get; set; } = string.Empty;
 
     /// <summary>
     /// Leverage, from 0.01 to 125.
@@ -290,6 +369,12 @@ public record OkxTradeOrder
     public string CancelSourceReason { get; set; } = string.Empty;
 
     /// <summary>
+    /// Source of the latest order amendment.
+    /// </summary>
+    [JsonProperty("amendSource")]
+    public OkxTradeOrderAmendSource? AmendSource { get; set; }
+
+    /// <summary>
     /// Quick Margin type, Only applicable to Quick Margin Mode of isolated margin
     /// </summary>
     [JsonProperty("quickMgnType")]
@@ -306,6 +391,36 @@ public record OkxTradeOrder
     /// </summary>
     [JsonProperty("algoId")]
     public long? AlgoOrderId { get; set; }
+
+    /// <summary>
+    /// Client request ID assigned to the latest order amendment.
+    /// </summary>
+    [JsonProperty("reqId")]
+    public string ClientRequestId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Result of the latest order amendment.
+    /// </summary>
+    [JsonProperty("amendResult")]
+    public OkxTradeOrderAmendResult? AmendResult { get; set; }
+
+    /// <summary>
+    /// Latest market price.
+    /// </summary>
+    [JsonProperty("lastPx"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? LastPrice { get; set; }
+
+    /// <summary>
+    /// Error code for the order channel update. The default is 0.
+    /// </summary>
+    [JsonProperty("code")]
+    public string Code { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Error message for the order channel update. The default is empty.
+    /// </summary>
+    [JsonProperty("msg")]
+    public string Message { get; set; } = string.Empty;
 
     /// <summary>
     /// Update time, Unix timestamp format in milliseconds, e.g. 1597026383085

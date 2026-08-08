@@ -224,7 +224,7 @@ var borrowRepayHistory = await api.Account.GetBorrowRepayHistoryAsync(new OkxAcc
 ## Tips
 
 - Prefer request-model overloads when a call takes many optional filters.
-- `GetFeeRatesAsync` accepts `instId` only for SPOT/MARGIN and `instFamily` only for FUTURES/SWAP/OPTION; `groupId` cannot be combined with either selector. `feeGroup[].RpiMaker` is the current RPI rate, while `ElpMaker` preserves OKX's temporary alias and `EffectiveRpiMaker` reads either form. The deprecated root fee fields remain available for payload compatibility.
+- `GetFeeRatesAsync` accepts `instId` only for SPOT/MARGIN and `instFamily` only for FUTURES/SWAP/OPTION; `groupId` cannot be combined with either selector. `feeGroup[].RpiMaker` is the current RPI rate, while `ElpMaker` preserves OKX's temporary alias and `EffectiveRpiMaker` reads either form. The deprecated root fee fields remain available for payload compatibility. OKX limits this endpoint to 5 requests per 2 seconds per User ID.
 - Maker/taker fee-rate signs follow OKX's contract: positive means rebate and negative means commission. Delivery and exercise rates use positive values for commission. Zero-fee trading is not reflected by this endpoint.
 - `GetPositionTiersAsync` returns all rows that OKX sends; do not assume a single result.
 - `PositionBuilderAsync` is useful for portfolio margin and delta-neutral tooling, not day-to-day spot usage.

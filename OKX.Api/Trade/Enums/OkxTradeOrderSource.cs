@@ -6,14 +6,20 @@
 public enum OkxTradeOrderSource : byte
 {
     /// <summary>
-    /// Buy
+    /// Normal order
     /// </summary>
     [Map("0")]
     NormalOrder = 0,
 
     /// <summary>
-    /// Enhanced Liquidity Program order
+    /// Retail Price Improvement order
     /// </summary>
     [Map("1")]
-    EnhancedLiquidityProgramOrder = 1,
+    RetailPriceImprovementOrder = 1,
+
+    /// <summary>
+    /// Deprecated name for <see cref="RetailPriceImprovementOrder"/>.
+    /// </summary>
+    [Obsolete("OKX renamed ELP to RPI. Use RetailPriceImprovementOrder.")]
+    EnhancedLiquidityProgramOrder = RetailPriceImprovementOrder,
 }

@@ -70,6 +70,73 @@ public class OkxTradeRpiOrderContractTests
     }
 
     [Fact]
+    public void PublicTradeSource_MapsCurrentRpiNameAndKeepsLegacyAliasObsolete()
+    {
+        var trade = JsonConvert.DeserializeObject<OKX.Api.Public.OkxPublicTrade>("{\"source\":\"1\"}", SerializerOptions.WithConverters);
+
+        Assert.NotNull(trade);
+        Assert.Equal(OkxTradeOrderSource.RetailPriceImprovementOrder, trade.Source);
+        Assert.Equal("1", ApiSharp.Converters.MapConverter.GetString(OkxTradeOrderSource.RetailPriceImprovementOrder));
+#pragma warning disable CS0618
+        Assert.Equal("1", ApiSharp.Converters.MapConverter.GetString(OkxTradeOrderSource.EnhancedLiquidityProgramOrder));
+#pragma warning restore CS0618
+        Assert.NotNull(typeof(OkxTradeOrderSource).GetField("EnhancedLiquidityProgramOrder")!
+            .GetCustomAttributes(typeof(ObsoleteAttribute), false)
+            .SingleOrDefault());
+    }
+
+    [Fact]
+    public void OrdersChannelFixture_ParsesCurrentRpiAmendmentContract()
+    {
+        var json = FixtureReader.ReadManual("Trade", "ws-orders-rpi-amendment.json");
+        var response = JsonConvert.DeserializeObject<OkxSocketUpdateResponse<List<OkxTradeOrder>>>(json, SerializerOptions.WithConverters);
+
+        Assert.NotNull(response);
+        var order = Assert.Single(response.Data);
+        Assert.Equal("broker", order.Tag);
+        Assert.Equal(100000m, order.NotionalUsd);
+        Assert.Equal(1.2m, order.FillProfitAndLoss);
+        Assert.Equal(-0.01m, order.FillFee);
+        Assert.Equal("USDT", order.FillFeeCurrency);
+        Assert.Equal(0.51m, order.FillPriceVolatility);
+        Assert.Equal(100001m, order.FillPriceUsd);
+        Assert.Equal(0.50m, order.FillMarkVolatility);
+        Assert.Equal(99990m, order.FillForwardPrice);
+        Assert.Equal(100000.5m, order.FillMarkPrice);
+        Assert.Equal(OkxTradeOrderRole.Maker, order.ExecutionType);
+        Assert.Equal(50000.5m, order.FillNotionalUsd);
+        Assert.Equal(OkxTradeOrderAmendSource.RpiPriceRounding, order.AmendSource);
+        Assert.Equal("amend-rpi-01", order.ClientRequestId);
+        Assert.Equal(OkxTradeOrderAmendResult.Success, order.AmendResult);
+        Assert.Equal(100002m, order.LastPrice);
+        Assert.Equal("0", order.Code);
+        Assert.Equal(string.Empty, order.Message);
+    }
+
+    [Fact]
+    public void OrdersChannel_ParsesUnavailableCurrentFieldsAsNull()
+    {
+        const string json = "{\"notionalUsd\":\"\",\"fillPnl\":\"\",\"fillFee\":\"\",\"fillPxVol\":\"\",\"fillPxUsd\":\"\",\"fillMarkVol\":\"\",\"fillFwdPx\":\"\",\"fillMarkPx\":\"\",\"execType\":\"\",\"fillNotionalUsd\":\"\",\"amendSource\":\"\",\"amendResult\":\"\",\"lastPx\":\"\"}";
+
+        var order = JsonConvert.DeserializeObject<OkxTradeOrder>(json, SerializerOptions.WithConverters);
+
+        Assert.NotNull(order);
+        Assert.Null(order.NotionalUsd);
+        Assert.Null(order.FillProfitAndLoss);
+        Assert.Null(order.FillFee);
+        Assert.Null(order.FillPriceVolatility);
+        Assert.Null(order.FillPriceUsd);
+        Assert.Null(order.FillMarkVolatility);
+        Assert.Null(order.FillForwardPrice);
+        Assert.Null(order.FillMarkPrice);
+        Assert.Null(order.ExecutionType);
+        Assert.Null(order.FillNotionalUsd);
+        Assert.Null(order.AmendSource);
+        Assert.Null(order.AmendResult);
+        Assert.Null(order.LastPrice);
+    }
+
+    [Fact]
     public async Task PlaceOrderClients_RejectInvalidValuesBeforeSending()
     {
         using var server = new LocalOkxRestServer(new Dictionary<string, string>());

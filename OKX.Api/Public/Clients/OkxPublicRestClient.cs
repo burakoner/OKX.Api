@@ -70,6 +70,33 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     }
 
     /// <summary>
+    /// Retrieve the consolidated organic and currently tradeable Retail Price Improvement (RPI) order book.
+    /// The server-side data is refreshed every 200 milliseconds and the endpoint returns the latest cached data.
+    /// </summary>
+    /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
+    /// <param name="depth">Order book depth per side. Maximum 400. The default is 1.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public async Task<RestCallResult<OkxPublicOrderBook>> GetRpiOrderBookAsync(string instrumentId, int? depth = null, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(instrumentId))
+            throw new ArgumentException("Instrument ID is required.", nameof(instrumentId));
+
+        depth?.ValidateIntBetween(nameof(depth), 1, 400);
+        var parameters = new ParameterCollection
+        {
+            { "instId", instrumentId },
+        };
+        parameters.AddOptional("sz", depth?.ToOkxString());
+
+        var result = await ProcessOneRequestAsync<OkxPublicOrderBook>(GetUri("api/v5/market/books-rpi"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+        if (!result.Success) return result;
+
+        result.Data.InstrumentId = instrumentId;
+        return result;
+    }
+
+    /// <summary>
     /// Retrieve order book of the instrument.
     /// </summary>
     /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT</param>
@@ -262,7 +289,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// Retrieve the recent transactions of an instrument.
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
-    /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
+    /// <param name="limit">Number of results per request. The maximum is 500; the default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicTrade>>> GetTradesAsync(string instrumentId, int limit = 100, CancellationToken ct = default)

@@ -23,6 +23,7 @@ Most methods are public and unsigned. A few flows can optionally be signed when 
 var tickers = await api.Public.GetTickersAsync(OkxInstrumentType.Spot);
 var ticker = await api.Public.GetTickerAsync("BTC-USDT");
 var book = await api.Public.GetOrderBookAsync("BTC-USDT", 40);
+var rpiBook = await api.Public.GetRpiOrderBookAsync("BTC-USDT-SWAP", 40);
 var candles = await api.Public.GetCandlesticksAsync("BTC-USDT", OkxPeriod.OneHour);
 var trades = await api.Public.GetTradesAsync("BTC-USDT");
 ```
@@ -103,6 +104,10 @@ Do not reject an update merely because `SequenceId` equals or is lower than `Pre
 
 `OrderBook_RPI` maps to the current `books-rpi` channel, which combines organic and RPI liquidity. For that channel, `Quantity` is total quantity and `NonRpiQuantity` is the organic-only portion. The legacy `LiquidatedOrders` name is obsolete because the third order-book value never represented liquidations. `OrderBook_ELP` remains as an obsolete compatibility value through OKX's 31 October 2026 sunset.
 
+`GetRpiOrderBookAsync` exposes the matching REST `GET /api/v5/market/books-rpi` snapshot. It accepts 1-400 levels per side through the wire-level `sz` parameter, is limited to 20 requests per 2 seconds per IP, and returns the server's current `SequenceId`. OKX refreshes this server-side cache every 200 ms, so it is not an immediate matching-engine read. Each row uses the same `[price, totalQty, nonRpiQty, count]` shape as the WebSocket channel.
+
+`GetTradesAsync` accepts up to 500 rows and is limited by OKX to 100 requests per 2 seconds per IP. `OkxPublicTrade.Source = RetailPriceImprovementOrder` represents wire value `1`; `EnhancedLiquidityProgramOrder` remains an obsolete source-compatible name during the transition.
+
 ## Method Catalog
 
 ### Market Data
@@ -110,6 +115,7 @@ Do not reject an update merely because `SequenceId` equals or is lower than `Pre
 - `GetTickersAsync`
 - `GetTickerAsync`
 - `GetOrderBookAsync`
+- `GetRpiOrderBookAsync`
 - `GetOrderBookFullAsync`
 - `GetCandlesticksAsync`
 - `GetCandlestickHistoryAsync`

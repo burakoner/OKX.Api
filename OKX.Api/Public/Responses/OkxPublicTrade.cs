@@ -38,7 +38,7 @@ public record OkxPublicTrade
     /// <summary>
     /// Order source
     /// 0: normal order
-    /// 1: Enhanced Liquidity Program order
+    /// 1: Retail Price Improvement order
     /// </summary>
     [JsonProperty("source")]
     public OkxTradeOrderSource Source { get; set; }

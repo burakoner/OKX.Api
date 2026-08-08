@@ -1,0 +1,52 @@
+{
+  "arg": {
+    "channel": "orders",
+    "instType": "SWAP"
+  },
+  "data": [
+    {
+      "instType": "SWAP",
+      "instId": "BTC-USDT-SWAP",
+      "ordId": "123456789",
+      "clOrdId": "rpi-01",
+      "tag": "broker",
+      "px": "100000",
+      "sz": "1",
+      "notionalUsd": "100000",
+      "ordType": "rpi",
+      "side": "buy",
+      "posSide": "net",
+      "tdMode": "cross",
+      "fillPx": "100001",
+      "tradeId": "987",
+      "fillSz": "0.5",
+      "fillPnl": "1.2",
+      "fillTime": "1785310731002",
+      "fillFee": "-0.01",
+      "fillFeeCcy": "USDT",
+      "fillPxVol": "0.51",
+      "fillPxUsd": "100001",
+      "fillMarkVol": "0.50",
+      "fillFwdPx": "99990",
+      "fillMarkPx": "100000.5",
+      "fillIdxPx": "99999.9",
+      "execType": "M",
+      "accFillSz": "0.5",
+      "fillNotionalUsd": "50000.5",
+      "avgPx": "100001",
+      "state": "partially_filled",
+      "stpId": "",
+      "stpMode": "cancel_maker",
+      "source": "1",
+      "amendSource": "6",
+      "uTime": "1785310731003",
+      "cTime": "1785310730000",
+      "reqId": "amend-rpi-01",
+      "amendResult": "0",
+      "lastPx": "100002",
+      "code": "0",
+      "msg": "",
+      "tradeQuoteCcy": "USDT"
+    }
+  ]
+}

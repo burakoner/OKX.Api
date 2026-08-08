@@ -30,6 +30,12 @@ public record OkxPublicOrderBook
     public long Timestamp { get; set; }
 
     /// <summary>
+    /// Sequence ID of the current RPI order book response.
+    /// </summary>
+    [JsonProperty("seqId")]
+    public long? SequenceId { get; set; }
+
+    /// <summary>
     /// Time
     /// </summary>
     [JsonIgnore]
