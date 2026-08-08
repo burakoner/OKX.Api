@@ -18,6 +18,16 @@ Official OKX docs: [Financial Product](https://www.okx.com/docs-v5/en/#financial
 
 Most methods are private. A few `SimpleEarn` borrow summary/history reads are public.
 
+## Stable Rewards Decommissioned Endpoints
+
+OKX has decommissioned and removed the Stable Rewards quote, trade, and subscribe/redeem-history endpoints:
+
+- `POST /api/v5/finance/stable-rewards/quote`
+- `POST /api/v5/finance/stable-rewards/trade`
+- `GET /api/v5/finance/stable-rewards/subscribe-redeem-history`
+
+These methods are intentionally not exposed by this library. To trade USDG or another supported stablecoin, use the standard order-book methods under [`api.Trade`](./trade.md), such as `PlaceOrderAsync`, with the appropriate live spot instrument.
+
 ## Example Calls
 
 ```csharp
