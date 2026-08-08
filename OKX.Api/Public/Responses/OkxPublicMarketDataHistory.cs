@@ -72,13 +72,13 @@ public record OkxPublicMarketDataHistoryItem
     public DateTime DateRangeStartTime => DateRangeStartTimestamp.ConvertFromMilliseconds();
 
     /// <summary>
-    /// Data range end date, Unix timestamp format in milliseconds (exclusive)
+    /// Data range end date, Unix timestamp format in milliseconds (inclusive)
     /// </summary>
     [JsonProperty("dateRangeEnd")]
     public long DateRangeEndTimestamp { get; set; }
 
     /// <summary>
-    /// Data range end date, Unix timestamp format in milliseconds (exclusive)
+    /// Data range end date, Unix timestamp format in milliseconds (inclusive)
     /// </summary>
     [JsonIgnore]
     public DateTime DateRangeEndTime => DateRangeEndTimestamp.ConvertFromMilliseconds();

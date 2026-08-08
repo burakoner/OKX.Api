@@ -304,12 +304,15 @@ var calendar = await api.Public.GetEconomicCalendarDataAsync(new OkxPublicEconom
     Limit = 20
 });
 
+var historyEnd = DateTimeOffset.UtcNow.AddDays(-3);
 var marketDataHistory = await api.Public.GetMarketDataHistoryAsync(new OkxPublicMarketDataHistoryQueryRequest
 {
     Module = OkxPublicMarketDataHistoryModule.BorrowingRate,
-    InstrumentType = OkxInstrumentType.Margin,
+    InstrumentType = OkxInstrumentType.Spot,
     DateAggregationType = OkxPublicDateAggregationType.Daily,
-    InstrumentIdList = "BTC-USDT"
+    InstrumentIdList = "ANY",
+    Begin = historyEnd.AddDays(-6).ToUnixTimeMilliseconds(),
+    End = historyEnd.ToUnixTimeMilliseconds()
 });
 ```
 
@@ -317,6 +320,9 @@ var marketDataHistory = await api.Public.GetMarketDataHistoryAsync(new OkxPublic
 
 - For public trading dashboards, `api.Public` and `api.Rubik` are usually the two most important read-only clients.
 - Use typed request overloads when you need many optional filters or when you want future additions to be easier to absorb.
+- `GetMarketDataHistoryAsync` requires inclusive `Begin` and `End` timestamps and supports at most 10 inclusive calendar days or months. SPOT queries require `InstrumentIdList`; FUTURES/SWAP/OPTION require `InstrumentFamilyList`. Lists contain at most 10 entries, except module 6 with OPTION, which accepts one family. `ANY` is limited to daily modules 1, 2, 3, and 11.
+- Historical market-data timestamps are reduced to their date portion. Order-book modules 4, 5, and 6 use UTC; modules 1, 2, 3, and 11 use UTC+8. Results are newest-first and may be truncated from the beginning when record limits are exceeded. Modules 1, 2, 3, and 11 are normally available on T+2; order books on T+3. The endpoint is limited to 5 requests per 2 seconds per IP.
+- Module 5 contains 5000-level order books from November 1, 2025. Module 6 is being deprecated in favor of modules 4 and 5, does not support monthly aggregation, and returns only the day selected by `End` for OPTION.
 - Event-contract series, events, and markets REST endpoints are unsigned public requests. Series responses support `five_min`, `fifteen_min`, `hourly`, `daily`, and `monthly` frequencies plus `price_up_down`, `price_above`, `hit`, and `between` settlement methods. Series and markets each use an independent 10-request-per-2-second IP limit.
 - Event-contract markets expose `capStrike` for `between` settlement (`INF` means no upper bound) and `hitDir` for `hit` settlement (`up` from below, `dn` from above); the non-applicable field is empty. The `event-contract-markets` WebSocket channel pushes status and floor-strike changes but does not send an initial snapshot, so load the REST markets endpoint before consuming deltas when a complete starting view is required.
 - `GetInstrumentsAsync` requires `seriesId` for EVENTS and `instFamily` for OPTION. For OPTION/EVENTS, the returned `tickSz` is only the minimum across the tick bands; use `GetInstrumentTickBandsAsync` for the exact price-range increment.

@@ -81,6 +81,7 @@ public class OkxRestApiOptions : RestApiClientOptions
             .AddEndpointLimit("/api/v5/public/event-contract/series", 10, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/public/event-contract/markets", 10, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/public/mm-instrument-types", 5, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
+            .AddEndpointLimit("/api/v5/public/market-data-history", 5, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/market/books-rpi", 20, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/market/trades", 100, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/account/trade-fee", 5, TimeSpan.FromSeconds(2), HttpMethod.Get, true)

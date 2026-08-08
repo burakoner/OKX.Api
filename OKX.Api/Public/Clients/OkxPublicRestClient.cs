@@ -1631,20 +1631,21 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
     /// <summary>
     /// Get historical market data
-    /// Data availability: Historical data backfill is currently in progress.Data availability may vary by module, instrument, and time period.The dataset will be continuously expanded to provide more comprehensive historical coverage.
-    /// Legacy data format notice: For module 1 (trade history), some old historical files may contain column headers with both Chinese characters along with English column names.All the Chinese characters will be removed once the data backfill is done.Please account for this when parsing the data.
+    /// Data availability: historical backfill is in progress and coverage varies by module, instrument, and period.
+    /// Modules 1, 2, 3, and 11 are typically available on T+2; order-book modules are typically available on T+3.
+    /// Legacy module 1 files may temporarily contain Chinese and English column headers.
     /// Retrieve historical market data for OKX.
     /// </summary>
     /// <param name="module">Data module type</param>
     /// <param name="instrumentType">Instrument type</param>
-    /// <param name="dateAggregationType">Date aggregation type. daily(not supported for module = 3 &amp; instFamilyList ? ANY). monthly(not supported for module = 6)</param>
+    /// <param name="dateAggregationType">Date aggregation type. Daily funding-rate queries require instFamilyList=ANY. Monthly is not supported for module 6.</param>
     /// <param name="instrumentIdList">List of instrument IDs, e.g. BTC-USDT, or ANY for all instruments (ANY is only supported for module = 1, 2, 3, 11 &amp; dateAggrType = daily). Multiple instrument IDs should be separated by commas, e.g.BTC-USDT,ETH-USDT. Maximum length = 10. Only applicable when instType = SPOT </param>
     /// <param name="instrumentFamilyList">List of instrument families, e.g. BTC-USDT, or ANY for all instruments (ANY is only supported for module = 1, 2, 3, 11 &amp; dateAggrType = daily)
     /// Multiple instrument families should be separated by commas, e.g.BTC-USDT,ETH-USDT
     /// Maximum length = 10 (= 1when module = 6 &amp; instType = OPTION)
-    /// Only applicable when instType ? SPOT</param>
-    /// <param name="begin">Begin timestamp. Unix timestamp format in milliseconds (inclusive). Maximum range: 20 days for daily, 20 months for monthly</param>
-    /// <param name="end">End timestamp. Unix timestamp format in milliseconds (inclusive). When module = 6 &amp; instType = OPTION, only returns data for the day specified by end</param>
+    /// Only applicable when instType is not SPOT.</param>
+    /// <param name="begin">Required begin timestamp in Unix milliseconds (inclusive). Maximum range: 10 inclusive days for daily, 10 inclusive months for monthly.</param>
+    /// <param name="end">Required end timestamp in Unix milliseconds (inclusive). When module = 6 and instType = OPTION, only the day specified by end is returned.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicMarketDataHistory>>> GetMarketDataHistoryAsync(
@@ -1674,6 +1675,7 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     {
         if (request is null)
             throw new ArgumentNullException(nameof(request));
+        request.Validate();
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("module", request.Module);
         parameters.AddOptionalEnum("instType", request.InstrumentType);
