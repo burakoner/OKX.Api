@@ -2,9 +2,9 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
 	<PropertyGroup>
