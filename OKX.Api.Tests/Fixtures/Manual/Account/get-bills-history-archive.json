@@ -1,0 +1,11 @@
+{
+  "code": "0",
+  "data": [
+    {
+      "fileHref": "https://example.test/bills.csv.zip",
+      "state": "finished",
+      "ts": "1646892328000"
+    }
+  ],
+  "msg": ""
+}

@@ -1,0 +1,6 @@
+{
+  "event": "notice",
+  "code": "64008",
+  "msg": "The connection will soon be closed for a service upgrade. Please reconnect.",
+  "connId": "a4d3ae55"
+}

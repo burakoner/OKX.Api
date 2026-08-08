@@ -5,6 +5,8 @@
 /// </summary>
 public abstract class OkxBaseSocketClient : WebSocketApiClient
 {
+    private const string ServiceUpgradeNoticeHandler = "service-upgrade-notice";
+
     /// <summary>
     /// Logger
     /// </summary>
@@ -14,6 +16,11 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     /// Client Options
     /// </summary>
     public OkxWebSocketApiOptions Options { get; }
+
+    /// <summary>
+    /// Raised when OKX reports that a public, private, or business WebSocket connection will close for a service upgrade.
+    /// </summary>
+    public event Action<OkxSocketServiceUpgradeNotice>? ServiceUpgradeNotice;
 
     /// <summary>
     /// If Websocket is authendicated
@@ -47,6 +54,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         Options = options;
 
         SetDataInterpreter(DecompressData, null);
+        AddGenericHandler(ServiceUpgradeNoticeHandler, HandleServiceUpgradeNotice);
         SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");
     }
 
@@ -303,7 +311,10 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     /// <inheritdoc />
     protected override bool MessageMatchesHandler(WebSocketConnection connection, JToken message, string identifier)
     {
-        return true;
+        return identifier == ServiceUpgradeNoticeHandler
+            && message.Type == JTokenType.Object
+            && (string?)message["event"] == "notice"
+            && (string?)message["code"] == "64008";
     }
 
     /// <inheritdoc />
@@ -349,6 +360,34 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             && requestArgument.SpreadId == responseArgument.SpreadId
             && requestArgument.InstrumentType == responseArgument.InstrumentType
             && DictionaryMatches(requestArgument.ExtraParameters, responseArgument.ExtraParameters);
+    }
+
+    private void HandleServiceUpgradeNotice(WebSocketMessageEvent message)
+    {
+        var result = Deserialize<OkxSocketServiceUpgradeNotice>(message.JsonData);
+        if (!result)
+        {
+            Logger.Log(LogLevel.Warning, $"Failed to deserialize service upgrade notice: {result.Error}. Data: {message.JsonData}");
+            return;
+        }
+
+        Logger.Log(LogLevel.Warning, $"WebSocket connection {result.Data.ConnectionId} will close for an OKX service upgrade: {result.Data.Message}");
+
+        var handlers = ServiceUpgradeNotice;
+        if (handlers is null)
+            return;
+
+        foreach (Action<OkxSocketServiceUpgradeNotice> handler in handlers.GetInvocationList())
+        {
+            try
+            {
+                handler(result.Data);
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception, "A service upgrade notice handler failed");
+            }
+        }
     }
 
     private static bool DictionaryMatches(Dictionary<string, string>? left, Dictionary<string, string>? right)

@@ -56,6 +56,20 @@ var subscription = await ws.Public.SubscribeToTradesAsync(
 await ws.UnsubscribeAsync(subscription.Data!);
 ```
 
+## Service Upgrade Notices
+
+OKX sends code `64008` roughly 60 seconds before a public, private, or business WebSocket connection is closed for a service upgrade. Register the handler before subscribing:
+
+```csharp
+ws.ServiceUpgradeNotice += notice =>
+{
+    Console.WriteLine($"OKX will close connection {notice.ConnectionId}: {notice.Message}");
+    // Establish a replacement connection and restore application state as appropriate.
+};
+```
+
+The client exposes the notice but does not force a reconnect. Reconnect and subscription/state restoration must remain coordinated by the application so an in-flight trading workflow is not changed implicitly.
+
 ## Section Overview
 
 The WebSocket client currently exposes:

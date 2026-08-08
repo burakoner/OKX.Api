@@ -332,7 +332,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
     /// <summary>
-    /// Get bill data since 1 February, 2021 except for the current quarter.
+    /// Apply for bill data since 1 February, 2021 except for the current quarter.
     /// </summary>
     /// <param name="year">4 digits year</param>
     /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
@@ -341,6 +341,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<OkxDownloadApplication>> ApplyBillDataAsync(int year, OkxQuarter quarter, IEnumerable<OkxAccountBillType>? billTypes = null, CancellationToken ct = default)
     {
+        ValidateBillDataRequest(year, quarter);
+
         var parameters = new ParameterCollection
         {
             { "year", year.ToOkxString() }
@@ -352,7 +354,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
     /// <summary>
-    /// Apply for bill data since 1 February, 2021 except for the current quarter.
+    /// Get bill data since 1 February, 2021 except for the current quarter.
     /// </summary>
     /// <param name="year">4 digits year</param>
     /// <param name="quarter">Quarter, valid value is Q1, Q2, Q3, Q4</param>
@@ -361,6 +363,8 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <returns></returns>
     public Task<RestCallResult<OkxDownloadLink>> GetBillDataAsync(int year, OkxQuarter quarter, IEnumerable<OkxAccountBillType>? billTypes = null, CancellationToken ct = default)
     {
+        ValidateBillDataRequest(year, quarter);
+
         var parameters = new ParameterCollection
         {
             { "year", year.ToOkxString() }
@@ -393,6 +397,14 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
             .ToArray();
 
         return values.Length == 0 ? null : string.Join(",", values);
+    }
+
+    private static void ValidateBillDataRequest(int year, OkxQuarter quarter)
+    {
+        year.ValidateIntBetween(nameof(year), 1000, 9999);
+
+        if (!Enum.IsDefined(typeof(OkxQuarter), quarter))
+            throw new ArgumentOutOfRangeException(nameof(quarter), quarter, "Unknown quarter");
     }
 
     /// <summary>

@@ -80,6 +80,10 @@ var adjustment = await demoApi.Account.AdjustDemoAccountBalanceAsync(
 - `ApplyBillDataAsync`
 - `GetBillDataAsync`
 
+`ApplyBillDataAsync` applies for unified-account bill data outside the current quarter; OKX limits it to one request per 10 seconds per user ID. `GetBillDataAsync` checks the generated link and has a separate OKX limit of 10 requests per 2 seconds. The client mirrors both limits within each client instance. Both methods require a four-digit year and a valid quarter, and accept multiple bill types which are sent as one comma-separated `type` value. Use `GetBillTypesAsync` for the runtime type/subtype mapping.
+
+When `ApplyBillDataAsync` returns `false`, OKX says to check the link after two hours; generation may take longer at peak load and support should be contacted if it is still unavailable after three hours. A generated download link expires after 5.5 hours, and OKX says the same quarter does not need to be applied for again within 30 days.
+
 ### Configuration and Leverage
 
 - `GetConfigurationAsync`
