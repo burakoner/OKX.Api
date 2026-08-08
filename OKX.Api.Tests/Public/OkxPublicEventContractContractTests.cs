@@ -65,7 +65,7 @@ public class OkxPublicEventContractContractTests
     {
         var response = DeserializeRest<OkxPublicEventContractMarket>("Public", "get-event-contract-markets.json");
 
-        Assert.Equal(3, response.Data!.Count);
+        Assert.Equal(4, response.Data!.Count);
 
         var live = response.Data.Single(x => x.InstrumentId == "BTC-ABOVE-DAILY-260224-1600-65000");
         Assert.Equal(OkxInstrumentState.Live, live.State);
@@ -81,8 +81,12 @@ public class OkxPublicEventContractContractTests
         Assert.True(expired.IsDisputed);
 
         var hit = response.Data.Single(x => x.InstrumentId == "BTC-HIT-FIVE-MIN-260224-1620-65000");
-        Assert.Equal("INF", hit.CapStrike);
+        Assert.Equal(string.Empty, hit.CapStrike);
         Assert.Equal(OkxPublicEventContractHitDirection.Up, hit.HitDirection);
+
+        var between = response.Data.Single(x => x.InstrumentId == "BTC-BETWEEN-HOURLY-260224-1700-70000-INF");
+        Assert.Equal("INF", between.CapStrike);
+        Assert.Null(between.HitDirection);
     }
 
     [Fact]
@@ -90,10 +94,15 @@ public class OkxPublicEventContractContractTests
     {
         var items = DeserializeSocketData<OkxPublicEventContractMarket>("Public", "ws-event-contract-markets.json");
 
-        var market = Assert.Single(items);
-        Assert.Equal("BTC-ABOVE-DAILY", market.SeriesId);
-        Assert.Equal(OkxPublicEventContractMarketOutcome.NotAvailable, market.Outcome);
-        Assert.Equal(65000m, market.FloorStrike);
+        Assert.Equal(2, items.Count);
+
+        var hit = items.Single(x => x.SeriesId == "BTC-HIT-FIVE-MIN");
+        Assert.Equal(string.Empty, hit.CapStrike);
+        Assert.Equal(OkxPublicEventContractHitDirection.Up, hit.HitDirection);
+
+        var between = items.Single(x => x.SeriesId == "BTC-BETWEEN-HOURLY");
+        Assert.Equal("INF", between.CapStrike);
+        Assert.Null(between.HitDirection);
     }
 
     [Fact]

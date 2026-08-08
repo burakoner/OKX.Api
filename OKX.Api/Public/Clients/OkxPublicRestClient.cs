@@ -475,6 +475,9 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <returns></returns>
     public Task<RestCallResult<List<OkxPublicEventContractSeries>>> GetEventContractSeriesAsync(string? seriesId = null, CancellationToken ct = default)
     {
+        if (seriesId is not null && string.IsNullOrWhiteSpace(seriesId))
+            throw new ArgumentException("Series ID cannot be empty.", nameof(seriesId));
+
         var parameters = new ParameterCollection();
         parameters.AddOptional("seriesId", seriesId);
 

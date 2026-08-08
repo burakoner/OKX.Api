@@ -102,6 +102,8 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// <summary>
     /// You can place an order only if you have sufficient funds.
     /// OKX delisted instId for this WebSocket channel on 2026-03-26; use InstrumentIdCode.
+    /// While the contract cool-off period is active, OKX rejects non-reduce-only SWAP and FUTURES orders with error 54094.
+    /// Reduce-only orders remain allowed.
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
@@ -115,6 +117,7 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// <summary>
     /// Place orders in a batch. Maximum 20 orders can be placed per request
     /// OKX delisted instId for this WebSocket channel on 2026-03-26; use InstrumentIdCode for each order.
+    /// During an active contract cool-off period, inspect each response item for error 54094 on non-reduce-only SWAP and FUTURES orders.
     /// </summary>
     /// <param name="requests">Requests</param>
     /// <returns></returns>
@@ -197,6 +200,8 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
         if (request.InstrumentIdCode is null)
             throw new ArgumentException("OKX delisted instId for WebSocket place order channels on 2026-03-26. Set InstrumentIdCode and map it via GetInstrumentsAsync before sending the request.", nameof(request));
 
+        request.Validate();
+
         return request with
         {
             InstrumentId = null,
@@ -208,7 +213,12 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     {
         if (requests is null)
             throw new ArgumentNullException(nameof(requests));
-        return requests.Select(CreateSocketPlaceOrderRequest).ToList();
+
+        var requestList = requests.ToList();
+        if (requestList.Count is < 1 or > 20)
+            throw new ArgumentException("Place multiple orders requires between 1 and 20 orders.", nameof(requests));
+
+        return requestList.Select(CreateSocketPlaceOrderRequest).ToList();
     }
 
     private static OkxTradeOrderAmendRequest CreateSocketAmendOrderRequest(OkxTradeOrderAmendRequest request)
@@ -231,7 +241,12 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     {
         if (requests is null)
             throw new ArgumentNullException(nameof(requests));
-        return requests.Select(CreateSocketAmendOrderRequest).ToList();
+
+        var requestList = requests.ToList();
+        if (requestList.Count is < 1 or > 20)
+            throw new ArgumentException("Amend multiple orders requires between 1 and 20 orders.", nameof(requests));
+
+        return requestList.Select(CreateSocketAmendOrderRequest).ToList();
     }
 
     private static OkxTradeOrderCancelRequest CreateSocketCancelOrderRequest(OkxTradeOrderCancelRequest request)

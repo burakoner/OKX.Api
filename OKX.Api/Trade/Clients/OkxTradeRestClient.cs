@@ -8,6 +8,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <summary>
     /// You can place an order only if you have sufficient funds.
     /// For leading contracts, this endpoint supports placement, but can't close positions.
+    /// While the contract cool-off period is active, OKX rejects non-reduce-only SWAP and FUTURES orders with error 54094.
+    /// Reduce-only orders remain allowed.
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="tradeMode">Trade mode
@@ -38,12 +40,14 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// 
     /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
     /// <param name="priceAmendType">Price Amend Type</param>
-    /// <param name="isElpTakerAccess">ELP taker access. true: the request can trade with ELP orders but a speed bump will be applied. false: the request cannot trade with ELP orders and no speed bump. The default value is false while true is only applicable to ioc orders.</param>
+    /// <param name="isElpTakerAccess">Deprecated ELP-named alias for rpiTakerAccess. Accepted by OKX through October 31, 2026.</param>
     /// <param name="speedBump">Event contract speed bump flag. Required for non-post-only EVENTS orders.</param>
     /// <param name="outcome">Event contract outcome side. Only applicable and required for EVENTS.</param>
     /// <param name="attachedAlgoOrders">Attached TP/SL or trailing stop order information</param>
-    /// 
     /// <param name="ct">Cancellation Token</param>
+    /// <param name="rpiTakerAccess">Whether the order can access RPI liquidity. Default false.</param>
+    /// <param name="rpiPriceRound">Whether a noncompliant RPI maker price may be rounded outward to a placeable, non-crossing level.</param>
+    /// <param name="slippagePercentage">Maximum acceptable SPOT/SPOT margin market-order slippage. Range 0 to 0.05 with at most four decimal places.</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxTradeOrderPlaceResponse>> PlaceOrderAsync(
         string instrumentId,
@@ -68,8 +72,13 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxTradeEventSpeedBump? speedBump = null,
         OkxTradeEventOutcome? outcome = null,
         IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? attachedAlgoOrders = null,
-        CancellationToken ct = default)
+        CancellationToken ct = default,
+        bool? rpiTakerAccess = null,
+        bool? rpiPriceRound = null,
+        decimal? slippagePercentage = null)
     {
+        OkxTradeOrderPlaceRequest.ValidateSlippagePercentage(slippagePercentage, nameof(slippagePercentage));
+
         var parameters = new ParameterCollection();
         parameters.AddParameter("instId", instrumentId);
         parameters.AddEnum("tdMode", tradeMode);
@@ -88,8 +97,11 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("banAmend", banAmend);
         parameters.AddOptionalEnum("pxAmendType", priceAmendType);
         parameters.AddOptional("tradeQuoteCcy", tradeQuoteCurrency);
+        parameters.AddOptional("slippagePct", slippagePercentage?.ToOkxString());
         parameters.AddOptionalEnum("stpMode", selfTradePreventionMode);
         parameters.AddOptional("isElpTakerAccess", isElpTakerAccess);
+        parameters.AddOptional("rpiTakerAccess", rpiTakerAccess);
+        parameters.AddOptional("rpiPxRound", rpiPriceRound);
         parameters.AddOptionalEnum("speedBump", speedBump);
         parameters.AddOptionalEnum("outcome", outcome);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
@@ -101,7 +113,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// Places a new trade order asynchronously on the OKX exchange.
     /// </summary>
     /// <remarks>The order will be associated with the broker identifier specified by the API. Ensure that all
-    /// required fields in the orderRequest are set according to OKX API requirements.</remarks>
+    /// required fields in the orderRequest are set according to OKX API requirements. While the contract cool-off
+    /// period is active, OKX rejects non-reduce-only SWAP and FUTURES orders with error 54094; reduce-only orders remain allowed.</remarks>
     /// <param name="orderRequest">The order details to be submitted. Cannot be null.</param>
     /// <param name="ct">A cancellation token that can be used to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a RestCallResult with the response
@@ -110,6 +123,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<OkxTradeOrderPlaceResponse>> PlaceOrderAsync(OkxTradeOrderPlaceRequest orderRequest, CancellationToken ct = default)
     {
         if (orderRequest == null) throw new ArgumentNullException(nameof(orderRequest));
+        orderRequest.Validate();
 
         orderRequest.Tag = OkxConstants.BrokerId;
 
@@ -121,15 +135,27 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 
     /// <summary>
     /// Place orders in batches. Maximum 20 orders can be placed at a time. Request parameters should be passed in the form of an array.
+    /// During an active contract cool-off period, inspect each response item for error 54094 on non-reduce-only SWAP and FUTURES orders.
     /// </summary>
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxTradeOrderPlaceRequest> orders, CancellationToken ct = default)
     {
-        foreach (var order in orders) order.Tag = OkxConstants.BrokerId;
+        if (orders is null) throw new ArgumentNullException(nameof(orders));
+
+        var orderList = orders.ToList();
+        if (orderList.Count is < 1 or > 20)
+            throw new ArgumentException("Place multiple orders requires between 1 and 20 orders.", nameof(orders));
+
+        foreach (var order in orderList)
+        {
+            order.Validate();
+            order.Tag = OkxConstants.BrokerId;
+        }
+
         var parameters = new ParameterCollection();
-        parameters.SetBody(orders);
+        parameters.SetBody(orderList);
 
         return ProcessListRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/batch-orders"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -187,6 +213,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="priceAmendType">Price Amend Type</param>
     /// <param name="speedBump">Event contract speed bump flag. Required for non-post-only EVENTS amend requests.</param>
     /// <param name="ct">Cancellation Token</param>
+    /// <param name="rpiTakerAccess">Whether the amended order can access RPI liquidity. Not inherited from the original order.</param>
+    /// <param name="rpiPriceRound">Whether a noncompliant RPI maker price may be rounded outward to a placeable, non-crossing level.</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxTradeOrderAmend>> AmendOrderAsync(
         string instrumentId,
@@ -201,7 +229,9 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxTradePriceAmendType? priceAmendType = null,
         OkxTradeEventSpeedBump? speedBump = null,
         IEnumerable<OkxTradeOrderAmendRequestAttachedAlgo>? attachedAlgoOrders = null,
-        CancellationToken ct = default)
+        CancellationToken ct = default,
+        bool? rpiTakerAccess = null,
+        bool? rpiPriceRound = null)
     {
         var parameters = new ParameterCollection
         {
@@ -216,6 +246,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("newPxUsd", newPriceUsd?.ToOkxString());
         parameters.AddOptional("newPxVol", newPriceVolatility?.ToOkxString());
         parameters.AddOptionalEnum("pxAmendType", priceAmendType);
+        parameters.AddOptional("rpiTakerAccess", rpiTakerAccess);
+        parameters.AddOptional("rpiPxRound", rpiPriceRound);
         parameters.AddOptionalEnum("speedBump", speedBump);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
@@ -230,8 +262,14 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <returns></returns>
     public Task<RestCallResult<List<OkxTradeOrderAmend>>> AmendOrdersAsync(IEnumerable<OkxTradeOrderAmendRequest> orders, CancellationToken ct = default)
     {
+        if (orders is null) throw new ArgumentNullException(nameof(orders));
+
+        var orderList = orders.ToList();
+        if (orderList.Count is < 1 or > 20)
+            throw new ArgumentException("Amend multiple orders requires between 1 and 20 orders.", nameof(orders));
+
         var parameters = new ParameterCollection();
-        parameters.SetBody(orders);
+        parameters.SetBody(orderList);
 
         return ProcessListRequestAsync<OkxTradeOrderAmend>(GetUri("api/v5/trade/amend-batch-orders"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

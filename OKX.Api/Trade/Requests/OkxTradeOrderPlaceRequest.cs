@@ -128,6 +128,14 @@ public record OkxTradeOrderPlaceRequest
     public string? TradeQuoteCurrency { get; set; }
 
     /// <summary>
+    /// Maximum acceptable slippage for SPOT and SPOT margin market orders, expressed as a decimal fraction.
+    /// Range 0 to 0.05 inclusive, with at most four decimal places (for example, 0.0123 means 1.23%).
+    /// </summary>
+    [JsonProperty("slippagePct", NullValueHandling = NullValueHandling.Ignore)]
+    [JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? SlippagePercentage { get; set; }
+
+    /// <summary>
     /// Self trade prevention mode
     /// Default to cancel maker
     /// cancel_maker,cancel_taker, cancel_both
@@ -137,13 +145,26 @@ public record OkxTradeOrderPlaceRequest
     public OkxSelfTradePreventionMode? SelfTradePreventionMode { get; set; }
 
     /// <summary>
-    /// ELP taker access
-    /// true: the request can trade with ELP orders but a speed bump will be applied
-    /// false: the request cannot trade with ELP orders and no speed bump
-    /// The default value is false while true is only applicable to ioc orders.
+    /// Deprecated ELP-named alias for <see cref="RpiTakerAccess"/>.
+    /// If both fields are sent, RpiTakerAccess takes precedence.
     /// </summary>
+    [Obsolete("Use RpiTakerAccess. OKX accepts isElpTakerAccess only through October 31, 2026.")]
     [JsonProperty("isElpTakerAccess", NullValueHandling = NullValueHandling.Ignore)]
     public bool? IsElpTakerAccess { get; set; }
+
+    /// <summary>
+    /// Whether the order can access RPI liquidity. Default false.
+    /// Applicable to standard order types. A speed bump applies when enabled.
+    /// </summary>
+    [JsonProperty("rpiTakerAccess", NullValueHandling = NullValueHandling.Ignore)]
+    public bool? RpiTakerAccess { get; set; }
+
+    /// <summary>
+    /// Whether an RPI maker price that violates the spacing rule may be rounded outward to the nearest placeable,
+    /// non-crossing level. Default false. Effective only for rpi orders and ignored for OPTION and EVENTS.
+    /// </summary>
+    [JsonProperty("rpiPxRound", NullValueHandling = NullValueHandling.Ignore)]
+    public bool? RpiPriceRound { get; set; }
 
     /// <summary>
     /// Event contract speed bump flag.
@@ -165,4 +186,19 @@ public record OkxTradeOrderPlaceRequest
     /// </summary>
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
     public IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? AttachedAlgoOrders { get; set; }
+
+    internal void Validate()
+    {
+        ValidateSlippagePercentage(SlippagePercentage, nameof(SlippagePercentage));
+    }
+
+    internal static void ValidateSlippagePercentage(decimal? slippagePercentage, string parameterName)
+    {
+        if (slippagePercentage is null)
+            return;
+        if (slippagePercentage < 0m || slippagePercentage > 0.05m)
+            throw new ArgumentOutOfRangeException(parameterName, slippagePercentage, "Slippage percentage must be between 0 and 0.05 inclusive.");
+        if (decimal.Round(slippagePercentage.Value, 4) != slippagePercentage.Value)
+            throw new ArgumentException("Slippage percentage can have at most four decimal places.", parameterName);
+    }
 }

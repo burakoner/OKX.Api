@@ -1,0 +1,17 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ordId": "",
+      "clOrdId": "cool-off-rest-01",
+      "tag": "",
+      "ts": "1783425600000",
+      "sCode": "54094",
+      "sMsg": "Order rejected. The cool-off period is active for the current instId.",
+      "subCode": ""
+    }
+  ],
+  "inTime": "1783425600000000",
+  "outTime": "1783425600001000"
+}

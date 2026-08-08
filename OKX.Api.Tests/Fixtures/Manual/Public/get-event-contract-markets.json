@@ -42,9 +42,24 @@
       "state": "expired",
       "outcome": "1",
       "floorStrike": "65000",
-      "capStrike": "INF",
+      "capStrike": "",
       "settleValue": "65001.5",
       "hitDir": "up",
+      "disputed": false
+    },
+    {
+      "seriesId": "BTC-BETWEEN-HOURLY",
+      "eventId": "BTC-BETWEEN-HOURLY-260224-1700",
+      "instId": "BTC-BETWEEN-HOURLY-260224-1700-70000-INF",
+      "listTime": "1769698200000",
+      "fixTime": "",
+      "expTime": "1769701800000",
+      "state": "live",
+      "outcome": "0",
+      "floorStrike": "70000",
+      "capStrike": "INF",
+      "settleValue": "",
+      "hitDir": "",
       "disputed": false
     }
   ]

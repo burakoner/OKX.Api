@@ -849,12 +849,16 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 
     /// <summary>
     /// Push event contract market status updates and floor strike generation events.
+    /// No initial snapshot is pushed after subscribing.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToEventContractMarketsAsync(Action<OkxPublicEventContractMarket> onData, CancellationToken ct = default)
     {
+        if (onData is null)
+            throw new ArgumentNullException(nameof(onData));
+
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicEventContractMarket>>>>(data =>
         {
             foreach (var d in data.Data.Data)

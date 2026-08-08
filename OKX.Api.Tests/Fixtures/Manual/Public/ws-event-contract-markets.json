@@ -4,16 +4,33 @@
   },
   "data": [
     {
-      "seriesId": "BTC-ABOVE-DAILY",
-      "eventId": "BTC-ABOVE-DAILY-260224-1600",
-      "instId": "BTC-ABOVE-DAILY-260224-1600-65000",
-      "listTime": "1769696000000",
+      "seriesId": "BTC-HIT-FIVE-MIN",
+      "eventId": "BTC-HIT-FIVE-MIN-260224-1620",
+      "instId": "BTC-HIT-FIVE-MIN-260224-1620-65000",
+      "listTime": "1769698000000",
       "fixTime": "",
-      "expTime": "1769697132335",
+      "expTime": "1769698200000",
+      "state": "expired",
+      "outcome": "1",
+      "floorStrike": "65000",
+      "capStrike": "",
+      "settleValue": "65001.5",
+      "hitDir": "up",
+      "disputed": false
+    },
+    {
+      "seriesId": "BTC-BETWEEN-HOURLY",
+      "eventId": "BTC-BETWEEN-HOURLY-260224-1700",
+      "instId": "BTC-BETWEEN-HOURLY-260224-1700-70000-INF",
+      "listTime": "1769698200000",
+      "fixTime": "",
+      "expTime": "1769701800000",
       "state": "live",
       "outcome": "0",
-      "floorStrike": "65000",
+      "floorStrike": "70000",
+      "capStrike": "INF",
       "settleValue": "",
+      "hitDir": "",
       "disputed": false
     }
   ]

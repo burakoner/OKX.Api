@@ -1,3 +1,4 @@
+using ApiSharp.Throttling;
 using OKX.Api.Common;
 using OKX.Api.Tests.TestInfrastructure;
 
@@ -37,11 +38,51 @@ public class OkxPublicEventContractClientBehaviorTests
         using var server = new LocalOkxRestServer(new Dictionary<string, string>());
         var client = CreatePublicClient(server);
 
+        await Assert.ThrowsAsync<ArgumentException>(() => client.Public.GetEventContractSeriesAsync(" "));
         await Assert.ThrowsAsync<ArgumentException>(() => client.Public.GetEventContractMarketsAsync(
             "BTC-ABOVE-DAILY",
             state: OkxInstrumentState.Suspend));
 
         Assert.Empty(server.Requests);
+    }
+
+    [Fact]
+    public async Task EventContractSeriesAndMarkets_EnforceDocumentedIndependentIpLimits()
+    {
+        using (var seriesServer = new LocalOkxRestServer(new Dictionary<string, string>
+        {
+            ["GET /api/v5/public/event-contract/series"] = FixtureReader.ReadManual("Public", "get-event-contract-series.json"),
+        }))
+        {
+            var seriesClient = CreatePublicClient(seriesServer, RateLimitingBehavior.Fail);
+
+            for (var i = 0; i < 10; i++)
+                Assert.True((await seriesClient.Public.GetEventContractSeriesAsync()).Success);
+
+            Assert.False((await seriesClient.Public.GetEventContractSeriesAsync()).Success);
+            Assert.Equal(10, seriesServer.Requests.Count);
+        }
+
+        using var marketsServer = new LocalOkxRestServer(new Dictionary<string, string>
+        {
+            ["GET /api/v5/public/event-contract/markets"] = FixtureReader.ReadManual("Public", "get-event-contract-markets.json"),
+        });
+        var marketsClient = CreatePublicClient(marketsServer, RateLimitingBehavior.Fail);
+
+        for (var i = 0; i < 10; i++)
+            Assert.True((await marketsClient.Public.GetEventContractMarketsAsync("BTC-ABOVE-DAILY")).Success);
+
+        Assert.False((await marketsClient.Public.GetEventContractMarketsAsync("BTC-ABOVE-DAILY")).Success);
+        Assert.Equal(10, marketsServer.Requests.Count);
+    }
+
+    [Fact]
+    public async Task EventContractMarketsSubscription_RejectsNullCallbackBeforeConnecting()
+    {
+        using var client = new OkxWebSocketApiClient();
+
+        await Assert.ThrowsAsync<ArgumentNullException>(() =>
+            client.Public.SubscribeToEventContractMarketsAsync(null!));
     }
 
     [Fact]
@@ -76,10 +117,13 @@ public class OkxPublicEventContractClientBehaviorTests
         Assert.Empty(server.Requests);
     }
 
-    private static OkxRestApiClient CreatePublicClient(LocalOkxRestServer server)
+    private static OkxRestApiClient CreatePublicClient(
+        LocalOkxRestServer server,
+        RateLimitingBehavior rateLimitingBehavior = RateLimitingBehavior.Wait)
         => new(new OkxRestApiOptions
         {
             AutoTimestamp = false,
             BaseAddress = server.BaseAddress,
+            RateLimitingBehavior = rateLimitingBehavior,
         });
 }

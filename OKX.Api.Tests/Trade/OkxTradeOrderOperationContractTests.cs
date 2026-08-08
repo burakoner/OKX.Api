@@ -55,6 +55,36 @@ public class OkxTradeOrderOperationContractTests
         Assert.Equal("54071", item.SubCode);
     }
 
+    [Fact]
+    public async Task RestPlaceOrder_PreservesDocumentedCoolOffError()
+    {
+        using var server = new LocalOkxRestServer(new Dictionary<string, string>
+        {
+            ["POST /api/v5/trade/order"] = FixtureReader.ReadManual("Trade", "rest-place-order-cool-off-error.json"),
+        });
+        var client = new OkxRestApiClient(new OkxRestApiOptions(new OkxApiCredentials("key", "secret", "pass"))
+        {
+            AutoTimestamp = false,
+            BaseAddress = server.BaseAddress,
+        });
+
+        var result = await client.Trade.PlaceOrderAsync(new OkxTradeOrderPlaceRequest
+        {
+            InstrumentId = "BTC-USDT-SWAP",
+            TradeMode = OkxTradeMode.Cross,
+            OrderSide = OkxTradeOrderSide.Buy,
+            PositionSide = OkxTradePositionSide.Net,
+            OrderType = OkxTradeOrderType.MarketOrder,
+            Size = 1m,
+            ReduceOnly = false,
+            ClientOrderId = "cool-off-rest-01",
+        });
+
+        Assert.False(result.Success);
+        Assert.Equal(54094, result.Error?.Code);
+        Assert.Equal("Order rejected. The cool-off period is active for the current instId.", result.Error?.Message);
+    }
+
     private static OkxRestApiResponse<List<T>> DeserializeRest<T>(params string[] fixturePath)
     {
         var json = FixtureReader.ReadManual(fixturePath);

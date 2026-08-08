@@ -141,6 +141,12 @@ var precheck = await api.Trade.OrderPrecheckAsync(new OkxTradeOrderPrecheckReque
 
 - Use typed request overloads when you need many filters or optional flags.
 - `OrderPrecheckAsync` is useful before placing live orders from automated strategies.
+- Current place/amend request models support `ordType=rpi`, `rpiTakerAccess`, and `rpiPxRound`. `rpiTakerAccess` defaults to `false` and is not inherited when amending, so send it again on every amend that should access RPI liquidity. `rpiPxRound=true` lets OKX round a noncompliant RPI maker price outward to the nearest placeable, non-crossing level; it is ignored for non-RPI orders and for OPTION/EVENTS.
+- `SlippagePercentage` maps to `slippagePct` for SPOT/SPOT-margin market orders. Pass a decimal fraction from `0` through `0.05` with at most four decimal places (`0.0123` means 1.23%); invalid values are rejected locally by both REST and WebSocket place-order clients.
+- `IsElpTakerAccess` and `EnhancedLiquidityProgramOrder` remain only as deprecated OKX transition aliases through October 31, 2026. When both taker-access field names are sent, OKX gives `rpiTakerAccess` precedence; order type values remain mutually exclusive.
+- Official documentation is currently inconsistent about Event Contract `speedBump`: the July 24 changelog says it was removed from Place order, while the current Place/Batch/Amend REST and WebSocket endpoint tables still list it. The wrapper retains the field because endpoint documentation is the contract authority for this synchronization.
+- Contract cool-off is enforced by OKX server-side across REST and WebSocket order placement. While it is active, non-reduce-only orders on affected SWAP/FUTURES instruments are rejected with `54094`; reduce-only orders remain allowed. The wrapper does not cache or predict this account state.
+- REST single-order calls expose `54094` as a failed result through `Error.Code`. WebSocket operation acknowledgements and batch responses can carry per-order `sCode`/`sMsg`, so inspect `OkxTradeOrderPlaceResponse.ErrorCode` and `ErrorMessage` for every item even when the top-level operation code is `0`.
 - Treat `Easy Convert` and `One Click Repay` methods as account-changing operations.
 
 

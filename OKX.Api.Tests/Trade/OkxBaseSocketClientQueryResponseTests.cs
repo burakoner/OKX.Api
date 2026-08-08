@@ -47,6 +47,32 @@ public class OkxBaseSocketClientQueryResponseTests
         Assert.Equal("cancel-batch-01", item.ClientOrderId);
     }
 
+    [Fact]
+    public void HandleQueryResponse_PreservesDocumentedCoolOffOrderError()
+    {
+        var request = new OkxSocketRequest<OkxTradeOrderPlaceRequest>("1516", OkxSocketOperation.Order,
+        [
+            new OkxTradeOrderPlaceRequest
+            {
+                InstrumentIdCode = 101,
+                TradeMode = OkxTradeMode.Cross,
+                OrderSide = OkxTradeOrderSide.Buy,
+                PositionSide = OkxTradePositionSide.Net,
+                OrderType = OkxTradeOrderType.MarketOrder,
+                Size = 1m,
+                ReduceOnly = false,
+                ClientOrderId = "cool-off-ws-01"
+            }
+        ]);
+
+        var callResult = InvokeHandleQueryResponse<OkxTradeOrderPlaceResponse>(request, "Trade", "ws-place-order-cool-off-error.json");
+        var item = Assert.IsType<OkxTradeOrderPlaceResponse>(((dynamic)callResult).Data);
+
+        Assert.Equal("54094", item.ErrorCode);
+        Assert.Equal("Order rejected. The cool-off period is active for the current instId.", item.ErrorMessage);
+        Assert.Equal(string.Empty, item.SubCode);
+    }
+
     private static object InvokeHandleQueryResponse<T>(object request, params string[] fixturePath)
     {
         var method = typeof(OkxBaseSocketClient).GetMethod("HandleQueryResponse", BindingFlags.NonPublic | BindingFlags.Instance);

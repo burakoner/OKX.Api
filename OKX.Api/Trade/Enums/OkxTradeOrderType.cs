@@ -60,8 +60,16 @@ public enum OkxTradeOrderType : byte
     SimpleOptionsFillOrKill = 9,
 
     /// <summary>
-    /// Enhanced Liquidity Program Order
+    /// Deprecated Enhanced Liquidity Program order alias.
+    /// Use <see cref="RetailPriceImprovementOrder"/>.
     /// </summary>
+    [Obsolete("Use RetailPriceImprovementOrder. OKX accepts ordType=elp only through October 31, 2026.")]
     [Map("elp")]
     EnhancedLiquidityProgramOrder = 10,
+
+    /// <summary>
+    /// Retail Price Improvement maker order.
+    /// </summary>
+    [Map("rpi")]
+    RetailPriceImprovementOrder = 11,
 }

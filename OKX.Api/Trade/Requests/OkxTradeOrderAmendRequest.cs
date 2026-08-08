@@ -81,6 +81,20 @@ public record OkxTradeOrderAmendRequest
     public OkxTradePriceAmendType? PriceAmendType { get; set; }
 
     /// <summary>
+    /// Whether the amended order can access RPI liquidity. Default false.
+    /// This value is not inherited from the original order and must be sent on each amend request.
+    /// </summary>
+    [JsonProperty("rpiTakerAccess", NullValueHandling = NullValueHandling.Ignore)]
+    public bool? RpiTakerAccess { get; set; }
+
+    /// <summary>
+    /// Whether an RPI maker price that violates the spacing rule may be rounded outward to the nearest placeable,
+    /// non-crossing level. Default false. Effective only for rpi orders and ignored for OPTION and EVENTS.
+    /// </summary>
+    [JsonProperty("rpiPxRound", NullValueHandling = NullValueHandling.Ignore)]
+    public bool? RpiPriceRound { get; set; }
+
+    /// <summary>
     /// Event contract speed bump flag.
     /// Required for non-post-only EVENTS amend requests.
     /// </summary>
