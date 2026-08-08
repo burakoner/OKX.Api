@@ -1,0 +1,36 @@
+[
+  {
+    "instType": "SWAP",
+    "instId": "BTC-USDT-SWAP",
+    "ccy": "USDT",
+    "ordId": "",
+    "ordIdList": [],
+    "subAlgoIdList": [],
+    "algoId": "700000000000000200",
+    "clOrdId": "",
+    "algoClOrdId": "smart-iceberg-rsi",
+    "sz": "100",
+    "ordType": "smart_iceberg",
+    "side": "buy",
+    "posSide": "net",
+    "tdMode": "cross",
+    "state": "live",
+    "szLimit": "5",
+    "pxLimit": "85000",
+    "lmtOrderNumber": "20",
+    "aggressiveness": "mid",
+    "triggerParams": [
+      {
+        "triggerAction": "start",
+        "triggerStrategy": "rsi",
+        "triggerCond": "cross_down",
+        "timeframe": "30m",
+        "thold": "30",
+        "timePeriod": "14"
+      }
+    ],
+    "tag": "iceberg-entry",
+    "cTime": "1784743200000",
+    "uTime": "1784743200000"
+  }
+]

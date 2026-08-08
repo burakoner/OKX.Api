@@ -16,4 +16,10 @@ public enum OkxAlgoTriggerOrderType : byte
     /// </summary>
     [Map("ioc")]
     ImmediateOrCancelOrder = 2,
+
+    /// <summary>
+    /// Chase limit order. Only applicable to FUTURES and SWAP trigger orders.
+    /// </summary>
+    [Map("chase")]
+    Chase = 3,
 }

@@ -30,6 +30,8 @@ var leverage = await api.Account.GetLeverageAsync("BTC-USD-240628", OkxAccountMa
 var feeRates = await api.Account.GetFeeRatesAsync(OkxInstrumentType.Spot);
 var greeks = await api.Account.GetGreeksAsync();
 var mmp = await api.Account.GetMmpAsync("BTC-USDT");
+var glpToday = await api.Account.GetGlpTodayPerformanceAsync();
+var glpHistory = await api.Account.GetGlpHistoricalPerformanceAsync(OkxAccountGlpProgram.Spot);
 ```
 
 Example configuration flow:
@@ -108,6 +110,19 @@ When `ApplyBillDataAsync` returns `false`, OKX says to check the link after two 
 - `GetInterestLimitsAsync`
 - `GetMaximumWithdrawalsAsync`
 - `GetRiskStateAsync`
+
+### Global Liquidity Program
+
+- `GetGlpTodayPerformanceAsync`
+- `GetGlpHistoricalPerformanceAsync`
+
+These signed, read-only endpoints are available only to enrolled GLP accounts; when called with a sub-account API key, OKX resolves the master account. The client applies the documented, separate limit of five requests per two seconds to each endpoint.
+
+`GetGlpTodayPerformanceAsync` returns daily and month-to-date volume/share metrics for all enrolled programs. `DataDate` is a UTC+8 `yyyy-MM-dd` snapshot date, normally T-1 and falling back to T-2 while T-1 is incomplete. When `DataReady` is false, `Programs` is empty. `FUT_NTO` maps to `OkxAccountGlpProgram.ExpiryAndNitro`; its Type A, Type B, and TradFi category objects can be null while `Total` remains present.
+
+`GetGlpHistoricalPerformanceAsync` requires a program and returns newest-first daily rows. `begin` and `end` are inclusive Unix-millisecond filters interpreted by OKX as UTC+8 dates. Defaults are the first day of the current month and today; the default page size is 31 and the maximum is 100.
+
+Official contracts: [today performance](https://www.okx.com/docs-v5/en/#trading-account-rest-api-get-get-glp-today-performance) and [historical performance](https://www.okx.com/docs-v5/en/#trading-account-rest-api-get-get-glp-historical-performance).
 
 ### Margin, Borrow, and Collateral
 
@@ -217,5 +232,6 @@ var borrowRepayHistory = await api.Account.GetBorrowRepayHistoryAsync(new OkxAcc
 - `MovePositionsAsync` requires a VIP6 master-account API key, different source and destination accounts under the same master account, a 1-to-32 character alphanumeric client ID, and at most 30 legs. Margin trading positions are unsupported; the current official contract supports TradeFi positions, including equity perpetuals/XPerp.
 - `AdjustDemoAccountBalanceAsync` is rejected locally unless `DemoTradingService` is enabled. It supports only BTC, ETH, USDT, and OKB; OKX validates the current precision for each currency server-side.
 - OKX reports exhausted daily increase quota as `59691`, insufficient balance as `59692`, and insufficient transferable balance as `59693`.
+- GLP endpoints return `50030` when the API key lacks access. Required/invalid or mismatched filters remain available through the standard OKX errors `50014`, `51000`, and `50016`.
 
 

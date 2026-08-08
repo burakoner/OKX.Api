@@ -329,7 +329,7 @@ internal static class Program
         _ = await api.Algo.AmendOrderAsync(ExampleInstrumentId, algoOrderId: ExampleAlgoOrderId);
         _ = await api.Algo.GetOrderAsync(algoOrderId: ExampleAlgoOrderId);
         _ = await api.Algo.GetOpenOrdersAsync(OkxAlgoOrderType.Conditional);
-        _ = await api.Algo.GetOrderHistoryAsync(OkxAlgoOrderType.Conditional);
+        _ = await api.Algo.GetOrderHistoryAsync(OkxAlgoOrderType.Conditional, OkxAlgoOrderState.Canceled);
     }
     #endregion
 

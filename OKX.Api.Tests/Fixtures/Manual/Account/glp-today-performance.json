@@ -1,0 +1,90 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "dataReady": true,
+      "dataDate": "2026-07-13",
+      "account": {
+        "masterAccountId": "832545488879789797",
+        "combinedAccountIds": ["832545488879789798"]
+      },
+      "programs": [
+        {
+          "program": "SPOT",
+          "marketMakerBusinessId": "1",
+          "enrollmentStatus": "ENROLLED",
+          "marketMakerLevelId": "42",
+          "enrolledTierDisplay": "Tier 1 Class A",
+          "qualifyingPool": "TYPE_A",
+          "qualifyingRows": ["TOTAL"],
+          "daily": {
+            "volume": {
+              "typeA": {"maker": "1000000.00", "taker": "1000000.00"},
+              "typeBTotal": {"maker": "1000000.00", "taker": "1000000.00"},
+              "tradfiX2": {"maker": "1000000.00", "taker": "1000000.00"},
+              "total": {"maker": "2000000.00", "taker": "2000000.00"}
+            },
+            "share": {
+              "typeA": {"maker": "0.0012", "taker": "0.0010"},
+              "typeBAdj": {"maker": "0.0008", "taker": "0.0007"},
+              "total": {"maker": "0.0010", "taker": "0.0009"}
+            }
+          },
+          "mtd": {
+            "volume": {
+              "typeA": {"maker": "30000000.00", "taker": "30000000.00"},
+              "typeBTotal": {"maker": "30000000.00", "taker": "30000000.00"},
+              "tradfiX2": {"maker": "30000000.00", "taker": "30000000.00"},
+              "total": {"maker": "60000000.00", "taker": "60000000.00"}
+            },
+            "share": {
+              "typeA": {"maker": "0.0012", "taker": "0.0010"},
+              "typeBAdj": {"maker": "0.0008", "taker": "0.0007"},
+              "total": {"maker": "0.0010", "taker": "0.0009"}
+            },
+            "mtdStatus": "QUALIFIED",
+            "qualifyingShare": {"maker": "0.0012", "taker": "0.0010"}
+          }
+        },
+        {
+          "program": "FUT_NTO",
+          "marketMakerBusinessId": "2",
+          "enrollmentStatus": "ENROLLED",
+          "marketMakerLevelId": "7",
+          "enrolledTierDisplay": "Tier 2",
+          "qualifyingPool": "TYPE_A_AND_B",
+          "qualifyingRows": ["TOTAL"],
+          "daily": {
+            "volume": {
+              "typeA": null,
+              "typeBTotal": null,
+              "tradfiX2": null,
+              "total": {"maker": "250000.00", "taker": "125000.00"}
+            },
+            "share": {
+              "typeA": null,
+              "typeBAdj": null,
+              "total": {"maker": "0.0025", "taker": "0.0012"}
+            }
+          },
+          "mtd": {
+            "volume": {
+              "typeA": null,
+              "typeBTotal": null,
+              "tradfiX2": null,
+              "total": {"maker": "5000000.00", "taker": "2500000.00"}
+            },
+            "share": {
+              "typeA": null,
+              "typeBAdj": null,
+              "total": {"maker": "0.0020", "taker": "0.0010"}
+            },
+            "mtdStatus": "UPGRADE",
+            "qualifyingShare": {"maker": "0.0020", "taker": "0.0010"}
+          }
+        }
+      ]
+    }
+  ]
+}

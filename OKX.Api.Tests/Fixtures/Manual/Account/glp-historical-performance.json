@@ -1,0 +1,34 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "date": "2026-07-13",
+      "volume": {
+        "typeA": {"maker": "1000000.00", "taker": "1000000.00"},
+        "typeBTotal": {"maker": "1000000.00", "taker": "1000000.00"},
+        "tradfiX2": {"maker": "1000000.00", "taker": "1000000.00"},
+        "total": {"maker": "2000000.00", "taker": "2000000.00"}
+      },
+      "share": {
+        "typeA": {"maker": "0.0012", "taker": "0.0010"},
+        "typeBAdj": {"maker": "0.0008", "taker": "0.0007"},
+        "total": {"maker": "0.0010", "taker": "0.0009"}
+      }
+    },
+    {
+      "date": "2026-07-12",
+      "volume": {
+        "typeA": {"maker": "950000.00", "taker": "980000.00"},
+        "typeBTotal": {"maker": "850000.00", "taker": "900000.00"},
+        "tradfiX2": {"maker": "800000.00", "taker": "820000.00"},
+        "total": {"maker": "1800000.00", "taker": "1880000.00"}
+      },
+      "share": {
+        "typeA": {"maker": "0.0011", "taker": "0.0009"},
+        "typeBAdj": {"maker": "0.0007", "taker": "0.0006"},
+        "total": {"maker": "0.0009", "taker": "0.0008"}
+      }
+    }
+  ]
+}

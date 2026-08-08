@@ -37,6 +37,15 @@ public class OkxAlgoSocketClient(OkxWebSocketApiClient root)
         IEnumerable<OkxSocketSymbolRequest> symbols,
         CancellationToken ct = default)
     {
+        if (onData is null)
+            throw new ArgumentNullException(nameof(onData));
+        if (symbols is null)
+            throw new ArgumentNullException(nameof(symbols));
+
+        var symbolList = symbols.ToList();
+        if (symbolList.Count == 0)
+            throw new ArgumentException("At least one algo order subscription is required.", nameof(symbols));
+
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxAlgoOrder>>>>(data =>
         {
             foreach (var d in data.Data.Data)
@@ -44,13 +53,31 @@ public class OkxAlgoSocketClient(OkxWebSocketApiClient root)
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
-        foreach (var symbol in symbols) arguments.Add(new OkxSocketRequestArgument
+        foreach (var symbol in symbolList)
         {
-            Channel = "orders-algo",
-            InstrumentId = symbol.InstrumentId,
-            InstrumentType = symbol.InstrumentType,
-            InstrumentFamily = symbol.InstrumentFamily,
-        });
+            if (symbol is null)
+                throw new ArgumentException("Algo order subscriptions cannot contain null items.", nameof(symbols));
+            if (symbol.InstrumentType.IsNotIn(
+                OkxInstrumentType.Any,
+                OkxInstrumentType.Spot,
+                OkxInstrumentType.Margin,
+                OkxInstrumentType.Swap,
+                OkxInstrumentType.Futures))
+                throw new ArgumentOutOfRangeException(nameof(symbols), "Algo orders channel supports ANY, SPOT, MARGIN, SWAP, and FUTURES only.");
+            if (!string.IsNullOrWhiteSpace(symbol.InstrumentFamily) &&
+                symbol.InstrumentType.IsNotIn(OkxInstrumentType.Swap, OkxInstrumentType.Futures))
+                throw new ArgumentException("Instrument family is only applicable to SWAP and FUTURES algo subscriptions.", nameof(symbols));
+            if (symbol.InstrumentId is not null && string.IsNullOrWhiteSpace(symbol.InstrumentId))
+                throw new ArgumentException("Instrument ID cannot be empty.", nameof(symbols));
+
+            arguments.Add(new OkxSocketRequestArgument
+            {
+                Channel = "orders-algo",
+                InstrumentId = symbol.InstrumentId,
+                InstrumentType = symbol.InstrumentType,
+                InstrumentFamily = symbol.InstrumentFamily,
+            });
+        }
         var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
         return await _.RootSubscribeAsync(OkxSocketEndpoint.Business, request, null, true, internalHandler, ct).ConfigureAwait(false);
     }

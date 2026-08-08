@@ -18,6 +18,59 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
 
     /// <summary>
+    /// Retrieve the latest daily and month-to-date Global Liquidity Program performance snapshot.
+    /// Only enrolled GLP accounts can use this endpoint. A sub-account resolves to its master account.
+    /// </summary>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<OkxAccountGlpPerformance>> GetGlpTodayPerformanceAsync(CancellationToken ct = default)
+        => ProcessOneRequestAsync<OkxAccountGlpPerformance>(
+            GetUri("api/v5/users/glp/today-performance"),
+            HttpMethod.Get,
+            ct,
+            signed: true);
+
+    /// <summary>
+    /// Retrieve daily Global Liquidity Program performance, newest first.
+    /// Only enrolled GLP accounts can use this endpoint. A sub-account resolves to its master account.
+    /// </summary>
+    /// <param name="program">GLP business line</param>
+    /// <param name="begin">Inclusive begin date as a Unix timestamp in milliseconds. Defaults server-side to the first day of the current month in UTC+8.</param>
+    /// <param name="end">Inclusive end date as a Unix timestamp in milliseconds. Defaults server-side to today in UTC+8.</param>
+    /// <param name="limit">Maximum number of records. Default 31, maximum 100.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxAccountGlpHistoricalPerformance>>> GetGlpHistoricalPerformanceAsync(
+        OkxAccountGlpProgram program,
+        long? begin = null,
+        long? end = null,
+        int limit = 31,
+        CancellationToken ct = default)
+    {
+        if (program.IsNotIn(
+            OkxAccountGlpProgram.Spot,
+            OkxAccountGlpProgram.Perpetual,
+            OkxAccountGlpProgram.ExpiryAndNitro))
+            throw new ArgumentOutOfRangeException(nameof(program));
+        if (begin.HasValue && end.HasValue && begin.Value > end.Value)
+            throw new ArgumentException("Begin timestamp must be less than or equal to end timestamp.", nameof(begin));
+        limit.ValidateIntBetween(nameof(limit), 1, 100);
+
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("program", program);
+        parameters.AddOptional("begin", begin?.ToOkxString());
+        parameters.AddOptional("end", end?.ToOkxString());
+        parameters.AddOptional("limit", limit.ToOkxString());
+
+        return ProcessListRequestAsync<OkxAccountGlpHistoricalPerformance>(
+            GetUri("api/v5/users/glp/historical-performance"),
+            HttpMethod.Get,
+            ct,
+            signed: true,
+            queryParameters: parameters);
+    }
+
+    /// <summary>
     /// Get all bill types, and the mapping of bill type and sub-type.
     /// </summary>
     /// <param name="billTypes">Optional bill type filter. Multiple values are supported.</param>

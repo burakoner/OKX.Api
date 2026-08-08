@@ -25,10 +25,23 @@ public record OkxAlgoOrder
     public string Currency { get; set; } = string.Empty;
 
     /// <summary>
+    /// Latest regular order ID associated with the algo order. This field is deprecated by OKX.
+    /// </summary>
+    [JsonProperty("ordId")]
+    public long? LatestOrderId { get; set; }
+
+    /// <summary>
     /// Order ID list
     /// </summary>
     [JsonProperty("ordIdList")]
     public List<long> OrderIdList { get; set; } = [];
+
+    /// <summary>
+    /// IDs of algo orders spawned when the parent trigger fires.
+    /// For a trigger chase order, this contains the spawned chase algo ID while <see cref="OrderIdList"/> stays empty.
+    /// </summary>
+    [JsonProperty("subAlgoIdList")]
+    public List<long> SubAlgoIdList { get; set; } = [];
 
     /// <summary>
     /// Algo ID
@@ -158,15 +171,22 @@ public record OkxAlgoOrder
     /// Trigger order type
     /// fok: Fill-or-kill order
     /// ioc: Immediate-or-cancel order
+    /// chase: Chase limit order
     /// Default is "", limit or market(controlled by orderPx)
     /// </summary>
     [JsonProperty("advanceOrdType")]
-    public OkxAlgoPriceType? TriggerOrderType { get; set; }
+    public OkxAlgoTriggerOrderType? TriggerOrderType { get; set; }
+
+    /// <summary>
+    /// Chase parameters for a trigger order whose advanced order type is chase.
+    /// </summary>
+    [JsonProperty("advChaseParams")]
+    public List<OkxAlgoAdvancedChaseParameters> AdvancedChaseParameters { get; set; } = [];
 
     /// <summary>
     /// Actual order quantity
     /// </summary>
-[JsonProperty("actualSz")]
+    [JsonProperty("actualSz")]
     public decimal? ActualOrderQuantity { get; set; }
 
     /// <summary>
@@ -222,6 +242,24 @@ public record OkxAlgoOrder
     public decimal? PriceLimit { get; set; }
 
     /// <summary>
+    /// Number of limit-order splits. Only applicable to smart iceberg orders.
+    /// </summary>
+    [JsonProperty("lmtOrderNumber"), JsonConverter(typeof(IntAsStringNullableConverter))]
+    public int? LimitOrderNumber { get; set; }
+
+    /// <summary>
+    /// Execution aggressiveness. Only applicable to smart iceberg orders.
+    /// </summary>
+    [JsonProperty("aggressiveness")]
+    public OkxAlgoSmartIcebergAggressiveness? Aggressiveness { get; set; }
+
+    /// <summary>
+    /// Start trigger parameters. Only applicable to smart iceberg orders.
+    /// </summary>
+    [JsonProperty("triggerParams")]
+    public List<OkxAlgoSmartIcebergTriggerParameters> SmartIcebergTriggerParameters { get; set; } = [];
+
+    /// <summary>
     /// Time interval
     /// Only applicable to twap order
     /// </summary>
@@ -271,6 +309,18 @@ public record OkxAlgoOrder
     public decimal? LastPrice { get; set; }
 
     /// <summary>
+    /// Estimated order notional in USD. Reported by the algo orders WebSocket channel.
+    /// </summary>
+    [JsonProperty("notionalUsd"), JsonConverter(typeof(DecimalAsStringNullableConverter))]
+    public decimal? NotionalUsd { get; set; }
+
+    /// <summary>
+    /// Order tag.
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
+
+    /// <summary>
     /// It represents that the reason that algo order fails to trigger. It is "" when the state is effective/canceled.
     /// There will be value when the state is order_failed, e.g. 51008;
     /// Only applicable to Stop Order, Trailing Stop Order, Trigger order.
@@ -283,6 +333,18 @@ public record OkxAlgoOrder
     /// </summary>
     [JsonProperty("algoClOrdId")]
     public string AlgoClientOrderId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Client request ID for the latest amendment. Reported by the algo orders WebSocket channel.
+    /// </summary>
+    [JsonProperty("reqId")]
+    public string ClientRequestId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Latest amendment result. Reported by the algo orders WebSocket channel.
+    /// </summary>
+    [JsonProperty("amendResult")]
+    public OkxAlgoAmendResult? AmendResult { get; set; }
 
     /// <summary>
     /// Whether to enable Cost-price SL. Only applicable to SL order of split TPs.

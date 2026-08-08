@@ -46,4 +46,10 @@ public enum OkxAlgoOrderType : byte
     /// </summary>
     [Map("chase")]
     Chase = 7,
+
+    /// <summary>
+    /// Smart iceberg order.
+    /// </summary>
+    [Map("smart_iceberg")]
+    SmartIceberg = 8,
 }
