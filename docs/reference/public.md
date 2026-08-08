@@ -42,6 +42,16 @@ var insuranceFunds = await api.Public.GetInsuranceFundsAsync(OkxInstrumentType.M
 var serverTime = await api.Public.GetServerTimeAsync();
 ```
 
+### Pre-market X-Perp Instruments
+
+Pre-market X-Perps are returned by the public and private instruments REST endpoints, and by the `instruments` WebSocket channel, with `InstrumentType = OkxInstrumentType.Futures`. Do not classify every `FUTURES` instrument as a conventional expiry future; inspect `RuleType` as well.
+
+- During the pre-market phase, `RuleType` is `OkxInstrumentRuleType.PreMarket`.
+- After conversion to a normal X-Perp, `RuleType` changes to `OkxInstrumentRuleType.XPerp`.
+- `PreMarketSwitchTimestamp` and `PreMarketSwitchTime` are populated when a Pre-market X-Perp converts to a normal X-Perp.
+
+All three surfaces deserialize to `OkxPublicInstrument`, so the same classification logic can be shared across REST catalog refreshes and WebSocket updates.
+
 ### Security Fund and ADL Warning Contract
 
 Security fund queries require `Currency` for `MARGIN`; `FUTURES`, `SWAP`, and `OPTION` require `InstrumentFamily`. `Currency` and `InstrumentFamily` are mutually exclusive across those two query shapes. OKX removed `regular_update` from the request filter. The `platform_revenue` and `adl` filters remain available but are deprecated and currently return empty detail lists.
@@ -305,6 +315,7 @@ var marketDataHistory = await api.Public.GetMarketDataHistoryAsync(new OkxPublic
 - Event-contract markets expose `capStrike` for `between` settlement (`INF` means no upper bound) and `hitDir` for `hit` settlement (`up` from below, `dn` from above); the non-applicable field is empty. The `event-contract-markets` WebSocket channel pushes status and floor-strike changes but does not send an initial snapshot, so load the REST markets endpoint before consuming deltas when a complete starting view is required.
 - `GetInstrumentsAsync` requires `seriesId` for EVENTS and `instFamily` for OPTION. For OPTION/EVENTS, the returned `tickSz` is only the minimum across the tick bands; use `GetInstrumentTickBandsAsync` for the exact price-range increment.
 - Instrument responses preserve the current price-limit percentages, RPI spacing, string-valued fee `groupId`, deprecated auction/category fields, and upcoming-change metadata.
+- Query Pre-market X-Perps with `GetInstrumentsAsync(OkxInstrumentType.Futures)` and distinguish the `pre_market` and `xperp` lifecycle phases through `RuleType`; do not infer the product from `InstrumentType` alone.
 - OKX renamed `SPACEX-USDT-SWAP` to `SPCX-USDT-SWAP`; the related `uly`, `instFamily`, and `ctValCcy` values changed to `SPCX`, while `instIdCode` remained stable. The wrapper does not silently rewrite instrument IDs. Refresh the instrument catalog and use the current `SPCX-USDT-SWAP`/`SPCX-USDT` values for REST requests and new WebSocket subscriptions.
 - During an instrument rename, the instruments channel can emit the old ID as `expired`, followed by the new ID as `rebase`, `post_only`, and `live`. Consumers should process each update and use the stable `instIdCode` when correlating the old and new symbols.
 

@@ -93,6 +93,28 @@ public class OkxPublicDataSocketContractTests
         });
     }
 
+    [Fact]
+    public void ManualInstrumentsSocketFixture_ParsesPreMarketXPerpContract()
+    {
+        var response = DeserializeSocket<OkxPublicInstrument>("Public", "ws-instruments-pre-market-xperp.json");
+
+        Assert.Collection(
+            response,
+            preMarket =>
+            {
+                Assert.Equal(OkxInstrumentType.Futures, preMarket.InstrumentType);
+                Assert.Equal(OkxInstrumentRuleType.PreMarket, preMarket.RuleType);
+                Assert.Null(preMarket.PreMarketSwitchTimestamp);
+            },
+            converted =>
+            {
+                Assert.Equal(OkxInstrumentType.Futures, converted.InstrumentType);
+                Assert.Equal(OkxInstrumentRuleType.XPerp, converted.RuleType);
+                Assert.Equal(1780003600000L, converted.PreMarketSwitchTimestamp);
+                Assert.NotNull(converted.PreMarketSwitchTime);
+            });
+    }
+
     [Theory]
     [InlineData(OkxInstrumentType.Any)]
     [InlineData(OkxInstrumentType.Contracts)]

@@ -12,7 +12,8 @@ public enum OkxInstrumentRuleType : byte
     Normal = 1,
 
     /// <summary>
-    /// PreMarket
+    /// Pre-market trading.
+    /// For FUTURES, this identifies a Pre-market X-Perp before it converts to a normal X-Perp.
     /// </summary>
     [Map("pre_market")]
     PreMarket = 2,
@@ -25,8 +26,8 @@ public enum OkxInstrumentRuleType : byte
     RebaseContract = 3,
 
     /// <summary>
-    /// XPerp
-    /// Perpetual-style futures contract.
+    /// Perpetual-style FUTURES contract.
+    /// A Pre-market X-Perp changes from PreMarket to XPerp after conversion.
     /// </summary>
     [Map("xperp")]
     XPerp = 4,

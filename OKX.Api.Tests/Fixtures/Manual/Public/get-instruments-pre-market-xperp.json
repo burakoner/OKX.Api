@@ -1,0 +1,22 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "instType": "FUTURES",
+      "instId": "PREMARKET-XPERP",
+      "instFamily": "PREMARKET-XPERP",
+      "ruleType": "pre_market",
+      "preMktSwTime": "",
+      "state": "live"
+    },
+    {
+      "instType": "FUTURES",
+      "instId": "CONVERTED-XPERP",
+      "instFamily": "CONVERTED-XPERP",
+      "ruleType": "xperp",
+      "preMktSwTime": "1780003600000",
+      "state": "live"
+    }
+  ]
+}

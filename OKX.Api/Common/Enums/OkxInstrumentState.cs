@@ -19,7 +19,7 @@ public enum OkxInstrumentState : byte
 
     /// <summary>
     /// Rebase
-    /// Can't be traded during rebasing. Only applicable to SWAP.
+    /// Can't be traded during rebasing.
     /// </summary>
     [Map("rebase")]
     Rebase = 3,
@@ -51,7 +51,8 @@ public enum OkxInstrumentState : byte
 
     /// <summary>
     /// Post only.
-    /// Only post-only orders are accepted. Only applicable to SWAP.
+    /// Only post-only orders are accepted; existing post-only orders can be amended or cancelled.
+    /// Market, IOC, FOK, and normal limit orders are rejected.
     /// </summary>
     [Map("post_only")]
     PostOnly = 8,

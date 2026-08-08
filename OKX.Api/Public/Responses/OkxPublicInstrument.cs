@@ -185,6 +185,7 @@ public record OkxPublicInstrument
     /// <summary>
     /// The time a pre-market instrument switched to normal trading, Unix timestamp format in milliseconds, e.g. 1597026383085.
     /// Only applicable to pre-market SWAP and pre-market X-Perp FUTURES.
+    /// Populated when a Pre-market X-Perp converts to a normal X-Perp.
     /// </summary>
     [JsonProperty("preMktSwTime")]
     public long? PreMarketSwitchTimestamp { get; set; }
@@ -192,6 +193,7 @@ public record OkxPublicInstrument
     /// <summary>
     /// The time a pre-market instrument switched to normal trading, Unix timestamp format in milliseconds, e.g. 1597026383085.
     /// Only applicable to pre-market SWAP and pre-market X-Perp FUTURES.
+    /// Populated when a Pre-market X-Perp converts to a normal X-Perp.
     /// </summary>
     [JsonIgnore]
     public DateTime? PreMarketSwitchTime => PreMarketSwitchTimestamp?.ConvertFromMilliseconds();
@@ -292,7 +294,8 @@ public record OkxPublicInstrument
     public OkxInstrumentState State { get; set; }
 
     /// <summary>
-    /// Trading rule types, e.g. normal, pre_market, rebase_contract, xperp
+    /// Trading rule type: normal, pre_market, rebase_contract, or xperp.
+    /// A Pre-market X-Perp is returned as pre_market with instType FUTURES and changes to xperp after conversion.
     /// </summary>
     [JsonProperty("ruleType")]
     public OkxInstrumentRuleType? RuleType { get; set; }

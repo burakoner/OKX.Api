@@ -97,6 +97,42 @@ public class OkxPublicInstrumentContractTests
     }
 
     [Fact]
+    public async Task PublicAndPrivateFuturesInstrumentEndpoints_ParsePreMarketXPerpContract()
+    {
+        var payload = FixtureReader.ReadManual("Public", "get-instruments-pre-market-xperp.json");
+        using var server = new LocalOkxRestServer(new Dictionary<string, string>
+        {
+            ["GET /api/v5/public/instruments"] = payload,
+            ["GET /api/v5/account/instruments"] = payload,
+        });
+        var client = new OkxRestApiClient(new OkxRestApiOptions(new OkxApiCredentials("key", "secret", "pass"))
+        {
+            AutoTimestamp = false,
+            BaseAddress = server.BaseAddress,
+        });
+
+        var publicResult = await client.Public.GetInstrumentsAsync(OkxInstrumentType.Futures);
+        var privateResult = await client.Account.GetInstrumentsAsync(OkxInstrumentType.Futures);
+
+        Assert.True(publicResult.Success, publicResult.Error?.ToString());
+        Assert.True(privateResult.Success, privateResult.Error?.ToString());
+        AssertPreMarketXPerpContract(publicResult.Data!);
+        AssertPreMarketXPerpContract(privateResult.Data!);
+        Assert.Collection(
+            server.Requests,
+            request =>
+            {
+                Assert.Equal("/api/v5/public/instruments", request.Path);
+                Assert.Contains("instType=FUTURES", Uri.UnescapeDataString(request.Query));
+            },
+            request =>
+            {
+                Assert.Equal("/api/v5/account/instruments", request.Path);
+                Assert.Contains("instType=FUTURES", Uri.UnescapeDataString(request.Query));
+            });
+    }
+
+    [Fact]
     public void LiveProductionSpotInstrumentsFixture_ParsesCurrentOkxSnapshot()
     {
         var response = DeserializeLive("Production", "Public", "get-instruments-spot.json");
@@ -229,5 +265,25 @@ public class OkxPublicInstrumentContractTests
         Assert.Equal(0, response.ErrorCode);
         Assert.NotNull(response.Data);
         return response;
+    }
+
+    private static void AssertPreMarketXPerpContract(IReadOnlyList<OkxPublicInstrument> instruments)
+    {
+        Assert.Collection(
+            instruments,
+            preMarket =>
+            {
+                Assert.Equal(OkxInstrumentType.Futures, preMarket.InstrumentType);
+                Assert.Equal(OkxInstrumentRuleType.PreMarket, preMarket.RuleType);
+                Assert.Null(preMarket.PreMarketSwitchTimestamp);
+                Assert.Null(preMarket.PreMarketSwitchTime);
+            },
+            converted =>
+            {
+                Assert.Equal(OkxInstrumentType.Futures, converted.InstrumentType);
+                Assert.Equal(OkxInstrumentRuleType.XPerp, converted.RuleType);
+                Assert.Equal(1780003600000L, converted.PreMarketSwitchTimestamp);
+                Assert.NotNull(converted.PreMarketSwitchTime);
+            });
     }
 }
