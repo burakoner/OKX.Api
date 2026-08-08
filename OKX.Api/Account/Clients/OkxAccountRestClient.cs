@@ -701,6 +701,27 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         string? groupId = null,
         CancellationToken ct = default)
     {
+        if (instrumentType.IsNotIn(
+            OkxInstrumentType.Spot,
+            OkxInstrumentType.Margin,
+            OkxInstrumentType.Swap,
+            OkxInstrumentType.Futures,
+            OkxInstrumentType.Option,
+            OkxInstrumentType.Events))
+            throw new ArgumentException("Unsupported instrument type.", nameof(instrumentType));
+
+        if (!string.IsNullOrWhiteSpace(instrumentId) &&
+            instrumentType.IsNotIn(OkxInstrumentType.Spot, OkxInstrumentType.Margin))
+            throw new ArgumentException("Instrument ID is only applicable to Spot or Margin fee rates.", nameof(instrumentId));
+
+        if (!string.IsNullOrWhiteSpace(instrumentFamily) &&
+            instrumentType.IsNotIn(OkxInstrumentType.Futures, OkxInstrumentType.Swap, OkxInstrumentType.Option))
+            throw new ArgumentException("Instrument family is only applicable to Futures, Swap, or Option fee rates.", nameof(instrumentFamily));
+
+        if (!string.IsNullOrWhiteSpace(groupId) &&
+            (!string.IsNullOrWhiteSpace(instrumentId) || !string.IsNullOrWhiteSpace(instrumentFamily)))
+            throw new ArgumentException("Group ID cannot be combined with instrument ID or instrument family.", nameof(groupId));
+
         var parameters = new ParameterCollection();
         parameters.AddEnum("instType", instrumentType);
         parameters.AddOptional("instId", instrumentId);

@@ -12,6 +12,8 @@ var api = new OkxRestApiClient();
 
 This is usually enough for public endpoints.
 
+The default global REST base address is OKX's dedicated `https://openapi.okx.com` domain. The older `https://www.okx.com` REST address remains supported by OKX and can still be selected explicitly through `BaseAddress`. This change does not affect WebSocket or regional domains.
+
 ## Create with Options
 
 Use `OkxRestApiOptions` when you want to control client behavior up front:
@@ -62,7 +64,22 @@ var options = new OkxRestApiOptions
 var api = new OkxRestApiClient(options);
 ```
 
-Setting `DemoTradingService = true` switches the base address to the OKX demo REST API.
+Setting `DemoTradingService = true` keeps the dedicated global REST domain and adds OKX's simulated-trading request header. Demo WebSocket clients continue to use their existing `wspap.okx.com` domains.
+
+## Custom REST Domain
+
+Override `BaseAddress` when OKX requires a regional domain for your account or when retaining the supported `www.okx.com` REST address:
+
+```csharp
+var options = new OkxRestApiOptions
+{
+    BaseAddress = "https://www.okx.com"
+};
+
+var api = new OkxRestApiClient(options);
+```
+
+Set `DemoTradingService` before a custom `BaseAddress`, because changing the demo flag intentionally resets the REST domain.
 
 ## Public Request Signing
 

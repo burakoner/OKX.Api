@@ -1,0 +1,45 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "level": "Lv1",
+      "feeGroup": [
+        {
+          "groupId": "3",
+          "taker": "-0.001",
+          "maker": "-0.0008",
+          "elpMaker": "",
+          "rpiMaker": "0.0002"
+        },
+        {
+          "groupId": "4",
+          "taker": "-0.0009",
+          "maker": "-0.0007",
+          "elpMaker": "0.0001",
+          "rpiMaker": ""
+        }
+      ],
+      "delivery": "",
+      "exercise": "",
+      "settle": "",
+      "instType": "SPOT",
+      "ts": "1778880000000",
+      "taker": "-0.001",
+      "maker": "-0.0008",
+      "takerU": "",
+      "makerU": "",
+      "takerUSDC": "-0.0009",
+      "makerUSDC": "-0.0007",
+      "ruleType": "normal",
+      "category": "1",
+      "fiat": [
+        {
+          "ccy": "EUR",
+          "taker": "-0.0015",
+          "maker": "-0.001"
+        }
+      ]
+    }
+  ]
+}

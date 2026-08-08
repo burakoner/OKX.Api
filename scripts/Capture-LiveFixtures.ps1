@@ -580,7 +580,7 @@ if ($MyInvocation.InvocationName -eq ".") {
 
 Load-DotEnv -Path (Join-Path $RepositoryRoot ".env")
 
-$baseUrl = Get-EnvOrDefault -Name "OKX_CAPTURE_BASE_URL" -DefaultValue "https://www.okx.com"
+$baseUrl = Get-EnvOrDefault -Name "OKX_CAPTURE_BASE_URL" -DefaultValue "https://openapi.okx.com"
 $useDemoTrading = Read-BoolEnv -Name "OKX_DEMO_TRADING" -DefaultValue $false
 $publicOptionUnderlying = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_OPTION_ULY" -DefaultValue "BTC-USD"
 $publicEventsSeriesId = Get-EnvOrDefault -Name "OKX_CAPTURE_PUBLIC_EVENTS_SERIES_ID" -DefaultValue "BTC-ABOVE-DAILY"

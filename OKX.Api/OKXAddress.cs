@@ -30,21 +30,23 @@ public class OkxAddress
     /// </summary>
     public static OkxAddress Default = new()
     {
-        RestApiAddress = "https://www.okx.com",
+        RestApiAddress = "https://openapi.okx.com",
         WebSocketPublicAddress = "wss://ws.okx.com:8443/ws/v5/public",
         WebSocketPrivateAddress = "wss://ws.okx.com:8443/ws/v5/private",
         WebSocketBusinessAddress = "wss://ws.okx.com:8443/ws/v5/business",
     };
 
     /// <summary>
-    /// AWS Environment Endpoints
+    /// Legacy AWS Environment Endpoints.
+    /// OKX ceased the AWS domains; this compatibility entry now resolves to the global endpoints.
     /// </summary>
+    [Obsolete("OKX AWS domains have ceased service. Use OkxAddress.Default.")]
     public static OkxAddress AWS = new()
     {
-        RestApiAddress = "https://aws.okx.com",
-        WebSocketPublicAddress = "wss://wsaws.okx.com:8443/ws/v5/public",
-        WebSocketPrivateAddress = "wss://wsaws.okx.com:8443/ws/v5/private",
-        WebSocketBusinessAddress = "wss://wsaws.okx.com:8443/ws/v5/business",
+        RestApiAddress = "https://openapi.okx.com",
+        WebSocketPublicAddress = "wss://ws.okx.com:8443/ws/v5/public",
+        WebSocketPrivateAddress = "wss://ws.okx.com:8443/ws/v5/private",
+        WebSocketBusinessAddress = "wss://ws.okx.com:8443/ws/v5/business",
     };
 
     /// <summary>
@@ -52,7 +54,7 @@ public class OkxAddress
     /// </summary>
     public static OkxAddress Demo = new()
     {
-        RestApiAddress = "https://www.okx.com",
+        RestApiAddress = "https://openapi.okx.com",
         WebSocketPublicAddress = "wss://wspap.okx.com:8443/ws/v5/public",
         WebSocketPrivateAddress = "wss://wspap.okx.com:8443/ws/v5/private",
         WebSocketBusinessAddress = "wss://wspap.okx.com:8443/ws/v5/business",
