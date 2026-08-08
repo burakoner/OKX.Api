@@ -48,13 +48,14 @@ public record OkxDownloadLink
     public DateTime? CreateTime => CreateTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
-    /// Download link generation time, Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// Server-reported timestamp for the download request, Unix timestamp format in milliseconds, e.g. 1597026383085.
+    /// Its precise lifecycle meaning is defined by the endpoint returning this shared model.
     /// </summary>
     [JsonProperty("ts")]
     public long Timestamp { get; set; }
 
     /// <summary>
-    /// Download link generation time
+    /// Server-reported time for the download request.
     /// </summary>
     [JsonIgnore]
     public DateTime Time => Timestamp.ConvertFromMilliseconds();

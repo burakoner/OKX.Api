@@ -254,6 +254,8 @@ var buySellHistory = await api.Funding.GetBuySellTradeHistoryAsync(new OkxFundin
 });
 ```
 
+OKX limits asset bills details to 6 requests per second and asset bills history to 1 request per second per user ID. The client mirrors both limits within each client instance; applications using multiple client instances for the same user must coordinate the shared user-wide limit themselves.
+
 ## Tips
 
 - Funding operations move real assets. Treat examples as live-account actions unless you explicitly use demo endpoints that support the route.

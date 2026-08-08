@@ -78,6 +78,8 @@ public class OkxRestApiOptions : RestApiClientOptions
             .AddPartialEndpointLimit("/api/v5/public/vip-interest-rate-loan-quota", 2, TimeSpan.FromSeconds(2), null, true, true)
             .AddPartialEndpointLimit("/api/v5/public/insurance-fund", 10, TimeSpan.FromSeconds(2), null, true, true)
             .AddPartialEndpointLimit("/api/v5/public/convert-contract-coin", 10, TimeSpan.FromSeconds(2), null, true, true)
+            .AddEndpointLimit("/api/v5/asset/bills", 6, TimeSpan.FromSeconds(1), HttpMethod.Get, true)
+            .AddEndpointLimit("/api/v5/asset/bills-history", 1, TimeSpan.FromSeconds(1), HttpMethod.Get, true)
             .AddPartialEndpointLimit("/api/v5/account/bills-history-archive", 1, TimeSpan.FromSeconds(10), HttpMethod.Post, false, true)
             .AddPartialEndpointLimit("/api/v5/account/bills-history-archive", 10, TimeSpan.FromSeconds(2), HttpMethod.Get, false, true)
         ];

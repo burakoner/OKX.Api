@@ -1,4 +1,5 @@
 using ApiSharp.Converters;
+using ApiSharp.Throttling;
 using Newtonsoft.Json.Linq;
 using OKX.Api.Account;
 using OKX.Api.Common;
@@ -93,6 +94,29 @@ public class OkxFundingRequestOverloadClientBehaviorTests
         Assert.Contains("thirdPartyType=2", request.Query);
         Assert.Contains("after=12344", request.Query);
         Assert.Contains("pagingType=2", request.Query);
+    }
+
+    [Fact]
+    public async Task BillQueries_ApplyCurrentEndpointSpecificRateLimits()
+    {
+        const string response = "{\"code\":\"0\",\"msg\":\"\",\"data\":[]}";
+        using var server = new LocalOkxRestServer(new Dictionary<string, string>
+        {
+            ["GET /api/v5/asset/bills"] = response,
+            ["GET /api/v5/asset/bills-history"] = response,
+        });
+        var client = CreateClient(server, RateLimitingBehavior.Fail);
+
+        for (var i = 0; i < 6; i++)
+            Assert.True((await client.Funding.GetBillsAsync()).Success);
+
+        Assert.False((await client.Funding.GetBillsAsync()).Success);
+        Assert.True((await client.Funding.GetBillsHistoryAsync()).Success);
+        Assert.False((await client.Funding.GetBillsHistoryAsync()).Success);
+
+        Assert.Equal(7, server.Requests.Count);
+        Assert.Equal(6, server.Requests.Count(x => x.Path == "/api/v5/asset/bills"));
+        Assert.Single(server.Requests, x => x.Path == "/api/v5/asset/bills-history");
     }
 
     [Fact]
@@ -244,12 +268,13 @@ public class OkxFundingRequestOverloadClientBehaviorTests
             [$"POST {path}"] = response,
         });
 
-    private static OkxRestApiClient CreateClient(LocalOkxRestServer server)
+    private static OkxRestApiClient CreateClient(LocalOkxRestServer server, RateLimitingBehavior rateLimitingBehavior = RateLimitingBehavior.Wait)
     {
         var options = new OkxRestApiOptions(new OkxApiCredentials("key", "secret", "pass"))
         {
             AutoTimestamp = false,
             BaseAddress = server.BaseAddress,
+            RateLimitingBehavior = rateLimitingBehavior,
         };
 
         return new OkxRestApiClient(options);
