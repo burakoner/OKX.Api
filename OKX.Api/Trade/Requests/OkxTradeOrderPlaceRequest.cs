@@ -167,8 +167,8 @@ public record OkxTradeOrderPlaceRequest
     public bool? RpiPriceRound { get; set; }
 
     /// <summary>
-    /// Event contract speed bump flag for REST batch order placement.
-    /// This parameter was removed from the single REST Place order endpoint on 2026-07-24.
+    /// Event contract speed bump flag for REST batch and WebSocket single/batch order placement.
+    /// This parameter was removed only from the single REST Place order endpoint on 2026-07-24.
     /// </summary>
     [JsonProperty("speedBump", NullValueHandling = NullValueHandling.Ignore)]
     public OkxTradeEventSpeedBump? SpeedBump { get; set; }
@@ -181,8 +181,7 @@ public record OkxTradeOrderPlaceRequest
     public OkxTradeEventOutcome? Outcome { get; set; }
 
     /// <summary>
-    /// TP/SL information attached when placing order
-    /// Just for Rest API order placement
+    /// TP/SL information attached when placing an order through REST or WebSocket.
     /// </summary>
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
     public IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? AttachedAlgoOrders { get; set; }

@@ -215,6 +215,7 @@ public record OkxPublicInstrument
     /// 2: ELP is enabled for this symbol, and current users have permission to place ELP orders for it.
     /// It doesn't mean there will be ELP liquidity when elp is 1/2.
     /// </summary>
+    [Obsolete("Use RpiMakerPermission or EffectiveRpiMakerPermission. OKX accepts elp only through October 31, 2026.")]
     [JsonProperty("elp")]
     public OkxPublicElpPermission? ElpMakerPermission { get; set; }
 
@@ -224,6 +225,22 @@ public record OkxPublicInstrument
     /// </summary>
     [JsonProperty("rpi")]
     public OkxPublicRpiPermission? RpiMakerPermission { get; set; }
+
+    /// <summary>
+    /// Effective RPI maker permission. The current rpi field takes precedence over the temporary elp alias.
+    /// </summary>
+    [JsonIgnore]
+    public OkxPublicRpiPermission? EffectiveRpiMakerPermission
+    {
+        get
+        {
+#pragma warning disable CS0618
+            return RpiMakerPermission ?? (ElpMakerPermission.HasValue
+                ? (OkxPublicRpiPermission)(byte)ElpMakerPermission.Value
+                : null);
+#pragma warning restore CS0618
+        }
+    }
 
     /// <summary>
     /// Expiry timestamp

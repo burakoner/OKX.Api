@@ -1,3 +1,4 @@
+using ApiSharp.Throttling;
 using OKX.Api.Affiliate;
 using OKX.Api.Tests.TestInfrastructure;
 
@@ -241,6 +242,49 @@ public class OkxAffiliateClientBehaviorTests
         Assert.Empty(server.Requests);
     }
 
+    [Fact]
+    public async Task InviteeList_RejectsCustomAndJoinTimeStartsOlderThanOneHundredEightyDays()
+    {
+        using var server = CreateServer("/api/v5/affiliate/invitee/list", "invitee-list.json");
+        var client = CreateClient(server);
+        var oldStart = DateTimeOffset.UtcNow.AddDays(-181).ToUnixTimeMilliseconds();
+        var oldEnd = DateTimeOffset.UtcNow.AddDays(-180).ToUnixTimeMilliseconds();
+
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => client.Affiliate.GetInviteesAsync(new OkxAffiliateInviteeListRequest
+        {
+            PeriodType = OkxAffiliatePeriodType.Custom,
+            Begin = oldStart,
+            End = oldEnd,
+        }));
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => client.Affiliate.GetInviteesAsync(new OkxAffiliateInviteeListRequest
+        {
+            JoinTimeBegin = oldStart,
+            JoinTimeEnd = oldEnd,
+        }));
+        Assert.Empty(server.Requests);
+    }
+
+    [Fact]
+    public async Task InviteeEndpoints_EnforceSeparateThreePerSecondUserLimits()
+    {
+        using var listServer = CreateServer("/api/v5/affiliate/invitee/list", "invitee-list.json");
+        var listClient = CreateClient(listServer, RateLimitingBehavior.Fail);
+
+        for (var i = 0; i < 3; i++)
+            Assert.True((await listClient.Affiliate.GetInviteesAsync()).Success);
+        Assert.False((await listClient.Affiliate.GetInviteesAsync()).Success);
+
+        using var detailServer = CreateServer("/api/v5/affiliate/invitee/detail", "invitee-detail.json");
+        var detailClient = CreateClient(detailServer, RateLimitingBehavior.Fail);
+
+        for (var i = 0; i < 3; i++)
+            Assert.True((await detailClient.Affiliate.GetInviteeAsync(835449167911924693)).Success);
+        Assert.False((await detailClient.Affiliate.GetInviteeAsync(835449167911924693)).Success);
+
+        Assert.Equal(3, listServer.Requests.Count);
+        Assert.Equal(3, detailServer.Requests.Count);
+    }
+
     [Theory]
     [InlineData(0, 100)]
     [InlineData(1, 0)]
@@ -267,12 +311,15 @@ public class OkxAffiliateClientBehaviorTests
             [$"GET {path}"] = FixtureReader.ReadManual("Affiliate", fixtureName),
         });
 
-    private static OkxRestApiClient CreateClient(LocalOkxRestServer server)
+    private static OkxRestApiClient CreateClient(
+        LocalOkxRestServer server,
+        RateLimitingBehavior rateLimitingBehavior = RateLimitingBehavior.Wait)
     {
         var options = new OkxRestApiOptions(new OkxApiCredentials("key", "secret", "pass"))
         {
             AutoTimestamp = false,
             BaseAddress = server.BaseAddress,
+            RateLimitingBehavior = rateLimitingBehavior,
         };
 
         return new OkxRestApiClient(options);

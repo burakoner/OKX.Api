@@ -6,6 +6,7 @@
 public class OkxAffiliateRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
     private const long NinetyDaysInMilliseconds = 90L * 24L * 60L * 60L * 1000L;
+    private const long OneHundredEightyDaysInMilliseconds = 180L * 24L * 60L * 60L * 1000L;
 
     /// <summary>
     /// Get aggregated affiliate performance metrics for a statistics window.
@@ -80,6 +81,9 @@ public class OkxAffiliateRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
         ValidateOptionalEnum(request.OrderDirection, nameof(request.OrderDirection));
         ValidateOptionalEnum(request.KycStatus, nameof(request.KycStatus));
         ValidateInclusiveRangePair(request.JoinTimeBegin, request.JoinTimeEnd, NinetyDaysInMilliseconds, "joinTimeBegin and joinTimeEnd", nameof(request));
+        if (request.PeriodType == OkxAffiliatePeriodType.Custom)
+            ValidateRecentStart(request.Begin, "begin", nameof(request));
+        ValidateRecentStart(request.JoinTimeBegin, "joinTimeBegin", nameof(request));
 
         List<string>? userIds = null;
         if (request.UserIds is not null)
@@ -241,5 +245,15 @@ public class OkxAffiliateRestClient(OkxRestApiClient root) : OkxBaseRestClient(r
     {
         if (value.HasValue && !Enum.IsDefined(typeof(T), value.Value))
             throw new ArgumentOutOfRangeException(parameterName, value.Value, $"Unsupported {typeof(T).Name} value.");
+    }
+
+    private static void ValidateRecentStart(long? timestamp, string fieldName, string parameterName)
+    {
+        if (!timestamp.HasValue)
+            return;
+
+        var earliestAllowed = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - OneHundredEightyDaysInMilliseconds;
+        if (timestamp.Value < earliestAllowed)
+            throw new ArgumentOutOfRangeException(parameterName, timestamp.Value, $"{fieldName} cannot be earlier than 180 days ago.");
     }
 }

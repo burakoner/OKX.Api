@@ -21,11 +21,25 @@ public class OkxPublicInstrumentContractTests
         Assert.Equal(25000.5m, instrument.PlatformWideMaximumPositionValueInCoins);
         Assert.Equal(1250.50m, instrument.LongPositionRemainingQuota);
         Assert.Equal(775.25m, instrument.ShortPositionRemainingQuota);
+#pragma warning disable CS0618
         Assert.Equal(OkxPublicElpPermission.NoUserPermission, instrument.ElpMakerPermission);
+#pragma warning restore CS0618
         Assert.Equal(OkxPublicRpiPermission.Allowed, instrument.RpiMakerPermission);
+        Assert.Equal(OkxPublicRpiPermission.Allowed, instrument.EffectiveRpiMakerPermission);
         Assert.Equal(0.05m, instrument.InitialPriceLimitPercentage);
         Assert.Equal(0.03m, instrument.FloatingPriceLimitPercentage);
         Assert.Equal(0.15m, instrument.MaximumPriceLimitPercentage);
+    }
+
+    [Fact]
+    public void LegacyElpPermission_IsUsedOnlyWhenCurrentRpiFieldIsAbsent()
+    {
+        const string json = "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"elp\":\"1\"}]}";
+
+        var instrument = Assert.Single(Deserialize(json).Data!);
+
+        Assert.Null(instrument.RpiMakerPermission);
+        Assert.Equal(OkxPublicRpiPermission.NoUserPermission, instrument.EffectiveRpiMakerPermission);
     }
 
     [Fact]
