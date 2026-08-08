@@ -255,6 +255,8 @@ var marketDataHistory = await api.Public.GetMarketDataHistoryAsync(new OkxPublic
 - Use typed request overloads when you need many optional filters or when you want future additions to be easier to absorb.
 - Event-contract series, events, and markets REST endpoints are unsigned public requests. Series responses support `five_min`, `fifteen_min`, `hourly`, `daily`, and `monthly` frequencies plus `price_up_down`, `price_above`, `hit`, and `between` settlement methods.
 - `GetInstrumentsAsync` requires `seriesId` for EVENTS and `instFamily` for OPTION. For OPTION/EVENTS, the returned `tickSz` is only the minimum across the tick bands; use `GetInstrumentTickBandsAsync` for the exact price-range increment.
-- Instrument responses preserve the current price-limit percentages, RPI spacing, deprecated auction/category fields, and upcoming-change metadata.
+- Instrument responses preserve the current price-limit percentages, RPI spacing, string-valued fee `groupId`, deprecated auction/category fields, and upcoming-change metadata.
+- OKX renamed `SPACEX-USDT-SWAP` to `SPCX-USDT-SWAP`; the related `uly`, `instFamily`, and `ctValCcy` values changed to `SPCX`, while `instIdCode` remained stable. The wrapper does not silently rewrite instrument IDs. Refresh the instrument catalog and use the current `SPCX-USDT-SWAP`/`SPCX-USDT` values for REST requests and new WebSocket subscriptions.
+- During an instrument rename, the instruments channel can emit the old ID as `expired`, followed by the new ID as `rebase`, `post_only`, and `live`. Consumers should process each update and use the stable `instIdCode` when correlating the old and new symbols.
 
 

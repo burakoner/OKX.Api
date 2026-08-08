@@ -1,0 +1,52 @@
+{
+  "arg": {
+    "channel": "instruments",
+    "instType": "SWAP"
+  },
+  "data": [
+    {
+      "instType": "SWAP",
+      "instId": "SPACEX-USDT-SWAP",
+      "uly": "SPACEX-USDT",
+      "instFamily": "SPACEX-USDT",
+      "ctValCcy": "SPACEX",
+      "groupId": "4",
+      "instIdCode": "260602001",
+      "state": "expired",
+      "ruleType": "normal"
+    },
+    {
+      "instType": "SWAP",
+      "instId": "SPCX-USDT-SWAP",
+      "uly": "SPCX-USDT",
+      "instFamily": "SPCX-USDT",
+      "ctValCcy": "SPCX",
+      "groupId": "4",
+      "instIdCode": "260602001",
+      "state": "rebase",
+      "ruleType": "normal"
+    },
+    {
+      "instType": "SWAP",
+      "instId": "SPCX-USDT-SWAP",
+      "uly": "SPCX-USDT",
+      "instFamily": "SPCX-USDT",
+      "ctValCcy": "SPCX",
+      "groupId": "4",
+      "instIdCode": "260602001",
+      "state": "post_only",
+      "ruleType": "normal"
+    },
+    {
+      "instType": "SWAP",
+      "instId": "SPCX-USDT-SWAP",
+      "uly": "SPCX-USDT",
+      "instFamily": "SPCX-USDT",
+      "ctValCcy": "SPCX",
+      "groupId": "4",
+      "instIdCode": "260602001",
+      "state": "live",
+      "ruleType": "normal"
+    }
+  ]
+}

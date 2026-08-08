@@ -27,7 +27,7 @@ public record OkxPublicInstrument
     public long? InstrumentIdCode { get; set; }
 
     /// <summary>
-    /// Underlying, e.g. BTC-USD. Only applicable to FUTURES/SWAP/OPTION
+    /// Underlying, e.g. BTC-USD. Only applicable to MARGIN/FUTURES/SWAP/OPTION.
     /// </summary>
     [JsonProperty("uly")]
     public string? Underlying { get; set; } = string.Empty;
@@ -35,49 +35,43 @@ public record OkxPublicInstrument
     /// <summary>
     /// Instrument trading fee group ID
     /// Spot:
-    /// 1: Spot USDT
-    /// 2: Spot USDC &amp; Crypto
     /// 3: Spot TRY
-    /// 4: Spot EUR
     /// 5: Spot BRL
     /// 7: Spot AED
     /// 8: Spot AUD
-    /// 9: Spot USD
     /// 10: Spot SGD
     /// 11: Spot zero
     /// 12: Spot group one
     /// 13: Spot group two
     /// 14: Spot group three
     /// 15: Spot special rule
+    /// 17: Spot stablecoin
+    /// 22: Spot RWA group two
     /// 
     /// Expiry futures:
-    /// 1: Expiry futures crypto-margined
-    /// 2: Expiry futures USDT-margined
-    /// 3: Expiry futures USDC-margined
-    /// 4: Expiry futures premarket
     /// 5: Expiry futures group one
     /// 6: Expiry futures group two
+    /// 8: XPERP group two
+    /// 10: XPERP RWA group two
     /// 
     /// Perpetual futures:
-    /// 1: Perpetual futures crypto-margined
-    /// 2: Perpetual futures USDT-margined
-    /// 3: Perpetual futures USDC-margined
     /// 4: Perpetual futures group one
     /// 5: Perpetual futures group two
+    /// 6: SWAP RWA group one
+    /// 7: SWAP RWA group two
     /// 
     /// Options:
     /// 1: Options crypto-margined
-    /// 2: Options USDC-margined
     /// 
-    /// instType and groupId should be used together to determine a trading fee group.Users should use this endpoint together with fee rates endpoint to get the trading fee of a specific symbol.
+    /// instType and groupId should be used together to determine a trading fee group. Users should use this endpoint together with the fee rates endpoint to get the trading fee of a specific symbol.
     /// 
     /// Some enum values may not apply to you; the actual return values shall prevail.
     /// </summary>
     [JsonProperty("groupId")]
-    public int? GroupId { get; set; }
+    public string? GroupId { get; set; }
 
     /// <summary>
-    /// Instrument family
+    /// Instrument family. Only applicable to MARGIN/FUTURES/SWAP/OPTION.
     /// </summary>
     [JsonProperty("instFamily")]
     public string? InstrumentFamily { get; set; } = string.Empty;
@@ -189,15 +183,15 @@ public record OkxPublicInstrument
     public DateTime? ContinuousTradingSwitchTime => ContinuousTradingSwitchTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
-    /// The time premarket swap switched to normal swap, Unix timestamp format in milliseconds, e.g. 1597026383085.
-    /// Only applicable premarket SWAP
+    /// The time a pre-market instrument switched to normal trading, Unix timestamp format in milliseconds, e.g. 1597026383085.
+    /// Only applicable to pre-market SWAP and pre-market X-Perp FUTURES.
     /// </summary>
     [JsonProperty("preMktSwTime")]
     public long? PreMarketSwitchTimestamp { get; set; }
 
     /// <summary>
-    /// The time premarket swap switched to normal swap, Unix timestamp format in milliseconds, e.g. 1597026383085.
-    /// Only applicable premarket SWAP
+    /// The time a pre-market instrument switched to normal trading, Unix timestamp format in milliseconds, e.g. 1597026383085.
+    /// Only applicable to pre-market SWAP and pre-market X-Perp FUTURES.
     /// </summary>
     [JsonIgnore]
     public DateTime? PreMarketSwitchTime => PreMarketSwitchTimestamp?.ConvertFromMilliseconds();
@@ -213,7 +207,7 @@ public record OkxPublicInstrument
     public OkxPublicOpenType? OpenType { get; set; }
 
     /// <summary>
-    /// ELP maker permission
+    /// Legacy ELP maker permission alias.
     /// 0: ELP is not enabled for this symbol
     /// 1: ELP is enabled for this symbol, but current users don't have permission to place ELP orders for it.
     /// 2: ELP is enabled for this symbol, and current users have permission to place ELP orders for it.
@@ -224,6 +218,7 @@ public record OkxPublicInstrument
 
     /// <summary>
     /// RPI maker permission. Only returned by the private instruments endpoint.
+    /// ELP remains accepted by OKX as a temporary alias through October 31, 2026.
     /// </summary>
     [JsonProperty("rpi")]
     public OkxPublicRpiPermission? RpiMakerPermission { get; set; }
@@ -241,7 +236,8 @@ public record OkxPublicInstrument
     public DateTime? ExpiryTime => ExpiryTimestamp?.ConvertFromMilliseconds();
 
     /// <summary>
-    /// Maximal leverage
+    /// Exchange-defined maximum leverage ceiling for this instrument.
+    /// The leverage available to an account may be lower based on VIP tier and position size.
     /// </summary>
     [JsonProperty("lever")]
     public decimal? MaximumLeverage { get; set; }
@@ -290,7 +286,7 @@ public record OkxPublicInstrument
 
     /// <summary>
     /// Instrument status, e.g. live, suspend, rebase, post_only, preopen, expired, test, settling.
-    /// post_only is only applicable to SWAP and only accepts post-only orders.
+    /// In post_only state, only post-only orders are accepted; other order types are rejected.
     /// </summary>
     [JsonProperty("state")]
     public OkxInstrumentState State { get; set; }
@@ -375,7 +371,7 @@ public record OkxPublicInstrument
     public decimal? MaximumPositionRatio { get; set; }
 
     /// <summary>
-    /// Platform-wide maximum position value (USD) for this instrument. If the global position limit switch is enabled and platform total open interest reaches or exceeds this value, all users’ new opening orders for this instrument are rejected; otherwise, orders pass.
+    /// Platform-wide maximum position value (USD) for this instrument. If platform total open interest reaches or exceeds this value, all users’ new opening orders for this instrument are rejected; otherwise, orders pass.
     /// </summary>
     [JsonProperty("maxPlatOILmt")]
     public decimal? PlatformWideMaximumPositionValue { get; set; }

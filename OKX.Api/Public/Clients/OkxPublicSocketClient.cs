@@ -325,6 +325,21 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToInstrumentsAsync(Action<OkxPublicInstrument> onData, IEnumerable<OkxInstrumentType> instrumentTypes, CancellationToken ct = default)
     {
+        if (onData == null) throw new ArgumentNullException(nameof(onData));
+        if (instrumentTypes == null) throw new ArgumentNullException(nameof(instrumentTypes));
+
+        var instrumentTypeList = instrumentTypes.ToList();
+        if (instrumentTypeList.Count == 0)
+            throw new ArgumentException("At least one instrument type is required.", nameof(instrumentTypes));
+        if (instrumentTypeList.Any(x => x.IsNotIn(
+            OkxInstrumentType.Spot,
+            OkxInstrumentType.Margin,
+            OkxInstrumentType.Swap,
+            OkxInstrumentType.Futures,
+            OkxInstrumentType.Option,
+            OkxInstrumentType.Events)))
+            throw new ArgumentException("Unsupported instrument type for the instruments channel.", nameof(instrumentTypes));
+
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicInstrument>>>>(data =>
         {
             foreach (var d in data.Data.Data)
@@ -332,7 +347,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         });
 
         var arguments = new List<OkxSocketRequestArgument>();
-        foreach (var instrumentType in instrumentTypes) arguments.Add(new OkxSocketRequestArgument
+        foreach (var instrumentType in instrumentTypeList) arguments.Add(new OkxSocketRequestArgument
         {
             Channel = "instruments",
             InstrumentType = instrumentType,

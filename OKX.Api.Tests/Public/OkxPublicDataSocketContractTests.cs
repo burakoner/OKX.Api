@@ -47,6 +47,65 @@ public class OkxPublicDataSocketContractTests
     }
 
     [Fact]
+    public void ManualInstrumentsSocketFixture_ParsesSpacexRenameSequenceWithoutChangingInstrumentCode()
+    {
+        var response = DeserializeSocket<OkxPublicInstrument>("Public", "ws-instruments-spacex-rename.json");
+
+        Assert.Collection(
+            response,
+            expired =>
+            {
+                Assert.Equal("SPACEX-USDT-SWAP", expired.InstrumentId);
+                Assert.Equal("SPACEX-USDT", expired.InstrumentFamily);
+                Assert.Equal("SPACEX", expired.ContractValueCurrency);
+                Assert.Equal(OkxInstrumentState.Expired, expired.State);
+            },
+            rebase =>
+            {
+                Assert.Equal("SPCX-USDT-SWAP", rebase.InstrumentId);
+                Assert.Equal(OkxInstrumentState.Rebase, rebase.State);
+            },
+            postOnly =>
+            {
+                Assert.Equal("SPCX-USDT-SWAP", postOnly.InstrumentId);
+                Assert.Equal(OkxInstrumentState.PostOnly, postOnly.State);
+            },
+            live =>
+            {
+                Assert.Equal("SPCX-USDT-SWAP", live.InstrumentId);
+                Assert.Equal("SPCX-USDT", live.Underlying);
+                Assert.Equal("SPCX", live.ContractValueCurrency);
+                Assert.Equal(OkxInstrumentState.Live, live.State);
+            });
+
+        Assert.All(response, instrument =>
+        {
+            Assert.Equal("4", instrument.GroupId);
+            Assert.Equal(260602001L, instrument.InstrumentIdCode);
+        });
+    }
+
+    [Theory]
+    [InlineData(OkxInstrumentType.Any)]
+    [InlineData(OkxInstrumentType.Contracts)]
+    public async Task InstrumentsSubscription_RejectsUndocumentedInstrumentTypes(OkxInstrumentType instrumentType)
+    {
+        using var client = new OkxWebSocketApiClient();
+
+        await Assert.ThrowsAsync<ArgumentException>(() =>
+            client.Public.SubscribeToInstrumentsAsync(_ => { }, instrumentType));
+    }
+
+    [Fact]
+    public async Task InstrumentsSubscription_RejectsEmptyInstrumentTypeList()
+    {
+        using var client = new OkxWebSocketApiClient();
+
+        await Assert.ThrowsAsync<ArgumentException>(() =>
+            client.Public.SubscribeToInstrumentsAsync(_ => { }, []));
+    }
+
+    [Fact]
     public void EconomicCalendarSubscription_UsesAuthenticatedBusinessSocket()
     {
         var method = typeof(OkxPublicSocketClient).GetMethod("CreateEconomicCalendarSubscription", BindingFlags.NonPublic | BindingFlags.Static);
