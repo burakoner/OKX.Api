@@ -12,6 +12,42 @@ public record OkxDownloadLink
     public string DownloadLink { get; set; } = string.Empty;
 
     /// <summary>
+    /// Data range begin time, Unix timestamp format in milliseconds.
+    /// </summary>
+    [JsonProperty("beginTime"), JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? BeginTimestamp { get; set; }
+
+    /// <summary>
+    /// Data range begin time.
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? BeginTime => BeginTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Data range end time, Unix timestamp format in milliseconds.
+    /// </summary>
+    [JsonProperty("endTime"), JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? EndTimestamp { get; set; }
+
+    /// <summary>
+    /// Data range end time.
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? EndTime => EndTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// The first request time for generating the download link, Unix timestamp format in milliseconds.
+    /// </summary>
+    [JsonProperty("cTime"), JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? CreateTimestamp { get; set; }
+
+    /// <summary>
+    /// The first request time for generating the download link.
+    /// </summary>
+    [JsonIgnore]
+    public DateTime? CreateTime => CreateTimestamp?.ConvertFromMilliseconds();
+
+    /// <summary>
     /// Download link generation time, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("ts")]

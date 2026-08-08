@@ -13,30 +13,43 @@ Official OKX docs: [OKX Broker API](https://www.okx.com/docs-v5/broker_en/)
 
 ## Current Implementation Status
 
-At the moment, the broker section primarily exposes the client structure and credential wiring. The concrete REST methods for FD and DMA broker operations are still marked as TODO in the codebase.
+The FD client currently implements:
 
-That means:
+- `GetDownloadLinksAsync` for `GET /api/v5/broker/fd/rebate-per-orders`
+- `GetRebateInformationAsync` for `GET /api/v5/broker/fd/if-rebate`
 
-- the section is visible and documented so users understand the intended shape
-- it should not yet be treated as feature-complete
+The remaining FD operation and all DMA operations are still marked as TODO. The broker section is therefore not feature-complete.
 
-## Example Access
+## Example Calls
 
 ```csharp
-var broker = api.Broker;
-var fdClient = api.Broker.FD;
-var dmaClient = api.Broker.DMA;
+api.SetApiCredentials("YOUR-API-KEY", "YOUR-API-SECRET", "YOUR-API-PASSPHRASE");
+
+var links = await api.Broker.FD.GetDownloadLinksAsync(
+    allHistory: false,
+    begin: new DateTime(2026, 5, 1),
+    end: new DateTime(2026, 5, 14),
+    brokerType: OkxBrokerType.Api);
+
+var rebate = await api.Broker.FD.GetRebateInformationAsync(
+    "USER-API-KEY",
+    OkxBrokerType.Api);
 ```
 
-## What To Expect
+`GetDownloadLinksAsync` returns links that OKX refreshes on each request and keeps valid for two hours. When `allHistory` is `false`, both dates are required; `begin` is inclusive and `end` is exclusive.
 
-The intended long-term coverage includes:
+## FD Rebate CSV Columns
 
-- broker rebate endpoints
-- DMA sub-account administration
-- DMA deposit-address workflows
-- DMA rebate and credit endpoints
+The downloaded FD rebate file currently contains:
 
-Until those methods are implemented, prefer the official OKX broker documentation directly for exact endpoint coverage.
+- `brokerCode`, `level`, `uid`, `instId`, `ordId`, `clOrdId`
+- `spotTradeAmt`, `derivativeTradeAmt`, `fee`, `netFee`, `settlementFee`
+- `brokerRebate`, `suBrokerRebate`, `userRebate`, `affiliated`, `ts`
+
+`clOrdId` is an empty string when the original order did not include a client order ID.
+
+## Rebate Eligibility
+
+`OkxFDBrokerRebateInformation.Status` reports why a broker rebate is unavailable. `Eligible` means the broker can receive a rebate; `MsaNotEligible` represents OKX response `type=4`.
 
 

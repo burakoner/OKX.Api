@@ -1,0 +1,14 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "fileHref": "https://example.invalid/fd-rebate.csv",
+      "beginTime": "1777593600000",
+      "endTime": "1778716800000",
+      "cTime": "1778720400000",
+      "ts": "1778724000000",
+      "state": "finished"
+    }
+  ]
+}

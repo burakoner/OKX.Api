@@ -38,7 +38,7 @@ var funding = await api.Funding.GetBalancesAsync();
 - [Funding Account](./funding.md) - balances, transfers, deposit/withdrawal, convert, fiat, and buy/sell
 - [Sub Account](./sub-account.md) - sub-account creation, keys, balances, bills, and transfers
 - [Financial Products](./financial.md) - on-chain earn, staking, simple earn, flexible loan, and dual investment
-- [Broker](./broker.md) - broker client entry points and current implementation status
+- [Broker](./broker.md) - FD broker rebate download links and eligibility; DMA client entry point
 - [Affiliate](./affiliate.md) - performance, invitees, links, sub-affiliates, and rebate information
 
 

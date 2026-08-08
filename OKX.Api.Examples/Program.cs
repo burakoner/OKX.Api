@@ -765,17 +765,15 @@ internal static class Program
         _ = await api.Affiliate.GetRebateInformationAsync("replace-with-invitee-api-key");
     }
 
-    private static void BrokerRestReference()
+    private static async Task BrokerRestReferenceAsync()
     {
         var api = CreatePrivateRestClient();
 
-        // Broker is exposed as nested clients.
-        // Current public surface:
-        var fullyDisclosedBroker = api.Broker.FD;
-        var dmaBroker = api.Broker.DMA;
+        _ = await api.Broker.FD.GetDownloadLinksAsync(allHistory: true, brokerType: OkxBrokerType.Api);
+        _ = await api.Broker.FD.GetRebateInformationAsync("replace-with-user-api-key", OkxBrokerType.Api);
 
-        _ = fullyDisclosedBroker;
-        _ = dmaBroker;
+        // DMA remains available as a nested client, but its endpoint methods are not implemented yet.
+        _ = api.Broker.DMA;
     }
     #endregion
 

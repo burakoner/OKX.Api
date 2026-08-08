@@ -2,6 +2,7 @@ global using ApiSharp.Models;
 global using OKX.Api.Account;
 global using OKX.Api.Affiliate;
 global using OKX.Api.Algo;
+global using OKX.Api.Broker;
 global using OKX.Api.Common;
 global using OKX.Api.CopyTrading;
 global using OKX.Api.Dca;
