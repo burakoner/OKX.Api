@@ -1,0 +1,23 @@
+{
+  "code": "0",
+  "msg": "",
+  "totalPage": "5",
+  "data": [
+    {
+      "uid": "835449167911924693",
+      "country": "CN",
+      "joinTime": "1777448564000",
+      "firstTradeTime": "",
+      "channelName": "X2UWA2T89",
+      "rebateRate": "0.1600",
+      "feeTierRank": "0",
+      "kycStatus": "verified",
+      "kycTime": "1777448563000",
+      "depAmt": "0.0000000000",
+      "totalVol": "0.0000000000",
+      "totalFee": "0.0000000000",
+      "totalCommission": "0.0000000000",
+      "isCompliant": true
+    }
+  ]
+}

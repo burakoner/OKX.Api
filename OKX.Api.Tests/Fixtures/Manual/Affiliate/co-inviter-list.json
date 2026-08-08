@@ -1,0 +1,31 @@
+{
+  "code": "0",
+  "msg": "",
+  "totalPage": "1",
+  "data": [
+    {
+      "channelId": "31075853",
+      "channelName": "MXCUS",
+      "joinLink": "https://okx.com/join/MXCUS",
+      "inviterCommissionRate": "0.0000",
+      "coInviterCommissionRate": "0.1400",
+      "inviteeDiscountRate": "0.1600",
+      "parUserName": "12****23",
+      "coUserName": "***",
+      "isCompliant": true,
+      "note": "partner campaign",
+      "isDefault": false,
+      "totalCommission": "0.032111",
+      "commission24h": "0",
+      "inviteeCnt": "1",
+      "traderCnt": "1",
+      "clickCnt": "1",
+      "totalFee": "0",
+      "cTime": "1773739123000",
+      "channelAssessmentStatus": "valid",
+      "inviterChannelStatus": "valid",
+      "coInviterChannelStatus": "valid",
+      "linkStatus": "normal"
+    }
+  ]
+}

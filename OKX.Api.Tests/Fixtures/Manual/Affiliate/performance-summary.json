@@ -1,0 +1,34 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "uTime": "1777541513000",
+      "inviteeCnt": "102",
+      "depAmt": "1756.287846940199989393",
+      "details": [
+        {
+          "commissionCategory": "SPOT",
+          "firstTraderCnt": "17",
+          "traderCnt": "17",
+          "vol": "21548.6417826825604",
+          "commission": "3.322319946747010328"
+        },
+        {
+          "commissionCategory": "DERIVATIVE",
+          "firstTraderCnt": "9",
+          "traderCnt": "9",
+          "vol": "94531.94802",
+          "commission": "3.25142568535855"
+        },
+        {
+          "commissionCategory": "BSC",
+          "firstTraderCnt": "0",
+          "traderCnt": "0",
+          "vol": "0",
+          "commission": "0"
+        }
+      ]
+    }
+  ]
+}

@@ -744,7 +744,24 @@ internal static class Program
     {
         var api = CreatePrivateRestClient();
 
+        _ = await api.Affiliate.GetPerformanceSummaryAsync(new OkxAffiliatePerformanceSummaryRequest
+        {
+            PeriodType = OkxAffiliatePeriodType.Last30Days,
+        });
         _ = await api.Affiliate.GetInviteeAsync(ExampleInviteeUid);
+        _ = await api.Affiliate.GetInviteesAsync(new OkxAffiliateInviteeListRequest
+        {
+            Page = 1,
+            Limit = 100,
+            KycStatus = OkxAffiliateKycStatus.Verified,
+            OrderBy = OkxAffiliateSortField.Volume,
+            OrderDirection = OkxAffiliateSortDirection.Descending,
+        });
+        _ = await api.Affiliate.GetAffiliateLinksAsync();
+        _ = await api.Affiliate.GetCoInviterLinksAsync();
+        _ = await api.Affiliate.GetSubAffiliatesAsync();
+
+        // Legacy endpoint; OKX marks it for removal in favor of GetInviteeAsync.
         _ = await api.Affiliate.GetRebateInformationAsync("replace-with-invitee-api-key");
     }
 

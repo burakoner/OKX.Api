@@ -8,7 +8,7 @@ public record OkxAffiliateInvitee
     /// <summary>
     /// Invitee's relative level to the affiliate. If the user is a invitee, the level will be 2.
     /// </summary>
-    [JsonProperty("inviteeLv")]
+    [JsonProperty("inviteeLevel")]
     public int InviteeLevel { get; set; }
     
     /// <summary>
@@ -24,7 +24,7 @@ public record OkxAffiliateInvitee
     public DateTime JoinTime { get => JoinTimestamp.ConvertFromMilliseconds(); }
 
     /// <summary>
-    /// Self rebate rate of the invitee (in decimal), e.g. 0.01 represents 10%
+    /// Self rebate rate of the invitee (in decimal), e.g. 0.01 represents 1%
     /// </summary>
     [JsonProperty("inviteeRebateRate")]
     public decimal InviteeRebateRate { get; set; }
@@ -65,11 +65,29 @@ public record OkxAffiliateInvitee
     public decimal AccumulatedDepositAmount { get; set; }
 
     /// <summary>
+    /// Accumulated amount of withdrawal in USDT.
+    /// </summary>
+    [JsonProperty("wdAmt")]
+    public decimal AccumulatedWithdrawalAmount { get; set; }
+
+    /// <summary>
     /// Accumulated Trading volume in the current month in USDT
     /// If user has not traded, 0 will be returned
     /// </summary>
     [JsonProperty("volMonth")]
     public decimal AccumulatedVolumeMonth { get; set; }
+
+    /// <summary>
+    /// Lifetime accumulated trading volume in USDT.
+    /// </summary>
+    [JsonProperty("totalVol")]
+    public decimal TotalVolume { get; set; }
+
+    /// <summary>
+    /// Trading volume in the requested period. Omitted by OKX when no period was requested.
+    /// </summary>
+    [JsonProperty("volPeriod")]
+    public decimal? PeriodVolume { get; set; }
 
     /// <summary>
     /// Accumulated Amount of trading fee in USDT

@@ -23,4 +23,10 @@ public record OkxRestApiResponse<T>
     /// </summary>
     [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
     public T? Data { get; set; }
+
+    /// <summary>
+    /// Total number of pages for paginated responses.
+    /// </summary>
+    [JsonProperty("totalPage", NullValueHandling = NullValueHandling.Ignore)]
+    public int? TotalPage { get; set; }
 }

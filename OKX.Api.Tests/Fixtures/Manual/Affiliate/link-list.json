@@ -1,0 +1,23 @@
+{
+  "code": "0",
+  "msg": "",
+  "totalPage": "1",
+  "data": [
+    {
+      "channelId": "78295211",
+      "channelName": "78295211",
+      "joinLink": "https://okx.com/join/78295211",
+      "linkType": "standard",
+      "inviterCommissionRate": "0.2900",
+      "coInviterCommissionRate": "",
+      "inviteeDiscountRate": "0.0100",
+      "inviteeCnt": "1",
+      "traderCnt": "1",
+      "totalCommission": "2.656307",
+      "commission24h": "0.5",
+      "cTime": "1773739123000",
+      "isDefault": true,
+      "linkStatus": "normal"
+    }
+  ]
+}

@@ -168,6 +168,45 @@ public abstract class OkxBaseRestClient : RestApiClient
             Thread.CurrentThread.CurrentUICulture = cultureUI;
         }
     }
+
+    internal async Task<RestCallResult<OkxPaginatedResult<T>>> ProcessPaginatedListRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object>? queryParameters = null, Dictionary<string, object>? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
+    {
+        var culture = Thread.CurrentThread.CurrentCulture;
+        var cultureUI = Thread.CurrentThread.CurrentUICulture;
+        Thread.CurrentThread.CurrentCulture = OkxConstants.OkxCultureInfo;
+        Thread.CurrentThread.CurrentUICulture = OkxConstants.OkxCultureInfo;
+
+        try
+        {
+            var result = await SendRequestAsync<OkxRestApiResponse<List<T>>>(uri, method, cancellationToken, signed, queryParameters, bodyParameters, headerParameters, arraySerialization, deserializer, ignoreRatelimit, requestWeight).ConfigureAwait(false);
+
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = cultureUI;
+
+            if (!result.Success) return new RestCallResult<OkxPaginatedResult<T>>(result.Request, result.Response, result.Raw ?? "", result.Error);
+            if (result.Data is null) return new RestCallResult<OkxPaginatedResult<T>>(result.Request, result.Response, result.Raw ?? "", result.Error);
+            if (result.Data.ErrorCode != 0)
+                return new RestCallResult<OkxPaginatedResult<T>>(result.Request, result.Response, result.Raw ?? "", CreateServerError(result.Data.ErrorCode, result.Data.ErrorMessage, null, result.Raw));
+
+            var page = new OkxPaginatedResult<T>
+            {
+                TotalPages = result.Data.TotalPage ?? 0,
+                Items = result.Data.Data ?? [],
+            };
+            return new RestCallResult<OkxPaginatedResult<T>>(result.Request, result.Response, page, result.Raw ?? "", result.Error);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error processing paginated list request");
+            throw;
+        }
+        finally
+        {
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = cultureUI;
+        }
+    }
+
     internal async Task<RestCallResult<T>> ProcessOneRequestAsync<T>(Uri uri, HttpMethod method, CancellationToken cancellationToken, bool signed = false, Dictionary<string, object>? queryParameters = null, Dictionary<string, object>? bodyParameters = null, Dictionary<string, string>? headerParameters = null, ArraySerialization? arraySerialization = null, JsonSerializer? deserializer = null, bool ignoreRatelimit = false, int requestWeight = 1) where T : class
     {
         // Pre-Actions

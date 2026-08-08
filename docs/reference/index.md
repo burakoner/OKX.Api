@@ -39,6 +39,6 @@ var funding = await api.Funding.GetBalancesAsync();
 - [Sub Account](./sub-account.md) - sub-account creation, keys, balances, bills, and transfers
 - [Financial Products](./financial.md) - on-chain earn, staking, simple earn, flexible loan, and dual investment
 - [Broker](./broker.md) - broker client entry points and current implementation status
-- [Affiliate](./affiliate.md) - invitee and rebate information
+- [Affiliate](./affiliate.md) - performance, invitees, links, sub-affiliates, and rebate information
 
 

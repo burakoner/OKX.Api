@@ -1,0 +1,21 @@
+{
+  "code": "0",
+  "msg": "",
+  "totalPage": "1",
+  "data": [
+    {
+      "subAffiliateUid": "668418489887292061",
+      "country": "CN",
+      "joinTime": "1773739123000",
+      "subAffiliateLevel": "2",
+      "commissionRate": "0.3000",
+      "isCompliant": true,
+      "inviteeCnt": "8",
+      "traderCnt": "3",
+      "depAmt": "37.281133",
+      "totalVol": "3618.561430",
+      "totalFee": "1.628353",
+      "totalCommission": "0.289847"
+    }
+  ]
+}

@@ -6,25 +6,47 @@ Official OKX docs: [Affiliate](https://www.okx.com/docs-v5/en/#affiliate)
 
 ## Overview
 
-`api.Affiliate` is a small private section focused on affiliate data.
-
-It requires credentials.
+`api.Affiliate` exposes private affiliate performance, invitee, link, and sub-affiliate reporting. It requires credentials.
 
 ## Example Calls
 
 ```csharp
-var invitee = await api.Affiliate.GetInviteeAsync(1000000);
-var rebateInfo = await api.Affiliate.GetRebateInformationAsync("affiliate-api-key");
+var summary = await api.Affiliate.GetPerformanceSummaryAsync(
+    new OkxAffiliatePerformanceSummaryRequest
+    {
+        PeriodType = OkxAffiliatePeriodType.Last30Days
+    });
+
+var invitees = await api.Affiliate.GetInviteesAsync(
+    new OkxAffiliateInviteeListRequest
+    {
+        Page = 1,
+        Limit = 100,
+        KycStatus = OkxAffiliateKycStatus.Verified,
+        OrderBy = OkxAffiliateSortField.Volume,
+        OrderDirection = OkxAffiliateSortDirection.Descending
+    });
+
+Console.WriteLine($"Pages: {invitees.Data?.TotalPages}");
+foreach (var invitee in invitees.Data?.Items ?? [])
+    Console.WriteLine($"{invitee.UserId}: {invitee.TotalVolume} USDT");
 ```
 
 ## Method Catalog
 
+- `GetPerformanceSummaryAsync`
 - `GetInviteeAsync`
+- `GetInviteesAsync`
+- `GetAffiliateLinksAsync`
+- `GetCoInviterLinksAsync`
+- `GetSubAffiliatesAsync`
 - `GetRebateInformationAsync`
 
 ## Tips
 
-- `GetRebateInformationAsync` expects the affiliate API key that OKX associates with the rebate query.
-- This client is intentionally small; if OKX expands affiliate coverage later, it can grow without affecting unrelated sections.
+- Paginated responses return `OkxPaginatedResult<T>` so the root-level `totalPage` value is not lost. Use `TotalPages` and `Items` to continue paging.
+- `periodType=custom` requires both inclusive `Begin` and `End` Unix-millisecond values. Invitee list custom and join-time ranges are limited to 90 days; OKX also requires their start to be within the latest 180 days.
+- `GetInviteeAsync` accepts a typed request when `PeriodType` and `PeriodVolume` are needed. The current Affiliate reporting endpoints are limited to 3 requests per second per user.
+- `GetRebateInformationAsync` is a legacy endpoint that OKX marks for removal. Prefer `GetInviteeAsync`.
 
 
