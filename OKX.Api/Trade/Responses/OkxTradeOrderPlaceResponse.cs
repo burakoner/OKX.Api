@@ -18,13 +18,19 @@ public record OkxTradeOrderPlaceResponse : OkxRestApiErrorBase
     public string ClientOrderId { get; set; } = string.Empty;
 
     /// <summary>
-    /// Timestamp when the order request processing is finished by our system, Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// Order tag
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Order creation timestamp, Unix timestamp format in milliseconds, e.g. 1597026383085
     /// </summary>
     [JsonProperty("ts")]
     public long Timestamp { get; set; }
 
     /// <summary>
-    /// Timestamp when the order request processing is finished by our system, Unix timestamp format in milliseconds, e.g. 1597026383085
+    /// Order creation time
     /// </summary>
     [JsonIgnore]
     public DateTime Time => Timestamp.ConvertFromMilliseconds();

@@ -70,7 +70,7 @@ public class OkxTradeRpiOrderContractTests
     }
 
     [Fact]
-    public async Task PlaceOrderClients_RejectInvalidSlippageBeforeSending()
+    public async Task PlaceOrderClients_RejectInvalidValuesBeforeSending()
     {
         using var server = new LocalOkxRestServer(new Dictionary<string, string>());
         var restClient = new OkxRestApiClient(new OkxRestApiOptions(new OkxApiCredentials("key", "secret", "pass"))
@@ -85,6 +85,18 @@ public class OkxTradeRpiOrderContractTests
             await Assert.ThrowsAnyAsync<ArgumentException>(() => restClient.Trade.PlaceOrderAsync(request));
         }
 
+        var invalidPrices = CreatePlaceRequest(0.01m) with { Price = 1m, PriceUsd = 2m };
+        await Assert.ThrowsAsync<ArgumentException>(() => restClient.Trade.PlaceOrderAsync(invalidPrices));
+        await Assert.ThrowsAsync<ArgumentException>(() => restClient.Trade.PlaceOrderAsync(
+            "BTC-USD-260828-100000-C",
+            OkxTradeMode.Isolated,
+            OkxTradeOrderSide.Buy,
+            OkxTradePositionSide.Net,
+            OkxTradeOrderType.LimitOrder,
+            1m,
+            price: 1m,
+            priceUsd: 2m));
+
         using var socketClient = new OkxWebSocketApiClient();
         var socketRequest = CreatePlaceRequest(0.01234m) with { InstrumentIdCode = 101 };
         await Assert.ThrowsAnyAsync<ArgumentException>(() => socketClient.Trade.PlaceOrderAsync(socketRequest));
@@ -93,7 +105,7 @@ public class OkxTradeRpiOrderContractTests
     }
 
     [Fact]
-    public async Task PositionalPlaceOrder_SerializesCurrentRpiAndSlippageFields()
+    public async Task PositionalPlaceOrder_SerializesCurrentPlaceFields()
     {
         using var server = new LocalOkxRestServer(new Dictionary<string, string>
         {
@@ -125,9 +137,29 @@ public class OkxTradeRpiOrderContractTests
             1m,
             slippagePercentage: 0.0123m);
 
+        var usdPriceResult = await client.Trade.PlaceOrderAsync(
+            "BTC-USD-260828-100000-C",
+            OkxTradeMode.Isolated,
+            OkxTradeOrderSide.Buy,
+            OkxTradePositionSide.Net,
+            OkxTradeOrderType.LimitOrder,
+            1m,
+            priceUsd: 1234.56m);
+
+        var volatilityPriceResult = await client.Trade.PlaceOrderAsync(
+            "BTC-USD-260828-100000-C",
+            OkxTradeMode.Isolated,
+            OkxTradeOrderSide.Buy,
+            OkxTradePositionSide.Net,
+            OkxTradeOrderType.LimitOrder,
+            1m,
+            priceVolatility: 0.1234m);
+
         Assert.True(rpiResult.Success, rpiResult.Error?.ToString());
         Assert.True(slippageResult.Success, slippageResult.Error?.ToString());
-        Assert.Equal(2, server.Requests.Count);
+        Assert.True(usdPriceResult.Success, usdPriceResult.Error?.ToString());
+        Assert.True(volatilityPriceResult.Success, volatilityPriceResult.Error?.ToString());
+        Assert.Equal(4, server.Requests.Count);
 
         var rpiPayload = JObject.Parse(server.Requests[0].Body);
         Assert.Equal("rpi", rpiPayload["ordType"]?.Value<string>());
@@ -139,6 +171,16 @@ public class OkxTradeRpiOrderContractTests
         Assert.Equal("market", slippagePayload["ordType"]?.Value<string>());
         Assert.Equal("0.0123", slippagePayload["slippagePct"]?.Value<string>());
         Assert.Null(slippagePayload["rpiTakerAccess"]);
+        Assert.Null(slippagePayload["posSide"]);
+        Assert.Null(slippagePayload["speedBump"]);
+
+        var usdPricePayload = JObject.Parse(server.Requests[2].Body);
+        Assert.Equal(JTokenType.String, usdPricePayload["pxUsd"]?.Type);
+        Assert.Equal("1234.56", usdPricePayload["pxUsd"]?.Value<string>());
+
+        var volatilityPricePayload = JObject.Parse(server.Requests[3].Body);
+        Assert.Equal(JTokenType.String, volatilityPricePayload["pxVol"]?.Type);
+        Assert.Equal("0.1234", volatilityPricePayload["pxVol"]?.Value<string>());
     }
 
     [Fact]

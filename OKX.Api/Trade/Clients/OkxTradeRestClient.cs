@@ -18,7 +18,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// spot_isolated(only applicable to SPOT lead trading, tdMode should be spot_isolated for SPOT lead trading.)
     /// Note: isolated is not available in multi-currency margin mode and portfolio margin mode.</param>
     /// <param name="orderSide">Order Side</param>
-    /// <param name="positionSide">Position Side</param>
+    /// <param name="positionSide">Position side. Pass Net for SPOT and MARGIN; the default net value is not serialized.</param>
     /// <param name="orderType">Order Type</param>
     /// <param name="size">Size</param>
     /// <param name="price">Price</param>
@@ -41,7 +41,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
     /// <param name="priceAmendType">Price Amend Type</param>
     /// <param name="isElpTakerAccess">Deprecated ELP-named alias for rpiTakerAccess. Accepted by OKX through October 31, 2026.</param>
-    /// <param name="speedBump">Event contract speed bump flag. Required for non-post-only EVENTS orders.</param>
     /// <param name="outcome">Event contract outcome side. Only applicable and required for EVENTS.</param>
     /// <param name="attachedAlgoOrders">Attached TP/SL or trailing stop order information</param>
     /// <param name="ct">Cancellation Token</param>
@@ -69,7 +68,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         OkxTradePriceAmendType? priceAmendType = null,
 
         bool? isElpTakerAccess = null,
-        OkxTradeEventSpeedBump? speedBump = null,
         OkxTradeEventOutcome? outcome = null,
         IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? attachedAlgoOrders = null,
         CancellationToken ct = default,
@@ -78,6 +76,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         decimal? slippagePercentage = null)
     {
         OkxTradeOrderPlaceRequest.ValidateSlippagePercentage(slippagePercentage, nameof(slippagePercentage));
+        OkxTradeOrderPlaceRequest.ValidateMutuallyExclusivePrices(price, priceUsd, priceVolatility);
 
         var parameters = new ParameterCollection();
         parameters.AddParameter("instId", instrumentId);
@@ -86,12 +85,13 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("clOrdId", clientOrderId);
         parameters.AddOptional("tag", OkxConstants.BrokerId);
         parameters.AddEnum("side", orderSide);
-        parameters.AddEnum("posSide", positionSide);
+        if (positionSide != OkxTradePositionSide.Net)
+            parameters.AddEnum("posSide", positionSide);
         parameters.AddEnum("ordType", orderType);
         parameters.Add("sz", size.ToOkxString());
         parameters.AddOptional("px", price?.ToOkxString());
-        parameters.AddOptional("pxUsd", priceUsd);
-        parameters.AddOptional("pxVol", priceVolatility);
+        parameters.AddOptional("pxUsd", priceUsd?.ToOkxString());
+        parameters.AddOptional("pxVol", priceVolatility?.ToOkxString());
         parameters.AddOptional("reduceOnly", reduceOnly);
         parameters.AddOptionalEnum("tgtCcy", quantityType);
         parameters.AddOptional("banAmend", banAmend);
@@ -102,7 +102,6 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptional("isElpTakerAccess", isElpTakerAccess);
         parameters.AddOptional("rpiTakerAccess", rpiTakerAccess);
         parameters.AddOptional("rpiPxRound", rpiPriceRound);
-        parameters.AddOptionalEnum("speedBump", speedBump);
         parameters.AddOptionalEnum("outcome", outcome);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
@@ -123,12 +122,16 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     public Task<RestCallResult<OkxTradeOrderPlaceResponse>> PlaceOrderAsync(OkxTradeOrderPlaceRequest orderRequest, CancellationToken ct = default)
     {
         if (orderRequest == null) throw new ArgumentNullException(nameof(orderRequest));
-        orderRequest.Validate();
+        orderRequest.ValidateRestPlace(allowSpeedBump: false);
 
-        orderRequest.Tag = OkxConstants.BrokerId;
+        var payload = orderRequest with
+        {
+            InstrumentIdCode = null,
+            Tag = OkxConstants.BrokerId,
+        };
 
         var parameters = new ParameterCollection();
-        parameters.SetBody(orderRequest);
+        parameters.SetBody(payload);
 
         return ProcessOneRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
@@ -149,13 +152,16 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
             throw new ArgumentException("Place multiple orders requires between 1 and 20 orders.", nameof(orders));
 
         foreach (var order in orderList)
+            order.ValidateRestPlace(allowSpeedBump: true);
+
+        var payload = orderList.Select(order => order with
         {
-            order.Validate();
-            order.Tag = OkxConstants.BrokerId;
-        }
+            InstrumentIdCode = null,
+            Tag = OkxConstants.BrokerId,
+        }).ToList();
 
         var parameters = new ParameterCollection();
-        parameters.SetBody(orderList);
+        parameters.SetBody(payload);
 
         return ProcessListRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/batch-orders"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

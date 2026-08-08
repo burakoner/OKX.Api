@@ -10,7 +10,7 @@ public record OkxTradeOrderPlaceRequest
     /// Required for WebSocket place order channels starting from 2026-03-26.
     /// If both instId and instIdCode are provided, instIdCode takes precedence.
     /// </summary>
-    [JsonProperty("instIdCode")]
+    [JsonProperty("instIdCode", NullValueHandling = NullValueHandling.Ignore)]
     public long? InstrumentIdCode { get; set; }
 
     /// <summary>
@@ -52,9 +52,9 @@ public record OkxTradeOrderPlaceRequest
     public OkxTradeOrderSide OrderSide { get; set; }
 
     /// <summary>
-    /// Position Side
+    /// Position side. Defaults to net and must not be sent for SPOT or MARGIN orders.
     /// </summary>
-    [JsonProperty("posSide")]
+    [JsonProperty("posSide", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
@@ -167,8 +167,8 @@ public record OkxTradeOrderPlaceRequest
     public bool? RpiPriceRound { get; set; }
 
     /// <summary>
-    /// Event contract speed bump flag.
-    /// Required for non-post-only EVENTS orders.
+    /// Event contract speed bump flag for REST batch order placement.
+    /// This parameter was removed from the single REST Place order endpoint on 2026-07-24.
     /// </summary>
     [JsonProperty("speedBump", NullValueHandling = NullValueHandling.Ignore)]
     public OkxTradeEventSpeedBump? SpeedBump { get; set; }
@@ -190,6 +190,19 @@ public record OkxTradeOrderPlaceRequest
     internal void Validate()
     {
         ValidateSlippagePercentage(SlippagePercentage, nameof(SlippagePercentage));
+        ValidateMutuallyExclusivePrices(Price, PriceUsd, PriceVolatility);
+    }
+
+    internal void ValidateRestPlace(bool allowSpeedBump)
+    {
+        Validate();
+
+        if (string.IsNullOrWhiteSpace(InstrumentId))
+            throw new ArgumentException("InstrumentId is required for REST order placement.", nameof(InstrumentId));
+        if (!Size.HasValue)
+            throw new ArgumentException("Size is required for REST order placement.", nameof(Size));
+        if (!allowSpeedBump && SpeedBump.HasValue)
+            throw new ArgumentException("SpeedBump was removed from the single REST Place order endpoint on 2026-07-24 and is ignored by OKX.", nameof(SpeedBump));
     }
 
     internal static void ValidateSlippagePercentage(decimal? slippagePercentage, string parameterName)
@@ -200,5 +213,15 @@ public record OkxTradeOrderPlaceRequest
             throw new ArgumentOutOfRangeException(parameterName, slippagePercentage, "Slippage percentage must be between 0 and 0.05 inclusive.");
         if (decimal.Round(slippagePercentage.Value, 4) != slippagePercentage.Value)
             throw new ArgumentException("Slippage percentage can have at most four decimal places.", parameterName);
+    }
+
+    internal static void ValidateMutuallyExclusivePrices(decimal? price, decimal? priceUsd, decimal? priceVolatility)
+    {
+        var providedPriceCount = (price.HasValue ? 1 : 0)
+            + (priceUsd.HasValue ? 1 : 0)
+            + (priceVolatility.HasValue ? 1 : 0);
+
+        if (providedPriceCount > 1)
+            throw new ArgumentException("Only one of Price, PriceUsd, or PriceVolatility can be provided.", nameof(Price));
     }
 }

@@ -13,7 +13,7 @@ namespace OKX.Api.Tests.Trade;
 public class OkxTradeEventContractContractTests
 {
     [Fact]
-    public void PlaceOrderRequest_SerializesEventOutcomeAndSpeedBump()
+    public void BatchPlaceOrderRequest_SerializesEventOutcomeAndSpeedBump()
     {
         var request = new OkxTradeOrderPlaceRequest
         {
@@ -32,6 +32,64 @@ public class OkxTradeEventContractContractTests
 
         Assert.Equal("1", payload["speedBump"]?.Value<string>());
         Assert.Equal("no", payload["outcome"]?.Value<string>());
+    }
+
+    [Fact]
+    public async Task SingleRestPlaceOrder_RejectsRemovedSpeedBumpBeforeSending()
+    {
+        using var server = new LocalOkxRestServer(new Dictionary<string, string>());
+        var client = CreateRestClient(server);
+        var request = CreateEventPlaceRequest() with { SpeedBump = OkxTradeEventSpeedBump.Enabled };
+
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => client.Trade.PlaceOrderAsync(request));
+
+        Assert.Equal("SpeedBump", exception.ParamName);
+        Assert.Empty(server.Requests);
+    }
+
+    [Fact]
+    public async Task SingleRestPlaceOrder_SendsOnlyCurrentRestIdentifiers()
+    {
+        using var server = new LocalOkxRestServer(new Dictionary<string, string>
+        {
+            ["POST /api/v5/trade/order"] = "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"ordId\":\"1\",\"clOrdId\":\"\",\"tag\":\"\",\"ts\":\"1783425600000\",\"sCode\":\"0\",\"sMsg\":\"\",\"subCode\":\"\"}]}",
+        });
+        var client = CreateRestClient(server);
+        var request = CreateEventPlaceRequest() with { InstrumentIdCode = 101 };
+
+        var result = await client.Trade.PlaceOrderAsync(request);
+
+        Assert.True(result.Success, result.Error?.ToString());
+        var payload = JObject.Parse(Assert.Single(server.Requests).Body);
+        Assert.Equal(request.InstrumentId, payload["instId"]?.Value<string>());
+        Assert.Equal("no", payload["outcome"]?.Value<string>());
+        Assert.Null(payload["instIdCode"]);
+        Assert.Null(payload["posSide"]);
+        Assert.Null(payload["speedBump"]);
+        Assert.Equal(101, request.InstrumentIdCode);
+    }
+
+    [Fact]
+    public async Task BatchRestPlaceOrder_PreservesDocumentedSpeedBump()
+    {
+        using var server = new LocalOkxRestServer(new Dictionary<string, string>
+        {
+            ["POST /api/v5/trade/batch-orders"] = "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"ordId\":\"1\",\"clOrdId\":\"\",\"tag\":\"\",\"ts\":\"1783425600000\",\"sCode\":\"0\",\"sMsg\":\"\",\"subCode\":\"\"}]}",
+        });
+        var client = CreateRestClient(server);
+
+        var result = await client.Trade.PlaceOrdersAsync([CreateEventPlaceRequest() with
+        {
+            InstrumentIdCode = 101,
+            SpeedBump = OkxTradeEventSpeedBump.Enabled,
+        }]);
+
+        Assert.True(result.Success, result.Error?.ToString());
+        var payload = JArray.Parse(Assert.Single(server.Requests).Body);
+        Assert.Equal("1", payload[0]?["speedBump"]?.Value<string>());
+        Assert.Equal("no", payload[0]?["outcome"]?.Value<string>());
+        Assert.Null(payload[0]?["instIdCode"]);
+        Assert.Null(payload[0]?["posSide"]);
     }
 
     [Fact]
@@ -98,4 +156,24 @@ public class OkxTradeEventContractContractTests
         Assert.NotNull(response.Data);
         return response;
     }
+
+    private static OkxTradeOrderPlaceRequest CreateEventPlaceRequest()
+        => new()
+        {
+            InstrumentId = "BTC-ABOVE-DAILY-260224-1600-65000",
+            TradeMode = OkxTradeMode.Isolated,
+            OrderSide = OkxTradeOrderSide.Buy,
+            PositionSide = OkxTradePositionSide.Net,
+            OrderType = OkxTradeOrderType.LimitOrder,
+            Size = 1,
+            Price = 0.42m,
+            Outcome = OkxTradeEventOutcome.No,
+        };
+
+    private static OkxRestApiClient CreateRestClient(LocalOkxRestServer server)
+        => new(new OkxRestApiOptions(new OkxApiCredentials("key", "secret", "pass"))
+        {
+            AutoTimestamp = false,
+            BaseAddress = server.BaseAddress,
+        });
 }

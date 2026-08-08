@@ -18,6 +18,7 @@ public class OkxTradeOrderOperationContractTests
         Assert.Equal("51008", item.ErrorCode);
         Assert.Equal("Order failed", item.ErrorMessage);
         Assert.Equal("54070", item.SubCode);
+        Assert.Equal("broker", item.Tag);
     }
 
     [Fact]
