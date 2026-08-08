@@ -22,18 +22,26 @@ public class OkxPublicDataSocketContractTests
     }
 
     [Fact]
-    public void ManualAdlWarningSocketFixture_ParsesMaxBalTimestampSeparately()
+    public void ManualAdlWarningSocketFixture_ParsesCurrentEmptyDeprecatedFields()
     {
         var response = DeserializeSocket<OkxPublicAdlWarning>("Public", "ws-adl-warning.json");
 
         var warning = Assert.Single(response);
-        Assert.Equal(1777284100000L, warning.MaximumBalanceTimestamp);
-        Assert.Equal(1777284161402L, warning.Timestamp);
-#pragma warning disable CS0612
-        Assert.Equal(0.1m, warning.DeclineRate);
-        Assert.Equal(0.2m, warning.AdlRate);
-        Assert.Equal(0.05m, warning.AdlRecoveryRate);
-#pragma warning restore CS0612
+        Assert.Equal(OkxPublicAdlState.warning, warning.State);
+        Assert.Equal(280784384.9564228289548144m, warning.Balance);
+        Assert.Equal(1700210763001L, warning.Timestamp);
+#pragma warning disable CS0612, CS0618
+        Assert.Equal(string.Empty, warning.Currency);
+        Assert.Equal(string.Empty, warning.InstrumentId);
+        Assert.Null(warning.MaximumBalance);
+        Assert.Null(warning.MaximumBalanceTimestamp);
+        Assert.Null(warning.AdlType);
+        Assert.Null(warning.AdlBalance);
+        Assert.Null(warning.AdlRecordBalance);
+        Assert.Null(warning.DeclineRate);
+        Assert.Null(warning.AdlRate);
+        Assert.Null(warning.AdlRecoveryRate);
+#pragma warning restore CS0612, CS0618
     }
 
     [Fact]

@@ -63,24 +63,27 @@ public record OkxPublicInsuranceFundDetails
 
     /// <summary>
     /// Maximum insurance fund balance in the past eight hours
-    /// Only applicable when type is adl
+    /// Deprecated by OKX and currently returned as an empty string
     /// </summary>
+    [Obsolete("OKX has deprecated this field; it currently returns an empty string and is scheduled for removal.")]
     [JsonProperty("maxBal")]
     [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? MaximumBalance { get; set; }
 
     /// <summary>
     /// Timestamp when insurance fund balance reached maximum in the past eight hours, Unix timestamp format in milliseconds, e.g. 1597026383085
-    /// Only applicable when type is adl
+    /// Deprecated by OKX and currently returned as an empty string
     /// </summary>
+    [Obsolete("OKX has deprecated this field; it currently returns an empty string and is scheduled for removal.")]
     [JsonProperty("maxBalTs")]
     [JsonConverter(typeof(LongAsStringNullableConverter))]
     public long? MaximumBalanceTimestamp { get; set; }
     
     /// <summary>
     /// Timestamp when insurance fund balance reached maximum in the past eight hours, Unix timestamp format in milliseconds, e.g. 1597026383085
-    /// Only applicable when type is adl
+    /// Deprecated by OKX
     /// </summary>
+    [Obsolete("OKX has deprecated MaximumBalanceTimestamp; this convenience property is scheduled for removal with it.")]
     [JsonIgnore]
     public DateTime? MaximumBalanceTime => MaximumBalanceTimestamp?.ConvertFromMilliseconds();
 
@@ -88,7 +91,7 @@ public record OkxPublicInsuranceFundDetails
     /// Real-time insurance fund decline rate (compare balance and maxBal)
     /// Only applicable when type is adl
     /// </summary>
-    [Obsolete]
+    [Obsolete("OKX has deprecated this field; it currently returns an empty string and is scheduled for removal.")]
     [JsonProperty("decRate")]
     [JsonConverter(typeof(DecimalAsStringNullableConverter))]
     public decimal? DeclineRate { get; set; }
@@ -100,8 +103,9 @@ public record OkxPublicInsuranceFundDetails
     /// adl_end: ADL ends
     /// 
     /// When the rate and balance ADL are triggered at the same time, only bal_adl_start will be returned
-    /// Only applicable when type is adl
+    /// Deprecated by OKX and currently returned as an empty string
     /// </summary>
+    [Obsolete("OKX has deprecated this field; it currently returns an empty string and is scheduled for removal.")]
     [JsonProperty("adlType")]
     public string AdlType { get; set; } = string.Empty;
 

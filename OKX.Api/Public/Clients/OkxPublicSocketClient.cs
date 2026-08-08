@@ -758,8 +758,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 
     /// <summary>
     /// Auto-deleveraging warning channel.
-    /// In the normal state, data will be pushed once every minute to display the balance of security fund and etc.
-    /// In the warning state or when there is ADL risk(warning/adl), data will be pushed every second to display information such as the real-time decline rate of security fund.
+    /// Data is not pushed in the normal state. In the warning or ADL state, data is pushed once every second.
     /// For more ADL details, please refer to Introduction to Auto-deleveraging
     /// </summary>
     /// <param name="onData">On Data Handler</param>
@@ -773,7 +772,7 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         if (instrumentType != OkxInstrumentType.Swap
             && instrumentType != OkxInstrumentType.Futures
             && instrumentType != OkxInstrumentType.Option)
-            throw new ArgumentException("Liquidation orders channel only support Swap, Futures and Option instruments.", nameof(instrumentType));
+            throw new ArgumentException("ADL warning channel only supports Swap, Futures and Option instruments.", nameof(instrumentType));
 
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketUpdateResponse<List<OkxPublicAdlWarning>>>>(data =>
         {
@@ -781,7 +780,6 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
             {
                 if (d is null) continue;
                 if (data.Data.Arguments is null) continue;
-                d.InstrumentId = data.Data.Arguments.InstrumentId;
                 onData(d);
             }
         });
@@ -811,7 +809,6 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
             foreach (var d in data.Data.Data)
             {
                 if (d is null) continue;
-                if (data.Data.Arguments is null) continue;
                 onData(d);
             }
         });

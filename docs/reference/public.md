@@ -41,6 +41,14 @@ var insuranceFunds = await api.Public.GetInsuranceFundsAsync(OkxInstrumentType.M
 var serverTime = await api.Public.GetServerTimeAsync();
 ```
 
+### Security Fund and ADL Warning Contract
+
+Security fund queries require `Currency` for `MARGIN`; `FUTURES`, `SWAP`, and `OPTION` require `InstrumentFamily`. `Currency` and `InstrumentFamily` are mutually exclusive across those two query shapes. OKX removed `regular_update` from the request filter. The `platform_revenue` and `adl` filters remain available but are deprecated and currently return empty detail lists.
+
+There is a confirmed documentation/production divergence: although the current documentation says the `regular_update` response type was removed, a read-only production check on 08 Aug 2026 still returned `regular_update` rows for an unfiltered/`all` request. The client therefore does not expose `regular_update` as a request filter but continues to deserialize it in responses to avoid data loss.
+
+`SubscribeToAdlWarningsAsync` receives no pushes in the `normal` state. `warning` and `adl` pushes arrive once per second. The deprecated `ccy`, `maxBal`, `maxBalTs`, `adlType`, `adlBal`, `adlRecBal`, `decRate`, `adlRate`, and `adlRecRate` fields are retained as nullable compatibility properties because OKX still includes their keys with empty-string values.
+
 Event-contract endpoints are public and do not require API credentials:
 
 ```csharp

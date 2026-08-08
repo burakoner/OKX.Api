@@ -6,7 +6,7 @@ namespace OKX.Api.Public;
 public enum OkxPublicInsuranceFundDetailType : byte
 {
     /// <summary>
-    /// Real-time security fund snapshot row
+    /// Undocumented real-time security fund snapshot row still observed in production responses after its documented removal
     /// </summary>
     [Map("regular_update")]
     RegularUpdate = 1,
@@ -24,14 +24,16 @@ public enum OkxPublicInsuranceFundDetailType : byte
     BankruptcyLoss = 3,
 
     /// <summary>
-    /// Platform revenue
+    /// Platform revenue. Deprecated by OKX and currently returns empty values.
     /// </summary>
+    [Obsolete("OKX has deprecated platform_revenue; it currently returns empty values and is scheduled for removal.")]
     [Map("platform_revenue")]
     PlatformRevenue = 4,
 
     /// <summary>
-    /// ADL historical row
+    /// ADL historical row. Deprecated by OKX and currently returns empty values.
     /// </summary>
+    [Obsolete("OKX has deprecated adl; it currently returns empty values and is scheduled for removal.")]
     [Map("adl")]
     Adl = 5,
 }

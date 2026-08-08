@@ -71,19 +71,20 @@ public class OkxPublicRequestOverloadClientBehaviorTests
         using var server = CreateServer("/api/v5/public/insurance-fund", "{\"code\":\"0\",\"msg\":\"\",\"data\":[{}]}");
         var client = CreateClient(server);
 
-        await client.Public.GetInsuranceFundsAsync(OkxInstrumentType.Swap, OkxPublicInsuranceType.All, "BTC-USD", "BTC", 1, 2, 3);
+        await client.Public.GetInsuranceFundsAsync(OkxInstrumentType.Swap, OkxPublicInsuranceType.All, "BTC-USD", null, 1, 2, 3);
         await client.Public.GetInsuranceFundsAsync(new OkxPublicInsuranceFundQueryRequest
         {
             InstrumentType = OkxInstrumentType.Swap,
             Type = OkxPublicInsuranceType.All,
             InstrumentFamily = "BTC-USD",
-            Currency = "BTC",
             After = 1,
             Before = 2,
             Limit = 3
         });
 
         AssertRequestQueriesEqual(server);
+        Assert.Contains("type=all", server.Requests[0].Query);
+        Assert.DoesNotContain("ccy=", server.Requests[0].Query);
     }
 
     [Fact]

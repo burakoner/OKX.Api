@@ -6,8 +6,9 @@
 public enum OkxPublicAdlState : byte
 {
     /// <summary>
-    /// Normal
+    /// Normal. Retained for historical payload compatibility; OKX no longer pushes this state.
     /// </summary>
+    [Obsolete("OKX no longer pushes ADL warning data in the normal state.")]
     [Map("normal")]
     normal = 1,
 

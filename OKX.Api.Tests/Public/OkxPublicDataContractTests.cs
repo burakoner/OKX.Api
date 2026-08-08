@@ -1,3 +1,4 @@
+using ApiSharp.Converters;
 using ApiSharp.Models;
 using Newtonsoft.Json;
 using OKX.Api.Base;
@@ -10,6 +11,15 @@ namespace OKX.Api.Tests.Public;
 
 public class OkxPublicDataContractTests
 {
+    [Fact]
+    public void InsuranceFundRequestTypes_ExcludeRemovedRegularUpdateFilter()
+    {
+        Assert.DoesNotContain(
+            Enum.GetValues<OkxPublicInsuranceType>(),
+            type => MapConverter.GetString(type) == "regular_update");
+        Assert.Equal("all", MapConverter.GetString(OkxPublicInsuranceType.All));
+    }
+
     [Fact]
     public void ManualDiscountInfoFixture_ParsesInfinityAndDeprecatedFields()
     {
@@ -40,27 +50,16 @@ public class OkxPublicDataContractTests
     }
 
     [Fact]
-    public void ManualInsuranceFundFixture_ParsesRegularUpdateAndAdlEntries()
+    public void ManualInsuranceFundFixture_ParsesCurrentDocumentedDailyEntry()
     {
         var response = DeserializeRest<OkxPublicInsuranceFund>("Public", "get-insurance-fund-security-fund.json");
 
-        Assert.Equal(2, response.Data!.Count);
-
-        var regularUpdate = response.Data.Single(x => x.InstrumentFamily == "ETH-USD");
-        var regularDetail = Assert.Single(regularUpdate.Details);
-        Assert.Equal(OkxPublicInsuranceFundDetailType.RegularUpdate, regularDetail.Type);
-        Assert.Null(regularDetail.Amount);
-        Assert.Null(regularDetail.MaximumBalance);
-        Assert.Null(regularDetail.MaximumBalanceTimestamp);
-
-        var adl = response.Data.Single(x => x.InstrumentFamily == "BTC-USD");
-        var adlDetail = Assert.Single(adl.Details);
-        Assert.Equal(OkxPublicInsuranceFundDetailType.Adl, adlDetail.Type);
-        Assert.Equal(4000m, adlDetail.MaximumBalance);
-        Assert.Equal(1777283890000L, adlDetail.MaximumBalanceTimestamp);
-#pragma warning disable CS0612
-        Assert.Equal(0.035m, adlDetail.DeclineRate);
-#pragma warning restore CS0612
+        var fund = Assert.Single(response.Data!);
+        Assert.Equal(OkxInstrumentType.Option, fund.InstrumentType);
+        Assert.Equal("ETH-USD", fund.InstrumentFamily);
+        var detail = Assert.Single(fund.Details);
+        Assert.Equal(OkxPublicInsuranceFundDetailType.LiquidationBalanceDeposit, detail.Type);
+        Assert.Equal(1343.1308m, detail.Amount);
     }
 
     [Fact]
@@ -119,7 +118,7 @@ public class OkxPublicDataContractTests
     }
 
     [Fact]
-    public void LiveInsuranceFundFixture_ParsesCurrentSnapshot()
+    public void LiveInsuranceFundFixture_PreservesPostRemovalRegularUpdateResponses()
     {
         var response = DeserializeRest<OkxPublicInsuranceFund>(FixtureReader.ReadLive("Production", "Public", "get-insurance-fund-swap-btc-usd.json"));
 
@@ -127,6 +126,7 @@ public class OkxPublicDataContractTests
         Assert.Equal(OkxInstrumentType.Swap, item.InstrumentType);
         Assert.NotEmpty(item.Details);
         Assert.All(item.Details, detail => Assert.Equal(OkxPublicInsuranceFundDetailType.RegularUpdate, detail.Type));
+        Assert.All(item.Details, detail => Assert.True(detail.Timestamp >= 1780963200000L));
     }
 
     [Fact]

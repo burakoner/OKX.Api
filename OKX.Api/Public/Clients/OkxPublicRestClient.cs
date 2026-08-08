@@ -1050,6 +1050,22 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
             throw new ArgumentNullException(nameof(request));
         if (request.InstrumentType.IsNotIn(OkxInstrumentType.Margin, OkxInstrumentType.Swap, OkxInstrumentType.Futures, OkxInstrumentType.Option))
             throw new ArgumentException("Instrument Type can be only Margin, Swap, Futures or Option.");
+        if (request.Type.HasValue && !Enum.IsDefined(typeof(OkxPublicInsuranceType), request.Type.Value))
+            throw new ArgumentOutOfRangeException(nameof(request.Type), request.Type.Value, "Unsupported security fund type.");
+        if (request.InstrumentType == OkxInstrumentType.Margin)
+        {
+            if (string.IsNullOrWhiteSpace(request.Currency))
+                throw new ArgumentException("Currency is required for MARGIN security fund queries.", nameof(request.Currency));
+            if (!string.IsNullOrWhiteSpace(request.InstrumentFamily))
+                throw new ArgumentException("InstrumentFamily is not supported for MARGIN security fund queries.", nameof(request.InstrumentFamily));
+        }
+        else
+        {
+            if (string.IsNullOrWhiteSpace(request.InstrumentFamily))
+                throw new ArgumentException("InstrumentFamily is required for FUTURES, SWAP, and OPTION security fund queries.", nameof(request.InstrumentFamily));
+            if (!string.IsNullOrWhiteSpace(request.Currency))
+                throw new ArgumentException("Currency is only supported for MARGIN security fund queries.", nameof(request.Currency));
+        }
         request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
 
         var parameters = new ParameterCollection();

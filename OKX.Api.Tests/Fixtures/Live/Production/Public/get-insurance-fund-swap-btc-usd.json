@@ -6,62 +6,62 @@
                                      {
                                          "adlType":  "",
                                          "amt":  "0",
-                                         "balance":  "3858.499",
+                                         "balance":  "348.3041",
                                          "ccy":  "BTC",
                                          "decRate":  "",
                                          "maxBal":  "",
                                          "maxBalTs":  "",
-                                         "ts":  "1777284970000",
+                                         "ts":  "1786211195000",
                                          "type":  "regular_update"
                                      },
                                      {
                                          "adlType":  "",
                                          "amt":  "0",
-                                         "balance":  "3858.499",
+                                         "balance":  "348.3041",
                                          "ccy":  "BTC",
                                          "decRate":  "",
                                          "maxBal":  "",
                                          "maxBalTs":  "",
-                                         "ts":  "1777284910000",
+                                         "ts":  "1786211135000",
                                          "type":  "regular_update"
                                      },
                                      {
                                          "adlType":  "",
                                          "amt":  "0",
-                                         "balance":  "3858.499",
+                                         "balance":  "348.3041",
                                          "ccy":  "BTC",
                                          "decRate":  "",
                                          "maxBal":  "",
                                          "maxBalTs":  "",
-                                         "ts":  "1777284850000",
+                                         "ts":  "1786211074000",
                                          "type":  "regular_update"
                                      },
                                      {
                                          "adlType":  "",
                                          "amt":  "0",
-                                         "balance":  "3858.499",
+                                         "balance":  "348.3041",
                                          "ccy":  "BTC",
                                          "decRate":  "",
                                          "maxBal":  "",
                                          "maxBalTs":  "",
-                                         "ts":  "1777284790000",
+                                         "ts":  "1786211014000",
                                          "type":  "regular_update"
                                      },
                                      {
                                          "adlType":  "",
                                          "amt":  "0",
-                                         "balance":  "3858.499",
+                                         "balance":  "348.3041",
                                          "ccy":  "BTC",
                                          "decRate":  "",
                                          "maxBal":  "",
                                          "maxBalTs":  "",
-                                         "ts":  "1777284730000",
+                                         "ts":  "1786210954000",
                                          "type":  "regular_update"
                                      }
                                  ],
                      "instFamily":  "BTC-USD",
                      "instType":  "SWAP",
-                     "total":  "2580357003.5972"
+                     "total":  "2585107832.1617"
                  }
              ],
     "msg":  ""

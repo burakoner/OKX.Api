@@ -24,14 +24,16 @@ public enum OkxPublicInsuranceType : byte
     BankruptcyLoss = 3,
 
     /// <summary>
-    /// PlatformRevenue
+    /// Platform revenue. Deprecated by OKX and currently returns empty values.
     /// </summary>
+    [Obsolete("OKX has deprecated platform_revenue; it currently returns empty values and is scheduled for removal.")]
     [Map("platform_revenue")]
     PlatformRevenue = 4,
 
     /// <summary>
-    /// ADL history
+    /// ADL history. Deprecated by OKX and currently returns empty values.
     /// </summary>
+    [Obsolete("OKX has deprecated adl; it currently returns empty values and is scheduled for removal.")]
     [Map("adl")]
     Adl = 5,
 }
