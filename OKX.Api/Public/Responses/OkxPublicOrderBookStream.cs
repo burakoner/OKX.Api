@@ -41,19 +41,21 @@ public record OkxPublicOrderBookStream
     public string Action { get; set; } = string.Empty;
 
     /// <summary>
-    /// Checksum
+    /// Deprecated checksum. For books, books-l2-tbt, and books50-l2-tbt this field remains present but is fixed to zero.
+    /// It is absent from books5, bbo-tbt, books-elp, and books-rpi. Use sequence IDs to verify continuity.
     /// </summary>
+    [Obsolete("OKX no longer supports checksum validation. Use PreviousSequenceId and SequenceId.")]
     [JsonProperty("checksum")]
     public long? Checksum { get; set; }
 
     /// <summary>
-    /// Previous Sequence Id
+    /// Sequence ID of the last sent message for incremental order book channels.
     /// </summary>
     [JsonProperty("prevSeqId")]
     public long? PreviousSequenceId { get; set; }
 
     /// <summary>
-    /// Sequence Id
+    /// Sequence ID of the current message.
     /// </summary>
     [JsonProperty("seqId")]
     public long? SequenceId { get; set; }

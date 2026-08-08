@@ -167,11 +167,11 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 
     /// <summary>
     /// Retrieve order book data.
-    /// Use books for 400 depth levels, book5 for 5 depth levels, books50-l2-tbt tick-by-tick 50 depth levels, and books-l2-tbt for tick-by-tick 400 depth levels.
+    /// Use books for 400 depth levels, books5 for 5 depth levels, bbo-tbt for 1 depth level, books50-l2-tbt for 50 depth levels, and books-l2-tbt for 400 depth levels.
+    /// books-rpi contains consolidated organic and RPI depth. books-elp is deprecated in favor of books-rpi.
     /// books: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed every 100 ms when there is change in order book.
-    /// books5: 5 depth levels will be pushed every time.Data will be pushed every 200 ms when there is change in order book.
-    /// books50-l2-tbt: 50 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed tick by tick, i.e.whenever there is change in order book.
-    /// books-l2-tbt: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed tick by tick, i.e.whenever there is change in order book.
+    /// books5: 5 depth levels will be pushed every 100 ms when there is change in order book.
+    /// bbo-tbt, books50-l2-tbt, and books-l2-tbt push every 10 ms when there is change in order book.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentId">Instrument ID</param>
@@ -183,11 +183,11 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 
     /// <summary>
     /// Retrieve order book data.
-    /// Use books for 400 depth levels, book5 for 5 depth levels, books50-l2-tbt tick-by-tick 50 depth levels, and books-l2-tbt for tick-by-tick 400 depth levels.
+    /// Use books for 400 depth levels, books5 for 5 depth levels, bbo-tbt for 1 depth level, books50-l2-tbt for 50 depth levels, and books-l2-tbt for 400 depth levels.
+    /// books-rpi contains consolidated organic and RPI depth. books-elp is deprecated in favor of books-rpi.
     /// books: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed every 100 ms when there is change in order book.
-    /// books5: 5 depth levels will be pushed every time.Data will be pushed every 200 ms when there is change in order book.
-    /// books50-l2-tbt: 50 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed tick by tick, i.e.whenever there is change in order book.
-    /// books-l2-tbt: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed tick by tick, i.e.whenever there is change in order book.
+    /// books5: 5 depth levels will be pushed every 100 ms when there is change in order book.
+    /// bbo-tbt, books50-l2-tbt, and books-l2-tbt push every 10 ms when there is change in order book.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentIds">List of Instrument ID</param>
@@ -196,30 +196,49 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <returns></returns>
     public async Task<CallResult<WebSocketUpdateSubscription>> SubscribeToOrderBookAsync(Action<OkxPublicOrderBookStream> onData, IEnumerable<string> instrumentIds, OkxOrderBookType orderBookType, CancellationToken ct = default)
     {
+        if (onData is null)
+            throw new ArgumentNullException(nameof(onData));
+
+        var subscription = CreateOrderBookSubscription(instrumentIds, orderBookType);
         var internalHandler = new Action<WebSocketDataEvent<OkxSocketOrderBookUpdate>>(data =>
         {
             foreach (var d in data.Data.Data)
             {
-                if (d is not null)
-                {
-                    if (d is null) continue;
-                    if (data.Data.Arguments is null) continue;
-                    d.InstrumentId = data.Data.Arguments.InstrumentId;
-                    d.Action = data.Data.Action;
-                    onData(d);
-                }
+                if (d is null || data.Data.Arguments is null) continue;
+                d.InstrumentId = data.Data.Arguments.InstrumentId;
+                d.Action = data.Data.Action;
+                onData(d);
             }
         });
 
-        var arguments = new List<OkxSocketRequestArgument>();
-        foreach (var instrumentId in instrumentIds) arguments.Add(new OkxSocketRequestArgument
-        {
-            Channel = MapConverter.GetString(orderBookType),
-            InstrumentId = instrumentId,
-        });
-        var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments);
-        var needLogin = orderBookType == OkxOrderBookType.OrderBook_50_l2_TBT || orderBookType == OkxOrderBookType.OrderBook_l2_TBT;
-        return await _.RootSubscribeAsync(OkxSocketEndpoint.Public, request, null, needLogin, internalHandler, ct).ConfigureAwait(false);
+        return await _.RootSubscribeAsync(subscription.Endpoint, subscription.Request, null, subscription.Authenticated, internalHandler, ct).ConfigureAwait(false);
+    }
+
+    private static (OkxSocketEndpoint Endpoint, bool Authenticated, OkxSocketRequest Request) CreateOrderBookSubscription(
+        IEnumerable<string> instrumentIds,
+        OkxOrderBookType orderBookType)
+    {
+        if (instrumentIds is null)
+            throw new ArgumentNullException(nameof(instrumentIds));
+        if (!Enum.IsDefined(typeof(OkxOrderBookType), orderBookType))
+            throw new ArgumentOutOfRangeException(nameof(orderBookType), orderBookType, "Unknown order book type");
+
+        var channel = MapConverter.GetString(orderBookType)!;
+        var arguments = instrumentIds
+            .Select(x => string.IsNullOrWhiteSpace(x)
+                ? throw new ArgumentException("Instrument IDs cannot be null or whitespace.", nameof(instrumentIds))
+                : new OkxSocketRequestArgument
+                {
+                    Channel = channel,
+                    InstrumentId = x,
+                })
+            .ToList();
+
+        if (arguments.Count == 0)
+            throw new ArgumentException("At least one instrument ID is required.", nameof(instrumentIds));
+
+        var authenticated = orderBookType is OkxOrderBookType.OrderBook_50_l2_TBT or OkxOrderBookType.OrderBook_l2_TBT;
+        return (OkxSocketEndpoint.Public, authenticated, new OkxSocketRequest(OkxSocketOperation.Subscribe, arguments));
     }
 
     /// <summary>

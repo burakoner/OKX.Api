@@ -58,6 +58,40 @@ var markets = await api.Public.GetEventContractMarketsAsync("series-id", eventId
 var eventTickBands = await api.Public.GetInstrumentTickBandsAsync(OkxInstrumentType.Events);
 ```
 
+### WebSocket Order Book Integrity
+
+The `books`, `books-l2-tbt`, and `books50-l2-tbt` channels still include `checksum`, but OKX now fixes it to `0`; it must not be used for integrity checks. `books5`, `bbo-tbt`, `books-elp`, and `books-rpi` do not use it. The compatibility `Checksum` property remains available but is obsolete.
+
+For incremental books, compare each update's `PreviousSequenceId` with the last accepted `SequenceId` before applying the delta:
+
+```csharp
+var ws = new OkxWebSocketApiClient();
+long? lastSequenceId = null;
+
+await ws.Public.SubscribeToOrderBookAsync(book =>
+{
+    if (book.Action == "snapshot")
+    {
+        // Rebuild the local book from book.Asks and book.Bids.
+        lastSequenceId = book.SequenceId;
+        return;
+    }
+
+    if (lastSequenceId.HasValue && book.PreviousSequenceId != lastSequenceId)
+    {
+        Console.WriteLine("Order book gap detected; discard local state and resubscribe for a snapshot.");
+        return;
+    }
+
+    // Apply the incremental asks and bids, then advance the sequence.
+    lastSequenceId = book.SequenceId;
+}, "BTC-USDT", OkxOrderBookType.OrderBook);
+```
+
+Do not reject an update merely because `SequenceId` equals or is lower than `PreviousSequenceId`: equal values are valid keepalive updates, and OKX may reset the sequence during maintenance. Continuity still depends on `PreviousSequenceId` matching the last accepted sequence.
+
+`OrderBook_RPI` maps to the current `books-rpi` channel, which combines organic and RPI liquidity. For that channel, `Quantity` is total quantity and `NonRpiQuantity` is the organic-only portion. The legacy `LiquidatedOrders` name is obsolete because the third order-book value never represented liquidations. `OrderBook_ELP` remains as an obsolete compatibility value through OKX's 31 October 2026 sunset.
+
 ## Method Catalog
 
 ### Market Data

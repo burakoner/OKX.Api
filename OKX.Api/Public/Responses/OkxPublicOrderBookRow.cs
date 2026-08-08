@@ -19,10 +19,22 @@ public record OkxPublicOrderBookRow
     public decimal Quantity { get; set; }
 
     /// <summary>
-    /// The number of liquidated orders at the price
+    /// Non-RPI quantity at the price for the books-rpi channel.
+    /// This value is a deprecated placeholder fixed to zero for other order book channels.
     /// </summary>
     [ArrayProperty(2)]
-    public decimal LiquidatedOrders { get; set; }
+    public decimal NonRpiQuantity { get; set; }
+
+    /// <summary>
+    /// Legacy name for <see cref="NonRpiQuantity"/>. This value never represented liquidated orders.
+    /// </summary>
+    [Obsolete("This field never represented liquidated orders. Use NonRpiQuantity for books-rpi; other channels return zero.")]
+    [JsonIgnore]
+    public decimal LiquidatedOrders
+    {
+        get => NonRpiQuantity;
+        set => NonRpiQuantity = value;
+    }
 
     /// <summary>
     /// The number of orders at the price

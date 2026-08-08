@@ -1,0 +1,19 @@
+{
+  "arg": {
+    "channel": "books",
+    "instId": "BTC-USDT"
+  },
+  "action": "update",
+  "data": [
+    {
+      "asks": [],
+      "bids": [
+        ["8476.97", "300", "0", "14"]
+      ],
+      "ts": "1597026383185",
+      "checksum": 0,
+      "prevSeqId": 123456,
+      "seqId": 123457
+    }
+  ]
+}

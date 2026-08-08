@@ -33,5 +33,18 @@ public enum OkxOrderBookType : byte
     /// BBO_TBT
     /// </summary>
     [Map("bbo-tbt")]
-    BBO_TBT = 5
+    BBO_TBT = 5,
+
+    /// <summary>
+    /// Deprecated Enhanced Liquidity Program order book. Use <see cref="OrderBook_RPI"/>.
+    /// </summary>
+    [Obsolete("Use OrderBook_RPI. OKX accepts books-elp only through October 31, 2026.")]
+    [Map("books-elp")]
+    OrderBook_ELP = 6,
+
+    /// <summary>
+    /// Consolidated organic and Retail Price Improvement order book.
+    /// </summary>
+    [Map("books-rpi")]
+    OrderBook_RPI = 7
 }
