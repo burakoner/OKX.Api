@@ -8,6 +8,15 @@ namespace OKX.Api.Account;
 /// </summary>
 public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 {
+    private static readonly IReadOnlyDictionary<string, decimal> DemoBalanceIncreaseLimits =
+        new Dictionary<string, decimal>(StringComparer.Ordinal)
+        {
+            ["BTC"] = 1m,
+            ["ETH"] = 1m,
+            ["USDT"] = 5000m,
+            ["OKB"] = 100m,
+        };
+
     /// <summary>
     /// Get all bill types, and the mapping of bill type and sub-type.
     /// </summary>
@@ -1404,5 +1413,54 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddEnum("stgyType", strategyType);
 
         return ProcessOneRequestAsync<OkxAccountPrecheckSetDeltaNeutral>(GetUri("api/v5/account/precheck-set-delta-neutral"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    /// <summary>
+    /// Increase or reduce balances for supported currencies in a demo account.
+    /// The request is atomic: if any adjustment fails server-side validation, no balances are changed.
+    /// This endpoint is only available when <see cref="OkxRestApiOptions.DemoTradingService"/> is enabled.
+    /// Increase requests are limited to three per user per UTC day; reduce requests have no request-count limit.
+    /// Per-request increase limits are 1 BTC, 1 ETH, 5,000 USDT, and 100 OKB.
+    /// Currency precision and available balance constraints are validated by OKX.
+    /// </summary>
+    /// <param name="request">Demo account balance adjustment request</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns>Adjustment result and remaining daily increase quota</returns>
+    public Task<RestCallResult<OkxAccountDemoBalanceAdjustment>> AdjustDemoAccountBalanceAsync(
+        OkxAccountDemoBalanceAdjustmentRequest request,
+        CancellationToken ct = default)
+    {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+        if (!Options.DemoTradingService)
+            throw new InvalidOperationException("AdjustDemoAccountBalanceAsync is only available when DemoTradingService is enabled.");
+        if (!Enum.IsDefined(typeof(OkxAccountDemoBalanceAdjustmentType), request.Type))
+            throw new ArgumentOutOfRangeException(nameof(request), request.Type, "Unsupported demo balance adjustment type.");
+
+        var adjustments = request.Adjustments?.ToList()
+            ?? throw new ArgumentException("Adjustments are required.", nameof(request));
+        if (adjustments.Count == 0)
+            throw new ArgumentException("At least one demo balance adjustment is required.", nameof(request));
+
+        var currencies = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var adjustment in adjustments)
+        {
+            if (adjustment is null)
+                throw new ArgumentException("Demo balance adjustments cannot contain null items.", nameof(request));
+            if (!DemoBalanceIncreaseLimits.TryGetValue(adjustment.Currency, out var increaseLimit))
+                throw new ArgumentException("Demo balance adjustments only support BTC, ETH, USDT, and OKB.", nameof(request));
+            if (!currencies.Add(adjustment.Currency))
+                throw new ArgumentException($"Duplicate demo balance adjustment currency: {adjustment.Currency}.", nameof(request));
+            if (adjustment.Amount < 0m)
+                throw new ArgumentOutOfRangeException(nameof(request), adjustment.Amount, "Demo balance adjustment amounts must be non-negative.");
+            if (request.Type == OkxAccountDemoBalanceAdjustmentType.Increase && adjustment.Amount > increaseLimit)
+                throw new ArgumentOutOfRangeException(nameof(request), adjustment.Amount, $"The maximum demo balance increase for {adjustment.Currency} is {increaseLimit.ToOkxString()} per request.");
+        }
+
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("type", request.Type);
+        parameters.Add("adjustments", adjustments);
+
+        return ProcessOneRequestAsync<OkxAccountDemoBalanceAdjustment>(GetUri("api/v5/account/demo-adjust-balance"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }
 }

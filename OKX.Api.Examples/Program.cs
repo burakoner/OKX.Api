@@ -212,6 +212,21 @@ internal static class Program
         _ = await api.Account.SetLevelAsync(OkxAccountMode.SpotAndFuturesMode);
         _ = await api.Account.SetTradingConfigAsync(OkxAccountStrategyType.DeltaNeutral);
         _ = await api.Account.PrecheckSetDeltaNeutralAsync(OkxAccountStrategyType.DeltaNeutral);
+
+        // Demo-only balance adjustment. Increase requests consume the documented daily demo quota.
+        var demoApi = CreatePrivateRestClient(demoTrading: true);
+        _ = await demoApi.Account.AdjustDemoAccountBalanceAsync(new OkxAccountDemoBalanceAdjustmentRequest
+        {
+            Type = OkxAccountDemoBalanceAdjustmentType.Increase,
+            Adjustments =
+            [
+                new()
+                {
+                    Currency = "USDT",
+                    Amount = 100m
+                }
+            ]
+        });
     }
     #endregion
 

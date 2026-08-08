@@ -1,0 +1,22 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "remainCnt": "2",
+      "totalCnt": "3",
+      "details": [
+        {
+          "ccy": "BTC",
+          "amt": "0.5",
+          "bal": "1.5"
+        },
+        {
+          "ccy": "USDT",
+          "amt": "3000",
+          "bal": "13000"
+        }
+      ]
+    }
+  ]
+}

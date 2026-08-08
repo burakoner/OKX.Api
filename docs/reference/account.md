@@ -41,6 +41,30 @@ await api.Account.SetGreeksAsync(OkxAccountGreeksType.GreeksInCoins);
 await api.Account.SetTradingConfigAsync(OkxAccountStrategyType.DeltaNeutral);
 ```
 
+Demo balance adjustment requires a demo client and changes the demo account balance. The operation is atomic. Increase requests are limited to three per user per UTC day; reduce requests have no request-count limit. A single increase request may add at most 1 BTC, 1 ETH, 5,000 USDT, and 100 OKB:
+
+```csharp
+var demoApi = new OkxRestApiClient(new OkxRestApiOptions
+{
+    DemoTradingService = true
+});
+demoApi.SetApiCredentials("DEMO-API-KEY", "DEMO-API-SECRET", "DEMO-API-PASSPHRASE");
+
+var adjustment = await demoApi.Account.AdjustDemoAccountBalanceAsync(
+    new OkxAccountDemoBalanceAdjustmentRequest
+    {
+        Type = OkxAccountDemoBalanceAdjustmentType.Increase,
+        Adjustments =
+        [
+            new()
+            {
+                Currency = "USDT",
+                Amount = 100m
+            }
+        ]
+    });
+```
+
 ## Method Catalog
 
 ### Bills, Balances, and Positions
@@ -109,6 +133,10 @@ await api.Account.SetTradingConfigAsync(OkxAccountStrategyType.DeltaNeutral);
 - `GetMmpAsync`
 - `MovePositionsAsync`
 - `SetAutoEarnAsync`
+
+### Demo Trading
+
+- `AdjustDemoAccountBalanceAsync`
 
 ## Request-Model Overloads
 
@@ -179,5 +207,7 @@ var borrowRepayHistory = await api.Account.GetBorrowRepayHistoryAsync(new OkxAcc
 - Prefer request-model overloads when a call takes many optional filters.
 - `GetPositionTiersAsync` returns all rows that OKX sends; do not assume a single result.
 - `PositionBuilderAsync` is useful for portfolio margin and delta-neutral tooling, not day-to-day spot usage.
+- `AdjustDemoAccountBalanceAsync` is rejected locally unless `DemoTradingService` is enabled. It supports only BTC, ETH, USDT, and OKB; OKX validates the current precision for each currency server-side.
+- OKX reports exhausted daily increase quota as `59691`, insufficient balance as `59692`, and insufficient transferable balance as `59693`.
 
 
