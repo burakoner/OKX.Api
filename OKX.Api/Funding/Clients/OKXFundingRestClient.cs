@@ -160,7 +160,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
     /// <summary>
-    /// Query the billing record, you can get the latest 1 month historical data
+    /// Query funding bills from the past month.
     /// </summary>
     /// <param name="currency">Currency</param>
     /// <param name="type">Bill type</param>
@@ -168,7 +168,7 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
-    /// <param name="pagingType">PagingType. 1: Timestamp of the bill record. 2: Bill ID of the bill record. The default is 1</param>
+    /// <param name="pagingType">Compatibility-only value. The current asset bills endpoint does not support pagingType, so only the default value 1 is accepted.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingBill>>> GetBillsAsync(
@@ -192,36 +192,38 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         }, ct);
 
     /// <summary>
-    /// Query the billing record, you can get the latest 1 month historical data
+    /// Query funding bills from the past month. Use the request-model overload to filter custody bills by third-party provider.
     /// </summary>
     public Task<RestCallResult<List<OkxFundingBill>>> GetBillsAsync(OkxFundingBillQueryRequest request, CancellationToken ct = default)
     {
         if (request is null)
             throw new ArgumentNullException(nameof(request));
-        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
+        ValidateBillQueryRequest(request);
+        if (request.PagingType != 1)
+            throw new ArgumentOutOfRangeException(nameof(request.PagingType), request.PagingType, "PagingType is only supported by GetBillsHistoryAsync.");
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", request.Currency);
         parameters.AddOptionalEnum("type", request.Type);
+        parameters.AddOptionalEnum("thirdPartyType", request.ThirdPartyType);
         parameters.AddOptional("clientId", request.ClientOrderId);
         parameters.AddOptional("after", request.After?.ToOkxString());
         parameters.AddOptional("before", request.Before?.ToOkxString());
         parameters.AddOptional("limit", request.Limit.ToOkxString());
-        parameters.AddOptional("pagingType", request.PagingType.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingBill>(GetUri("api/v5/asset/bills"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
     }
 
     /// <summary>
     /// Query the billing records of all time since 1 February, 2021.
-    /// ?? IMPORTANT: Data updates occur every 30 seconds.Update frequency may vary based on data volume - please be aware of potential delays during high-traffic periods.
+    /// Data updates occur approximately every 30 seconds. Update frequency may vary based on data volume.
     /// </summary>
     /// <param name="currency">Currency</param>
     /// <param name="type">Bill type</param>
     /// <param name="clientOrderId">Client-supplied ID for transfer or withdrawal. A combination of case-sensitive alphanumerics, all numbers, or all letters of up to 32 characters.</param>
-    /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
+    /// <param name="after">Pagination of data to return records earlier than the requested ts or billId, e.g. 1597026383085</param>
     /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
     /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
-    /// <param name="pagingType">PagingType. 1: Timestamp of the bill record. 2: Bill ID of the bill record. The default is 1</param>
+    /// <param name="pagingType">PagingType. 1: Timestamp of the bill record. 2: Bill ID of the bill record. The default is 1.</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<List<OkxFundingBill>>> GetBillsHistoryAsync(
@@ -245,16 +247,18 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         }, ct);
 
     /// <summary>
-    /// Query the billing records of all time since 1 February, 2021.
+    /// Query the billing records of all time since 1 February, 2021. Supports third-party custody filtering and timestamp- or bill-ID-based pagination.
     /// </summary>
     public Task<RestCallResult<List<OkxFundingBill>>> GetBillsHistoryAsync(OkxFundingBillQueryRequest request, CancellationToken ct = default)
     {
         if (request is null)
             throw new ArgumentNullException(nameof(request));
-        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
+        ValidateBillQueryRequest(request);
+        request.PagingType.ValidateIntBetween(nameof(request.PagingType), 1, 2);
         var parameters = new ParameterCollection();
         parameters.AddOptional("ccy", request.Currency);
         parameters.AddOptionalEnum("type", request.Type);
+        parameters.AddOptionalEnum("thirdPartyType", request.ThirdPartyType);
         parameters.AddOptional("clientId", request.ClientOrderId);
         parameters.AddOptional("after", request.After?.ToOkxString());
         parameters.AddOptional("before", request.Before?.ToOkxString());
@@ -262,6 +266,15 @@ public class OkxFundingRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         parameters.AddOptional("pagingType", request.PagingType.ToOkxString());
 
         return ProcessListRequestAsync<OkxFundingBill>(GetUri("api/v5/asset/bills-history"), HttpMethod.Get, ct, signed: true, queryParameters: parameters);
+    }
+
+    private static void ValidateBillQueryRequest(OkxFundingBillQueryRequest request)
+    {
+        request.Limit.ValidateIntBetween(nameof(request.Limit), 1, 100);
+        if (request.ThirdPartyType.HasValue && !Enum.IsDefined(typeof(OkxFundingThirdPartyType), request.ThirdPartyType.Value))
+            throw new ArgumentOutOfRangeException(nameof(request.ThirdPartyType), request.ThirdPartyType.Value, "Unsupported third-party custody type.");
+        if (request.ClientOrderId is not null && !Regex.IsMatch(request.ClientOrderId, "^[A-Za-z0-9]{1,32}$"))
+            throw new ArgumentException("ClientOrderId must contain 1 to 32 case-sensitive alphanumeric characters.", nameof(request.ClientOrderId));
     }
 
     /// <summary>

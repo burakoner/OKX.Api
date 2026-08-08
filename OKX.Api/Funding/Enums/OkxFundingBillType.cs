@@ -1198,7 +1198,7 @@ public enum OkxFundingBillType:int
     /// DCD broker rebate
     /// </summary>
     [Map("271")]
-    DCDBrokerRebate = 233,
+    DCDBrokerRebate = 271,
 
     /// <summary>
     /// [Convert] Buy Crypto/Fiat
@@ -1335,8 +1335,8 @@ public enum OkxFundingBillType:int
     /// <summary>
     /// [SOL staking] Send Liquidity Staking Token reward
     /// </summary>
-    [Map("315")]
-    SolStakingSendLiquidityStakingTokenReward = 315,
+    [Map("328")]
+    SolStakingSendLiquidityStakingTokenReward = 328,
 
     /// <summary>
     /// [SOL staking] Subscribe Liquidity Staking Token staking
@@ -1481,4 +1481,58 @@ public enum OkxFundingBillType:int
     /// </summary>
     [Map("373")]
     AssetRelease = 373,
+
+    /// <summary>
+    /// Auto lend interest
+    /// </summary>
+    [Map("400")]
+    AutoLendInterest = 400,
+
+    /// <summary>
+    /// Auto earn USDG interest
+    /// </summary>
+    [Map("408")]
+    AutoEarnUsdgInterest = 408,
+
+    /// <summary>
+    /// Transferred out to Cloud Exchange
+    /// </summary>
+    [Map("476")]
+    TransferredOutToCloudExchange = 476,
+
+    /// <summary>
+    /// Transferred in from Cloud Exchange
+    /// </summary>
+    [Map("477")]
+    TransferredInFromCloudExchange = 477,
+
+    /// <summary>
+    /// OKUSD subscription
+    /// </summary>
+    [Map("509")]
+    OkusdSubscription = 509,
+
+    /// <summary>
+    /// OKUSD redemption
+    /// </summary>
+    [Map("511")]
+    OkusdRedemption = 511,
+
+    /// <summary>
+    /// OKUSD earnings
+    /// </summary>
+    [Map("516")]
+    OkusdEarnings = 516,
+
+    /// <summary>
+    /// OKUSD mint
+    /// </summary>
+    [Map("518")]
+    OkusdMint = 518,
+
+    /// <summary>
+    /// Auto earn RLUSD interest
+    /// </summary>
+    [Map("523")]
+    AutoEarnRlusdInterest = 523,
 }

@@ -141,14 +141,20 @@ var transferState = await api.Funding.TransferStateAsync(new OkxFundingTransferS
 var bills = await api.Funding.GetBillsAsync(new OkxFundingBillQueryRequest
 {
     Currency = "USDT",
+    ThirdPartyType = OkxFundingThirdPartyType.Copper,
     Limit = 100
 });
 
 var billHistory = await api.Funding.GetBillsHistoryAsync(new OkxFundingBillQueryRequest
 {
     Currency = "BTC",
+    ThirdPartyType = OkxFundingThirdPartyType.Komainu,
+    PagingType = 2,
     Limit = 100
 });
+
+// ThirdPartyType filters custody bill types 284-289. If omitted, OKX defaults it to Copper (1).
+// PagingType is supported only by GetBillsHistoryAsync: 1 = timestamp, 2 = bill ID.
 
 var depositHistory = await api.Funding.GetDepositHistoryAsync(new OkxFundingDepositHistoryRequest
 {

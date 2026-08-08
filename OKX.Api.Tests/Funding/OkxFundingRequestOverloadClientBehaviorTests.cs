@@ -1,3 +1,4 @@
+using ApiSharp.Converters;
 using Newtonsoft.Json.Linq;
 using OKX.Api.Account;
 using OKX.Api.Common;
@@ -38,7 +39,7 @@ public class OkxFundingRequestOverloadClientBehaviorTests
         using var server = CreateServer("/api/v5/asset/bills", "{\"code\":\"0\",\"msg\":\"\",\"data\":[{}]}");
         var client = CreateClient(server);
 
-        await client.Funding.GetBillsAsync("BTC", OkxFundingBillType.TransferToSubAccount, "cid", 1, 2, 3, 2);
+        await client.Funding.GetBillsAsync("BTC", OkxFundingBillType.TransferToSubAccount, "cid", 1, 2, 3);
         await client.Funding.GetBillsAsync(new OkxFundingBillQueryRequest
         {
             Currency = "BTC",
@@ -46,11 +47,93 @@ public class OkxFundingRequestOverloadClientBehaviorTests
             ClientOrderId = "cid",
             After = 1,
             Before = 2,
-            Limit = 3,
-            PagingType = 2
+            Limit = 3
         });
 
         AssertRequestQueriesEqual(server);
+        Assert.DoesNotContain("pagingType", server.Requests[0].Query);
+    }
+
+    [Fact]
+    public async Task GetBillsAsync_SerializesCustodyProviderWithoutHistoryPaging()
+    {
+        using var server = CreateServer("/api/v5/asset/bills", "{\"code\":\"0\",\"msg\":\"\",\"data\":[]}");
+        var client = CreateClient(server);
+
+        var result = await client.Funding.GetBillsAsync(new OkxFundingBillQueryRequest
+        {
+            Type = OkxFundingBillType.TransferOutTradingSubAccount,
+            ThirdPartyType = OkxFundingThirdPartyType.Scb
+        });
+
+        Assert.True(result.Success);
+        var request = Assert.Single(server.Requests);
+        Assert.Contains("type=284", request.Query);
+        Assert.Contains("thirdPartyType=5", request.Query);
+        Assert.DoesNotContain("pagingType", request.Query);
+    }
+
+    [Fact]
+    public async Task GetBillsHistoryAsync_SerializesCustodyProviderAndPagingType()
+    {
+        const string response = "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"billId\":\"12344\",\"ccy\":\"RLUSD\",\"clientId\":\"\",\"balChg\":\"2\",\"bal\":\"12\",\"type\":\"523\",\"ts\":\"1597026383085\",\"notes\":\"\"}]}";
+        using var server = CreateServer("/api/v5/asset/bills-history", response);
+        var client = CreateClient(server);
+
+        var result = await client.Funding.GetBillsHistoryAsync(new OkxFundingBillQueryRequest
+        {
+            ThirdPartyType = OkxFundingThirdPartyType.Komainu,
+            After = 12344,
+            PagingType = 2
+        });
+
+        Assert.True(result.Success);
+        Assert.Equal(OkxFundingBillType.AutoEarnRlusdInterest, Assert.Single(result.Data).Type);
+        var request = Assert.Single(server.Requests);
+        Assert.Contains("thirdPartyType=2", request.Query);
+        Assert.Contains("after=12344", request.Query);
+        Assert.Contains("pagingType=2", request.Query);
+    }
+
+    [Fact]
+    public async Task BillQueries_RejectUnsupportedPagingAndCustodyValuesBeforeSending()
+    {
+        using var billsServer = CreateServer("/api/v5/asset/bills", "{\"code\":\"0\",\"msg\":\"\",\"data\":[]}");
+        var billsClient = CreateClient(billsServer);
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => billsClient.Funding.GetBillsAsync(new OkxFundingBillQueryRequest { PagingType = 2 }));
+        Assert.Empty(billsServer.Requests);
+
+        using var historyServer = CreateServer("/api/v5/asset/bills-history", "{\"code\":\"0\",\"msg\":\"\",\"data\":[]}");
+        var historyClient = CreateClient(historyServer);
+        await Assert.ThrowsAsync<ArgumentException>(() => historyClient.Funding.GetBillsHistoryAsync(new OkxFundingBillQueryRequest { PagingType = 3 }));
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => historyClient.Funding.GetBillsHistoryAsync(new OkxFundingBillQueryRequest { ThirdPartyType = (OkxFundingThirdPartyType)3 }));
+        Assert.Empty(historyServer.Requests);
+    }
+
+    [Theory]
+    [InlineData(OkxFundingBillType.DCDBrokerRebate, 271)]
+    [InlineData(OkxFundingBillType.SolStakingSendLiquidityStakingTokenReward, 328)]
+    [InlineData(OkxFundingBillType.AutoLendInterest, 400)]
+    [InlineData(OkxFundingBillType.AutoEarnUsdgInterest, 408)]
+    [InlineData(OkxFundingBillType.TransferredOutToCloudExchange, 476)]
+    [InlineData(OkxFundingBillType.TransferredInFromCloudExchange, 477)]
+    [InlineData(OkxFundingBillType.OkusdSubscription, 509)]
+    [InlineData(OkxFundingBillType.OkusdRedemption, 511)]
+    [InlineData(OkxFundingBillType.OkusdEarnings, 516)]
+    [InlineData(OkxFundingBillType.OkusdMint, 518)]
+    [InlineData(OkxFundingBillType.AutoEarnRlusdInterest, 523)]
+    public void BillTypes_MapToCurrentOfficialValues(OkxFundingBillType type, int expected)
+    {
+        Assert.Equal(expected, (int)type);
+        Assert.Equal(expected.ToString(), MapConverter.GetString(type));
+    }
+
+    [Fact]
+    public void ThirdPartyTypes_MapToCurrentOfficialValues()
+    {
+        Assert.Equal("1", MapConverter.GetString(OkxFundingThirdPartyType.Copper));
+        Assert.Equal("2", MapConverter.GetString(OkxFundingThirdPartyType.Komainu));
+        Assert.Equal("5", MapConverter.GetString(OkxFundingThirdPartyType.Scb));
     }
 
     [Fact]
