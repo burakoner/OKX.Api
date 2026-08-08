@@ -49,8 +49,8 @@ public record OkxBlockLegTradeUpdate
     public string FeeCurrency { get; set; } = string.Empty;
 
     /// <summary>
-    /// Last traded ID.
+    /// Last traded ID. Empty for a parent-level Group RFQ result.
     /// </summary>
-    [JsonProperty("tradeId")]
-    public long TradeId { get; set; }
+    [JsonProperty("tradeId"), JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? TradeId { get; set; }
 }

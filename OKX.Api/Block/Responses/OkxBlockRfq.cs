@@ -32,7 +32,8 @@ public record OkxBlockRfq
     /// <summary>
     /// The status of the RFQ.
     /// Valid values can be active canceled pending_fill filled expired traded_away failed.
-    /// traded_away only applies to Maker
+    /// filled means the RFQ was executed against the maker's quote.
+    /// traded_away only applies to makers and means the same RFQ was filled against another maker's quote.
     /// </summary>
     [JsonProperty("state")]
     public OkxBlockState State { get; set; }

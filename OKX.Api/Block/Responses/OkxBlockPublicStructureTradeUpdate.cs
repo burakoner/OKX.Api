@@ -18,10 +18,10 @@ public record OkxBlockPublicStructureTradeUpdate
     public DateTime Time => Timestamp.ConvertFromMilliseconds();
 
     /// <summary>
-    /// Trade ID
+    /// Block trade ID. Empty for a parent-level Group RFQ result.
     /// </summary>
-    [JsonProperty("blockTdId")]
-    public long BlockTradeId { get; set; }
+    [JsonProperty("blockTdId"), JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? BlockTradeId { get; set; }
 
     /// <summary>
     /// Group ID
@@ -66,8 +66,8 @@ public record OkxBlockPublicStructureTradeLeg
     public OkxTradeOrderSide Side { get; set; }
 
     /// <summary>
-    /// Last traded ID.
+    /// Last traded ID. Empty for a parent-level Group RFQ result.
     /// </summary>
-    [JsonProperty("tradeId")]
-    public long TradeId { get; set; }
+    [JsonProperty("tradeId"), JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? TradeId { get; set; }
 }

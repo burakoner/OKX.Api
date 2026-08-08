@@ -67,9 +67,23 @@ var publicTrades = await api.Block.GetPublicExecutedTradesAsync();
 - `GetPublicExecutedTradesAsync`
 - `GetPublicRecentTradesAsync`
 
+### WebSocket Channels
+
+- `SubscribeToRfqsUpdatesAsync`
+- `SubscribeToUserStructureTradesAsync`
+- `SubscribeToPublicStructureTradesAsync`
+
 ## Tips
 
 - Keep public and private block flows separate in your application design; they serve very different use cases.
 - For request-heavy RFQ and quote creation, prefer typed request models where available.
+
+## RFQ State and Trade Mapping Semantics
+
+- `filled` means the RFQ was executed against that maker's quote.
+- `traded_away` is maker-only. A taker can execute Maker A's quote, so Maker A sees `filled` while another invited Maker B sees the same RFQ as `traded_away`.
+- The private `struc-block-trades` channel pushes only to the taker and the executing maker. A maker that sees `traded_away` does not receive that trade update.
+- In the public `public-struc-block-trades` channel, a normal RFQ has a one-to-one `blockTdId` to `rfqId` relationship. A Group RFQ can map one `rfqId` to multiple `blockTdId` values; counterparties can cross-reference both identifiers through the private structure channel.
+- Parent-level Group RFQ structure updates can return empty `blockTdId` and leg `tradeId` values. The wrapper exposes those fields as nullable values and keeps the per-account identifiers in `AccountLevelAllocations`.
 
 

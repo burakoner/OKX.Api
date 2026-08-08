@@ -1,0 +1,49 @@
+{
+  "arg": {
+    "channel": "struc-block-trades",
+    "uid": "77982378738415879"
+  },
+  "data": [
+    {
+      "cTime": "1608267227834",
+      "rfqId": "18753",
+      "clRfqId": "group-rfq-1",
+      "quoteId": "25092",
+      "clQuoteId": "",
+      "blockTdId": "",
+      "tag": "group-rfq",
+      "tTraderCode": "ANAND",
+      "mTraderCode": "WAGMI",
+      "isSuccessful": true,
+      "errorCode": "",
+      "legs": [
+        {
+          "px": "0.0023",
+          "sz": "25",
+          "instId": "BTC-USD-20220630-60000-C",
+          "side": "sell",
+          "fee": "0.1001",
+          "feeCcy": "BTC",
+          "tradeId": "",
+          "tgtCcy": ""
+        }
+      ],
+      "acctAlloc": [
+        {
+          "blockTdId": "180184",
+          "errorCode": "0",
+          "acct": "sub-1",
+          "legs": [
+            {
+              "instId": "BTC-USD-20220630-60000-C",
+              "sz": "25",
+              "tradeId": "10211",
+              "fee": "0.1001",
+              "feeCcy": "BTC"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

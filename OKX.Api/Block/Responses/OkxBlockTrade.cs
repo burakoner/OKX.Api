@@ -44,10 +44,10 @@ public record OkxBlockTrade
     public string ClientQuoteId { get; set; } = string.Empty;
 
     /// <summary>
-    /// Block trade ID.
+    /// Block trade ID. Empty for a parent-level Group RFQ result.
     /// </summary>
-    [JsonProperty("blockTdId")]
-    public long BlockTradeId { get; set; }
+    [JsonProperty("blockTdId"), JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? BlockTradeId { get; set; }
 
     /// <summary>
     /// Trade tag. The block trade will have the tag of the RFQ or Quote it corresponds to.

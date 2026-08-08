@@ -1,0 +1,21 @@
+{
+  "arg": {
+    "channel": "public-struc-block-trades"
+  },
+  "data": [
+    {
+      "cTime": "1608267227834",
+      "blockTdId": "",
+      "groupId": "grp-500",
+      "legs": [
+        {
+          "px": "0.323",
+          "sz": "25",
+          "instId": "BTC-USD-20220114-13250-C",
+          "side": "sell",
+          "tradeId": ""
+        }
+      ]
+    }
+  ]
+}

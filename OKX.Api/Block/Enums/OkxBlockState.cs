@@ -24,13 +24,13 @@ public enum OkxBlockState : byte
     PendingFill,
 
     /// <summary>
-    /// Traded Away
+    /// The RFQ was executed against another maker's quote. This state only applies to makers.
     /// </summary>
     [Map("traded_away")]
     TradedAway,
 
     /// <summary>
-    /// Filled
+    /// The RFQ was successfully executed against the maker's quote.
     /// </summary>
     [Map("filled")]
     Filled,

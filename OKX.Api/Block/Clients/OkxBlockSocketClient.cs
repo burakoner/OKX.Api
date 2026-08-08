@@ -11,6 +11,7 @@ public class OkxBlockSocketClient(OkxWebSocketApiClient root)
 
     /// <summary>
     /// Retrieve the RFQs sent or received by the user. Data will be pushed whenever the user sends or receives an RFQ.
+    /// A filled RFQ was executed against the maker's quote. traded_away only applies to makers and means the RFQ was filled against another maker's quote.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
@@ -52,7 +53,8 @@ public class OkxBlockSocketClient(OkxWebSocketApiClient root)
     }
 
     /// <summary>
-    /// Retrieve user's block trades data. All the legs in the same block trade are included in the same update. Data will be pushed whenever there is a block trade that the user is a counterparty for.
+    /// Retrieve user's block trades data. All the legs in the same block trade are included in the same update.
+    /// Data is pushed only to the taker and executing maker; makers whose RFQ state is traded_away do not receive the trade.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>
@@ -73,6 +75,7 @@ public class OkxBlockSocketClient(OkxWebSocketApiClient root)
 
     /// <summary>
     /// Retrieve the recent block trades data in OKX. All the legs in the same block trade are included in the same update. The data will be pushed 15 minutes after the block trade execution.
+    /// Normal RFQs map blockTdId to rfqId one-to-one. Group RFQs can map one rfqId to multiple blockTdId values; use the private structure block trades channel to cross-reference them.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="ct">Cancellation Token</param>

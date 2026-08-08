@@ -335,7 +335,7 @@ public class OkxBlockRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// </summary>
     /// <param name="rfqId">RFQ ID .</param>
     /// <param name="clientRfqId">Client-supplied RFQ ID. If both clRfqId and rfqId are passed, rfqId will be treated as primary identifier</param>
-    /// <param name="state">The status of the RFQ. Valid values can be active canceled pending_fill filled expired failed traded_away. traded_away only applies to Maker</param>
+    /// <param name="state">The status of the RFQ. filled means it was executed against the maker's quote. traded_away only applies to makers and means it was filled against another maker's quote.</param>
     /// <param name="beginId">Start rfq id the request to begin with. Pagination of data to return records newer than the requested rfqId, not including beginId</param>
     /// <param name="endId">End rfq id the request to end with. Pagination of data to return records earlier than the requested rfqId, not including endId</param>
     /// <param name="limit">Number of results per request. The maximum is 100 which is also the default value.</param>

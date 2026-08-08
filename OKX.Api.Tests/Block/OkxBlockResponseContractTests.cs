@@ -33,6 +33,7 @@ public class OkxBlockResponseContractTests
         Assert.Equal("maker_rfq", rfq.FlowType);
         Assert.Equal("maker-tag", rfq.Tag);
         Assert.Equal("grp-200", rfq.GroupId);
+        Assert.Equal(OkxBlockState.TradedAway, rfq.State);
     }
 
     [Fact]
@@ -86,6 +87,30 @@ public class OkxBlockResponseContractTests
         Assert.Equal("BTC-USDT", trade.InstrumentId);
     }
 
+    [Fact]
+    public void ManualPrivateStructureTradeSocketFixture_ParsesEmptyParentIdentifiers()
+    {
+        var trade = Assert.Single(DeserializeSocketData<OkxBlockStructureTradeUpdate>("ws-private-structure-trade-group.json"));
+
+        Assert.Null(trade.BlockTradeId);
+        Assert.True(trade.IsSuccessful);
+        Assert.Null(Assert.Single(trade.Legs).TradeId);
+
+        var allocation = Assert.Single(trade.AccountLevelAllocations);
+        Assert.Equal("180184", allocation.BlockTradeId);
+        Assert.Equal("10211", Assert.Single(allocation.Legs).TradeId);
+    }
+
+    [Fact]
+    public void ManualPublicStructureTradeSocketFixture_ParsesGroupMappingAndEmptyParentIdentifiers()
+    {
+        var trade = Assert.Single(DeserializeSocketData<OkxBlockPublicStructureTradeUpdate>("ws-public-structure-trade-group.json"));
+
+        Assert.Equal("grp-500", trade.GroupId);
+        Assert.Null(trade.BlockTradeId);
+        Assert.Null(Assert.Single(trade.Legs).TradeId);
+    }
+
     private static OkxRestApiResponse<List<T>> DeserializeList<T>(params string[] fixturePath) where T : class
     {
         var json = FixtureReader.ReadManual(["Block", .. fixturePath]);
@@ -95,5 +120,15 @@ public class OkxBlockResponseContractTests
         Assert.Equal(0, response.ErrorCode);
         Assert.NotNull(response.Data);
         return response;
+    }
+
+    private static List<T> DeserializeSocketData<T>(params string[] fixturePath)
+    {
+        var json = FixtureReader.ReadManual(["Block", .. fixturePath]);
+        var response = JsonConvert.DeserializeObject<OkxSocketUpdateResponse<List<T>>>(json, SerializerOptions.WithConverters);
+
+        Assert.NotNull(response);
+        Assert.NotNull(response.Data);
+        return response.Data;
     }
 }
