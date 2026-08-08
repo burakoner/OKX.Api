@@ -1,0 +1,27 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "copyMode": "ratio_copy",
+      "copyAmt": "",
+      "copyRatio": "1",
+      "copyTotalAmt": "500",
+      "tpRatio": "0.1",
+      "slRatio": "0.05",
+      "copyInstIdType": "copy",
+      "instIds": [
+        {
+          "instId": "BTC-USDT-SWAP",
+          "enabled": "1"
+        }
+      ],
+      "slTotalAmt": "100",
+      "subPosCloseType": "copy_close",
+      "copyMgnMode": "cross",
+      "ccy": "USDT",
+      "copyState": "1",
+      "tag": "affiliate-tag"
+    }
+  ]
+}

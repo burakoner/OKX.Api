@@ -1297,19 +1297,39 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
     }
 
     /// <summary>
-    /// Only applicable to users with a trading level greater than or equal to VIP5, and can only be called through the API Key of the master account. Users can check their trading level through the fee details table on the My trading fees page.
-    /// To move positions between different accounts under the same master account.Each source account can trigger up to fifteen move position requests every 24 hours.There is no limitation to the destination account to receive positions.Refer to the "Things to note" part for more details.
+    /// Only applicable to users with a trading level greater than or equal to VIP6, and can only be called through the API Key of the master account.
+    /// Moves positions between different accounts under the same master account. Margin trading positions are not supported. TradeFi positions, including equity perpetuals/XPerp, are supported.
     /// </summary>
     /// <param name="request">Move Position Request</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
     public Task<RestCallResult<OkxAccountMovePosition>> MovePositionsAsync(OkxAccountMovePositionRequest request, CancellationToken ct = default)
     {
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
+
+        if (string.IsNullOrWhiteSpace(request.FromAccount))
+            throw new ArgumentException("Source account is required.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.ToAccount))
+            throw new ArgumentException("Destination account is required.", nameof(request));
+        if (string.Equals(request.FromAccount, request.ToAccount, StringComparison.Ordinal))
+            throw new ArgumentException("Source and destination accounts must be different.", nameof(request));
+        if (string.IsNullOrWhiteSpace(request.ClientOrderId) ||
+            !Regex.IsMatch(request.ClientOrderId, "^[A-Za-z0-9]{1,32}$", RegexOptions.CultureInvariant))
+            throw new ArgumentException("Client ID must contain 1 to 32 alphanumeric characters.", nameof(request));
+
+        var legs = request.Legs?.ToList() ?? [];
+        if (legs.Count is < 1 or > 30)
+            throw new ArgumentException("Move positions requires between 1 and 30 legs.", nameof(request));
+        if (legs.Any(x => x?.From == null || x.To == null ||
+            string.IsNullOrWhiteSpace(x.From.PositionId) || string.IsNullOrWhiteSpace(x.From.Quantity)))
+            throw new ArgumentException("Each leg requires source position details and destination settings.", nameof(request));
+
         var parameters = new ParameterCollection
         {
             { "fromAcct", request.FromAccount },
             { "toAcct", request.ToAccount },
-            { "legs", request.Legs },
+            { "legs", legs },
             { "clientId", request.ClientOrderId },
         };
 

@@ -45,5 +45,5 @@ public record OkxCopyTradingLeadTraderStats
     /// Margin currency
     /// </summary>
     [JsonProperty("ccy")]
-    public decimal Currency { get; set; }
+    public string Currency { get; set; } = string.Empty;
 }

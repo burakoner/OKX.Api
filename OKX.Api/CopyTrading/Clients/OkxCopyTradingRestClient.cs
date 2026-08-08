@@ -285,7 +285,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// The first copy settings for the certain lead trader. You need to first copy settings after stopping copying.
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
     /// <param name="copyMarginMode">Copy margin mode</param>
     /// <param name="copyInstrumentIdType">Copy contract type setted</param>
     /// <param name="copyTotalAmount">Maximum total amount in USDT. The maximum total amount you'll invest at any given time across all orders in this copy trade. You won’t copy new orders if you exceed this amount</param>
@@ -316,12 +316,17 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         decimal? stopLossTotalAmount = null,
         CancellationToken ct = default)
     {
+        ValidateUniqueCode(uniqueCode);
+        ValidateSwapInstrumentType(instrumentType);
+        var instrumentIdList = instrumentIds?.ToList();
+        ValidateCopySettings(copyInstrumentIdType, instrumentIdList, copyMode, copyAmount, copyRatio);
+
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
         parameters.Add("uniqueCode", uniqueCode);
         parameters.AddEnum("copyMgnMode", copyMarginMode);
         parameters.AddEnum("copyInstIdType", copyInstrumentIdType);
-        if (instrumentIds != null) parameters.AddOptional("instId", string.Join(",", instrumentIds));
+        if (instrumentIdList?.Count > 0) parameters.AddOptional("instId", string.Join(",", instrumentIdList));
         parameters.AddOptionalEnum("copyMode", copyMode);
         parameters.Add("copyTotalAmt", copyTotalAmount.ToOkxString());
         parameters.AddOptional("copyAmt", copyAmount?.ToOkxString());
@@ -338,7 +343,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// You need to use this endpoint to amend copy settings
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
     /// <param name="copyMarginMode">Copy margin mode</param>
     /// <param name="copyInstrumentIdType">Copy contract type setted</param>
     /// <param name="copyTotalAmount">Maximum total amount in USDT. The maximum total amount you'll invest at any given time across all orders in this copy trade. You won’t copy new orders if you exceed this amount</param>
@@ -369,6 +374,11 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         decimal? stopLossTotalAmount = null,
         CancellationToken ct = default)
     {
+        ValidateUniqueCode(uniqueCode);
+        ValidateSwapInstrumentType(instrumentType);
+        var instrumentIdList = instrumentIds?.ToList();
+        ValidateCopySettings(copyInstrumentIdType, instrumentIdList, copyMode, copyAmount, copyRatio);
+
         var parameters = new ParameterCollection
         {
             { "uniqueCode", uniqueCode },
@@ -379,7 +389,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         parameters.AddEnum("subPosCloseType", positionCloseType);
         parameters.AddOptionalEnum("instType", instrumentType);
         parameters.AddOptionalEnum("copyMode", copyMode);
-        if (instrumentIds != null) parameters.AddOptional("instId", string.Join(",", instrumentIds));
+        if (instrumentIdList?.Count > 0) parameters.AddOptional("instId", string.Join(",", instrumentIdList));
         parameters.AddOptional("copyAmt", copyAmount?.ToOkxString());
         parameters.AddOptional("copyRatio", copyRatio?.ToOkxString());
         parameters.AddOptional("tpRatio", takeProfitRatio?.ToOkxString());
@@ -393,7 +403,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// You need to use this endpoint to stop copy trading
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
     /// <param name="positionCloseType">Action type for open positions, it is required</param>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
@@ -404,8 +414,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
-        if (instrumentType.IsNotIn(OkxInstrumentType.Swap))
-            throw new ArgumentException("Instrument type must be Swap", nameof(instrumentType));
+        ValidateUniqueCode(uniqueCode);
+        ValidateSwapInstrumentType(instrumentType);
 
         var parameters = new ParameterCollection
         {
@@ -420,7 +430,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// Retrieve the copy settings about certain lead trader.
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -429,6 +439,9 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
+        ValidateUniqueCode(uniqueCode);
+        ValidateSwapInstrumentType(instrumentType);
+
         var parameters = new ParameterCollection
         {
             { "uniqueCode", uniqueCode },
@@ -522,7 +535,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// Public endpoint. Retrieve lead trader weekly pnl. Results are returned in counter chronological order.
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -531,8 +544,11 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
+        ValidateUniqueCode(uniqueCode);
+        ValidateSwapInstrumentType(instrumentType);
+
         var parameters = new ParameterCollection();
-        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.Add("uniqueCode", uniqueCode);
         parameters.AddOptionalEnum("instType", instrumentType);
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderProfitAndLoss>(GetUri("api/v5/copytrading/public-weekly-pnl"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
@@ -541,8 +557,8 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// Public endpoint. Retrieve lead trader daily pnl. Results are returned in counter chronological order.
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="lastDays">Last days</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
+    /// <param name="lastDays">Performance window: 1 for 7 days, 2 for 30 days, 3 for 90 days, or 4 for 365 days.</param>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -552,19 +568,33 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
+        ValidateUniqueCode(uniqueCode);
+        ValidatePerformancePeriod(lastDays);
+        ValidateSwapInstrumentType(instrumentType);
+
         var parameters = new ParameterCollection();
-        parameters.AddOptional("uniqueCode", uniqueCode);
-        parameters.AddOptional("lastDays", lastDays);
+        parameters.Add("uniqueCode", uniqueCode);
+        parameters.Add("lastDays", lastDays);
         parameters.AddOptionalEnum("instType", instrumentType);
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderProfitAndLoss>(GetUri("api/v5/copytrading/public-pnl"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
+    /// Public endpoint. Retrieve lead trader daily PnL for a supported performance window.
+    /// </summary>
+    public Task<RestCallResult<List<OkxCopyTradingLeadTraderProfitAndLoss>>> GetLeadTraderDailyPnlAsync(
+        string uniqueCode,
+        OkxCopyTradingPerformancePeriod period,
+        OkxInstrumentType? instrumentType = null,
+        CancellationToken ct = default)
+        => GetLeadTraderDailyPnlAsync(uniqueCode, ((int)period).ToString(CultureInfo.InvariantCulture), instrumentType, ct);
+
+    /// <summary>
     /// Public endpoint. Key data related to lead trader performance.
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
-    /// <param name="lastDays">Last days</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
+    /// <param name="lastDays">Performance window: 1 for 7 days, 2 for 30 days, 3 for 90 days, or 4 for 365 days.</param>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -574,18 +604,32 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
+        ValidateUniqueCode(uniqueCode);
+        ValidatePerformancePeriod(lastDays);
+        ValidateSwapInstrumentType(instrumentType);
+
         var parameters = new ParameterCollection();
-        parameters.AddOptional("uniqueCode", uniqueCode);
-        parameters.AddOptional("lastDays", lastDays);
+        parameters.Add("uniqueCode", uniqueCode);
+        parameters.Add("lastDays", lastDays);
         parameters.AddOptionalEnum("instType", instrumentType);
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderStats>(GetUri("api/v5/copytrading/public-stats"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
     }
 
     /// <summary>
+    /// Public endpoint. Retrieve lead trader statistics for a supported performance window.
+    /// </summary>
+    public Task<RestCallResult<List<OkxCopyTradingLeadTraderStats>>> GetLeadTraderStatsAsync(
+        string uniqueCode,
+        OkxCopyTradingPerformancePeriod period,
+        OkxInstrumentType? instrumentType = null,
+        CancellationToken ct = default)
+        => GetLeadTraderStatsAsync(uniqueCode, ((int)period).ToString(CultureInfo.InvariantCulture), instrumentType, ct);
+
+    /// <summary>
     /// Public endpoint. The most frequently traded crypto of this lead trader. Results are sorted by ratio from large to small.
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
@@ -594,8 +638,11 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         OkxInstrumentType? instrumentType = null,
         CancellationToken ct = default)
     {
+        ValidateUniqueCode(uniqueCode);
+        ValidateSwapInstrumentType(instrumentType);
+
         var parameters = new ParameterCollection();
-        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.Add("uniqueCode", uniqueCode);
         parameters.AddOptionalEnum("instType", instrumentType);
 
         return ProcessListRequestAsync<OkxCopyTradingLeadTraderCurrencyPreference>(GetUri("api/v5/copytrading/public-preference-currency"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
@@ -604,7 +651,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// Public endpoint. Get current leading positions of lead trader
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="after">Pagination of data to return records earlier than the requested subPosId.</param>
     /// <param name="before">Pagination of data to return records newer than the requested subPosId.</param>
@@ -620,9 +667,12 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidateUniqueCode(uniqueCode);
+        ValidateSwapInstrumentType(instrumentType);
+
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.Add("uniqueCode", uniqueCode);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
@@ -634,7 +684,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// Public endpoint. Retrieve the lead trader completed leading position of the last 3 months.
     /// Returns reverse chronological order with subPosId.
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="after">Pagination of data to return records earlier than the requested subPosId.</param>
     /// <param name="before">Pagination of data to return records newer than the requested subPosId.</param>
@@ -650,9 +700,12 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidateUniqueCode(uniqueCode);
+        ValidateSwapInstrumentType(instrumentType);
+
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.Add("uniqueCode", uniqueCode);
         parameters.AddOptional("after", after?.ToOkxString());
         parameters.AddOptional("before", before?.ToOkxString());
         parameters.AddOptional("limit", limit.ToOkxString());
@@ -663,7 +716,7 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
     /// <summary>
     /// Public endpoint. Retrieve copy trader coming from certain lead trader. Return according to pnl from high to low
     /// </summary>
-    /// <param name="uniqueCode">Lead trader unique code. A combination of case-sensitive alphanumerics, all numbers and the length is 16 characters, e.g. 213E8C92DC61EFAC</param>
+    /// <param name="uniqueCode">Lead trader unique code. A case-sensitive alphanumeric value with a length of 16 or 18 characters.</param>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="limit">Number of results per request. Maximum is 100. Default is 100.</param>
     /// <param name="ct">Cancellation Token</param>
@@ -675,11 +728,52 @@ public class OkxCopyTradingRestClient(OkxRestApiClient root) : OkxBaseRestClient
         CancellationToken ct = default)
     {
         limit.ValidateIntBetween(nameof(limit), 1, 100);
+        ValidateUniqueCode(uniqueCode);
+        ValidateSwapInstrumentType(instrumentType);
+
         var parameters = new ParameterCollection();
         parameters.AddOptionalEnum("instType", instrumentType);
-        parameters.AddOptional("uniqueCode", uniqueCode);
+        parameters.Add("uniqueCode", uniqueCode);
         parameters.AddOptional("limit", limit.ToOkxString());
 
         return ProcessListRequestAsync<OkxCopyTradingCopyTrader>(GetUri("api/v5/copytrading/public-copy-traders"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    private static void ValidateUniqueCode(string uniqueCode)
+    {
+        if (string.IsNullOrWhiteSpace(uniqueCode) ||
+            !Regex.IsMatch(uniqueCode, "^(?:[A-Za-z0-9]{16}|[A-Za-z0-9]{18})$", RegexOptions.CultureInvariant))
+            throw new ArgumentException("Lead trader unique code must contain exactly 16 or 18 alphanumeric characters.", nameof(uniqueCode));
+    }
+
+    private static void ValidateSwapInstrumentType(OkxInstrumentType? instrumentType)
+    {
+        if (instrumentType.HasValue && instrumentType.Value != OkxInstrumentType.Swap)
+            throw new ArgumentException("Instrument type must be Swap when specified.", nameof(instrumentType));
+    }
+
+    private static void ValidateCopySettings(
+        OkxCopyTradingInstrumentIdType copyInstrumentIdType,
+        IReadOnlyCollection<string>? instrumentIds,
+        OkxCopyTradingMode? copyMode,
+        decimal? copyAmount,
+        decimal? copyRatio)
+    {
+        if (copyInstrumentIdType == OkxCopyTradingInstrumentIdType.Custom &&
+            (instrumentIds == null || instrumentIds.Count == 0 || instrumentIds.Any(string.IsNullOrWhiteSpace)))
+            throw new ArgumentException("At least one instrument ID is required when copy instrument ID type is Custom.", nameof(instrumentIds));
+
+        var effectiveMode = copyMode ?? OkxCopyTradingMode.FixedAmount;
+        if (effectiveMode == OkxCopyTradingMode.FixedAmount && !copyAmount.HasValue)
+            throw new ArgumentException("Copy amount is required for fixed amount copy mode.", nameof(copyAmount));
+
+        if (effectiveMode == OkxCopyTradingMode.RatioCopy && !copyRatio.HasValue)
+            throw new ArgumentException("Copy ratio is required for ratio copy mode.", nameof(copyRatio));
+    }
+
+    private static void ValidatePerformancePeriod(string lastDays)
+    {
+        if (lastDays is not ("1" or "2" or "3" or "4"))
+            throw new ArgumentException("Performance window must be 1, 2, 3, or 4.", nameof(lastDays));
     }
 }

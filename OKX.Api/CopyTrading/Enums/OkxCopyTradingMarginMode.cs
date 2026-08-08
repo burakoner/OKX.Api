@@ -6,16 +6,16 @@
 public enum OkxCopyTradingMarginMode : byte
 {
     /// <summary>
-    /// Isolated
+    /// Cross margin
     /// </summary>
     [Map("cross")]
-    Isolated = 1,
+    Cross = 1,
 
     /// <summary>
-    /// Cross
+    /// Isolated margin
     /// </summary>
     [Map("isolated")]
-    Cross = 2,
+    Isolated = 2,
 
     /// <summary>
     /// Use the same margin mode as lead trader when opening positions

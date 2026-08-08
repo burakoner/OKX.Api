@@ -99,6 +99,6 @@ public record OkxAccountMovePositionLegToRequest
     /// <summary>
     /// Margin currency in destination accountOnly applicable to cross margin positions in Futures mode.
     /// </summary>
-    [JsonProperty("ccy")]
-    public string Currency { get; set; } = string.Empty;
+    [JsonProperty("ccy", NullValueHandling = NullValueHandling.Ignore)]
+    public string? Currency { get; set; }
 }

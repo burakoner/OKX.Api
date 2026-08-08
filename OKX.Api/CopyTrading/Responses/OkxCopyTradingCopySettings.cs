@@ -83,6 +83,12 @@ public record OkxCopyTradingCopySettings
     /// </summary>
     [JsonProperty("copyState")]
     public OkxCopyTradingState State { get; set; }
+
+    /// <summary>
+    /// Order tag
+    /// </summary>
+    [JsonProperty("tag")]
+    public string Tag { get; set; } = string.Empty;
 }
 
 /// <summary>

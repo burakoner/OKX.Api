@@ -207,6 +207,7 @@ var borrowRepayHistory = await api.Account.GetBorrowRepayHistoryAsync(new OkxAcc
 - Prefer request-model overloads when a call takes many optional filters.
 - `GetPositionTiersAsync` returns all rows that OKX sends; do not assume a single result.
 - `PositionBuilderAsync` is useful for portfolio margin and delta-neutral tooling, not day-to-day spot usage.
+- `MovePositionsAsync` requires a VIP6 master-account API key, different source and destination accounts under the same master account, a 1-to-32 character alphanumeric client ID, and at most 30 legs. Margin trading positions are unsupported; the current official contract supports TradeFi positions, including equity perpetuals/XPerp.
 - `AdjustDemoAccountBalanceAsync` is rejected locally unless `DemoTradingService` is enabled. It supports only BTC, ETH, USDT, and OKB; OKX validates the current precision for each currency server-side.
 - OKX reports exhausted daily increase quota as `59691`, insufficient balance as `59692`, and insufficient transferable balance as `59693`.
 

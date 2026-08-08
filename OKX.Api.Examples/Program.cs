@@ -13,7 +13,7 @@ internal static class Program
     private const string ExampleFutureFamily = "BTC-USD";
     private const string ExampleOptionFamily = "BTC-USD";
     private const string ExampleSpreadId = "BTC-USDT_BTC-USD-SWAP";
-    private const string ExampleLeadTraderCode = "REPLACE-WITH-LEAD-TRADER-CODE";
+    private const string ExampleLeadTraderCode = "213E8C92DC61EFAC";
     private const string ExampleSubAccountName = "REPLACE-WITH-SUB-ACCOUNT";
     private const string ExampleProductId = "REPLACE-WITH-PRODUCT-ID";
     private const string ExampleSignalDescription = "Signal bot example channel";
@@ -483,14 +483,18 @@ internal static class Program
             OkxCopyTradingMarginMode.Copy,
             OkxCopyTradingInstrumentIdType.Copy,
             100m,
-            OkxCopyTradingPositionCloseType.CopyClose);
+            OkxCopyTradingPositionCloseType.CopyClose,
+            copyMode: OkxCopyTradingMode.RatioCopy,
+            copyRatio: 1m);
 
         _ = await api.CopyTrading.AmendCopySettingsAsync(
             ExampleLeadTraderCode,
             OkxCopyTradingMarginMode.Copy,
             OkxCopyTradingInstrumentIdType.Copy,
             100m,
-            OkxCopyTradingPositionCloseType.CopyClose);
+            OkxCopyTradingPositionCloseType.CopyClose,
+            copyMode: OkxCopyTradingMode.RatioCopy,
+            copyRatio: 1m);
 
         _ = await api.CopyTrading.StopCopyingAsync(ExampleLeadTraderCode, OkxCopyTradingPositionCloseType.CopyClose, OkxInstrumentType.Swap);
         _ = await api.CopyTrading.GetCopySettingsAsync(ExampleLeadTraderCode);
@@ -500,8 +504,8 @@ internal static class Program
         _ = await api.CopyTrading.GetPublicConfigurationAsync();
         _ = await api.CopyTrading.GetLeadTradersRanksAsync();
         _ = await api.CopyTrading.GetLeadTraderWeeklyPnlAsync(ExampleLeadTraderCode);
-        _ = await api.CopyTrading.GetLeadTraderDailyPnlAsync(ExampleLeadTraderCode, string.Empty);
-        _ = await api.CopyTrading.GetLeadTraderStatsAsync(ExampleLeadTraderCode, string.Empty);
+        _ = await api.CopyTrading.GetLeadTraderDailyPnlAsync(ExampleLeadTraderCode, OkxCopyTradingPerformancePeriod.Last30Days);
+        _ = await api.CopyTrading.GetLeadTraderStatsAsync(ExampleLeadTraderCode, OkxCopyTradingPerformancePeriod.Last30Days);
         _ = await api.CopyTrading.GetLeadTraderCurrencyPreferencesAsync(ExampleLeadTraderCode);
         _ = await api.CopyTrading.GetLeadTraderCurrentPositionsAsync(ExampleLeadTraderCode);
         _ = await api.CopyTrading.GetLeadTraderPositionHistoryAsync(ExampleLeadTraderCode);
