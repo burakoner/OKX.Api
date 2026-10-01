@@ -38,6 +38,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="ApiSharp" Version="4.5.1" />
+		<InternalsVisibleTo Include="OKX.Api.Tests" />
 	</ItemGroup>
 	
 </Project>

@@ -6,6 +6,12 @@
 public class OkxRestApiOptions : RestApiClientOptions
 {
     /// <summary>
+    /// Optional fail-fast Place/Amend guard. Share one instance with all REST/WS clients of the same User ID/environment.
+    /// Register current instruments and account-specific lead status explicitly. Null preserves legacy throttling.
+    /// </summary>
+    public OkxTradeRateLimiter? TradeRateLimiter { get; set; }
+
+    /// <summary>
     /// Receive Window
     /// </summary>
     public TimeSpan ReceiveWindow { get; set; }
@@ -84,6 +90,7 @@ public class OkxRestApiOptions : RestApiClientOptions
             .AddEndpointLimit("/api/v5/public/market-data-history", 5, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/market/books-rpi", 20, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/market/trades", 100, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
+            .AddEndpointLimit("/api/v5/trade/account-rate-limit", 1, TimeSpan.FromSeconds(1), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/account/trade-fee", 5, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/finance/okusd/limits", 2, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/finance/okusd/subscribe", 1, TimeSpan.FromSeconds(2), HttpMethod.Post, true)

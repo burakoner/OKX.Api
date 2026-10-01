@@ -117,7 +117,8 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     {
         var socketRequest = CreateSocketPlaceOrderRequest(request);
         var req = CreateTradeRequest(_.RequestId().ToString(), OkxSocketOperation.Order, new[] { socketRequest }, expiryTimestamp);
-        return await _.RootQueryAsync<OkxTradeOrderPlaceResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        return await SendTradeQueryAsync<OkxTradeOrderPlaceResponse>(req,
+            [PlaceRateLimitOrder(socketRequest)], OkxTradeRateLimitOperation.Place, false).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -137,7 +138,8 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     {
         var socketRequests = CreateSocketPlaceOrderRequests(requests);
         var req = CreateTradeRequest(_.RequestId().ToString(), OkxSocketOperation.BatchOrders, socketRequests, expiryTimestamp);
-        return await _.RootQueryAsync<IEnumerable<OkxTradeOrderPlaceResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        return await SendTradeQueryAsync<IEnumerable<OkxTradeOrderPlaceResponse>>(req,
+            socketRequests.Select(PlaceRateLimitOrder), OkxTradeRateLimitOperation.Place, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -182,7 +184,8 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     {
         var socketRequest = CreateSocketAmendOrderRequest(request);
         var req = CreateTradeRequest(_.RequestId().ToString(), OkxSocketOperation.AmendOrder, new[] { socketRequest }, expiryTimestamp);
-        return await _.RootQueryAsync<OkxTradeOrderAmend>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        return await SendTradeQueryAsync<OkxTradeOrderAmend>(req,
+            [new OkxTradeRateLimitOrder(null, socketRequest.InstrumentIdCode)], OkxTradeRateLimitOperation.Amend, false).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -201,7 +204,8 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     {
         var socketRequests = CreateSocketAmendOrderRequests(requests);
         var req = CreateTradeRequest(_.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, socketRequests, expiryTimestamp);
-        return await _.RootQueryAsync<IEnumerable<OkxTradeOrderAmend>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
+        return await SendTradeQueryAsync<IEnumerable<OkxTradeOrderAmend>>(req,
+            socketRequests.Select(order => new OkxTradeRateLimitOrder(null, order.InstrumentIdCode)), OkxTradeRateLimitOperation.Amend, true).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -219,6 +223,22 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     private static OkxSocketRequest<T> CreateTradeRequest<T>(
         string requestId, OkxSocketOperation operation, IEnumerable<T> requests, long? expiryTimestamp)
         => new(requestId, operation, requests) { ExpiryTimestamp = expiryTimestamp };
+
+    private static OkxTradeRateLimitOrder PlaceRateLimitOrder(OkxTradeOrderPlaceRequest order)
+        => new(null, order.InstrumentIdCode,
+            order.OrderType is OkxTradeOrderType.MarketMakerProtection or OkxTradeOrderType.MarektMakerProtectionAndPostOnly);
+
+    private async Task<CallResult<T>> SendTradeQueryAsync<T>(object command,
+        IEnumerable<OkxTradeRateLimitOrder> orders, OkxTradeRateLimitOperation operation, bool isBatch)
+    {
+        IDisposable? reservation = null;
+        var error = Options.TradeRateLimiter?.TryAcquire(operation, orders, isBatch, out reservation);
+        using (reservation)
+        {
+            if (error is not null) return new CallResult<T>(error);
+            return await _.RootQueryAsync<T>(OkxSocketEndpoint.Private, command, true).ConfigureAwait(false);
+        }
+    }
 
     private static OkxTradeOrderPlaceRequest CreateSocketPlaceOrderRequest(OkxTradeOrderPlaceRequest request)
     {

@@ -108,7 +108,7 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
         return SubscribeAsync(url, request, identifier ?? "", authenticated, dataHandler, ct);
     }
 
-    internal Task<CallResult<T>> RootQueryAsync<T>(OkxSocketEndpoint endpoint, object request, bool authenticated)
+    internal virtual Task<CallResult<T>> RootQueryAsync<T>(OkxSocketEndpoint endpoint, object request, bool authenticated)
     {
         var url = ClientOptions.BaseAddress;
         var env = ((OkxWebSocketApiOptions)ClientOptions).DemoTradingService ? OkxAddress.Demo : OkxAddress.Default;

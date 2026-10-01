@@ -105,7 +105,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalEnum("outcome", outcome);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
-        return ProcessOneRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return SendTradeOneAsync<OkxTradeOrderPlaceResponse>("api/v5/trade/order", parameters,
+            [PlaceRateLimitOrder(instrumentId, orderType)], OkxTradeRateLimitOperation.Place, ct);
     }
 
     /// <summary>
@@ -133,7 +134,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.SetBody(payload);
 
-        return ProcessOneRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return SendTradeOneAsync<OkxTradeOrderPlaceResponse>("api/v5/trade/order", parameters,
+            [PlaceRateLimitOrder(payload.InstrumentId, payload.OrderType)], OkxTradeRateLimitOperation.Place, ct);
     }
 
     /// <summary>
@@ -163,7 +165,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         var parameters = new ParameterCollection();
         parameters.SetBody(payload);
 
-        return ProcessListRequestAsync<OkxTradeOrderPlaceResponse>(GetUri("api/v5/trade/batch-orders"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return SendTradeListAsync<OkxTradeOrderPlaceResponse>("api/v5/trade/batch-orders", parameters,
+            payload.Select(order => PlaceRateLimitOrder(order.InstrumentId, order.OrderType)), OkxTradeRateLimitOperation.Place, ct);
     }
 
     /// <summary>
@@ -259,7 +262,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         parameters.AddOptionalEnum("speedBump", speedBump);
         parameters.AddOptional("attachAlgoOrds", attachedAlgoOrders);
 
-        return ProcessOneRequestAsync<OkxTradeOrderAmend>(GetUri("api/v5/trade/amend-order"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+        return SendTradeOneAsync<OkxTradeOrderAmend>("api/v5/trade/amend-order", parameters,
+            [new OkxTradeRateLimitOrder(instrumentId)], OkxTradeRateLimitOperation.Amend, ct);
     }
 
     /// <summary>
@@ -284,9 +288,42 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         }
 
         var parameters = new ParameterCollection();
-        parameters.SetBody(orderList.Select(order => order with { InstrumentIdCode = null }).ToList());
+        var payload = orderList.Select(order => order with { InstrumentIdCode = null }).ToList();
+        parameters.SetBody(payload);
 
-        return ProcessListRequestAsync<OkxTradeOrderAmend>(GetUri("api/v5/trade/amend-batch-orders"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
+#pragma warning disable CS0618 // instId is still required for REST batch amendment.
+        return SendTradeListAsync<OkxTradeOrderAmend>("api/v5/trade/amend-batch-orders", parameters,
+            payload.Select(order => new OkxTradeRateLimitOrder(order.InstrumentId)), OkxTradeRateLimitOperation.Amend, ct);
+#pragma warning restore CS0618
+    }
+
+    private static OkxTradeRateLimitOrder PlaceRateLimitOrder(string? instrumentId, OkxTradeOrderType orderType)
+        => new(instrumentId, isMmp: orderType is OkxTradeOrderType.MarketMakerProtection or OkxTradeOrderType.MarektMakerProtectionAndPostOnly);
+
+    private async Task<RestCallResult<T>> SendTradeOneAsync<T>(string endpoint, ParameterCollection parameters,
+        IEnumerable<OkxTradeRateLimitOrder> orders, OkxTradeRateLimitOperation operation, CancellationToken ct) where T : class
+    {
+        if (Options.TradeRateLimiter is not null) ct.ThrowIfCancellationRequested();
+        IDisposable? reservation = null;
+        var error = Options.TradeRateLimiter?.TryAcquire(operation, orders, false, out reservation);
+        using (reservation)
+        {
+            if (error is not null) return new RestCallResult<T>(error);
+            return await ProcessOneRequestAsync<T>(GetUri(endpoint), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        }
+    }
+
+    private async Task<RestCallResult<List<T>>> SendTradeListAsync<T>(string endpoint, ParameterCollection parameters,
+        IEnumerable<OkxTradeRateLimitOrder> orders, OkxTradeRateLimitOperation operation, CancellationToken ct) where T : class
+    {
+        if (Options.TradeRateLimiter is not null) ct.ThrowIfCancellationRequested();
+        IDisposable? reservation = null;
+        var error = Options.TradeRateLimiter?.TryAcquire(operation, orders, true, out reservation);
+        using (reservation)
+        {
+            if (error is not null) return new RestCallResult<List<T>>(error);
+            return await ProcessListRequestAsync<T>(GetUri(endpoint), HttpMethod.Post, ct, signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        }
     }
 
     /// <summary>
@@ -917,6 +954,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// Get account rate limit related information.
     /// Only new order requests and amendment order requests will be counted towards this limit. For batch order requests consisting of multiple orders, each order will be counted individually.
     /// For details, please refer to Fill ratio based sub-account rate limit
+    /// This query does not change the configured TradeRateLimiter. Apply current accRateLimit explicitly when appropriate;
+    /// nextAccRateLimit is not the active cap. SPOT/MARGIN and MMP orders are exempt under the current account-limit rules.
     /// </summary>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>

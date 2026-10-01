@@ -7,6 +7,7 @@ namespace OKX.Api.Tests.TestInfrastructure;
 
 internal sealed class LocalOkxRestServer : IDisposable
 {
+    private static readonly object ListenerCreationLock = new();
     private readonly HttpListener _listener;
     private readonly Dictionary<string, string> _responses;
     private readonly Task _serverTask;
@@ -18,12 +19,24 @@ internal sealed class LocalOkxRestServer : IDisposable
     {
         _responses = responses;
 
-        var port = GetFreePort();
-        BaseAddress = $"http://127.0.0.1:{port}";
-
         _listener = new HttpListener();
-        _listener.Prefixes.Add($"{BaseAddress}/");
-        _listener.Start();
+        // Port probing releases its socket before HttpListener registers the prefix. Keep other local
+        // fixtures from probing the same port in that gap; do not hide errors by retrying failed tests.
+        lock (ListenerCreationLock)
+        {
+            var port = GetFreePort();
+            BaseAddress = $"http://127.0.0.1:{port}";
+            _listener.Prefixes.Add($"{BaseAddress}/");
+            try
+            {
+                _listener.Start();
+            }
+            catch
+            {
+                _listener.Close();
+                throw;
+            }
+        }
 
         _serverTask = Task.Run(HandleLoopAsync);
     }

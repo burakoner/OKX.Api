@@ -156,9 +156,31 @@ Documentation caveats: the WS order-book channel's introductory RPI contract is 
 
 ### Trading Rate-Limit Scope
 
-OKX documents 60 single-order commands per 2 seconds and 300 **orders** per 2 seconds for batches, keyed by User ID + instrument (Options: instrument family). A one-order batch consumes the single-order budget; REST and WS share their corresponding budgets. Lead-trader and sub-account/fill-ratio rules can impose lower limits.
+The [trading rate-limit rules](https://www.okx.com/docs-v5/en/#overview-rate-limits-trading-related-apis) and current single/batch endpoint tables document 60 single-order commands per 2 seconds and 300 **orders** per 2 seconds for batches, keyed by User ID + instrument (Options: the official `instFamily`, not a family guessed from the symbol). A one-order batch consumes the single-order budget. Place and Amend are independent; REST and WS share their corresponding budgets. Lead instruments for a Copy Trading lead account use 4 commands/orders per 2 seconds on their respective single/batch endpoints.
 
-The wrapper's existing REST fallback and per-connection WS throttling do **not** reproduce that full shared/account-aware model. They are not proof that a request is within every server budget. This update preserves those guards rather than raising throughput based on endpoint counts alone. A coordinated limiter requires a separate scoped implementation decision recorded in the [execution contract](../maintenance-plan.md).
+`OkxTradeRateLimiter` is an **opt-in, fail-fast** Place/Amend guard. Assign the **same instance** to `OkxRestApiOptions.TradeRateLimiter` and `OkxWebSocketApiOptions.TradeRateLimiter` for all clients/API keys of one User ID in one environment. It does not infer User ID, lead status, or production/demo equivalence from credentials. Register every current instrument with `RegisterInstrument(instrument, isLeadInstrument)`; registration snapshots metadata so later caller mutations cannot change the key. Unknown IDs/codes and Options without `instFamily` fail before sending; WS codes never silently fall back to an ID.
+
+```csharp
+// currentInstrument comes from current official instrument metadata in this environment.
+// isLeadForThisAccount must be explicitly known from this account's Copy Trading configuration.
+var guard = new OkxTradeRateLimiter(); // Conservative documented base: 1000 account orders / 2 seconds.
+guard.RegisterInstrument(currentInstrument, isLeadForThisAccount);
+
+var rest = new OkxRestApiClient(new OkxRestApiOptions(credentials) { TradeRateLimiter = guard });
+var socket = new OkxWebSocketApiClient(new OkxWebSocketApiOptions
+{
+    ApiCredentials = credentials,
+    TradeRateLimiter = guard
+});
+```
+
+The guard atomically reserves every instrument/family and account weight for a command; a rejected mixed batch consumes no partial budget and is not split or resent. A command is counted throughout existing transport queues and its response wait, then for two seconds **after completion**, using a monotonic clock. This conservative window prevents premature release before a delayed send. Exceptions, cancellation after reservation, and rejected/uncertain submissions do not immediately refund usage. Exhaustion returns `ClientRateLimitError` without sending; it is a local guard error, not a fabricated server `50011`. There is no new wait queue, automatic retry, price adjustment, or deadline adjustment.
+
+The [account-limit rules](https://www.okx.com/docs-v5/en/#overview-rate-limits-fill-ratio-based-sub-account-rate-limit) provide a base aggregate budget of 1000 orders per two seconds, with current VIP/fill-ratio tiers potentially raising it. Each batch order counts individually across Place and Amend. SPOT/MARGIN and known MMP placements are exempt from this account budget but still consume their instrument/family budget. Amend inputs do not reveal the original order type, so otherwise non-exempt MMP amendments are **conservatively counted**; no original type is inferred. Block/spread operations and cancellation are not routed through this Place/Amend guard.
+
+`GetAccountRateLimitAsync` now has the documented [1 request/second guard](https://www.okx.com/docs-v5/en/#order-book-trading-trade-get-account-rate-limit) on the existing REST limiter instance; coordinate these queries across separately configured REST clients too. Reading it does not silently reconfigure the shared Place/Amend guard. Explicitly apply a fresh current `AccountRateLimit` via `SetAccountRateLimit`, keeping any lower application cap; do not apply `NextAccountRateLimit` early or predict VIP transitions. Updating the account cap or registered code/lead classification preserves usage. Register updated instrument metadata/lead state before subsequent commands; rate-key changes to an existing instrument are rejected rather than resetting its quota.
+
+With `TradeRateLimiter=null` (the default), legacy behavior remains; the REST fallback and per-connection WS throttles alone do **not** reproduce the shared/account-aware contract. Those existing guards are retained even when the new guard is enabled, so this is not a throughput increase. It cannot observe other processes, other separately configured instances, or server state such as the maximum three amendments in progress per order (`51513`). It is not proof that OKX will accept an order or that no server rate error can occur. Keep one guard for the same account/environment, including while commands are in flight; replacing it resets locally observed usage. Keep that binding consistent when credentials change, and use a separate guard before using a different account/environment. The [execution contract](../maintenance-plan.md) records these intentional boundaries.
 
 ## Tips
 
