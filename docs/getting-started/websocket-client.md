@@ -84,23 +84,34 @@ The follow-up after the 5.6.820 review checkpoint, included in the 5.6.826 sourc
 
 Login failures return their documented numeric codes/raw responses, including `event:error / 60009`. Authentication-specific errors are handled only in the authentication wait; unidentified generic request/subscription errors are not inferred to be login failures from their message text.
 
-Known open review finding: an expired login callback can still set the wrapper's public `IsAuthendicated` flag after a late success. The completed authentication result remains failed; the SDK's separate connection authentication state is not thereby proven to have changed. Do not use this flag after an uncertain/expired attempt as proof of current connection readiness. The [final review](../maintenance-plan.md#final-cross-surface-review--2026-10-01) records the reproduction and proposed fix; no login retry or trading replay is added.
+The [approved safety follow-up](../maintenance-plan.md#websocket-safety-follow-up--2026-10-01) closes expired/terminal login callbacks, so late replies cannot change their completed outcome or the wrapper's public `IsAuthendicated` flag. That legacy flag is still client-level, not a per-connection readiness/disconnect signal. No SDK authentication/lifecycle redesign, login retry, or trading replay is added. Rebuild from the updated source; previously built/installed 5.6.930 packages do not establish that this unreleased follow-up is present.
 
 OKX's [channel connection limit](https://www.okx.com/docs-v5/en/#overview-websocket-connection-count-limit) is 30 connections per affected channel per sub-account. `ChannelConnectionCount` reports both counts and limit errors. A limit error can arrive **after** successful subscription acknowledgement and terminate that channel subscription. This event is notification only: it does not automatically reconnect, restore subscriptions, update the returned subscription object's lifecycle, or retry orders.
 
 ## Unsubscribe
 
-`SubscribeTo...Async` methods return a subscription object that can be passed to `UnsubscribeAsync`:
+`SubscribeTo...Async` methods return a subscription object. Use the explicit confirmation API when you need to distinguish local closure from server acknowledgement:
 
 ```csharp
 var subscription = await ws.Public.SubscribeToTradesAsync(
     data => Console.WriteLine(data.InstrumentId),
     "BTC-USDT");
 
-await ws.UnsubscribeAsync(subscription.Data!);
+if (!subscription.Success)
+    throw new InvalidOperationException(subscription.Error?.ToString());
+
+var closed = await ws.UnsubscribeWithConfirmationAsync(subscription.Data!);
+Console.WriteLine($"Local closed: {closed.Data.LocalClosed}; server confirmed: {closed.Data.ServerConfirmed}");
+if (!closed.Success)
+{
+    Console.WriteLine(closed.Error);
+    // Reconcile uncertain remote state deliberately; this is not permission to replay orders.
+}
 ```
 
-This public operation closes the local subscription. In the current ApiSharp integration, incomplete/rejected server ACKs do not prevent local removal, and the ID-based overload can still return true; the object overload exposes no confirmation result. Do not interpret completion/true as proof that OKX acknowledged remote removal, especially when other subscriptions keep the connection open. Complete ACK checking exists in the protected helper, but the SDK cleanup path discards its result. This [open review finding](../maintenance-plan.md#final-cross-surface-review--2026-10-01) requires a separate bounded follow-up; reconcile uncertain remote state deliberately.
+The new call retains SDK local closure even on incomplete/rejected ACKs, but returns `Success=false`, `Data.ServerConfirmed=false`, and the available numeric error/raw reply. `LocalClosed` requires the SDK closed flag plus removal from the connection's subscription registry; setting the flag alone is not completion. It is not proof of remote removal or completion of callbacks already being dispatched. `ServerConfirmed` requires ACKs for every distinct requested argument; false does not mean all remote filters remain active. A skipped server wait is not success. Foreign/internal/already-marked-closed handles and a second concurrent new call on the same handle do not trigger another close/send. Different subscriptions have isolated results. Unexpected SDK/transport exceptions propagate; do not mix concurrent legacy close/reconnect calls on the same handle. See the [complete contract](../reference/trade.md#websocket-response-correlation-and-confirmation).
+
+Existing `await ws.UnsubscribeAsync(subscription.Data!)` remains available as a local-close operation. The ID-based overload can still return true despite incomplete/rejected server confirmation; the object overload exposes no confirmation result. Do not interpret either as proof of remote removal, especially on a shared open connection. No extra unsubscribe, automatic retry/restoration/reconciliation, or order replay is added by the new API.
 
 ## Service Upgrade Notices
 

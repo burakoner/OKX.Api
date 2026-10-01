@@ -8,6 +8,8 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     private const string ServiceUpgradeNoticeHandler = "service-upgrade-notice";
     private const string ChannelConnectionCountHandler = "channel-connection-count";
     private const string SubscriptionAcknowledgementHandler = "subscription-acknowledgement";
+    private readonly AsyncLocal<UnsubscribeConfirmation?> _unsubscribeConfirmation = new();
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<WebSocketSubscription, byte> _confirmedUnsubscribes = new();
 
     /// <summary>
     /// Logger
@@ -32,7 +34,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     public event Action<OkxSocketChannelConnectionCount>? ChannelConnectionCount;
 
     /// <summary>
-    /// If Websocket is authendicated
+    /// Legacy client-level flag updated by authentication attempts, not a per-connection readiness/disconnect signal.
     /// </summary>
     public bool IsAuthendicated { get; private set; }
 
@@ -69,6 +71,50 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         AddGenericHandler(SubscriptionAcknowledgementHandler,
             message => Logger.LogDebug("WebSocket subscription acknowledgement: {Acknowledgement}", message.JsonData));
         SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");
+    }
+
+    /// <summary>
+    /// Close a local subscription using the existing SDK lifecycle and report server acknowledgement separately.
+    /// SDK local closure is still attempted on missing/rejected acknowledgements; no retry or compensating request is sent.
+    /// Success requires both local closure and acknowledgements for every requested argument.
+    /// </summary>
+    /// <param name="subscription">A user subscription owned by this client.</param>
+    /// <returns>Local closure and server confirmation, including on failure. Raw contains the terminal ACK/error, not an ACK history.</returns>
+    public async Task<CallResult<OkxSocketUnsubscribeResult>> UnsubscribeWithConfirmationAsync(WebSocketUpdateSubscription subscription)
+    {
+        if (subscription is null) throw new ArgumentNullException(nameof(subscription));
+        var connection = subscription.GetConnection();
+        var target = subscription.GetSubscription();
+        if (!target.UserSubscription || !WebSocketConnections.TryGetValue(connection.Id, out var ownedConnection)
+            || !ReferenceEquals(connection, ownedConnection))
+            return UnsubscribeFailure(connection, target, "Subscription is not a user subscription owned by this client; no request was sent.");
+
+        if (!_confirmedUnsubscribes.TryAdd(target, 0))
+            return UnsubscribeFailure(connection, target, "A confirmed unsubscribe is already in progress; no additional request was sent. Outcome is uncertain.");
+
+        var previous = _unsubscribeConfirmation.Value;
+        var confirmation = new UnsubscribeConfirmation(connection, target);
+        try
+        {
+            if (target.Closed || !ReferenceEquals(connection.GetSubscription(target.Id), target))
+                return UnsubscribeFailure(connection, target, "Subscription is marked closed or absent; remote removal is not confirmed by this call.");
+
+            // Capture the protected helper's result within this SDK close call only. AsyncLocal isolates
+            // concurrent subscriptions without mutating SDK confirmation state or sending a second request.
+            _unsubscribeConfirmation.Value = confirmation;
+            await connection.CloseAsync(target).ConfigureAwait(false);
+            var response = confirmation.Response ?? new CallResult<object>(new ServerError(
+                "Unsubscribe not confirmed: no server acknowledgement was awaited; outcome is uncertain."));
+            var outcome = new OkxSocketUnsubscribeResult(target.Id, IsLocallyClosed(connection, target), response.Success);
+            if (response.Success && !outcome.LocalClosed)
+                return new CallResult<object>(new InvalidOperationError("Server acknowledged unsubscribe but local closure did not complete."), response.Raw).As(outcome);
+            return response.As(outcome);
+        }
+        finally
+        {
+            _unsubscribeConfirmation.Value = previous;
+            _confirmedUnsubscribes.TryRemove(target, out _);
+        }
     }
 
     #region Overrided Methods
@@ -117,36 +163,50 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
 
         // Try to Login
         var result = new CallResult<bool>(new ServerError("No response from server"));
-        await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(10), data =>
+        var authenticationLock = new object();
+        var waiting = true;
+        var completed = false;
+        try
         {
-            if (data.Type != JTokenType.Object || data["event"]?.Type != JTokenType.String
-                || ((string?)data["event"] != "login" && !IsAuthenticationError(data)))
-                return false;
-
-            var authResponse = Deserialize<OkxSocketResponse>(data);
-            if (!authResponse)
+            await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(10), data =>
             {
-                Logger.Log(LogLevel.Warning, "Authorization failed: " + authResponse.Error);
-                result = new CallResult<bool>(authResponse.Error!);
-                return true;
-            }
-            if (!authResponse.Data.Success)
-            {
-                var message = authResponse.Data.ErrorMessage;
-                Logger.Log(LogLevel.Warning, "Authorization failed: " + message);
-                var codeText = authResponse.Data.ErrorCode;
-                var error = int.TryParse(codeText, out var code)
-                    ? new ServerError(code, message) : new ServerError($"{codeText}, {message}");
-                result = new CallResult<bool>(error, data.ToString());
-                return true;
-            }
+                lock (authenticationLock)
+                {
+                    if (!waiting || completed || data.Type != JTokenType.Object || data["event"]?.Type != JTokenType.String
+                        || ((string?)data["event"] != "login" && !IsAuthenticationError(data)))
+                        return false;
 
-            Logger.Log(LogLevel.Debug, "Authorization completed");
-            result = new CallResult<bool>(true);
+                    completed = true;
+                    var authResponse = Deserialize<OkxSocketResponse>(data);
+                    if (!authResponse)
+                    {
+                        Logger.Log(LogLevel.Warning, "Authorization failed: " + authResponse.Error);
+                        result = new CallResult<bool>(authResponse.Error!);
+                        return true;
+                    }
+                    if (!authResponse.Data.Success)
+                    {
+                        var message = authResponse.Data.ErrorMessage;
+                        Logger.Log(LogLevel.Warning, "Authorization failed: " + message);
+                        var codeText = authResponse.Data.ErrorCode;
+                        var error = int.TryParse(codeText, out var code)
+                            ? new ServerError(code, message) : new ServerError($"{codeText}, {message}");
+                        result = new CallResult<bool>(error, data.ToString());
+                        return true;
+                    }
 
-            IsAuthendicated = true;
-            return true;
-        });
+                    Logger.Log(LogLevel.Debug, "Authorization completed");
+                    result = new CallResult<bool>(true);
+                    IsAuthendicated = true;
+                    return true;
+                }
+            }).ConfigureAwait(false);
+        }
+        finally
+        {
+            // The SDK may retain this callback after completion, timeout, or a send exception.
+            lock (authenticationLock) waiting = false;
+        }
 
         return result;
     }
@@ -384,11 +444,29 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         if (request.Arguments.All(argument => argument.Channel == "orders"))
             request.RequestId = Guid.NewGuid().ToString("N");
         var response = await WaitForSubscriptionAcknowledgementAsync(connection, request, TimeSpan.FromSeconds(10)).ConfigureAwait(false);
+        var confirmation = _unsubscribeConfirmation.Value;
+        if (confirmation is not null && ReferenceEquals(confirmation.Connection, connection)
+            && ReferenceEquals(confirmation.Subscription, subscription))
+            confirmation.Response = response;
         return response.Success;
     }
     #endregion
 
     #region Private Methods
+    private static bool IsLocallyClosed(WebSocketConnection connection, WebSocketSubscription subscription)
+        => subscription.Closed && !ReferenceEquals(connection.GetSubscription(subscription.Id), subscription);
+
+    private static CallResult<OkxSocketUnsubscribeResult> UnsubscribeFailure(WebSocketConnection connection, WebSocketSubscription subscription, string message)
+        => new CallResult<object>(new InvalidOperationError(message))
+            .As(new OkxSocketUnsubscribeResult(subscription.Id, IsLocallyClosed(connection, subscription), false));
+
+    private sealed class UnsubscribeConfirmation(WebSocketConnection connection, WebSocketSubscription subscription)
+    {
+        public WebSocketConnection Connection { get; } = connection;
+        public WebSocketSubscription Subscription { get; } = subscription;
+        public CallResult<object>? Response { get; set; }
+    }
+
     private static async Task<CallResult<object>> WaitForSubscriptionAcknowledgementAsync(
         WebSocketConnection connection, OkxSocketRequest request, TimeSpan timeout)
     {

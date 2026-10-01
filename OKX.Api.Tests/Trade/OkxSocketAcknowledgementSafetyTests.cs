@@ -460,6 +460,83 @@ public class OkxSocketAcknowledgementSafetyTests
     }
 
     [Theory]
+    [InlineData("timeout", true)]
+    [InlineData("timeout", false)]
+    [InlineData("success", true)]
+    [InlineData("success", false)]
+    [InlineData("failure", true)]
+    [InlineData("failure", false)]
+    public async Task Authentication_CompletedOrExpiredAttemptIgnoresLateReplies(string outcome, bool lateSuccess)
+    {
+        using var client = new TestableClient();
+        client.SetApiCredentials("unit-key", "unit-secret", "unit-passphrase");
+        using var connection = new RetainingAuthenticationConnection(client,
+            outcome == "timeout" ? null : LoginReply(outcome == "success"));
+        var result = await client.Authenticate(connection);
+
+        Assert.Equal(outcome == "success", result.Success);
+        Assert.Equal(outcome == "success", client.IsAuthendicated);
+        Assert.False(connection.Receive!(LoginReply(lateSuccess)));
+        Assert.Equal(outcome == "success", result.Success);
+        Assert.Equal(outcome == "success", client.IsAuthendicated);
+        if (outcome == "failure") Assert.Equal(60024, result.Error?.Code);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Authentication_OldAttemptCannotChangeFailedReauthentication(bool oldSucceeded)
+    {
+        using var client = new TestableClient();
+        client.SetApiCredentials("unit-key", "unit-secret", "unit-passphrase");
+        using var old = new RetainingAuthenticationConnection(client, oldSucceeded ? LoginReply(true) : null);
+        await client.Authenticate(old);
+        using var next = new RetainingAuthenticationConnection(client, LoginReply(false));
+        var failure = await client.Authenticate(next);
+
+        Assert.False(failure.Success);
+        Assert.Equal(60024, failure.Error?.Code);
+        Assert.False(old.Receive!(LoginReply(true)));
+        Assert.False(client.IsAuthendicated);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Authentication_ThrowingSendClosesRetainedCallback(bool lateSuccess)
+    {
+        using var client = new TestableClient();
+        client.SetApiCredentials("unit-key", "unit-secret", "unit-passphrase");
+        using var connection = new RetainingAuthenticationConnection(client, null) { ThrowOnSend = true };
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => client.Authenticate(connection));
+        Assert.False(connection.Receive!(LoginReply(lateSuccess)));
+        Assert.False(client.IsAuthendicated);
+    }
+
+    private static JObject LoginReply(bool success) => JObject.Parse(success
+        ? "{\"event\":\"login\",\"code\":\"0\",\"msg\":\"\",\"connId\":\"unit-connection\"}"
+        : "{\"event\":\"error\",\"code\":\"60024\",\"msg\":\"Wrong passphrase\",\"connId\":\"unit-connection\"}");
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Authentication_FirstTerminalReplyCannotBeOverwrittenBeforeWaitReturns(bool success)
+    {
+        using var client = new TestableClient();
+        client.SetApiCredentials("unit-key", "unit-secret", "unit-passphrase");
+        using var connection = new RetainingAuthenticationConnection(client, LoginReply(success))
+        {
+            ReplyAfterTerminal = LoginReply(!success),
+        };
+
+        var result = await client.Authenticate(connection);
+        Assert.Equal(success, result.Success);
+        Assert.Equal(success, client.IsAuthendicated);
+        if (!success) Assert.Equal(60024, result.Error?.Code);
+    }
+
+    [Theory]
     [InlineData("subscribe", true)]
     [InlineData("unsubscribe", true)]
     [InlineData("error", false)]
@@ -536,6 +613,26 @@ public class OkxSocketAcknowledgementSafetyTests
         {
             SentRequest = Assert.IsType<OkxSocketRequest>(request);
             return _script(SentRequest, handler);
+        }
+    }
+
+    private sealed class RetainingAuthenticationConnection(WebSocketApiClient client, JToken? response)
+        : WebSocketConnection(BaseClient.LoggerFactory.CreateLogger("OKX.Api.Tests"), client,
+            new WebSocketClient(BaseClient.LoggerFactory.CreateLogger("OKX.Api.Tests"),
+                new WebSocketParameters(new Uri("wss://localhost"), false)), "wss://localhost"), IDisposable
+    {
+        public Func<JToken, bool>? Receive { get; private set; }
+        public bool ThrowOnSend { get; init; }
+        public JToken? ReplyAfterTerminal { get; init; }
+
+        public override Task SendAndWaitAsync<T>(T request, TimeSpan timeout, Func<JToken, bool> handler)
+        {
+            Assert.IsType<OkxSocketAuthRequest>(request);
+            Receive = handler;
+            if (ThrowOnSend) throw new InvalidOperationException("Synthetic send failure");
+            if (response is not null) Assert.True(handler(response));
+            if (ReplyAfterTerminal is not null) Assert.False(handler(ReplyAfterTerminal));
+            return Task.CompletedTask;
         }
     }
 
