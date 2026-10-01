@@ -69,6 +69,7 @@ public enum OkxTradeOrderType : byte
 
     /// <summary>
     /// Retail Price Improvement maker order.
+    /// Subject to OKX's minimum USD notional independently of instrument minSz; rejection code 54051.
     /// </summary>
     [Map("rpi")]
     RetailPriceImprovementOrder = 11,

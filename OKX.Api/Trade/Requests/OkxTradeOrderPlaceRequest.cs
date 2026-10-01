@@ -58,13 +58,15 @@ public record OkxTradeOrderPlaceRequest
     public OkxTradePositionSide PositionSide { get; set; }
 
     /// <summary>
-    /// Order Type
+    /// Order type. RPI and legacy ELP maker orders are subject to a server-side minimum USD notional.
+    /// Below-threshold orders are rejected with 54051; non-RPI taker orders are not subject to this minimum.
     /// </summary>
     [JsonProperty("ordType")]
     public OkxTradeOrderType OrderType { get; set; }
 
     /// <summary>
-    /// Size
+    /// Order quantity. FUTURES/SWAP/OPTION quantities are numbers of contracts, not coin amounts.
+    /// Instrument minSz and the RPI maker minimum USD notional are independent server-side requirements.
     /// </summary>
     [JsonProperty("sz")]
     [JsonConverter(typeof(DecimalAsStringNullableConverter))]

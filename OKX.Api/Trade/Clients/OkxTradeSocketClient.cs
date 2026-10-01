@@ -104,6 +104,8 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// OKX delisted instId for this WebSocket channel on 2026-03-26; use InstrumentIdCode.
     /// While the contract cool-off period is active, OKX rejects non-reduce-only SWAP and FUTURES orders with error 54094.
     /// Reduce-only orders remain allowed.
+    /// RPI/ELP maker orders below the server-side minimum USD notional are rejected with 54051.
+    /// Inspect the response item's ErrorCode even when the command-level Success is true.
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
@@ -111,6 +113,7 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
         => PlaceOrderAsync(request, null);
 
     /// <summary>Place an order with an optional server-evaluated effective deadline.</summary>
+    /// <remarks>Inspect the response item's ErrorCode, including minimum RPI/ELP notional rejection 54051, even when Success is true.</remarks>
     /// <param name="request">Order request.</param>
     /// <param name="expiryTimestamp">Absolute Unix-millisecond deadline; null omits expTime.</param>
     public async Task<CallResult<OkxTradeOrderPlaceResponse>> PlaceOrderAsync(OkxTradeOrderPlaceRequest request, long? expiryTimestamp)
@@ -125,6 +128,7 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// Place orders in a batch. Maximum 20 orders can be placed per request
     /// OKX delisted instId for this WebSocket channel on 2026-03-26; use InstrumentIdCode for each order.
     /// During an active contract cool-off period, inspect each response item for error 54094 on non-reduce-only SWAP and FUTURES orders.
+    /// Also inspect each item for RPI/ELP minimum-notional rejection 54051; aggregate errors 1/2 retain Data even when Success is false.
     /// </summary>
     /// <param name="requests">Requests</param>
     /// <returns></returns>
@@ -132,6 +136,7 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
         => PlaceOrdersAsync(requests, null);
 
     /// <summary>Place up to 20 orders with one optional server-evaluated deadline for the whole command.</summary>
+    /// <remarks>Inspect every response item's ErrorCode. Aggregate errors 1/2 retain per-order Data even when Success is false; never blindly retry a mixed batch.</remarks>
     /// <param name="requests">Order requests.</param>
     /// <param name="expiryTimestamp">Absolute Unix-millisecond deadline; null omits expTime.</param>
     public async Task<CallResult<IEnumerable<OkxTradeOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxTradeOrderPlaceRequest> requests, long? expiryTimestamp)
@@ -171,6 +176,7 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// <summary>
     /// Amend an incomplete order.
     /// OKX deprecated instId for this WebSocket channel on 2026-04-07; use InstrumentIdCode.
+    /// RPI/ELP amendments containing newSz trigger the server-side minimum-notional recheck (54051); price-only amendments do not.
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
@@ -178,6 +184,7 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
         => AmendOrderAsync(request, null);
 
     /// <summary>Amend an incomplete order with an optional server-evaluated effective deadline.</summary>
+    /// <remarks>RPI/ELP amendments containing newSz recheck the server-side minimum notional (54051). Inspect the response item's ErrorCode even when Success is true.</remarks>
     /// <param name="request">Amendment request.</param>
     /// <param name="expiryTimestamp">Absolute Unix-millisecond deadline; null omits expTime.</param>
     public async Task<CallResult<OkxTradeOrderAmend>> AmendOrderAsync(OkxTradeOrderAmendRequest request, long? expiryTimestamp)
@@ -191,6 +198,7 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// <summary>
     /// Amend incomplete orders in batches. Maximum 20 orders can be amended per request.
     /// OKX deprecated instId for this WebSocket channel on 2026-04-07; use InstrumentIdCode for each order.
+    /// Inspect each item's ErrorCode, including minimum RPI/ELP notional rejection 54051; aggregate errors 1/2 retain Data even when Success is false.
     /// </summary>
     /// <param name="requests">Requests</param>
     /// <returns></returns>
@@ -198,6 +206,7 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
         => AmendOrdersAsync(requests, null);
 
     /// <summary>Amend up to 20 orders with one optional server-evaluated deadline for the whole command.</summary>
+    /// <remarks>Inspect every response item's ErrorCode. Aggregate errors 1/2 retain per-order Data even when Success is false; never blindly retry a mixed batch.</remarks>
     /// <param name="requests">Amendment requests.</param>
     /// <param name="expiryTimestamp">Absolute Unix-millisecond deadline; null omits expTime.</param>
     public async Task<CallResult<IEnumerable<OkxTradeOrderAmend>>> AmendOrdersAsync(IEnumerable<OkxTradeOrderAmendRequest> requests, long? expiryTimestamp)

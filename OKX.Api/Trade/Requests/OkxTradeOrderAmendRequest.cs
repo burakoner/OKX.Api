@@ -24,6 +24,7 @@ public record OkxTradeOrderAmendRequest
     
     /// <summary>
     /// Whether OKX should cancel the original order if amendment fails. Default false preserves the original order.
+    /// True requests cancellation on any amendment failure; do not assume that a 54051 rejection preserves it.
     /// </summary>
     [JsonProperty("cxlOnFail", NullValueHandling = NullValueHandling.Ignore)]
     public bool? CancelOnFail { get; set; }
@@ -49,6 +50,8 @@ public record OkxTradeOrderAmendRequest
 
     /// <summary>
     /// New total target quantity, including any filled quantity; not the remaining unfilled quantity.
+    /// When provided for an RPI/ELP maker order, OKX rechecks the minimum USD notional and rejects below-threshold amendments with 54051.
+    /// A price-only amendment omitting newSz does not trigger this minimum-notional recheck.
     /// </summary>
     [JsonProperty("newSz", NullValueHandling = NullValueHandling.Ignore)]
     public string? NewQuantity { get; set; }

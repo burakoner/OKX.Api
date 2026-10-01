@@ -154,6 +154,39 @@ WS single/batch Place and Amend have additive overloads accepting `expiryTimesta
 
 Documentation caveats: the WS order-book channel's introductory RPI contract is newer than its generic channel/row/sequence tables; use the explicitly documented `books-rpi` shape rather than the generic third-column `0` description. WS Place/Amend parameter tables do not currently list `attachAlgoOrds`, unlike REST. Existing compatibility serialization is preserved because no explicit removal is documented; this is not a guarantee of WS support.
 
+### RPI Maker Minimum Notional
+
+The [August 18 notice](https://www.okx.com/docs-v5/log_en/#2026-08-18) introduces the server-side RPI minimum. The current [September 15 thresholds](https://www.okx.com/docs-v5/log_en/#2026-09-15), checked on October 1, 2026, supersede the original values:
+
+| Product | Minimum RPI maker notional |
+| --- | --- |
+| SPOT | 500 USD |
+| FUTURES | 2,000 USD |
+| SWAP | 5,000 USD |
+
+- The minimum applies to `ordType=rpi` and the still-accepted legacy `elp` alias. Non-RPI orders, including takers with `RpiTakerAccess=true`, are not subject to this maker minimum. The August notice lists EVENTS as not applicable; it does not define an OPTION threshold, so the wrapper invents none.
+- Instrument `minSz` and the USD-notional minimum are independent requirements. Meeting either one does not imply meeting the other.
+- Placement below the threshold is rejected with `54051`. An RPI/ELP amendment containing `newSz`, with or without a new price, revalidates the amended quantity. A price-only amendment omitting `newSz` does not trigger this minimum-notional recheck; it must still satisfy other price/spacing rules.
+- Existing resting orders are not retroactively rejected by this change. A failed amendment preserves the original order with the default `CancelOnFail=false`; the current REST Amend tables explicitly say `true` auto-cancels on **any** amendment failure. Do not turn the announcement's unqualified preservation statement into a guarantee when opting into cancellation.
+- Threshold checks remain on OKX. Derivative size is a number of contracts, not a coin amount; the documented notional calculation depends on contract metadata and prices, and USD conversion must not be guessed. The wrapper adds no local `price * size` oracle, invented instrument field, automatic resizing, price adjustment, cancellation, or retry.
+
+The complete current single-order contracts linked above and [REST batch Place](https://www.okx.com/docs-v5/en/#order-book-trading-trade-post-place-multiple-orders), [REST batch Amend](https://www.okx.com/docs-v5/en/#order-book-trading-trade-post-amend-multiple-orders), [WS batch Place](https://www.okx.com/docs-v5/en/#order-book-trading-trade-ws-place-multiple-orders), and [WS batch Amend](https://www.okx.com/docs-v5/en/#order-book-trading-trade-ws-amend-multiple-orders) were compared again. Their current parameter tables add no minimum-notional request/response field and omit the detailed minimum behavior; use the notices as supplemental behavior evidence. The current [trade error table](https://www.okx.com/docs-v5/en/#error-code-rest-api-public-trade-class) independently confirms `54051` and its server-supplied USD threshold message. There is no static error catalog in this wrapper; existing numeric errors and per-item codes expose the rejection directly.
+
+### Place/Amend Acknowledgements and Partial Failure
+
+Inspect every returned item's `ErrorCode` (`sCode`), `ErrorMessage` (`sMsg`), and `SubCode`, not just the command's `Success`. `54051` is an individual rejection, not permission to resend every item in a batch.
+
+- REST single Place/Amend exposes an individual rejection through numeric `Error.Code`, including `54051`, with the server message and sub-code preserved. The acknowledgement item is also retained in `Data` when available, including failure acknowledgements.
+- REST batch `code=0` retains every acknowledgement and reports command-level `Success=true`, even if one or all items have nonzero `sCode`. The first item no longer changes the handling of the whole batch. Inspect all items, including in a one-order batch.
+- The current WS batch examples explicitly define aggregate `code=2` for partial success and `code=1` for all failed. Both report `Success=false` and numeric aggregate `Error.Code`, but **retain all per-order `Data`**. The same preservation applies if REST returns these aggregate codes with valid acknowledgement items; the REST endpoint tables themselves only describe `0` as success.
+- WS single failures with aggregate `code=1` retain the acknowledgement and expose the item's numeric rejection, message, and sub-code. For compatibility, a WS `code=0` acknowledgement still reports command-level success even if its item contains a rejection; inspect the item's `ErrorCode` in all cases.
+- Gateway/protocol errors such as `60013` are not mistaken for aggregate order outcomes and do not manufacture order `Data`. Empty aggregate-error arrays likewise remain dataless. Correlated WS replies must match both request ID and operation, including single versus batch operations.
+- `inTime` and `outTime` are gateway **microsecond** timestamps, distinct from the item's millisecond creation `ts`. REST callers can retain the full JSON envelope using `OkxRestApiOptions.RawResponse=true`; correlated WS query results retain the decoded JSON envelope in `CallResult.Raw`, including aggregate errors, request ID, operation, and gateway times. These envelope fields are not copied onto each order item as if they were per-order fields.
+
+Always check `Data` for available outcomes even when `Success=false`. `GetResultOrError` and implicit success checks do not expose failure-associated data. An accepted placement or amendment acknowledgement is not proof of final execution; reconcile with the private order channel or an order-details query. Never blindly retry a mixed or uncertain batch: accepted orders may already be live.
+
+Documentation conflict: the August 18 notice describes independent placement-suborder rejection, while current REST/WS batch Place tables retain an all-accepted-or-all-rejected statement for Portfolio Margin. The wrapper preserves the actual acknowledgements and does not promise atomicity or independently simulate either server behavior. Synthetic tests verify parsing/forwarding, not matching-engine enforcement or Portfolio Margin acceptance.
+
 ### Trading Rate-Limit Scope
 
 The [trading rate-limit rules](https://www.okx.com/docs-v5/en/#overview-rate-limits-trading-related-apis) and current single/batch endpoint tables document 60 single-order commands per 2 seconds and 300 **orders** per 2 seconds for batches, keyed by User ID + instrument (Options: the official `instFamily`, not a family guessed from the symbol). A one-order batch consumes the single-order budget. Place and Amend are independent; REST and WS share their corresponding budgets. Lead instruments for a Copy Trading lead account use 4 commands/orders per 2 seconds on their respective single/batch endpoints.

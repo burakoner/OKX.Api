@@ -149,23 +149,44 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             var id = (string)data["id"]!;
             var op = (string)data["op"]!;
 
-            if (data["code"] is not null && (string?)data["code"] != "0")
+            var placeOrderRequest = op == "order" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest01 && socRequest01.RequestId == id && socRequest01.Operation == OkxSocketOperation.Order;
+            var amendOrderRequest = op == "amend-order" && request is OkxSocketRequest<OkxTradeOrderAmendRequest> socRequest02 && socRequest02.RequestId == id && socRequest02.Operation == OkxSocketOperation.AmendOrder;
+            var cancelOrderRequest = op == "cancel-order" && request is OkxSocketRequest<OkxTradeOrderCancelRequest> socRequest03 && socRequest03.RequestId == id && socRequest03.Operation == OkxSocketOperation.CancelOrder;
+            var massCancelOrderRequest = op == "mass-cancel" && request is OkxSocketRequest<OkxTradeMassCancelRequest> socRequest04 && socRequest04.RequestId == id && socRequest04.Operation == OkxSocketOperation.MassCancel;
+            var spreadPlaceOrderRequest = op == "sprd-order" && request is OkxSocketRequest<OkxSpreadOrderPlaceRequest> socRequest08 && socRequest08.RequestId == id && socRequest08.Operation == OkxSocketOperation.SpreadOrder;
+            var spreadAmendOrderRequest = op == "sprd-amend-order" && request is OkxSocketRequest<OkxSpreadOrderAmendRequest> socRequest09 && socRequest09.RequestId == id && socRequest09.Operation == OkxSocketOperation.SpreadAmendOrder;
+            var spreadCancelOrderRequest = op == "sprd-cancel-order" && request is OkxSocketRequest<OkxSpreadOrderCancelRequest> socRequest10 && socRequest10.RequestId == id && socRequest10.Operation == OkxSocketOperation.SpreadCancelOrder;
+            var spreadMassCancelOrderRequest = op == "sprd-mass-cancel" && request is OkxSocketRequest<OkxSpreadMassCancelRequest> socRequest11 && socRequest11.RequestId == id && socRequest11.Operation == OkxSocketOperation.SpreadMassCancel;
+            var placeBatchOrdersRequest = op == "batch-orders" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest05 && socRequest05.RequestId == id && socRequest05.Operation == OkxSocketOperation.BatchOrders;
+            var amendBatchOrdersRequest = op == "batch-amend-orders" && request is OkxSocketRequest<OkxTradeOrderAmendRequest> socRequest06 && socRequest06.RequestId == id && socRequest06.Operation == OkxSocketOperation.BatchAmendOrders;
+            var cancelBatchOrdersRequest = op == "batch-cancel-orders" && request is OkxSocketRequest<OkxTradeOrderCancelRequest> socRequest07 && socRequest07.RequestId == id && socRequest07.Operation == OkxSocketOperation.BatchCancelOrders;
+            var singleRequest = placeOrderRequest || amendOrderRequest || cancelOrderRequest || massCancelOrderRequest
+                || spreadPlaceOrderRequest || spreadAmendOrderRequest || spreadCancelOrderRequest || spreadMassCancelOrderRequest;
+            var batchRequest = placeBatchOrdersRequest || amendBatchOrdersRequest || cancelBatchOrdersRequest;
+            if (!singleRequest && !batchRequest) return false;
+
+            ServerError? queryError = null;
+            var codeText = data["code"]?.ToString();
+            if (codeText is not null && codeText != "0")
             {
-                var message = (string?)data["msg"] ?? "Unknown websocket query error";
-                callResult = new CallResult<T>(new ServerError($"{(string)data["code"]!}, {message}"));
-                return true;
+                var message = (string?)data["msg"];
+                if (string.IsNullOrWhiteSpace(message)) message = $"OKX websocket error {codeText}";
+                queryError = int.TryParse(codeText, out var code)
+                    ? new ServerError(code, message!) : new ServerError($"{codeText}, {message}");
+
+                // Only the documented Place/Amend aggregate outcomes may contain usable order data.
+                var orderAcknowledgements = (placeOrderRequest || amendOrderRequest || placeBatchOrdersRequest || amendBatchOrdersRequest)
+                    && codeText is "1" or "2" && data["data"] is JArray acknowledgements
+                    && acknowledgements.Count > 0
+                    && acknowledgements.All(item => item is JObject && int.TryParse(item["sCode"]?.ToString(), out var _));
+                if (!orderAcknowledgements)
+                {
+                    callResult = new CallResult<T>(queryError, data.ToString());
+                    return true;
+                }
             }
 
-            var placeOrderRequest = op == "order" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest01 && socRequest01.RequestId == id;
-            var amendOrderRequest = op == "amend-order" && request is OkxSocketRequest<OkxTradeOrderAmendRequest> socRequest02 && socRequest02.RequestId == id;
-            var cancelOrderRequest = op == "cancel-order" && request is OkxSocketRequest<OkxTradeOrderCancelRequest> socRequest03 && socRequest03.RequestId == id;
-            var massCancelOrderRequest = op == "mass-cancel" && request is OkxSocketRequest<OkxTradeMassCancelRequest> socRequest04 && socRequest04.RequestId == id;
-            var spreadPlaceOrderRequest = op == "sprd-order" && request is OkxSocketRequest<OkxSpreadOrderPlaceRequest> socRequest08 && socRequest08.RequestId == id;
-            var spreadAmendOrderRequest = op == "sprd-amend-order" && request is OkxSocketRequest<OkxSpreadOrderAmendRequest> socRequest09 && socRequest09.RequestId == id;
-            var spreadCancelOrderRequest = op == "sprd-cancel-order" && request is OkxSocketRequest<OkxSpreadOrderCancelRequest> socRequest10 && socRequest10.RequestId == id;
-            var spreadMassCancelOrderRequest = op == "sprd-mass-cancel" && request is OkxSocketRequest<OkxSpreadMassCancelRequest> socRequest11 && socRequest11.RequestId == id;
-            if (placeOrderRequest || amendOrderRequest || cancelOrderRequest || massCancelOrderRequest
-                || spreadPlaceOrderRequest || spreadAmendOrderRequest || spreadCancelOrderRequest || spreadMassCancelOrderRequest)
+            if (singleRequest)
             {
                 var desResult = Deserialize<List<T>>(data["data"]!);
                 if (!desResult)
@@ -174,14 +195,20 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
                     return false;
                 }
 
-                callResult = new CallResult<T>(desResult.Data.FirstOrDefault()!);
+                var item = desResult.Data.FirstOrDefault()!;
+                if (queryError is not null && item is OkxRestApiErrorBase orderResult
+                    && int.TryParse(orderResult.ErrorCode, out var itemCode) && itemCode != 0)
+                {
+                    var message = string.IsNullOrWhiteSpace(orderResult.ErrorMessage) ? $"OKX order error {itemCode}" : orderResult.ErrorMessage!;
+                    var subCode = string.IsNullOrWhiteSpace(orderResult.SubCode) ? null : orderResult.SubCode;
+                    if (subCode is not null) message = $"{message} (subCode: {subCode})";
+                    queryError = new ServerError(itemCode, message, subCode);
+                }
+                callResult = queryError is null ? new CallResult<T>(item, data.ToString()) : new CallResult<T>(queryError, data.ToString()).As(item);
                 return true;
             }
 
-            var placeBatchOrdersRequest = op == "batch-orders" && request is OkxSocketRequest<OkxTradeOrderPlaceRequest> socRequest05 && socRequest05.RequestId == id;
-            var amendBatchOrdersRequest = op == "batch-amend-orders" && request is OkxSocketRequest<OkxTradeOrderAmendRequest> socRequest06 && socRequest06.RequestId == id;
-            var cancelBatchOrdersRequest = op == "batch-cancel-orders" && request is OkxSocketRequest<OkxTradeOrderCancelRequest> socRequest07 && socRequest07.RequestId == id;
-            if (placeBatchOrdersRequest || amendBatchOrdersRequest || cancelBatchOrdersRequest)
+            if (batchRequest)
             {
                 var desResult = Deserialize<T>(data["data"]!);
                 if (!desResult)
@@ -190,7 +217,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
                     return false;
                 }
 
-                callResult = new CallResult<T>(desResult.Data);
+                callResult = queryError is null ? new CallResult<T>(desResult.Data, data.ToString()) : new CallResult<T>(queryError, data.ToString()).As(desResult.Data);
                 return true;
             }
         }

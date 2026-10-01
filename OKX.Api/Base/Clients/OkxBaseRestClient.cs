@@ -43,6 +43,19 @@ public abstract class OkxBaseRestClient : RestApiClient
         var str = message.ToString();
         if (!message.HasValues) return null;
 
+        // Order acknowledgements carry per-item outcomes. Parsing only the first sCode here
+        // discards accepted orders in a mixed batch, including one-order batches.
+        if (int.TryParse(message["code"]?.ToString(), out var envelopeCode))
+        {
+            if (envelopeCode is 0 or 1 or 2 && message["data"] is JArray acknowledgements
+                && acknowledgements.Count > 0
+                && acknowledgements.All(item => item is JObject && int.TryParse(item["sCode"]?.ToString(), out var _)))
+                return null;
+
+            if (envelopeCode != 0)
+                return CreateServerError(envelopeCode, (string?)message["msg"], null, str);
+        }
+
         if (message["data"] is null)
         {
             if (message["code"] is not null && message["msg"] is not null)
@@ -150,7 +163,14 @@ public abstract class OkxBaseRestClient : RestApiClient
             if (!result.Success) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw ?? "", result.Error);
             if (result.Data is null) return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw ?? "", result.Error);
             if (result.Data.ErrorCode != 0)
-                return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw ?? "", CreateServerError(result.Data.ErrorCode, result.Data.ErrorMessage, null, result.Raw));
+            {
+                var error = CreateServerError(result.Data.ErrorCode, result.Data.ErrorMessage, null, result.Raw);
+                // Aggregate order codes do not replace the individual accepted/rejected outcomes.
+                if (result.Data.ErrorCode is 1 or 2 && typeof(OkxRestApiErrorBase).IsAssignableFrom(typeof(T))
+                    && result.Data.Data is { Count: > 0 })
+                    return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data, result.Raw ?? "", error);
+                return new RestCallResult<List<T>>(result.Request, result.Response, result.Raw ?? "", error);
+            }
 
             // Return Success
             return new RestCallResult<List<T>>(result.Request, result.Response, result.Data.Data!, result.Raw ?? "", result.Error);
@@ -227,13 +247,15 @@ public abstract class OkxBaseRestClient : RestApiClient
             // Return Error
             if (!result.Success) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
             if (result.Data is null) return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", result.Error);
+            var item = result.Data.Data?.FirstOrDefault();
+            if (result.Data.ErrorCode is 0 or 1 && item is OkxRestApiErrorBase data
+                && int.TryParse(data.ErrorCode, out var itemCode) && itemCode != 0)
+                return new RestCallResult<T>(result.Request, result.Response, item, result.Raw ?? "", CreateServerError(itemCode, data.ErrorMessage, data.SubCode, result.Raw));
             if (result.Data.ErrorCode != 0)
                 return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", CreateServerError(result.Data.ErrorCode, result.Data.ErrorMessage, null, result.Raw));
-            if (result.Data.Data!.FirstOrDefault() is OkxRestApiErrorBase data && data.ErrorCode is not null && data.ErrorCode.Trim() != "" && data.ErrorCode.Trim() != "0" && !string.IsNullOrEmpty(data.ErrorMessage))
-                return new RestCallResult<T>(result.Request, result.Response, result.Raw ?? "", CreateServerError(int.Parse(data.ErrorCode), data.ErrorMessage!, data.SubCode, result.Raw));
 
             // Return Success
-            return new RestCallResult<T>(result.Request, result.Response, result.Data.Data!.FirstOrDefault()!, result.Raw ?? "", result.Error);
+            return new RestCallResult<T>(result.Request, result.Response, item!, result.Raw ?? "", result.Error);
         }
         catch (Exception ex)
         {
@@ -331,7 +353,8 @@ public abstract class OkxBaseRestClient : RestApiClient
 
     private static ServerError CreateServerError(int code, string? errorMessage, string? subCode, string? rawResponse = null)
     {
-        var message = string.IsNullOrWhiteSpace(errorMessage) ? rawResponse ?? "Unknown OKX error" : errorMessage!;
+        var message = string.IsNullOrWhiteSpace(errorMessage)
+            ? (string.IsNullOrWhiteSpace(rawResponse) ? $"OKX error {code}" : rawResponse!) : errorMessage!;
         if (!string.IsNullOrWhiteSpace(subCode))
             message = $"{message} (subCode: {subCode})";
 

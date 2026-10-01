@@ -10,6 +10,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// For leading contracts, this endpoint supports placement, but can't close positions.
     /// While the contract cool-off period is active, OKX rejects non-reduce-only SWAP and FUTURES orders with error 54094.
     /// Reduce-only orders remain allowed.
+    /// OKX rejects below-minimum RPI/ELP maker notionals with 54051; no local notional calculation or automatic resizing is performed.
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="tradeMode">Trade mode
@@ -114,7 +115,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// </summary>
     /// <remarks>The order will be associated with the broker identifier specified by the API. Ensure that all
     /// required fields in the orderRequest are set according to OKX API requirements. While the contract cool-off
-    /// period is active, OKX rejects non-reduce-only SWAP and FUTURES orders with error 54094; reduce-only orders remain allowed.</remarks>
+    /// period is active, OKX rejects non-reduce-only SWAP and FUTURES orders with error 54094; reduce-only orders remain allowed.
+    /// Below-minimum RPI/ELP maker notionals are rejected server-side with 54051; the wrapper does not resize or retry the order.</remarks>
     /// <param name="orderRequest">The order details to be submitted. Cannot be null.</param>
     /// <param name="ct">A cancellation token that can be used to cancel the operation.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a RestCallResult with the response
@@ -141,6 +143,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// <summary>
     /// Place orders in batches. Maximum 20 orders can be placed at a time. Request parameters should be passed in the form of an array.
     /// During an active contract cool-off period, inspect each response item for error 54094 on non-reduce-only SWAP and FUTURES orders.
+    /// Inspect every item's ErrorCode, including RPI/ELP minimum-notional rejection 54051.
+    /// Aggregate errors 1/2 retain per-order Data even when Success is false; never blindly resend the whole batch.
     /// </summary>
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>
@@ -204,13 +208,14 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 
     /// <summary>
     /// Amend an incomplete order.
+    /// For RPI/ELP makers, newQuantity triggers the server's minimum-notional recheck (54051); price-only amendments do not.
     /// </summary>
     /// <param name="instrumentId">Instrument ID</param>
     /// <param name="orderId">Order ID</param>
     /// <param name="clientOrderId">Client Order ID</param>
     /// <param name="requestId">Request ID</param>
-    /// <param name="cancelOnFail">Cancel On Fail</param>
-    /// <param name="newQuantity">New Quantity</param>
+    /// <param name="cancelOnFail">Default false preserves the original order on failure; true requests automatic cancellation on any amendment failure.</param>
+    /// <param name="newQuantity">New total target quantity including any fills, not the remaining unfilled quantity.</param>
     /// <param name="newPrice">New Price</param>
     /// <param name="newPriceUsd">Modify options orders using USD prices
     /// Only applicable to options.
@@ -268,6 +273,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
 
     /// <summary>
     /// Amend incomplete orders in batches. Maximum 20 orders can be amended at a time. Request parameters should be passed in the form of an array.
+    /// RPI/ELP maker amendments containing newSz are rechecked against the server-side minimum notional (54051).
+    /// Inspect every item's ErrorCode. Aggregate errors 1/2 retain per-order Data even when Success is false.
     /// </summary>
     /// <param name="orders">Orders</param>
     /// <param name="ct">Cancellation Token</param>

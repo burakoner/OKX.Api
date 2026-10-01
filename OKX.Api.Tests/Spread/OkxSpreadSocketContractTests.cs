@@ -58,7 +58,8 @@ public class OkxSpreadSocketContractTests
 
         var generic = method!.MakeGenericMethod(typeof(OkxBooleanResponse));
         var client = new OkxWebSocketApiClient(new OkxWebSocketApiOptions());
-        var request = new OkxSocketRequest("1515", OkxSocketOperation.MassCancel, [new OkxSocketRequestArgument { Channel = "sprd-orders" }]);
+        var request = new OkxSocketRequest<OkxSpreadMassCancelRequest>("1515", OkxSocketOperation.SpreadMassCancel,
+            [new OkxSpreadMassCancelRequest { SpreadId = "BTC-USDT_BTC-USDT-SWAP" }]);
         object?[] args =
         [
             null,
@@ -80,6 +81,7 @@ public class OkxSpreadSocketContractTests
 
         var callResult = Assert.IsType<CallResult<OkxBooleanResponse>>(args[3]);
         Assert.False(callResult.Success);
+        Assert.Equal(60013, callResult.Error?.Code);
         Assert.Contains("60013", callResult.Error!.ToString(), StringComparison.Ordinal);
     }
 }
