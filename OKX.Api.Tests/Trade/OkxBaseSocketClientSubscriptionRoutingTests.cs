@@ -327,7 +327,10 @@ public class OkxBaseSocketClientSubscriptionRoutingTests
         public override Task SendAndWaitAsync<T>(T obj, TimeSpan timeout, Func<JToken, bool> handler)
         {
             LastRequest = obj;
-            handler(_response);
+            var response = _response.DeepClone();
+            if (obj is OkxSocketRequest { RequestId: not null } request)
+                response["id"] = request.RequestId;
+            handler(response);
             return Task.CompletedTask;
         }
     }

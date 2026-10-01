@@ -7,6 +7,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
 {
     private const string ServiceUpgradeNoticeHandler = "service-upgrade-notice";
     private const string ChannelConnectionCountHandler = "channel-connection-count";
+    private const string SubscriptionAcknowledgementHandler = "subscription-acknowledgement";
 
     /// <summary>
     /// Logger
@@ -64,6 +65,9 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         SetDataInterpreter(DecompressData, null);
         AddGenericHandler(ServiceUpgradeNoticeHandler, HandleServiceUpgradeNotice);
         AddGenericHandler(ChannelConnectionCountHandler, HandleChannelConnectionCount);
+        // Intermediate ACKs keep their pending request open and must not become unhandled-message warnings.
+        AddGenericHandler(SubscriptionAcknowledgementHandler,
+            message => Logger.LogDebug("WebSocket subscription acknowledgement: {Acknowledgement}", message.JsonData));
         SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");
     }
 
@@ -75,6 +79,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     /// <inheritdoc />
     protected override async Task<CallResult<bool>> AuthenticateAsync(WebSocketConnection connection)
     {
+        IsAuthendicated = false;
         // Check Point
         // if (connection.Authenticated)
         //    return new CallResult<bool>(true, null);
@@ -114,7 +119,8 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         var result = new CallResult<bool>(new ServerError("No response from server"));
         await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(10), data =>
         {
-            if ((string)data!["event"]! != "login")
+            if (data.Type != JTokenType.Object || data["event"]?.Type != JTokenType.String
+                || ((string?)data["event"] != "login" && !IsAuthenticationError(data)))
                 return false;
 
             var authResponse = Deserialize<OkxSocketResponse>(data);
@@ -126,8 +132,12 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             }
             if (!authResponse.Data.Success)
             {
-                Logger.Log(LogLevel.Warning, "Authorization failed: " + authResponse.Error!.Message);
-                result = new CallResult<bool>(new ServerError(authResponse.Error.Code!.Value, authResponse.Error.Message));
+                var message = authResponse.Data.ErrorMessage;
+                Logger.Log(LogLevel.Warning, "Authorization failed: " + message);
+                var codeText = authResponse.Data.ErrorCode;
+                var error = int.TryParse(codeText, out var code)
+                    ? new ServerError(code, message) : new ServerError($"{codeText}, {message}");
+                result = new CallResult<bool>(error, data.ToString());
                 return true;
             }
 
@@ -152,8 +162,11 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             return true;
         }
 
+        if (data.Type != JTokenType.Object)
+            return false;
+
         // Web Socket Orders
-        if (data["id"] is not null && data["op"] is not null)
+        if (data["id"]?.Type == JTokenType.String && data["op"]?.Type == JTokenType.String)
         {
             var id = (string)data["id"]!;
             var op = (string)data["op"]!;
@@ -231,16 +244,10 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             }
         }
 
-        // Check for Error
-        if (data is JObject && data["event"] is not null && (string)data["event"]! == "error" && data["code"] is not null && data["msg"] is not null)
-        {
-            Logger.Log(LogLevel.Warning, "Query failed: " + (string)data["msg"]!);
-            callResult = new CallResult<T>(new ServerError($"{(string)data["code"]!}, {(string)data["msg"]!}"));
-            return true;
-        }
-
-        // Login Request
-        if (data is JObject && data["event"] is not null && (string)data["event"]! == "login")
+        // Unidentified event:error messages are not evidence of a trading-query outcome.
+        // Authentication has its own response wait; login replies cannot complete trading queries either.
+        if (request is OkxSocketAuthRequest { Operation: OkxSocketOperation.Login }
+            && data["event"]?.Type == JTokenType.String && (string?)data["event"] == "login")
         {
             var desResult = Deserialize<T>(data);
             if (!desResult)
@@ -260,42 +267,36 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     protected override bool HandleSubscriptionResponse(WebSocketConnection connection, WebSocketSubscription subscription, object request, JToken data, out CallResult<object>? callResult)
     {
         callResult = null;
-
-        // Ping-Pong
-        var json = data.ToString();
-        if (json == "pong")
+        if (request is not OkxSocketRequest { Operation: OkxSocketOperation.Subscribe } socketRequest)
             return false;
+        if (socketRequest.Arguments is null)
+            return false;
+        // A standalone response cannot confirm an entire multi-argument request.
+        // SubscribeAndWaitAsync keeps the remaining arguments local to each send attempt.
+        return HandleSubscriptionAcknowledgement(socketRequest, data, socketRequest.Arguments.ToList(), out callResult);
+    }
 
-        // Check for Error
-        // 30040: {0} Channel : {1} doesn't exist
-        if (data.HasValues && data["event"] is not null && (string)data["event"]! == "error" &&
-            data["msg"] is not null && data["code"] is not null)
+    /// <inheritdoc />
+    public override async Task<CallResult<bool>> SubscribeAndWaitAsync(WebSocketConnection connection, object request, WebSocketSubscription subscription)
+    {
+        if (request is not OkxSocketRequest { Operation: OkxSocketOperation.Subscribe } socketRequest)
+            return await base.SubscribeAndWaitAsync(connection, request, subscription).ConfigureAwait(false);
+
+        subscription.Confirmed = false;
+        if (socketRequest.Arguments is null || socketRequest.Arguments.Count == 0)
+            return new CallResult<bool>(new InvalidOperationError("A subscription requires at least one argument."));
+
+        // Keep the stored request unchanged. SDK reconnects call this method again, with fresh ACK state/ID.
+        var wireRequest = socketRequest with { RequestId = socketRequest.RequestId ?? Guid.NewGuid().ToString("N") };
+        var response = await WaitForSubscriptionAcknowledgementAsync(connection, wireRequest, ClientOptions.ResponseTimeout).ConfigureAwait(false);
+
+        if (response.Success)
         {
-            Logger.Log(LogLevel.Warning, "Subscription failed: " + (string)data["msg"]!);
-            callResult = new CallResult<object>(new ServerError(data["code"]!.ToIntegerSafe(), (string)data["msg"]!));
-            return true;
+            subscription.Confirmed = true;
+            return new CallResult<bool>(true, response.Raw);
         }
 
-        // Check for Success
-        if (data.HasValues && data["event"] is not null && (string)data["event"]! == "subscribe" && data["arg"]!["channel"] is not null)
-        {
-            if (request is OkxSocketRequest socRequest
-                && socRequest.Arguments is not null
-                && TryDeserializeSocketRequestArgument(data["arg"], out var responseArgument))
-            {
-                foreach (var arg in socRequest.Arguments)
-                {
-                    if (SocketArgumentsMatch(arg, responseArgument!))
-                    {
-                        Logger.Log(LogLevel.Debug, "Subscription completed");
-                        callResult = new CallResult<object>(true);
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        return new CallResult<bool>(response.Error!, response.Raw);
     }
 
     /// <inheritdoc />
@@ -351,6 +352,12 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     /// <inheritdoc />
     protected override bool MessageMatchesHandler(WebSocketConnection connection, JToken message, string identifier)
     {
+        if (identifier == SubscriptionAcknowledgementHandler)
+            return message.Type == JTokenType.Object && message["event"]?.Type == JTokenType.String
+                && (string?)message["event"] is "subscribe" or "unsubscribe"
+                && (string.IsNullOrEmpty(message["code"]?.ToString()) || message["code"]!.ToString() == "0")
+                && TryDeserializeSocketRequestArgument(message["arg"], out var argument) && !string.IsNullOrEmpty(argument!.Channel);
+
         if (identifier == ChannelConnectionCountHandler)
             return message.Type == JTokenType.Object
                 && ((string?)message["event"] == "channel-conn-count"
@@ -368,33 +375,95 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
         if (subscription is null || subscription.Request is null)
             return false;
 
-        var request = new OkxSocketRequest(OkxSocketOperation.Unsubscribe, ((OkxSocketRequest)subscription.Request).Arguments);
-        var unsubscribed = false;
-        await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(10), data =>
-        {
-            if (data.Type != JTokenType.Object)
-                return false;
-
-            if ((string)data["event"]! == "unsubscribe" && TryDeserializeSocketRequestArgument(data["arg"], out var responseArgument))
-            {
-                foreach (var arg in request.Arguments)
-                {
-                    if (SocketArgumentsMatch(arg, responseArgument!))
-                    {
-                        unsubscribed = true;
-                        return true;
-                    }
-                }
-            }
-
+        if (subscription.Request is not OkxSocketRequest subscriptionRequest
+            || subscriptionRequest.Arguments is null || subscriptionRequest.Arguments.Count == 0)
             return false;
-        });
 
-        return unsubscribed;
+        var request = new OkxSocketRequest(OkxSocketOperation.Unsubscribe, subscriptionRequest.Arguments);
+        // Orders documents id for both operations; the general unsubscribe table does not.
+        if (request.Arguments.All(argument => argument.Channel == "orders"))
+            request.RequestId = Guid.NewGuid().ToString("N");
+        var response = await WaitForSubscriptionAcknowledgementAsync(connection, request, TimeSpan.FromSeconds(10)).ConfigureAwait(false);
+        return response.Success;
     }
     #endregion
 
     #region Private Methods
+    private static async Task<CallResult<object>> WaitForSubscriptionAcknowledgementAsync(
+        WebSocketConnection connection, OkxSocketRequest request, TimeSpan timeout)
+    {
+        var remaining = request.Arguments.ToList();
+        var acknowledgementLock = new object();
+        var waiting = true;
+        CallResult<object>? response = null;
+        try
+        {
+            await connection.SendAndWaitAsync(request, timeout, data =>
+            {
+                lock (acknowledgementLock)
+                    return waiting && response is null && HandleSubscriptionAcknowledgement(request, data, remaining, out response);
+            }).ConfigureAwait(false);
+        }
+        finally
+        {
+            // ApiSharp can retain completed/timed-out pending handlers temporarily. Late ACKs must not consume
+            // a subsequent attempt, overwrite a completed outcome, or resurrect its confirmation state.
+            lock (acknowledgementLock) waiting = false;
+        }
+
+        return response ?? new CallResult<object>(new ServerError(
+            $"{request.Operation} not confirmed: {remaining.Count} argument(s) lack acknowledgement; outcome is uncertain."));
+    }
+
+    private static bool IsAuthenticationError(JToken data)
+        => (string?)data["event"] == "error" && data["id"] is null && data["op"] is null && data["arg"] is null
+            && int.TryParse(data["code"]?.ToString(), out var code)
+            // Only documented authentication-specific codes, never an ambiguous subscription/request error.
+            && code is 60004 or 60005 or 60006 or 60007 or 60009 or 60023 or 60024 or 60026 or 60031 or 60032 or 63999;
+
+    private static bool HandleSubscriptionAcknowledgement(OkxSocketRequest request, JToken data,
+        List<OkxSocketRequestArgument> remaining, out CallResult<object>? result)
+    {
+        result = null;
+        if (data.Type != JTokenType.Object || data["event"]?.Type != JTokenType.String || remaining.Count == 0)
+            return false;
+
+        var responseId = data["id"];
+        if (responseId is not null && responseId.Type is not (JTokenType.String or JTokenType.Null))
+            return false;
+        if (!string.Equals(request.RequestId, (string?)responseId, StringComparison.Ordinal))
+            return false;
+
+        var operation = request.Operation == OkxSocketOperation.Subscribe ? "subscribe" : "unsubscribe";
+        if (data["op"] is not null && (data["op"]!.Type != JTokenType.String || (string?)data["op"] != operation))
+            return false;
+
+        var eventName = (string?)data["event"];
+        if (eventName != operation && eventName != "error")
+            return false;
+        var codeText = data["code"]?.ToString();
+        if (eventName == "error" || (!string.IsNullOrEmpty(codeText) && codeText != "0"))
+        {
+            // Unidentified errors must not complete an unrelated pending request.
+            if (string.IsNullOrEmpty(request.RequestId))
+                return false;
+            var message = data["msg"]?.ToString();
+            if (string.IsNullOrWhiteSpace(message)) message = data.ToString();
+            var error = int.TryParse(codeText, out var code)
+                ? new ServerError(code, message!) : new ServerError(string.IsNullOrEmpty(codeText) ? message! : $"{codeText}, {message}");
+            result = new CallResult<object>(error, data.ToString());
+            return true;
+        }
+
+        if (!TryDeserializeSocketRequestArgument(data["arg"], out var argument) || string.IsNullOrEmpty(argument!.Channel))
+            return false;
+        if (remaining.RemoveAll(expected => SocketArgumentsMatch(expected, argument!)) == 0 || remaining.Count != 0)
+            return false;
+
+        result = new CallResult<object>(true, data.ToString());
+        return true;
+    }
+
     private static bool OrderPushArgumentsMatch(OkxSocketRequestArgument requestArgument, OkxSocketRequestArgument responseArgument)
     {
         return responseArgument.Channel == "orders"
