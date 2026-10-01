@@ -12,7 +12,21 @@ public class OkxAddressContractTests
     }
 
     [Fact]
-    public void DemoTrading_UsesDedicatedRestDomainWithoutChangingDemoWebSockets()
+    public void WebSocketOptions_DefaultToPort443OnAllGlobalPaths()
+    {
+        var options = new OkxWebSocketApiOptions();
+
+        Assert.Equal("wss://ws.okx.com/ws/v5/public", options.BaseAddress);
+        Assert.Equal(options.BaseAddress, OkxAddress.Default.WebSocketPublicAddress);
+        Assert.Equal("wss://ws.okx.com/ws/v5/private", OkxAddress.Default.WebSocketPrivateAddress);
+        Assert.Equal("wss://ws.okx.com/ws/v5/business", OkxAddress.Default.WebSocketBusinessAddress);
+        Assert.Equal(443, new Uri(OkxAddress.Default.WebSocketPublicAddress).Port);
+        Assert.Equal(443, new Uri(OkxAddress.Default.WebSocketPrivateAddress).Port);
+        Assert.Equal(443, new Uri(OkxAddress.Default.WebSocketBusinessAddress).Port);
+    }
+
+    [Fact]
+    public void DemoTrading_UsesDedicatedRestDomainAndPort443WebSockets()
     {
         var options = new OkxRestApiOptions
         {
@@ -20,9 +34,12 @@ public class OkxAddressContractTests
         };
 
         Assert.Equal("https://openapi.okx.com", options.BaseAddress);
-        Assert.Equal("wss://wspap.okx.com:8443/ws/v5/public", OkxAddress.Demo.WebSocketPublicAddress);
-        Assert.Equal("wss://wspap.okx.com:8443/ws/v5/private", OkxAddress.Demo.WebSocketPrivateAddress);
-        Assert.Equal("wss://wspap.okx.com:8443/ws/v5/business", OkxAddress.Demo.WebSocketBusinessAddress);
+        Assert.Equal("wss://wspap.okx.com/ws/v5/public", OkxAddress.Demo.WebSocketPublicAddress);
+        Assert.Equal("wss://wspap.okx.com/ws/v5/private", OkxAddress.Demo.WebSocketPrivateAddress);
+        Assert.Equal("wss://wspap.okx.com/ws/v5/business", OkxAddress.Demo.WebSocketBusinessAddress);
+        Assert.Equal(443, new Uri(OkxAddress.Demo.WebSocketPublicAddress).Port);
+        Assert.Equal(443, new Uri(OkxAddress.Demo.WebSocketPrivateAddress).Port);
+        Assert.Equal(443, new Uri(OkxAddress.Demo.WebSocketBusinessAddress).Port);
     }
 
     [Fact]

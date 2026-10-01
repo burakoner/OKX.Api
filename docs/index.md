@@ -10,6 +10,7 @@ This documentation set is organized around the actual client structure exposed b
 - [Creating REST Clients](./getting-started/creating-rest-clients.md)
 - [Authentication and Public vs Private Requests](./getting-started/authentication.md)
 - [WebSocket Quick Start](./getting-started/websocket-client.md)
+- [Maintenance Execution Contract](./maintenance-plan.md)
 
 ## REST Client Reference
 

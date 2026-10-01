@@ -80,14 +80,8 @@ public record OkxPublicMarketDataHistoryQueryRequest
 
     private void ValidateDateRange(long begin, long end)
     {
-        var timezone = Module.IsIn(
-            OkxPublicMarketDataHistoryModule.FourHundredLevelOrderBook,
-            OkxPublicMarketDataHistoryModule.FiveThousandLevelOrderBook,
-            OkxPublicMarketDataHistoryModule.FiftyLevelOrderBook)
-            ? TimeSpan.Zero
-            : TimeSpan.FromHours(8);
-        var beginDate = DateTimeOffset.FromUnixTimeMilliseconds(begin).ToOffset(timezone).Date;
-        var endDate = DateTimeOffset.FromUnixTimeMilliseconds(end).ToOffset(timezone).Date;
+        var beginDate = OkxPublicMarketDataHistoryDates.GetDate(begin, Module);
+        var endDate = OkxPublicMarketDataHistoryDates.GetDate(end, Module);
 
         if (endDate < beginDate)
             throw new ArgumentException("End date cannot be before Begin date.", nameof(End));

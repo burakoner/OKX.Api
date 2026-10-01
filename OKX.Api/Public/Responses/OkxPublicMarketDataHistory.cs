@@ -12,7 +12,7 @@ public record OkxPublicMarketDataHistory
     public long Timestamp { get; set; }
 
     /// <summary>
-    /// Response timestamp, Unix timestamp format in milliseconds
+    /// Response timestamp as a UTC instant.
     /// </summary>
     [JsonIgnore]
     public DateTime Time => Timestamp.ConvertFromMilliseconds();
@@ -24,13 +24,13 @@ public record OkxPublicMarketDataHistory
     public decimal? TotalSizeMB { get; set; }
 
     /// <summary>
-    /// Announcement type
+    /// Daily or monthly file aggregation.
     /// </summary>
     [JsonProperty("dateAggrType")]
     public OkxPublicDateAggregationType DateAggregationType { get; set; }
 
     /// <summary>
-    /// Announcement url
+    /// Historical data file groups.
     /// </summary>
     [JsonProperty("details")]
     public List<OkxPublicMarketDataHistoryItem> Details { get; set; } = [];
@@ -66,10 +66,20 @@ public record OkxPublicMarketDataHistoryItem
     public long DateRangeStartTimestamp { get; set; }
 
     /// <summary>
-    /// Data range start date, Unix timestamp format in milliseconds (inclusive)
+    /// Inclusive range-start timestamp as a UTC instant, not the module's calendar date.
+    /// Use <see cref="GetDateRangeStartDate"/> for the module-specific date.
     /// </summary>
     [JsonIgnore]
     public DateTime DateRangeStartTime => DateRangeStartTimestamp.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Inclusive range-start calendar date: UTC for modules 4/5/6, UTC+8 for modules 1/2/3/11.
+    /// Returns midnight with <see cref="DateTimeKind.Unspecified"/>.
+    /// </summary>
+    /// <param name="module">The module used in the request; it is not included in the response.</param>
+    /// <exception cref="ArgumentOutOfRangeException">The module or timestamp is unsupported.</exception>
+    public DateTime GetDateRangeStartDate(OkxPublicMarketDataHistoryModule module)
+        => OkxPublicMarketDataHistoryDates.GetDate(DateRangeStartTimestamp, module);
 
     /// <summary>
     /// Data range end date, Unix timestamp format in milliseconds (inclusive)
@@ -78,10 +88,20 @@ public record OkxPublicMarketDataHistoryItem
     public long DateRangeEndTimestamp { get; set; }
 
     /// <summary>
-    /// Data range end date, Unix timestamp format in milliseconds (inclusive)
+    /// Inclusive range-end timestamp as a UTC instant, not the module's calendar date.
+    /// Use <see cref="GetDateRangeEndDate"/> for the module-specific date.
     /// </summary>
     [JsonIgnore]
     public DateTime DateRangeEndTime => DateRangeEndTimestamp.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// Inclusive range-end calendar date: UTC for modules 4/5/6, UTC+8 for modules 1/2/3/11.
+    /// Returns midnight with <see cref="DateTimeKind.Unspecified"/>.
+    /// </summary>
+    /// <param name="module">The module used in the request; it is not included in the response.</param>
+    /// <exception cref="ArgumentOutOfRangeException">The module or timestamp is unsupported.</exception>
+    public DateTime GetDateRangeEndDate(OkxPublicMarketDataHistoryModule module)
+        => OkxPublicMarketDataHistoryDates.GetDate(DateRangeEndTimestamp, module);
 
     /// <summary>
     /// Data group size in MB
@@ -125,10 +145,20 @@ public record OkxPublicMarketDataHistoryItemGroupDetail
     }
 
     /// <summary>
-    /// Data date timestamp, Unix timestamp format in milliseconds
+    /// Data timestamp as a UTC instant, not the file's module-specific calendar date.
+    /// Use <see cref="GetDate"/> for the file date.
     /// </summary>
     [JsonIgnore]
     public DateTime Time => Timestamp.ConvertFromMilliseconds();
+
+    /// <summary>
+    /// File calendar date: UTC for modules 4/5/6, UTC+8 for modules 1/2/3/11.
+    /// Returns midnight with <see cref="DateTimeKind.Unspecified"/>.
+    /// </summary>
+    /// <param name="module">The module used in the request; it is not included in the response.</param>
+    /// <exception cref="ArgumentOutOfRangeException">The module or timestamp is unsupported.</exception>
+    public DateTime GetDate(OkxPublicMarketDataHistoryModule module)
+        => OkxPublicMarketDataHistoryDates.GetDate(Timestamp, module);
 
     /// <summary>
     /// File size in MB

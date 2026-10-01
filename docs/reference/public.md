@@ -316,6 +316,21 @@ var marketDataHistory = await api.Public.GetMarketDataHistoryAsync(new OkxPublic
 });
 ```
 
+### Historical File Dates vs UTC Instants
+
+The [official historical market-data contract](https://www.okx.com/docs-v5/en/#public-data-rest-api-get-historical-market-data) interprets file and range dates in UTC for order-book modules 4/5/6, and UTC+8 for modules 1/2/3/11. Unix timestamps themselves still represent absolute instants.
+
+`DateRangeStartTime`, `DateRangeEndTime`, and file `Time` remain UTC instants for compatibility. Use the explicit module-aware helpers when selecting files by calendar date:
+
+```csharp
+var module = OkxPublicMarketDataHistoryModule.TradeHistory; // Same module as the request.
+var rangeStartDate = item.GetDateRangeStartDate(module);
+var rangeEndDate = item.GetDateRangeEndDate(module); // Inclusive.
+var fileDate = item.groupDetails[0].GetDate(module);
+```
+
+These helpers return midnight `DateTime` values with `Kind.Unspecified`: they are dates, not UTC/local instants. Pass the original request module because OKX does not return it in the response; unsupported modules are rejected rather than assigned a guessed timezone. For example, the documented trade file timestamp `1756656000000` is `2025-08-31 16:00:00 UTC`, but its file date is `2025-09-01` in UTC+8. The response-level `Time` is a normal UTC response timestamp, not a file date.
+
 ## Tips
 
 - For public trading dashboards, `api.Public` and `api.Rubik` are usually the two most important read-only clients.

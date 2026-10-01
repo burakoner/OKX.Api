@@ -31,9 +31,9 @@ public class OkxAddress
     public static OkxAddress Default = new()
     {
         RestApiAddress = "https://openapi.okx.com",
-        WebSocketPublicAddress = "wss://ws.okx.com:8443/ws/v5/public",
-        WebSocketPrivateAddress = "wss://ws.okx.com:8443/ws/v5/private",
-        WebSocketBusinessAddress = "wss://ws.okx.com:8443/ws/v5/business",
+        WebSocketPublicAddress = "wss://ws.okx.com/ws/v5/public",
+        WebSocketPrivateAddress = "wss://ws.okx.com/ws/v5/private",
+        WebSocketBusinessAddress = "wss://ws.okx.com/ws/v5/business",
     };
 
     /// <summary>
@@ -44,9 +44,9 @@ public class OkxAddress
     public static OkxAddress AWS = new()
     {
         RestApiAddress = "https://openapi.okx.com",
-        WebSocketPublicAddress = "wss://ws.okx.com:8443/ws/v5/public",
-        WebSocketPrivateAddress = "wss://ws.okx.com:8443/ws/v5/private",
-        WebSocketBusinessAddress = "wss://ws.okx.com:8443/ws/v5/business",
+        WebSocketPublicAddress = "wss://ws.okx.com/ws/v5/public",
+        WebSocketPrivateAddress = "wss://ws.okx.com/ws/v5/private",
+        WebSocketBusinessAddress = "wss://ws.okx.com/ws/v5/business",
     };
 
     /// <summary>
@@ -55,8 +55,8 @@ public class OkxAddress
     public static OkxAddress Demo = new()
     {
         RestApiAddress = "https://openapi.okx.com",
-        WebSocketPublicAddress = "wss://wspap.okx.com:8443/ws/v5/public",
-        WebSocketPrivateAddress = "wss://wspap.okx.com:8443/ws/v5/private",
-        WebSocketBusinessAddress = "wss://wspap.okx.com:8443/ws/v5/business",
+        WebSocketPublicAddress = "wss://wspap.okx.com/ws/v5/public",
+        WebSocketPrivateAddress = "wss://wspap.okx.com/ws/v5/private",
+        WebSocketBusinessAddress = "wss://wspap.okx.com/ws/v5/business",
     };
 }

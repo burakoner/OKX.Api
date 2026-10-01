@@ -64,14 +64,17 @@ public class OkxAffiliateClientBehaviorTests
     {
         using var server = CreateServer("/api/v5/affiliate/invitee/list", "invitee-list.json");
         var client = CreateClient(server);
+        // Keep valid serialization coverage inside the rolling 180-day window.
+        var recentBegin = DateTimeOffset.UtcNow.AddDays(-30).ToUnixTimeMilliseconds();
+        var recentEnd = recentBegin + (long)TimeSpan.FromDays(1).TotalMilliseconds;
 
         var result = await client.Affiliate.GetInviteesAsync(new OkxAffiliateInviteeListRequest
         {
             Page = 2,
             Limit = 25,
             PeriodType = OkxAffiliatePeriodType.Custom,
-            Begin = 1775000000000,
-            End = 1775086400000,
+            Begin = recentBegin,
+            End = recentEnd,
             Keyword = "X2UWA2T89",
             CommissionCategory = OkxAffiliateCommissionCategory.Spot,
             OrderBy = OkxAffiliateSortField.Volume,
@@ -79,8 +82,8 @@ public class OkxAffiliateClientBehaviorTests
             KycStatus = OkxAffiliateKycStatus.Verified,
             SubAffiliateUserId = "668418489887292061",
             UserIds = ["835449167911924693", "835449167911924700"],
-            JoinTimeBegin = 1775000000000,
-            JoinTimeEnd = 1775086400000,
+            JoinTimeBegin = recentBegin,
+            JoinTimeEnd = recentEnd,
         });
 
         Assert.True(result.Success, result.Error?.ToString());
@@ -94,14 +97,16 @@ public class OkxAffiliateClientBehaviorTests
         Assert.Contains("page=2", query);
         Assert.Contains("limit=25", query);
         Assert.Contains("periodType=custom", query);
+        Assert.Contains($"begin={recentBegin}", query);
+        Assert.Contains($"end={recentEnd}", query);
         Assert.Contains("commissionCategory=SPOT", query);
         Assert.Contains("orderBy=vol", query);
         Assert.Contains("orderDir=asc", query);
         Assert.Contains("kycStatus=verified", query);
         Assert.Contains("subAffiliateUid=668418489887292061", query);
         Assert.Contains("uid=835449167911924693,835449167911924700", query);
-        Assert.Contains("joinTimeBegin=1775000000000", query);
-        Assert.Contains("joinTimeEnd=1775086400000", query);
+        Assert.Contains($"joinTimeBegin={recentBegin}", query);
+        Assert.Contains($"joinTimeEnd={recentEnd}", query);
     }
 
     [Fact]

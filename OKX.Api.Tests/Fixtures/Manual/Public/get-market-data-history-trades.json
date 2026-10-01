@@ -1,0 +1,28 @@
+{
+  "code": "0",
+  "data": [{
+    "dateAggrType": "daily",
+    "details": [{
+      "dateRangeEnd": "1756656000000",
+      "dateRangeStart": "1756569600000",
+      "groupDetails": [{
+        "dateTs": "1756656000000",
+        "filename": "BTC-USDT-SWAP-trades-2025-09-01.zip",
+        "sizeMB": "10.82",
+        "url": "https://static.okx.com/cdn/okex/traderecords/trades/daily/20250901/BTC-USDT-SWAP-trades-2025-09-01.zip"
+      }, {
+        "dateTs": "1756569600000",
+        "filename": "BTC-USDT-SWAP-trades-2025-08-31.zip",
+        "sizeMB": "4.82",
+        "url": "https://static.okx.com/cdn/okex/traderecords/trades/daily/20250831/BTC-USDT-SWAP-trades-2025-08-31.zip"
+      }],
+      "groupSizeMB": "15.64",
+      "instFamily": "BTC-USDT",
+      "instId": "",
+      "instType": "SWAP"
+    }],
+    "totalSizeMB": "15.64",
+    "ts": "1756882260390"
+  }],
+  "msg": ""
+}

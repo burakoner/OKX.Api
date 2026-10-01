@@ -19,6 +19,17 @@ var options = new OkxWebSocketApiOptions
 var ws = new OkxWebSocketApiClient(options);
 ```
 
+## WebSocket Port Migration
+
+Default production and demo URLs use `wss://` on port **443**, without an explicit port:
+
+- Production: `wss://ws.okx.com/ws/v5/public`, `/ws/v5/private`, and `/ws/v5/business`.
+- Demo: `wss://wspap.okx.com/ws/v5/public`, `/ws/v5/private`, and `/ws/v5/business`.
+
+OKX's [September 30, 2026 migration announcement](https://www.okx.com/en-us/help/okx-websocket-port-8443-discontinuation-announcement) confirms that port 443 already works and that port **8443 stops accepting connections on October 31, 2026**. Only the port changes; hosts, paths, authentication, and REST endpoints remain unchanged. The latest announcement takes precedence over the older `:8443` examples still present in the main API guide at the time of this update.
+
+If your application replaces the `OkxAddress.Default` or `OkxAddress.Demo` WebSocket addresses, remove `:8443` from those custom URLs too. The wrapper does not rewrite custom addresses or reconnect existing application sessions as part of this change.
+
 ## Set Credentials
 
 Private subscriptions and trading operations require credentials:
