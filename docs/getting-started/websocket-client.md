@@ -84,6 +84,8 @@ The follow-up after the 5.6.820 review checkpoint, included in the 5.6.826 sourc
 
 Login failures return their documented numeric codes/raw responses, including `event:error / 60009`. Authentication-specific errors are handled only in the authentication wait; unidentified generic request/subscription errors are not inferred to be login failures from their message text.
 
+Known open review finding: an expired login callback can still set the wrapper's public `IsAuthendicated` flag after a late success. The completed authentication result remains failed; the SDK's separate connection authentication state is not thereby proven to have changed. Do not use this flag after an uncertain/expired attempt as proof of current connection readiness. The [final review](../maintenance-plan.md#final-cross-surface-review--2026-10-01) records the reproduction and proposed fix; no login retry or trading replay is added.
+
 OKX's [channel connection limit](https://www.okx.com/docs-v5/en/#overview-websocket-connection-count-limit) is 30 connections per affected channel per sub-account. `ChannelConnectionCount` reports both counts and limit errors. A limit error can arrive **after** successful subscription acknowledgement and terminate that channel subscription. This event is notification only: it does not automatically reconnect, restore subscriptions, update the returned subscription object's lifecycle, or retry orders.
 
 ## Unsubscribe
@@ -97,6 +99,8 @@ var subscription = await ws.Public.SubscribeToTradesAsync(
 
 await ws.UnsubscribeAsync(subscription.Data!);
 ```
+
+This public operation closes the local subscription. In the current ApiSharp integration, incomplete/rejected server ACKs do not prevent local removal, and the ID-based overload can still return true; the object overload exposes no confirmation result. Do not interpret completion/true as proof that OKX acknowledged remote removal, especially when other subscriptions keep the connection open. Complete ACK checking exists in the protected helper, but the SDK cleanup path discards its result. This [open review finding](../maintenance-plan.md#final-cross-surface-review--2026-10-01) requires a separate bounded follow-up; reconcile uncertain remote state deliberately.
 
 ## Service Upgrade Notices
 
