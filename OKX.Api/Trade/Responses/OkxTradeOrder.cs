@@ -24,7 +24,7 @@ public record OkxTradeOrder
     public OkxTradeQuantityType? QuantityType { get; set; }
 
     /// <summary>
-    /// Margin currency. Only applicable to cross MARGIN orders in
+    /// Margin currency for isolated MARGIN and cross MARGIN in Futures mode, FUTURES, and SWAP orders.
     /// </summary>
     [JsonProperty("ccy")]
     public string Currency { get; set; } = string.Empty;
@@ -87,7 +87,8 @@ public record OkxTradeOrder
     public decimal? NotionalUsd { get; set; }
 
     /// <summary>
-    /// Profit and loss, Applicable to orders which have a trade and aim to close position. It always is 0 in other conditions
+    /// Profit and loss excluding fees for trades closing a position; zero otherwise.
+    /// Cross-margin liquidation includes liquidation penalties.
     /// </summary>
     [JsonProperty("pnl")]
     public decimal? ProfitAndLoss { get; set; }
@@ -207,7 +208,7 @@ public record OkxTradeOrder
     public OkxTradeOrderRole? ExecutionType { get; set; }
 
     /// <summary>
-    /// Average filled price. If none is filled, it will return "".
+    /// Average filled price. The orders channel reports 0 when nothing has filled.
     /// </summary>
     [JsonProperty("avgPx")]
     public decimal? AveragePrice { get; set; }
@@ -219,7 +220,7 @@ public record OkxTradeOrder
     public decimal? FillNotionalUsd { get; set; }
 
     /// <summary>
-    /// State
+    /// Server-reported order state. A post-only or RPI placement may first report Canceled without Live.
     /// </summary>
     [JsonProperty("state")]
     public OkxTradeOrderState OrderState { get; set; }
@@ -299,34 +300,35 @@ public record OkxTradeOrder
     public OkxTradeOrderLinkedAlgoOrder? LinkedAlgoOrder { get; set; }
 
     /// <summary>
-    /// Fee currency
+    /// Fee currency. For SPOT/MARGIN maker sells, the quote currency; otherwise the charged currency.
     /// </summary>
     [JsonProperty("feeCcy")]
     public string FeeCurrency { get; set; } = string.Empty;
 
     /// <summary>
-    /// Fee and rebate
-    /// For spot and margin, it is accumulated fee charged by the platform.It is always negative, e.g. -0.01.
-    /// For Futures, Swap and Options, it is accumulated fee and rebate
+    /// Accumulated fees (negative) for SPOT/MARGIN except maker sells.
+    /// For SPOT/MARGIN maker sells, accumulated fees and rebates in quote currency;
+    /// for FUTURES/SWAP/OPTION, accumulated fees and rebates.
     /// </summary>
     [JsonProperty("fee")]
     public decimal? Fee { get; set; }
 
     /// <summary>
-    /// Rebate currency
+    /// Rebate currency. For SPOT/MARGIN maker sells, the base currency; otherwise the rebate currency.
     /// </summary>
     [JsonProperty("rebateCcy")]
     public string RebateCurrency { get; set; } = string.Empty;
 
     /// <summary>
-    /// Rebate amount, only applicable to spot and margin, the reward of placing orders from the platform (rebate) given to user who has reached the specified trading level. If there is no rebate, this field is "".
+    /// SPOT/MARGIN rebate amount. Maker sells report accumulated fees and rebates in base currency;
+    /// other orders report positive maker rebates, or an empty value when there is no rebate.
     /// </summary>
     [JsonProperty("rebate")]
     public decimal? Rebate { get; set; }
 
     /// <summary>
     /// Order source
-    /// 13:The generated limit order after the strategy order is triggered
+    /// 6: trigger order; 7: TP/SL; 13: algo; 25: trailing stop; 34: chase order.
     /// </summary>
     [JsonProperty("source")]
     public string Source { get; set; } = string.Empty;
@@ -375,7 +377,7 @@ public record OkxTradeOrder
     public OkxTradeOrderAmendSource? AmendSource { get; set; }
 
     /// <summary>
-    /// Quick Margin type, Only applicable to Quick Margin Mode of isolated margin
+    /// Deprecated Quick Margin type, only applicable to Quick Margin Mode of isolated margin.
     /// </summary>
     [JsonProperty("quickMgnType")]
     public OkxQuickMarginType? QuickMarginType { get; set; }
@@ -421,6 +423,13 @@ public record OkxTradeOrder
     /// </summary>
     [JsonProperty("msg")]
     public string Message { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Opaque risk-bypass result for specific users. Contact OKX's relationship manager for its meaning.
+    /// Empty when not applicable; the wrapper does not interpret this value.
+    /// </summary>
+    [JsonProperty("riskBypassResult")]
+    public string RiskBypassResult { get; set; } = string.Empty;
 
     /// <summary>
     /// Update time, Unix timestamp format in milliseconds, e.g. 1597026383085

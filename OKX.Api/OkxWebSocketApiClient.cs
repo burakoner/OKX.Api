@@ -97,7 +97,7 @@ public class OkxWebSocketApiClient : OkxBaseSocketClient
 
     internal int RequestId() => base.NextId();
 
-    internal Task<CallResult<WebSocketUpdateSubscription>> RootSubscribeAsync<T>(OkxSocketEndpoint endpoint, object request, string? identifier, bool authenticated, Action<WebSocketDataEvent<T>> dataHandler, CancellationToken ct)
+    internal virtual Task<CallResult<WebSocketUpdateSubscription>> RootSubscribeAsync<T>(OkxSocketEndpoint endpoint, object request, string? identifier, bool authenticated, Action<WebSocketDataEvent<T>> dataHandler, CancellationToken ct)
     {
         var url = ClientOptions.BaseAddress;
         var env = ((OkxWebSocketApiOptions)ClientOptions).DemoTradingService ? OkxAddress.Demo : OkxAddress.Default;

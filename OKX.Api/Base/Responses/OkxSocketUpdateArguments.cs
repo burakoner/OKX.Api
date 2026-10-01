@@ -12,6 +12,18 @@ public record OkxSocketUpdateArguments
     public string Channel { get; set; } = string.Empty;
 
     /// <summary>
+    /// Instrument type reported by the channel. Absent for channels that do not supply instType.
+    /// </summary>
+    [JsonProperty("instType")]
+    public OkxInstrumentType? InstrumentType { get; set; }
+
+    /// <summary>
+    /// Instrument family reported by the channel. Absent when not supplied.
+    /// </summary>
+    [JsonProperty("instFamily")]
+    public string? InstrumentFamily { get; set; }
+
+    /// <summary>
     /// Instrument Id
     /// </summary>
     [JsonProperty("instId")]

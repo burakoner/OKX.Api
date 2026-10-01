@@ -187,6 +187,38 @@ Always check `Data` for available outcomes even when `Success=false`. `GetResult
 
 Documentation conflict: the August 18 notice describes independent placement-suborder rejection, while current REST/WS batch Place tables retain an all-accepted-or-all-rejected statement for Portfolio Margin. The wrapper preserves the actual acknowledgements and does not promise atomicity or independently simulate either server behavior. Synthetic tests verify parsing/forwarding, not matching-engine enforcement or Portfolio Margin acceptance.
 
+### Orders Channel: Placement, State, and Reconciliation
+
+The complete current [private orders channel](https://www.okx.com/docs-v5/en/#order-book-trading-trade-ws-order-channel) was compared on October 1, 2026. Its generic field tables do not fully describe the placement-notification change, so also use the [August 20 notice](https://www.okx.com/docs-v5/log_en/#2026-08-20). An accepted Place/Amend acknowledgement is not a final order state.
+
+For `post_only`, `mmp_and_post_only`, and RPI placement, OKX sends `live` after book entry, not immediately on receipt. The approximate 1 ms delay is not a timeout or SLA. Failure may produce **only `canceled`**, without preceding `live`. A later cancellation remains possible after a genuinely live order; book entry is not a promise of execution.
+
+| Placement scenario | Server update sequence |
+| --- | --- |
+| Post-only crosses the BBO | `canceled` only |
+| Maker order rests successfully | `live` |
+| Resting post-only then fully filled | `live` → `filled` (possibly through `partially_filled`) |
+| Reduce-only post-only quantity overridden | `live` with `amendSource=4`, `amendResult=0` → `live` |
+| RPI spacing failure with rounding disabled | `canceled` only |
+| RPI price rounded by OKX | `live` with `amendSource=6`, `amendResult=0` → `live` |
+
+The RPI behavior also covers legacy `elp` during its transition. Ordinary `limit`, `market`, `ioc`, and `fok` behavior is unchanged. `SystemReduceOnly` documents both new-order size overrides and reduction of existing pending orders. `CancelSource` remains a raw string: current reasons include `31` (post-only would take liquidity), `45` (RPI price verification failed), and `39` (MMP-triggered cancellation). Channel `code=0` does not turn `canceled` into a successful live order; `MmpCanceled` remains distinct.
+
+`ws.Trade.SubscribeToOrderUpdatesAsync` uses the authenticated private endpoint and has **no initial snapshot**. Subscription types are SPOT, MARGIN, SWAP, FUTURES, OPTION, EVENTS, and ANY; optional family filters apply to FUTURES/SWAP/OPTION. Orders push routing accepts concrete instrument metadata within an ANY/type/family subscription while enforcing explicit type/family/instrument filters. Subscribe/unsubscribe acknowledgements still match exact arguments; other channels' matching is unchanged.
+
+Callbacks forward rows without synthetic states, delays, reordering, caching, or deduplication. Preserve the first amendment-bearing `live` update and following `live`, even for the same order/state/timestamp. Application-side reconciliation should follow the channel guidance:
+
+- Deduplicate fills by instrument ID plus nonempty `TradeId`, not timestamp or order ID alone.
+- For a SPOT/MARGIN market terminal `filled` update without a trade ID, process the first terminal fill per order ID. `FillQuantity=0` in a market `filled` update does not mean it never filled.
+- Process only the first `canceled`/`mmp_canceled` terminal cancellation per order ID.
+- Deduplicate user amendment notifications by nonempty `ClientRequestId`; do not collapse system adjustments solely by order ID/state.
+
+`OkxTradeOrder.RiskBypassResult` preserves the string without interpretation; account-specific meanings require OKX's relationship manager. Missing/not-applicable values remain empty. `auto_conversion` is mapped without changing existing enum numbers. Shared envelope models retain optional `id`/`connId` and `arg.instType`/`arg.instFamily`; the per-order callback signature is unchanged and does not expose the entire envelope. Fee/rebate comments reflect SPOT/MARGIN maker-sell quote/base currencies and signed accumulated amounts; values are not recalculated. The orders channel reports `AveragePrice=0` before fills.
+
+The linked [connection-count contract](https://www.okx.com/docs-v5/en/#overview-websocket-connection-count-limit) allows 30 connections per affected channel per sub-account, not 30 subscription arguments. Multiple orders filters on one connection count once. Register `ws.ChannelConnectionCount` before subscribing: `channel-conn-count-error` can follow a successful acknowledgement and means that connection's channel subscription was terminated. `IsLimitError`, `Channel`, `ConnectionId`, and the server count expose this notice; a count update alone is not a termination. The wrapper does not infer sub-account identity, enforce a process-global quota, automatically resubscribe, or resend commands. Restore subscriptions and reconcile state deliberately. Trading commands are not themselves restricted by this channel connection-count rule.
+
+Expired OPTION closing orders do not produce orders-channel closing updates according to the current contract; reconcile expiry state separately. Documentation caveat: `linkedAlgoOrd.algoId` is labeled Object in the table but is a string in payload examples; the string representation is preserved. Prior WS attached-order and acknowledgement caveats remain applicable. Local tests do not prove matching-engine timing or private connection-limit enforcement.
+
 ### Trading Rate-Limit Scope
 
 The [trading rate-limit rules](https://www.okx.com/docs-v5/en/#overview-rate-limits-trading-related-apis) and current single/batch endpoint tables document 60 single-order commands per 2 seconds and 300 **orders** per 2 seconds for batches, keyed by User ID + instrument (Options: the official `instFamily`, not a family guessed from the symbol). A one-order batch consumes the single-order budget. Place and Amend are independent; REST and WS share their corresponding budgets. Lead instruments for a Copy Trading lead account use 4 commands/orders per 2 seconds on their respective single/batch endpoints.

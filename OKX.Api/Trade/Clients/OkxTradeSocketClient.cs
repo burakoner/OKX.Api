@@ -12,6 +12,10 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// <summary>
     /// Retrieve order information. Data will not be pushed when first subscribed. Data will only be pushed when triggered by events such as placing/canceling order.
     /// </summary>
+    /// <remarks>
+    /// Placement acceptance is not an order-book Live event. Post-only/RPI placement can first report Canceled.
+    /// Server updates are forwarded without synthetic states or deduplication, including consecutive Live updates.
+    /// </remarks>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentType">Instrument Type</param>
     /// <param name="instrumentFamily">Instrument Family</param>
@@ -29,6 +33,10 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// <summary>
     /// Retrieve order information. Data will not be pushed when first subscribed. Data will only be pushed when there are order updates.
     /// </summary>
+    /// <remarks>
+    /// Placement acceptance is not an order-book Live event. Post-only/RPI placement can first report Canceled.
+    /// Server updates are forwarded without synthetic states or deduplication, including consecutive Live updates.
+    /// </remarks>
     /// <param name="onData">On Data Handler</param>
     /// <param name="symbols">Symbols to subscribe</param>
     /// <param name="ct">Cancellation Token</param>

@@ -6,6 +6,7 @@
 public abstract class OkxBaseSocketClient : WebSocketApiClient
 {
     private const string ServiceUpgradeNoticeHandler = "service-upgrade-notice";
+    private const string ChannelConnectionCountHandler = "channel-connection-count";
 
     /// <summary>
     /// Logger
@@ -21,6 +22,13 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     /// Raised when OKX reports that a public, private, or business WebSocket connection will close for a service upgrade.
     /// </summary>
     public event Action<OkxSocketServiceUpgradeNotice>? ServiceUpgradeNotice;
+
+    /// <summary>
+    /// Raised for server channel connection counts and connection-limit termination notices.
+    /// A subscription acknowledgement does not guarantee that a subsequent limit error will not terminate it.
+    /// No automatic reconnect or subscription restoration is performed by this event.
+    /// </summary>
+    public event Action<OkxSocketChannelConnectionCount>? ChannelConnectionCount;
 
     /// <summary>
     /// If Websocket is authendicated
@@ -55,6 +63,7 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
 
         SetDataInterpreter(DecompressData, null);
         AddGenericHandler(ServiceUpgradeNoticeHandler, HandleServiceUpgradeNotice);
+        AddGenericHandler(ChannelConnectionCountHandler, HandleChannelConnectionCount);
         SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");
     }
 
@@ -323,7 +332,11 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
                 {
                     foreach (var arg in hRequest.Arguments)
                     {
-                        if (SocketArgumentsMatch(arg, resArg!))
+                        // Orders pushes may identify a concrete instrument within an ANY/type/family subscription.
+                        // Subscribe/unsubscribe acknowledgements still require exact argument equality.
+                        if (arg.Channel == "orders"
+                            ? OrderPushArgumentsMatch(arg, resArg!)
+                            : SocketArgumentsMatch(arg, resArg!))
                         {
                             return true;
                         }
@@ -338,6 +351,11 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     /// <inheritdoc />
     protected override bool MessageMatchesHandler(WebSocketConnection connection, JToken message, string identifier)
     {
+        if (identifier == ChannelConnectionCountHandler)
+            return message.Type == JTokenType.Object
+                && ((string?)message["event"] == "channel-conn-count"
+                    || (string?)message["event"] == "channel-conn-count-error");
+
         return identifier == ServiceUpgradeNoticeHandler
             && message.Type == JTokenType.Object
             && (string?)message["event"] == "notice"
@@ -377,6 +395,20 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
     #endregion
 
     #region Private Methods
+    private static bool OrderPushArgumentsMatch(OkxSocketRequestArgument requestArgument, OkxSocketRequestArgument responseArgument)
+    {
+        return responseArgument.Channel == "orders"
+            && responseArgument.InstrumentType.HasValue
+            && (requestArgument.InstrumentType == OkxInstrumentType.Any
+                || requestArgument.InstrumentType == responseArgument.InstrumentType)
+            && (requestArgument.InstrumentFamily is null || requestArgument.InstrumentFamily == responseArgument.InstrumentFamily)
+            && (requestArgument.InstrumentId is null || requestArgument.InstrumentId == responseArgument.InstrumentId)
+            && requestArgument.Currency == responseArgument.Currency
+            && requestArgument.AlgoOrderId == responseArgument.AlgoOrderId
+            && requestArgument.SpreadId == responseArgument.SpreadId
+            && DictionaryMatches(requestArgument.ExtraParameters, responseArgument.ExtraParameters);
+    }
+
     private static bool SocketArgumentsMatch(OkxSocketRequestArgument requestArgument, OkxSocketRequestArgument responseArgument)
     {
         return requestArgument.Channel == responseArgument.Channel
@@ -413,6 +445,34 @@ public abstract class OkxBaseSocketClient : WebSocketApiClient
             catch (Exception exception)
             {
                 Logger.LogError(exception, "A service upgrade notice handler failed");
+            }
+        }
+    }
+
+    private void HandleChannelConnectionCount(WebSocketMessageEvent message)
+    {
+        var result = Deserialize<OkxSocketChannelConnectionCount>(message.JsonData);
+        if (!result)
+        {
+            Logger.LogWarning($"Failed to deserialize channel connection count: {result.Error}. Data: {message.JsonData}");
+            return;
+        }
+
+        var notice = result.Data;
+        Logger.Log(notice.IsLimitError ? LogLevel.Warning : LogLevel.Debug,
+            $"WebSocket {notice.Event}: channel {notice.Channel}, connection {notice.ConnectionId}, count {notice.ConnectionCount}");
+
+        var handlers = ChannelConnectionCount;
+        if (handlers is null) return;
+        foreach (Action<OkxSocketChannelConnectionCount> handler in handlers.GetInvocationList())
+        {
+            try
+            {
+                handler(notice);
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception, "A channel connection count handler failed");
             }
         }
     }

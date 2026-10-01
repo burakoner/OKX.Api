@@ -46,4 +46,10 @@ public enum OkxOrderCategory : byte
     /// </summary>
     [Map("ddh")]
     DDH = 7,
+
+    /// <summary>
+    /// Automatic conversion.
+    /// </summary>
+    [Map("auto_conversion")]
+    AutoConversion = 8,
 }

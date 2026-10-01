@@ -26,7 +26,8 @@ public enum OkxTradeOrderAmendSource : byte
     NewOrderWithReduceOnlyQuantityOverride = 3,
 
     /// <summary>
-    /// Order amended by the reduce-only system because of other pending orders.
+    /// New order quantity overridden, or an existing order reduced because of other pending orders,
+    /// by the reduce-only system.
     /// </summary>
     [Map("4")]
     SystemReduceOnly = 4,

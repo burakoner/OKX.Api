@@ -55,6 +55,27 @@ var accountSubscription = await ws.Account.SubscribeToAccountUpdatesAsync(
     data => Console.WriteLine($"Updated account snapshot with {data.Details.Count} balance entries"));
 ```
 
+## Order Updates and Connection Limits
+
+```csharp
+ws.ChannelConnectionCount += notice =>
+{
+    if (notice.IsLimitError)
+    {
+        Console.WriteLine($"OKX terminated {notice.Channel} on connection {notice.ConnectionId}");
+        // Coordinate subscription restoration and state reconciliation in the application.
+    }
+};
+
+var orderSubscription = await ws.Trade.SubscribeToOrderUpdatesAsync(
+    order => Console.WriteLine($"{order.OrderId}: {order.OrderState}, cancel source {order.CancelSource}"),
+    OkxInstrumentType.Any);
+```
+
+The [orders channel](https://www.okx.com/docs-v5/en/#order-book-trading-trade-ws-order-channel) sends no initial snapshot. Subscribe before placing orders and reconcile existing/pending state through REST deliberately. Placement acknowledgement is not proof of book entry: post-only/MMP post-only/RPI orders can first report only `Canceled`, without `Live`. System size/price adjustments can produce two consecutive `Live` updates, with amendment metadata in the first. The wrapper forwards both and leaves deduplication/reconciliation to the application; see the [trade reference](../reference/trade.md#orders-channel-placement-state-and-reconciliation).
+
+OKX's [channel connection limit](https://www.okx.com/docs-v5/en/#overview-websocket-connection-count-limit) is 30 connections per affected channel per sub-account. `ChannelConnectionCount` reports both counts and limit errors. A limit error can arrive **after** successful subscription acknowledgement and terminate that channel subscription. This event is notification only: it does not automatically reconnect, restore subscriptions, update the returned subscription object's lifecycle, or retry orders.
+
 ## Unsubscribe
 
 `SubscribeTo...Async` methods return a subscription object that can be passed to `UnsubscribeAsync`:
