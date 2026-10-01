@@ -124,7 +124,9 @@ public record OkxTradeOrderPlaceRequest
 
     /// <summary>
     /// The quote currency used for trading. Only applicable to SPOT.
-    /// The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.
+    /// The server default is the quote currency of instId: BTC-USDC defaults to USDC, not USD.
+    /// To continue trading in USD after a Crypto-USD migration, explicitly pass USD if the account's tradeQuoteCcyList allows it.
+    /// The wrapper neither supplies a default nor rewrites instrument IDs/codes.
     /// </summary>
     [JsonProperty("tradeQuoteCcy", NullValueHandling = NullValueHandling.Ignore)]
     public string? TradeQuoteCurrency { get; set; }

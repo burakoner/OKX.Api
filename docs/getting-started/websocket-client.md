@@ -46,6 +46,12 @@ var subscription = await ws.Public.SubscribeToTickersAsync(
     "BTC-USDT");
 ```
 
+## Instrument Catalog Updates
+
+For `SubscribeToInstrumentsAsync`, do not expect an initial full list or replace the whole catalog on each push. Some scenarios now send only changed instruments; update entries by `InstrumentId` and reconcile missing/removal cases deliberately through REST. The wrapper forwards individual records and maintains no catalog. See the [incremental catalog contract](../reference/public.md#instrument-catalog-and-incremental-updates).
+
+Affected Crypto-USD SPOT pairs now use new Crypto-USDC IDs **and codes**, without server-side legacy mapping. Refresh subscriptions and all ID/code caches yourself; WS placement needs the new integer code. If keeping USD trading, explicitly select `TradeQuoteCurrency = "USD"` when the account's quote list permits it. Omission on a new USDC pair defaults to USDC, subject to regional/account rules. See the [migration contract](../reference/trade.md#crypto-usd-to-crypto-usdc-migration); activation and order replay are never automatic.
+
 ## Private Subscription Example
 
 ```csharp

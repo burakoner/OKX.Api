@@ -330,7 +330,9 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
 
     #region Public Data
     /// <summary>
-    /// The full instrument list will be pushed for the first time after subscription. Subsequently, the instruments will be pushed if there's any change to the instrument’s state (such as delivery of FUTURES, exercise of OPTION, listing of new contracts / trading pairs, trading suspension, etc.).
+    /// Receive individual instrument records for state, trading-parameter, or listing/expiry-time changes.
+    /// Pushes can contain only changed instruments; neither an initial full list nor a full list per push is guaranteed.
+    /// Update an application catalog by InstrumentId, retain unrelated entries, and reconcile through REST explicitly.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentType">Instrument Type</param>
@@ -340,7 +342,9 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
         => await SubscribeToInstrumentsAsync(onData, [instrumentType], ct).ConfigureAwait(false);
 
     /// <summary>
-    /// The full instrument list will be pushed for the first time after subscription. Subsequently, the instruments will be pushed if there's any change to the instrument’s state (such as delivery of FUTURES, exercise of OPTION, listing of new contracts / trading pairs, trading suspension, etc.).
+    /// Receive individual instrument records for state, trading-parameter, or listing/expiry-time changes.
+    /// Pushes can contain only changed instruments; neither an initial full list nor a full list per push is guaranteed.
+    /// Update an application catalog by InstrumentId, retain unrelated entries, and reconcile through REST explicitly.
     /// </summary>
     /// <param name="onData">On Data Handler</param>
     /// <param name="instrumentTypes">List of Instrument Type</param>

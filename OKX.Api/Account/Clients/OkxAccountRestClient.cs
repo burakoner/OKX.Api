@@ -18,6 +18,28 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
         };
 
     /// <summary>
+    /// Explicitly activate an account feature. Call for USDC trading only after order placement returns 54109.
+    /// Activation affects the master account and all its sub-accounts; no order is retried by this method.
+    /// Error 51773 means this activation feature is unsupported, not that Crypto-USDC trading is impossible.
+    /// </summary>
+    /// <param name="feature">Feature to activate</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns>A dataless result: the official success response contains an empty data array.</returns>
+    public async Task<RestCallResult> ActivateFeatureAsync(OkxAccountFeature feature, CancellationToken ct = default)
+    {
+        if (feature != OkxAccountFeature.UsdcOrderBookTrading)
+            throw new ArgumentOutOfRangeException(nameof(feature));
+
+        var parameters = new ParameterCollection();
+        parameters.AddEnum("feature", feature);
+
+        var result = await ProcessListRequestAsync<object>(
+            GetUri("api/v5/account/activate-feature"), HttpMethod.Post, ct,
+            signed: true, bodyParameters: parameters).ConfigureAwait(false);
+        return result.AsDataless();
+    }
+
+    /// <summary>
     /// Retrieve the latest daily and month-to-date Global Liquidity Program performance snapshot.
     /// Only enrolled GLP accounts can use this endpoint. A sub-account resolves to its master account.
     /// </summary>
@@ -86,6 +108,7 @@ public class OkxAccountRestClient(OkxRestApiClient root) : OkxBaseRestClient(roo
 
     /// <summary>
     /// Retrieve available instruments info of current account.
+    /// For SPOT, use tradeQuoteCcyList to select an account-supported trading quote currency.
     /// </summary>
     /// <param name="instrumentType">Instrument type</param>
     /// <param name="instrumentFamily">Instrument family</param>

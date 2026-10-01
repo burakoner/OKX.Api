@@ -93,6 +93,7 @@ public class OkxRestApiOptions : RestApiClientOptions
             .AddEndpointLimit("/api/v5/market/trades", 100, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/trade/account-rate-limit", 1, TimeSpan.FromSeconds(1), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/account/trade-fee", 5, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
+            .AddEndpointLimit("/api/v5/account/activate-feature", 5, TimeSpan.FromSeconds(2), HttpMethod.Post, true)
             .AddEndpointLimit("/api/v5/finance/okusd/limits", 2, TimeSpan.FromSeconds(2), HttpMethod.Get, true)
             .AddEndpointLimit("/api/v5/finance/okusd/subscribe", 1, TimeSpan.FromSeconds(2), HttpMethod.Post, true)
             .AddEndpointLimit("/api/v5/finance/okusd/redeem", 1, TimeSpan.FromSeconds(2), HttpMethod.Post, true)

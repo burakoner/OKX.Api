@@ -35,6 +35,24 @@ await api.Trade.ClosePositionAsync("BTC-USDT-SWAP", OkxAccountMarginMode.Cross);
 await api.Trade.CancelAllAfterAsync(30);
 ```
 
+## Crypto-USD to Crypto-USDC Migration
+
+The [September 30 migration notice](https://www.okx.com/docs-v5/log_en/#2026-09-30) delists the affected **SPOT Crypto-USD** instruments in favor of their corresponding Crypto-USDC instruments. This is not a blanket rewrite of every USD futures/swap/options symbol. Old `instId`/`instIdCode` values are **not mapped server-side** and can fail or return no data; requests, subscriptions, response parsing, instrument metadata, configured limiter registrations, and all keyed caches must use the actual new IDs/codes. The wrapper does not rewrite them or infer a stable code/alias.
+
+Select trading currency from the current private [Account instruments](https://www.okx.com/docs-v5/en/#trading-account-rest-api-get-instruments) `TradeQuoteCurrencyList`. The existing REST positional/model/batch and WS single/batch placement paths preserve the caller's optional `tradeQuoteCcy` independently for every order. REST uses the actual `InstrumentId`; WS uses its actual integer `InstrumentIdCode`, with no legacy-ID translation.
+
+| Quote choice on the new Crypto-USDC SPOT instrument | Wire value | Server default/intent |
+| --- | --- | --- |
+| Continue USD trading, if supported by the account | `TradeQuoteCurrency = "USD"` | Explicit USD; omission does not preserve the old USD default |
+| Explicit USDC trading | `TradeQuoteCurrency = "USDC"` | Explicit USDC |
+| Leave quote unspecified | null, field omitted | New instrument's USDC quote currency, subject to regional/account rules |
+
+Some regions require an explicit quote currency and can return `51000` when it is omitted; the REST Place contract requires provided values to belong to the account's `tradeQuoteCcyList`. The current placement tables still illustrate the default with `BTC-USD`; this is an example, not a guarantee that an affected delisted pair or its old default remains available. Sources: current [REST single](https://www.okx.com/docs-v5/en/#order-book-trading-trade-post-place-order), [REST batch](https://www.okx.com/docs-v5/en/#order-book-trading-trade-post-place-multiple-orders), [WS single](https://www.okx.com/docs-v5/en/#order-book-trading-trade-ws-place-order), and [WS batch](https://www.okx.com/docs-v5/en/#order-book-trading-trade-ws-place-multiple-orders) contracts, supplemented by the migration notice.
+
+When placement returns `54109`, consider the explicit [activation method](./account.md#explicit-usdc-feature-activation) under the account owner's control. Trade methods preserve actual per-item rejection and mixed-batch accepted outcomes; they do not activate features or resend orders. Always inspect every item's `ErrorCode` (`sCode`), including when WS code-0 `Success` is true. Do not replay an accepted batch item while handling another item's activation requirement, or blindly retry an uncertain outcome. No funds are converted/transferred and no account or existing order is changed by migration guidance.
+
+The 49 new September 30 cases use local signed REST requests and captured WS commands/pushes. They verify forwarding, omission, actual codes, incremental catalog handling, activation errors/limits, and no automatic replay—not live eligibility, server migration timing, or global rate-limit enforcement. Existing trading limiter and documentation-conflict boundaries below remain unchanged.
+
 ## Method Catalog
 
 ### Order Placement and Management

@@ -39,7 +39,7 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
     /// Only applicable to options
     /// When placing an option order, one of px/pxUsd/pxVol must be filled in, and only one can be filled in</param>
     /// 
-    /// <param name="tradeQuoteCurrency">The quote currency used for trading. Only applicable to SPOT. The default value is the quote currency of the instId, for example: for BTC-USD, the default is USD.</param>
+    /// <param name="tradeQuoteCurrency">SPOT trading quote currency, selected from the account's tradeQuoteCcyList. Omission uses the server's instId quote currency; BTC-USDC defaults to USDC. Explicitly pass USD to retain USD trading after migration, if supported by the account.</param>
     /// <param name="priceAmendType">Price Amend Type</param>
     /// <param name="isElpTakerAccess">Deprecated ELP-named alias for rpiTakerAccess. Accepted by OKX through October 31, 2026.</param>
     /// <param name="outcome">Event contract outcome side. Only applicable and required for EVENTS.</param>

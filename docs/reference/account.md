@@ -88,6 +88,7 @@ When `ApplyBillDataAsync` returns `false`, OKX says to check the link after two 
 
 ### Configuration and Leverage
 
+- `ActivateFeatureAsync`
 - `GetConfigurationAsync`
 - `SetPositionModeAsync`
 - `SetLeverageAsync`
@@ -98,6 +99,16 @@ When `ApplyBillDataAsync` returns `false`, OKX says to check the link after two 
 - `SetTradingConfigAsync`
 - `PrecheckSetDeltaNeutralAsync`
 - `SetLevelAsync`
+
+### Explicit USDC Feature Activation
+
+`ActivateFeatureAsync(OkxAccountFeature.UsdcOrderBookTrading)` implements signed `POST /api/v5/account/activate-feature` with the required string `feature: "1"`. The complete [official contract](https://www.okx.com/docs-v5/en/#trading-account-rest-api-activate-feature) says to call it **only after order placement returns 54109**, not proactively for every account or instrument. It changes account state and is never called automatically by Trade methods.
+
+Activation is shared by the master account and all its sub-accounts; the master or any one sub-account only needs to call once. Coordinate that choice across your application/accounts. No local activation cache, capability inference, order replay, or retry is introduced. Error `51773` means this activation feature is unsupported (the general error table describes regional availability); it does **not** prove Crypto-USDC trading is unavailable. Do not send a real order merely to probe that question.
+
+Success contains `data: []` and no response parameters, so the method returns native dataless `RestCallResult`, preserving `Success`, numeric errors/messages and HTTP request/response metadata, without inventing a boolean or timestamp response. The SDK's dataless result has no `Raw` property. Missing credentials retain the existing client authentication exception convention; cancellation is forwarded normally.
+
+The registered endpoint guard allows 5 requests per 2 seconds within the configured client limiter. The official key is User ID, so applications using multiple keys/clients/processes for the same account must coordinate their combined usage; this is not a global account limiter. See [Crypto-USDC migration](./trade.md#crypto-usd-to-crypto-usdc-migration) for account quote-currency selection.
 
 ### Limits, Fees, and Rates
 
@@ -230,6 +241,7 @@ var borrowRepayHistory = await api.Account.GetBorrowRepayHistoryAsync(new OkxAcc
 - `PositionBuilderAsync` is useful for portfolio margin and delta-neutral tooling, not day-to-day spot usage.
 - Private `GetInstrumentsAsync` requires `seriesId` for EVENTS and `instFamily` for OPTION. A `FUTURES` query also returns Pre-market X-Perps as `RuleType = PreMarket`, changing to `XPerp` after conversion. SWAP/FUTURES responses expose both USD `maxPlatOILmt` and coin-denominated `maxPlatOICoinLmt`; OKX reports platform-limit opening rejections with error `54031`.
 - Private instruments may contain both the current `RpiMakerPermission` field and the deprecated `ElpMakerPermission` alias through October 31, 2026. Use `EffectiveRpiMakerPermission`: it gives `rpi` precedence when both are present and falls back to `elp` for transitional responses.
+- For SPOT, private `TradeQuoteCurrencyList` supplies the quote currencies allowed for the account; the public quote symbol alone is not an account permission. Instruments request/schema parity and the retained conservative per-type-throttling boundary are documented in the [catalog reference](./public.md#instrument-catalog-and-incremental-updates).
 - `MovePositionsAsync` requires a VIP6 master-account API key, different source and destination accounts under the same master account, a 1-to-32 character alphanumeric client ID, and at most 30 legs. Margin trading positions are unsupported; the current official contract supports TradeFi positions, including equity perpetuals/XPerp.
 - `AdjustDemoAccountBalanceAsync` is rejected locally unless `DemoTradingService` is enabled. It supports only BTC, ETH, USDT, and OKB; OKX validates the current precision for each currency server-side.
 - OKX reports exhausted daily increase quota as `59691`, insufficient balance as `59692`, and insufficient transferable balance as `59693`.

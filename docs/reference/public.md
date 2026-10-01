@@ -55,6 +55,20 @@ The endpoint has its own 20-requests-per-2-seconds IP budget, shared across filt
 
 This is reference data, not a hedge sizing calculation, price/conversion guarantee, account permission, or automatic delta-neutral strategy activation. The 16 deterministic tests cover the official example and synthetic edge/error responses through a local server; they do not verify live mappings or production hedge/rate-limit enforcement.
 
+### Instrument Catalog and Incremental Updates
+
+The [September 30 notice](https://www.okx.com/docs-v5/log_en/#2026-09-30) changes the list-level assumption: the [instruments channel](https://www.okx.com/docs-v5/en/#public-data-websocket-instruments-channel) can send only changed instruments, and further scenarios may become incremental without another announcement. Never replace your complete catalog with a push's `data` array or delete instruments merely because they are absent. There is no guaranteed initial full list, snapshot/delta flag, or sequence field in this channel's current contract.
+
+`SubscribeToInstrumentsAsync` already forwards each actual record without a wrapper-owned catalog. Upsert application entries by `InstrumentId`, preserve unrelated records, and treat an explicit `Expired` record as lifecycle information. Multiple records and repeated records are forwarded; an empty data array produces no callbacks. `UpcomingChanges` describes future `tickSz`, `minSz`, or `maxMktSz` changes, not values to apply before their effective time.
+
+Use [Public Get instruments](https://www.okx.com/docs-v5/en/#public-data-rest-api-get-instruments) for a catalog refresh and [Account Get instruments](https://www.okx.com/docs-v5/en/#trading-account-rest-api-get-instruments) for account-specific metadata, especially `TradeQuoteCurrencyList`. Coordinate bootstrap, buffered pushes, reconnect refreshes, and concurrent catalog access in the application; the wrapper does not promise an atomic REST/WS snapshot or gap-free reconciliation. Announcement-time records can contain empty trading fields and an unavailable code; do not fill them from guessed/stale metadata and treat them as ready to trade.
+
+Documentation caveat: the channel's older canceled-preopen-listing paragraph still describes a full list excluding the canceled symbol. That does not establish safe absence-as-deletion for all pushes under the newer incremental notice. Deliberate REST reconciliation is needed for removals not explicitly reported; no automatic removal policy is introduced.
+
+The official REST budgets are 20 requests per 2 seconds by **IP + instType** (public) and **User ID + instType** (account). Existing default throttling remains a conservative, combined 20-per-2-second budget across these and other non-exempt requests, not separate per-type budgets or cross-client/IP/User-ID coordination. ApiSharp 4.5.1 passes only the URI path to its configured rate limiters, not `instType`; see the [September 30 boundary](../maintenance-plan.md#september-30--2026-10-01). No throughput increase or exact per-type parity is claimed.
+
+For the affected Crypto-USD SPOT instruments, refresh IDs **and** codes for the corresponding Crypto-USDC instruments. Unlike the specific SPCX rename below, do not assume the old code is preserved; no server-side legacy mapping is provided. Update subscriptions, request construction, parsing, and every ID/code cache deliberately; see [quote-currency migration](./trade.md#crypto-usd-to-crypto-usdc-migration).
+
 ### Pre-market X-Perp Instruments
 
 Pre-market X-Perps are returned by the public and private instruments REST endpoints, and by the `instruments` WebSocket channel, with `InstrumentType = OkxInstrumentType.Futures`. Do not classify every `FUTURES` instrument as a conventional expiry future; inspect `RuleType` as well.
@@ -368,6 +382,6 @@ These helpers return midnight `DateTime` values with `Kind.Unspecified`: they ar
 - Instrument responses preserve the current price-limit percentages, RPI spacing, string-valued fee `groupId`, deprecated auction/category fields, and upcoming-change metadata.
 - Query Pre-market X-Perps with `GetInstrumentsAsync(OkxInstrumentType.Futures)` and distinguish the `pre_market` and `xperp` lifecycle phases through `RuleType`; do not infer the product from `InstrumentType` alone.
 - OKX renamed `SPACEX-USDT-SWAP` to `SPCX-USDT-SWAP`; the related `uly`, `instFamily`, and `ctValCcy` values changed to `SPCX`, while `instIdCode` remained stable. The wrapper does not silently rewrite instrument IDs. Refresh the instrument catalog and use the current `SPCX-USDT-SWAP`/`SPCX-USDT` values for REST requests and new WebSocket subscriptions.
-- During an instrument rename, the instruments channel can emit the old ID as `expired`, followed by the new ID as `rebase`, `post_only`, and `live`. Consumers should process each update and use the stable `instIdCode` when correlating the old and new symbols.
+- During the specific SPACEX-to-SPCX rename, the instruments channel can emit the old ID as `expired`, followed by the new ID as `rebase`, `post_only`, and `live`. Consumers can use that rename's stable `instIdCode` to correlate the symbols; do not generalize code stability to the Crypto-USD-to-Crypto-USDC migration.
 
 

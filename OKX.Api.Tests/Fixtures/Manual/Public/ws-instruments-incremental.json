@@ -1,0 +1,31 @@
+{
+  "arg": { "channel": "instruments", "instType": "SPOT" },
+  "data": [
+    {
+      "instType": "SPOT",
+      "instId": "BTC-USDC",
+      "instIdCode": "9000000001",
+      "baseCcy": "BTC",
+      "quoteCcy": "USDC",
+      "groupId": "4",
+      "state": "live",
+      "ruleType": "normal",
+      "tickSz": "0.1",
+      "lotSz": "0.00000001",
+      "minSz": "0.00001",
+      "maxMktSz": "100",
+      "maxLmtAmt": "1000000",
+      "maxMktAmt": "1000000",
+      "listTime": "1790812800000",
+      "expTime": "",
+      "auctionEndTime": "",
+      "contTdSwTime": "",
+      "preMktSwTime": "",
+      "upcChg": [
+        { "param": "tickSz", "newValue": "0.01", "effTime": "1790899200000" },
+        { "param": "minSz", "newValue": "0.0001", "effTime": "1790899200000" },
+        { "param": "maxMktSz", "newValue": "200", "effTime": "1790899200000" }
+      ]
+    }
+  ]
+}
