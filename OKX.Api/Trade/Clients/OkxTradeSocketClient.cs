@@ -107,10 +107,16 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
-    public async Task<CallResult<OkxTradeOrderPlaceResponse>> PlaceOrderAsync(OkxTradeOrderPlaceRequest request)
+    public Task<CallResult<OkxTradeOrderPlaceResponse>> PlaceOrderAsync(OkxTradeOrderPlaceRequest request)
+        => PlaceOrderAsync(request, null);
+
+    /// <summary>Place an order with an optional server-evaluated effective deadline.</summary>
+    /// <param name="request">Order request.</param>
+    /// <param name="expiryTimestamp">Absolute Unix-millisecond deadline; null omits expTime.</param>
+    public async Task<CallResult<OkxTradeOrderPlaceResponse>> PlaceOrderAsync(OkxTradeOrderPlaceRequest request, long? expiryTimestamp)
     {
         var socketRequest = CreateSocketPlaceOrderRequest(request);
-        var req = new OkxSocketRequest<OkxTradeOrderPlaceRequest>(_.RequestId().ToString(), OkxSocketOperation.Order, [socketRequest]);
+        var req = CreateTradeRequest(_.RequestId().ToString(), OkxSocketOperation.Order, new[] { socketRequest }, expiryTimestamp);
         return await _.RootQueryAsync<OkxTradeOrderPlaceResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
@@ -121,10 +127,16 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// </summary>
     /// <param name="requests">Requests</param>
     /// <returns></returns>
-    public async Task<CallResult<IEnumerable<OkxTradeOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxTradeOrderPlaceRequest> requests)
+    public Task<CallResult<IEnumerable<OkxTradeOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxTradeOrderPlaceRequest> requests)
+        => PlaceOrdersAsync(requests, null);
+
+    /// <summary>Place up to 20 orders with one optional server-evaluated deadline for the whole command.</summary>
+    /// <param name="requests">Order requests.</param>
+    /// <param name="expiryTimestamp">Absolute Unix-millisecond deadline; null omits expTime.</param>
+    public async Task<CallResult<IEnumerable<OkxTradeOrderPlaceResponse>>> PlaceOrdersAsync(IEnumerable<OkxTradeOrderPlaceRequest> requests, long? expiryTimestamp)
     {
         var socketRequests = CreateSocketPlaceOrderRequests(requests);
-        var req = new OkxSocketRequest<OkxTradeOrderPlaceRequest>(_.RequestId().ToString(), OkxSocketOperation.BatchOrders, socketRequests);
+        var req = CreateTradeRequest(_.RequestId().ToString(), OkxSocketOperation.BatchOrders, socketRequests, expiryTimestamp);
         return await _.RootQueryAsync<IEnumerable<OkxTradeOrderPlaceResponse>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
@@ -160,10 +172,16 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
-    public async Task<CallResult<OkxTradeOrderAmend>> AmendOrderAsync(OkxTradeOrderAmendRequest request)
+    public Task<CallResult<OkxTradeOrderAmend>> AmendOrderAsync(OkxTradeOrderAmendRequest request)
+        => AmendOrderAsync(request, null);
+
+    /// <summary>Amend an incomplete order with an optional server-evaluated effective deadline.</summary>
+    /// <param name="request">Amendment request.</param>
+    /// <param name="expiryTimestamp">Absolute Unix-millisecond deadline; null omits expTime.</param>
+    public async Task<CallResult<OkxTradeOrderAmend>> AmendOrderAsync(OkxTradeOrderAmendRequest request, long? expiryTimestamp)
     {
         var socketRequest = CreateSocketAmendOrderRequest(request);
-        var req = new OkxSocketRequest<OkxTradeOrderAmendRequest>(_.RequestId().ToString(), OkxSocketOperation.AmendOrder, [socketRequest]);
+        var req = CreateTradeRequest(_.RequestId().ToString(), OkxSocketOperation.AmendOrder, new[] { socketRequest }, expiryTimestamp);
         return await _.RootQueryAsync<OkxTradeOrderAmend>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
@@ -173,10 +191,16 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
     /// </summary>
     /// <param name="requests">Requests</param>
     /// <returns></returns>
-    public async Task<CallResult<IEnumerable<OkxTradeOrderAmend>>> AmendOrdersAsync(IEnumerable<OkxTradeOrderAmendRequest> requests)
+    public Task<CallResult<IEnumerable<OkxTradeOrderAmend>>> AmendOrdersAsync(IEnumerable<OkxTradeOrderAmendRequest> requests)
+        => AmendOrdersAsync(requests, null);
+
+    /// <summary>Amend up to 20 orders with one optional server-evaluated deadline for the whole command.</summary>
+    /// <param name="requests">Amendment requests.</param>
+    /// <param name="expiryTimestamp">Absolute Unix-millisecond deadline; null omits expTime.</param>
+    public async Task<CallResult<IEnumerable<OkxTradeOrderAmend>>> AmendOrdersAsync(IEnumerable<OkxTradeOrderAmendRequest> requests, long? expiryTimestamp)
     {
         var socketRequests = CreateSocketAmendOrderRequests(requests);
-        var req = new OkxSocketRequest<OkxTradeOrderAmendRequest>(_.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, socketRequests);
+        var req = CreateTradeRequest(_.RequestId().ToString(), OkxSocketOperation.BatchAmendOrders, socketRequests, expiryTimestamp);
         return await _.RootQueryAsync<IEnumerable<OkxTradeOrderAmend>>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
 
@@ -191,6 +215,10 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
         var req = new OkxSocketRequest<OkxTradeMassCancelRequest>(_.RequestId().ToString(), OkxSocketOperation.MassCancel, [request]);
         return await _.RootQueryAsync<OkxBooleanResponse>(OkxSocketEndpoint.Private, req, true).ConfigureAwait(false);
     }
+
+    private static OkxSocketRequest<T> CreateTradeRequest<T>(
+        string requestId, OkxSocketOperation operation, IEnumerable<T> requests, long? expiryTimestamp)
+        => new(requestId, operation, requests) { ExpiryTimestamp = expiryTimestamp };
 
     private static OkxTradeOrderPlaceRequest CreateSocketPlaceOrderRequest(OkxTradeOrderPlaceRequest request)
     {
@@ -228,6 +256,8 @@ public class OkxTradeSocketClient(OkxWebSocketApiClient root)
 
         if (request.InstrumentIdCode is null)
             throw new ArgumentException("OKX deprecated instId for WebSocket amend order channels on 2026-04-07. Set InstrumentIdCode and map it via GetInstrumentsAsync before sending the request.", nameof(request));
+
+        request.Validate();
 
 #pragma warning disable CS0618
         return request with

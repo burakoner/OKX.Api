@@ -54,6 +54,25 @@ public class OkxPublicOrderBookSocketContractTests
     }
 
     [Fact]
+    public void RpiOrganicOnlyUpdate_PreservesDepthAndSequenceWithoutInferringAbsentMakers()
+    {
+        var before = Assert.Single(Deserialize("ws-order-book-rpi.json").Data);
+        var response = Deserialize("ws-order-book-rpi-organic-only-update.json");
+        var after = Assert.Single(response.Data);
+
+        Assert.Equal("books-rpi", response.Arguments!.Channel);
+        Assert.Equal("update", response.Action);
+        Assert.Equal(before.SequenceId, after.PreviousSequenceId);
+        Assert.Equal(201L, after.SequenceId);
+        Assert.Equal(before.Asks[0].NonRpiQuantity, after.Asks[0].Quantity);
+        Assert.Equal(before.Bids[0].NonRpiQuantity, after.Bids[0].Quantity);
+        Assert.All(after.Asks.Concat(after.Bids), row => Assert.Equal(row.Quantity, row.NonRpiQuantity));
+#pragma warning disable CS0618
+        Assert.Null(after.Checksum);
+#pragma warning restore CS0618
+    }
+
+    [Fact]
     public void DeprecatedCompatibilityMembers_AreMarkedObsolete()
     {
         Assert.NotNull(typeof(OkxPublicOrderBookStream).GetProperty("Checksum")!.GetCustomAttribute<ObsoleteAttribute>());

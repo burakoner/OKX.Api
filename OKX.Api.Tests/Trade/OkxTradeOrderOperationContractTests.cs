@@ -28,6 +28,8 @@ public class OkxTradeOrderOperationContractTests
 
         var item = Assert.Single(response.Data!);
         Assert.Equal("req-01", item.RequestId);
+        Assert.Equal(1695190491421L, item.Timestamp);
+        Assert.Equal(DateTimeKind.Utc, item.Time.Kind);
         Assert.Equal("51008", item.ErrorCode);
         Assert.Equal("Amend failed", item.ErrorMessage);
         Assert.Equal("54071", item.SubCode);
@@ -51,6 +53,8 @@ public class OkxTradeOrderOperationContractTests
 
         var item = Assert.Single(items);
         Assert.Equal("req-ws-01", item.RequestId);
+        Assert.Equal(1695190491421L, item.Timestamp);
+        Assert.Equal(DateTimeOffset.FromUnixTimeMilliseconds(1695190491421).UtcDateTime, item.Time);
         Assert.Equal("51008", item.ErrorCode);
         Assert.Equal("Amend failed", item.ErrorMessage);
         Assert.Equal("54071", item.SubCode);

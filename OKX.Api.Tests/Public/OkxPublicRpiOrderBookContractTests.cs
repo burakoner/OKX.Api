@@ -1,3 +1,4 @@
+using ApiSharp.Throttling;
 using OKX.Api.Public;
 using OKX.Api.Tests.TestInfrastructure;
 
@@ -36,6 +37,40 @@ public class OkxPublicRpiOrderBookContractTests
     }
 
     [Fact]
+    public async Task GetRpiOrderBook_PreservesOrganicOnlyRowsAndOmitsUnspecifiedDepth()
+    {
+        // Synthetic shape derived from the official fail-closed rule; not evidence of a live hidden order.
+        using var server = new LocalOkxRestServer(new Dictionary<string, string>
+        {
+            ["GET /api/v5/market/books-rpi"] = FixtureReader.ReadManual("Public", "get-rpi-order-book-organic-only.json"),
+        });
+        var result = await CreateClient(server).Public.GetRpiOrderBookAsync("BTC-USDT-SWAP");
+
+        Assert.True(result.Success, result.Error?.ToString());
+        Assert.DoesNotContain("sz=", Assert.Single(server.Requests).Query);
+        Assert.Equal(332042172452L, result.Data.SequenceId);
+        Assert.All(result.Data.Asks.Concat(result.Data.Bids), row =>
+        {
+            Assert.Equal(row.NonRpiQuantity, row.Quantity);
+            Assert.True(row.Quantity > 0m); // No synthetic RPI or removal of valid organic depth.
+        });
+    }
+
+    [Fact]
+    public async Task GetRpiOrderBook_EnforcesTwentyPerTwoSecondLimit()
+    {
+        using var server = new LocalOkxRestServer(new Dictionary<string, string>
+        {
+            ["GET /api/v5/market/books-rpi"] = FixtureReader.ReadManual("Public", "get-rpi-order-book-organic-only.json"),
+        });
+        var client = CreateClient(server, RateLimitingBehavior.Fail);
+        for (var i = 0; i < 20; i++)
+            Assert.True((await client.Public.GetRpiOrderBookAsync("BTC-USDT-SWAP")).Success);
+        Assert.False((await client.Public.GetRpiOrderBookAsync("BTC-USDT-SWAP")).Success);
+        Assert.Equal(20, server.Requests.Count);
+    }
+
+    [Fact]
     public async Task GetRpiOrderBook_RejectsInvalidRequestBeforeSending()
     {
         using var server = new LocalOkxRestServer(new Dictionary<string, string>());
@@ -48,10 +83,11 @@ public class OkxPublicRpiOrderBookContractTests
         Assert.Empty(server.Requests);
     }
 
-    private static OkxRestApiClient CreateClient(LocalOkxRestServer server)
+    private static OkxRestApiClient CreateClient(LocalOkxRestServer server, RateLimitingBehavior behavior = RateLimitingBehavior.Wait)
         => new(new OkxRestApiOptions(new OkxApiCredentials("key", "secret", "pass"))
         {
             AutoTimestamp = false,
             BaseAddress = server.BaseAddress,
+            RateLimitingBehavior = behavior,
         });
 }

@@ -439,6 +439,8 @@ public record OkxPublicInstrument
 
     /// <summary>
     /// Minimum spacing between RPI bid and ask prices in organic price levels.
+    /// The level check references only the first visible opposite-side RPI; hidden RPI is excluded.
+    /// With no visible opposite-side RPI, the level check passes.
     /// Only returned by the public instruments endpoint.
     /// </summary>
     [JsonProperty("rpiMinLevel")]
@@ -446,6 +448,7 @@ public record OkxPublicInstrument
 
     /// <summary>
     /// Minimum distance from the opposite organic best price in basis points.
+    /// The bps check always references organic best bid/offer, never an RPI price.
     /// Only returned by the public instruments endpoint.
     /// </summary>
     [JsonProperty("rpiMinPxBand")]

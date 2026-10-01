@@ -66,6 +66,14 @@ public record OkxSocketRequest
 public record OkxSocketRequest<T>
 {
     /// <summary>
+    /// Optional effective deadline for trade place/amend operations, in Unix milliseconds.
+    /// Serialized at the command root, not in args. OKX evaluates expiration server-side.
+    /// </summary>
+    [JsonProperty("expTime", NullValueHandling = NullValueHandling.Ignore)]
+    [JsonConverter(typeof(LongAsStringNullableConverter))]
+    public long? ExpiryTimestamp { get; set; }
+
+    /// <summary>
     /// Request Id
     /// </summary>
     [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]

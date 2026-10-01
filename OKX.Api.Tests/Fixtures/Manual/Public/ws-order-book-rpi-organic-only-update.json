@@ -1,0 +1,11 @@
+{
+  "arg": { "channel": "books-rpi", "instId": "BTC-USDT" },
+  "action": "update",
+  "data": [{
+    "asks": [["8476.98", "8", "8", "2"]],
+    "bids": [["8476.97", "9", "9", "3"]],
+    "ts": "1597026383185",
+    "prevSeqId": 200,
+    "seqId": 201
+  }]
+}

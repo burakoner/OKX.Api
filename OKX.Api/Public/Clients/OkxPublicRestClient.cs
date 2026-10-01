@@ -72,6 +72,8 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
     /// <summary>
     /// Retrieve the consolidated organic and currently tradeable Retail Price Improvement (RPI) order book.
     /// The server-side data is refreshed every 200 milliseconds and the endpoint returns the latest cached data.
+    /// Hidden/non-tradeable RPI is excluded by OKX. If RPI tradeability is unavailable, every row's total and
+    /// non-RPI quantities are equal (fail closed). This feed does not expose hidden RPI orders.
     /// </summary>
     /// <param name="instrumentId">Instrument ID, e.g. BTC-USDT-SWAP</param>
     /// <param name="depth">Order book depth per side. Maximum 400. The default is 1.</param>

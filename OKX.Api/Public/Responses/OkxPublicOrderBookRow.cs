@@ -13,13 +13,16 @@ public record OkxPublicOrderBookRow
     public decimal Price { get; set; }
 
     /// <summary>
-    /// The quantity for this row
+    /// Quantity at this price. On books-rpi, total organic plus currently tradeable RPI quantity.
+    /// On books-rpi, hidden/non-tradeable RPI is excluded; without RPI taker access, only NonRpiQuantity is executable.
     /// </summary>
     [ArrayProperty(1)]
     public decimal Quantity { get; set; }
 
     /// <summary>
-    /// Non-RPI quantity at the price for the books-rpi channel.
+    /// Organic (non-RPI) quantity at the price for books-rpi REST and WebSocket data.
+    /// Tradeable RPI quantity is Quantity minus this value; equality does not prove no RPI orders exist.
+    /// The REST books-rpi endpoint fails closed with equal quantities when RPI tradeability is unavailable.
     /// This value is a deprecated placeholder fixed to zero for other order book channels.
     /// </summary>
     [ArrayProperty(2)]

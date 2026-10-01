@@ -108,6 +108,17 @@ Do not reject an update merely because `SequenceId` equals or is lower than `Pre
 
 `GetTradesAsync` accepts up to 500 rows and is limited by OKX to 100 requests per 2 seconds per IP. `OkxPublicTrade.Source = RetailPriceImprovementOrder` represents wire value `1`; `EnhancedLiquidityProgramOrder` remains an obsolete source-compatible name during the transition.
 
+### RPI Tradeable Depth and Visibility
+
+The current [REST RPI book contract](https://www.okx.com/docs-v5/en/#order-book-trading-market-data-get-rpi-order-book) includes organic depth plus **currently tradeable** RPI, not every resting RPI order. Hidden/non-tradeable RPI is excluded platform-side. The [WebSocket order-book contract](https://www.okx.com/docs-v5/en/#order-book-trading-market-data-ws-order-book-channel) describes `books-rpi` as a 400-level initial snapshot followed by 100 ms deltas, using `seqId`/`prevSeqId` without checksum. The wrapper forwards rows/deltas; it does not maintain or reconstruct the local book.
+
+- On these consolidated feeds, `Quantity - NonRpiQuantity` is the tradeable RPI amount at that level. A taker with `rpiTakerAccess=true` can access total depth; without access, only `NonRpiQuantity` is executable. Permission alone does not guarantee available RPI liquidity.
+- The REST endpoint explicitly fails closed when RPI tradeability state is unavailable: RPI is excluded and each row returns equal total/organic quantities. Keep valid organic depth; do not invent an RPI quantity or fall back to the deprecated raw `books-elp` feed.
+- Equal quantities do not distinguish no RPI quoting from hidden RPI (or, on REST, unavailable tradeability state). There is no hidden-order/status field to infer these cases from the consolidated rows.
+- The [August 11 behavior notice](https://www.okx.com/docs-v5/log_en/#2026-08-11) states that an RPI crossing the opposite organic best price is hidden; bid and ask RPI crossing each other inside the organic spread are both hidden. This detailed visibility rule supplements the endpoint tables; it is not a new payload field.
+
+Do not use a cached REST snapshot or a local WebSocket book to promise that an RPI maker price will be accepted. [Placement and amendment spacing rules](./trade.md#rpi-maker-spacing-and-amendment) are evaluated by OKX's matching engine on arrival.
+
 ## Method Catalog
 
 ### Market Data

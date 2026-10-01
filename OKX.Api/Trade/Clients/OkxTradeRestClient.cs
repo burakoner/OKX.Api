@@ -239,6 +239,8 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         bool? rpiTakerAccess = null,
         bool? rpiPriceRound = null)
     {
+        OkxTradeOrderAmendRequest.ValidatePrices(newPrice, newPriceUsd, newPriceVolatility);
+
         var parameters = new ParameterCollection
         {
             { "instId", instrumentId },
@@ -274,8 +276,15 @@ public class OkxTradeRestClient(OkxRestApiClient root) : OkxBaseRestClient(root)
         if (orderList.Count is < 1 or > 20)
             throw new ArgumentException("Amend multiple orders requires between 1 and 20 orders.", nameof(orders));
 
+        foreach (var order in orderList)
+        {
+            if (order is null)
+                throw new ArgumentException("Amend orders cannot contain null entries.", nameof(orders));
+            order.Validate();
+        }
+
         var parameters = new ParameterCollection();
-        parameters.SetBody(orderList);
+        parameters.SetBody(orderList.Select(order => order with { InstrumentIdCode = null }).ToList());
 
         return ProcessListRequestAsync<OkxTradeOrderAmend>(GetUri("api/v5/trade/amend-batch-orders"), HttpMethod.Post, ct, signed: true, bodyParameters: parameters);
     }

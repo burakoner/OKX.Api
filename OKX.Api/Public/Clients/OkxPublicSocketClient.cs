@@ -168,7 +168,9 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <summary>
     /// Retrieve order book data.
     /// Use books for 400 depth levels, books5 for 5 depth levels, bbo-tbt for 1 depth level, books50-l2-tbt for 50 depth levels, and books-l2-tbt for 400 depth levels.
-    /// books-rpi contains consolidated organic and RPI depth. books-elp is deprecated in favor of books-rpi.
+    /// books-rpi contains consolidated organic and currently tradeable RPI depth; hidden RPI is excluded by OKX.
+    /// It sends a 400-level initial snapshot and 100 ms incremental updates, using seqId/prevSeqId without checksum.
+    /// books-elp is deprecated in favor of books-rpi and is not equivalent to the tradeable consolidated feed.
     /// books: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed every 100 ms when there is change in order book.
     /// books5: 5 depth levels will be pushed every 100 ms when there is change in order book.
     /// bbo-tbt, books50-l2-tbt, and books-l2-tbt push every 10 ms when there is change in order book.
@@ -184,7 +186,9 @@ public class OkxPublicSocketClient(OkxWebSocketApiClient root)
     /// <summary>
     /// Retrieve order book data.
     /// Use books for 400 depth levels, books5 for 5 depth levels, bbo-tbt for 1 depth level, books50-l2-tbt for 50 depth levels, and books-l2-tbt for 400 depth levels.
-    /// books-rpi contains consolidated organic and RPI depth. books-elp is deprecated in favor of books-rpi.
+    /// books-rpi contains consolidated organic and currently tradeable RPI depth; hidden RPI is excluded by OKX.
+    /// It sends a 400-level initial snapshot and 100 ms incremental updates, using seqId/prevSeqId without checksum.
+    /// books-elp is deprecated in favor of books-rpi and is not equivalent to the tradeable consolidated feed.
     /// books: 400 depth levels will be pushed in the initial full snapshot. Incremental data will be pushed every 100 ms when there is change in order book.
     /// books5: 5 depth levels will be pushed every 100 ms when there is change in order book.
     /// bbo-tbt, books50-l2-tbt, and books-l2-tbt push every 10 ms when there is change in order book.

@@ -162,6 +162,8 @@ public record OkxTradeOrderPlaceRequest
     /// <summary>
     /// Whether an RPI maker price that violates the spacing rule may be rounded outward to the nearest placeable,
     /// non-crossing level. Default false. Effective only for rpi orders and ignored for OPTION and EVENTS.
+    /// Cross/level checks and rounding use only the first visible opposite-side RPI; hidden RPI are excluded.
+    /// The bps check always uses the opposite-side organic best price, not an RPI price.
     /// </summary>
     [JsonProperty("rpiPxRound", NullValueHandling = NullValueHandling.Ignore)]
     public bool? RpiPriceRound { get; set; }
@@ -181,7 +183,8 @@ public record OkxTradeOrderPlaceRequest
     public OkxTradeEventOutcome? Outcome { get; set; }
 
     /// <summary>
-    /// TP/SL information attached when placing an order through REST or WebSocket.
+    /// Attached TP/SL or trailing stop information, documented for REST placement.
+    /// WebSocket serialization is retained for compatibility; current WS tables do not document this field.
     /// </summary>
     [JsonProperty("attachAlgoOrds", NullValueHandling = NullValueHandling.Ignore)]
     public IEnumerable<OkxTradeOrderPlaceRequestAttachedAlgo>? AttachedAlgoOrders { get; set; }
