@@ -427,6 +427,27 @@ public class OkxPublicRestClient(OkxRestApiClient root) : OkxBaseRestClient(root
 
     #region Public Data Methods
     /// <summary>
+    /// Retrieve currencies that share the same underlying asset and can form a Delta hedge relationship.
+    /// Relationships are symmetric; the response is returned as supplied by OKX without adding reverse entries.
+    /// This public endpoint is limited to 20 requests per 2 seconds per IP.
+    /// </summary>
+    /// <param name="currency">Optional currency, e.g. ETH. When supplied, only that currency's mapping entry is returned; otherwise, the full mapping is returned.</param>
+    /// <param name="ct">Cancellation Token</param>
+    /// <returns></returns>
+    public Task<RestCallResult<List<OkxPublicDeltaHedgeCurrency>>> GetDeltaHedgeCurrenciesAsync(
+        string? currency = null,
+        CancellationToken ct = default)
+    {
+        if (currency is not null && string.IsNullOrWhiteSpace(currency))
+            throw new ArgumentException("Currency cannot be empty when provided.", nameof(currency));
+
+        var parameters = new ParameterCollection();
+        parameters.AddOptional("ccy", currency);
+
+        return ProcessListRequestAsync<OkxPublicDeltaHedgeCurrency>(GetUri("api/v5/public/delta-hedge-currencies"), HttpMethod.Get, ct, signed: false, queryParameters: parameters);
+    }
+
+    /// <summary>
     /// Retrieve Market Maker Program classifications for spot and swap instruments.
     /// </summary>
     /// <param name="instrumentType">Optional instrument type. Only Spot and Swap are supported.</param>

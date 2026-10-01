@@ -1,0 +1,18 @@
+{
+  "code": "0",
+  "msg": "",
+  "data": [
+    {
+      "ccy": "ETH",
+      "hedgeCcy": ["BETH"]
+    },
+    {
+      "ccy": "XAU",
+      "hedgeCcy": ["XAUT"]
+    },
+    {
+      "ccy": "AAPL",
+      "hedgeCcy": ["XAAPL"]
+    }
+  ]
+}

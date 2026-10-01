@@ -33,6 +33,8 @@ Reference-data examples:
 ```csharp
 var instruments = await api.Public.GetInstrumentsAsync(OkxInstrumentType.Spot);
 var marketMakerPairs = await api.Public.GetMarketMakerInstrumentTypesAsync(OkxInstrumentType.Swap);
+var deltaHedgeCurrencies = await api.Public.GetDeltaHedgeCurrenciesAsync();
+var ethDeltaHedges = await api.Public.GetDeltaHedgeCurrenciesAsync("ETH");
 var fundingRates = await api.Public.GetFundingRatesAsync("BTC-USD-SWAP");
 var positionTiers = await api.Public.GetPositionTiersAsync(
     OkxInstrumentType.Futures,
@@ -42,6 +44,16 @@ var loanQuota = await api.Public.GetInterestRateLoanQuotaAsync();
 var insuranceFunds = await api.Public.GetInsuranceFundsAsync(OkxInstrumentType.Margin, currency: "BTC");
 var serverTime = await api.Public.GetServerTimeAsync();
 ```
+
+### Delta Hedge Currency Mappings
+
+`GetDeltaHedgeCurrenciesAsync` implements the complete current [Delta hedge currencies endpoint](https://www.okx.com/docs-v5/en/#public-data-rest-api-get-delta-hedge-currencies), identified by the [August 26 entry](https://www.okx.com/docs-v5/log_en/#2026-08-26). It sends an unsigned `GET /api/v5/public/delta-hedge-currencies` without requiring API credentials. Omit `currency` for the full mapping; supply it to send `ccy` and request only that currency's mapping entry. An explicitly empty/whitespace filter is rejected locally; currency names are otherwise forwarded without a hardcoded catalog or rewriting.
+
+The result is a list of `OkxPublicDeltaHedgeCurrency`: `Currency` maps to `ccy`, and `HedgeCurrencies` preserves the `hedgeCcy` string array. The official example includes ETH/BETH, XAU/XAUT, and AAPL/XAAPL. OKX describes the underlying-asset relationship as symmetric; the wrapper preserves the server's entries and array order without synthesizing reverse entries, assuming one hedge per currency, or expanding a filtered response into a full mapping. An empty `data` array remains an empty successful result.
+
+The endpoint has its own 20-requests-per-2-seconds IP budget, shared across filtered/unfiltered calls on the client. The registered local guard is not a cross-process/global IP coordinator; applications sharing an outbound IP must coordinate total usage. Existing rate-limiting configuration controls waiting versus failure, and the method forwards the cancellation token and server errors without adding retries or caching.
+
+This is reference data, not a hedge sizing calculation, price/conversion guarantee, account permission, or automatic delta-neutral strategy activation. The 16 deterministic tests cover the official example and synthetic edge/error responses through a local server; they do not verify live mappings or production hedge/rate-limit enforcement.
 
 ### Pre-market X-Perp Instruments
 
@@ -166,6 +178,7 @@ The official response table currently documents those three values without a pre
 
 ### Risk, Reference, and Utility Data
 
+- `GetDeltaHedgeCurrenciesAsync`
 - `GetServerTimeAsync`
 - `GetPositionTiersAsync`
 - `GetInterestRatesAsync`

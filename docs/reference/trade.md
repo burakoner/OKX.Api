@@ -189,7 +189,7 @@ Documentation conflict: the August 18 notice describes independent placement-sub
 
 ### WebSocket Response Correlation and Confirmation
 
-The October 1 [review remediation](../maintenance-plan.md#review-remediation--2026-10-01) fixes the three shared-handler defects in an **unreleased follow-up** to the 5.6.820 checkpoint. Package metadata has not advanced; version alone does not prove a previously built/installed package includes this source change.
+The October 1 [review remediation](../maintenance-plan.md#review-remediation--2026-10-01) fixes the three shared-handler defects found at the 5.6.820 checkpoint. The follow-up is included in the 5.6.826 source/package build; previously built/installed 5.6.820 packages are not evidence that these fixes are present. No package publication or application deployment is implied.
 
 - Subscription errors cannot complete an unrelated Place/Amend query, nor can login replies substitute for trading acknowledgements. Trading responses still require their documented ID/operation. Reconcile uncertain outcomes by `ordId`/`clOrdId`; never retry blindly.
 - Every subscribe attempt supplies an ID at the request root and requires its echo. A fresh 32-character alphanumeric ID is generated when absent; explicit IDs remain unchanged and must be unique. Stored requests are not mutated, so SDK reconnect attempts receive fresh generated IDs and confirmation state. Missing/foreign IDs are not guessed from error-message text.
