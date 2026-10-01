@@ -172,6 +172,8 @@ The [August 18 notice](https://www.okx.com/docs-v5/log_en/#2026-08-18) introduce
 
 The complete current single-order contracts linked above and [REST batch Place](https://www.okx.com/docs-v5/en/#order-book-trading-trade-post-place-multiple-orders), [REST batch Amend](https://www.okx.com/docs-v5/en/#order-book-trading-trade-post-amend-multiple-orders), [WS batch Place](https://www.okx.com/docs-v5/en/#order-book-trading-trade-ws-place-multiple-orders), and [WS batch Amend](https://www.okx.com/docs-v5/en/#order-book-trading-trade-ws-amend-multiple-orders) were compared again. Their current parameter tables add no minimum-notional request/response field and omit the detailed minimum behavior; use the notices as supplemental behavior evidence. The current [trade error table](https://www.okx.com/docs-v5/en/#error-code-rest-api-public-trade-class) independently confirms `54051` and its server-supplied USD threshold message. There is no static error catalog in this wrapper; existing numeric errors and per-item codes expose the rejection directly.
 
+The dedicated [September 15 verification step](../maintenance-plan.md#september-15--2026-10-01) re-fetched and compared these eight complete contracts, not only the thresholds. No additional production-code change was identified: the current thresholds and outcome handling were already covered by the August 18 work. All 170 focused existing cases and all 715 offline tests passed; package metadata remains 5.6.826. This verifies client parsing/forwarding, not live notional enforcement, default shared-budget parity, or resolution of the documentation conflicts below.
+
 ### Place/Amend Acknowledgements and Partial Failure
 
 Inspect every returned item's `ErrorCode` (`sCode`), `ErrorMessage` (`sMsg`), and `SubCode`, not just the command's `Success`. `54051` is an individual rejection, not permission to resend every item in a batch.
@@ -186,6 +188,8 @@ Inspect every returned item's `ErrorCode` (`sCode`), `ErrorMessage` (`sMsg`), an
 Always check `Data` for available outcomes even when `Success=false`. `GetResultOrError` and implicit success checks do not expose failure-associated data. An accepted placement or amendment acknowledgement is not proof of final execution; reconcile with the private order channel or an order-details query. Never blindly retry a mixed or uncertain batch: accepted orders may already be live.
 
 Documentation conflict: the August 18 notice describes independent placement-suborder rejection, while current REST/WS batch Place tables retain an all-accepted-or-all-rejected statement for Portfolio Margin. The wrapper preserves the actual acknowledgements and does not promise atomicity or independently simulate either server behavior. Synthetic tests verify parsing/forwarding, not matching-engine enforcement or Portfolio Margin acceptance.
+
+The current REST Amend and WS batch Amend response examples contain missing JSON commas. Treat their field tables as schema evidence and use valid synthetic JSON in tests; malformed documentation examples are not evidence that OKX sends malformed live payloads.
 
 ### WebSocket Response Correlation and Confirmation
 
